@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Router } from "./routes";
 import "./index.css";
 
 export function App() {
@@ -19,5 +20,5 @@ export function App() {
         };
     }, []);
 
-    return <div>Online Shop</div>;
+    return <Router />;
 }
