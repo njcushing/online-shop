@@ -1,10 +1,20 @@
 import "@mantine/core/styles.css";
-import { MantineProvider } from "@mantine/core";
+import { MantineProvider, createTheme, Anchor } from "@mantine/core";
 
 import { useEffect } from "react";
 import { Theme } from "./themes";
 import { Router } from "./routes";
 import "./index.css";
+
+const mantineDefaultTheme = createTheme({
+    components: {
+        Anchor: Anchor.extend({
+            defaultProps: {
+                underline: "never",
+            },
+        }),
+    },
+});
 
 export function App() {
     // Calculate 'vw' and 'vh' units
@@ -25,7 +35,7 @@ export function App() {
     }, []);
 
     return (
-        <MantineProvider defaultColorScheme="light">
+        <MantineProvider defaultColorScheme="light" theme={mantineDefaultTheme}>
             <Theme>
                 <Router />
             </Theme>
