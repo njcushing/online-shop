@@ -1,6 +1,19 @@
 .navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    gap: 16px;
+
     border: 2px solid black;
 
     width: 100%;
     height: 40px;
+}
+
+.option {
+    font-weight: 700;
+    text-wrap: nowrap;
+
+    padding: 4px;
 }

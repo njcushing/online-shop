@@ -1,4 +1,6 @@
 .logo {
+    flex-shrink: 0;
+
     border: 2px solid black;
 
     width: 140px;
@@ -7,6 +9,8 @@
 
 .logo::after {
     content: "Logo";
+
+    font-weight: 700;
 
     display: flex;
     justify-content: center;
