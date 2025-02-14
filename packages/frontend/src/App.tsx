@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Theme } from "./themes";
 import { Router } from "./routes";
 import "./index.css";
 
@@ -20,5 +21,9 @@ export function App() {
         };
     }, []);
 
-    return <Router />;
+    return (
+        <Theme>
+            <Router />
+        </Theme>
+    );
 }
