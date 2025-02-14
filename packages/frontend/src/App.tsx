@@ -1,3 +1,6 @@
+import "@mantine/core/styles.css";
+import { MantineProvider } from "@mantine/core";
+
 import { useEffect } from "react";
 import { Theme } from "./themes";
 import { Router } from "./routes";
@@ -22,8 +25,10 @@ export function App() {
     }, []);
 
     return (
-        <Theme>
-            <Router />
-        </Theme>
+        <MantineProvider defaultColorScheme="light">
+            <Theme>
+                <Router />
+            </Theme>
+        </MantineProvider>
     );
 }
