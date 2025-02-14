@@ -1,0 +1,162 @@
+/* Default (Light) */
+:root {
+    /* Text */
+    --text-primary: rgb(0, 0, 0);
+    --text-primary-dec: 0, 0, 0;
+    --text-primary-hover: rgb(255, 255, 255);
+    --text-primary-focus: rgb(255, 255, 255);
+    --text-secondary: rgb(23, 23, 23);
+    --text-secondary-hover: rgb(255, 255, 255);
+    --text-secondary-focus: rgb(255, 255, 255);
+    --text-tertiary: rgb(46, 46, 46);
+    --text-tertiary-hover: rgb(255, 255, 255);
+    --text-tertiary-focus: rgb(255, 255, 255);
+    --text-active: rgb(255, 255, 255);
+    --text-inactive: rgb(128, 128, 128);
+    --text-link: rgb(255, 255, 255);
+    --text-visited: rgb(255, 255, 255);
+    --text-error: rgb(235, 2, 2);
+    --text-bold-font-weight: bold;
+
+    /* Background */
+    --background-primary: rgb(255, 255, 255);
+    --background-secondary: rgb(226, 226, 226);
+    --background-tertiary: rgb(206, 206, 206);
+    --background-quaternary: rgb(190, 190, 190);
+    --background-inverted: rgb(0, 0, 0);
+    --background-inverted-dec: 0, 0, 0;
+    --box-shadow-color: rgba(158, 158, 158, 1);
+    --background-pop-up-modal: rgb(240, 240, 240);
+
+    /* Borders & Outlines */
+    --border-primary: rgb(255, 255, 255);
+    --border-secondary: rgb(255, 255, 255);
+    --border-tertiary: rgb(255, 255, 255);
+    --outline-primary: rgb(0, 0, 0);
+    --outline-secondary: rgb(0, 0, 0);
+    --outline-tertiary: rgb(0, 0, 0);
+    --separator: rgb(114, 114, 114);
+
+    /* Inputs */
+    --input-text: rgb(0, 0, 0);
+    --input-text-invalid: rgb(139, 1, 1);
+    --input-text-valid: rgb(0, 126, 0);
+    --input-text-disabled: rgb(47, 47, 47);
+    --input-background: rgb(255, 255, 255);
+    --input-background-invalid: rgb(255, 185, 185);
+    --input-background-valid: rgb(193, 255, 185);
+    --input-background-disabled: rgb(207, 207, 207);
+    --input-outline: rgb(0, 0, 0);
+    --input-outline-invalid: rgb(102, 0, 0);
+    --input-outline-valid: rgb(10, 87, 0);
+    --input-outline-disabled: rgb(66, 66, 66);
+    --input-placeholder: rgb(114, 114, 114);
+    --input-placeholder-invalid: rgb(77, 77, 77);
+    --input-placeholder-valid: rgb(77, 77, 77);
+    --input-placeholder-disabled: rgb(77, 77, 77);
+    --input-select-option-odd-background: rgb(255, 255, 255);
+    --input-select-option-even-background: rgb(230, 253, 255);
+    --option-odd-background: rgba(0, 0, 0, 0.1);
+    --option-even-background: rgba(0, 0, 0, 0.16);
+
+    /* Scrollbar */
+    --scrollbar-track: rgba(0, 0, 0, 0.16);
+    --scrollbar-track-hover: rgba(0, 0, 0, 0.24);
+    --scrollbar-thumb: rgba(0, 0, 0, 0.4);
+    --scrollbar-thumb-hover: rgba(0, 0, 0, 0.6);
+
+    /* Buttons */
+    --button-primary: transparent;
+    --button-primary-text: rgb(0, 0, 0);
+    --button-primary-hover: rgba(0, 0, 0, 0.1);
+    --button-primary-focus: rgba(0, 0, 0, 0.2);
+    --button-primary-disabled: transparent;
+    --button-primary-border: transparent;
+    --button-secondary: rgb(255, 255, 255);
+    --button-secondary-text: rgb(255, 255, 255);
+    --button-secondary-hover: rgb(255, 255, 255);
+    --button-secondary-focus: rgb(255, 255, 255);
+    --button-secondary-disabled: rgb(255, 255, 255);
+    --button-secondary-border: rgb(255, 255, 255);
+}
+
+:root[theme|="dark"] {
+    /* Text */
+    --text-primary: rgb(255, 255, 255);
+    --text-primary-dec: 255, 255, 255;
+    --text-primary-hover: rgb(255, 255, 255);
+    --text-primary-focus: rgb(255, 255, 255);
+    --text-secondary: rgb(232, 232, 232);
+    --text-secondary-hover: rgb(255, 255, 255);
+    --text-secondary-focus: rgb(255, 255, 255);
+    --text-tertiary: rgb(209, 209, 209);
+    --text-tertiary-hover: rgb(255, 255, 255);
+    --text-tertiary-focus: rgb(255, 255, 255);
+    --text-active: rgb(255, 255, 255);
+    --text-inactive: rgb(128, 128, 128);
+    --text-link: rgb(255, 255, 255);
+    --text-visited: rgb(255, 255, 255);
+    --text-error: rgb(235, 2, 2);
+    --text-bold-font-weight: normal;
+
+    /* Background */
+    --background-primary: rgb(30, 30, 30);
+    --background-secondary: rgb(40, 40, 40);
+    --background-tertiary: rgb(20, 20, 20);
+    --background-quaternary: rgb(0, 0, 0);
+    --background-inverted: rgb(255, 255, 255);
+    --background-inverted-dec: 255, 255, 255;
+    --box-shadow-color: transparent;
+    --background-pop-up-modal: rgb(20, 20, 20);
+
+    /* Borders & Outlines */
+    --border-primary: rgb(255, 255, 255);
+    --border-secondary: rgb(255, 255, 255);
+    --border-tertiary: rgb(255, 255, 255);
+    --outline-primary: rgb(255, 255, 255);
+    --outline-secondary: rgb(230, 230, 230);
+    --outline-tertiary: rgb(200, 200, 200);
+    --separator: rgb(114, 114, 114);
+
+    /* Inputs */
+    --input-text: rgb(226, 226, 226);
+    --input-text-invalid: rgb(139, 1, 1);
+    --input-text-valid: rgb(0, 126, 0);
+    --input-text-disabled: rgb(47, 47, 47);
+    --input-background: rgba(0, 0, 0, 0);
+    --input-background-invalid: rgb(255, 185, 185);
+    --input-background-valid: rgb(193, 255, 185);
+    --input-background-disabled: rgb(207, 207, 207);
+    --input-outline: rgb(150, 150, 150);
+    --input-outline-invalid: rgb(102, 0, 0);
+    --input-outline-valid: rgb(10, 87, 0);
+    --input-outline-disabled: rgb(66, 66, 66);
+    --input-placeholder: rgb(182, 182, 182);
+    --input-placeholder-invalid: rgb(156, 156, 156);
+    --input-placeholder-valid: rgb(156, 156, 156);
+    --input-placeholder-disabled: rgb(156, 156, 156);
+    --input-select-option-odd-background: rgb(20, 20, 20);
+    --input-select-option-even-background: rgb(34, 34, 34);
+    --option-odd-background: rgba(255, 255, 255, 0.1);
+    --option-even-background: rgba(255, 255, 255, 0.16);
+
+    /* Scrollbar */
+    --scrollbar-track: rgba(255, 255, 255, 0.16);
+    --scrollbar-track-hover: rgba(255, 255, 255, 0.24);
+    --scrollbar-thumb: rgba(255, 255, 255, 0.56);
+    --scrollbar-thumb-hover: rgba(255, 255, 255, 0.7);
+
+    /* Buttons */
+    --button-primary: transparent;
+    --button-primary-text: rgb(230, 230, 230);
+    --button-primary-hover: rgba(230, 230, 230, 0.1);
+    --button-primary-focus: rgba(230, 230, 230, 0.2);
+    --button-primary-disabled: transparent;
+    --button-primary-border: transparent;
+    --button-secondary: rgb(255, 255, 255);
+    --button-secondary-text: rgb(255, 255, 255);
+    --button-secondary-hover: rgb(255, 255, 255);
+    --button-secondary-focus: rgb(255, 255, 255);
+    --button-secondary-disabled: rgb(255, 255, 255);
+    --button-secondary-border: rgb(255, 255, 255);
+}
