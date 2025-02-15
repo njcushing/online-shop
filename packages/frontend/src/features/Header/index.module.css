@@ -2,7 +2,8 @@
     position: absolute;
     top: 0;
 
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr;
     flex-direction: row;
     flex-wrap: nowrap;
     gap: 64px;
