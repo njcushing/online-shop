@@ -3,7 +3,7 @@ import { Home } from "../Home";
 import { Product } from "../Product";
 import styles from "./index.module.css";
 
-export const routes = [
+export const Routes = [
     {
         path: "",
         element: <Home />,
