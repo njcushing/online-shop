@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Anchor, Burger, Menu, ActionIcon } from "@mantine/core";
-import { User, ShoppingCartSimple } from "@phosphor-icons/react";
+import { MagnifyingGlass, User, ShoppingCartSimple } from "@phosphor-icons/react";
 import styles from "./index.module.css";
 
 export function Navigation() {
@@ -40,6 +40,9 @@ export function Navigation() {
                 </Menu>
             </div>
             <div className={styles["other-links"]}>
+                <ActionIcon variant="transparent" color="gray" aria-label="Search">
+                    <MagnifyingGlass size={48} color="black" />
+                </ActionIcon>
                 <ActionIcon variant="transparent" color="gray" aria-label="User">
                     <User size={48} color="black" />
                 </ActionIcon>
