@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Pages } from "@/pages";
+import { Pages, Routes } from "@/pages";
 
 export function Router() {
     const browserRouter = createBrowserRouter([
@@ -15,7 +15,8 @@ export function Router() {
         },
         {
             path: "/",
-            element: <Pages.Home />,
+            element: <Pages.Root />,
+            children: Routes.Root,
             errorElement: <div></div>,
         },
     ]);
