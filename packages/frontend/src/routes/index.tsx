@@ -10,7 +10,7 @@ export function Router() {
         },
         {
             path: "/login",
-            element: <div></div>,
+            element: <Pages.Login />,
             errorElement: <div></div>,
         },
         {
