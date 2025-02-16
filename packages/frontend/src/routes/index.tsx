@@ -5,7 +5,7 @@ export function Router() {
     const browserRouter = createBrowserRouter([
         {
             path: "/create-account",
-            element: <div></div>,
+            element: <Pages.CreateAccount />,
             errorElement: <div></div>,
         },
         {
