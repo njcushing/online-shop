@@ -42,31 +42,33 @@ export function AccountCreationForm() {
                 aria-label="Create account"
                 onSubmit={handleSubmit(onSubmit)}
             >
-                <TextInput
-                    {...register("firstName", { required: true })}
-                    placeholder="First name"
-                    error={errors.firstName?.message}
-                />
-                <TextInput
-                    {...register("lastName", { required: true })}
-                    placeholder="Last name"
-                    error={errors.lastName?.message}
-                />
-                <TextInput
-                    {...register("email", { required: true })}
-                    placeholder="Email address"
-                    error={errors.email?.message}
-                />
-                <PasswordInput
-                    {...register("password", { required: true })}
-                    placeholder="Password"
-                    error={errors.password?.message}
-                />
-                <PasswordInput
-                    {...register("confirmPassword", { required: true })}
-                    placeholder="Confirm password"
-                    error={errors.confirmPassword?.message}
-                />
+                <fieldset>
+                    <TextInput
+                        {...register("firstName", { required: true })}
+                        placeholder="First name"
+                        error={errors.firstName?.message}
+                    />
+                    <TextInput
+                        {...register("lastName", { required: true })}
+                        placeholder="Last name"
+                        error={errors.lastName?.message}
+                    />
+                    <TextInput
+                        {...register("email", { required: true })}
+                        placeholder="Email address"
+                        error={errors.email?.message}
+                    />
+                    <PasswordInput
+                        {...register("password", { required: true })}
+                        placeholder="Password"
+                        error={errors.password?.message}
+                    />
+                    <PasswordInput
+                        {...register("confirmPassword", { required: true })}
+                        placeholder="Confirm password"
+                        error={errors.confirmPassword?.message}
+                    />
+                </fieldset>
 
                 <p className={styles["terms-message"]}>
                     By clicking Sign up, you agree to the{" "}
@@ -77,7 +79,12 @@ export function AccountCreationForm() {
                     SIGN UP
                 </Button>
             </form>
-            <Divider />
+
+            <div className={styles["or-container"]}>
+                <Divider />
+                <p className={styles["or"]}>or</p>
+                <Divider />
+            </div>
         </div>
     );
 }
