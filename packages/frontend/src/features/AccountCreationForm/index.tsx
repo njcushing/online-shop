@@ -1,4 +1,4 @@
-import { Fieldset } from "@mantine/core";
+import { TextInput, PasswordInput } from "@mantine/core";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { accountCreationFormDataSchema } from "./utils/zodSchema";
@@ -41,25 +41,31 @@ export function AccountCreationForm() {
             aria-label="Create account"
             onSubmit={handleSubmit(onSubmit)}
         >
-            <Fieldset className={styles["fieldset"]} legend="Personal information">
-                <input {...register("personal.firstName", { required: true })} />
-                <input {...register("personal.lastName", { required: true })} />
-                <input {...register("personal.email", { required: true })} />
-                <input {...register("personal.phone", { required: true })} />
-                <input {...register("personal.dob", { required: true })} />
-            </Fieldset>
-            <input {...register("password", { required: true })} />
-            <input {...register("confirmPassword", { required: true })} />
-            <Fieldset className={styles["fieldset"]} legend="Address">
-                <input {...register("address.line1", { required: true })} />
-                <input {...register("address.line2")} />
-                <input {...register("address.city", { required: true })} />
-                <input {...register("address.state", { required: true })} />
-                <input {...register("address.zipCode", { required: true })} />
-                <input {...register("address.country", { required: true })} />
-            </Fieldset>
-            <input {...register("newsletterSignUp")} />
-            <input {...register("termsAgreement", { required: true })} />
+            <TextInput
+                {...register("firstName", { required: true })}
+                placeholder="First name"
+                error={errors.firstName?.message}
+            />
+            <TextInput
+                {...register("lastName", { required: true })}
+                placeholder="Last name"
+                error={errors.lastName?.message}
+            />
+            <TextInput
+                {...register("email", { required: true })}
+                placeholder="Email address"
+                error={errors.email?.message}
+            />
+            <PasswordInput
+                {...register("password", { required: true })}
+                placeholder="Password"
+                error={errors.password?.message}
+            />
+            <PasswordInput
+                {...register("confirmPassword", { required: true })}
+                placeholder="Confirm password"
+                error={errors.confirmPassword?.message}
+            />
 
             <button type="submit">Submit</button>
         </form>
