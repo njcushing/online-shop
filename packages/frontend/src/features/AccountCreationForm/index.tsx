@@ -1,4 +1,4 @@
-import { TextInput, PasswordInput, Button } from "@mantine/core";
+import { TextInput, PasswordInput, Button, Divider } from "@mantine/core";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { accountCreationFormDataSchema } from "./utils/zodSchema";
@@ -36,40 +36,48 @@ export function AccountCreationForm() {
     const onSubmit: SubmitHandler<AccountCreationFormData> = (data) => data;
 
     return (
-        <form
-            className={styles["create-account"]}
-            aria-label="Create account"
-            onSubmit={handleSubmit(onSubmit)}
-        >
-            <TextInput
-                {...register("firstName", { required: true })}
-                placeholder="First name"
-                error={errors.firstName?.message}
-            />
-            <TextInput
-                {...register("lastName", { required: true })}
-                placeholder="Last name"
-                error={errors.lastName?.message}
-            />
-            <TextInput
-                {...register("email", { required: true })}
-                placeholder="Email address"
-                error={errors.email?.message}
-            />
-            <PasswordInput
-                {...register("password", { required: true })}
-                placeholder="Password"
-                error={errors.password?.message}
-            />
-            <PasswordInput
-                {...register("confirmPassword", { required: true })}
-                placeholder="Confirm password"
-                error={errors.confirmPassword?.message}
-            />
+        <div className={styles["create-account"]}>
+            <form
+                className={styles["form"]}
+                aria-label="Create account"
+                onSubmit={handleSubmit(onSubmit)}
+            >
+                <TextInput
+                    {...register("firstName", { required: true })}
+                    placeholder="First name"
+                    error={errors.firstName?.message}
+                />
+                <TextInput
+                    {...register("lastName", { required: true })}
+                    placeholder="Last name"
+                    error={errors.lastName?.message}
+                />
+                <TextInput
+                    {...register("email", { required: true })}
+                    placeholder="Email address"
+                    error={errors.email?.message}
+                />
+                <PasswordInput
+                    {...register("password", { required: true })}
+                    placeholder="Password"
+                    error={errors.password?.message}
+                />
+                <PasswordInput
+                    {...register("confirmPassword", { required: true })}
+                    placeholder="Confirm password"
+                    error={errors.confirmPassword?.message}
+                />
 
-            <Button type="submit" variant="filled" color="green">
-                SIGN UP
-            </Button>
-        </form>
+                <p className={styles["terms-message"]}>
+                    By clicking Sign up, you agree to the{" "}
+                    <a href="/terms-and-conditions">Terms and Conditions</a>.
+                </p>
+
+                <Button type="submit" variant="filled" color="green">
+                    SIGN UP
+                </Button>
+            </form>
+            <Divider />
+        </div>
     );
 }
