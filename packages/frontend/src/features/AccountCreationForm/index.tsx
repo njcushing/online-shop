@@ -1,4 +1,4 @@
-import { TextInput, PasswordInput } from "@mantine/core";
+import { TextInput, PasswordInput, Button } from "@mantine/core";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { accountCreationFormDataSchema } from "./utils/zodSchema";
@@ -67,7 +67,9 @@ export function AccountCreationForm() {
                 error={errors.confirmPassword?.message}
             />
 
-            <button type="submit">Submit</button>
+            <Button type="submit" variant="filled" color="green">
+                SIGN UP
+            </Button>
         </form>
     );
 }
