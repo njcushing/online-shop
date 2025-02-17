@@ -1,4 +1,7 @@
+import { Fieldset } from "@mantine/core";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { accountCreationFormDataSchema } from "./utils/zodSchema";
 import styles from "./index.module.css";
 
 export type AccountCreationFormData = {
@@ -29,7 +32,7 @@ export function AccountCreationForm() {
         handleSubmit,
         watch,
         formState: { errors },
-    } = useForm<AccountCreationFormData>();
+    } = useForm<AccountCreationFormData>({ resolver: zodResolver(accountCreationFormDataSchema) });
     const onSubmit: SubmitHandler<AccountCreationFormData> = (data) => data;
 
     return (
@@ -38,19 +41,23 @@ export function AccountCreationForm() {
             aria-label="Create account"
             onSubmit={handleSubmit(onSubmit)}
         >
-            <input {...register("personal.firstName", { required: true })} />
-            <input {...register("personal.lastName", { required: true })} />
-            <input {...register("personal.email", { required: true })} />
+            <Fieldset className={styles["fieldset"]} legend="Personal information">
+                <input {...register("personal.firstName", { required: true })} />
+                <input {...register("personal.lastName", { required: true })} />
+                <input {...register("personal.email", { required: true })} />
+                <input {...register("personal.phone", { required: true })} />
+                <input {...register("personal.dob", { required: true })} />
+            </Fieldset>
             <input {...register("password", { required: true })} />
             <input {...register("confirmPassword", { required: true })} />
-            <input {...register("personal.phone", { required: true })} />
-            <input {...register("personal.dob", { required: true })} />
-            <input {...register("address.line1", { required: true })} />
-            <input {...register("address.line2")} />
-            <input {...register("address.city", { required: true })} />
-            <input {...register("address.state", { required: true })} />
-            <input {...register("address.zipCode", { required: true })} />
-            <input {...register("address.country", { required: true })} />
+            <Fieldset className={styles["fieldset"]} legend="Address">
+                <input {...register("address.line1", { required: true })} />
+                <input {...register("address.line2")} />
+                <input {...register("address.city", { required: true })} />
+                <input {...register("address.state", { required: true })} />
+                <input {...register("address.zipCode", { required: true })} />
+                <input {...register("address.country", { required: true })} />
+            </Fieldset>
             <input {...register("newsletterSignUp")} />
             <input {...register("termsAgreement", { required: true })} />
 

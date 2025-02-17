@@ -1,0 +1,17 @@
+.create-account {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    border: 1px solid #000;
+    border-radius: 4px;
+
+    width: 400px;
+    padding: 8px;
+}
+
+.fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
