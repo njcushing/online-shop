@@ -36,10 +36,20 @@
     gap: 16px;
 }
 
-.form > fieldset {
+.form-fields-container {
     display: flex;
     flex-direction: column;
     gap: 8px;
+
+    width: 100%;
+}
+
+.form-name-fields-container {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+
+    width: 100%;
 }
 
 .terms-message {

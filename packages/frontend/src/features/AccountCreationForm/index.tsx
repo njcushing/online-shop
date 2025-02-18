@@ -64,17 +64,19 @@ export function AccountCreationForm() {
                 aria-label="Create account"
                 onSubmit={handleSubmit(onSubmit)}
             >
-                <fieldset>
-                    <TextInput
-                        {...register("firstName", { required: true })}
-                        placeholder="First name"
-                        error={errors.firstName?.message}
-                    />
-                    <TextInput
-                        {...register("lastName", { required: true })}
-                        placeholder="Last name"
-                        error={errors.lastName?.message}
-                    />
+                <div className={styles["form-fields-container"]}>
+                    <div className={styles["form-name-fields-container"]}>
+                        <TextInput
+                            {...register("firstName", { required: true })}
+                            placeholder="First name"
+                            error={errors.firstName?.message}
+                        />
+                        <TextInput
+                            {...register("lastName", { required: true })}
+                            placeholder="Last name"
+                            error={errors.lastName?.message}
+                        />
+                    </div>
                     <TextInput
                         {...register("email", { required: true })}
                         placeholder="Email address"
@@ -90,7 +92,7 @@ export function AccountCreationForm() {
                         placeholder="Confirm password"
                         error={errors.confirmPassword?.message}
                     />
-                </fieldset>
+                </div>
 
                 <p className={styles["terms-message"]}>
                     By clicking Sign up, you agree to the{" "}
