@@ -6,8 +6,31 @@
     border: 1px solid #000;
     border-radius: 4px;
 
-    width: 480px;
+    width: 360px;
     padding: 8px;
+}
+
+.oauth-options {
+    align-self: center;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    width: 100%;
+}
+
+.oauth-button-inner {
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
+.oauth-button-label {
+    display: flex;
+    justify-content: center;
+
+    font-size: 0.94rem;
+    font-weight: 700;
 }
 
 .form {
