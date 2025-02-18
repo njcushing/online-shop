@@ -1,7 +1,7 @@
 .create-account {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
 
     border: 1px solid #000;
     border-radius: 4px;
@@ -41,4 +41,10 @@
     text-align: center;
 
     padding: 0px 8px;
+}
+
+.alt-signup-message {
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
 }

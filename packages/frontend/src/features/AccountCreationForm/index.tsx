@@ -2,28 +2,15 @@ import { TextInput, PasswordInput, Button, Divider } from "@mantine/core";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { accountCreationFormDataSchema } from "./utils/zodSchema";
+import { google, facebook, x, github } from "./utils/logoSVG";
 import styles from "./index.module.css";
 
 export type AccountCreationFormData = {
-    personal: {
-        firstName: string;
-        lastName: string;
-        email: string;
-        phone: string;
-        dob: string;
-    };
+    firstName: string;
+    lastName: string;
+    email: string;
     password: string;
     confirmPassword: string;
-    address: {
-        line1: string;
-        line2?: string;
-        city: string;
-        state: string;
-        zipCode: string;
-        country: string;
-    };
-    newsletterSignUp?: boolean;
-    termsAgreement: boolean;
 };
 
 export function AccountCreationForm() {
@@ -37,6 +24,45 @@ export function AccountCreationForm() {
 
     return (
         <div className={styles["create-account"]}>
+            <Button
+                component="a"
+                variant="outline"
+                color="black"
+                radius={9999}
+                leftSection={google}
+            >
+                Sign up with Google
+            </Button>
+            <Button
+                component="a"
+                variant="outline"
+                color="black"
+                radius={9999}
+                leftSection={facebook}
+            >
+                Sign up with Facebook
+            </Button>
+            <Button component="a" variant="outline" color="black" radius={9999} leftSection={x}>
+                Sign up with X
+            </Button>
+            <Button
+                component="a"
+                variant="outline"
+                color="black"
+                radius={9999}
+                leftSection={github}
+            >
+                Sign up with GitHub
+            </Button>
+
+            <div className={styles["or-container"]}>
+                <Divider />
+                <p className={styles["or"]}>or</p>
+                <Divider />
+            </div>
+
+            <p className={styles["alt-signup-message"]}>Sign up using your email address</p>
+
             <form
                 className={styles["form"]}
                 aria-label="Create account"
@@ -75,16 +101,10 @@ export function AccountCreationForm() {
                     <a href="/terms-and-conditions">Terms and Conditions</a>.
                 </p>
 
-                <Button type="submit" variant="filled" color="green">
+                <Button type="submit" variant="filled" color="green" radius={9999}>
                     SIGN UP
                 </Button>
             </form>
-
-            <div className={styles["or-container"]}>
-                <Divider />
-                <p className={styles["or"]}>or</p>
-                <Divider />
-            </div>
         </div>
     );
 }
