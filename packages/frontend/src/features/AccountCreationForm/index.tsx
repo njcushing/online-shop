@@ -13,6 +13,16 @@ export type AccountCreationFormData = {
     confirmPassword: string;
 };
 
+const oauthButtonProps = {
+    variant: "outline",
+    color: "black",
+    radius: 9999,
+    classNames: {
+        inner: styles["oauth-button-inner"],
+        label: styles["oauth-button-label"],
+    },
+};
+
 export function AccountCreationForm() {
     const {
         register,
@@ -24,57 +34,19 @@ export function AccountCreationForm() {
 
     return (
         <div className={styles["create-account"]}>
+            <Divider />
+
             <div className={styles["oauth-options"]}>
-                <Button
-                    component="a"
-                    variant="outline"
-                    color="black"
-                    radius={9999}
-                    leftSection={google}
-                    classNames={{
-                        inner: styles["oauth-button-inner"],
-                        label: styles["oauth-button-label"],
-                    }}
-                >
+                <Button component="a" {...oauthButtonProps} leftSection={google}>
                     Sign up with Google
                 </Button>
-                <Button
-                    component="a"
-                    variant="outline"
-                    color="black"
-                    radius={9999}
-                    leftSection={facebook}
-                    classNames={{
-                        inner: styles["oauth-button-inner"],
-                        label: styles["oauth-button-label"],
-                    }}
-                >
+                <Button component="a" {...oauthButtonProps} leftSection={facebook}>
                     Sign up with Facebook
                 </Button>
-                <Button
-                    component="a"
-                    variant="outline"
-                    color="black"
-                    radius={9999}
-                    leftSection={x}
-                    classNames={{
-                        inner: styles["oauth-button-inner"],
-                        label: styles["oauth-button-label"],
-                    }}
-                >
+                <Button component="a" {...oauthButtonProps} leftSection={x}>
                     Sign up with X
                 </Button>
-                <Button
-                    component="a"
-                    variant="outline"
-                    color="black"
-                    radius={9999}
-                    leftSection={github}
-                    classNames={{
-                        inner: styles["oauth-button-inner"],
-                        label: styles["oauth-button-label"],
-                    }}
-                >
+                <Button component="a" {...oauthButtonProps} leftSection={github}>
                     Sign up with GitHub
                 </Button>
             </div>
@@ -125,10 +97,22 @@ export function AccountCreationForm() {
                     <a href="/terms-and-conditions">Terms and Conditions</a>.
                 </p>
 
-                <Button type="submit" variant="filled" color="green" radius={9999}>
-                    SIGN UP
+                <Button
+                    type="submit"
+                    variant="filled"
+                    color="green"
+                    radius={9999}
+                    className={styles["sign-up-button"]}
+                >
+                    Sign Up
                 </Button>
             </form>
+
+            <Divider />
+
+            <p className={styles["login-message"]}>
+                Already have an account? <a href="/login">Log in here</a>.
+            </p>
         </div>
     );
 }
