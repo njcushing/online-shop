@@ -70,9 +70,7 @@ table {
     /* Prevent horizontal scrollbar (viewport overflow) when vertical scrollbar is present */
     position: absolute;
     overflow-x: hidden;
-
-    /* Prevent element 'shifting' as scrollbar is calculated when rendering new content */
-    overflow-y: scroll;
+    overflow-y: auto;
 
     font-family:
         Spectral, "DM Serif Display", Roboto, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
