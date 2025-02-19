@@ -1,4 +1,4 @@
-import { TextInput, PasswordInput, Button, Divider } from "@mantine/core";
+import { Input, TextInput, PasswordInput, Button, Divider } from "@mantine/core";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { accountCreationFormDataSchema } from "./utils/zodSchema";
@@ -21,6 +21,40 @@ const oauthButtonProps = {
         inner: styles["oauth-button-inner"],
         label: styles["oauth-button-label"],
     },
+};
+
+const inputProps = {
+    classNames: {
+        input: styles["form-field-input"],
+        error: styles["form-field-input-error"],
+    },
+};
+
+const exclamationMarkSVG = (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 180 180"
+        width="16"
+        height="16"
+        aria-label="Error: "
+    >
+        <path
+            fill="none"
+            stroke="red"
+            strokeWidth="16"
+            strokeLinecap="round"
+            d="M89,9a81,81 0 1,0 2,0zm1,38v58m0,25v1"
+        />
+    </svg>
+);
+
+const createInputError = (errorMessage: string | undefined) => {
+    return errorMessage ? (
+        <span className={styles["form-field-error-container"]}>
+            {exclamationMarkSVG}
+            <Input.Error component="span">{errorMessage}</Input.Error>
+        </span>
+    ) : null;
 };
 
 export function AccountCreationForm() {
@@ -68,29 +102,38 @@ export function AccountCreationForm() {
                     <div className={styles["form-name-fields-container"]}>
                         <TextInput
                             {...register("firstName", { required: true })}
+                            {...inputProps}
                             placeholder="First name"
-                            error={errors.firstName?.message}
+                            error={createInputError(errors.firstName?.message)}
                         />
+
                         <TextInput
                             {...register("lastName", { required: true })}
+                            {...inputProps}
                             placeholder="Last name"
-                            error={errors.lastName?.message}
+                            error={createInputError(errors.lastName?.message)}
                         />
                     </div>
+
                     <TextInput
                         {...register("email", { required: true })}
+                        {...inputProps}
                         placeholder="Email address"
-                        error={errors.email?.message}
+                        error={createInputError(errors.email?.message)}
                     />
+
                     <PasswordInput
                         {...register("password", { required: true })}
+                        {...inputProps}
                         placeholder="Password"
-                        error={errors.password?.message}
+                        error={createInputError(errors.password?.message)}
                     />
+
                     <PasswordInput
                         {...register("confirmPassword", { required: true })}
+                        {...inputProps}
                         placeholder="Confirm password"
-                        error={errors.confirmPassword?.message}
+                        error={createInputError(errors.confirmPassword?.message)}
                     />
                 </div>
 

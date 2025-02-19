@@ -52,6 +52,26 @@
     width: 100%;
 }
 
+.form-field-input {
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+.form-field-error-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 4px;
+}
+
+.form-field-error-container > svg {
+    flex-shrink: 0;
+}
+
+.form-field-input-error {
+    font-size: 0.825rem;
+}
+
 .terms-message {
     font-size: 0.7rem;
     text-align: center;
