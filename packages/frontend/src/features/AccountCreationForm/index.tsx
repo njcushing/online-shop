@@ -30,6 +30,13 @@ const inputProps = {
     },
 };
 
+const passwordInputProps = {
+    classNames: {
+        innerInput: styles["form-field-input"],
+        error: styles["form-field-input-error"],
+    },
+};
+
 const exclamationMarkSVG = (
     <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -124,14 +131,14 @@ export function AccountCreationForm() {
 
                     <PasswordInput
                         {...register("password", { required: true })}
-                        {...inputProps}
+                        {...passwordInputProps}
                         placeholder="Password"
                         error={createInputError(errors.password?.message)}
                     />
 
                     <PasswordInput
                         {...register("confirmPassword", { required: true })}
-                        {...inputProps}
+                        {...passwordInputProps}
                         placeholder="Confirm password"
                         error={createInputError(errors.confirmPassword?.message)}
                     />
