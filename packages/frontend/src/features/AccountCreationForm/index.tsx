@@ -104,6 +104,7 @@ export function AccountCreationForm() {
                 className={styles["form"]}
                 aria-label="Create account"
                 onSubmit={handleSubmit(onSubmit)}
+                noValidate
             >
                 <div className={styles["form-fields-container"]}>
                     <div className={styles["form-name-fields-container"]}>
