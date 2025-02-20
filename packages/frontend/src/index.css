@@ -76,8 +76,7 @@ table {
     overflow-x: hidden;
     overflow-y: auto;
 
-    font-family:
-        Spectral, "DM Serif Display", Roboto, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-family: Inter, system-ui, sans-serif;
     line-height: 1.5;
     font-weight: 400;
 
