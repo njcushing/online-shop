@@ -44,14 +44,6 @@
     width: 100%;
 }
 
-.form-name-fields-container {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-
-    width: 100%;
-}
-
 .form-field-input {
     font-size: 0.9rem;
     font-weight: 400;

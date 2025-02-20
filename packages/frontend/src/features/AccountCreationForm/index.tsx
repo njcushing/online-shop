@@ -6,8 +6,6 @@ import { google, facebook, x, github } from "./utils/logoSVG";
 import styles from "./index.module.css";
 
 export type AccountCreationFormData = {
-    firstName: string;
-    lastName: string;
     email: string;
     password: string;
     confirmPassword: string;
@@ -110,26 +108,6 @@ export function AccountCreationForm() {
                 noValidate
             >
                 <div className={styles["form-fields-container"]}>
-                    <div className={styles["form-name-fields-container"]}>
-                        <TextInput
-                            {...register("firstName", { required: true })}
-                            {...inputProps}
-                            label="First name"
-                            placeholder="First name"
-                            required
-                            error={createInputError(errors.firstName?.message)}
-                        />
-
-                        <TextInput
-                            {...register("lastName", { required: true })}
-                            {...inputProps}
-                            label="Last name"
-                            placeholder="Last name"
-                            required
-                            error={createInputError(errors.lastName?.message)}
-                        />
-                    </div>
-
                     <TextInput
                         {...register("email", { required: true })}
                         {...inputProps}
