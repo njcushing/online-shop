@@ -70,7 +70,10 @@ export function AccountCreationForm() {
         handleSubmit,
         watch,
         formState: { errors },
-    } = useForm<AccountCreationFormData>({ resolver: zodResolver(accountCreationFormDataSchema) });
+    } = useForm<AccountCreationFormData>({
+        mode: "onBlur",
+        resolver: zodResolver(accountCreationFormDataSchema),
+    });
     const onSubmit: SubmitHandler<AccountCreationFormData> = (data) => data;
 
     return (
