@@ -1,11 +1,17 @@
 import { z } from "zod";
 
+export type AccountCreationFormData = {
+    email: string;
+    password: string;
+    confirmPassword: string;
+};
+
 /*
  * Password requirement of 8+ characters in length in line with NIST guidelines
  * https://pages.nist.gov/800-63-3/sp800-63b.html
  */
 
-export const accountCreationFormDataSchema = z
+export const accountCreationFormDataSchema: z.ZodType<AccountCreationFormData> = z
     .object({
         email: z
             .string()

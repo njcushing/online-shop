@@ -1,15 +1,9 @@
 import { Input, TextInput, PasswordInput, Button, Divider } from "@mantine/core";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { accountCreationFormDataSchema } from "./utils/zodSchema";
+import { AccountCreationFormData, accountCreationFormDataSchema } from "./utils/zodSchema";
 import { google, facebook, x, github } from "./utils/logoSVG";
 import styles from "./index.module.css";
-
-export type AccountCreationFormData = {
-    email: string;
-    password: string;
-    confirmPassword: string;
-};
 
 const oauthButtonProps = {
     variant: "outline",
