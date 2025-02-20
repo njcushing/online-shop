@@ -7,6 +7,7 @@ import { Router } from "./routes";
 import "./index.css";
 
 const mantineDefaultTheme = createTheme({
+    fontFamily: "var(--font-family, Inter, system-ui, sans-serif)",
     components: {
         Anchor: Anchor.extend({
             defaultProps: {

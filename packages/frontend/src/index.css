@@ -64,6 +64,10 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+/* prettier-ignore */
+input, select, textarea, button {
+    font-family: inherit;
+}
 * {
     box-sizing: border-box;
 }
@@ -77,6 +81,7 @@ table {
     overflow-y: auto;
 
     font-family: Inter, system-ui, sans-serif;
+    --font-family: var(--font-family, Inter, system-ui, sans-serif);
     line-height: 1.5;
     font-weight: 400;
 
