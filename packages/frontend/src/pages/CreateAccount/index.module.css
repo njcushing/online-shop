@@ -9,3 +9,20 @@
     min-height: calc(var(--vh, 1vh) * 100);
     height: min-content;
 }
+
+.page-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+
+    width: 360px;
+}
+
+.page-heading {
+    font-family: "Radio Canada Big";
+    font-size: 2.75rem;
+    font-weight: 700;
+    text-align: center;
+}
