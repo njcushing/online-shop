@@ -63,7 +63,7 @@ export function AccountCreationForm() {
         watch,
         formState: { errors },
     } = useForm<AccountCreationFormData>({
-        mode: "onBlur",
+        mode: "onTouched",
         resolver: zodResolver(accountCreationFormDataSchema),
     });
     const onSubmit: SubmitHandler<AccountCreationFormData> = (data) => data;
