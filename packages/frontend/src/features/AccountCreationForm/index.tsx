@@ -112,6 +112,7 @@ export function AccountCreationForm() {
                             {...inputProps}
                             label="First name"
                             placeholder="First name"
+                            required
                             error={createInputError(errors.firstName?.message)}
                         />
 
@@ -120,6 +121,7 @@ export function AccountCreationForm() {
                             {...inputProps}
                             label="Last name"
                             placeholder="Last name"
+                            required
                             error={createInputError(errors.lastName?.message)}
                         />
                     </div>
@@ -129,6 +131,7 @@ export function AccountCreationForm() {
                         {...inputProps}
                         label="Email address"
                         placeholder="Email address"
+                        required
                         error={createInputError(errors.email?.message)}
                     />
 
@@ -137,6 +140,7 @@ export function AccountCreationForm() {
                         {...passwordInputProps}
                         label="Password"
                         placeholder="Password"
+                        required
                         error={createInputError(errors.password?.message)}
                     />
 
@@ -145,6 +149,7 @@ export function AccountCreationForm() {
                         {...passwordInputProps}
                         label="Confirm password"
                         placeholder="Confirm password"
+                        required
                         error={createInputError(errors.confirmPassword?.message)}
                     />
                 </div>
