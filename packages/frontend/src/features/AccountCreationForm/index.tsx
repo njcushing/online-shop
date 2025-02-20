@@ -15,7 +15,7 @@ const oauthButtonProps = {
     },
 };
 
-const inputProps = {
+const textInputProps = {
     classNames: {
         input: styles["form-field-input"],
         error: styles["form-field-input-error"],
@@ -104,7 +104,7 @@ export function AccountCreationForm() {
                 <div className={styles["form-fields-container"]}>
                     <TextInput
                         {...register("email", { required: true })}
-                        {...inputProps}
+                        {...textInputProps}
                         label="Email address"
                         placeholder="Email address"
                         required
