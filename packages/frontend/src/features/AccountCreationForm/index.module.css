@@ -30,6 +30,28 @@
     font-weight: 700;
 }
 
+.or-container {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+}
+
+.or {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-align: center;
+
+    padding: 0px 8px;
+}
+
+.alt-signup-message {
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+
+    padding: 8px 0px;
+}
+
 .form {
     display: flex;
     flex-direction: column;
@@ -69,26 +91,6 @@
     text-align: center;
 
     width: 100%;
-}
-
-.or-container {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-}
-
-.or {
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-align: center;
-
-    padding: 0px 8px;
-}
-
-.alt-signup-message {
-    font-size: 1rem;
-    font-weight: 700;
-    text-align: center;
 }
 
 .sign-up-button {
