@@ -110,6 +110,7 @@ export function AccountCreationForm() {
                         <TextInput
                             {...register("firstName", { required: true })}
                             {...inputProps}
+                            label="First name"
                             placeholder="First name"
                             error={createInputError(errors.firstName?.message)}
                         />
@@ -117,6 +118,7 @@ export function AccountCreationForm() {
                         <TextInput
                             {...register("lastName", { required: true })}
                             {...inputProps}
+                            label="Last name"
                             placeholder="Last name"
                             error={createInputError(errors.lastName?.message)}
                         />
@@ -125,6 +127,7 @@ export function AccountCreationForm() {
                     <TextInput
                         {...register("email", { required: true })}
                         {...inputProps}
+                        label="Email address"
                         placeholder="Email address"
                         error={createInputError(errors.email?.message)}
                     />
@@ -132,6 +135,7 @@ export function AccountCreationForm() {
                     <PasswordInput
                         {...register("password", { required: true })}
                         {...passwordInputProps}
+                        label="Password"
                         placeholder="Password"
                         error={createInputError(errors.password?.message)}
                     />
@@ -139,6 +143,7 @@ export function AccountCreationForm() {
                     <PasswordInput
                         {...register("confirmPassword", { required: true })}
                         {...passwordInputProps}
+                        label="Confirm password"
                         placeholder="Confirm password"
                         error={createInputError(errors.confirmPassword?.message)}
                     />
