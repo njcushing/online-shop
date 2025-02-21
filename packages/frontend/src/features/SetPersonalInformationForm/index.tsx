@@ -1,6 +1,8 @@
-import { Input, TextInput, Button, Divider } from "@mantine/core";
+import { useContext } from "react";
+import { Input, TextInput, Button, Divider, Progress } from "@mantine/core";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CreateAccountContext } from "@/pages/CreateAccount";
 import { PersonalInformationFormData, personalInformationFormDataSchema } from "./utils/zodSchema";
 import styles from "./index.module.css";
 
@@ -39,6 +41,8 @@ const createInputError = (errorMessage: string | undefined) => {
 };
 
 export function SetPersonalInformationForm() {
+    const { accountCreationStage } = useContext(CreateAccountContext);
+
     const {
         register,
         handleSubmit,
@@ -53,7 +57,13 @@ export function SetPersonalInformationForm() {
     return (
         <>
             <h1 className={styles["page-heading"]}>Tell us more about yourself</h1>
+
             <div className={styles["set-personal-information"]}>
+                <div className={styles["progress-container"]}>
+                    <p className={styles["stage-message"]}>Stage {accountCreationStage} of 3</p>
+                    <Progress value={(100 / 3) * (accountCreationStage - 1)} size="sm" />
+                </div>
+
                 <Divider />
 
                 <form

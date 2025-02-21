@@ -5,6 +5,19 @@
     text-align: center;
 }
 
+.progress-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    width: 100%;
+}
+
+.stage-message {
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
 .set-personal-information {
     display: flex;
     flex-direction: column;
