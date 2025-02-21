@@ -15,16 +15,9 @@ const oauthButtonProps = {
     },
 };
 
-const textInputProps = {
+const inputProps = {
     classNames: {
         input: styles["form-field-input"],
-        error: styles["form-field-input-error"],
-    },
-};
-
-const passwordInputProps = {
-    classNames: {
-        innerInput: styles["form-field-input"],
         error: styles["form-field-input-error"],
     },
 };
@@ -104,7 +97,7 @@ export function AccountCreationForm() {
                 <div className={styles["form-fields-container"]}>
                     <TextInput
                         {...register("email", { required: true })}
-                        {...textInputProps}
+                        {...inputProps}
                         label="Email address"
                         placeholder="Email address"
                         required
@@ -113,7 +106,7 @@ export function AccountCreationForm() {
 
                     <PasswordInput
                         {...register("password", { required: true })}
-                        {...passwordInputProps}
+                        {...inputProps}
                         label="Password"
                         placeholder="Password"
                         required
@@ -122,7 +115,7 @@ export function AccountCreationForm() {
 
                     <PasswordInput
                         {...register("confirmPassword", { required: true })}
-                        {...passwordInputProps}
+                        {...inputProps}
                         label="Confirm password"
                         placeholder="Confirm password"
                         required
