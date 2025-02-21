@@ -1,4 +1,4 @@
-import { Input, TextInput, PasswordInput, Button, Divider } from "@mantine/core";
+import { Input, TextInput, PasswordInput, Button, Divider, Progress } from "@mantine/core";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AccountCreationFormData, accountCreationFormDataSchema } from "./utils/zodSchema";
@@ -112,6 +112,7 @@ export function AccountCreationForm() {
                         required
                         error={createInputError(errors.password?.message)}
                     />
+                    <Progress value={(100 / 8) * Math.min(8, watch("password")?.length || 0)} />
 
                     <PasswordInput
                         {...register("confirmPassword", { required: true })}
