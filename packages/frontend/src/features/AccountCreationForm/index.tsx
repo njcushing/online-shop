@@ -112,7 +112,10 @@ export function AccountCreationForm() {
                         required
                         error={createInputError(errors.password?.message)}
                     />
-                    <Progress value={(100 / 8) * Math.min(8, watch("password")?.length || 0)} />
+                    <Progress
+                        value={(100 / 8) * Math.min(8, watch("password")?.length || 0)}
+                        color={(watch("password")?.length || 0) < 8 ? "red" : "green"}
+                    />
 
                     <PasswordInput
                         {...register("confirmPassword", { required: true })}
