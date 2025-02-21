@@ -1,5 +1,6 @@
 import { createContext, useMemo, useState } from "react";
 import { AccountCreationForm } from "@/features/AccountCreationForm";
+import { SetPersonalInformationForm } from "@/features/SetPersonalInformationForm";
 import styles from "./index.module.css";
 
 export interface ICreateAccountContext {
@@ -8,7 +9,7 @@ export interface ICreateAccountContext {
 }
 
 const defaultCreateAccountContext: ICreateAccountContext = {
-    accountCreationStage: 0,
+    accountCreationStage: 1,
     setAccountCreationStage: () => {},
 };
 
@@ -30,6 +31,8 @@ export function CreateAccount() {
                         <AccountCreationForm />
                     </>
                 );
+            case 1:
+                return <SetPersonalInformationForm />;
             default:
                 return null;
         }
