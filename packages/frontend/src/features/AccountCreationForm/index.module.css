@@ -1,3 +1,10 @@
+.page-heading {
+    font-family: "Radio Canada Big";
+    font-size: 2.75rem;
+    font-weight: 700;
+    text-align: center;
+}
+
 .create-account {
     display: flex;
     flex-direction: column;

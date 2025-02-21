@@ -25,12 +25,7 @@ export function CreateAccount() {
     const pageContent = useMemo(() => {
         switch (accountCreationStage) {
             case 0:
-                return (
-                    <>
-                        <h1 className={styles["page-heading"]}>Sign up to get started</h1>
-                        <AccountCreationForm />
-                    </>
-                );
+                return <AccountCreationForm />;
             case 1:
                 return <SetPersonalInformationForm />;
             default:
