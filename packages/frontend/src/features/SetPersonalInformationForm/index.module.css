@@ -1,0 +1,63 @@
+.page-heading {
+    font-family: "Radio Canada Big";
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.set-personal-information {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    width: 100%;
+    padding: 8px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-fields-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    width: 100%;
+}
+
+.name-fields-container {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+
+    width: 100%;
+}
+
+.form-field-input {
+    font-size: 0.9rem;
+    font-weight: 400;
+
+    background-color: transparent;
+}
+
+.form-field-error-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 4px;
+}
+
+.form-field-error-container > svg {
+    flex-shrink: 0;
+}
+
+.form-field-input-error {
+    font-size: 0.825rem;
+}
+
+.proceed-button {
+    font-size: 1rem;
+}
