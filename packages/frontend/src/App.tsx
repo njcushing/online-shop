@@ -1,11 +1,18 @@
 import "@mantine/core/styles.css";
 import { MantineProvider, createTheme, Anchor } from "@mantine/core";
+import { DatesProvider } from "@mantine/dates";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
 import "@mantine/dates/styles.css";
+import "dayjs/locale/en";
 
 import { useEffect } from "react";
 import { Theme } from "./themes";
 import { Router } from "./routes";
 import "./index.css";
+
+dayjs.locale("en");
+dayjs.extend(customParseFormat);
 
 const mantineDefaultTheme = createTheme({
     fontFamily: "var(--font-family, Inter, system-ui, sans-serif)",
@@ -38,9 +45,11 @@ export function App() {
 
     return (
         <MantineProvider defaultColorScheme="light" theme={mantineDefaultTheme}>
-            <Theme>
-                <Router />
-            </Theme>
+            <DatesProvider settings={{ locale: "en" }}>
+                <Theme>
+                    <Router />
+                </Theme>
+            </DatesProvider>
         </MantineProvider>
     );
 }
