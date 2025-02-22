@@ -24,9 +24,11 @@
     "dependencies": {
         "@hookform/resolvers": "^4.1.0",
         "@mantine/core": "^7.16.3",
+        "@mantine/dates": "^7.17.0",
         "@mantine/hooks": "^7.16.3",
         "@phosphor-icons/react": "^2.1.7",
         "@vitejs/plugin-react": "^4.2.1",
+        "dayjs": "^1.11.13",
         "dotenv": "^16.4.1",
         "libphonenumber-js": "^1.11.20",
         "lodash": "^4.17.21",
