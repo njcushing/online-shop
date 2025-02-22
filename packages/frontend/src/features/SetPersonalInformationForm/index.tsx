@@ -90,6 +90,12 @@ export function SetPersonalInformationForm() {
                                 error={createInputError(errors.lastName?.message)}
                             />
                         </div>
+
+                        <TextInput
+                            {...inputProps}
+                            label="Phone number"
+                            placeholder="+44 7123 456789"
+                        />
                     </div>
 
                     <Button
