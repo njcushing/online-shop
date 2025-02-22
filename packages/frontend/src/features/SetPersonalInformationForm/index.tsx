@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Input, TextInput, Button, Divider, Progress } from "@mantine/core";
+import { Input, TextInput, Button, Divider, Progress, NativeSelect } from "@mantine/core";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateAccountContext } from "@/pages/CreateAccount";
@@ -97,6 +97,17 @@ export function SetPersonalInformationForm() {
                             label="Phone number"
                             placeholder="+44 7123 456789"
                             error={createInputError(errors.phone?.message)}
+                        />
+
+                        <NativeSelect
+                            label="Gender"
+                            data={[
+                                { label: "Male", value: "male" },
+                                { label: "Female", value: "female" },
+                                { label: "Other", value: "other" },
+                                { label: "Prefer not to say", value: "unspecified" },
+                            ]}
+                            defaultValue="unspecified"
                         />
                     </div>
 
