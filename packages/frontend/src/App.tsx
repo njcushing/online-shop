@@ -1,5 +1,6 @@
 import "@mantine/core/styles.css";
 import { MantineProvider, createTheme, Anchor } from "@mantine/core";
+import "@mantine/dates/styles.css";
 
 import { useEffect } from "react";
 import { Theme } from "./themes";
