@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { Input, TextInput, Button, Divider, Progress, NativeSelect } from "@mantine/core";
+import { DateInput } from "@mantine/dates";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateAccountContext } from "@/pages/CreateAccount";
@@ -110,6 +111,12 @@ export function SetPersonalInformationForm() {
                             ]}
                             defaultValue="unspecified"
                             error={createInputError(errors.gender?.message)}
+                        />
+
+                        <DateInput
+                            label="Date of birth"
+                            placeholder="DD/MM/YYYY"
+                            valueFormat="DD/MM/YYYY"
                         />
                     </div>
 
