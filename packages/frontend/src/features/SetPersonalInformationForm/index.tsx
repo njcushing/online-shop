@@ -100,6 +100,7 @@ export function SetPersonalInformationForm() {
                         />
 
                         <NativeSelect
+                            {...register("gender")}
                             label="Gender"
                             data={[
                                 { label: "Male", value: "male" },
@@ -108,6 +109,7 @@ export function SetPersonalInformationForm() {
                                 { label: "Prefer not to say", value: "unspecified" },
                             ]}
                             defaultValue="unspecified"
+                            error={createInputError(errors.gender?.message)}
                         />
                     </div>
 

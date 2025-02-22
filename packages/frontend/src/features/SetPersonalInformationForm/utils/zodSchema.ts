@@ -5,6 +5,7 @@ export type PersonalInformationFormData = {
     firstName?: string;
     lastName?: string;
     phone?: string;
+    gender?: "male" | "female" | "other" | "unspecified";
 };
 
 export const personalInformationFormDataSchema: z.ZodType<PersonalInformationFormData> = z.object({
@@ -23,4 +24,7 @@ export const personalInformationFormDataSchema: z.ZodType<PersonalInformationFor
             },
         )
         .optional(),
+    gender: z.enum(["male", "female", "other", "unspecified"], {
+        message: "Please select an option",
+    }),
 });
