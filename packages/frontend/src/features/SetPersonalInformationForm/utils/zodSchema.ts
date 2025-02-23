@@ -38,13 +38,21 @@ export const personalInformationFormDataSchema: z.ZodType<PersonalInformationFor
     dob: z.coerce
         .date()
         .optional()
-        .refine(
-            (dob) => {
-                if (typeof dob === "undefined") return true;
-                return dayjs(dob).isBefore(dayjs().subtract(13, "year"));
-            },
-            {
-                message: "You must be at least 13 years old to make an account",
-            },
-        ),
+        .superRefine((dob, ctx) => {
+            if (typeof dob === "undefined") return;
+
+            if (dayjs(dob).isAfter(dayjs().subtract(13, "year"))) {
+                ctx.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    message: "You must be at least 13 years old to make an account",
+                });
+            }
+
+            if (dayjs(dob).isBefore(new Date("1875-01-01"))) {
+                ctx.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    message: "Date of birth must be after 1st January 1875",
+                });
+            }
+        }),
 });
