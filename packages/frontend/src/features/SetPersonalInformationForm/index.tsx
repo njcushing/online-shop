@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import { Input, TextInput, Button, Divider, Progress, NativeSelect } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import dayjs from "dayjs";
 import { CreateAccountContext } from "@/pages/CreateAccount";
 import { PersonalInformationFormData, personalInformationFormDataSchema } from "./utils/zodSchema";
 import styles from "./index.module.css";
@@ -45,6 +46,7 @@ export function SetPersonalInformationForm() {
     const { accountCreationStage } = useContext(CreateAccountContext);
 
     const {
+        control,
         register,
         handleSubmit,
         watch,
@@ -113,10 +115,19 @@ export function SetPersonalInformationForm() {
                             error={createInputError(errors.gender?.message)}
                         />
 
-                        <DateInput
-                            label="Date of birth"
-                            placeholder="DD/MM/YYYY"
-                            valueFormat="DD/MM/YYYY"
+                        <Controller
+                            control={control}
+                            name="dob"
+                            render={({ field: { onChange, onBlur } }) => (
+                                <DateInput
+                                    label="Date of birth"
+                                    placeholder="DD/MM/YYYY"
+                                    valueFormat="DD/MM/YYYY"
+                                    onChange={onChange}
+                                    onBlur={onBlur}
+                                    error={createInputError(errors.dob?.message)}
+                                />
+                            )}
                         />
                     </div>
 
