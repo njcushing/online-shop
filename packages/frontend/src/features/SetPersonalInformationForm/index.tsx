@@ -126,6 +126,7 @@ export function SetPersonalInformationForm() {
                                     placeholder="DD/MM/YYYY"
                                     valueFormat="DD/MM/YYYY"
                                     dateParser={(date) => dayjs(date, "D/M/YYYY").toDate()}
+                                    minDate={new Date("1875")}
                                     onChange={onChange}
                                     onBlur={onBlur}
                                     onKeyDown={(e) => {
