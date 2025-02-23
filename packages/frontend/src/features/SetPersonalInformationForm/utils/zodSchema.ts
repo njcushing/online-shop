@@ -6,7 +6,7 @@ export type PersonalInformationFormData = {
     firstName?: string;
     lastName?: string;
     phone?: string;
-    gender?: "male" | "female" | "other" | "unspecified";
+    gender: "male" | "female" | "other" | "unspecified";
     dob?: Date;
 };
 
@@ -20,8 +20,10 @@ export const personalInformationFormDataSchema: z.ZodType<PersonalInformationFor
     lastName: z.string().optional(),
     phone: z
         .string()
+        .optional()
         .refine(
             (phone) => {
+                if (typeof phone === "undefined") return true;
                 const parsedPhone = parsePhoneNumberFromString(phone, "GB");
                 return parsedPhone?.isValid() ?? false;
             },
@@ -29,15 +31,20 @@ export const personalInformationFormDataSchema: z.ZodType<PersonalInformationFor
                 message:
                     "Invalid UK phone number, please write it in E.164 format (+44 7123 456789 or 07123 456789)",
             },
-        )
-        .optional(),
+        ),
     gender: z.enum(["male", "female", "other", "unspecified"], {
         message: "Please select an option",
     }),
     dob: z.coerce
         .date()
-        .refine((dob) => dayjs(dob).isBefore(dayjs().subtract(13, "year")), {
-            message: "You must be at least 13 years old to make an account",
-        })
-        .optional(),
+        .optional()
+        .refine(
+            (dob) => {
+                if (typeof dob === "undefined") return true;
+                return dayjs(dob).isBefore(dayjs().subtract(13, "year"));
+            },
+            {
+                message: "You must be at least 13 years old to make an account",
+            },
+        ),
 });

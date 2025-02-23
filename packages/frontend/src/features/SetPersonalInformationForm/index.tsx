@@ -77,7 +77,7 @@ export function SetPersonalInformationForm() {
                     <div className={styles["form-fields-container"]}>
                         <div className={styles["name-fields-container"]}>
                             <TextInput
-                                {...register("firstName")}
+                                {...register("firstName", { setValueAs: (v) => v || undefined })}
                                 {...inputProps}
                                 label="First name"
                                 placeholder="John"
@@ -85,7 +85,7 @@ export function SetPersonalInformationForm() {
                             />
 
                             <TextInput
-                                {...register("lastName")}
+                                {...register("lastName", { setValueAs: (v) => v || undefined })}
                                 {...inputProps}
                                 label="Last name"
                                 placeholder="Smith"
@@ -94,7 +94,7 @@ export function SetPersonalInformationForm() {
                         </div>
 
                         <TextInput
-                            {...register("phone")}
+                            {...register("phone", { setValueAs: (v) => v || undefined })}
                             {...inputProps}
                             label="Phone number"
                             placeholder="+44 7123 456789"
@@ -119,6 +119,8 @@ export function SetPersonalInformationForm() {
                             name="dob"
                             render={({ field: { onChange, onBlur } }) => (
                                 <DateInput
+                                    {...register("dob", { setValueAs: (v) => v || undefined })}
+                                    {...inputProps}
                                     label="Date of birth"
                                     placeholder="DD/MM/YYYY"
                                     valueFormat="DD/MM/YYYY"
@@ -132,6 +134,16 @@ export function SetPersonalInformationForm() {
                             )}
                         />
                     </div>
+
+                    <Button
+                        type="submit"
+                        variant="filled"
+                        color="green"
+                        radius={9999}
+                        className={styles["proceed-button"]}
+                    >
+                        Submit
+                    </Button>
 
                     <Button
                         type="button"
