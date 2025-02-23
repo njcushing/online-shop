@@ -3,6 +3,7 @@ import { Input, TextInput, Button, Divider, Progress, NativeSelect } from "@mant
 import { DateInput } from "@mantine/dates";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import dayjs from "dayjs";
 import { CreateAccountContext } from "@/pages/CreateAccount";
 import { PersonalInformationFormData, personalInformationFormDataSchema } from "./utils/zodSchema";
 import styles from "./index.module.css";
@@ -124,6 +125,7 @@ export function SetPersonalInformationForm() {
                                     label="Date of birth"
                                     placeholder="DD/MM/YYYY"
                                     valueFormat="DD/MM/YYYY"
+                                    dateParser={(date) => dayjs(date, "D/M/YYYY").toDate()}
                                     onChange={onChange}
                                     onBlur={onBlur}
                                     onKeyDown={(e) => {
