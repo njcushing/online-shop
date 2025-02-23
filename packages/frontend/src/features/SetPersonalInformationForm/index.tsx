@@ -3,7 +3,6 @@ import { Input, TextInput, Button, Divider, Progress, NativeSelect } from "@mant
 import { DateInput } from "@mantine/dates";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import dayjs from "dayjs";
 import { CreateAccountContext } from "@/pages/CreateAccount";
 import { PersonalInformationFormData, personalInformationFormDataSchema } from "./utils/zodSchema";
 import styles from "./index.module.css";
@@ -125,6 +124,9 @@ export function SetPersonalInformationForm() {
                                     valueFormat="DD/MM/YYYY"
                                     onChange={onChange}
                                     onBlur={onBlur}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") e.currentTarget.blur();
+                                    }}
                                     error={createInputError(errors.dob?.message)}
                                 />
                             )}
