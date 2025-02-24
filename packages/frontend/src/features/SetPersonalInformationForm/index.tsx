@@ -185,15 +185,27 @@ export function SetPersonalInformationForm() {
                         {"dob" in errors && createInputError(errors.dob!.message)}
                     </div>
 
-                    <Button
-                        type="button"
-                        variant="filled"
-                        color="green"
-                        radius={9999}
-                        className={styles["proceed-button"]}
-                    >
-                        Continue
-                    </Button>
+                    <div className={styles["stage-buttons-container"]}>
+                        <Button
+                            type="button"
+                            variant="filled"
+                            color="green"
+                            radius={9999}
+                            className={styles["stage-button"]}
+                        >
+                            Prev
+                        </Button>
+
+                        <Button
+                            type="button"
+                            variant="filled"
+                            color="green"
+                            radius={9999}
+                            className={styles["stage-button"]}
+                        >
+                            Next
+                        </Button>
+                    </div>
                 </form>
 
                 <Divider />
