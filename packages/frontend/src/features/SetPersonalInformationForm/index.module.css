@@ -50,6 +50,13 @@
     width: 100%;
 }
 
+.date-of-birth-fields-container > legend {
+    font-size: 1rem;
+    font-weight: 500;
+
+    margin-bottom: 8px;
+}
+
 .form-field-input {
     font-size: 0.9rem;
     font-weight: 400;

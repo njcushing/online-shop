@@ -122,6 +122,8 @@ export function SetPersonalInformationForm() {
                             error={createInputError(errors.gender?.message)}
                         />
 
+                        <Divider />
+
                         <fieldset className={styles["date-of-birth-fields-container"]}>
                             <legend>Date of birth</legend>
 
