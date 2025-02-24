@@ -122,7 +122,9 @@ export function SetPersonalInformationForm() {
                             error={createInputError(errors.gender?.message)}
                         />
 
-                        <div className={styles["date-of-birth-fields-container"]}>
+                        <fieldset className={styles["date-of-birth-fields-container"]}>
+                            <legend>Date of birth</legend>
+
                             <Controller
                                 control={control}
                                 name="dob.day"
@@ -176,7 +178,7 @@ export function SetPersonalInformationForm() {
                                     />
                                 )}
                             />
-                        </div>
+                        </fieldset>
 
                         {"dob" in errors && createInputError(errors.dob!.message)}
                     </div>
