@@ -191,6 +191,7 @@ export function SetPersonalInformationForm() {
                             variant="filled"
                             color="green"
                             radius={9999}
+                            disabled={accountCreationStage === 1}
                             className={styles["stage-button"]}
                         >
                             Prev
@@ -201,6 +202,7 @@ export function SetPersonalInformationForm() {
                             variant="filled"
                             color="green"
                             radius={9999}
+                            disabled={accountCreationStage === 3}
                             className={styles["stage-button"]}
                         >
                             Next
