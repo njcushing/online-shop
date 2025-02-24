@@ -1,9 +1,15 @@
 import { useContext } from "react";
-import { Input, TextInput, Button, Divider, Progress, NativeSelect } from "@mantine/core";
-import { DateInput } from "@mantine/dates";
+import {
+    Input,
+    TextInput,
+    NumberInput,
+    Button,
+    Divider,
+    Progress,
+    NativeSelect,
+} from "@mantine/core";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import dayjs from "dayjs";
 import { CreateAccountContext } from "@/pages/CreateAccount";
 import { PersonalInformationFormData, personalInformationFormDataSchema } from "./utils/zodSchema";
 import styles from "./index.module.css";
@@ -104,6 +110,7 @@ export function SetPersonalInformationForm() {
 
                         <NativeSelect
                             {...register("gender")}
+                            {...inputProps}
                             label="Gender"
                             data={[
                                 { label: "Male", value: "male" },
@@ -115,38 +122,64 @@ export function SetPersonalInformationForm() {
                             error={createInputError(errors.gender?.message)}
                         />
 
-                        <Controller
-                            control={control}
-                            name="dob"
-                            render={({ field: { onChange, onBlur } }) => (
-                                <DateInput
-                                    {...register("dob", { setValueAs: (v) => v || undefined })}
-                                    {...inputProps}
-                                    label="Date of birth"
-                                    placeholder="DD/MM/YYYY"
-                                    valueFormat="DD/MM/YYYY"
-                                    dateParser={(date) => dayjs(date, "D/M/YYYY").toDate()}
-                                    minDate={new Date("1875")}
-                                    onChange={onChange}
-                                    onBlur={onBlur}
-                                    onKeyDown={(e) => {
-                                        if (e.key === "Enter") e.currentTarget.blur();
-                                    }}
-                                    error={createInputError(errors.dob?.message)}
-                                />
-                            )}
-                        />
-                    </div>
+                        <div className={styles["date-of-birth-fields-container"]}>
+                            <Controller
+                                control={control}
+                                name="dob.day"
+                                render={({ field }) => (
+                                    <NumberInput
+                                        {...field}
+                                        {...inputProps}
+                                        label="Day"
+                                        placeholder="27"
+                                        min={1}
+                                        max={31}
+                                        hideControls
+                                        error={createInputError(errors.dob?.day?.message)}
+                                        onChange={(v) => field.onChange(v || undefined)}
+                                    />
+                                )}
+                            />
 
-                    <Button
-                        type="submit"
-                        variant="filled"
-                        color="green"
-                        radius={9999}
-                        className={styles["proceed-button"]}
-                    >
-                        Submit
-                    </Button>
+                            <Controller
+                                control={control}
+                                name="dob.month"
+                                render={({ field }) => (
+                                    <NumberInput
+                                        {...field}
+                                        {...inputProps}
+                                        label="Month"
+                                        placeholder="3"
+                                        min={1}
+                                        max={12}
+                                        hideControls
+                                        error={createInputError(errors.dob?.month?.message)}
+                                        onChange={(v) => field.onChange(v || undefined)}
+                                    />
+                                )}
+                            />
+
+                            <Controller
+                                control={control}
+                                name="dob.year"
+                                render={({ field }) => (
+                                    <NumberInput
+                                        {...field}
+                                        {...inputProps}
+                                        label="Year"
+                                        placeholder="1996"
+                                        min={1875}
+                                        max={new Date().getFullYear()}
+                                        hideControls
+                                        error={createInputError(errors.dob?.year?.message)}
+                                        onChange={(v) => field.onChange(v || undefined)}
+                                    />
+                                )}
+                            />
+                        </div>
+
+                        {"dob" in errors && createInputError(errors.dob!.message)}
+                    </div>
 
                     <Button
                         type="button"

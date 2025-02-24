@@ -41,7 +41,8 @@
     width: 100%;
 }
 
-.name-fields-container {
+.name-fields-container,
+.date-of-birth-fields-container {
     display: flex;
     flex-direction: row;
     gap: 8px;
