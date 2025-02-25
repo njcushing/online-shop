@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import {
     Input,
     TextInput,
@@ -63,6 +63,114 @@ export function SetPersonalInformationForm() {
     });
     const onSubmit: SubmitHandler<PersonalInformationFormData> = (data) => data;
 
+    const stage1Fields = useMemo(() => {
+        return (
+            <>
+                <div className={styles["name-fields-container"]}>
+                    <TextInput
+                        {...register("firstName", { setValueAs: (v) => v || undefined })}
+                        {...inputProps}
+                        label="First name"
+                        placeholder="John"
+                        error={createInputError(errors.firstName?.message)}
+                    />
+
+                    <TextInput
+                        {...register("lastName", { setValueAs: (v) => v || undefined })}
+                        {...inputProps}
+                        label="Last name"
+                        placeholder="Smith"
+                        error={createInputError(errors.lastName?.message)}
+                    />
+                </div>
+
+                <TextInput
+                    {...register("phone", { setValueAs: (v) => v || undefined })}
+                    {...inputProps}
+                    label="Phone number"
+                    placeholder="+44 7123 456789"
+                    error={createInputError(errors.phone?.message)}
+                />
+
+                <NativeSelect
+                    {...register("gender")}
+                    {...inputProps}
+                    label="Gender"
+                    data={[
+                        { label: "Male", value: "male" },
+                        { label: "Female", value: "female" },
+                        { label: "Other", value: "other" },
+                        { label: "Prefer not to say", value: "unspecified" },
+                    ]}
+                    defaultValue="unspecified"
+                    error={createInputError(errors.gender?.message)}
+                />
+
+                <Divider />
+
+                <fieldset className={styles["date-of-birth-fields-container"]}>
+                    <legend>Date of birth</legend>
+
+                    <Controller
+                        control={control}
+                        name="dob.day"
+                        render={({ field }) => (
+                            <NumberInput
+                                {...field}
+                                {...inputProps}
+                                label="Day"
+                                placeholder="27"
+                                min={1}
+                                max={31}
+                                hideControls
+                                error={createInputError(errors.dob?.day?.message)}
+                                onChange={(v) => field.onChange(v || undefined)}
+                            />
+                        )}
+                    />
+
+                    <Controller
+                        control={control}
+                        name="dob.month"
+                        render={({ field }) => (
+                            <NumberInput
+                                {...field}
+                                {...inputProps}
+                                label="Month"
+                                placeholder="3"
+                                min={1}
+                                max={12}
+                                hideControls
+                                error={createInputError(errors.dob?.month?.message)}
+                                onChange={(v) => field.onChange(v || undefined)}
+                            />
+                        )}
+                    />
+
+                    <Controller
+                        control={control}
+                        name="dob.year"
+                        render={({ field }) => (
+                            <NumberInput
+                                {...field}
+                                {...inputProps}
+                                label="Year"
+                                placeholder="1996"
+                                min={1875}
+                                max={new Date().getFullYear()}
+                                hideControls
+                                error={createInputError(errors.dob?.year?.message)}
+                                onChange={(v) => field.onChange(v || undefined)}
+                            />
+                        )}
+                    />
+                </fieldset>
+
+                {"dob" in errors && createInputError(errors.dob!.message)}
+            </>
+        );
+    }, [control, errors, register]);
+
     return (
         <>
             <h1 className={styles["page-heading"]}>Tell us more about yourself</h1>
@@ -81,109 +189,7 @@ export function SetPersonalInformationForm() {
                     onSubmit={handleSubmit(onSubmit)}
                     noValidate
                 >
-                    <div className={styles["form-fields-container"]}>
-                        <div className={styles["name-fields-container"]}>
-                            <TextInput
-                                {...register("firstName", { setValueAs: (v) => v || undefined })}
-                                {...inputProps}
-                                label="First name"
-                                placeholder="John"
-                                error={createInputError(errors.firstName?.message)}
-                            />
-
-                            <TextInput
-                                {...register("lastName", { setValueAs: (v) => v || undefined })}
-                                {...inputProps}
-                                label="Last name"
-                                placeholder="Smith"
-                                error={createInputError(errors.lastName?.message)}
-                            />
-                        </div>
-
-                        <TextInput
-                            {...register("phone", { setValueAs: (v) => v || undefined })}
-                            {...inputProps}
-                            label="Phone number"
-                            placeholder="+44 7123 456789"
-                            error={createInputError(errors.phone?.message)}
-                        />
-
-                        <NativeSelect
-                            {...register("gender")}
-                            {...inputProps}
-                            label="Gender"
-                            data={[
-                                { label: "Male", value: "male" },
-                                { label: "Female", value: "female" },
-                                { label: "Other", value: "other" },
-                                { label: "Prefer not to say", value: "unspecified" },
-                            ]}
-                            defaultValue="unspecified"
-                            error={createInputError(errors.gender?.message)}
-                        />
-
-                        <Divider />
-
-                        <fieldset className={styles["date-of-birth-fields-container"]}>
-                            <legend>Date of birth</legend>
-
-                            <Controller
-                                control={control}
-                                name="dob.day"
-                                render={({ field }) => (
-                                    <NumberInput
-                                        {...field}
-                                        {...inputProps}
-                                        label="Day"
-                                        placeholder="27"
-                                        min={1}
-                                        max={31}
-                                        hideControls
-                                        error={createInputError(errors.dob?.day?.message)}
-                                        onChange={(v) => field.onChange(v || undefined)}
-                                    />
-                                )}
-                            />
-
-                            <Controller
-                                control={control}
-                                name="dob.month"
-                                render={({ field }) => (
-                                    <NumberInput
-                                        {...field}
-                                        {...inputProps}
-                                        label="Month"
-                                        placeholder="3"
-                                        min={1}
-                                        max={12}
-                                        hideControls
-                                        error={createInputError(errors.dob?.month?.message)}
-                                        onChange={(v) => field.onChange(v || undefined)}
-                                    />
-                                )}
-                            />
-
-                            <Controller
-                                control={control}
-                                name="dob.year"
-                                render={({ field }) => (
-                                    <NumberInput
-                                        {...field}
-                                        {...inputProps}
-                                        label="Year"
-                                        placeholder="1996"
-                                        min={1875}
-                                        max={new Date().getFullYear()}
-                                        hideControls
-                                        error={createInputError(errors.dob?.year?.message)}
-                                        onChange={(v) => field.onChange(v || undefined)}
-                                    />
-                                )}
-                            />
-                        </fieldset>
-
-                        {"dob" in errors && createInputError(errors.dob!.message)}
-                    </div>
+                    <div className={styles["form-fields-container"]}>{stage1Fields}</div>
 
                     <div className={styles["stage-buttons-container"]}>
                         <Button
