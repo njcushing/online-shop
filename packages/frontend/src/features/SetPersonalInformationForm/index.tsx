@@ -211,6 +211,16 @@ export function SetPersonalInformationForm() {
                 </form>
 
                 <Divider />
+
+                <Button
+                    type="button"
+                    variant="filled"
+                    color="orange"
+                    radius={9999}
+                    className={styles["skip-button"]}
+                >
+                    Skip for now
+                </Button>
             </div>
         </>
     );

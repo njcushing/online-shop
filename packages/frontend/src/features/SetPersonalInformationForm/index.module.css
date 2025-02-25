@@ -92,3 +92,13 @@
 
     width: 100%;
 }
+
+.skip-button {
+    align-self: center;
+
+    font-size: 0.9rem;
+
+    width: min-content;
+    height: min-content;
+    padding: 8px 12px;
+}
