@@ -33,7 +33,7 @@ const createInputError = (errorMessage: string | undefined) => {
 };
 
 export function SetPersonalInformationForm() {
-    const { accountCreationStage } = useContext(CreateAccountContext);
+    const { accountCreationStage, setAccountCreationStage } = useContext(CreateAccountContext);
 
     const {
         control,
@@ -181,6 +181,7 @@ export function SetPersonalInformationForm() {
                             variant="filled"
                             color="green"
                             radius={9999}
+                            onClick={() => setAccountCreationStage(accountCreationStage - 1)}
                             disabled={accountCreationStage === 1}
                             className={styles["stage-button"]}
                         >
@@ -192,6 +193,7 @@ export function SetPersonalInformationForm() {
                             variant="filled"
                             color="green"
                             radius={9999}
+                            onClick={() => setAccountCreationStage(accountCreationStage + 1)}
                             disabled={accountCreationStage === 3}
                             className={styles["stage-button"]}
                         >
