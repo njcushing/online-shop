@@ -3,6 +3,7 @@ import { Input, TextInput, PasswordInput, Button, Divider, Progress } from "@man
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateAccountContext } from "@/pages/CreateAccount";
+import { Icons } from "@/components/Icons";
 import { AccountCreationFormData, accountCreationFormDataSchema } from "./utils/zodSchema";
 import { google, facebook, x, github } from "./utils/logoSVG";
 import styles from "./index.module.css";
@@ -24,28 +25,10 @@ const inputProps = {
     },
 };
 
-const exclamationMarkSVG = (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 180 180"
-        width="16"
-        height="16"
-        aria-label="Error: "
-    >
-        <path
-            fill="none"
-            stroke="red"
-            strokeWidth="16"
-            strokeLinecap="round"
-            d="M89,9a81,81 0 1,0 2,0zm1,38v58m0,25v1"
-        />
-    </svg>
-);
-
 const createInputError = (errorMessage: string | undefined) => {
     return errorMessage ? (
         <span className={styles["form-field-error-container"]}>
-            {exclamationMarkSVG}
+            <Icons.ExclamationMark />
             <Input.Error component="span">{errorMessage}</Input.Error>
         </span>
     ) : null;

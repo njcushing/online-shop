@@ -87,10 +87,6 @@
     gap: 4px;
 }
 
-.form-field-error-container > svg {
-    flex-shrink: 0;
-}
-
 .form-field-input-error {
     font-size: 0.825rem;
 }

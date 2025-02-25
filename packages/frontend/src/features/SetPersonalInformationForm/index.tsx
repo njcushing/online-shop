@@ -1,4 +1,4 @@
-import { CSSProperties, useContext, useMemo } from "react";
+import { useContext, useMemo } from "react";
 import {
     Input,
     TextInput,
@@ -12,6 +12,7 @@ import {
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateAccountContext } from "@/pages/CreateAccount";
+import { Icons } from "@/components/Icons";
 import { PersonalInformationFormData, personalInformationFormDataSchema } from "./utils/zodSchema";
 import styles from "./index.module.css";
 
@@ -22,29 +23,10 @@ const inputProps = {
     },
 };
 
-const exclamationMarkSVG = (color: CSSProperties["color"] = "red") => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 180 180"
-        width="16"
-        height="16"
-        aria-label="Error: "
-        className={styles["exclamation-mark-svg"]}
-    >
-        <path
-            fill="none"
-            stroke={color}
-            strokeWidth="16"
-            strokeLinecap="round"
-            d="M89,9a81,81 0 1,0 2,0zm1,38v58m0,25v1"
-        />
-    </svg>
-);
-
 const createInputError = (errorMessage: string | undefined) => {
     return errorMessage ? (
         <span className={styles["form-field-error-container"]}>
-            {exclamationMarkSVG()}
+            <Icons.ExclamationMark />
             <Input.Error component="span">{errorMessage}</Input.Error>
         </span>
     ) : null;
@@ -233,7 +215,11 @@ export function SetPersonalInformationForm() {
                         </Button>
                     </HoverCard.Target>
                     <HoverCard.Dropdown className={styles["skip-warning-hovercard"]}>
-                        {exclamationMarkSVG("#fdff98")}
+                        <Icons.ExclamationMark
+                            width="18"
+                            height="18"
+                            style={{ stroke: "#fdff98" }}
+                        />
                         <p className={styles["skip-warning-message"]}>
                             This information will be required for shipping later.
                         </p>

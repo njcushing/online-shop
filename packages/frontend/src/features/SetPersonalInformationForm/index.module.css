@@ -71,10 +71,6 @@
     gap: 4px;
 }
 
-.exclamation-mark-svg {
-    flex-shrink: 0;
-}
-
 .form-field-input-error {
     font-size: 0.825rem;
 }
@@ -112,11 +108,6 @@
     background-color: #aa9243;
 
     padding: 12px;
-}
-
-.skip-warning-hovercard > .exclamation-mark-svg {
-    width: 18px;
-    height: 18px;
 }
 
 .skip-warning-hovercard > * {
