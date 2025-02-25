@@ -1,4 +1,4 @@
-import { useContext, useMemo } from "react";
+import { CSSProperties, useContext, useMemo } from "react";
 import {
     Input,
     TextInput,
@@ -7,6 +7,7 @@ import {
     Divider,
     Progress,
     NativeSelect,
+    HoverCard,
 } from "@mantine/core";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,17 +22,18 @@ const inputProps = {
     },
 };
 
-const exclamationMarkSVG = (
+const exclamationMarkSVG = (color: CSSProperties["color"] = "red") => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 180 180"
         width="16"
         height="16"
         aria-label="Error: "
+        className={styles["exclamation-mark-svg"]}
     >
         <path
             fill="none"
-            stroke="red"
+            stroke={color}
             strokeWidth="16"
             strokeLinecap="round"
             d="M89,9a81,81 0 1,0 2,0zm1,38v58m0,25v1"
@@ -42,7 +44,7 @@ const exclamationMarkSVG = (
 const createInputError = (errorMessage: string | undefined) => {
     return errorMessage ? (
         <span className={styles["form-field-error-container"]}>
-            {exclamationMarkSVG}
+            {exclamationMarkSVG()}
             <Input.Error component="span">{errorMessage}</Input.Error>
         </span>
     ) : null;
@@ -218,15 +220,25 @@ export function SetPersonalInformationForm() {
 
                 <Divider />
 
-                <Button
-                    type="button"
-                    variant="filled"
-                    color="orange"
-                    radius={9999}
-                    className={styles["skip-button"]}
-                >
-                    Skip for now
-                </Button>
+                <HoverCard width={280} shadow="md" withArrow>
+                    <HoverCard.Target>
+                        <Button
+                            type="button"
+                            variant="filled"
+                            color="orange"
+                            radius={9999}
+                            className={styles["skip-button"]}
+                        >
+                            Skip for now
+                        </Button>
+                    </HoverCard.Target>
+                    <HoverCard.Dropdown className={styles["skip-warning-hovercard"]}>
+                        {exclamationMarkSVG("#fdff98")}
+                        <p className={styles["skip-warning-message"]}>
+                            This information will be required for shipping later.
+                        </p>
+                    </HoverCard.Dropdown>
+                </HoverCard>
             </div>
         </>
     );

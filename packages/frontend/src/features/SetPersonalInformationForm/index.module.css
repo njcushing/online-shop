@@ -71,7 +71,7 @@
     gap: 4px;
 }
 
-.form-field-error-container > svg {
+.exclamation-mark-svg {
     flex-shrink: 0;
 }
 
@@ -101,4 +101,31 @@
     width: min-content;
     height: min-content;
     padding: 8px 12px;
+}
+
+.skip-warning-hovercard {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+
+    border-color: #aa9243;
+    background-color: #aa9243;
+
+    padding: 12px;
+}
+
+.skip-warning-hovercard > .exclamation-mark-svg {
+    width: 18px;
+    height: 18px;
+}
+
+.skip-warning-hovercard > * {
+    border-color: #aa9243; /* For HoverCard arrow */
+}
+
+.skip-warning-message {
+    color: #fdff98;
+    line-height: 1.2rem;
+    font-size: 0.9rem;
+    font-weight: 500;
 }
