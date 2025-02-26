@@ -47,6 +47,17 @@ export function SetPersonalInformationForm() {
     });
     const onSubmit: SubmitHandler<PersonalInformationFormData> = (data) => data;
 
+    const headingText = useMemo(() => {
+        switch (accountCreationStage) {
+            case 1:
+                return "Tell us more about yourself";
+            case 2:
+                return "What is your address";
+            default:
+                return null;
+        }
+    }, [accountCreationStage]);
+
     const stage1Fields = useMemo(() => {
         return (
             <>
@@ -198,7 +209,7 @@ export function SetPersonalInformationForm() {
 
     return (
         <>
-            <h1 className={styles["page-heading"]}>Tell us more about yourself</h1>
+            <h1 className={styles["page-heading"]}>{headingText}</h1>
 
             <div className={styles["set-personal-information"]}>
                 <div className={styles["progress-container"]}>
