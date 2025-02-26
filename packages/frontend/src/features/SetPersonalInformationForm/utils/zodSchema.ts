@@ -12,6 +12,13 @@ export type PersonalInformationFormData = {
         month?: number;
         year?: number;
     };
+    address?: {
+        line1?: string;
+        line2?: string;
+        townCity?: string;
+        county?: string;
+        postcode?: string;
+    };
 };
 
 /*
@@ -60,6 +67,15 @@ export const personalInformationFormDataSchema: z.ZodType<PersonalInformationFor
                     .gte(1875, { message: "Date of birth must be after 1st January 1875" })
                     .lte(new Date().getFullYear(), { message: "Please enter a valid year" })
                     .optional(),
+            })
+            .optional(),
+        address: z
+            .object({
+                line1: z.string().optional(),
+                line2: z.string().optional(),
+                townCity: z.string().optional(),
+                county: z.string().optional(),
+                postcode: z.string().optional(),
             })
             .optional(),
     })

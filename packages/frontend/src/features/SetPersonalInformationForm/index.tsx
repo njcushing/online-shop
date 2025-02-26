@@ -155,6 +155,28 @@ export function SetPersonalInformationForm() {
         );
     }, [control, errors, register]);
 
+    const stage2Fields = useMemo(() => {
+        return (
+            <>
+                <TextInput
+                    {...register("address.company", { setValueAs: (v) => v || undefined })}
+                    {...inputProps}
+                    label="Company"
+                    placeholder="company Name Ltd"
+                    error={createInputError(errors.address?.company?.message)}
+                />
+
+                <TextInput
+                    {...register("address.line1", { setValueAs: (v) => v || undefined })}
+                    {...inputProps}
+                    label="First name"
+                    placeholder="John"
+                    error={createInputError(errors.address?.line1?.message)}
+                />
+            </>
+        );
+    }, [control, errors, register]);
+
     return (
         <>
             <h1 className={styles["page-heading"]}>Tell us more about yourself</h1>
@@ -173,7 +195,10 @@ export function SetPersonalInformationForm() {
                     onSubmit={handleSubmit(onSubmit)}
                     noValidate
                 >
-                    <div className={styles["form-fields-container"]}>{stage1Fields}</div>
+                    <div className={styles["form-fields-container"]}>
+                        {stage1Fields}
+                        {stage2Fields}
+                    </div>
 
                     <div className={styles["stage-buttons-container"]}>
                         <Button
