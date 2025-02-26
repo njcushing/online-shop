@@ -159,23 +159,42 @@ export function SetPersonalInformationForm() {
         return (
             <>
                 <TextInput
-                    {...register("address.company", { setValueAs: (v) => v || undefined })}
+                    {...register("address.line1", { setValueAs: (v) => v || undefined })}
                     {...inputProps}
-                    label="Company"
-                    placeholder="company Name Ltd"
-                    error={createInputError(errors.address?.company?.message)}
+                    label="Line 1"
+                    error={createInputError(errors.address?.line1?.message)}
                 />
 
                 <TextInput
-                    {...register("address.line1", { setValueAs: (v) => v || undefined })}
+                    {...register("address.line2", { setValueAs: (v) => v || undefined })}
                     {...inputProps}
-                    label="First name"
-                    placeholder="John"
-                    error={createInputError(errors.address?.line1?.message)}
+                    label="Line 2"
+                    error={createInputError(errors.address?.line2?.message)}
+                />
+
+                <TextInput
+                    {...register("address.townCity", { setValueAs: (v) => v || undefined })}
+                    {...inputProps}
+                    label="Town or City"
+                    error={createInputError(errors.address?.townCity?.message)}
+                />
+
+                <TextInput
+                    {...register("address.county", { setValueAs: (v) => v || undefined })}
+                    {...inputProps}
+                    label="County"
+                    error={createInputError(errors.address?.county?.message)}
+                />
+
+                <TextInput
+                    {...register("address.postcode", { setValueAs: (v) => v || undefined })}
+                    {...inputProps}
+                    label="Postcode"
+                    error={createInputError(errors.address?.postcode?.message)}
                 />
             </>
         );
-    }, [control, errors, register]);
+    }, [errors, register]);
 
     return (
         <>
