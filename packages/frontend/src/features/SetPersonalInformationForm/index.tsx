@@ -213,8 +213,8 @@ export function SetPersonalInformationForm() {
 
             <div className={styles["set-personal-information"]}>
                 <div className={styles["progress-container"]}>
-                    <p className={styles["stage-message"]}>Stage {accountCreationStage} of 3</p>
-                    <Progress value={(100 / 3) * (accountCreationStage - 1)} size="sm" />
+                    <p className={styles["stage-message"]}>Stage {accountCreationStage} of 2</p>
+                    <Progress value={(100 / 2) * (accountCreationStage - 1)} size="sm" />
                 </div>
 
                 <Divider />
@@ -249,7 +249,7 @@ export function SetPersonalInformationForm() {
                             color="green"
                             radius={9999}
                             onClick={() => setAccountCreationStage(accountCreationStage + 1)}
-                            disabled={accountCreationStage === 3}
+                            disabled={accountCreationStage === 2}
                             className={styles["stage-button"]}
                         >
                             Next
