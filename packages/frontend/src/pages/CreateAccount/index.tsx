@@ -28,6 +28,10 @@ export function CreateAccount() {
                 return <AccountCreationForm />;
             case 1:
                 return <SetPersonalInformationForm />;
+            case 2:
+                return <SetPersonalInformationForm />;
+            case 3:
+                return <SetPersonalInformationForm />;
             default:
                 return null;
         }
