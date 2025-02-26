@@ -1,8 +1,6 @@
-import { useContext } from "react";
 import { Input, TextInput, PasswordInput, Button, Divider, Progress } from "@mantine/core";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CreateAccountContext } from "@/pages/CreateAccount";
 import { Icons } from "@/components/Icons";
 import { AccountCreationFormData, accountCreationFormDataSchema } from "./utils/zodSchema";
 import { google, facebook, x, github } from "./utils/logoSVG";
@@ -34,9 +32,11 @@ const createInputError = (errorMessage: string | undefined) => {
     ) : null;
 };
 
-export function AccountCreationForm() {
-    const { accountCreationStage, setAccountCreationStage } = useContext(CreateAccountContext);
+export type IAccountCreationForm = {
+    onSuccess: (data: AccountCreationFormData) => unknown;
+};
 
+export function AccountCreationForm({ onSuccess }: IAccountCreationForm) {
     const {
         register,
         handleSubmit,
@@ -50,7 +50,7 @@ export function AccountCreationForm() {
         // request account creation on backend, await response
 
         // on success
-        setAccountCreationStage(accountCreationStage + 1);
+        onSuccess(data);
     };
 
     return (

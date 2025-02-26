@@ -1,4 +1,4 @@
-import { useContext, useMemo } from "react";
+import { useState, useMemo } from "react";
 import {
     Input,
     TextInput,
@@ -11,7 +11,6 @@ import {
 } from "@mantine/core";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CreateAccountContext } from "@/pages/CreateAccount";
 import { Icons } from "@/components/Icons";
 import { PersonalInformationFormData, personalInformationFormDataSchema } from "./utils/zodSchema";
 import styles from "./index.module.css";
@@ -33,7 +32,7 @@ const createInputError = (errorMessage: string | undefined) => {
 };
 
 export function SetPersonalInformationForm() {
-    const { accountCreationStage, setAccountCreationStage } = useContext(CreateAccountContext);
+    const [currentStage, setCurrentStage] = useState<number>(0);
 
     const {
         control,
@@ -48,15 +47,15 @@ export function SetPersonalInformationForm() {
     const onSubmit: SubmitHandler<PersonalInformationFormData> = (data) => data;
 
     const headingText = useMemo(() => {
-        switch (accountCreationStage) {
-            case 1:
+        switch (currentStage) {
+            case 0:
                 return "Tell us more about yourself";
-            case 2:
+            case 1:
                 return "What is your address";
             default:
                 return null;
         }
-    }, [accountCreationStage]);
+    }, [currentStage]);
 
     const stage1Fields = useMemo(() => {
         return (
@@ -213,8 +212,8 @@ export function SetPersonalInformationForm() {
 
             <div className={styles["set-personal-information"]}>
                 <div className={styles["progress-container"]}>
-                    <p className={styles["stage-message"]}>Stage {accountCreationStage} of 2</p>
-                    <Progress value={(100 / 2) * (accountCreationStage - 1)} size="sm" />
+                    <p className={styles["stage-message"]}>Stage {currentStage + 1} of 2</p>
+                    <Progress value={(100 / 2) * (currentStage + 1)} size="sm" />
                 </div>
 
                 <Divider />
@@ -236,8 +235,8 @@ export function SetPersonalInformationForm() {
                             variant="filled"
                             color="green"
                             radius={9999}
-                            onClick={() => setAccountCreationStage(accountCreationStage - 1)}
-                            disabled={accountCreationStage === 1}
+                            onClick={() => setCurrentStage(currentStage - 1)}
+                            disabled={currentStage === 0}
                             className={styles["stage-button"]}
                         >
                             Prev
@@ -248,8 +247,8 @@ export function SetPersonalInformationForm() {
                             variant="filled"
                             color="green"
                             radius={9999}
-                            onClick={() => setAccountCreationStage(accountCreationStage + 1)}
-                            disabled={accountCreationStage === 2}
+                            onClick={() => setCurrentStage(currentStage + 1)}
+                            disabled={currentStage === 1}
                             className={styles["stage-button"]}
                         >
                             Next

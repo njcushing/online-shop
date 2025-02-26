@@ -1,50 +1,31 @@
-import { createContext, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { AccountCreationForm } from "@/features/AccountCreationForm";
 import { SetPersonalInformationForm } from "@/features/SetPersonalInformationForm";
 import styles from "./index.module.css";
 
-export interface ICreateAccountContext {
-    accountCreationStage: number;
-    setAccountCreationStage: React.Dispatch<React.SetStateAction<number>>;
-}
-
-const defaultCreateAccountContext: ICreateAccountContext = {
-    accountCreationStage: 1,
-    setAccountCreationStage: () => {},
-};
-
-export const CreateAccountContext = createContext<ICreateAccountContext>(
-    defaultCreateAccountContext,
-);
-
 export function CreateAccount() {
-    const [accountCreationStage, setAccountCreationStage] = useState<number>(
-        defaultCreateAccountContext.accountCreationStage,
-    );
+    const [currentStage, setCurrentStage] = useState<number>(1);
 
     const pageContent = useMemo(() => {
-        switch (accountCreationStage) {
+        switch (currentStage) {
             case 0:
-                return <AccountCreationForm />;
+                return (
+                    <AccountCreationForm
+                        onSuccess={() => {
+                            setCurrentStage(1);
+                        }}
+                    />
+                );
             case 1:
-                return <SetPersonalInformationForm />;
-            case 2:
                 return <SetPersonalInformationForm />;
             default:
                 return null;
         }
-    }, [accountCreationStage]);
+    }, [currentStage]);
 
     return (
-        <CreateAccountContext.Provider
-            value={useMemo(
-                () => ({ accountCreationStage, setAccountCreationStage }),
-                [accountCreationStage, setAccountCreationStage],
-            )}
-        >
-            <div className={styles["page"]}>
-                <div className={styles["page-content"]}>{pageContent}</div>
-            </div>
-        </CreateAccountContext.Provider>
+        <div className={styles["page"]}>
+            <div className={styles["page-content"]}>{pageContent}</div>
+        </div>
     );
 }
