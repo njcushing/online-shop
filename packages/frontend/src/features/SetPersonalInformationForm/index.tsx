@@ -31,6 +31,8 @@ const createInputError = (errorMessage: string | undefined) => {
     ) : null;
 };
 
+const formStages = 2;
+
 export function SetPersonalInformationForm() {
     const [currentStage, setCurrentStage] = useState<number>(0);
 
@@ -59,7 +61,7 @@ export function SetPersonalInformationForm() {
 
     const stage1Fields = useMemo(() => {
         return (
-            <>
+            <div className={styles["form-stage-container"]}>
                 <div className={styles["name-fields-container"]}>
                     <TextInput
                         {...register("firstName", { setValueAs: (v) => v || undefined })}
@@ -161,13 +163,13 @@ export function SetPersonalInformationForm() {
                 </fieldset>
 
                 {"dob" in errors && createInputError(errors.dob!.message)}
-            </>
+            </div>
         );
     }, [control, errors, register]);
 
     const stage2Fields = useMemo(() => {
         return (
-            <>
+            <div className={styles["form-stage-container"]}>
                 <TextInput
                     {...register("address.line1", { setValueAs: (v) => v || undefined })}
                     {...inputProps}
@@ -202,7 +204,7 @@ export function SetPersonalInformationForm() {
                     label="Postcode"
                     error={createInputError(errors.address?.postcode?.message)}
                 />
-            </>
+            </div>
         );
     }, [errors, register]);
 
@@ -212,8 +214,13 @@ export function SetPersonalInformationForm() {
 
             <div className={styles["set-personal-information"]}>
                 <div className={styles["progress-container"]}>
-                    <p className={styles["stage-message"]}>Stage {currentStage + 1} of 2</p>
-                    <Progress value={(100 / 2) * (currentStage + 1)} size="sm" />
+                    <p className={styles["stage-message"]}>
+                        Stage {currentStage + 1} of {formStages}
+                    </p>
+                    <Progress
+                        value={(100 / Math.max(1, formStages - 1)) * currentStage}
+                        size="sm"
+                    />
                 </div>
 
                 <Divider />
@@ -224,7 +231,12 @@ export function SetPersonalInformationForm() {
                     onSubmit={handleSubmit(onSubmit)}
                     noValidate
                 >
-                    <div className={styles["form-fields-container"]}>
+                    <div
+                        className={styles["form-fields-container"]}
+                        style={{
+                            translate: `${currentStage * 50 * -1}%`,
+                        }}
+                    >
                         {stage1Fields}
                         {stage2Fields}
                     </div>
