@@ -60,6 +60,8 @@ export function SetPersonalInformationForm() {
     }, [currentStage]);
 
     const stage1Fields = useMemo(() => {
+        const tabIndex = currentStage !== 0 ? -1 : undefined;
+
         return (
             <div
                 className={`${styles["form-stage-container"]} ${styles[currentStage === 0 ? "in" : "out"]}`}
@@ -72,6 +74,7 @@ export function SetPersonalInformationForm() {
                         placeholder="John"
                         error={createInputError(errors.firstName?.message)}
                         onFocus={() => setCurrentStage(0)}
+                        tabIndex={tabIndex}
                     />
 
                     <TextInput
@@ -81,6 +84,7 @@ export function SetPersonalInformationForm() {
                         placeholder="Smith"
                         error={createInputError(errors.lastName?.message)}
                         onFocus={() => setCurrentStage(0)}
+                        tabIndex={tabIndex}
                     />
                 </div>
 
@@ -91,6 +95,7 @@ export function SetPersonalInformationForm() {
                     placeholder="+44 7123 456789"
                     error={createInputError(errors.phone?.message)}
                     onFocus={() => setCurrentStage(0)}
+                    tabIndex={tabIndex}
                 />
 
                 <NativeSelect
@@ -106,6 +111,7 @@ export function SetPersonalInformationForm() {
                     defaultValue="unspecified"
                     error={createInputError(errors.gender?.message)}
                     onFocus={() => setCurrentStage(0)}
+                    tabIndex={tabIndex}
                 />
 
                 <Divider />
@@ -128,6 +134,7 @@ export function SetPersonalInformationForm() {
                                 error={createInputError(errors.dob?.day?.message)}
                                 onChange={(v) => field.onChange(v || undefined)}
                                 onFocus={() => setCurrentStage(0)}
+                                tabIndex={tabIndex}
                             />
                         )}
                     />
@@ -147,6 +154,7 @@ export function SetPersonalInformationForm() {
                                 error={createInputError(errors.dob?.month?.message)}
                                 onChange={(v) => field.onChange(v || undefined)}
                                 onFocus={() => setCurrentStage(0)}
+                                tabIndex={tabIndex}
                             />
                         )}
                     />
@@ -166,6 +174,7 @@ export function SetPersonalInformationForm() {
                                 error={createInputError(errors.dob?.year?.message)}
                                 onChange={(v) => field.onChange(v || undefined)}
                                 onFocus={() => setCurrentStage(0)}
+                                tabIndex={tabIndex}
                             />
                         )}
                     />
@@ -177,6 +186,8 @@ export function SetPersonalInformationForm() {
     }, [currentStage, control, errors, register]);
 
     const stage2Fields = useMemo(() => {
+        const tabIndex = currentStage !== 1 ? -1 : undefined;
+
         return (
             <div
                 className={`${styles["form-stage-container"]} ${styles[currentStage === 1 ? "in" : "out"]}`}
@@ -187,6 +198,7 @@ export function SetPersonalInformationForm() {
                     label="Line 1"
                     error={createInputError(errors.address?.line1?.message)}
                     onFocus={() => setCurrentStage(1)}
+                    tabIndex={tabIndex}
                 />
 
                 <TextInput
@@ -195,6 +207,7 @@ export function SetPersonalInformationForm() {
                     label="Line 2"
                     error={createInputError(errors.address?.line2?.message)}
                     onFocus={() => setCurrentStage(1)}
+                    tabIndex={tabIndex}
                 />
 
                 <TextInput
@@ -203,6 +216,7 @@ export function SetPersonalInformationForm() {
                     label="Town or City"
                     error={createInputError(errors.address?.townCity?.message)}
                     onFocus={() => setCurrentStage(1)}
+                    tabIndex={tabIndex}
                 />
 
                 <TextInput
@@ -211,6 +225,7 @@ export function SetPersonalInformationForm() {
                     label="County"
                     error={createInputError(errors.address?.county?.message)}
                     onFocus={() => setCurrentStage(1)}
+                    tabIndex={tabIndex}
                 />
 
                 <TextInput
@@ -219,6 +234,7 @@ export function SetPersonalInformationForm() {
                     label="Postcode"
                     error={createInputError(errors.address?.postcode?.message)}
                     onFocus={() => setCurrentStage(1)}
+                    tabIndex={tabIndex}
                 />
             </div>
         );
@@ -283,6 +299,16 @@ export function SetPersonalInformationForm() {
                             Next
                         </Button>
                     </div>
+
+                    <Button
+                        type="submit"
+                        variant="filled"
+                        color="orange"
+                        radius={9999}
+                        className={styles["skip-button"]}
+                    >
+                        Submit
+                    </Button>
                 </form>
 
                 <Divider />
