@@ -59,6 +59,8 @@
 }
 
 .form-stage-container.out {
+    pointer-events: none;
+
     opacity: 0;
 
     transition: opacity 0.14s ease-out 0s;
