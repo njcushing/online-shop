@@ -1,16 +1,6 @@
 import { z } from "zod";
-import {
-    Name,
-    name,
-    Phone,
-    phone,
-    Gender,
-    gender,
-    DOB,
-    dob,
-    Address,
-    address,
-} from "@/utils/schemas/user";
+import { Name, name, Phone, phone, Gender, gender, DOB, dob } from "@/utils/schemas/user";
+import { Postcode, postcode } from "@/utils/schemas/address";
 
 export type PersonalInformationFormData = {
     firstName?: Name;
@@ -18,7 +8,13 @@ export type PersonalInformationFormData = {
     phone?: Phone;
     gender: Gender;
     dob?: DOB;
-    address?: Address;
+    address?: {
+        line1?: string;
+        line2?: string;
+        townCity?: string;
+        county?: string;
+        postcode?: Postcode;
+    };
 };
 
 export const personalInformationFormDataSchema: z.ZodType<PersonalInformationFormData> = z.object({
@@ -27,5 +23,11 @@ export const personalInformationFormDataSchema: z.ZodType<PersonalInformationFor
     phone: phone.optional(),
     gender,
     dob: dob.optional(),
-    address: address.optional(),
+    address: z.object({
+        line1: z.string().optional(),
+        line2: z.string().optional(),
+        townCity: z.string().optional(),
+        county: z.string().optional(),
+        postcode: postcode.optional(),
+    }),
 });
