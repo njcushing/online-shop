@@ -50,6 +50,14 @@
     width: 100%;
 }
 
+.form-stage-container.in {
+    opacity: 1;
+}
+
+.form-stage-container.out {
+    opacity: 0;
+}
+
 .name-fields-container,
 .date-of-birth-fields-container {
     display: flex;

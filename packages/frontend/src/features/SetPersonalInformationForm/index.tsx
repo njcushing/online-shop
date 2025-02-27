@@ -61,7 +61,9 @@ export function SetPersonalInformationForm() {
 
     const stage1Fields = useMemo(() => {
         return (
-            <div className={styles["form-stage-container"]}>
+            <div
+                className={`${styles["form-stage-container"]} ${styles[currentStage === 0 ? "in" : "out"]}`}
+            >
                 <div className={styles["name-fields-container"]}>
                     <TextInput
                         {...register("firstName", { setValueAs: (v) => v || undefined })}
@@ -165,11 +167,13 @@ export function SetPersonalInformationForm() {
                 {"dob" in errors && createInputError(errors.dob!.message)}
             </div>
         );
-    }, [control, errors, register]);
+    }, [currentStage, control, errors, register]);
 
     const stage2Fields = useMemo(() => {
         return (
-            <div className={styles["form-stage-container"]}>
+            <div
+                className={`${styles["form-stage-container"]} ${styles[currentStage === 1 ? "in" : "out"]}`}
+            >
                 <TextInput
                     {...register("address.line1", { setValueAs: (v) => v || undefined })}
                     {...inputProps}
@@ -206,7 +210,7 @@ export function SetPersonalInformationForm() {
                 />
             </div>
         );
-    }, [errors, register]);
+    }, [currentStage, errors, register]);
 
     return (
         <>
