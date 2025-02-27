@@ -71,6 +71,7 @@ export function SetPersonalInformationForm() {
                         label="First name"
                         placeholder="John"
                         error={createInputError(errors.firstName?.message)}
+                        onFocus={() => setCurrentStage(0)}
                     />
 
                     <TextInput
@@ -79,6 +80,7 @@ export function SetPersonalInformationForm() {
                         label="Last name"
                         placeholder="Smith"
                         error={createInputError(errors.lastName?.message)}
+                        onFocus={() => setCurrentStage(0)}
                     />
                 </div>
 
@@ -88,6 +90,7 @@ export function SetPersonalInformationForm() {
                     label="Phone number"
                     placeholder="+44 7123 456789"
                     error={createInputError(errors.phone?.message)}
+                    onFocus={() => setCurrentStage(0)}
                 />
 
                 <NativeSelect
@@ -102,6 +105,7 @@ export function SetPersonalInformationForm() {
                     ]}
                     defaultValue="unspecified"
                     error={createInputError(errors.gender?.message)}
+                    onFocus={() => setCurrentStage(0)}
                 />
 
                 <Divider />
@@ -123,6 +127,7 @@ export function SetPersonalInformationForm() {
                                 hideControls
                                 error={createInputError(errors.dob?.day?.message)}
                                 onChange={(v) => field.onChange(v || undefined)}
+                                onFocus={() => setCurrentStage(0)}
                             />
                         )}
                     />
@@ -141,6 +146,7 @@ export function SetPersonalInformationForm() {
                                 hideControls
                                 error={createInputError(errors.dob?.month?.message)}
                                 onChange={(v) => field.onChange(v || undefined)}
+                                onFocus={() => setCurrentStage(0)}
                             />
                         )}
                     />
@@ -159,6 +165,7 @@ export function SetPersonalInformationForm() {
                                 hideControls
                                 error={createInputError(errors.dob?.year?.message)}
                                 onChange={(v) => field.onChange(v || undefined)}
+                                onFocus={() => setCurrentStage(0)}
                             />
                         )}
                     />
@@ -179,6 +186,7 @@ export function SetPersonalInformationForm() {
                     {...inputProps}
                     label="Line 1"
                     error={createInputError(errors.address?.line1?.message)}
+                    onFocus={() => setCurrentStage(1)}
                 />
 
                 <TextInput
@@ -186,6 +194,7 @@ export function SetPersonalInformationForm() {
                     {...inputProps}
                     label="Line 2"
                     error={createInputError(errors.address?.line2?.message)}
+                    onFocus={() => setCurrentStage(1)}
                 />
 
                 <TextInput
@@ -193,6 +202,7 @@ export function SetPersonalInformationForm() {
                     {...inputProps}
                     label="Town or City"
                     error={createInputError(errors.address?.townCity?.message)}
+                    onFocus={() => setCurrentStage(1)}
                 />
 
                 <TextInput
@@ -200,6 +210,7 @@ export function SetPersonalInformationForm() {
                     {...inputProps}
                     label="County"
                     error={createInputError(errors.address?.county?.message)}
+                    onFocus={() => setCurrentStage(1)}
                 />
 
                 <TextInput
@@ -207,6 +218,7 @@ export function SetPersonalInformationForm() {
                     {...inputProps}
                     label="Postcode"
                     error={createInputError(errors.address?.postcode?.message)}
+                    onFocus={() => setCurrentStage(1)}
                 />
             </div>
         );
