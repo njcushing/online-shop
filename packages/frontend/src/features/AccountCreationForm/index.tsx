@@ -1,20 +1,11 @@
 import { Input, TextInput, PasswordInput, Button, Divider, Progress } from "@mantine/core";
+import { MantineCoreExtended } from "@/components/MantineCoreExtended";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Icons } from "@/components/Icons";
 import { AccountCreationFormData, accountCreationFormDataSchema } from "./utils/zodSchema";
 import { google, facebook, x, github } from "./utils/logoSVG";
 import styles from "./index.module.css";
-
-const oauthButtonProps = {
-    variant: "outline",
-    color: "black",
-    radius: 9999,
-    classNames: {
-        inner: styles["oauth-button-inner"],
-        label: styles["oauth-button-label"],
-    },
-};
 
 const inputProps = {
     classNames: {
@@ -60,18 +51,18 @@ export function AccountCreationForm({ onSuccess }: IAccountCreationForm) {
                 <Divider />
 
                 <div className={styles["oauth-options"]}>
-                    <Button component="a" {...oauthButtonProps} leftSection={google}>
+                    <MantineCoreExtended.OAuthButton leftSection={google}>
                         Sign up with Google
-                    </Button>
-                    <Button component="a" {...oauthButtonProps} leftSection={facebook}>
+                    </MantineCoreExtended.OAuthButton>
+                    <MantineCoreExtended.OAuthButton leftSection={facebook}>
                         Sign up with Facebook
-                    </Button>
-                    <Button component="a" {...oauthButtonProps} leftSection={x}>
+                    </MantineCoreExtended.OAuthButton>
+                    <MantineCoreExtended.OAuthButton leftSection={x}>
                         Sign up with X
-                    </Button>
-                    <Button component="a" {...oauthButtonProps} leftSection={github}>
+                    </MantineCoreExtended.OAuthButton>
+                    <MantineCoreExtended.OAuthButton leftSection={github}>
                         Sign up with GitHub
-                    </Button>
+                    </MantineCoreExtended.OAuthButton>
                 </div>
 
                 <div className={styles["or-container"]}>
