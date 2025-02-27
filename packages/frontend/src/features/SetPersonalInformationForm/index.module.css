@@ -39,6 +39,8 @@
     flex-direction: column;
 
     width: 200%;
+
+    transition: translate 0.56s ease-out 0s;
 }
 
 .form-stage-container {
@@ -52,10 +54,14 @@
 
 .form-stage-container.in {
     opacity: 1;
+
+    transition: opacity 0.14s ease-out 0.28s;
 }
 
 .form-stage-container.out {
     opacity: 0;
+
+    transition: opacity 0.14s ease-out 0s;
 }
 
 .name-fields-container,
