@@ -236,6 +236,7 @@ export function SetPersonalInformationForm() {
                     <Progress
                         value={(100 / Math.max(1, formStages - 1)) * currentStage}
                         size="sm"
+                        transitionDuration={560}
                     />
                 </div>
 
