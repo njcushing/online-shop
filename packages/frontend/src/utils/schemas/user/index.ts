@@ -2,6 +2,21 @@ import { z } from "zod";
 import dayjs from "dayjs";
 import parsePhoneNumberFromString from "libphonenumber-js";
 
+export type Email = string;
+export const email: z.ZodType<Email> = z
+    .string()
+    .email("Invalid email format. Please use the following format: example@email.com");
+
+/*
+ * Password requirement of 8+ characters in length in line with NIST guidelines
+ * https://pages.nist.gov/800-63-3/sp800-63b.html
+ */
+
+export type Password = string;
+export const password: z.ZodType<Password> = z
+    .string()
+    .min(8, { message: "Please enter a password at least 8 characters in length" });
+
 export type Name = string;
 export const name: z.ZodType<Name> = z.string();
 

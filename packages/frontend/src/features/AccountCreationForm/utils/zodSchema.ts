@@ -1,9 +1,10 @@
 import { z } from "zod";
+import { Email, email, Password, password } from "@/utils/schemas/user";
 
 export type AccountCreationFormData = {
-    email: string;
-    password: string;
-    confirmPassword: string;
+    email: Email;
+    password: Password;
+    confirmPassword: Password;
 };
 
 /*
@@ -13,15 +14,9 @@ export type AccountCreationFormData = {
 
 export const accountCreationFormDataSchema: z.ZodType<AccountCreationFormData> = z
     .object({
-        email: z
-            .string()
-            .email("Invalid email format. Please use the following format: example@email.com"),
-        password: z
-            .string()
-            .min(8, { message: "Please enter a password at least 8 characters in length" }),
-        confirmPassword: z
-            .string()
-            .min(8, { message: "Please enter a password at least 8 characters in length" }),
+        email,
+        password,
+        confirmPassword: password,
     })
     .refine((data) => data.password === data.confirmPassword, {
         message: "Passwords do not match",
