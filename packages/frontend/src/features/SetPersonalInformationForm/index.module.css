@@ -42,11 +42,7 @@
 }
 
 .form-fields-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
     flex-direction: column;
-
-    width: 200%;
 
     transition: translate 0.56s ease-out 0s;
 }

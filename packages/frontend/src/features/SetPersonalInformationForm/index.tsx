@@ -271,7 +271,11 @@ export function SetPersonalInformationForm() {
                     <div
                         className={styles["form-fields-container"]}
                         style={{
-                            translate: `${currentStage * 50 * -1}%`,
+                            translate: `${currentStage * (100 / formStages) * -1}%`,
+
+                            display: "grid",
+                            gridTemplateColumns: `repeat(${formStages}, 1fr)`,
+                            width: `${100 * formStages}%`,
                         }}
                     >
                         {stage1Fields}
