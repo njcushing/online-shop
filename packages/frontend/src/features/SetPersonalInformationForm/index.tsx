@@ -94,7 +94,7 @@ export function SetPersonalInformationForm() {
                 />
 
                 <NativeSelect
-                    {...register("gender")}
+                    {...register("gender", { setValueAs: (v) => v || "unspecified" })}
                     {...inputProps}
                     label="Gender"
                     data={[
