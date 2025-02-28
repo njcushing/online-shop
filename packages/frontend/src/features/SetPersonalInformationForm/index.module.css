@@ -18,6 +18,14 @@
     font-weight: 500;
 }
 
+.return-button {
+    position: absolute;
+    translate: calc(-100% - 8px) 0%;
+
+    padding: 0px;
+    aspect-ratio: 1;
+}
+
 .set-personal-information {
     display: flex;
     flex-direction: column;
@@ -108,7 +116,7 @@
     width: 100%;
 }
 
-.stage-button {
+.next-button {
     font-size: 1rem;
 
     width: 100%;
@@ -119,9 +127,9 @@
 
     font-size: 0.9rem;
 
-    width: min-content;
+    width: 100%;
     height: min-content;
-    padding: 8px 12px;
+    padding: 6px 12px;
 }
 
 .skip-warning-hovercard {

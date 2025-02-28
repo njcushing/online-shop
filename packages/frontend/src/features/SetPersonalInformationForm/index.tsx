@@ -12,6 +12,7 @@ import {
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Icons } from "@/components/Icons";
+import { CaretLeft } from "@phosphor-icons/react";
 import { PersonalInformationFormData, personalInformationFormDataSchema } from "./utils/zodSchema";
 import styles from "./index.module.css";
 
@@ -247,6 +248,18 @@ export function SetPersonalInformationForm() {
                     />
                 </div>
 
+                {currentStage > 0 && (
+                    <Button
+                        type="button"
+                        variant="transparent"
+                        radius={9999}
+                        onClick={() => setCurrentStage(currentStage - 1)}
+                        className={styles["return-button"]}
+                    >
+                        <CaretLeft size={24} color="var(--mantine-color-text, black)" />
+                    </Button>
+                )}
+
                 <Divider />
 
                 <form
@@ -265,40 +278,25 @@ export function SetPersonalInformationForm() {
                         {stage2Fields}
                     </div>
 
-                    <div className={styles["stage-buttons-container"]}>
-                        <Button
-                            type="button"
-                            variant="filled"
-                            color="green"
-                            radius={9999}
-                            onClick={() => setCurrentStage(currentStage - 1)}
-                            disabled={currentStage === 0}
-                            className={styles["stage-button"]}
-                        >
-                            Prev
-                        </Button>
-
-                        <Button
-                            type="button"
-                            variant="filled"
-                            color="green"
-                            radius={9999}
-                            onClick={() => setCurrentStage(currentStage + 1)}
-                            disabled={currentStage === 1}
-                            className={styles["stage-button"]}
-                        >
-                            Next
-                        </Button>
-                    </div>
-
                     <Button
-                        type="submit"
+                        type={currentStage < formStages - 1 ? "button" : "submit"}
                         variant="filled"
-                        color="orange"
+                        color="green"
                         radius={9999}
-                        className={styles["skip-button"]}
+                        onClick={(e) => {
+                            if (currentStage < formStages - 1) {
+                                setCurrentStage(currentStage + 1);
+
+                                // Button was attempting to immediately submit after clicking 'next'
+                                // from penultimate stage
+                                e.preventDefault();
+                            } else if (!Object.keys(formState.errors).length) {
+                                handleSubmit(onSubmit);
+                            }
+                        }}
+                        className={styles["next-button"]}
                     >
-                        Submit
+                        {currentStage < formStages - 1 ? "Next" : "Submit"}
                     </Button>
                 </form>
 
