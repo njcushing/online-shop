@@ -129,18 +129,18 @@
     flex-direction: row;
     gap: 8px;
 
-    border-color: #aa9243;
-    background-color: #aa9243;
+    border-color: #f8b420;
+    background-color: #f8b420;
 
     padding: 12px;
 }
 
 .skip-warning-hovercard > * {
-    border-color: #aa9243; /* For HoverCard arrow */
+    border-color: #f8b420; /* For HoverCard arrow */
 }
 
 .skip-warning-message {
-    color: #fdff98;
+    color: black;
     line-height: 1.2rem;
     font-size: 0.9rem;
     font-weight: 500;

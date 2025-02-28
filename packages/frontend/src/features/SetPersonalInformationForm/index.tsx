@@ -317,11 +317,7 @@ export function SetPersonalInformationForm() {
                         </Button>
                     </HoverCard.Target>
                     <HoverCard.Dropdown className={styles["skip-warning-hovercard"]}>
-                        <Icons.ExclamationMark
-                            width="18"
-                            height="18"
-                            style={{ stroke: "#fdff98" }}
-                        />
+                        <Icons.ExclamationMark width="18" height="18" style={{ stroke: "black" }} />
                         <p className={styles["skip-warning-message"]}>
                             Some of this information will be required later for shipping.
                         </p>
