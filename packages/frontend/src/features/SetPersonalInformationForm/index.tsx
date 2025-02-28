@@ -69,7 +69,6 @@ export function SetPersonalInformationForm() {
                         {...register("firstName", { setValueAs: (v) => v || undefined })}
                         {...inputProps}
                         label="First name"
-                        placeholder="John"
                         error={createInputError(errors.firstName?.message)}
                         onFocus={() => setCurrentStage(stage)}
                         tabIndex={tabIndex}
@@ -79,7 +78,6 @@ export function SetPersonalInformationForm() {
                         {...register("lastName", { setValueAs: (v) => v || undefined })}
                         {...inputProps}
                         label="Last name"
-                        placeholder="Smith"
                         error={createInputError(errors.lastName?.message)}
                         onFocus={() => setCurrentStage(stage)}
                         tabIndex={tabIndex}
@@ -90,7 +88,6 @@ export function SetPersonalInformationForm() {
                     {...register("phone", { setValueAs: (v) => v || undefined })}
                     {...inputProps}
                     label="Phone number"
-                    placeholder="+44 7123 456789"
                     error={createInputError(errors.phone?.message)}
                     onFocus={() => setCurrentStage(stage)}
                     tabIndex={tabIndex}
@@ -125,7 +122,6 @@ export function SetPersonalInformationForm() {
                                 {...field}
                                 {...inputProps}
                                 label="Day"
-                                placeholder="27"
                                 hideControls
                                 error={createInputError(errors.dob?.day?.message)}
                                 onChange={(v) => field.onChange(v || undefined)}
@@ -143,7 +139,6 @@ export function SetPersonalInformationForm() {
                                 {...field}
                                 {...inputProps}
                                 label="Month"
-                                placeholder="3"
                                 hideControls
                                 error={createInputError(errors.dob?.month?.message)}
                                 onChange={(v) => field.onChange(v || undefined)}
@@ -161,7 +156,6 @@ export function SetPersonalInformationForm() {
                                 {...field}
                                 {...inputProps}
                                 label="Year"
-                                placeholder="1996"
                                 hideControls
                                 error={createInputError(errors.dob?.year?.message)}
                                 onChange={(v) => field.onChange(v || undefined)}
