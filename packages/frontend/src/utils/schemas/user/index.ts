@@ -73,7 +73,7 @@ export const dob: z.ZodType<DOB> = z
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 message: "Please define either all date fields, or none",
-                path: ["dob"],
+                path: ["root"],
             });
         }
 
@@ -84,7 +84,7 @@ export const dob: z.ZodType<DOB> = z
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 message: "Invalid date. Please enter a valid calendar date",
-                path: ["dob"],
+                path: ["root"],
             });
         }
 
@@ -92,7 +92,7 @@ export const dob: z.ZodType<DOB> = z
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 message: "You must be at least 13 years old to make an account",
-                path: ["dob"],
+                path: ["root"],
             });
         }
 
@@ -100,22 +100,7 @@ export const dob: z.ZodType<DOB> = z
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 message: "Date of birth must be after 1st January 1875",
-                path: ["dob"],
+                path: ["root"],
             });
         }
     });
-
-export type Address = {
-    line1?: string;
-    line2?: string;
-    townCity?: string;
-    county?: string;
-    postcode?: string;
-};
-export const address: z.ZodType<Address> = z.object({
-    line1: z.string().optional(),
-    line2: z.string().optional(),
-    townCity: z.string().optional(),
-    county: z.string().optional(),
-    postcode: z.string().optional(),
-});
