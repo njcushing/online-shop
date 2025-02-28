@@ -36,16 +36,11 @@ const formStages = 2;
 export function SetPersonalInformationForm() {
     const [currentStage, setCurrentStage] = useState<number>(0);
 
-    const {
-        control,
-        register,
-        handleSubmit,
-        watch,
-        formState: { errors },
-    } = useForm<PersonalInformationFormData>({
-        mode: "onTouched",
-        resolver: zodResolver(personalInformationFormDataSchema),
-    });
+    const { control, register, handleSubmit, watch, formState } =
+        useForm<PersonalInformationFormData>({
+            mode: "onTouched",
+            resolver: zodResolver(personalInformationFormDataSchema),
+        });
     const onSubmit: SubmitHandler<PersonalInformationFormData> = (data) => data;
 
     const headingText = useMemo(() => {
@@ -60,11 +55,14 @@ export function SetPersonalInformationForm() {
     }, [currentStage]);
 
     const stage1Fields = useMemo(() => {
+        const stage = 0;
         const tabIndex = currentStage !== 0 ? -1 : undefined;
+
+        const { errors } = formState;
 
         return (
             <div
-                className={`${styles["form-stage-container"]} ${styles[currentStage === 0 ? "in" : "out"]}`}
+                className={`${styles["form-stage-container"]} ${styles[currentStage === stage ? "in" : "out"]}`}
             >
                 <div className={styles["name-fields-container"]}>
                     <TextInput
@@ -73,7 +71,7 @@ export function SetPersonalInformationForm() {
                         label="First name"
                         placeholder="John"
                         error={createInputError(errors.firstName?.message)}
-                        onFocus={() => setCurrentStage(0)}
+                        onFocus={() => setCurrentStage(stage)}
                         tabIndex={tabIndex}
                     />
 
@@ -83,7 +81,7 @@ export function SetPersonalInformationForm() {
                         label="Last name"
                         placeholder="Smith"
                         error={createInputError(errors.lastName?.message)}
-                        onFocus={() => setCurrentStage(0)}
+                        onFocus={() => setCurrentStage(stage)}
                         tabIndex={tabIndex}
                     />
                 </div>
@@ -94,7 +92,7 @@ export function SetPersonalInformationForm() {
                     label="Phone number"
                     placeholder="+44 7123 456789"
                     error={createInputError(errors.phone?.message)}
-                    onFocus={() => setCurrentStage(0)}
+                    onFocus={() => setCurrentStage(stage)}
                     tabIndex={tabIndex}
                 />
 
@@ -110,7 +108,7 @@ export function SetPersonalInformationForm() {
                     ]}
                     defaultValue="unspecified"
                     error={createInputError(errors.gender?.message)}
-                    onFocus={() => setCurrentStage(0)}
+                    onFocus={() => setCurrentStage(stage)}
                     tabIndex={tabIndex}
                 />
 
@@ -128,12 +126,10 @@ export function SetPersonalInformationForm() {
                                 {...inputProps}
                                 label="Day"
                                 placeholder="27"
-                                min={1}
-                                max={31}
                                 hideControls
                                 error={createInputError(errors.dob?.day?.message)}
                                 onChange={(v) => field.onChange(v || undefined)}
-                                onFocus={() => setCurrentStage(0)}
+                                onFocus={() => setCurrentStage(stage)}
                                 tabIndex={tabIndex}
                             />
                         )}
@@ -148,12 +144,10 @@ export function SetPersonalInformationForm() {
                                 {...inputProps}
                                 label="Month"
                                 placeholder="3"
-                                min={1}
-                                max={12}
                                 hideControls
                                 error={createInputError(errors.dob?.month?.message)}
                                 onChange={(v) => field.onChange(v || undefined)}
-                                onFocus={() => setCurrentStage(0)}
+                                onFocus={() => setCurrentStage(stage)}
                                 tabIndex={tabIndex}
                             />
                         )}
@@ -168,36 +162,39 @@ export function SetPersonalInformationForm() {
                                 {...inputProps}
                                 label="Year"
                                 placeholder="1996"
-                                min={1875}
-                                max={new Date().getFullYear()}
                                 hideControls
                                 error={createInputError(errors.dob?.year?.message)}
                                 onChange={(v) => field.onChange(v || undefined)}
-                                onFocus={() => setCurrentStage(0)}
+                                onFocus={() => setCurrentStage(stage)}
                                 tabIndex={tabIndex}
                             />
                         )}
                     />
                 </fieldset>
 
-                {"dob" in errors && createInputError(errors.dob!.message)}
+                {"dob" in errors &&
+                    "root" in errors.dob! &&
+                    createInputError(errors.dob!.root!.message)}
             </div>
         );
-    }, [currentStage, control, errors, register]);
+    }, [currentStage, control, formState, register]);
 
     const stage2Fields = useMemo(() => {
+        const stage = 1;
         const tabIndex = currentStage !== 1 ? -1 : undefined;
+
+        const { errors } = formState;
 
         return (
             <div
-                className={`${styles["form-stage-container"]} ${styles[currentStage === 1 ? "in" : "out"]}`}
+                className={`${styles["form-stage-container"]} ${styles[currentStage === stage ? "in" : "out"]}`}
             >
                 <TextInput
                     {...register("address.line1", { setValueAs: (v) => v || undefined })}
                     {...inputProps}
                     label="Line 1"
                     error={createInputError(errors.address?.line1?.message)}
-                    onFocus={() => setCurrentStage(1)}
+                    onFocus={() => setCurrentStage(stage)}
                     tabIndex={tabIndex}
                 />
 
@@ -206,7 +203,7 @@ export function SetPersonalInformationForm() {
                     {...inputProps}
                     label="Line 2"
                     error={createInputError(errors.address?.line2?.message)}
-                    onFocus={() => setCurrentStage(1)}
+                    onFocus={() => setCurrentStage(stage)}
                     tabIndex={tabIndex}
                 />
 
@@ -215,7 +212,7 @@ export function SetPersonalInformationForm() {
                     {...inputProps}
                     label="Town or City"
                     error={createInputError(errors.address?.townCity?.message)}
-                    onFocus={() => setCurrentStage(1)}
+                    onFocus={() => setCurrentStage(stage)}
                     tabIndex={tabIndex}
                 />
 
@@ -224,7 +221,7 @@ export function SetPersonalInformationForm() {
                     {...inputProps}
                     label="County"
                     error={createInputError(errors.address?.county?.message)}
-                    onFocus={() => setCurrentStage(1)}
+                    onFocus={() => setCurrentStage(stage)}
                     tabIndex={tabIndex}
                 />
 
@@ -233,12 +230,12 @@ export function SetPersonalInformationForm() {
                     {...inputProps}
                     label="Postcode"
                     error={createInputError(errors.address?.postcode?.message)}
-                    onFocus={() => setCurrentStage(1)}
+                    onFocus={() => setCurrentStage(stage)}
                     tabIndex={tabIndex}
                 />
             </div>
         );
-    }, [currentStage, errors, register]);
+    }, [currentStage, formState, register]);
 
     return (
         <>
@@ -332,7 +329,7 @@ export function SetPersonalInformationForm() {
                             style={{ stroke: "#fdff98" }}
                         />
                         <p className={styles["skip-warning-message"]}>
-                            This information will be required for shipping later.
+                            Some of this information will be required later for shipping.
                         </p>
                     </HoverCard.Dropdown>
                 </HoverCard>
