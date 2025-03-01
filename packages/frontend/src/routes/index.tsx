@@ -14,6 +14,16 @@ export function Router() {
             errorElement: <div></div>,
         },
         {
+            path: "/terms-and-conditions",
+            element: <Pages.TermsAndConditions />,
+            errorElement: <div></div>,
+        },
+        {
+            path: "/privacy-policy",
+            element: <Pages.PrivacyPolicy />,
+            errorElement: <div></div>,
+        },
+        {
             path: "/",
             element: <Pages.Root />,
             children: Routes.Root,
