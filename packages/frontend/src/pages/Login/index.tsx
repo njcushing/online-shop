@@ -4,7 +4,9 @@ import styles from "./index.module.css";
 export function Login() {
     return (
         <div className={styles["page"]}>
-            <LoginForm />
+            <div className={styles["page-content"]}>
+                <LoginForm />
+            </div>
         </div>
     );
 }
