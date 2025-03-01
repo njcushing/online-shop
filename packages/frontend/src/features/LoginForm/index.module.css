@@ -1,0 +1,84 @@
+.page-heading {
+    font-family: "Radio Canada Big";
+    font-size: 2.75rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.log-in {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    width: 100%;
+    padding: 8px;
+}
+
+.oauth-options {
+    align-self: center;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    width: 100%;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-fields-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    width: 100%;
+}
+
+.form-field-input {
+    font-size: 0.9rem;
+    font-weight: 400;
+
+    background-color: transparent;
+}
+
+.form-field-error-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 4px;
+}
+
+.form-field-input-error {
+    font-size: 0.825rem;
+}
+
+.terms-message {
+    font-size: 0.7rem;
+    text-align: center;
+
+    width: 100%;
+}
+
+.log-in-button {
+    font-size: 1rem;
+}
+
+.forgot-password-message {
+    font-size: 0.92rem;
+    font-weight: 500;
+    text-align: center;
+
+    width: 100%;
+}
+
+.create-account-message {
+    font-size: 0.96rem;
+    font-weight: 500;
+    text-align: center;
+
+    width: 100%;
+}
