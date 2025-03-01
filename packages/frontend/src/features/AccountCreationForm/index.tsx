@@ -84,7 +84,6 @@ export function AccountCreationForm({ onSuccess }: IAccountCreationForm) {
                             {...register("email", { required: true })}
                             {...inputProps}
                             label="Email address"
-                            placeholder="Email address"
                             required
                             error={createInputError(errors.email?.message)}
                         />
@@ -93,7 +92,6 @@ export function AccountCreationForm({ onSuccess }: IAccountCreationForm) {
                             {...register("password", { required: true })}
                             {...inputProps}
                             label="Password"
-                            placeholder="Password"
                             required
                             error={createInputError(errors.password?.message)}
                         />
@@ -106,7 +104,6 @@ export function AccountCreationForm({ onSuccess }: IAccountCreationForm) {
                             {...register("confirmPassword", { required: true })}
                             {...inputProps}
                             label="Confirm password"
-                            placeholder="Confirm password"
                             required
                             error={createInputError(errors.confirmPassword?.message)}
                         />
