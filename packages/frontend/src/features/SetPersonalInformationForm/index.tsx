@@ -37,11 +37,10 @@ const formStages = 2;
 export function SetPersonalInformationForm() {
     const [currentStage, setCurrentStage] = useState<number>(0);
 
-    const { control, register, handleSubmit, watch, formState } =
-        useForm<PersonalInformationFormData>({
-            mode: "onTouched",
-            resolver: zodResolver(personalInformationFormDataSchema),
-        });
+    const { control, register, handleSubmit, formState } = useForm<PersonalInformationFormData>({
+        mode: "onTouched",
+        resolver: zodResolver(personalInformationFormDataSchema),
+    });
     const onSubmit: SubmitHandler<PersonalInformationFormData> = (data) => data;
 
     const headingText = useMemo(() => {
