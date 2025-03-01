@@ -34,14 +34,23 @@ const createInputError = (errorMessage: string | undefined) => {
 
 const formStages = 2;
 
-export function SetPersonalInformationForm() {
+export type ISetPersonalInformationForm = {
+    onSuccess: (data: PersonalInformationFormData) => unknown;
+};
+
+export function SetPersonalInformationForm({ onSuccess }: ISetPersonalInformationForm) {
     const [currentStage, setCurrentStage] = useState<number>(0);
 
     const { control, register, handleSubmit, formState } = useForm<PersonalInformationFormData>({
         mode: "onTouched",
         resolver: zodResolver(personalInformationFormDataSchema),
     });
-    const onSubmit: SubmitHandler<PersonalInformationFormData> = (data) => data;
+    const onSubmit: SubmitHandler<PersonalInformationFormData> = (data) => {
+        // request personal information update on backend, await response
+
+        // on success
+        onSuccess(data);
+    };
 
     const headingText = useMemo(() => {
         switch (currentStage) {
