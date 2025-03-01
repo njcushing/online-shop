@@ -1,6 +1,7 @@
 import { Input, TextInput, PasswordInput, Button, Divider, Progress } from "@mantine/core";
 import { MantineCoreExtended } from "@/components/MantineCoreExtended";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Icons } from "@/components/Icons";
 import { google, facebook, x, github } from "@/utils/svgs/logos";
@@ -111,7 +112,7 @@ export function AccountCreationForm({ onSuccess }: IAccountCreationForm) {
 
                     <p className={styles["terms-message"]}>
                         By clicking Sign up, you agree to the{" "}
-                        <a href="/terms-and-conditions">Terms and Conditions</a>.
+                        <Link to="/terms-and-conditions">Terms and Conditions</Link>.
                     </p>
 
                     <Button
@@ -128,7 +129,7 @@ export function AccountCreationForm({ onSuccess }: IAccountCreationForm) {
                 <Divider />
 
                 <p className={styles["login-message"]}>
-                    Already have an account? <a href="/login">Log in here</a>.
+                    Already have an account? <Link to="/login">Log in here</Link>.
                 </p>
             </div>
         </>

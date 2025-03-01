@@ -1,6 +1,7 @@
 import { Input, TextInput, PasswordInput, Button, Divider } from "@mantine/core";
 import { MantineCoreExtended } from "@/components/MantineCoreExtended";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Icons } from "@/components/Icons";
 import { google, facebook, x, github } from "@/utils/svgs/logos";
@@ -106,11 +107,12 @@ export function LoginForm({ onSuccess }: ILoginForm) {
                 <Divider />
 
                 <p className={styles["forgot-password-message"]}>
-                    <a href="/login">Forgot your password?</a>
+                    <Link to="/login">Forgot your password?</Link>
                 </p>
 
                 <p className={styles["create-account-message"]}>
-                    Don&apos;t have an account? <a href="/create-account">Create one for free</a>.
+                    Don&apos;t have an account?{" "}
+                    <Link to="/create-account">Create one for free</Link>.
                 </p>
             </div>
         </>
