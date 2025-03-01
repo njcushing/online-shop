@@ -3,8 +3,8 @@ import { MantineCoreExtended } from "@/components/MantineCoreExtended";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Icons } from "@/components/Icons";
+import { google, facebook, x, github } from "@/utils/svgs/logos";
 import { AccountCreationFormData, accountCreationFormDataSchema } from "./utils/zodSchema";
-import { google, facebook, x, github } from "./utils/logoSVG";
 import styles from "./index.module.css";
 
 const inputProps = {
