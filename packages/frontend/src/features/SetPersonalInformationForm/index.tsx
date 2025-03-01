@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import {
     Input,
     TextInput,
@@ -39,6 +40,8 @@ export type ISetPersonalInformationForm = {
 };
 
 export function SetPersonalInformationForm({ onSuccess }: ISetPersonalInformationForm) {
+    const navigate = useNavigate();
+
     const [currentStage, setCurrentStage] = useState<number>(0);
 
     const { control, register, handleSubmit, formState } = useForm<PersonalInformationFormData>({
@@ -321,6 +324,7 @@ export function SetPersonalInformationForm({ onSuccess }: ISetPersonalInformatio
                             variant="filled"
                             color="orange"
                             radius={9999}
+                            onClick={() => navigate("/")}
                             className={styles["skip-button"]}
                         >
                             Skip for now
