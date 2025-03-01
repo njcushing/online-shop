@@ -77,6 +77,8 @@ export function LoginForm({ onSuccess }: ILoginForm) {
                             {...(register("email"), { required: true })}
                             {...inputProps}
                             label="Email address"
+                            required
+                            styles={{ required: { display: "none" } }} // Hiding asterisk
                             error={createInputError(errors.email?.message)}
                         />
 
@@ -84,6 +86,8 @@ export function LoginForm({ onSuccess }: ILoginForm) {
                             {...(register("password"), { required: true })}
                             {...inputProps}
                             label="Password"
+                            required
+                            styles={{ required: { display: "none" } }} // Hiding asterisk
                             error={createInputError(errors.password?.message)}
                         />
                     </div>
