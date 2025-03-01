@@ -7,7 +7,7 @@ import styles from "./index.module.css";
 export function CreateAccount() {
     const navigate = useNavigate();
 
-    const [currentStage, setCurrentStage] = useState<number>(1);
+    const [currentStage, setCurrentStage] = useState<number>(0);
 
     const pageContent = useMemo(() => {
         switch (currentStage) {
