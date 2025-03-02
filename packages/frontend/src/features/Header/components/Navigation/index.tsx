@@ -22,11 +22,10 @@ export function Navigation() {
                 </ActionIcon>
             </div>
             <div className={styles["categories"]}>
-                <Anchor className={styles["option"]}>Option A</Anchor>
-                <Anchor className={styles["option"]}>Option B</Anchor>
-                <Anchor className={styles["option"]}>Option C</Anchor>
-                <Anchor className={styles["option"]}>Option D</Anchor>
-                <Anchor className={styles["option"]}>Option E</Anchor>
+                <Anchor className={styles["option"]}>Coffee</Anchor>
+                <Anchor className={styles["option"]}>Equipment</Anchor>
+                <Anchor className={styles["option"]}>Accessories</Anchor>
+                <Anchor className={styles["option"]}>Gifts & Subscriptions</Anchor>
                 <Menu position="bottom-end" withArrow onClose={() => setBurgerToggled(false)}>
                     <Menu.Target>
                         <Burger
