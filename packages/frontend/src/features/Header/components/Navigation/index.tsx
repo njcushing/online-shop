@@ -1,12 +1,10 @@
-import { useState } from "react";
-import { Anchor, Burger, Menu, ActionIcon } from "@mantine/core";
+import { ActionIcon } from "@mantine/core";
 import { MagnifyingGlass, User, ShoppingCartSimple } from "@phosphor-icons/react";
+import { Link } from "react-router-dom";
 import { Logo } from "./components/Logo";
 import styles from "./index.module.css";
 
 export function Navigation() {
-    const [burgerToggled, setBurgerToggled] = useState<boolean>(false);
-
     return (
         <nav className={styles["navigation"]}>
             <Logo />
@@ -22,10 +20,18 @@ export function Navigation() {
                 </ActionIcon>
             </div>
             <div className={styles["categories"]}>
-                <Anchor className={styles["option"]}>Coffee</Anchor>
-                <Anchor className={styles["option"]}>Equipment</Anchor>
-                <Anchor className={styles["option"]}>Accessories</Anchor>
-                <Anchor className={styles["option"]}>Gifts & Subscriptions</Anchor>
+                <Link to="/c/coffee" className={styles["option"]}>
+                    Coffee
+                </Link>
+                <Link to="/c/equipment" className={styles["option"]}>
+                    Equipment
+                </Link>
+                <Link to="/c/accessories" className={styles["option"]}>
+                    Accessories
+                </Link>
+                <Link to="/c/gifts_subscriptions" className={styles["option"]}>
+                    Gifts & Subscriptions
+                </Link>
             </div>
         </nav>
     );
