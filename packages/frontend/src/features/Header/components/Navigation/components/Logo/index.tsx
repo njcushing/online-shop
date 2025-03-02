@@ -1,5 +1,10 @@
+import { Link } from "react-router-dom";
 import styles from "./index.module.css";
 
 export function Logo() {
-    return <div className={styles["logo"]}>Cafree</div>;
+    return (
+        <Link to="/" className={styles["logo"]}>
+            Cafree
+        </Link>
+    );
 }
