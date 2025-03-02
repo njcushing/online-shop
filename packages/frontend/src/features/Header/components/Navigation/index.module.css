@@ -40,7 +40,9 @@
 }
 
 .option {
-    font-weight: 700;
+    color: black;
+    font-size: 0.9rem;
+    font-weight: 400;
     text-wrap: nowrap;
 
     padding: 4px;
