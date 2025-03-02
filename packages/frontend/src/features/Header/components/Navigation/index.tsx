@@ -26,31 +26,34 @@ export function Navigation() {
                 <Anchor className={styles["option"]}>Equipment</Anchor>
                 <Anchor className={styles["option"]}>Accessories</Anchor>
                 <Anchor className={styles["option"]}>Gifts & Subscriptions</Anchor>
-                <Menu position="bottom-end" withArrow onClose={() => setBurgerToggled(false)}>
-                    <Menu.Target>
-                        <Burger
-                            lineSize={6}
-                            size="32px"
-                            opened={burgerToggled}
-                            onClick={() => {
-                                setBurgerToggled(!burgerToggled);
-                            }}
-                            aria-label="Toggle navigation"
-                        ></Burger>
-                    </Menu.Target>
-                    <Menu.Dropdown>
-                        <Menu.Item>
-                            <Anchor className={styles["option"]}>Option F</Anchor>
-                        </Menu.Item>
-                        <Menu.Item>
-                            <Anchor className={styles["option"]}>Option G</Anchor>
-                        </Menu.Item>
-                        <Menu.Item>
-                            <Anchor className={styles["option"]}>Option H</Anchor>
-                        </Menu.Item>
-                    </Menu.Dropdown>
-                </Menu>
             </div>
         </nav>
     );
 }
+
+/*
+    <Menu position="bottom-end" withArrow onClose={() => setBurgerToggled(false)}>
+        <Menu.Target>
+            <Burger
+                lineSize={2}
+                size="32px"
+                opened={burgerToggled}
+                onClick={() => {
+                    setBurgerToggled(!burgerToggled);
+                }}
+                aria-label="Toggle navigation"
+            ></Burger>
+        </Menu.Target>
+        <Menu.Dropdown>
+            <Menu.Item>
+                <Anchor className={styles["option"]}>Option F</Anchor>
+            </Menu.Item>
+            <Menu.Item>
+                <Anchor className={styles["option"]}>Option G</Anchor>
+            </Menu.Item>
+            <Menu.Item>
+                <Anchor className={styles["option"]}>Option H</Anchor>
+            </Menu.Item>
+        </Menu.Dropdown>
+    </Menu>
+*/
