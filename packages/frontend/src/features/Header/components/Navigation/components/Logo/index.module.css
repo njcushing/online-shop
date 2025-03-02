@@ -1,21 +1,14 @@
 .logo {
     flex-shrink: 0;
 
-    border: 2px solid black;
-
-    width: 140px;
-    height: 40px;
-}
-
-.logo::after {
-    content: "Logo";
-
-    font-weight: 700;
-
     display: flex;
     justify-content: center;
     align-items: center;
 
-    width: 100%;
-    height: 100%;
+    font-weight: 700;
+
+    border: 2px solid black;
+
+    width: 140px;
+    height: 40px;
 }
