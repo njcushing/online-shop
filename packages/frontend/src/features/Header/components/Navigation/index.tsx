@@ -10,6 +10,17 @@ export function Navigation() {
     return (
         <nav className={styles["navigation"]}>
             <Logo />
+            <div className={styles["other-links"]}>
+                <ActionIcon variant="transparent" color="gray" aria-label="Search">
+                    <MagnifyingGlass size={48} color="black" />
+                </ActionIcon>
+                <ActionIcon variant="transparent" color="gray" aria-label="User">
+                    <User size={48} color="black" />
+                </ActionIcon>
+                <ActionIcon variant="transparent" color="gray" aria-label="Cart">
+                    <ShoppingCartSimple size={48} color="black" />
+                </ActionIcon>
+            </div>
             <div className={styles["categories"]}>
                 <Anchor className={styles["option"]}>Option A</Anchor>
                 <Anchor className={styles["option"]}>Option B</Anchor>
@@ -40,17 +51,6 @@ export function Navigation() {
                         </Menu.Item>
                     </Menu.Dropdown>
                 </Menu>
-            </div>
-            <div className={styles["other-links"]}>
-                <ActionIcon variant="transparent" color="gray" aria-label="Search">
-                    <MagnifyingGlass size={48} color="black" />
-                </ActionIcon>
-                <ActionIcon variant="transparent" color="gray" aria-label="User">
-                    <User size={48} color="black" />
-                </ActionIcon>
-                <ActionIcon variant="transparent" color="gray" aria-label="Cart">
-                    <ShoppingCartSimple size={48} color="black" />
-                </ActionIcon>
             </div>
         </nav>
     );
