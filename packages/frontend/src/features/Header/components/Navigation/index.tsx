@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Anchor, Burger, Menu, ActionIcon } from "@mantine/core";
 import { MagnifyingGlass, User, ShoppingCartSimple } from "@phosphor-icons/react";
+import { Logo } from "./components/Logo";
 import styles from "./index.module.css";
 
 export function Navigation() {
@@ -8,6 +9,7 @@ export function Navigation() {
 
     return (
         <nav className={styles["navigation"]}>
+            <Logo />
             <div className={styles["categories"]}>
                 <Anchor className={styles["option"]}>Option A</Anchor>
                 <Anchor className={styles["option"]}>Option B</Anchor>
