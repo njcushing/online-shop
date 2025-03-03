@@ -2,9 +2,13 @@
     position: absolute;
     top: 0;
 
-    border: 2px solid black;
+    background-color: rgb(255, 218, 115);
 
     width: 100%;
     height: min-content;
-    padding: 16px;
+    padding: 16px 16px 4px;
+
+    @media (max-width: $mantine-breakpoint-lg) {
+        padding: 16px;
+    }
 }
