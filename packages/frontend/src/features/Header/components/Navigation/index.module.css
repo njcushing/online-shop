@@ -8,6 +8,11 @@
 
     width: 100%;
     height: min-content;
+
+    @media (max-width: $mantine-breakpoint-lg) {
+        grid-template-rows: auto;
+        grid-template-columns: auto auto 1fr;
+    }
 }
 
 .other-links {
@@ -19,10 +24,12 @@
     align-items: center;
     gap: 16px;
 
-    border: 1px solid black;
-
     width: 100%;
     height: 40px;
+
+    @media (max-width: $mantine-breakpoint-lg) {
+        grid-area: 1 / 3 / -1 / -1;
+    }
 }
 
 .categories {
@@ -34,9 +41,15 @@
     align-items: center;
     gap: 16px;
 
-    border: 1px solid black;
-
     height: 40px;
+
+    @media (max-width: $mantine-breakpoint-lg) {
+        grid-area: 1 / 1 / -1 / 2;
+    }
+}
+
+.burger {
+    grid-area: 1 / 1 / -1 / 2;
 }
 
 .option {
