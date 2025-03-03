@@ -16,6 +16,13 @@ dayjs.extend(customParseFormat);
 
 const mantineDefaultTheme = createTheme({
     fontFamily: "var(--font-family, Inter, system-ui, sans-serif)",
+    breakpoints: {
+        xl: "1280px",
+        lg: "1024px",
+        md: "768px",
+        sm: "640px",
+        xs: "480px",
+    },
     components: {
         Anchor: Anchor.extend({
             defaultProps: {
