@@ -8,6 +8,8 @@
     height: min-content;
     padding: 16px 16px 4px;
 
+    transition: translate 0.2s cubic-bezier(0.3, 0, 0.01, 1.02);
+
     @media (max-width: $mantine-breakpoint-lg) {
         padding: 16px;
     }
@@ -15,4 +17,6 @@
 
 .header.closed {
     translate: 0% -100%;
+
+    transition: translate 0.2s cubic-bezier(0.99, -0.02, 0.7, 1);
 }
