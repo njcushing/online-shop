@@ -1,5 +1,5 @@
 .header {
-    position: absolute;
+    position: fixed;
     top: 0;
 
     background-color: rgb(255, 218, 115);
@@ -11,4 +11,8 @@
     @media (max-width: $mantine-breakpoint-lg) {
         padding: 16px;
     }
+}
+
+.header.closed {
+    translate: 0% -100%;
 }
