@@ -1,6 +1,17 @@
-import { useState } from "react";
-import { ActionIcon, Burger, Drawer } from "@mantine/core";
-import { MagnifyingGlass, User, ShoppingCartSimple } from "@phosphor-icons/react";
+import React, { useState } from "react";
+import { ActionIcon, Burger, Drawer, NavLink } from "@mantine/core";
+import {
+    MagnifyingGlass,
+    User,
+    ShoppingCartSimple,
+    CoffeeBean,
+    Leaf,
+    Coffee,
+    Gear,
+    Gift,
+    CaretRight,
+    IconProps,
+} from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
 import { Logo } from "./components/Logo";
 import styles from "./index.module.css";
@@ -8,14 +19,20 @@ import styles from "./index.module.css";
 export type Category = {
     name: string;
     path: string;
+    icon: React.ReactNode;
 };
 
-const categories = [
-    { name: "Coffee", path: "/c/coffee" },
-    { name: "Tea", path: "/c/tea" },
-    { name: "Equipment", path: "/c/equipment" },
-    { name: "Accessories", path: "/c/accessories" },
-    { name: "Gifts & Subscriptions", path: "/c/gifts_accessories" },
+const iconProps: IconProps = {
+    weight: "fill",
+    size: 24,
+};
+
+const categories: Category[] = [
+    { name: "Coffee", path: "/c/coffee", icon: <CoffeeBean {...iconProps} /> },
+    { name: "Tea", path: "/c/tea", icon: <Leaf {...iconProps} /> },
+    { name: "Equipment", path: "/c/equipment", icon: <Gear {...iconProps} /> },
+    { name: "Accessories", path: "/c/accessories", icon: <Coffee {...iconProps} /> },
+    { name: "Gifts & Subscriptions", path: "/c/gifts_accessories", icon: <Gift {...iconProps} /> },
 ];
 
 export function Navigation() {
@@ -68,18 +85,23 @@ export function Navigation() {
                 opened={burgerToggled}
                 onClose={() => setBurgerToggled(false)}
                 title={<Logo />}
-                className={styles["drawer"]}
+                classNames={{
+                    root: styles["drawer-root"],
+                    body: styles["drawer-body"],
+                }}
             >
                 {categories.map((category) => {
-                    const { name, path } = category;
+                    const { name, path, icon } = category;
                     return (
-                        <Link
+                        <NavLink
+                            component={Link}
                             to={path}
-                            className={styles["drawer-option"]}
+                            label={name}
+                            leftSection={icon}
+                            rightSection={<CaretRight size={24} />}
+                            style={{ flexShrink: 0 }}
                             key={`navbar-category-${name}`}
-                        >
-                            {name}
-                        </Link>
+                        />
                     );
                 })}
             </Drawer>
