@@ -10,7 +10,20 @@ export function Navigation() {
 
     return (
         <nav className={styles["navigation"]}>
+            <Burger
+                lineSize={2}
+                size="32px"
+                opened={burgerToggled}
+                onClick={() => {
+                    setBurgerToggled(!burgerToggled);
+                }}
+                aria-label="Toggle navigation"
+                hiddenFrom="lg"
+                className={styles["burger"]}
+            ></Burger>
+
             <Logo />
+
             <div className={styles["other-links"]}>
                 <ActionIcon variant="transparent" color="gray" aria-label="Search">
                     <MagnifyingGlass size={48} color="black" />
@@ -36,18 +49,6 @@ export function Navigation() {
                 <Link to="/c/gifts_subscriptions" className={styles["option"]}>
                     Gifts & Subscriptions
                 </Link>
-            </div>
-
-            <div className={`${styles["burger"]} mantine-hidden-from-lg`}>
-                <Burger
-                    lineSize={2}
-                    size="32px"
-                    opened={burgerToggled}
-                    onClick={() => {
-                        setBurgerToggled(!burgerToggled);
-                    }}
-                    aria-label="Toggle navigation"
-                ></Burger>
             </div>
 
             <Drawer

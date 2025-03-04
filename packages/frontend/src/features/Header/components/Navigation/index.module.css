@@ -15,6 +15,10 @@
     }
 }
 
+.burger {
+    grid-area: 1 / 1 / -1 / 2;
+}
+
 .other-links {
     grid-area: 1 / 2 / 2 / -1;
 
@@ -45,10 +49,6 @@
     @media (max-width: $mantine-breakpoint-lg) {
         grid-area: 1 / 1 / -1 / 2;
     }
-}
-
-.burger {
-    grid-area: 1 / 1 / -1 / 2;
 }
 
 .option {
