@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ActionIcon, Menu, Burger, Anchor } from "@mantine/core";
+import { ActionIcon, Burger, Drawer } from "@mantine/core";
 import { MagnifyingGlass, User, ShoppingCartSimple } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
 import { Logo } from "./components/Logo";
@@ -39,31 +39,22 @@ export function Navigation() {
             </div>
 
             <div className={`${styles["burger"]} mantine-hidden-from-lg`}>
-                <Menu position="bottom-end" withArrow onClose={() => setBurgerToggled(false)}>
-                    <Menu.Target>
-                        <Burger
-                            lineSize={2}
-                            size="32px"
-                            opened={burgerToggled}
-                            onClick={() => {
-                                setBurgerToggled(!burgerToggled);
-                            }}
-                            aria-label="Toggle navigation"
-                        ></Burger>
-                    </Menu.Target>
-                    <Menu.Dropdown>
-                        <Menu.Item>
-                            <Anchor className={styles["option"]}>Option F</Anchor>
-                        </Menu.Item>
-                        <Menu.Item>
-                            <Anchor className={styles["option"]}>Option G</Anchor>
-                        </Menu.Item>
-                        <Menu.Item>
-                            <Anchor className={styles["option"]}>Option H</Anchor>
-                        </Menu.Item>
-                    </Menu.Dropdown>
-                </Menu>
+                <Burger
+                    lineSize={2}
+                    size="32px"
+                    opened={burgerToggled}
+                    onClick={() => {
+                        setBurgerToggled(!burgerToggled);
+                    }}
+                    aria-label="Toggle navigation"
+                ></Burger>
             </div>
+
+            <Drawer
+                opened={burgerToggled}
+                onClose={() => setBurgerToggled(false)}
+                className={styles["drawer"]}
+            ></Drawer>
         </nav>
     );
 }
