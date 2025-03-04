@@ -5,6 +5,19 @@ import { Link } from "react-router-dom";
 import { Logo } from "./components/Logo";
 import styles from "./index.module.css";
 
+export type Category = {
+    name: string;
+    path: string;
+};
+
+const categories = [
+    { name: "Coffee", path: "/c/coffee" },
+    { name: "Tea", path: "/c/tea" },
+    { name: "Equipment", path: "/c/equipment" },
+    { name: "Accessories", path: "/c/accessories" },
+    { name: "Gifts & Subscriptions", path: "/c/gifts_accessories" },
+];
+
 export function Navigation() {
     const [burgerToggled, setBurgerToggled] = useState<boolean>(false);
 
@@ -37,25 +50,39 @@ export function Navigation() {
             </div>
 
             <div className={`${styles["categories"]} mantine-visible-from-lg`}>
-                <Link to="/c/coffee" className={styles["option"]}>
-                    Coffee
-                </Link>
-                <Link to="/c/equipment" className={styles["option"]}>
-                    Equipment
-                </Link>
-                <Link to="/c/accessories" className={styles["option"]}>
-                    Accessories
-                </Link>
-                <Link to="/c/gifts_subscriptions" className={styles["option"]}>
-                    Gifts & Subscriptions
-                </Link>
+                {categories.map((category) => {
+                    const { name, path } = category;
+                    return (
+                        <Link
+                            to={path}
+                            className={styles["option"]}
+                            key={`navbar-category-${name}`}
+                        >
+                            {name}
+                        </Link>
+                    );
+                })}
             </div>
 
             <Drawer
                 opened={burgerToggled}
                 onClose={() => setBurgerToggled(false)}
+                title={<Logo />}
                 className={styles["drawer"]}
-            ></Drawer>
+            >
+                {categories.map((category) => {
+                    const { name, path } = category;
+                    return (
+                        <Link
+                            to={path}
+                            className={styles["drawer-option"]}
+                            key={`navbar-category-${name}`}
+                        >
+                            {name}
+                        </Link>
+                    );
+                })}
+            </Drawer>
         </nav>
     );
 }
