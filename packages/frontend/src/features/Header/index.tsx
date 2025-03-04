@@ -4,7 +4,9 @@ import styles from "./index.module.css";
 
 export function Header() {
     const lastScrollPos = useRef<number>(0);
-    const [openState, setOpenState] = useState<boolean>(true);
+    const [openState, setOpenState] = useState<boolean>(
+        document.body.getBoundingClientRect().top === 0,
+    );
     useEffect(() => {
         const scrollDirectionCheck = () => {
             const newScrollPos = document.body.getBoundingClientRect().top;
