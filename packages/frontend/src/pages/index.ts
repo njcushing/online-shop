@@ -1,3 +1,4 @@
+import { Category } from "./Category";
 import { CreateAccount } from "./CreateAccount";
 import { Home } from "./Home";
 import { Login } from "./Login";
@@ -7,6 +8,7 @@ import { Root, Routes as RootRoutes } from "./Root";
 import { TermsAndConditions } from "./TermsAndConditions";
 
 export const Pages = {
+    Category,
     CreateAccount,
     Home,
     Login,
