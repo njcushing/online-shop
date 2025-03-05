@@ -68,6 +68,12 @@
     left: 0;
 }
 
+.drawer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
 .drawer-body {
     padding: 0px;
 }

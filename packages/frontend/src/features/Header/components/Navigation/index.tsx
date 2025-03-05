@@ -87,6 +87,7 @@ export function Navigation() {
                 title={<Logo />}
                 classNames={{
                     root: styles["drawer-root"],
+                    content: styles["drawer-content"],
                     body: styles["drawer-body"],
                 }}
             >
@@ -100,7 +101,7 @@ export function Navigation() {
                             leftSection={icon}
                             rightSection={<CaretRight size={24} />}
                             style={{ flexShrink: 0 }}
-                            key={`navbar-category-${name}`}
+                            key={`navlink-category-${name}`}
                         />
                     );
                 })}
