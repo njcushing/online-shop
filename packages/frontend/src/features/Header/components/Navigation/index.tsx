@@ -100,6 +100,7 @@ export function Navigation() {
                             label={name}
                             leftSection={icon}
                             rightSection={<CaretRight size={24} />}
+                            onClick={() => setBurgerToggled(false)}
                             style={{ flexShrink: 0 }}
                             key={`navlink-category-${name}`}
                         />
