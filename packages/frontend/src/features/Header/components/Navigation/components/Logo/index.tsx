@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 import styles from "./index.module.css";
 
-export function Logo() {
+export type TLogo = {
+    onClick?: () => unknown;
+};
+
+export function Logo({ onClick }: TLogo) {
     return (
-        <Link to="/" className={styles["logo"]}>
+        <Link to="/" onClick={() => onClick && onClick()} className={styles["logo"]}>
             Cafree
         </Link>
     );
