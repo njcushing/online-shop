@@ -84,7 +84,7 @@ export function Navigation() {
             <Drawer
                 opened={burgerToggled}
                 onClose={() => setBurgerToggled(false)}
-                title={<Logo />}
+                title={<Logo onClick={() => setBurgerToggled(false)} />}
                 classNames={{
                     root: styles["drawer-root"],
                     content: styles["drawer-content"],
