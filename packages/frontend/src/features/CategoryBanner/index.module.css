@@ -8,8 +8,25 @@
     padding: 16px;
 }
 
-.category-breadcrumb {
+.category-breadcrumbs-separator {
     font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.category-breadcrumb {
+    color: black;
+    font-size: 0.8rem;
+    text-decoration: none;
+}
+
+.category-breadcrumb-current {
+    color: grey;
+}
+
+@media (hover: hover) {
+    .category-breadcrumb:hover:not(.category-breadcrumb-current) {
+        text-decoration: underline;
+    }
 }
 
 .category-header {

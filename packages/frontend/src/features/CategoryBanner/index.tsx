@@ -22,13 +22,22 @@ const subcategories = [
 export function CategoryBanner() {
     return (
         <div className={styles["category-banner"]}>
-            <Breadcrumbs>
-                {pathFromHome.map((item) => {
+            <Breadcrumbs
+                separator="·"
+                classNames={{
+                    separator: styles["category-breadcrumbs-separator"],
+                    breadcrumb: styles["category-breadcrumb"],
+                }}
+            >
+                {pathFromHome.map((item, i) => {
                     const { title, to } = item;
-                    return (
-                        <Link to={to} key={title} className={styles["category-breadcrumb"]}>
+                    const current = i === pathFromHome.length - 1;
+                    return !current ? (
+                        <Link to={to} key={title}>
                             {title}
                         </Link>
+                    ) : (
+                        <span className={styles["category-breadcrumb-current"]}>{title}</span>
                     );
                 })}
             </Breadcrumbs>
