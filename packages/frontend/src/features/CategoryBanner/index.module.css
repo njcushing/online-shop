@@ -1,0 +1,84 @@
+.category-banner {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    background-color: rgb(253, 237, 191);
+
+    padding: 16px;
+}
+
+.category-breadcrumb {
+    font-size: 0.8rem;
+}
+
+.category-header {
+    color: black;
+    font-family: "Radio Canada Big";
+    font-size: 3rem;
+}
+
+.category-description {
+    color: black;
+    font-family: Inter;
+    font-size: 0.9rem;
+}
+
+.subcategory-links {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 120px;
+    gap: 12px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    padding: 12px 2px;
+}
+
+.subcategory-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    color: black;
+    font-family: Inter;
+    font-size: 0.9rem;
+    text-align: center;
+    text-decoration: none;
+
+    padding-bottom: 4px;
+}
+
+.subcategory-link-image {
+    aspect-ratio: 1;
+
+    outline: 0px solid black;
+    border-radius: 8px;
+
+    padding: 6px;
+
+    transition:
+        outline-width 0.16s ease-out,
+        border-radius 0.16s ease-out;
+}
+
+@media (hover: hover) {
+    .subcategory-link:hover:not(:disabled) > .subcategory-link-image {
+        outline-width: 2px;
+        border-radius: 50%;
+    }
+
+    .subcategory-link:hover:not(:disabled) {
+        text-decoration: underline;
+    }
+}
+
+.subcategory-link:focus:not(:disabled) > .subcategory-link-image {
+    border-radius: 50%;
+}
+
+.subcategory-link:focus:not(:disabled) {
+    text-decoration: underline;
+}
