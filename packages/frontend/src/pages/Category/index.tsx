@@ -2,6 +2,7 @@ import { createContext, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { Pages } from "@/pages";
 import { CategoryHero } from "@/features/CategoryHero";
+import { ItemList } from "@/features/ItemList";
 import { categories, Category as CategoryDataType } from "@/utils/products/categories";
 import styles from "./index.module.css";
 
@@ -58,6 +59,7 @@ export function Category() {
         <CategoryContext.Provider value={contextValue}>
             <div className={styles["page"]}>
                 <CategoryHero />
+                <ItemList />
             </div>
         </CategoryContext.Provider>
     );
