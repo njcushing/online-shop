@@ -32,7 +32,11 @@ const categories: Category[] = [
     { name: "Tea", path: "/c/tea", icon: <Leaf {...iconProps} /> },
     { name: "Equipment", path: "/c/equipment", icon: <Gear {...iconProps} /> },
     { name: "Accessories", path: "/c/accessories", icon: <Coffee {...iconProps} /> },
-    { name: "Gifts & Subscriptions", path: "/c/gifts_accessories", icon: <Gift {...iconProps} /> },
+    {
+        name: "Gifts & Subscriptions",
+        path: "/c/gifts-subscriptions",
+        icon: <Gift {...iconProps} />,
+    },
 ];
 
 export function Navigation() {
