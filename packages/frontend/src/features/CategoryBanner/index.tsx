@@ -13,6 +13,7 @@ export function CategoryBanner() {
     return (
         <div className={styles["category-banner"]}>
             <Breadcrumbs
+                component="nav"
                 separator="·"
                 classNames={{
                     separator: styles["category-breadcrumbs-separator"],
