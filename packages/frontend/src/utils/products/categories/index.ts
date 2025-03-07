@@ -4,6 +4,7 @@ export type Category = {
     description: string;
     subcategories?: Category[];
     items?: string[];
+    img?: string;
 };
 
 export const categories: Category[] = [
