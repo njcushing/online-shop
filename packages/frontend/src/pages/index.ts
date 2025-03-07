@@ -1,5 +1,6 @@
 import { Category } from "./Category";
 import { CreateAccount } from "./CreateAccount";
+import { ErrorPage } from "./ErrorPage";
 import { Home } from "./Home";
 import { Login } from "./Login";
 import { PrivacyPolicy } from "./PrivacyPolicy";
@@ -10,6 +11,7 @@ import { TermsAndConditions } from "./TermsAndConditions";
 export const Pages = {
     Category,
     CreateAccount,
+    ErrorPage,
     Home,
     Login,
     PrivacyPolicy,
