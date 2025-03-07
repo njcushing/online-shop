@@ -40,7 +40,7 @@ export function CategoryBanner() {
             <p className={styles["category-description"]}>{description}</p>
 
             {subcategories && (
-                <div className={styles["subcategory-links"]}>
+                <nav className={styles["subcategory-links"]}>
                     {subcategories.map((subcategory) => {
                         const { slug, name: catName, img } = subcategory;
                         return (
@@ -60,7 +60,7 @@ export function CategoryBanner() {
                             </Link>
                         );
                     })}
-                </div>
+                </nav>
             )}
         </section>
     );
