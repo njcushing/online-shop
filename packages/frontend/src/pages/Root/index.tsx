@@ -12,7 +12,7 @@ export const Routes = [
         errorElement: <div></div>,
     },
     {
-        path: "c/:categoryId",
+        path: "c/*",
         element: <Category />,
         errorElement: <div></div>,
     },
