@@ -4,14 +4,14 @@ import { Breadcrumbs, Image } from "@mantine/core";
 import { Link } from "react-router-dom";
 import styles from "./index.module.css";
 
-export function CategoryBanner() {
+export function CategoryHero() {
     const { urlPathSplit, categoryData } = useContext(CategoryContext);
 
     const currentCategory = categoryData[categoryData.length - 1];
     const { name, description, subcategories } = currentCategory;
 
     return (
-        <section className={styles["category-banner"]}>
+        <section className={styles["category-hero"]}>
             <Breadcrumbs
                 component="nav"
                 separator="·"

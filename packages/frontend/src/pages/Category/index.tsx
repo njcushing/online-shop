@@ -1,7 +1,7 @@
 import { createContext, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { Pages } from "@/pages";
-import { CategoryBanner } from "@/features/CategoryBanner";
+import { CategoryHero } from "@/features/CategoryHero";
 import { categories, Category as CategoryDataType } from "@/utils/products/categories";
 import styles from "./index.module.css";
 
@@ -57,7 +57,7 @@ export function Category() {
     return (
         <CategoryContext.Provider value={contextValue}>
             <div className={styles["page"]}>
-                <CategoryBanner />
+                <CategoryHero />
             </div>
         </CategoryContext.Provider>
     );

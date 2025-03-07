@@ -1,5 +1,5 @@
 import { AccountCreationForm } from "./AccountCreationForm";
-import { CategoryBanner } from "./CategoryBanner";
+import { CategoryBanner } from "./CategoryHero";
 import { Header } from "./Header";
 import { Hero } from "./Hero";
 import { ItemList } from "./ItemList";
