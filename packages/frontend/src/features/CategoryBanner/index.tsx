@@ -37,7 +37,9 @@ export function CategoryBanner() {
                             {title}
                         </Link>
                     ) : (
-                        <span className={styles["category-breadcrumb-current"]}>{title}</span>
+                        <span className={styles["category-breadcrumb-current"]} key={title}>
+                            {title}
+                        </span>
                     );
                 })}
             </Breadcrumbs>
