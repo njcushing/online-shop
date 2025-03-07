@@ -3,23 +3,24 @@ import { Header } from "@/features/Header";
 import { Home } from "../Home";
 import { Category } from "../Category";
 import { Product } from "../Product";
+import { ErrorPage } from "../ErrorPage";
 import styles from "./index.module.css";
 
 export const Routes = [
     {
         path: "",
         element: <Home />,
-        errorElement: <div></div>,
+        errorElement: <ErrorPage />,
     },
     {
         path: "c/*",
         element: <Category />,
-        errorElement: <div></div>,
+        errorElement: <ErrorPage />,
     },
     {
         path: "product/:productId",
         element: <Product />,
-        errorElement: <div></div>,
+        errorElement: <ErrorPage />,
     },
 ];
 
