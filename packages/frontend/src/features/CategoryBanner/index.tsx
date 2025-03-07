@@ -11,7 +11,7 @@ export function CategoryBanner() {
     const { name, description, subcategories } = currentCategory;
 
     return (
-        <div className={styles["category-banner"]}>
+        <section className={styles["category-banner"]}>
             <Breadcrumbs
                 component="nav"
                 separator="·"
@@ -62,6 +62,6 @@ export function CategoryBanner() {
                     })}
                 </div>
             )}
-        </div>
+        </section>
     );
 }
