@@ -1,9 +1,9 @@
 import { useContext, useMemo } from "react";
 import { CategoryContext } from "@/pages/Category";
-import { Item } from "./components/Item";
+import { Product } from "./components/Product";
 import styles from "./index.module.css";
 
-export function ItemList() {
+export function ProductList() {
     const { categoryData } = useContext(CategoryContext);
 
     const currentCategory = useMemo(() => {
@@ -12,10 +12,10 @@ export function ItemList() {
     if (!currentCategory) return null;
 
     return (
-        <section className={styles["item-list"]}>
+        <section className={styles["product-list"]}>
             {currentCategory.products &&
                 currentCategory.products.map((product) => (
-                    <Item itemData={product} key={product.id} />
+                    <Product productData={product} key={product.id} />
                 ))}
         </section>
     );

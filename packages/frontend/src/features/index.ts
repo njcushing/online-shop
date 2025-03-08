@@ -1,17 +1,17 @@
 import { AccountCreationForm } from "./AccountCreationForm";
-import { CategoryBanner } from "./CategoryHero";
+import { CategoryHero } from "./CategoryHero";
 import { Header } from "./Header";
 import { Hero } from "./Hero";
-import { ItemList } from "./ItemList";
+import { ProductList } from "./ProductList";
 import { LoginForm } from "./LoginForm";
 import { SetPersonalInformationForm } from "./SetPersonalInformationForm";
 
 export const Features = {
     AccountCreationForm,
-    CategoryBanner,
+    CategoryHero,
     Header,
     Hero,
-    ItemList,
+    ProductList,
     LoginForm,
     SetPersonalInformationForm,
 };
