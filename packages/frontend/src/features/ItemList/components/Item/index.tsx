@@ -51,6 +51,7 @@ export function Item() {
                     fractions={10}
                     value={itemData.rating.value}
                     color="gold"
+                    size="xs"
                 />
                 <div className={styles["item-rating-value"]}>{itemData.rating.value}</div>
                 <div
