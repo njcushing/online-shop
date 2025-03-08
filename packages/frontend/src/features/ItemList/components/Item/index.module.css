@@ -12,14 +12,31 @@
 .item-image {
     width: 100%;
     aspect-ratio: 1;
+
+    border: 1px solid #000;
 }
 
 .item-name {
     color: black;
 }
 
-.item-price {
+.item-price-container {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.item-price-current {
     color: black;
+}
+
+.item-price-base {
+    color: grey;
+    text-decoration: line-through;
+}
+
+.item-price-discount-percentage {
+    color: rgb(40, 190, 20);
 }
 
 .item-rating-container {
