@@ -1,29 +1,17 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Image, Rating } from "@mantine/core";
+import { Product } from "@/utils/products/product";
 import dayjs from "dayjs";
 import styles from "./index.module.css";
 
-const mockItemData = {
-    name: "Item Name",
-    img: null,
-    price: {
-        current: 8000,
-        base: 16000,
-    },
-    rating: {
-        value: 3.6,
-        quantity: 238,
-    },
-    stock: 100,
-    releaseDate: new Date(),
-};
-
 const lowStockThreshold = 50;
 
-export function Item() {
-    const [itemData, setItemData] = useState(mockItemData);
+export type TItem = {
+    itemData: Product;
+};
 
+export function Item({ itemData }: TItem) {
     const itemInformationBanner = useCallback((): React.ReactNode | null => {
         // Out of stock
         if (itemData.stock === 0) {
@@ -81,7 +69,9 @@ export function Item() {
                     color="gold"
                     size="xs"
                 />
-                <div className={styles["item-rating-value"]}>{itemData.rating.value}</div>
+                <div className={styles["item-rating-value"]}>
+                    {itemData.rating.value.toFixed(2)}
+                </div>
                 <div
                     className={styles["item-rating-quantity"]}
                 >{`(${itemData.rating.quantity})`}</div>
