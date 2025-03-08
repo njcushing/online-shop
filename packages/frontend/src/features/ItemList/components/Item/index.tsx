@@ -1,6 +1,7 @@
-import { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Image, Rating } from "@mantine/core";
+import dayjs from "dayjs";
 import styles from "./index.module.css";
 
 const mockItemData = {
@@ -14,10 +15,34 @@ const mockItemData = {
         value: 3.6,
         quantity: 238,
     },
+    stock: 100,
+    releaseDate: new Date(),
 };
+
+const lowStockThreshold = 50;
 
 export function Item() {
     const [itemData, setItemData] = useState(mockItemData);
+
+    const itemInformationBanner = useCallback((): React.ReactNode | null => {
+        // Out of stock
+        if (itemData.stock === 0) {
+            return <div className={styles["item-information-banner"]}>Out of stock</div>;
+        }
+
+        // Low stock
+        if (itemData.stock <= lowStockThreshold) {
+            return <div className={styles["item-information-banner"]}>Low stock</div>;
+        }
+
+        // New in stock (within last month)
+        const daysInLastMonth = dayjs().subtract(1, "month").daysInMonth();
+        if (dayjs(itemData.releaseDate).isAfter(dayjs().subtract(daysInLastMonth, "day"))) {
+            return <div className={styles["item-information-banner"]}>New in stock</div>;
+        }
+
+        return null;
+    }, [itemData]);
 
     const priceReductionString = useMemo<string>(() => {
         const reduction = (itemData.price.current / Math.max(itemData.price.base, 1)) * 100 - 100;
@@ -26,7 +51,10 @@ export function Item() {
 
     return (
         <Link to="/p/product" className={styles["item"]}>
-            <Image className={styles["item-image"]} src={itemData.img} />
+            <div className={styles["item-image-container"]}>
+                <Image className={styles["item-image"]} src={itemData.img} />
+                {itemInformationBanner()}
+            </div>
             <p className={styles["item-name"]}>{itemData.name}</p>
             <div className={styles["item-price-container"]}>
                 <span className={styles["item-price-current"]}>
