@@ -1,9 +1,11 @@
+import { Product, generateMockProduct as i } from "@/utils/products/product";
+
 export type Category = {
     slug: string;
     name: string;
     description: string;
     subcategories?: Category[];
-    items?: string[];
+    products?: Product[];
     img?: string;
 };
 
@@ -13,24 +15,37 @@ export const categories: Category[] = [
         name: "Coffee",
         description: "All coffee-related products.",
         subcategories: [
-            { slug: "beans", name: "Beans", description: "Whole coffee beans.", items: [] },
+            {
+                slug: "beans",
+                name: "Beans",
+                description: "Whole coffee beans.",
+                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
+                    i(),
+                ),
+            },
             {
                 slug: "ground",
                 name: "Ground",
                 description: "Pre-ground coffee for convenience.",
-                items: [],
+                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
+                    i(),
+                ),
             },
             {
                 slug: "instant-pods",
                 name: "Instant & Pods",
                 description: "Quick and easy coffee options.",
-                items: [],
+                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
+                    i(),
+                ),
             },
             {
                 slug: "cold-brew-ready",
                 name: "Cold Brew & Ready-to-Drink",
                 description: "Pre-made cold brews.",
-                items: [],
+                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
+                    i(),
+                ),
             },
         ],
     },
@@ -43,20 +58,33 @@ export const categories: Category[] = [
                 slug: "loose-leaf",
                 name: "Loose Leaf",
                 description: "High-quality loose tea leaves.",
-                items: [],
+                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
+                    i(),
+                ),
             },
-            { slug: "bags", name: "Bags", description: "Convenient tea bags.", items: [] },
+            {
+                slug: "bags",
+                name: "Bags",
+                description: "Convenient tea bags.",
+                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
+                    i(),
+                ),
+            },
             {
                 slug: "specialty-and-powdered",
                 name: "Specialty & Powdered",
                 description: "Matcha and chai powders.",
-                items: [],
+                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
+                    i(),
+                ),
             },
             {
                 slug: "ready-to-drink",
                 name: "Ready-to-Drink",
                 description: "Pre-bottled teas.",
-                items: [],
+                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
+                    i(),
+                ),
             },
         ],
     },
@@ -65,30 +93,45 @@ export const categories: Category[] = [
         name: "Equipment",
         description: "Everything you need to brew coffee & tea.",
         subcategories: [
-            { slug: "brewing", name: "Brewing", description: "Manual brewing devices.", items: [] },
+            {
+                slug: "brewing",
+                name: "Brewing",
+                description: "Manual brewing devices.",
+                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
+                    i(),
+                ),
+            },
             {
                 slug: "espresso-machines",
                 name: "Espresso Machines",
                 description: "Machines for making espresso.",
-                items: [],
+                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
+                    i(),
+                ),
             },
             {
                 slug: "grinders",
                 name: "Grinders",
                 description: "For freshly ground coffee.",
-                items: [],
+                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
+                    i(),
+                ),
             },
             {
                 slug: "scales-timers",
                 name: "Scales & Timers",
                 description: "Precision tools for brewing.",
-                items: [],
+                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
+                    i(),
+                ),
             },
             {
                 slug: "cold-brew-makers",
                 name: "Cold Brew Makers",
                 description: "Specialized cold brew tools.",
-                items: [],
+                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
+                    i(),
+                ),
             },
         ],
     },
@@ -101,19 +144,25 @@ export const categories: Category[] = [
                 slug: "mugs-tumblers",
                 name: "Mugs & Tumblers",
                 description: "Drinkware for all beverages.",
-                items: [],
+                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
+                    i(),
+                ),
             },
             {
                 slug: "filters-maintenance",
                 name: "Filters & Maintenance",
                 description: "Reusable and disposable filters.",
-                items: [],
+                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
+                    i(),
+                ),
             },
             {
                 slug: "frothers-steamers",
                 name: "Frothers & Steamers",
                 description: "Tools for milk frothing.",
-                items: [],
+                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
+                    i(),
+                ),
             },
         ],
     },
@@ -126,19 +175,25 @@ export const categories: Category[] = [
                 slug: "gift-sets-packs",
                 name: "Gift Sets & Sampler Packs",
                 description: "Curated gift sets.",
-                items: [],
+                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
+                    i(),
+                ),
             },
             {
                 slug: "subscription-boxes",
                 name: "Coffee Subscription Boxes",
                 description: "Monthly coffee deliveries.",
-                items: [],
+                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
+                    i(),
+                ),
             },
             {
                 slug: "gift-cards",
                 name: "Gift Cards",
                 description: "Digital and physical gift cards.",
-                items: [],
+                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
+                    i(),
+                ),
             },
         ],
     },
