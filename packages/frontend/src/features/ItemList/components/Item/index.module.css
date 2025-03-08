@@ -1,6 +1,6 @@
 .item {
     display: grid;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto 1fr auto auto;
     gap: 8px;
 
     text-decoration: none;
@@ -20,4 +20,21 @@
 
 .item-price {
     color: black;
+}
+
+.item-rating-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+}
+
+.item-rating-value,
+.item-rating-quantity {
+    color: black;
+    font-size: 0.9rem;
+}
+
+.item-rating-value {
+    font-weight: 500;
 }
