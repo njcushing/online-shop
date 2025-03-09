@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { v4 as uuid } from "uuid";
 
 export type Product = {
@@ -32,6 +33,8 @@ export const generateMockProduct = (): Product => {
             quantity: Math.floor(Math.random() * 200 + 50),
         },
         stock: Math.floor(Math.random() * 100),
-        releaseDate: new Date().toISOString(),
+        releaseDate: dayjs(new Date())
+            .subtract(Math.floor(Math.random() * 365), "day")
+            .toISOString(),
     };
 };
