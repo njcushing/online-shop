@@ -45,7 +45,7 @@ export function ProductCard({ productData }: TProductCard) {
                 {productInformationBanner()}
             </div>
             <p className={styles["product-name"]}>{productData.name}</p>
-            <div className={styles["product-price-container"]}>
+            <div className={styles["product-card-price-container"]}>
                 <span className={styles["product-price-current"]}>
                     £{(productData.price.current / 100).toFixed(2)}
                 </span>
