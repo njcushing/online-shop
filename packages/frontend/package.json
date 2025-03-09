@@ -32,6 +32,7 @@
         "dotenv": "^16.4.1",
         "libphonenumber-js": "^1.11.20",
         "lodash": "^4.17.21",
+        "lorem-ipsum": "^2.0.8",
         "luxon": "^3.4.4",
         "normalize.css": "^8.0.1",
         "prop-types": "^15.8.1",
