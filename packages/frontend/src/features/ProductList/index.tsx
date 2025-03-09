@@ -12,7 +12,7 @@ export function ProductList() {
 
     const breakpointLg = useMediaQuery(`(max-width: ${theme.breakpoints.lg})`);
     const breakpointMd = useMediaQuery(`(max-width: ${theme.breakpoints.md})`);
-    const breakpointXxs = useMediaQuery(`(max-width: ${theme.breakpoints.xxs})`);
+    const breakpointXs = useMediaQuery(`(max-width: ${theme.breakpoints.xxs})`);
 
     const { urlPathSplit, categoryData } = useContext(CategoryContext);
 
@@ -42,7 +42,7 @@ export function ProductList() {
                         let productsToDisplay = 7;
                         if (breakpointLg) productsToDisplay = 5;
                         if (breakpointMd) productsToDisplay = 5;
-                        if (breakpointXxs) productsToDisplay = 3;
+                        if (breakpointXs) productsToDisplay = 3;
 
                         return (
                             <Fragment key={subcategory.name}>
