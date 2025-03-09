@@ -1,12 +1,19 @@
 import { Fragment, useContext, useMemo } from "react";
 import { CategoryContext } from "@/pages/Category";
-import { Divider, NavLink } from "@mantine/core";
+import { useMantineTheme, Divider, NavLink } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import { Link } from "react-router-dom";
 import { CaretRight } from "@phosphor-icons/react";
 import { Product } from "./components/Product";
 import styles from "./index.module.css";
 
 export function ProductList() {
+    const theme = useMantineTheme();
+
+    const breakpointLg = useMediaQuery(`(max-width: ${theme.breakpoints.lg})`);
+    const breakpointMd = useMediaQuery(`(max-width: ${theme.breakpoints.md})`);
+    const breakpointXxs = useMediaQuery(`(max-width: ${theme.breakpoints.xxs})`);
+
     const { urlPathSplit, categoryData } = useContext(CategoryContext);
 
     const currentCategory = useMemo(() => {
@@ -31,6 +38,12 @@ export function ProductList() {
                     subcategories.map((subcategory, i) => {
                         if (!subcategory.products) return null;
                         if (subcategory.products.length === 0) return null;
+
+                        let productsToDisplay = 7;
+                        if (breakpointLg) productsToDisplay = 5;
+                        if (breakpointMd) productsToDisplay = 5;
+                        if (breakpointXxs) productsToDisplay = 3;
+
                         return (
                             <Fragment key={subcategory.name}>
                                 <div className={styles["product-list-category-group"]}>
@@ -54,9 +67,11 @@ export function ProductList() {
                                             }}
                                         />
                                     </div>
-                                    {subcategory.products.slice(0, 7).map((product) => (
-                                        <Product productData={product} key={product.id} />
-                                    ))}
+                                    {subcategory.products
+                                        .slice(0, productsToDisplay)
+                                        .map((product) => (
+                                            <Product productData={product} key={product.id} />
+                                        ))}
                                 </div>
                                 {i < currentCategory.subcategories!.length - 1 && <Divider />}
                             </Fragment>
