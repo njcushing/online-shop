@@ -4,7 +4,7 @@ import { useMantineTheme, Divider, NavLink } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { Link } from "react-router-dom";
 import { CaretRight } from "@phosphor-icons/react";
-import { Product } from "./components/Product";
+import { ProductCard } from "./components/ProductCard";
 import styles from "./index.module.css";
 
 export function ProductList() {
@@ -28,7 +28,7 @@ export function ProductList() {
             {products && products.length > 0 && (
                 <div className={styles["product-list-category-group"]}>
                     {products.map((product) => (
-                        <Product productData={product} key={product.id} />
+                        <ProductCard productData={product} key={product.id} />
                     ))}
                 </div>
             )}
@@ -67,7 +67,7 @@ export function ProductList() {
                                     />
                                 </div>
                                 {subcategory.products.slice(0, productsToDisplay).map((product) => (
-                                    <Product productData={product} key={product.id} />
+                                    <ProductCard productData={product} key={product.id} />
                                 ))}
                             </div>
                             {i < currentCategory.subcategories!.length - 1 && <Divider />}

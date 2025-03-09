@@ -1,4 +1,4 @@
-.product {
+.product-card {
     display: grid;
     grid-template-rows: auto 1fr auto auto;
     gap: 8px;
@@ -9,7 +9,7 @@
     height: 100%;
 }
 
-.product-image-container {
+.product-card-image-container {
     position: relative;
 
     width: 100%;
@@ -68,7 +68,7 @@
     color: rgb(40, 190, 20);
 }
 
-.product-rating-container {
+.product-card-rating-container {
     display: flex;
     flex-direction: row;
     gap: 4px;

@@ -7,11 +7,11 @@ import styles from "./index.module.css";
 
 const lowStockThreshold = 50;
 
-export type TProduct = {
+export type TProductCard = {
     productData: ProductDataType;
 };
 
-export function Product({ productData }: TProduct) {
+export function ProductCard({ productData }: TProductCard) {
     const productInformationBanner = useCallback((): React.ReactNode | null => {
         // Out of stock
         if (productData.stock === 0) {
@@ -39,8 +39,8 @@ export function Product({ productData }: TProduct) {
     }, [productData.price]);
 
     return (
-        <Link to={`/p/${productData.id}`} className={styles["product"]}>
-            <div className={styles["product-image-container"]}>
+        <Link to={`/p/${productData.id}`} className={styles["product-card"]}>
+            <div className={styles["product-card-image-container"]}>
                 <Image className={styles["product-image"]} src={productData.img} />
                 {productInformationBanner()}
             </div>
@@ -60,7 +60,7 @@ export function Product({ productData }: TProduct) {
                     </>
                 )}
             </div>
-            <div className={styles["product-rating-container"]}>
+            <div className={styles["product-card-rating-container"]}>
                 <Rating
                     className={styles["product-rating"]}
                     readOnly
