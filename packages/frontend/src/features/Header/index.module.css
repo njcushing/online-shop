@@ -7,7 +7,6 @@
 
     width: 100%;
     height: min-content;
-    padding: 16px 16px 4px;
 
     transition: transform 0.2s cubic-bezier(0.3, 0, 0.01, 1.02);
     will-change: transform;
@@ -26,5 +25,6 @@
 .header-width-controller {
     width: 100%;
     max-width: 1280px;
+    padding: 16px 16px 4px;
     margin: auto;
 }

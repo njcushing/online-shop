@@ -1,7 +1,5 @@
 .category-hero {
     background-color: rgb(255, 236, 218);
-
-    padding: 16px;
 }
 
 .category-hero-width-controller {
@@ -11,6 +9,7 @@
 
     width: 100%;
     max-width: 1280px;
+    padding: 16px;
     margin: auto;
 }
 
