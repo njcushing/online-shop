@@ -1,17 +1,21 @@
 .product-list {
+    padding: 16px;
+}
+
+.product-list-width-controller {
     display: flex;
     flex-direction: column;
     gap: 16px;
 
-    padding: 16px;
+    width: 100%;
+    max-width: 1280px;
+    margin: auto;
 }
 
 .product-list-category-group {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
-
-    padding: 16px;
 }
 
 .subcategory-information {

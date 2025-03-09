@@ -1,11 +1,17 @@
 .category-hero {
+    background-color: rgb(255, 236, 218);
+
+    padding: 16px;
+}
+
+.category-hero-width-controller {
     display: flex;
     flex-direction: column;
     gap: 8px;
 
-    background-color: rgb(255, 236, 218);
-
-    padding: 16px;
+    width: 100%;
+    max-width: 1280px;
+    margin: auto;
 }
 
 .category-breadcrumbs-separator {

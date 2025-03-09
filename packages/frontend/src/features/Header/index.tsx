@@ -36,7 +36,9 @@ export function Header() {
                 className={`${styles["header"]} ${styles[active ? "active" : "inactive"]} ${styles[open ? "open" : "closed"]}`}
                 ref={headerRef}
             >
-                <Navigation />
+                <div className={styles["header-width-controller"]}>
+                    <Navigation />
+                </div>
             </header>
         </>
     );
