@@ -1,4 +1,4 @@
-import { useContext, useMemo } from "react";
+import { Fragment, useContext, useMemo } from "react";
 import { CategoryContext } from "@/pages/Category";
 import { Divider } from "@mantine/core";
 import { Product } from "./components/Product";
@@ -29,7 +29,7 @@ export function ProductList() {
                     if (!subcategory.products) return null;
                     if (subcategory.products.length === 0) return null;
                     return (
-                        <>
+                        <Fragment key={subcategory.name}>
                             <div className={styles["product-list-category-group"]}>
                                 <div className={styles["subcategory-information"]}>
                                     <p className={styles["subcategory-name"]}>{subcategory.name}</p>
@@ -42,7 +42,7 @@ export function ProductList() {
                                 ))}
                             </div>
                             {i < currentCategory.subcategories!.length - 1 && <Divider />}
-                        </>
+                        </Fragment>
                     );
                 })}
         </section>
