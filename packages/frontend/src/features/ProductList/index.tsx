@@ -1,11 +1,13 @@
 import { Fragment, useContext, useMemo } from "react";
 import { CategoryContext } from "@/pages/Category";
-import { Divider } from "@mantine/core";
+import { Divider, NavLink } from "@mantine/core";
+import { Link } from "react-router-dom";
+import { CaretRight } from "@phosphor-icons/react";
 import { Product } from "./components/Product";
 import styles from "./index.module.css";
 
 export function ProductList() {
-    const { categoryData } = useContext(CategoryContext);
+    const { urlPathSplit, categoryData } = useContext(CategoryContext);
 
     const currentCategory = useMemo(() => {
         return categoryData.length > 0 ? categoryData[categoryData.length - 1] : undefined;
@@ -36,6 +38,18 @@ export function ProductList() {
                                     <p className={styles["subcategory-description"]}>
                                         {subcategory.description}
                                     </p>
+                                    <NavLink
+                                        component={Link}
+                                        to={[...urlPathSplit, subcategory.slug].join("/")}
+                                        label="Shop all"
+                                        rightSection={<CaretRight size={16} />}
+                                        style={{
+                                            flexShrink: 0,
+                                            padding: "8px",
+                                            marginLeft: "-8px",
+                                            width: "calc(100% + 8px)",
+                                        }}
+                                    />
                                 </div>
                                 {subcategory.products.slice(0, 7).map((product) => (
                                     <Product productData={product} key={product.id} />
