@@ -22,6 +22,7 @@ const mantineDefaultTheme = createTheme({
         md: "768px",
         sm: "640px",
         xs: "480px",
+        xxs: "360px",
     },
     components: {
         Anchor: Anchor.extend({
