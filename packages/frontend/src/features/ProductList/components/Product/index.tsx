@@ -39,7 +39,7 @@ export function Product({ productData }: TProduct) {
     }, [productData.price]);
 
     return (
-        <Link to="/p/product" className={styles["product"]}>
+        <Link to={`/p/${productData.id}`} className={styles["product"]}>
             <div className={styles["product-image-container"]}>
                 <Image className={styles["product-image"]} src={productData.img} />
                 {productInformationBanner()}
