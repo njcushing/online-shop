@@ -71,7 +71,6 @@
 .product-rating-container {
     display: flex;
     flex-direction: row;
-    align-products: center;
     gap: 4px;
 }
 
