@@ -35,9 +35,9 @@ export function ProductList() {
                             <Fragment key={subcategory.name}>
                                 <div className={styles["product-list-category-group"]}>
                                     <div className={styles["subcategory-information"]}>
-                                        <p className={styles["subcategory-name"]}>
+                                        <h2 className={styles["subcategory-name"]}>
                                             {subcategory.name}
-                                        </p>
+                                        </h2>
                                         <p className={styles["subcategory-description"]}>
                                             {subcategory.description}
                                         </p>
