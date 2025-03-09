@@ -17,6 +17,14 @@ export function ProductList() {
                 currentCategory.products.map((product) => (
                     <Product productData={product} key={product.id} />
                 ))}
+            {currentCategory.subcategories &&
+                currentCategory.subcategories.map((subcategory) => {
+                    return subcategory.products
+                        ? subcategory.products
+                              .slice(0, 6)
+                              .map((product) => <Product productData={product} key={product.id} />)
+                        : null;
+                })}
         </section>
     );
 }
