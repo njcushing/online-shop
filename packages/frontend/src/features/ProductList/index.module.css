@@ -1,7 +1,34 @@
 .product-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    padding: 16px;
+}
+
+.product-list-category-group {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
 
     padding: 16px;
+}
+
+.subcategory-information {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.subcategory-name {
+    color: black;
+    font-family: "Radio Canada Big";
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.subcategory-description {
+    color: black;
+    font-size: 0.9rem;
+    font-weight: 300;
 }
