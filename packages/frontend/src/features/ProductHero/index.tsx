@@ -144,7 +144,7 @@ export function ProductHero() {
                                 </svg>
                             </Button>
                         </div>
-                        <Button>Add to Cart</Button>
+                        <Button className={styles["add-to-cart-button"]}>Add to Cart</Button>
                     </div>
                 </div>
             </div>

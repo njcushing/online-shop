@@ -154,3 +154,7 @@
 .increment-button-up:focus {
     outline: 2px solid #000;
 }
+
+.add-to-cart-button {
+    font-size: 1rem;
+}
