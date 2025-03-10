@@ -1,0 +1,156 @@
+.product-hero {
+    width: 100%;
+}
+
+.product-hero-width-controller {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+
+    width: 100%;
+    max-width: 1280px;
+    padding: 16px;
+    margin: auto;
+
+    border: 1px solid #000;
+}
+
+.product-image {
+    width: 100%;
+    aspect-ratio: 1;
+
+    border: 1px dashed #000;
+}
+
+.product-content {
+    display: grid;
+    grid-template-rows: repeat(3, auto) 1fr repeat(2, auto);
+    gap: 12px;
+
+    width: 100%;
+    padding: 16px;
+
+    border: 1px dashed #000;
+}
+
+.product-name {
+    color: black;
+    font-family: "Radio Canada Big";
+    font-size: 2.75rem;
+    font-weight: 500;
+}
+
+.product-hero-rating-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+}
+
+.product-rating-value,
+.product-rating-quantity {
+    color: black;
+    font-size: 0.92rem;
+}
+
+.product-rating-value {
+    font-weight: 600;
+}
+
+.product-description-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.product-description {
+    color: black;
+    font-size: 0.96rem;
+    font-weight: 300;
+}
+
+.product-hero-price-container {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+
+    font-size: 1.5rem;
+}
+
+.product-price-current {
+    color: black;
+}
+
+.product-price-base {
+    color: grey;
+    text-decoration: line-through;
+}
+
+.product-price-discount-percentage {
+    color: rgb(40, 190, 20);
+}
+
+.product-buttons-container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 16px;
+
+    width: 100%;
+}
+
+.quantity-input-container {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    justify-content: center;
+    gap: 4px;
+
+    outline: 1px solid #000;
+    border-radius: 4px;
+
+    width: 110px;
+    padding: 0px;
+}
+
+.quantity-input {
+    text-align: center;
+
+    border: none;
+
+    width: 100%;
+    padding: 4px;
+}
+
+.quantity-input::-webkit-outer-spin-button,
+.quantity-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.quantity-input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.quantity-input:focus {
+    outline: 2px solid #000;
+}
+
+.increment-button-down,
+.increment-button-up {
+    flex-shrink: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: black;
+    font-family: sans-serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+
+    width: 30px;
+}
+
+.increment-button-down:focus,
+.increment-button-up:focus {
+    outline: 2px solid #000;
+}
