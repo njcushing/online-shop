@@ -134,8 +134,8 @@
     outline: 2px solid #000;
 }
 
-.increment-button-down,
-.increment-button-up {
+.decrement-button,
+.increment-button {
     flex-shrink: 0;
 
     display: flex;
@@ -148,10 +148,11 @@
     font-weight: 300;
 
     width: 30px;
+    padding: 0px;
 }
 
-.increment-button-down:focus,
-.increment-button-up:focus {
+.decrement-button:focus,
+.increment-button:focus {
     outline: 2px solid #000;
 }
 

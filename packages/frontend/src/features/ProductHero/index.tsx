@@ -9,7 +9,7 @@ const mockProductData = generateMockProduct();
 export function ProductHero() {
     const { name, description, img, price, rating, allowance } = mockProductData;
 
-    const [quantity, setQuantity] = useState<number>(1);
+    const [quantity, setQuantity] = useState<number | null>(1);
 
     const priceReductionString = useMemo<string>(() => {
         const reduction = (price.current / Math.max(price.base, 1)) * 100 - 100;
@@ -68,9 +68,8 @@ export function ProductHero() {
                         <div className={styles["quantity-input-container"]}>
                             <Button
                                 variant="transparent"
-                                onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                                className={styles["increment-button-down"]}
-                                style={{ padding: "0px" }}
+                                onClick={() => quantity && setQuantity(Math.max(1, quantity - 1))}
+                                className={styles["decrement-button"]}
                             >
                                 <svg
                                     width="16"
@@ -84,19 +83,27 @@ export function ProductHero() {
                             </Button>
                             <input
                                 type="number"
-                                value={quantity}
+                                value={quantity === null ? "" : quantity}
                                 onBlur={(e) => {
-                                    const value = Number(e.currentTarget.value);
-                                    if (Number.isNaN(value) || !Number.isInteger(value)) {
+                                    const value = e.currentTarget.value.trim();
+                                    if (
+                                        value === "" ||
+                                        Number.isNaN(Number(value)) ||
+                                        !Number.isInteger(Number(value))
+                                    ) {
                                         setQuantity(1);
                                     } else {
-                                        setQuantity(Math.max(1, Math.min(allowance, value)));
+                                        setQuantity(
+                                            Math.max(1, Math.min(allowance, Number(value))),
+                                        );
                                     }
                                 }}
                                 onChange={(e) => {
                                     const { value } = e.currentTarget;
-                                    if (/^\d+$/.test(value)) {
-                                        setQuantity(Number.parseInt(value, 10));
+                                    if (value === "" || /^\d+$/.test(value)) {
+                                        setQuantity(
+                                            value === "" ? null : Number.parseInt(value, 10),
+                                        );
                                     }
                                 }}
                                 onKeyDown={(e) => {
@@ -112,10 +119,6 @@ export function ProductHero() {
                                         e.preventDefault();
                                     }
                                 }}
-                                onInput={(e) => {
-                                    const { value } = e.currentTarget;
-                                    e.currentTarget.value = value.replace(/[^0-9]/g, "");
-                                }}
                                 onPaste={(e) => {
                                     if (!/^\d+$/.test(e.clipboardData.getData("text"))) {
                                         e.preventDefault();
@@ -126,11 +129,13 @@ export function ProductHero() {
                                 step={1}
                                 className={styles["quantity-input"]}
                             />
+
                             <Button
                                 variant="transparent"
-                                onClick={() => setQuantity(Math.min(allowance, quantity + 1))}
-                                className={styles["increment-button-up"]}
-                                style={{ padding: "0px" }}
+                                onClick={() =>
+                                    quantity && setQuantity(Math.min(allowance, quantity + 1))
+                                }
+                                className={styles["increment-button"]}
                             >
                                 <svg
                                     width="16"
