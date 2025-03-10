@@ -16,6 +16,7 @@ export type Product = {
         quantity: number;
     };
     stock: number;
+    allowance: number;
     releaseDate: string;
 };
 
@@ -38,6 +39,7 @@ export const generateMockProduct = (): Product => {
             quantity: Math.floor(Math.random() * 200 + 50),
         },
         stock: Math.floor(Math.random() * 100),
+        allowance: Math.floor(Math.random() * 100) + 1,
         releaseDate: dayjs(new Date())
             .subtract(Math.floor(Math.random() * 365), "day")
             .toISOString(),
