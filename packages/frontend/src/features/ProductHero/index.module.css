@@ -13,9 +13,36 @@
     margin: auto;
 
     border: 1px solid #000;
+
+    @media (max-width: $mantine-breakpoint-xl) {
+        grid-template-columns: repeat(30%, 1fr);
+
+        max-width: 1024px;
+    }
+
+    @media (max-width: $mantine-breakpoint-lg) {
+        grid-template-columns: 100%;
+
+        max-width: 768px;
+    }
+
+    @media (max-width: $mantine-breakpoint-md) {
+        grid-template-columns: 100%;
+
+        max-width: 640px;
+    }
+
+    @media (max-width: $mantine-breakpoint-sm) {
+        grid-template-columns: 100%;
+
+        max-width: 100%;
+        padding: 0px;
+    }
 }
 
 .product-image {
+    grid-area: 1/ 1/ -1/ 2;
+
     width: 100%;
     aspect-ratio: 1;
 
