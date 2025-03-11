@@ -97,6 +97,7 @@ export function ProductHero() {
                                             Math.max(1, Math.min(allowance, Number(value))),
                                         );
                                     }
+                                    e.preventDefault();
                                 }}
                                 onChange={(e) => {
                                     const { value } = e.currentTarget;
@@ -106,18 +107,11 @@ export function ProductHero() {
                                         );
                                     }
                                 }}
-                                onKeyDown={(e) => {
-                                    if (
-                                        !/^[0-9]$/.test(e.key) &&
-                                        ![
-                                            "Backspace",
-                                            "ArrowLeft",
-                                            "ArrowRight",
-                                            "Delete",
-                                        ].includes(e.key)
-                                    ) {
-                                        e.preventDefault();
-                                    }
+                                onInput={(e) => {
+                                    e.currentTarget.value = e.currentTarget.value.replace(
+                                        /[^0-9]/g,
+                                        "",
+                                    );
                                 }}
                                 onPaste={(e) => {
                                     if (!/^\d+$/.test(e.clipboardData.getData("text"))) {
