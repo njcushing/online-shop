@@ -5,6 +5,7 @@
 .product-hero-width-controller {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    align-items: start;
     gap: 16px;
 
     width: 100%;
@@ -41,8 +42,6 @@
 }
 
 .product-image {
-    grid-area: 1/ 1/ -1/ 2;
-
     width: 100%;
     aspect-ratio: 1;
 
@@ -55,6 +54,7 @@
     gap: 12px;
 
     width: 100%;
+    min-height: 100%;
     padding: 16px;
 
     border: 1px dashed #000;
