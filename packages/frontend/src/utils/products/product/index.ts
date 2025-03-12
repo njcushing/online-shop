@@ -2,6 +2,18 @@ import dayjs from "dayjs";
 import { loremIpsum } from "lorem-ipsum";
 import { v4 as uuid } from "uuid";
 
+export type ProductCustomisation = {
+    name: string;
+    options: Record<
+        string,
+        {
+            value: string;
+            priceModifier: { value: number; type: "number" | "percentage" };
+            img: string;
+        }
+    >;
+};
+
 export type Product = {
     id: string;
     name: string;
@@ -20,6 +32,7 @@ export type Product = {
     stock: number;
     allowance: number;
     tags: string[];
+    customisations: { id: string; options: string[] }[];
     releaseDate: string;
 };
 
@@ -53,6 +66,7 @@ export const generateMockProduct = (): Product => {
         stock: Math.floor(Math.random() * 100),
         allowance: Math.floor(Math.random() * 100) + 1,
         tags: [],
+        customisations: [],
         releaseDate: dayjs(new Date())
             .subtract(Math.floor(Math.random() * 365), "day")
             .toISOString(),
