@@ -157,7 +157,7 @@
     -moz-appearance: textfield;
 }
 
-.quantity-input:focus {
+.quantity-input:focus-visible {
     outline: 2px solid #000;
 }
 
@@ -178,8 +178,8 @@
     padding: 0px;
 }
 
-.decrement-button:focus,
-.increment-button:focus {
+.decrement-button:focus-visible,
+.increment-button:focus-visible {
     outline: 2px solid #000;
 }
 
