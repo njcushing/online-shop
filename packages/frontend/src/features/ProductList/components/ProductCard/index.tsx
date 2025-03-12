@@ -41,7 +41,7 @@ export function ProductCard({ productData }: TProductCard) {
     return (
         <Link to={`/p/${productData.id}`} className={styles["product-card"]}>
             <div className={styles["product-card-image-container"]}>
-                <Image className={styles["product-image"]} src={productData.img} />
+                <Image className={styles["product-image"]} src={productData.images.thumb} />
                 {productInformationBanner()}
             </div>
             <p className={styles["product-name"]}>{productData.name}</p>

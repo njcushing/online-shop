@@ -7,7 +7,7 @@ import styles from "./index.module.css";
 const mockProductData = generateMockProduct();
 
 export function ProductHero() {
-    const { name, description, img, price, rating, allowance } = mockProductData;
+    const { name, description, images, price, rating, allowance } = mockProductData;
 
     const [quantity, setQuantity] = useState<number | null>(1);
 
@@ -19,7 +19,7 @@ export function ProductHero() {
     return (
         <section className={styles["product-hero"]}>
             <div className={styles["product-hero-width-controller"]}>
-                <Image className={styles["product-image"]} src={img} />
+                <Image className={styles["product-image"]} src={images.dynamic[0] || ""} />
                 <div className={styles["product-content"]}>
                     <h1 className={styles["product-name"]}>{name}</h1>
                     <Divider />
