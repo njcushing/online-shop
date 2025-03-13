@@ -2,6 +2,16 @@ import dayjs from "dayjs";
 import { loremIpsum } from "lorem-ipsum";
 import { v4 as uuid } from "uuid";
 
+export type ProductVariant = {
+    id: string;
+    name: string;
+    sku: string;
+    price: { current: number; base: number };
+    stock: number;
+    allowanceOverride?: number;
+    image?: string;
+};
+
 export type ProductCustomisation = {
     name: string;
     options: Record<
