@@ -1,11 +1,9 @@
-import { Product, generateMockProduct as i } from "@/utils/products/product";
-
 export type Category = {
     slug: string;
     name: string;
     description: string;
     subcategories?: Category[];
-    products?: Product[];
+    products?: string[];
     img?: string;
 };
 
@@ -19,33 +17,25 @@ export const categories: Category[] = [
                 slug: "beans",
                 name: "Beans",
                 description: "Whole coffee beans.",
-                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
-                    i(),
-                ),
+                products: ["1", "2", "3"],
             },
             {
                 slug: "ground",
                 name: "Ground",
                 description: "Pre-ground coffee for convenience.",
-                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
-                    i(),
-                ),
+                products: [],
             },
             {
                 slug: "instant-pods",
                 name: "Instant & Pods",
                 description: "Quick and easy coffee options.",
-                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
-                    i(),
-                ),
+                products: [],
             },
             {
                 slug: "cold-brew-ready",
                 name: "Cold Brew & Ready-to-Drink",
                 description: "Pre-made cold brews.",
-                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
-                    i(),
-                ),
+                products: [],
             },
         ],
     },
@@ -58,33 +48,25 @@ export const categories: Category[] = [
                 slug: "loose-leaf",
                 name: "Loose Leaf",
                 description: "High-quality loose tea leaves.",
-                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
-                    i(),
-                ),
+                products: [],
             },
             {
                 slug: "bags",
                 name: "Bags",
                 description: "Convenient tea bags.",
-                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
-                    i(),
-                ),
+                products: [],
             },
             {
                 slug: "specialty-and-powdered",
                 name: "Specialty & Powdered",
                 description: "Matcha and chai powders.",
-                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
-                    i(),
-                ),
+                products: [],
             },
             {
                 slug: "ready-to-drink",
                 name: "Ready-to-Drink",
                 description: "Pre-bottled teas.",
-                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
-                    i(),
-                ),
+                products: [],
             },
         ],
     },
@@ -97,41 +79,31 @@ export const categories: Category[] = [
                 slug: "brewing",
                 name: "Brewing",
                 description: "Manual brewing devices.",
-                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
-                    i(),
-                ),
+                products: [],
             },
             {
                 slug: "espresso-machines",
                 name: "Espresso Machines",
                 description: "Machines for making espresso.",
-                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
-                    i(),
-                ),
+                products: [],
             },
             {
                 slug: "grinders",
                 name: "Grinders",
                 description: "For freshly ground coffee.",
-                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
-                    i(),
-                ),
+                products: [],
             },
             {
                 slug: "scales-timers",
                 name: "Scales & Timers",
                 description: "Precision tools for brewing.",
-                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
-                    i(),
-                ),
+                products: [],
             },
             {
                 slug: "cold-brew-makers",
                 name: "Cold Brew Makers",
                 description: "Specialized cold brew tools.",
-                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
-                    i(),
-                ),
+                products: [],
             },
         ],
     },
@@ -144,25 +116,19 @@ export const categories: Category[] = [
                 slug: "mugs-tumblers",
                 name: "Mugs & Tumblers",
                 description: "Drinkware for all beverages.",
-                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
-                    i(),
-                ),
+                products: [],
             },
             {
                 slug: "filters-maintenance",
                 name: "Filters & Maintenance",
                 description: "Reusable and disposable filters.",
-                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
-                    i(),
-                ),
+                products: [],
             },
             {
                 slug: "frothers-steamers",
                 name: "Frothers & Steamers",
                 description: "Tools for milk frothing.",
-                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
-                    i(),
-                ),
+                products: [],
             },
         ],
     },
@@ -175,25 +141,19 @@ export const categories: Category[] = [
                 slug: "gift-sets-packs",
                 name: "Gift Sets & Sampler Packs",
                 description: "Curated gift sets.",
-                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
-                    i(),
-                ),
+                products: [],
             },
             {
                 slug: "subscription-boxes",
                 name: "Coffee Subscription Boxes",
                 description: "Monthly coffee deliveries.",
-                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
-                    i(),
-                ),
+                products: [],
             },
             {
                 slug: "gift-cards",
                 name: "Gift Cards",
                 description: "Digital and physical gift cards.",
-                products: Array.from({ length: Math.floor(Math.random() * 10 + 10) }).map(() =>
-                    i(),
-                ),
+                products: [],
             },
         ],
     },
