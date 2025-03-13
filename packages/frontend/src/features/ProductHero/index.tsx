@@ -20,9 +20,12 @@ export function ProductHero() {
         <section className={styles["product-hero"]}>
             <div className={styles["product-hero-width-controller"]}>
                 <Image className={styles["product-image"]} src={images.dynamic[0] || ""} />
+
                 <div className={styles["product-content"]}>
                     <h1 className={styles["product-name"]}>{name}</h1>
+
                     <Divider />
+
                     <div className={styles["product-hero-rating-container"]}>
                         <Rating
                             className={styles["product-rating"]}
@@ -40,6 +43,7 @@ export function ProductHero() {
                             className={styles["product-rating-quantity"]}
                         >{`(${rating.quantity})`}</div>
                     </div>
+
                     <div className={styles["product-description-container"]}>
                         {description.map((paragraph) => {
                             return (
@@ -49,10 +53,71 @@ export function ProductHero() {
                             );
                         })}
                     </div>
+
+                    <Divider />
+
+                    <div className={styles["product-hero-steps-container"]}>
+                        <div className={styles["product-hero-step"]}>
+                            <p className={styles["product-hero-step-title"]}>Step 1</p>
+                            <ul className={styles["product-hero-step-options"]}>
+                                <li className={styles["product-hero-step-option"]}>Option 1</li>
+                                <li className={styles["product-hero-step-option"]}>Option 2</li>
+                                <li className={styles["product-hero-step-option"]}>Option 3</li>
+                                <li className={styles["product-hero-step-option"]}>Option 4</li>
+                                <li className={styles["product-hero-step-option"]}>Option 5</li>
+                                <li className={styles["product-hero-step-option"]}>Option 6</li>
+                            </ul>
+                        </div>
+
+                        <Divider />
+                        <div className={styles["product-hero-step"]}>
+                            <p className={styles["product-hero-step-title"]}>Step 2</p>
+                            <ul className={styles["product-hero-step-options"]}>
+                                <li className={styles["product-hero-step-option"]}>Option 1</li>
+                                <li className={styles["product-hero-step-option"]}>Option 2</li>
+                                <li className={styles["product-hero-step-option"]}>Option 3</li>
+                                <li className={styles["product-hero-step-option"]}>Option 4</li>
+                                <li className={styles["product-hero-step-option"]}>Option 5</li>
+                                <li className={styles["product-hero-step-option"]}>Option 6</li>
+                            </ul>
+                        </div>
+
+                        <Divider />
+
+                        <div className={styles["product-hero-step"]}>
+                            <p className={styles["product-hero-step-title"]}>Step 3</p>
+                            <ul className={styles["product-hero-step-options"]}>
+                                <li className={styles["product-hero-step-option"]}>Option 1</li>
+                                <li className={styles["product-hero-step-option"]}>Option 2</li>
+                                <li className={styles["product-hero-step-option"]}>Option 3</li>
+                                <li className={styles["product-hero-step-option"]}>Option 4</li>
+                                <li className={styles["product-hero-step-option"]}>Option 5</li>
+                                <li className={styles["product-hero-step-option"]}>Option 6</li>
+                            </ul>
+                        </div>
+
+                        <Divider />
+
+                        <div className={styles["product-hero-step"]}>
+                            <p className={styles["product-hero-step-title"]}>Step 4</p>
+                            <ul className={styles["product-hero-step-options"]}>
+                                <li className={styles["product-hero-step-option"]}>Option 1</li>
+                                <li className={styles["product-hero-step-option"]}>Option 2</li>
+                                <li className={styles["product-hero-step-option"]}>Option 3</li>
+                                <li className={styles["product-hero-step-option"]}>Option 4</li>
+                                <li className={styles["product-hero-step-option"]}>Option 5</li>
+                                <li className={styles["product-hero-step-option"]}>Option 6</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <Divider />
+
                     <div className={styles["product-hero-price-container"]}>
                         <span className={styles["product-price-current"]}>
                             £{(price.current / 100).toFixed(2)}
                         </span>
+
                         {price.current !== price.base && (
                             <>
                                 <span className={styles["product-price-base"]}>
@@ -64,6 +129,7 @@ export function ProductHero() {
                             </>
                         )}
                     </div>
+
                     <div className={styles["product-buttons-container"]}>
                         <div className={styles["quantity-input-container"]}>
                             <Button
@@ -81,6 +147,7 @@ export function ProductHero() {
                                     <line x1="5" y1="12" x2="19" y2="12" />
                                 </svg>
                             </Button>
+
                             <input
                                 type="number"
                                 value={quantity === null ? "" : quantity}
@@ -143,6 +210,7 @@ export function ProductHero() {
                                 </svg>
                             </Button>
                         </div>
+
                         <Button className={styles["add-to-cart-button"]}>Add to Cart</Button>
                     </div>
                 </div>
