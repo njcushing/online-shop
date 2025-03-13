@@ -2,12 +2,20 @@ import dayjs from "dayjs";
 import { loremIpsum } from "lorem-ipsum";
 import { v4 as uuid } from "uuid";
 
+export type ProductVariantOption = {
+    title: string;
+    image: string;
+};
+
+export type ProductVariantOptions = Record<string, Record<string, ProductVariantOption>>;
+
 export type ProductVariant = {
     id: string;
     name: string;
     sku: string;
     price: { current: number; base: number };
     stock: number;
+    options: Record<string, string>;
     allowanceOverride?: number;
     image?: string;
 };
@@ -76,6 +84,7 @@ export const generateMockProduct = (): Product => {
                     base: basePrice,
                 },
                 stock: Math.floor(Math.random() * 100),
+                options: {},
             },
         ],
         customisations: [],
