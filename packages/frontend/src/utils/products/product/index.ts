@@ -56,6 +56,159 @@ export type ProductCollection = {
 
 export const collections: Record<string, ProductCollection> = {};
 
+export const products: Product[] = [
+    {
+        id: "1",
+        name: "Coffee - Whole Bean - 250g",
+        description: ["Product Description"],
+        slug: "coffee-whole-bean-250g",
+        images: { thumb: "", dynamic: [] },
+        rating: {
+            value: 4.87,
+            quantity: 482,
+        },
+        allowance: 50,
+        tags: [],
+        variants: [
+            {
+                id: "1-1",
+                name: "Variant 1",
+                sku: "COF-WB-250G-LT",
+                price: {
+                    current: 700,
+                    base: 700,
+                },
+                stock: 321,
+                options: { blend: "light" },
+            },
+            {
+                id: "1-2",
+                name: "Variant 2",
+                sku: "COF-WB-250G-MD",
+                price: {
+                    current: 700,
+                    base: 700,
+                },
+                stock: 73,
+                options: { blend: "medium" },
+            },
+            {
+                id: "1-3",
+                name: "Variant 3",
+                sku: "COF-WB-250G-DK",
+                price: {
+                    current: 700,
+                    base: 700,
+                },
+                stock: 23,
+                options: { blend: "dark" },
+            },
+        ],
+        customisations: [],
+        releaseDate: new Date().toISOString(),
+    },
+    {
+        id: "2",
+        name: "Coffee - Whole Bean - 500g",
+        description: ["Product Description"],
+        slug: "coffee-whole-bean-500g",
+        images: { thumb: "", dynamic: [] },
+        rating: {
+            value: 4.62,
+            quantity: 370,
+        },
+        allowance: 30,
+        tags: [],
+        variants: [
+            {
+                id: "2-1",
+                name: "Variant 1",
+                sku: "COF-WB-500G-LT",
+                price: {
+                    current: 1250,
+                    base: 1250,
+                },
+                stock: 237,
+                options: { blend: "light" },
+            },
+            {
+                id: "2-2",
+                name: "Variant 2",
+                sku: "COF-WB-500G-MD",
+                price: {
+                    current: 1250,
+                    base: 1250,
+                },
+                stock: 123,
+                options: { blend: "medium" },
+            },
+            {
+                id: "2-3",
+                name: "Variant 3",
+                sku: "COF-WB-500G-DK",
+                price: {
+                    current: 1250,
+                    base: 1250,
+                },
+                stock: 382,
+                options: { blend: "dark" },
+            },
+        ],
+        customisations: [],
+        releaseDate: new Date().toISOString(),
+    },
+    {
+        id: "3",
+        name: "Coffee - Whole Bean - 1kg",
+        description: ["Product Description"],
+        slug: "coffee-whole-bean-1kg",
+        images: { thumb: "", dynamic: [] },
+        rating: {
+            value: 4.9,
+            quantity: 872,
+        },
+        allowance: 20,
+        tags: [],
+        variants: [
+            {
+                id: "3-1",
+                name: "Variant 1",
+                sku: "COF-WB-1KG-LT",
+                price: {
+                    current: 2250,
+                    base: 2250,
+                },
+                stock: 89,
+                options: { blend: "light" },
+            },
+            {
+                id: "3-2",
+                name: "Variant 2",
+                sku: "COF-WB-1KG-MD",
+                price: {
+                    current: 2250,
+                    base: 2250,
+                },
+                stock: 76,
+                options: { blend: "medium" },
+            },
+            {
+                id: "3-3",
+                name: "Variant 3",
+                sku: "COF-WB-1KG-DK",
+                price: {
+                    current: 2250,
+                    base: 2250,
+                },
+                stock: 102,
+                options: { blend: "dark" },
+            },
+        ],
+        customisations: [],
+        releaseDate: new Date().toISOString(),
+    },
+];
+
 export const generateMockProduct = (): Product => {
     const basePrice = Math.floor(Math.random() * 16000 + 6000);
 
