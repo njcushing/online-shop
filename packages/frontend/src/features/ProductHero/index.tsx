@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useMemo } from "react";
 import { Button, Divider, Image, Rating } from "@mantine/core";
-import { Product, products, ProductVariant } from "@/utils/products/product";
+import { extractVariantOptions, Product, products, ProductVariant } from "@/utils/products/product";
 import { v4 as uuid } from "uuid";
 import { ErrorPage } from "@/pages/ErrorPage";
 import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString";
@@ -21,6 +21,10 @@ export function ProductHero() {
         if (!productData) return undefined;
         if (productData.variants.length === 0) return undefined;
         return productData.variants[0];
+    }, [productData]);
+
+    const variantOptions = useMemo<Map<string, Set<string>> | undefined>(() => {
+        return productData ? extractVariantOptions(productData) : undefined;
     }, [productData]);
 
     if (!productData || !variantData) return <ErrorPage />;
@@ -69,58 +73,32 @@ export function ProductHero() {
                     <Divider />
 
                     <div className={styles["product-hero-steps-container"]}>
-                        <div className={styles["product-hero-step"]}>
-                            <p className={styles["product-hero-step-title"]}>Step 1</p>
-                            <ul className={styles["product-hero-step-options"]}>
-                                <li className={styles["product-hero-step-option"]}>Option 1</li>
-                                <li className={styles["product-hero-step-option"]}>Option 2</li>
-                                <li className={styles["product-hero-step-option"]}>Option 3</li>
-                                <li className={styles["product-hero-step-option"]}>Option 4</li>
-                                <li className={styles["product-hero-step-option"]}>Option 5</li>
-                                <li className={styles["product-hero-step-option"]}>Option 6</li>
-                            </ul>
-                        </div>
-
-                        <Divider />
-                        <div className={styles["product-hero-step"]}>
-                            <p className={styles["product-hero-step-title"]}>Step 2</p>
-                            <ul className={styles["product-hero-step-options"]}>
-                                <li className={styles["product-hero-step-option"]}>Option 1</li>
-                                <li className={styles["product-hero-step-option"]}>Option 2</li>
-                                <li className={styles["product-hero-step-option"]}>Option 3</li>
-                                <li className={styles["product-hero-step-option"]}>Option 4</li>
-                                <li className={styles["product-hero-step-option"]}>Option 5</li>
-                                <li className={styles["product-hero-step-option"]}>Option 6</li>
-                            </ul>
-                        </div>
-
-                        <Divider />
-
-                        <div className={styles["product-hero-step"]}>
-                            <p className={styles["product-hero-step-title"]}>Step 3</p>
-                            <ul className={styles["product-hero-step-options"]}>
-                                <li className={styles["product-hero-step-option"]}>Option 1</li>
-                                <li className={styles["product-hero-step-option"]}>Option 2</li>
-                                <li className={styles["product-hero-step-option"]}>Option 3</li>
-                                <li className={styles["product-hero-step-option"]}>Option 4</li>
-                                <li className={styles["product-hero-step-option"]}>Option 5</li>
-                                <li className={styles["product-hero-step-option"]}>Option 6</li>
-                            </ul>
-                        </div>
-
-                        <Divider />
-
-                        <div className={styles["product-hero-step"]}>
-                            <p className={styles["product-hero-step-title"]}>Step 4</p>
-                            <ul className={styles["product-hero-step-options"]}>
-                                <li className={styles["product-hero-step-option"]}>Option 1</li>
-                                <li className={styles["product-hero-step-option"]}>Option 2</li>
-                                <li className={styles["product-hero-step-option"]}>Option 3</li>
-                                <li className={styles["product-hero-step-option"]}>Option 4</li>
-                                <li className={styles["product-hero-step-option"]}>Option 5</li>
-                                <li className={styles["product-hero-step-option"]}>Option 6</li>
-                            </ul>
-                        </div>
+                        {variantOptions &&
+                            [...variantOptions.entries()].map((option) => {
+                                const [key, values] = option;
+                                return (
+                                    <div
+                                        className={styles["product-hero-step"]}
+                                        key={`variant-options-${key}`}
+                                    >
+                                        <p className={styles["product-hero-step-title"]}>Step 1</p>
+                                        <ul className={styles["product-hero-step-options"]}>
+                                            {[...values.keys()].map((value) => {
+                                                return (
+                                                    <li
+                                                        className={
+                                                            styles["product-hero-step-option"]
+                                                        }
+                                                        key={`variant-options-${key}-${value}`}
+                                                    >
+                                                        {value}
+                                                    </li>
+                                                );
+                                            })}
+                                        </ul>
+                                    </div>
+                                );
+                            })}
                     </div>
 
                     <Divider />
