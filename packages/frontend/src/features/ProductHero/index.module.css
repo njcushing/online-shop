@@ -114,6 +114,10 @@
     font-size: 1rem;
 }
 
+.product-hero-step-title::first-letter {
+    text-transform: capitalize;
+}
+
 .product-hero-step-options {
     display: flex;
     flex-direction: row;

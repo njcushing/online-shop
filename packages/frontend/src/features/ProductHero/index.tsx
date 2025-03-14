@@ -1,7 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useState, useMemo } from "react";
 import { Button, Divider, Image, Rating } from "@mantine/core";
-import { extractVariantOptions, Product, products, ProductVariant } from "@/utils/products/product";
+import {
+    extractVariantOptions,
+    Product,
+    products,
+    ProductVariant,
+    variantOptions as allVariantOptions,
+} from "@/utils/products/product";
 import { v4 as uuid } from "uuid";
 import { ErrorPage } from "@/pages/ErrorPage";
 import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString";
@@ -76,12 +82,15 @@ export function ProductHero() {
                         {variantOptions &&
                             [...variantOptions.entries()].map((option) => {
                                 const [key, values] = option;
+                                const optionData = allVariantOptions.find((o) => o.id === key);
                                 return (
                                     <div
                                         className={styles["product-hero-step"]}
                                         key={`variant-options-${key}`}
                                     >
-                                        <p className={styles["product-hero-step-title"]}>Step 1</p>
+                                        <p className={styles["product-hero-step-title"]}>
+                                            {optionData?.title || key}
+                                        </p>
                                         <ul className={styles["product-hero-step-options"]}>
                                             {[...values.keys()].map((value) => {
                                                 return (
