@@ -204,3 +204,19 @@ export const products: Product[] = [
         releaseDate: new Date().toISOString(),
     },
 ];
+
+export const extractVariantOptions = (product: Product): Map<string, Set<string>> => {
+    const options = new Map<string, Set<string>>();
+
+    const { variants } = product;
+
+    variants.forEach((variant) => {
+        Object.entries(variant.options).forEach((entry) => {
+            const [key, value] = entry;
+            if (!options.has(key)) options.set(key, new Set());
+            options.get(key)!.add(value);
+        });
+    });
+
+    return options;
+};
