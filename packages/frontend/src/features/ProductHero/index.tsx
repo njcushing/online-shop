@@ -1,20 +1,32 @@
+import { useParams } from "react-router-dom";
 import { useState, useMemo } from "react";
 import { Button, Divider, Image, Rating } from "@mantine/core";
-import { generateMockProduct } from "@/utils/products/product";
+import { Product, products, ProductVariant } from "@/utils/products/product";
 import { v4 as uuid } from "uuid";
+import { ErrorPage } from "@/pages/ErrorPage";
+import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString";
 import styles from "./index.module.css";
 
-const mockProductData = generateMockProduct();
-
 export function ProductHero() {
-    const { name, description, images, price, rating, allowance } = mockProductData;
+    const params = useParams();
+    const { productId } = params;
 
     const [quantity, setQuantity] = useState<number | null>(1);
 
-    const priceReductionString = useMemo<string>(() => {
-        const reduction = (price.current / Math.max(price.base, 1)) * 100 - 100;
-        return `${reduction < 0 ? "" : "+"}${reduction.toFixed(0)}%`;
-    }, [price]);
+    const productData = useMemo<Product | undefined>(() => {
+        return products.find((product) => product.id === productId);
+    }, [productId]);
+
+    const variantData = useMemo<ProductVariant | undefined>(() => {
+        if (!productData) return undefined;
+        if (productData.variants.length === 0) return undefined;
+        return productData.variants[0];
+    }, [productData]);
+
+    if (!productData || !variantData) return <ErrorPage />;
+
+    const { name, description, images, rating, allowance } = productData;
+    const { price } = variantData;
 
     return (
         <section className={styles["product-hero"]}>
@@ -124,7 +136,7 @@ export function ProductHero() {
                                     £{(price.base / 100).toFixed(2)}
                                 </span>
                                 <span className={styles["product-price-discount-percentage"]}>
-                                    {priceReductionString}
+                                    {createPriceAdjustmentString(price.current, price.base)}
                                 </span>
                             </>
                         )}

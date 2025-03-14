@@ -1,7 +1,8 @@
 import React, { useCallback, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Image, Rating } from "@mantine/core";
-import { Product as ProductDataType } from "@/utils/products/product";
+import { Product as ProductDataType, ProductVariant } from "@/utils/products/product";
+import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString";
 import dayjs from "dayjs";
 import styles from "./index.module.css";
 
@@ -13,13 +14,19 @@ export type TProductCard = {
 
 export function ProductCard({ productData }: TProductCard) {
     const productInformationBanner = useCallback((): React.ReactNode | null => {
+        if (productData.variants.length === 0) return null;
+        const highestStockVariant = productData.variants.reduce(
+            (min, variant) => (variant.stock < min ? variant.stock : min),
+            productData.variants[0].stock,
+        );
+
         // Out of stock
-        if (productData.stock === 0) {
+        if (highestStockVariant === 0) {
             return <div className={styles["product-information-banner"]}>Out of stock</div>;
         }
 
         // Low stock
-        if (productData.stock <= lowStockThreshold) {
+        if (highestStockVariant <= lowStockThreshold) {
             return <div className={styles["product-information-banner"]}>Low stock</div>;
         }
 
@@ -32,11 +39,16 @@ export function ProductCard({ productData }: TProductCard) {
         return null;
     }, [productData]);
 
-    const priceReductionString = useMemo<string>(() => {
-        const reduction =
-            (productData.price.current / Math.max(productData.price.base, 1)) * 100 - 100;
-        return `${reduction < 0 ? "" : "+"}${reduction.toFixed(0)}%`;
-    }, [productData.price]);
+    const lowestPriceVariant = useMemo<ProductVariant | undefined>(() => {
+        if (productData.variants.length === 0) return undefined;
+        return productData.variants.reduce(
+            (current, variant) =>
+                variant.price.current < current.price.current ? variant : current,
+            productData.variants[0],
+        );
+    }, [productData]);
+
+    if (!lowestPriceVariant) return null;
 
     return (
         <Link to={`/p/${productData.id}`} className={styles["product-card"]}>
@@ -47,15 +59,18 @@ export function ProductCard({ productData }: TProductCard) {
             <p className={styles["product-name"]}>{productData.name}</p>
             <div className={styles["product-card-price-container"]}>
                 <span className={styles["product-price-current"]}>
-                    £{(productData.price.current / 100).toFixed(2)}
+                    £{(lowestPriceVariant.price.current / 100).toFixed(2)}
                 </span>
-                {productData.price.current !== productData.price.base && (
+                {lowestPriceVariant.price.current !== lowestPriceVariant.price.base && (
                     <>
                         <span className={styles["product-price-base"]}>
-                            £{(productData.price.base / 100).toFixed(2)}
+                            £{(lowestPriceVariant.price.base / 100).toFixed(2)}
                         </span>
                         <span className={styles["product-price-discount-percentage"]}>
-                            {priceReductionString}
+                            {createPriceAdjustmentString(
+                                lowestPriceVariant.price.current,
+                                lowestPriceVariant.price.base,
+                            )}
                         </span>
                     </>
                 )}

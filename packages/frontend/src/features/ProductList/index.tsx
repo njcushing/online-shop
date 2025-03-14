@@ -4,8 +4,11 @@ import { useMantineTheme, Divider, NavLink } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { Link } from "react-router-dom";
 import { CaretRight } from "@phosphor-icons/react";
+import { products as allProducts, Product } from "@/utils/products/product";
 import { ProductCard } from "./components/ProductCard";
 import styles from "./index.module.css";
+
+const findProductFromId = (id: string): Product | undefined => allProducts.find((p) => p.id === id);
 
 export function ProductList() {
     const theme = useMantineTheme();
@@ -25,18 +28,30 @@ export function ProductList() {
 
     return (
         <section className={styles["product-list"]}>
-            {products && products.length > 0 && (
-                <div className={styles["product-list-category-group"]}>
-                    {products.map((product) => (
-                        <ProductCard productData={product} key={product.id} />
-                    ))}
-                </div>
-            )}
+            {products &&
+                (() => {
+                    const foundProducts = products
+                        .map((p) => findProductFromId(p))
+                        .filter((p) => p);
+                    if (foundProducts.length === 0) return null;
+
+                    return (
+                        <div className={styles["product-list-category-group"]}>
+                            {foundProducts.map((product) => (
+                                <ProductCard productData={product!} key={product!.id} />
+                            ))}
+                        </div>
+                    );
+                })()}
             {subcategories &&
                 subcategories.length > 0 &&
                 subcategories.map((subcategory, i) => {
                     if (!subcategory.products) return null;
-                    if (subcategory.products.length === 0) return null;
+
+                    const foundProducts = subcategory.products
+                        .map((p) => findProductFromId(p))
+                        .filter((p) => p);
+                    if (foundProducts.length === 0) return null;
 
                     let productsToDisplay = 7;
                     if (breakpointLg) productsToDisplay = 5;
@@ -66,8 +81,8 @@ export function ProductList() {
                                         }}
                                     />
                                 </div>
-                                {subcategory.products.slice(0, productsToDisplay).map((product) => (
-                                    <ProductCard productData={product} key={product.id} />
+                                {foundProducts.slice(0, productsToDisplay).map((product) => (
+                                    <ProductCard productData={product!} key={product!.id} />
                                 ))}
                             </div>
                             {i < currentCategory.subcategories!.length - 1 && <Divider />}
