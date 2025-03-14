@@ -1,9 +1,8 @@
 export type ProductVariantOption = {
+    id: string;
     title: string;
-    image: string;
+    values: { id: string; name: string; image: string }[];
 };
-
-export type ProductVariantOptions = Record<string, Record<string, ProductVariantOption>>;
 
 export type ProductVariant = {
     id: string;
@@ -51,6 +50,18 @@ export type ProductCollection = {
 };
 
 export const collections: Record<string, ProductCollection> = {};
+
+export const variantOptions: ProductVariantOption[] = [
+    {
+        id: "blend",
+        title: "Choose a blend",
+        values: [
+            { id: "LT", name: "Light", image: "" },
+            { id: "MD", name: "Medium", image: "" },
+            { id: "DK", name: "Dark", image: "" },
+        ],
+    },
+];
 
 export const products: Product[] = [
     {
