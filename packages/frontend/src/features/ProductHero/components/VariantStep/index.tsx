@@ -20,25 +20,31 @@ export function VariantStep({ id, values, onClick }: TVariantStep) {
 
     const items = useMemo(() => {
         if (optionData && checkOptionType(optionData, "dot")) {
-            return [...optionData.values].map((value) => {
+            return [...values.values()].map((value) => {
+                const valueData = optionData.values.find((v) => v.id === value);
+                const {
+                    id: valueId,
+                    name,
+                    dot,
+                } = valueData || { id: value, name: value, dot: "white" };
                 return (
                     <button
                         type="button"
-                        onClick={() => onClick && onClick(value.id)}
+                        onClick={() => onClick && onClick(valueId)}
                         className={styles["product-hero-step-dot-button"]}
-                        key={`variant-options-${id}-${value.name}`}
+                        key={`variant-options-${id}-${name}`}
                     >
                         <span
                             className={styles["product-hero-step-dot"]}
-                            style={{ backgroundColor: value.dot }}
+                            style={{ backgroundColor: dot }}
                         ></span>
-                        {value.name}
+                        {name}
                     </button>
                 );
             });
         }
         return null;
-    }, [id, onClick, optionData]);
+    }, [id, values, onClick, optionData]);
 
     return (
         <div className={styles["product-hero-step"]} key={`variant-options-${id}`}>
