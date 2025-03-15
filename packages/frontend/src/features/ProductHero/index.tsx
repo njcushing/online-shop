@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState, useMemo } from "react";
+import { Fragment, useState, useMemo } from "react";
 import { Button, Divider, Image, Rating } from "@mantine/core";
 import {
     extractVariantOptions,
@@ -11,6 +11,7 @@ import {
 import { v4 as uuid } from "uuid";
 import { ErrorPage } from "@/pages/ErrorPage";
 import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString";
+import { VariantStep } from "./components/VariantStep";
 import styles from "./index.module.css";
 
 export function ProductHero() {
@@ -80,33 +81,14 @@ export function ProductHero() {
 
                     <div className={styles["product-hero-steps-container"]}>
                         {variantOptions &&
-                            [...variantOptions.entries()].map((option) => {
-                                const [key] = option;
-                                const optionData = allVariantOptions.find((o) => o.id === key);
+                            [...variantOptions.entries()].map((option, i) => {
+                                const [key, values] = option;
+                                const step = <VariantStep id={key} values={values} />;
                                 return (
-                                    <div
-                                        className={styles["product-hero-step"]}
-                                        key={`variant-options-${key}`}
-                                    >
-                                        <p className={styles["product-hero-step-title"]}>
-                                            {optionData?.title || key}
-                                        </p>
-                                        <ul className={styles["product-hero-step-options"]}>
-                                            {optionData &&
-                                                [...optionData.values].map((value) => {
-                                                    return (
-                                                        <li
-                                                            className={
-                                                                styles["product-hero-step-option"]
-                                                            }
-                                                            key={`variant-options-${key}-${value.name}`}
-                                                        >
-                                                            {value.name}
-                                                        </li>
-                                                    );
-                                                })}
-                                        </ul>
-                                    </div>
+                                    <Fragment key={key}>
+                                        {step}
+                                        {i < variantOptions.size - 1 && <Divider />}
+                                    </Fragment>
                                 );
                             })}
                     </div>

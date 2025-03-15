@@ -1,0 +1,69 @@
+.product-hero-step {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.product-hero-step-title {
+    color: black;
+    font-family: "Radio Canada Big";
+    font-size: 1rem;
+}
+
+.product-hero-step-title::first-letter {
+    text-transform: capitalize;
+}
+
+.product-hero-step-options {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.product-hero-step-dot-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+
+    cursor: pointer;
+
+    color: black;
+    font-family: "Radio Canada Big";
+    font-size: 0.9rem;
+    text-wrap: wrap;
+
+    border: none;
+    border-radius: 4px;
+    background: none;
+
+    width: 100%;
+    max-width: 60px;
+}
+
+.product-hero-step-dot-button:focus-visible {
+    outline: 2px solid #000;
+}
+
+.product-hero-step-dot {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    border: none;
+    border-radius: 4px;
+    width: 40px;
+    height: 40px;
+
+    transition: outline linear 0.16s;
+}
+
+.product-hero-step-dot-button[data-selected="true"] .product-hero-step-dot {
+    outline-color: black;
+
+    transition-duration: 0s;
+}
+
+@media (hover: hover) {
+    .product-hero-step-dot-button:hover .product-hero-step-dot {
+        outline-color: black;
+    }
+}
