@@ -86,7 +86,7 @@ export const products: Product[] = [
                     base: 700,
                 },
                 stock: 321,
-                options: { blend: "light" },
+                options: { blend: "LT" },
             },
             {
                 id: "1-2",
@@ -97,7 +97,7 @@ export const products: Product[] = [
                     base: 700,
                 },
                 stock: 73,
-                options: { blend: "medium" },
+                options: { blend: "MD" },
             },
             {
                 id: "1-3",
@@ -108,7 +108,7 @@ export const products: Product[] = [
                     base: 700,
                 },
                 stock: 23,
-                options: { blend: "dark" },
+                options: { blend: "DK" },
             },
         ],
         customisations: [],
@@ -136,7 +136,7 @@ export const products: Product[] = [
                     base: 1250,
                 },
                 stock: 237,
-                options: { blend: "light" },
+                options: { blend: "LT" },
             },
             {
                 id: "2-2",
@@ -147,7 +147,7 @@ export const products: Product[] = [
                     base: 1250,
                 },
                 stock: 123,
-                options: { blend: "medium" },
+                options: { blend: "MD" },
             },
             {
                 id: "2-3",
@@ -186,7 +186,7 @@ export const products: Product[] = [
                     base: 2250,
                 },
                 stock: 89,
-                options: { blend: "light" },
+                options: { blend: "LT" },
             },
             {
                 id: "3-2",
@@ -197,7 +197,7 @@ export const products: Product[] = [
                     base: 2250,
                 },
                 stock: 76,
-                options: { blend: "medium" },
+                options: { blend: "MD" },
             },
             {
                 id: "3-3",
@@ -208,7 +208,7 @@ export const products: Product[] = [
                     base: 2250,
                 },
                 stock: 102,
-                options: { blend: "dark" },
+                options: { blend: "DK" },
             },
         ],
         customisations: [],
