@@ -81,7 +81,7 @@ export function ProductHero() {
                     <div className={styles["product-hero-steps-container"]}>
                         {variantOptions &&
                             [...variantOptions.entries()].map((option) => {
-                                const [key, values] = option;
+                                const [key] = option;
                                 const optionData = allVariantOptions.find((o) => o.id === key);
                                 return (
                                     <div
@@ -92,18 +92,19 @@ export function ProductHero() {
                                             {optionData?.title || key}
                                         </p>
                                         <ul className={styles["product-hero-step-options"]}>
-                                            {[...values.keys()].map((value) => {
-                                                return (
-                                                    <li
-                                                        className={
-                                                            styles["product-hero-step-option"]
-                                                        }
-                                                        key={`variant-options-${key}-${value}`}
-                                                    >
-                                                        {value}
-                                                    </li>
-                                                );
-                                            })}
+                                            {optionData &&
+                                                [...optionData.values].map((value) => {
+                                                    return (
+                                                        <li
+                                                            className={
+                                                                styles["product-hero-step-option"]
+                                                            }
+                                                            key={`variant-options-${key}-${value.name}`}
+                                                        >
+                                                            {value.name}
+                                                        </li>
+                                                    );
+                                                })}
                                         </ul>
                                     </div>
                                 );
