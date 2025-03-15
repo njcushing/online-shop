@@ -1,8 +1,17 @@
+import { CSSProperties } from "react";
+
+export type ProductVariantOptionValuesCore = {
+    id: string;
+    name: string;
+};
+
 export type ProductVariantOption = {
     id: string;
     title: string;
-    values: { id: string; name: string; image: string }[];
-};
+} & (
+    | { type: "dot"; values: (ProductVariantOptionValuesCore & { dot: CSSProperties["color"] })[] }
+    | { type: "image"; values: (ProductVariantOptionValuesCore & { image: string })[] }
+);
 
 export type ProductVariant = {
     id: string;
@@ -55,10 +64,11 @@ export const variantOptions: ProductVariantOption[] = [
     {
         id: "blend",
         title: "Choose a blend",
+        type: "dot",
         values: [
-            { id: "LT", name: "Light", image: "" },
-            { id: "MD", name: "Medium", image: "" },
-            { id: "DK", name: "Dark", image: "" },
+            { id: "LT", name: "Light", dot: "pink" },
+            { id: "MD", name: "Medium", dot: "brown" },
+            { id: "DK", name: "Dark", dot: "black" },
         ],
     },
 ];
