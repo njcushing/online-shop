@@ -1,13 +1,7 @@
 import { useParams } from "react-router-dom";
 import { Fragment, useState, useMemo } from "react";
 import { Button, Divider, Image, Rating } from "@mantine/core";
-import {
-    extractVariantOptions,
-    Product,
-    products,
-    ProductVariant,
-    variantOptions as allVariantOptions,
-} from "@/utils/products/product";
+import { extractVariantOptions, Product, products, ProductVariant } from "@/utils/products/product";
 import { v4 as uuid } from "uuid";
 import { ErrorPage } from "@/pages/ErrorPage";
 import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString";
