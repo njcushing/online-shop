@@ -5,6 +5,7 @@ import { extractVariantOptions, Product, products, ProductVariant } from "@/util
 import { v4 as uuid } from "uuid";
 import { ErrorPage } from "@/pages/ErrorPage";
 import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString";
+import { Inputs } from "@/components/Inputs";
 import { VariantStep } from "./components/VariantStep";
 import styles from "./index.module.css";
 
@@ -12,7 +13,7 @@ export function ProductHero() {
     const params = useParams();
     const { productId } = params;
 
-    const [quantity, setQuantity] = useState<number | null>(1);
+    const [, /* quantity */ setQuantity] = useState<number | null>(1);
 
     const productData = useMemo<Product | undefined>(() => {
         return products.find((product) => product.id === productId);
@@ -113,85 +114,7 @@ export function ProductHero() {
                     </div>
 
                     <div className={styles["product-buttons-container"]}>
-                        <div className={styles["quantity-input-container"]}>
-                            <Button
-                                variant="transparent"
-                                onClick={() => quantity && setQuantity(Math.max(1, quantity - 1))}
-                                className={styles["decrement-button"]}
-                            >
-                                <svg
-                                    width="16"
-                                    height="16"
-                                    viewBox="0 0 24 24"
-                                    stroke="black"
-                                    strokeWidth="2"
-                                >
-                                    <line x1="5" y1="12" x2="19" y2="12" />
-                                </svg>
-                            </Button>
-
-                            <input
-                                type="number"
-                                value={quantity === null ? "" : quantity}
-                                onBlur={(e) => {
-                                    const value = e.currentTarget.value.trim();
-                                    if (
-                                        value === "" ||
-                                        Number.isNaN(Number(value)) ||
-                                        !Number.isInteger(Number(value))
-                                    ) {
-                                        setQuantity(1);
-                                    } else {
-                                        setQuantity(
-                                            Math.max(1, Math.min(allowance, Number(value))),
-                                        );
-                                    }
-                                    e.preventDefault();
-                                }}
-                                onChange={(e) => {
-                                    const { value } = e.currentTarget;
-                                    if (value === "" || /^\d+$/.test(value)) {
-                                        setQuantity(
-                                            value === "" ? null : Number.parseInt(value, 10),
-                                        );
-                                    }
-                                }}
-                                onInput={(e) => {
-                                    e.currentTarget.value = e.currentTarget.value.replace(
-                                        /[^0-9]/g,
-                                        "",
-                                    );
-                                }}
-                                onPaste={(e) => {
-                                    if (!/^\d+$/.test(e.clipboardData.getData("text"))) {
-                                        e.preventDefault();
-                                    }
-                                }}
-                                min={1}
-                                max={allowance}
-                                step={1}
-                                className={styles["quantity-input"]}
-                            />
-
-                            <Button
-                                variant="transparent"
-                                onClick={() =>
-                                    quantity && setQuantity(Math.min(allowance, quantity + 1))
-                                }
-                                className={styles["increment-button"]}
-                            >
-                                <svg
-                                    width="16"
-                                    height="16"
-                                    viewBox="0 0 24 24"
-                                    stroke="black"
-                                    strokeWidth="2"
-                                >
-                                    <line x1="12" y1="5" x2="12" y2="19" />
-                                    <line x1="5" y1="12" x2="19" y2="12" />
-                                </svg>
-                            </Button>
-                        </div>
+                        <Inputs.Quantity min={1} max={allowance} onChange={(v) => setQuantity(v)} />
 
                         <Button className={styles["add-to-cart-button"]}>Add to Cart</Button>
                     </div>
