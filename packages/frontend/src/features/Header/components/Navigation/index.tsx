@@ -80,6 +80,7 @@ export function Navigation() {
                             key={`navbar-category-${name}`}
                         >
                             {name}
+                            <div className={styles["underscore"]}></div>
                         </Link>
                     );
                 })}
