@@ -31,7 +31,7 @@ export function ProductHero() {
     if (!productData || !variantData) return <ErrorPage />;
 
     const { name, description, images, rating, allowance } = productData;
-    const { price } = variantData;
+    const { price, options } = variantData;
 
     return (
         <section className={styles["product-hero"]}>
@@ -77,7 +77,13 @@ export function ProductHero() {
                         {variantOptions &&
                             [...variantOptions.entries()].map((option, i) => {
                                 const [key, values] = option;
-                                const step = <VariantStep id={key} values={values} />;
+                                const step = (
+                                    <VariantStep
+                                        id={key}
+                                        values={values}
+                                        selected={options[key] || ""}
+                                    />
+                                );
                                 return (
                                     <Fragment key={key}>
                                         {step}
