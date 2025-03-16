@@ -8,7 +8,7 @@ export type TLogo = {
 export function Logo({ onClick }: TLogo) {
     return (
         <Link to="/" onClick={() => onClick && onClick()} className={styles["logo"]}>
-            Cafree
+            <p>CAFREE</p>
         </Link>
     );
 }
