@@ -5,6 +5,7 @@ import styles from "./index.module.css";
 export type TVariantStep = {
     id: string;
     values: Set<string>;
+    selected: string;
     onClick?: (value: string) => unknown;
 };
 
@@ -15,7 +16,7 @@ const checkOptionType = <T extends ProductVariantOption["type"]>(
     return option.type === type;
 };
 
-export function VariantStep({ id, values, onClick }: TVariantStep) {
+export function VariantStep({ id, values, selected, onClick }: TVariantStep) {
     const optionData = variantOptions.find((o) => o.id === id);
 
     const items = useMemo(() => {
@@ -32,6 +33,7 @@ export function VariantStep({ id, values, onClick }: TVariantStep) {
                         type="button"
                         onClick={() => onClick && onClick(valueId)}
                         className={styles["product-hero-step-dot-button"]}
+                        data-selected={selected === valueId}
                         key={`variant-options-${id}-${name}`}
                     >
                         <span
@@ -44,7 +46,7 @@ export function VariantStep({ id, values, onClick }: TVariantStep) {
             });
         }
         return null;
-    }, [id, values, onClick, optionData]);
+    }, [id, values, selected, onClick, optionData]);
 
     return (
         <div className={styles["product-hero-step"]} key={`variant-options-${id}`}>
