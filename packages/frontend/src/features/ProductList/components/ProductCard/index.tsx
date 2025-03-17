@@ -16,7 +16,7 @@ export function ProductCard({ productData }: TProductCard) {
     const productInformationBanner = useCallback((): React.ReactNode | null => {
         if (productData.variants.length === 0) return null;
         const highestStockVariant = productData.variants.reduce(
-            (min, variant) => (variant.stock < min ? variant.stock : min),
+            (min, variant) => (variant.stock > min ? variant.stock : min),
             productData.variants[0].stock,
         );
 
