@@ -241,6 +241,48 @@ export const products: Product[] = [
     },
 ];
 
+export const filterVariantOptions = (
+    product: Product,
+    selectedVariantOptions: ProductVariant["options"],
+): Map<string, Set<string>> => {
+    const options = new Map<string, Set<string>>();
+
+    const { variants, variantOptionOrder } = product;
+
+    if (variantOptionOrder.length === 0) return options;
+
+    const baseOptionId = variantOptionOrder[0];
+
+    options.set(baseOptionId, new Set<string>());
+    variants.forEach((variant) => {
+        if (baseOptionId in variant.options) {
+            options.get(baseOptionId)!.add(variant.options[baseOptionId]);
+        }
+        for (let i = 1; i < variantOptionOrder.length; i++) {
+            const ancestorOptionId = variantOptionOrder[i - 1];
+            const optionId = variantOptionOrder[i];
+
+            const variantAncestorOptionValue = variant.options[ancestorOptionId];
+            const variantOptionValue = variant.options[optionId];
+
+            const selectedVariantAncestorOptionValue = selectedVariantOptions[ancestorOptionId];
+
+            if (
+                variantAncestorOptionValue !== undefined &&
+                variantOptionValue !== undefined &&
+                selectedVariantAncestorOptionValue !== undefined
+            ) {
+                if (variantAncestorOptionValue === selectedVariantAncestorOptionValue) {
+                    if (!options.has(optionId)) options.set(optionId, new Set<string>());
+                    options.get(optionId)!.add(variantOptionValue);
+                }
+            }
+        }
+    });
+
+    return options;
+};
+
 export const extractVariantOptions = (product: Product): Map<string, Set<string>> => {
     const options = new Map<string, Set<string>>();
 
