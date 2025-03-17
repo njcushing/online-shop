@@ -49,6 +49,7 @@ export type Product = {
     allowance: number;
     tags: string[];
     variants: ProductVariant[];
+    variantOptionOrder: string[];
     customisations: { id: string; options: string[] }[];
     releaseDate: string;
 };
@@ -128,10 +129,11 @@ export const products: Product[] = [
                     current: 700,
                     base: 700,
                 },
-                stock: 23,
+                stock: 0,
                 options: { blend: "DK" },
             },
         ],
+        variantOptionOrder: ["blend"],
         customisations: [],
         releaseDate: new Date().toISOString(),
     },
@@ -182,6 +184,7 @@ export const products: Product[] = [
                 options: { blend: "dark" },
             },
         ],
+        variantOptionOrder: ["blend"],
         customisations: [],
         releaseDate: new Date().toISOString(),
     },
@@ -232,6 +235,7 @@ export const products: Product[] = [
                 options: { blend: "DK" },
             },
         ],
+        variantOptionOrder: ["blend"],
         customisations: [],
         releaseDate: new Date().toISOString(),
     },
