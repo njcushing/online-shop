@@ -1,7 +1,13 @@
 import { useParams } from "react-router-dom";
 import { Fragment, useState, useMemo } from "react";
 import { Button, Divider, Image, Rating } from "@mantine/core";
-import { extractVariantOptions, Product, products, ProductVariant } from "@/utils/products/product";
+import {
+    Product,
+    products,
+    ProductVariant,
+    filterVariantOptions,
+    findVariant,
+} from "@/utils/products/product";
 import { v4 as uuid } from "uuid";
 import { ErrorPage } from "@/pages/ErrorPage";
 import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString";
@@ -13,25 +19,27 @@ export function ProductHero() {
     const params = useParams();
     const { productId } = params;
 
-    const [, /* quantity */ setQuantity] = useState<number | null>(1);
-
     const productData = useMemo<Product | undefined>(() => {
         return products.find((product) => product.id === productId);
     }, [productId]);
 
-    const variantData = useMemo<ProductVariant | undefined>(() => {
-        if (!productData) return undefined;
-        if (productData.variants.length === 0) return undefined;
-        return productData.variants[0];
-    }, [productData]);
+    const [selectedOptions, setSelectedOptions] = useState<ProductVariant["options"]>({
+        ...productData?.variants[0].options,
+    });
 
-    const variantOptions = useMemo<Map<string, Set<string>> | undefined>(() => {
-        return productData ? extractVariantOptions(productData) : undefined;
-    }, [productData]);
+    const variantData = useMemo<ProductVariant | null>(() => {
+        return productData ? findVariant(productData, selectedOptions) : null;
+    }, [productData, selectedOptions]);
+
+    const variantOptions = useMemo<Map<string, Set<string>> | null>(() => {
+        return productData ? filterVariantOptions(productData, selectedOptions) : null;
+    }, [productData, selectedOptions]);
+
+    const [, /* quantity */ setQuantity] = useState<number | null>(1);
 
     if (!productData || !variantData) return <ErrorPage />;
 
-    const { name, description, images, rating, allowance } = productData;
+    const { name, description, images, rating, allowance, variantOptionOrder } = productData;
     const { price, options } = variantData;
 
     return (
@@ -76,17 +84,18 @@ export function ProductHero() {
 
                     <div className={styles["product-hero-steps-container"]}>
                         {variantOptions &&
-                            [...variantOptions.entries()].map((option, i) => {
-                                const [key, values] = option;
+                            variantOptionOrder.map((optionId, i) => {
+                                const optionValues = variantOptions.get(optionId);
+                                if (!optionValues || optionValues.size === 0) return null;
                                 const step = (
                                     <VariantStep
-                                        id={key}
-                                        values={values}
-                                        selected={options[key] || ""}
+                                        id={optionId}
+                                        values={optionValues}
+                                        selected={options[optionId] || ""}
                                     />
                                 );
                                 return (
-                                    <Fragment key={key}>
+                                    <Fragment key={optionId}>
                                         {step}
                                         {i < variantOptions.size - 1 && <Divider />}
                                     </Fragment>
