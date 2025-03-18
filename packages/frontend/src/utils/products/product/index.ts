@@ -246,12 +246,15 @@ export const filterVariantOptions = (
     selectedVariantOptions: ProductVariant["options"],
 ): Map<string, Set<string>> => {
     const { variants, variantOptionOrder } = product;
+    if (variantOptionOrder.length === 0) return new Map();
+    const baseOptionId = variantOptionOrder[0];
 
     const options = new Map<string, Set<string>>(variantOptionOrder.map((o) => [o, new Set()]));
 
-    if (variantOptionOrder.length === 0) return options;
-
-    const baseOptionId = variantOptionOrder[0];
+    options.set(
+        baseOptionId,
+        new Set(variants.map((v) => v.options[baseOptionId]).filter((a) => a !== undefined)),
+    );
 
     const matchedVariants = structuredClone(variants);
     for (let i = 1; i < variantOptionOrder.length; i++) {
@@ -260,10 +263,6 @@ export const filterVariantOptions = (
 
         for (let j = matchedVariants.length - 1; j >= 0; j--) {
             const variant = matchedVariants[j];
-
-            if (baseOptionId in variant.options) {
-                options.get(baseOptionId)!.add(variant.options[baseOptionId]);
-            }
 
             const variantAncestorOptionValue = variant.options[ancestorOptionId];
             const variantOptionValue = variant.options[currentOptionId];
