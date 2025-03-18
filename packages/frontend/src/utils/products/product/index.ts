@@ -301,3 +301,22 @@ export const extractVariantOptions = (product: Product): Map<string, Set<string>
 
     return options;
 };
+
+export const findVariant = (
+    product: Product,
+    options: ProductVariant["options"],
+): ProductVariant | null => {
+    const optionEntries = Object.entries(options);
+
+    for (let i = 0; i < product.variants.length; i++) {
+        const variant = product.variants[i];
+
+        for (let j = 0; j < optionEntries.length; j++) {
+            const [key, value] = optionEntries[j];
+            if (variant.options[key] !== value) break;
+            if (j === optionEntries.length - 1) return variant;
+        }
+    }
+
+    return null;
+};
