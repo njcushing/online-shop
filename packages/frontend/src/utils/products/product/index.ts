@@ -245,40 +245,43 @@ export const filterVariantOptions = (
     product: Product,
     selectedVariantOptions: ProductVariant["options"],
 ): Map<string, Set<string>> => {
-    const options = new Map<string, Set<string>>();
-
     const { variants, variantOptionOrder } = product;
+
+    const options = new Map<string, Set<string>>(variantOptionOrder.map((o) => [o, new Set()]));
 
     if (variantOptionOrder.length === 0) return options;
 
     const baseOptionId = variantOptionOrder[0];
 
-    options.set(baseOptionId, new Set<string>());
-    variants.forEach((variant) => {
-        if (baseOptionId in variant.options) {
-            options.get(baseOptionId)!.add(variant.options[baseOptionId]);
-        }
-        for (let i = 1; i < variantOptionOrder.length; i++) {
-            const ancestorOptionId = variantOptionOrder[i - 1];
-            const optionId = variantOptionOrder[i];
+    const matchedVariants = structuredClone(variants);
+    for (let i = 1; i < variantOptionOrder.length; i++) {
+        const ancestorOptionId = variantOptionOrder[i - 1];
+        const currentOptionId = variantOptionOrder[i];
+
+        for (let j = matchedVariants.length - 1; j >= 0; j--) {
+            const variant = matchedVariants[j];
+
+            if (baseOptionId in variant.options) {
+                options.get(baseOptionId)!.add(variant.options[baseOptionId]);
+            }
 
             const variantAncestorOptionValue = variant.options[ancestorOptionId];
-            const variantOptionValue = variant.options[optionId];
+            const variantOptionValue = variant.options[currentOptionId];
 
             const selectedVariantAncestorOptionValue = selectedVariantOptions[ancestorOptionId];
 
             if (
                 variantAncestorOptionValue !== undefined &&
                 variantOptionValue !== undefined &&
-                selectedVariantAncestorOptionValue !== undefined
+                selectedVariantAncestorOptionValue !== undefined &&
+                variantAncestorOptionValue === selectedVariantAncestorOptionValue
             ) {
-                if (variantAncestorOptionValue === selectedVariantAncestorOptionValue) {
-                    if (!options.has(optionId)) options.set(optionId, new Set<string>());
-                    options.get(optionId)!.add(variantOptionValue);
-                }
+                options.get(currentOptionId)!.add(variantOptionValue);
+            } else {
+                matchedVariants.splice(j, 1);
             }
         }
-    });
+    }
 
     return options;
 };
