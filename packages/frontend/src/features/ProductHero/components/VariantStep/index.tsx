@@ -1,4 +1,5 @@
 import { variantOptions, ProductVariantOption } from "@/utils/products/product";
+import { sortSet } from "@/utils/sortSet";
 import { useMemo } from "react";
 import styles from "./index.module.css";
 
@@ -45,7 +46,7 @@ export function VariantStep({ id, values, selected, onClick }: TVariantStep) {
                 );
             });
         }
-        return [...values.values()].map((value) => {
+        return [...sortSet(values).values()].map((value) => {
             return (
                 <button
                     type="button"
