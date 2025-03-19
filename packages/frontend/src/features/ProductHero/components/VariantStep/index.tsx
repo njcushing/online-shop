@@ -45,7 +45,19 @@ export function VariantStep({ id, values, selected, onClick }: TVariantStep) {
                 );
             });
         }
-        return null;
+        return [...values.values()].map((value) => {
+            return (
+                <button
+                    type="button"
+                    onClick={() => onClick && onClick(value)}
+                    className={styles["product-hero-step-text-button"]}
+                    data-selected={selected === value}
+                    key={`variant-options-${id}-${value}`}
+                >
+                    {value}
+                </button>
+            );
+        });
     }, [id, values, selected, onClick, optionData]);
 
     return (
