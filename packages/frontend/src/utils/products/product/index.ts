@@ -304,18 +304,31 @@ export const extractVariantOptions = (product: Product): Map<string, Set<string>
 export const findVariant = (
     product: Product,
     options: ProductVariant["options"],
+    exact: boolean = false,
 ): ProductVariant | null => {
+    const { variants } = product;
+    if (variants.length === 0) return null;
+
     const optionEntries = Object.entries(options);
+
+    let closestMatch: ProductVariant = variants[0];
+    let closestMatchCount = 0;
 
     for (let i = 0; i < product.variants.length; i++) {
         const variant = product.variants[i];
 
         for (let j = 0; j < optionEntries.length; j++) {
             const [key, value] = optionEntries[j];
-            if (variant.options[key] !== value) break;
+            if (variant.options[key] !== value) {
+                if (j > closestMatchCount) {
+                    closestMatch = variant;
+                    closestMatchCount = j;
+                }
+                break;
+            }
             if (j === optionEntries.length - 1) return variant;
         }
     }
 
-    return null;
+    return exact ? null : closestMatch;
 };
