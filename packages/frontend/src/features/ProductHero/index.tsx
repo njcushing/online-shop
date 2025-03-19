@@ -92,6 +92,11 @@ export function ProductHero() {
                                         id={optionId}
                                         values={optionValues}
                                         selected={options[optionId] || ""}
+                                        onClick={(value) => {
+                                            const newSelectedOptions = { ...selectedOptions };
+                                            newSelectedOptions[optionId] = value;
+                                            setSelectedOptions(newSelectedOptions);
+                                        }}
                                     />
                                 );
                                 return (
