@@ -7,6 +7,7 @@ export type TVariantStep = {
     id: string;
     values: Set<string>;
     selected: string;
+    preventSort?: boolean;
     onClick?: (value: string) => unknown;
 };
 
@@ -17,7 +18,21 @@ const checkOptionType = <T extends ProductVariantOption["type"]>(
     return option.type === type;
 };
 
-export function VariantStep({ id, values, selected, onClick }: TVariantStep) {
+const sortValues = (values: Set<string>, variantOption: ProductVariantOption): Set<string> => {
+    const valueIds = new Map(variantOption.values.map((item, i) => [item.id, i]));
+    const specifiedIds = new Set<string>();
+    const unspecifiedIds = new Set<string>();
+
+    values.forEach((value) => (valueIds.has(value) ? specifiedIds : unspecifiedIds).add(value));
+
+    const sortedSpecifiedIds = Array.from(specifiedIds).sort(
+        (a, b) => valueIds.get(a)! - valueIds.get(b)!,
+    );
+
+    return new Set([...sortedSpecifiedIds, ...sortSet(unspecifiedIds)]);
+};
+
+export function VariantStep({ id, values, selected, preventSort, onClick }: TVariantStep) {
     const optionData = variantOptions.find((o) => o.id === id);
 
     const createGenericTextButton = useCallback(
@@ -39,7 +54,8 @@ export function VariantStep({ id, values, selected, onClick }: TVariantStep) {
 
     const items = useMemo(() => {
         if (optionData && checkOptionType(optionData, "dot")) {
-            return [...values.values()].map((value) => {
+            const sortedValues = preventSort ? values : sortValues(values, optionData);
+            return [...sortedValues.values()].map((value) => {
                 const valueData = optionData.values.find((v) => v.id === value);
                 const {
                     id: valueId,
@@ -64,7 +80,7 @@ export function VariantStep({ id, values, selected, onClick }: TVariantStep) {
             });
         }
         return [...sortSet(values).values()].map((value) => createGenericTextButton(value));
-    }, [id, values, selected, onClick, optionData, createGenericTextButton]);
+    }, [id, values, selected, preventSort, onClick, optionData, createGenericTextButton]);
 
     return (
         <div className={styles["product-hero-step"]} key={`variant-options-${id}`}>
