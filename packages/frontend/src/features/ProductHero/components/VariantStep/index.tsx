@@ -1,6 +1,6 @@
 import { variantOptions, ProductVariantOption } from "@/utils/products/product";
 import { sortSet } from "@/utils/sortSet";
-import { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import styles from "./index.module.css";
 
 export type TVariantStep = {
@@ -20,33 +20,8 @@ const checkOptionType = <T extends ProductVariantOption["type"]>(
 export function VariantStep({ id, values, selected, onClick }: TVariantStep) {
     const optionData = variantOptions.find((o) => o.id === id);
 
-    const items = useMemo(() => {
-        if (optionData && checkOptionType(optionData, "dot")) {
-            return [...values.values()].map((value) => {
-                const valueData = optionData.values.find((v) => v.id === value);
-                const {
-                    id: valueId,
-                    name,
-                    dot,
-                } = valueData || { id: value, name: value, dot: "white" };
-                return (
-                    <button
-                        type="button"
-                        onClick={() => onClick && onClick(valueId)}
-                        className={styles["product-hero-step-dot-button"]}
-                        data-selected={selected === valueId}
-                        key={`variant-options-${id}-${name}`}
-                    >
-                        <span
-                            className={styles["product-hero-step-dot"]}
-                            style={{ backgroundColor: dot }}
-                        ></span>
-                        {name}
-                    </button>
-                );
-            });
-        }
-        return [...sortSet(values).values()].map((value) => {
+    const createGenericTextButton = useCallback(
+        (value: string): React.ReactNode => {
             return (
                 <button
                     type="button"
@@ -58,8 +33,38 @@ export function VariantStep({ id, values, selected, onClick }: TVariantStep) {
                     {value}
                 </button>
             );
-        });
-    }, [id, values, selected, onClick, optionData]);
+        },
+        [id, selected, onClick],
+    );
+
+    const items = useMemo(() => {
+        if (optionData && checkOptionType(optionData, "dot")) {
+            return [...values.values()].map((value) => {
+                const valueData = optionData.values.find((v) => v.id === value);
+                const {
+                    id: valueId,
+                    name,
+                    dot,
+                } = valueData || { id: value, name: value, dot: "rgba(0, 0, 0, 0.2)" };
+                return (
+                    <button
+                        type="button"
+                        onClick={() => onClick && onClick(valueId)}
+                        className={styles["product-hero-step-dot-button"]}
+                        data-selected={selected === valueId}
+                        key={`variant-options-${id}-${name}`}
+                    >
+                        <span
+                            className={styles["product-hero-step-dot"]}
+                            style={{ backgroundColor: dot || "black" }}
+                        ></span>
+                        {name}
+                    </button>
+                );
+            });
+        }
+        return [...sortSet(values).values()].map((value) => createGenericTextButton(value));
+    }, [id, values, selected, onClick, optionData, createGenericTextButton]);
 
     return (
         <div className={styles["product-hero-step"]} key={`variant-options-${id}`}>
