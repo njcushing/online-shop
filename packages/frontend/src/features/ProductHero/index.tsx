@@ -28,7 +28,12 @@ export function ProductHero() {
     });
 
     const variantData = useMemo<ProductVariant | null>(() => {
-        return productData ? findVariant(productData, selectedOptions) : null;
+        const newVariantData = productData ? findVariant(productData, selectedOptions) : null;
+        if (!newVariantData) return null;
+        if (JSON.stringify(newVariantData.options) !== JSON.stringify(selectedOptions)) {
+            setSelectedOptions(newVariantData.options);
+        }
+        return newVariantData;
     }, [productData, selectedOptions]);
 
     const variantOptions = useMemo<Map<string, Set<string>> | null>(() => {
