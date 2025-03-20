@@ -65,7 +65,7 @@ export function ProductHero() {
     if (!productData || !variantData) return <ErrorPage />;
 
     const { name, description, images, rating, allowance, variantOptionOrder } = productData;
-    const { price, options } = variantData;
+    const { price, stock, options } = variantData;
 
     return (
         <section className={styles["product-hero"]}>
@@ -165,9 +165,16 @@ export function ProductHero() {
                     </div>
 
                     <div className={styles["product-buttons-container"]}>
-                        <Inputs.Quantity min={1} max={allowance} onChange={(v) => setQuantity(v)} />
+                        <Inputs.Quantity
+                            min={1}
+                            max={allowance}
+                            disabled={stock === 0}
+                            onChange={(v) => setQuantity(v)}
+                        />
 
-                        <Button className={styles["add-to-cart-button"]}>Add to Cart</Button>
+                        <Button className={styles["add-to-cart-button"]} disabled={stock === 0}>
+                            Add to Cart
+                        </Button>
                     </div>
                 </div>
             </div>
