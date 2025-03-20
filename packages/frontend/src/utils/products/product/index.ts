@@ -54,7 +54,7 @@ export type Product = {
     releaseDate: string;
 };
 
-export type ProductCollection = {
+export type Collection = {
     id: string;
     type: "quantity";
 };
@@ -239,7 +239,7 @@ export const products: Product[] = [
     },
 ];
 
-export const collections: ProductCollection[] = [{ id: "coffee-wholebean", type: "quantity" }];
+export const collections: Collection[] = [{ id: "coffee-wholebean", type: "quantity" }];
 
 export const collectionsProducts: { collectionId: string; productId: string }[] = [
     { collectionId: "coffee-wholebean", productId: "1" },
@@ -253,21 +253,24 @@ export const findProduct = (productId: string): Product | undefined => {
 
 export const findCollections = (
     productId: string,
-): { collectionId: string; products: Product[] }[] => {
+): { collection: Collection; products: Product[] }[] => {
     const matchedCollectionIds = collectionsProducts
         .filter((entry) => entry.productId === productId)
         .map((entry) => entry.collectionId);
 
-    return matchedCollectionIds.map((collectionId) => {
+    return matchedCollectionIds.flatMap((collectionId) => {
+        const matchedCollection = collections.find((collection) => collection.id === collectionId);
+        if (!matchedCollection) return [];
+
         const matchedProductIds = collectionsProducts
             .filter((entry) => entry.collectionId === collectionId)
             .map((entry) => entry.productId);
 
-        const matchedProducts = products.filter((product) => {
-            return matchedProductIds.includes(product.id);
-        });
+        const matchedProducts = products.filter((product) =>
+            matchedProductIds.includes(product.id),
+        );
 
-        return { collectionId, products: matchedProducts };
+        return [{ collection: matchedCollection, products: matchedProducts }];
     });
 };
 
