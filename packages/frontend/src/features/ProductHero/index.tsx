@@ -1,5 +1,5 @@
-import { useParams } from "react-router-dom";
-import { Fragment, useState, useMemo } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
+import { Fragment, useState, useMemo, useEffect } from "react";
 import { Button, Divider, Image, Rating } from "@mantine/core";
 import {
     Product,
@@ -17,6 +17,7 @@ import styles from "./index.module.css";
 
 export function ProductHero() {
     const params = useParams();
+    const [, /* searchParams */ setSearchParams] = useSearchParams();
     const { productId } = params;
 
     const productData = useMemo<Product | undefined>(() => {
@@ -35,6 +36,15 @@ export function ProductHero() {
         }
         return newVariantData;
     }, [productData, selectedOptions]);
+
+    useEffect(() => {
+        const newSearchParams = new URLSearchParams();
+        Object.entries(selectedOptions).forEach((entry) => {
+            const [key, value] = entry;
+            newSearchParams.set(key, value);
+        });
+        setSearchParams(newSearchParams);
+    }, [setSearchParams, selectedOptions]);
 
     const variantOptions = useMemo<Map<string, Set<string>> | null>(() => {
         return productData ? filterVariantOptions(productData, selectedOptions) : null;
