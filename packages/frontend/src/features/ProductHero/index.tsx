@@ -17,16 +17,20 @@ import styles from "./index.module.css";
 
 export function ProductHero() {
     const params = useParams();
-    const [, /* searchParams */ setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const { productId } = params;
 
     const productData = useMemo<Product | undefined>(() => {
         return products.find((product) => product.id === productId);
     }, [productId]);
 
-    const [selectedOptions, setSelectedOptions] = useState<ProductVariant["options"]>({
-        ...productData?.variants[0].options,
-    });
+    const [selectedOptions, setSelectedOptions] = useState<ProductVariant["options"]>(
+        (() => {
+            const optionsFromURL = Object.fromEntries(searchParams.entries());
+            const foundVariantData = productData ? findVariant(productData, optionsFromURL) : null;
+            return foundVariantData ? foundVariantData.options : {};
+        })(),
+    );
 
     const variantData = useMemo<ProductVariant | null>(() => {
         const newVariantData = productData ? findVariant(productData, selectedOptions) : null;
