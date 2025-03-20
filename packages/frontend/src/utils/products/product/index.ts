@@ -182,7 +182,7 @@ export const products: Product[] = [
                     base: 1250,
                 },
                 stock: 382,
-                options: { blend: "dark" },
+                options: { blend: "DK" },
             },
         ],
         variantOptionOrder: ["blend"],
