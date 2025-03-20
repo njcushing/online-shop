@@ -55,11 +55,9 @@ export type Product = {
 };
 
 export type ProductCollection = {
-    type: string;
-    products: string[];
+    id: string;
+    type: "quantity";
 };
-
-export const collections: Record<string, ProductCollection> = {};
 
 export const variantOptions: ProductVariantOption[] = [
     {
@@ -239,6 +237,14 @@ export const products: Product[] = [
         customisations: [],
         releaseDate: new Date().toISOString(),
     },
+];
+
+export const collections: ProductCollection[] = [{ id: "coffee-wholebean", type: "quantity" }];
+
+export const collectionsProducts: { collectionId: string; productId: string }[] = [
+    { collectionId: "coffee-wholebean", productId: "1" },
+    { collectionId: "coffee-wholebean", productId: "2" },
+    { collectionId: "coffee-wholebean", productId: "3" },
 ];
 
 export const filterVariantOptions = (
