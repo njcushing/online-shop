@@ -247,6 +247,26 @@ export const collectionsProducts: { collectionId: string; productId: string }[] 
     { collectionId: "coffee-wholebean", productId: "3" },
 ];
 
+export const findCollections = (
+    productId: string,
+): { collectionId: string; products: Product[] }[] => {
+    const matchedCollectionIds = collectionsProducts
+        .filter((entry) => entry.productId === productId)
+        .map((entry) => entry.collectionId);
+
+    return matchedCollectionIds.map((collectionId) => {
+        const matchedProductIds = collectionsProducts
+            .filter((entry) => entry.collectionId === collectionId)
+            .map((entry) => entry.productId);
+
+        const matchedProducts = products.filter((product) => {
+            return matchedProductIds.includes(product.id);
+        });
+
+        return { collectionId, products: matchedProducts };
+    });
+};
+
 export const filterVariantOptions = (
     product: Product,
     selectedVariantOptions: ProductVariant["options"],
