@@ -4,6 +4,7 @@ import styles from "./index.module.css";
 export type TQuantity = {
     min?: number;
     max?: number;
+    disabled?: boolean;
     onChange?: (value: number | null) => unknown;
 };
 
@@ -17,7 +18,7 @@ const isInteger = (value: unknown): value is number => {
     return false;
 };
 
-export function Quantity({ min, max, onChange }: TQuantity) {
+export function Quantity({ min, max, disabled, onChange }: TQuantity) {
     const [quantity, setQuantity] = useState<number | null>(isInteger(min) ? min : 0);
 
     useEffect(() => {
@@ -28,6 +29,7 @@ export function Quantity({ min, max, onChange }: TQuantity) {
         <div className={styles["quantity-input-container"]}>
             <button
                 type="button"
+                disabled={disabled}
                 onClick={() => {
                     if (isInteger(quantity)) {
                         setQuantity(isInteger(min) ? Math.max(min, quantity - 1) : quantity - 1);
@@ -45,6 +47,7 @@ export function Quantity({ min, max, onChange }: TQuantity) {
             <input
                 type="number"
                 value={quantity === null ? "" : quantity}
+                disabled={disabled}
                 onBlur={(e) => {
                     const value = e.currentTarget.value.trim();
                     if (!isInteger(value)) {
@@ -79,6 +82,7 @@ export function Quantity({ min, max, onChange }: TQuantity) {
 
             <button
                 type="button"
+                disabled={disabled}
                 onClick={() => {
                     if (isInteger(quantity)) {
                         setQuantity(isInteger(max) ? Math.min(max, quantity + 1) : quantity + 1);
