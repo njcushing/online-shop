@@ -247,6 +247,10 @@ export const collectionsProducts: { collectionId: string; productId: string }[] 
     { collectionId: "coffee-wholebean", productId: "3" },
 ];
 
+export const findProduct = (productId: string): Product | undefined => {
+    return products.find((product) => product.id === productId);
+};
+
 export const findCollections = (
     productId: string,
 ): { collectionId: string; products: Product[] }[] => {
