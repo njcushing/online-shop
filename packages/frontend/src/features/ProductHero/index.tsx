@@ -3,8 +3,9 @@ import { Fragment, useState, useMemo, useEffect } from "react";
 import { Button, Divider, Image, Rating } from "@mantine/core";
 import {
     Product,
-    products,
     ProductVariant,
+    findProduct,
+    findCollections,
     filterVariantOptions,
     findVariant,
 } from "@/utils/products/product";
@@ -12,6 +13,7 @@ import { v4 as uuid } from "uuid";
 import { ErrorPage } from "@/pages/ErrorPage";
 import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString";
 import { Inputs } from "@/components/Inputs";
+import { CollectionStep } from "./components/CollectionStep";
 import { VariantStep } from "./components/VariantStep";
 import styles from "./index.module.css";
 
@@ -21,7 +23,7 @@ export function ProductHero() {
     const { productId } = params;
 
     const productData = useMemo<Product | undefined>(() => {
-        return products.find((product) => product.id === productId);
+        return findProduct(productId || "");
     }, [productId]);
 
     const [selectedOptions, setSelectedOptions] = useState<ProductVariant["options"]>(
@@ -53,6 +55,10 @@ export function ProductHero() {
     const variantOptions = useMemo<Map<string, Set<string>> | null>(() => {
         return productData ? filterVariantOptions(productData, selectedOptions) : null;
     }, [productData, selectedOptions]);
+
+    const collectionsData = useMemo<ReturnType<typeof findCollections>>(() => {
+        return findCollections(productId || "");
+    }, [productId]);
 
     const [, /* quantity */ setQuantity] = useState<number | null>(1);
 
@@ -102,6 +108,18 @@ export function ProductHero() {
                     <Divider />
 
                     <div className={styles["product-hero-steps-container"]}>
+                        {collectionsData.map((collectionData, i) => {
+                            const step = <CollectionStep collectionData={collectionData} />;
+                            return (
+                                <Fragment key={collectionData.collection.id}>
+                                    {step}
+                                    {i < collectionsData.length - 1 && <Divider />}
+                                </Fragment>
+                            );
+                        })}
+
+                        <Divider />
+
                         {variantOptions &&
                             variantOptionOrder.map((optionId, i) => {
                                 const optionValues = variantOptions.get(optionId);
