@@ -118,7 +118,7 @@ export function ProductHero() {
                             );
                         })}
 
-                        <Divider />
+                        {collectionsData.length > 0 && <Divider />}
 
                         {variantOptions &&
                             variantOptionOrder.map((optionId, i) => {
