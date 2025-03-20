@@ -56,7 +56,7 @@ export function ProductCard({ productData }: TProductCard) {
                 <Image className={styles["product-image"]} src={productData.images.thumb} />
                 {productInformationBanner()}
             </div>
-            <p className={styles["product-name"]}>{productData.name}</p>
+            <p className={styles["product-name"]}>{productData.name.full}</p>
             <div className={styles["product-card-price-container"]}>
                 <span className={styles["product-price-current"]}>
                     £{(lowestPriceVariant.price.current / 100).toFixed(2)}

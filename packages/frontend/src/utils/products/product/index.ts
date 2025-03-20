@@ -43,8 +43,10 @@ export type Collection = {
 
 export type Product = {
     id: string;
-    name: string;
-    shorthands: { type: Collection["type"]; value: string }[];
+    name: {
+        full: string;
+        shorthands: { type: Collection["type"]; value: string }[];
+    };
     description: string[];
     slug: string;
     images: { thumb: string; dynamic: string[] };
@@ -87,8 +89,10 @@ export const variantOptions: ProductVariantOption[] = [
 export const products: Product[] = [
     {
         id: "1",
-        name: "Coffee - Whole Bean - 250g",
-        shorthands: [{ type: "quantity", value: "250g bag" }],
+        name: {
+            full: "Coffee - Whole Bean - 250g",
+            shorthands: [{ type: "quantity", value: "250g bag" }],
+        },
         description: ["Product Description"],
         slug: "coffee-whole-bean-250g",
         images: { thumb: "", dynamic: [] },
@@ -139,8 +143,10 @@ export const products: Product[] = [
     },
     {
         id: "2",
-        name: "Coffee - Whole Bean - 500g",
-        shorthands: [{ type: "quantity", value: "500g bag" }],
+        name: {
+            full: "Coffee - Whole Bean - 500g",
+            shorthands: [{ type: "quantity", value: "500g bag" }],
+        },
         description: ["Product Description"],
         slug: "coffee-whole-bean-500g",
         images: { thumb: "", dynamic: [] },
@@ -191,8 +197,10 @@ export const products: Product[] = [
     },
     {
         id: "3",
-        name: "Coffee - Whole Bean - 1kg",
-        shorthands: [{ type: "quantity", value: "1kg bag" }],
+        name: {
+            full: "Coffee - Whole Bean - 1kg",
+            shorthands: [{ type: "quantity", value: "1kg bag" }],
+        },
         description: ["Product Description"],
         slug: "coffee-whole-bean-1kg",
         images: { thumb: "", dynamic: [] },

@@ -73,7 +73,7 @@ export function ProductHero() {
                 <Image className={styles["product-image"]} src={images.dynamic[0] || ""} />
 
                 <div className={styles["product-content"]}>
-                    <h1 className={styles["product-name"]}>{name}</h1>
+                    <h1 className={styles["product-name"]}>{name.full}</h1>
 
                     <Divider />
 

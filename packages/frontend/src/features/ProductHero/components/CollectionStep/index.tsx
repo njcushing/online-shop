@@ -22,10 +22,11 @@ export function CollectionStep({ collectionData }: TCollectionStep) {
 
     const items = useMemo(() => {
         return products.map((product) => {
-            const { id: productId, images, name, shorthands } = product;
+            const { id: productId, images, name } = product;
             const { thumb } = images;
+            const { full, shorthands } = name;
             const shorthand = shorthands.find((entry) => entry.type === type)?.value;
-            const usedName = shorthand || name;
+            const usedName = shorthand || full;
             return (
                 <Link
                     to={`/p/${productId}`}
