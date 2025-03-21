@@ -26,7 +26,7 @@ export function Quantity({ min, max, disabled, onChange }: TQuantity) {
     }, [onChange, quantity]);
 
     return (
-        <div className={styles["quantity-input-container"]}>
+        <div className={styles["quantity-input-container"]} aria-disabled={disabled}>
             <button
                 type="button"
                 disabled={disabled}
