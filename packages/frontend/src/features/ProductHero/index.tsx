@@ -1,6 +1,6 @@
 import { useParams, useSearchParams } from "react-router-dom";
 import { Fragment, useState, useMemo, useEffect } from "react";
-import { Button, Divider, Image, Rating } from "@mantine/core";
+import { Button, Divider, Image, Rating, Alert, AlertProps } from "@mantine/core";
 import {
     Product,
     ProductVariant,
@@ -8,6 +8,7 @@ import {
     findCollections,
     filterVariantOptions,
     findVariant,
+    lowStockThreshold,
 } from "@/utils/products/product";
 import { v4 as uuid } from "uuid";
 import { ErrorPage } from "@/pages/ErrorPage";
@@ -15,7 +16,15 @@ import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString
 import { Inputs } from "@/components/Inputs";
 import { CollectionStep } from "./components/CollectionStep";
 import { VariantStep } from "./components/VariantStep";
+import { WarningCircle } from "@phosphor-icons/react";
 import styles from "./index.module.css";
+
+const AlertClassNames: AlertProps["classNames"] = {
+    root: styles["alert-root"],
+    wrapper: styles["alert-wrapper"],
+    title: styles["alert-title"],
+    icon: styles["alert-icon"],
+};
 
 export function ProductHero() {
     const params = useParams();
@@ -163,6 +172,41 @@ export function ProductHero() {
                             </>
                         )}
                     </div>
+
+                    {(() => {
+                        if (stock === 0) {
+                            return (
+                                <Alert
+                                    color="red"
+                                    icon={<WarningCircle weight="bold" size="100%" />}
+                                    title="Out of stock"
+                                    classNames={AlertClassNames}
+                                >
+                                    <p>
+                                        We are unsure when this item will be back in stock. Check
+                                        back soon, or add this item to your watchlist to be notified
+                                        when it comes back in stock.
+                                    </p>
+                                </Alert>
+                            );
+                        }
+                        if (stock <= lowStockThreshold) {
+                            return (
+                                <Alert
+                                    color="yellow"
+                                    icon={<WarningCircle weight="bold" size="100%" />}
+                                    title="Low stock"
+                                    classNames={AlertClassNames}
+                                >
+                                    <p>
+                                        There {stock === 1 ? "is" : "are"} only{" "}
+                                        <span style={{ fontWeight: "bold" }}>{stock}</span> of this
+                                        item left in stock.
+                                    </p>
+                                </Alert>
+                            );
+                        }
+                    })()}
 
                     <div className={styles["product-hero-buttons-container"]}>
                         <Inputs.Quantity

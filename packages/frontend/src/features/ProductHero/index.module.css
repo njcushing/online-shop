@@ -136,3 +136,22 @@
 .add-to-cart-button {
     font-size: 1rem;
 }
+
+.alert-root {
+    padding: 12px;
+}
+
+.alert-wrapper {
+    gap: 12px;
+}
+
+.alert-icon {
+    width: 1.4rem;
+    height: 1.4rem;
+    padding: 0px;
+    margin: 0px;
+}
+
+.alert-title {
+    font-size: 1rem;
+}

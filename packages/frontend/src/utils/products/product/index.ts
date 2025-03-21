@@ -124,7 +124,7 @@ export const products: Product[] = [
                     current: 700,
                     base: 700,
                 },
-                stock: 73,
+                stock: 40,
                 options: { blend: "MD" },
             },
             {
