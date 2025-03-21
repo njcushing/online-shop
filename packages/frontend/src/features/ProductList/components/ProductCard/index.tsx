@@ -53,7 +53,7 @@ export function ProductCard({ productData }: TProductCard) {
     if (!lowestPriceVariant) return null;
 
     return (
-        <Link to={`/p/${productData.id}`} className={styles["product-card"]}>
+        <Link to={`/p/${productData.slug}`} className={styles["product-card"]}>
             <div className={styles["product-card-image-container"]}>
                 <Image className={styles["product-image"]} src={productData.images.thumb} />
                 {productInformationBanner()}

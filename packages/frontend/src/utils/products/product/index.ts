@@ -261,8 +261,8 @@ export const collectionsProducts: { collectionId: string; productId: string }[] 
     { collectionId: "coffee-wholebean", productId: "3" },
 ];
 
-export const findProduct = (productId: string): Product | undefined => {
-    return products.find((product) => product.id === productId);
+export const findProduct = (productSlug: string): Product | undefined => {
+    return products.find((product) => product.slug === productSlug);
 };
 
 export const findCollections = (

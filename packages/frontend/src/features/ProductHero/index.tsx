@@ -20,11 +20,11 @@ import styles from "./index.module.css";
 export function ProductHero() {
     const params = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
-    const { productId } = params;
+    const { productSlug } = params;
 
     const productData = useMemo<Product | undefined>(() => {
-        return findProduct(productId || "");
-    }, [productId]);
+        return findProduct(productSlug || "");
+    }, [productSlug]);
 
     const [selectedOptions, setSelectedOptions] = useState<ProductVariant["options"]>(
         (() => {
@@ -57,8 +57,8 @@ export function ProductHero() {
     }, [productData, selectedOptions]);
 
     const collectionsData = useMemo<ReturnType<typeof findCollections>>(() => {
-        return findCollections(productId || "");
-    }, [productId]);
+        return findCollections(productData?.id || "");
+    }, [productData?.id]);
 
     const [, /* quantity */ setQuantity] = useState<number | null>(1);
 
@@ -164,7 +164,7 @@ export function ProductHero() {
                         )}
                     </div>
 
-                    <div className={styles["product-buttons-container"]}>
+                    <div className={styles["product-hero-buttons-container"]}>
                         <Inputs.Quantity
                             min={1}
                             max={allowance}

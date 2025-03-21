@@ -124,7 +124,7 @@
     color: rgb(40, 190, 20);
 }
 
-.product-buttons-container {
+.product-hero-buttons-container {
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
