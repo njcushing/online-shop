@@ -13,7 +13,7 @@ import {
     IconProps,
 } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
-import { Logo } from "./components/Logo";
+import { Logo } from "@/features/Logo";
 import styles from "./index.module.css";
 
 export type Category = {

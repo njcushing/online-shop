@@ -6,6 +6,7 @@ import { Hero } from "./Hero";
 import { ProductHero } from "./ProductHero";
 import { ProductList } from "./ProductList";
 import { LoginForm } from "./LoginForm";
+import { Logo } from "./Logo";
 import { SetPersonalInformationForm } from "./SetPersonalInformationForm";
 
 export const Features = {
@@ -17,5 +18,6 @@ export const Features = {
     ProductHero,
     ProductList,
     LoginForm,
+    Logo,
     SetPersonalInformationForm,
 };
