@@ -1,12 +1,14 @@
 import React, { useCallback, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Image, Rating } from "@mantine/core";
-import { Product as ProductDataType, ProductVariant } from "@/utils/products/product";
+import {
+    lowStockThreshold,
+    Product as ProductDataType,
+    ProductVariant,
+} from "@/utils/products/product";
 import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString";
 import dayjs from "dayjs";
 import styles from "./index.module.css";
-
-const lowStockThreshold = 50;
 
 export type TProductCard = {
     productData: ProductDataType;

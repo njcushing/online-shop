@@ -1,5 +1,7 @@
 import { CSSProperties } from "react";
 
+export const lowStockThreshold = 50;
+
 export type ProductVariantOptionValuesCore = {
     id: string;
     name: string;
