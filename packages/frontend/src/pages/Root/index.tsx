@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Header } from "@/features/Header";
+import { Footer } from "@/features/Footer";
 import { Home } from "../Home";
 import { Category } from "../Category";
 import { Product } from "../Product";
@@ -29,6 +30,7 @@ export function Root() {
         <div className={styles["page"]}>
             <Header />
             <Outlet />
+            <Footer />
         </div>
     );
 }
