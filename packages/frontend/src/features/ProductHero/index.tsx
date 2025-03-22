@@ -7,16 +7,16 @@ import {
     findProduct,
     findCollections,
     filterVariantOptions,
-    findVariant,
+    findVariantFromOptions,
     lowStockThreshold,
 } from "@/utils/products/product";
 import { v4 as uuid } from "uuid";
 import { ErrorPage } from "@/pages/ErrorPage";
 import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString";
 import { Inputs } from "@/components/Inputs";
+import { WarningCircle } from "@phosphor-icons/react";
 import { CollectionStep } from "./components/CollectionStep";
 import { VariantStep } from "./components/VariantStep";
-import { WarningCircle } from "@phosphor-icons/react";
 import styles from "./index.module.css";
 
 const AlertClassNames: AlertProps["classNames"] = {
@@ -38,13 +38,17 @@ export function ProductHero() {
     const [selectedOptions, setSelectedOptions] = useState<ProductVariant["options"]>(
         (() => {
             const optionsFromURL = Object.fromEntries(searchParams.entries());
-            const foundVariantData = productData ? findVariant(productData, optionsFromURL) : null;
+            const foundVariantData = productData
+                ? findVariantFromOptions(productData, optionsFromURL)
+                : null;
             return foundVariantData ? foundVariantData.options : {};
         })(),
     );
 
     const variantData = useMemo<ProductVariant | null>(() => {
-        const newVariantData = productData ? findVariant(productData, selectedOptions) : null;
+        const newVariantData = productData
+            ? findVariantFromOptions(productData, selectedOptions)
+            : null;
         if (!newVariantData) return null;
         if (JSON.stringify(newVariantData.options) !== JSON.stringify(selectedOptions)) {
             setSelectedOptions(newVariantData.options);
@@ -206,6 +210,7 @@ export function ProductHero() {
                                 </Alert>
                             );
                         }
+                        return null;
                     })()}
 
                     <div className={styles["product-hero-buttons-container"]}>

@@ -348,7 +348,7 @@ export const extractVariantOptions = (product: Product): Map<string, Set<string>
     return options;
 };
 
-export const findVariant = (
+export const findVariantFromOptions = (
     product: Product,
     options: ProductVariant["options"],
     exact: boolean = false,
