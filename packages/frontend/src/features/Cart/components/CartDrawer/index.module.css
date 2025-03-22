@@ -1,6 +1,12 @@
 .drawer-root {
     position: absolute;
     left: 0;
+
+    --drawer-size: 540px;
+
+    @media (max-width: $mantine-breakpoint-lg) {
+        --drawer-size: 480px;
+    }
 }
 
 .drawer-content {
@@ -25,5 +31,5 @@
     flex-direction: column;
     gap: 24px;
 
-    padding: 8px;
+    padding: 16px;
 }
