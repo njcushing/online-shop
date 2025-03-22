@@ -13,11 +13,11 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
             opened={opened}
             onClose={() => onClose && onClose()}
             title="Your cart"
-            className={styles["card-drawer"]}
             classNames={{
                 root: styles["drawer-root"],
                 content: styles["drawer-content"],
                 header: styles["drawer-header"],
+                title: styles["drawer-title"],
                 body: styles["drawer-body"],
             }}
         ></Drawer>

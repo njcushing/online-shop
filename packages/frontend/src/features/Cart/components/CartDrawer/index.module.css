@@ -14,6 +14,12 @@
     background-color: rgb(255, 236, 218);
 }
 
+.drawer-title {
+    font-family: "Radio Canada Big";
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
 .drawer-body {
     padding: 0px;
 }
