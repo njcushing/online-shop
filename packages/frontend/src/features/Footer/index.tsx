@@ -6,7 +6,7 @@ export function Footer() {
     return (
         <footer className={styles["footer"]}>
             <Logo size="l" />
-            <Divider size="xl" orientation="vertical" color="black" />
+            <Divider size="lg" orientation="vertical" color="black" />
         </footer>
     );
 }
