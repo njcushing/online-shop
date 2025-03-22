@@ -110,7 +110,7 @@ export const products: Product[] = [
                 name: "Variant 1",
                 sku: "COF-WB-250G-LT",
                 price: {
-                    current: 700,
+                    current: 550,
                     base: 700,
                 },
                 stock: 321,
@@ -175,7 +175,7 @@ export const products: Product[] = [
                 name: "Variant 2",
                 sku: "COF-WB-500G-MD",
                 price: {
-                    current: 1250,
+                    current: 1100,
                     base: 1250,
                 },
                 stock: 123,
@@ -186,7 +186,7 @@ export const products: Product[] = [
                 name: "Variant 3",
                 sku: "COF-WB-500G-DK",
                 price: {
-                    current: 1250,
+                    current: 1100,
                     base: 1250,
                 },
                 stock: 382,
@@ -218,7 +218,7 @@ export const products: Product[] = [
                 name: "Variant 1",
                 sku: "COF-WB-1KG-LT",
                 price: {
-                    current: 2250,
+                    current: 1900,
                     base: 2250,
                 },
                 stock: 89,
@@ -240,7 +240,7 @@ export const products: Product[] = [
                 name: "Variant 3",
                 sku: "COF-WB-1KG-DK",
                 price: {
-                    current: 2250,
+                    current: 1900,
                     base: 2250,
                 },
                 stock: 102,
