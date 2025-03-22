@@ -348,6 +348,17 @@ export const extractVariantOptions = (product: Product): Map<string, Set<string>
     return options;
 };
 
+export const findVariantFromId = (id: ProductVariant["id"]): ProductVariant | null => {
+    for (let i = 0; i < products.length; i++) {
+        const product = products[i];
+        for (let j = 0; j < product.variants.length; j++) {
+            const variant = product.variants[j];
+            if (variant.id === id) return variant;
+        }
+    }
+    return null;
+};
+
 export const findVariantFromOptions = (
     product: Product,
     options: ProductVariant["options"],
