@@ -93,6 +93,7 @@ export function Navigation() {
                 classNames={{
                     root: styles["drawer-root"],
                     content: styles["drawer-content"],
+                    header: styles["drawer-header"],
                     body: styles["drawer-body"],
                 }}
             >

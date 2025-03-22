@@ -96,7 +96,12 @@
 .drawer-content {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+
+    background-color: rgb(250, 244, 238);
+}
+
+.drawer-header {
+    background-color: rgb(255, 236, 218);
 }
 
 .drawer-body {
