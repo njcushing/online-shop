@@ -62,10 +62,10 @@ export function Navigation() {
 
             <div className={styles["other-links"]}>
                 <ActionIcon variant="transparent" color="gray" aria-label="Search">
-                    <MagnifyingGlass size={48} color="black" />
+                    <MagnifyingGlass weight="bold" size={48} color="black" />
                 </ActionIcon>
                 <ActionIcon variant="transparent" color="gray" aria-label="User">
-                    <User size={48} color="black" />
+                    <User weight="bold" size={48} color="black" />
                 </ActionIcon>
                 <ActionIcon
                     variant="transparent"
@@ -73,7 +73,7 @@ export function Navigation() {
                     aria-label="Cart"
                     onClick={() => setCartDrawerOpen(!cartDrawerOpen)}
                 >
-                    <ShoppingCartSimple size={48} color="black" />
+                    <ShoppingCartSimple weight="bold" size={48} color="black" />
                 </ActionIcon>
             </div>
 
