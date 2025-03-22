@@ -21,5 +21,9 @@
 }
 
 .drawer-body {
-    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    padding: 8px;
 }

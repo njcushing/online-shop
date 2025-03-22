@@ -1,4 +1,6 @@
 import { Drawer } from "@mantine/core";
+import { mockCart } from "@/utils/products/cart";
+import { CartItem } from "../CartItem";
 import styles from "./index.module.css";
 
 export type TCartDrawer = {
@@ -20,6 +22,10 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
                 title: styles["drawer-title"],
                 body: styles["drawer-body"],
             }}
-        ></Drawer>
+        >
+            {mockCart.map((item) => {
+                return <CartItem itemData={item} key={item.variantId} />;
+            })}
+        </Drawer>
     );
 }
