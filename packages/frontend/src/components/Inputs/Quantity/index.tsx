@@ -6,6 +6,7 @@ export type TQuantity = {
     max?: number;
     disabled?: boolean;
     onChange?: (value: number | null) => unknown;
+    size?: "s" | "m" | "l";
 };
 
 const isInteger = (value: unknown): value is number => {
@@ -18,7 +19,7 @@ const isInteger = (value: unknown): value is number => {
     return false;
 };
 
-export function Quantity({ min, max, disabled, onChange }: TQuantity) {
+export function Quantity({ min, max, disabled, onChange, size = "m" }: TQuantity) {
     const [quantity, setQuantity] = useState<number | null>(isInteger(min) ? min : 0);
 
     useEffect(() => {
@@ -26,7 +27,11 @@ export function Quantity({ min, max, disabled, onChange }: TQuantity) {
     }, [onChange, quantity]);
 
     return (
-        <div className={styles["quantity-input-container"]} aria-disabled={disabled}>
+        <div
+            className={styles["quantity-input-container"]}
+            aria-disabled={disabled}
+            data-size={size}
+        >
             <button
                 type="button"
                 disabled={disabled}
@@ -39,7 +44,7 @@ export function Quantity({ min, max, disabled, onChange }: TQuantity) {
                 }}
                 className={styles["decrement-button"]}
             >
-                <svg width="16" height="16" viewBox="0 0 24 24" stroke="black" strokeWidth="2">
+                <svg width="100%" height="100%" viewBox="0 0 24 24" stroke="black" strokeWidth="2">
                     <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
             </button>
@@ -92,7 +97,7 @@ export function Quantity({ min, max, disabled, onChange }: TQuantity) {
                 }}
                 className={styles["increment-button"]}
             >
-                <svg width="16" height="16" viewBox="0 0 24 24" stroke="black" strokeWidth="2">
+                <svg width="100%" height="100%" viewBox="0 0 24 24" stroke="black" strokeWidth="2">
                     <line x1="12" y1="5" x2="12" y2="19" />
                     <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>

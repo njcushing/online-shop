@@ -16,6 +16,14 @@
     border-color: rgba(0, 0, 0, 0.3);
 }
 
+.quantity-input-container[data-size="s"] {
+    width: 80px;
+}
+
+.quantity-input-container[data-size="l"] {
+    width: 140px;
+}
+
 .quantity-input {
     text-align: center;
 
@@ -44,6 +52,14 @@
     color: rgba(0, 0, 0, 0.5);
 }
 
+.quantity-input-container[data-size="s"] .quantity-input {
+    font-size: 0.8rem;
+}
+
+.quantity-input-container[data-size="l"] .quantity-input {
+    font-size: 1.2rem;
+}
+
 .decrement-button,
 .increment-button {
     flex-shrink: 0;
@@ -54,15 +70,11 @@
 
     cursor: pointer;
 
-    font-family: sans-serif;
-    font-size: 1.6rem;
-    font-weight: 300;
-
     border: none;
     border-radius: 4px;
     background: none;
 
-    width: 30px;
+    width: 20px;
     padding: 0px;
 }
 
@@ -79,4 +91,14 @@
 .decrement-button:disabled svg,
 .increment-button:disabled svg {
     stroke: rgba(0, 0, 0, 0.5);
+}
+
+.quantity-input-container[data-size="s"] .decrement-button,
+.quantity-input-container[data-size="s"] .increment-button {
+    width: 16px;
+}
+
+.quantity-input-container[data-size="l"] .decrement-button,
+.quantity-input-container[data-size="l"] .increment-button {
+    width: 30px;
 }
