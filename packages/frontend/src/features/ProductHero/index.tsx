@@ -4,7 +4,7 @@ import { Button, Divider, Image, Rating, Alert, AlertProps } from "@mantine/core
 import {
     Product,
     ProductVariant,
-    findProduct,
+    findProductFromSlug,
     findCollections,
     filterVariantOptions,
     findVariantFromOptions,
@@ -32,7 +32,7 @@ export function ProductHero() {
     const { productSlug } = params;
 
     const productData = useMemo<Product | undefined>(() => {
-        return findProduct(productSlug || "");
+        return findProductFromSlug(productSlug || "");
     }, [productSlug]);
 
     const [selectedOptions, setSelectedOptions] = useState<ProductVariant["options"]>(
