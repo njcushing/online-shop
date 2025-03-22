@@ -14,6 +14,7 @@ import {
 } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
 import { Logo } from "@/features/Logo";
+import { CartDrawer } from "@/features/Cart/components/CartDrawer";
 import styles from "./index.module.css";
 
 export type Category = {
@@ -40,16 +41,17 @@ const categories: Category[] = [
 ];
 
 export function Navigation() {
-    const [burgerToggled, setBurgerToggled] = useState<boolean>(false);
+    const [navDrawerOpen, setNavDrawerOpen] = useState<boolean>(false);
+    const [cartDrawerOpen, setCartDrawerOpen] = useState<boolean>(false);
 
     return (
         <nav className={styles["navigation"]}>
             <Burger
                 lineSize={2}
                 size="32px"
-                opened={burgerToggled}
+                opened={navDrawerOpen}
                 onClick={() => {
-                    setBurgerToggled(!burgerToggled);
+                    setNavDrawerOpen(!navDrawerOpen);
                 }}
                 aria-label="Toggle navigation"
                 hiddenFrom="lg"
@@ -65,7 +67,12 @@ export function Navigation() {
                 <ActionIcon variant="transparent" color="gray" aria-label="User">
                     <User size={48} color="black" />
                 </ActionIcon>
-                <ActionIcon variant="transparent" color="gray" aria-label="Cart">
+                <ActionIcon
+                    variant="transparent"
+                    color="gray"
+                    aria-label="Cart"
+                    onClick={() => setCartDrawerOpen(!cartDrawerOpen)}
+                >
                     <ShoppingCartSimple size={48} color="black" />
                 </ActionIcon>
             </div>
@@ -87,9 +94,9 @@ export function Navigation() {
             </div>
 
             <Drawer
-                opened={burgerToggled}
-                onClose={() => setBurgerToggled(false)}
-                title={<Logo onClick={() => setBurgerToggled(false)} />}
+                opened={navDrawerOpen}
+                onClose={() => setNavDrawerOpen(false)}
+                title={<Logo onClick={() => setNavDrawerOpen(false)} />}
                 classNames={{
                     root: styles["drawer-root"],
                     content: styles["drawer-content"],
@@ -106,13 +113,15 @@ export function Navigation() {
                             label={name}
                             leftSection={icon}
                             rightSection={<CaretRight size={24} />}
-                            onClick={() => setBurgerToggled(false)}
+                            onClick={() => setNavDrawerOpen(false)}
                             style={{ flexShrink: 0 }}
                             key={`navlink-category-${name}`}
                         />
                     );
                 })}
             </Drawer>
+
+            <CartDrawer opened={cartDrawerOpen} onClose={() => setCartDrawerOpen(false)} />
         </nav>
     );
 }
