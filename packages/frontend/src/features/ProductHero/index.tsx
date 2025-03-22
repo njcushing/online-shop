@@ -10,11 +10,12 @@ import {
     findVariantFromOptions,
     lowStockThreshold,
 } from "@/utils/products/product";
+import { CartItemData, mockCart } from "@/utils/products/cart";
 import { v4 as uuid } from "uuid";
 import { ErrorPage } from "@/pages/ErrorPage";
 import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString";
 import { Inputs } from "@/components/Inputs";
-import { WarningCircle } from "@phosphor-icons/react";
+import { WarningCircle, Info } from "@phosphor-icons/react";
 import { CollectionStep } from "./components/CollectionStep";
 import { VariantStep } from "./components/VariantStep";
 import styles from "./index.module.css";
@@ -22,6 +23,7 @@ import styles from "./index.module.css";
 const AlertClassNames: AlertProps["classNames"] = {
     root: styles["alert-root"],
     wrapper: styles["alert-wrapper"],
+    body: styles["alert-body"],
     title: styles["alert-title"],
     icon: styles["alert-icon"],
 };
@@ -72,6 +74,10 @@ export function ProductHero() {
     const collectionsData = useMemo<ReturnType<typeof findCollections>>(() => {
         return findCollections(productData?.id || "");
     }, [productData?.id]);
+
+    const cartItemData = useMemo<CartItemData | undefined>(() => {
+        return mockCart.find((cartItem) => cartItem.variantId === variantData?.id);
+    }, [variantData?.id]);
 
     const [, /* quantity */ setQuantity] = useState<number | null>(1);
 
@@ -212,6 +218,17 @@ export function ProductHero() {
                         }
                         return null;
                     })()}
+
+                    {cartItemData && (
+                        <Alert
+                            icon={<Info weight="bold" size="100%" />}
+                            classNames={AlertClassNames}
+                        >
+                            You already have{" "}
+                            <span style={{ fontWeight: "bold" }}>{cartItemData.quantity}</span> of
+                            this item in your cart.
+                        </Alert>
+                    )}
 
                     <div className={styles["product-hero-buttons-container"]}>
                         <Inputs.Quantity

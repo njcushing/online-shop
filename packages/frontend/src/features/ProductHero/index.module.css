@@ -145,6 +145,10 @@
     gap: 12px;
 }
 
+.alert-body {
+    align-self: center;
+}
+
 .alert-icon {
     width: 1.4rem;
     height: 1.4rem;
