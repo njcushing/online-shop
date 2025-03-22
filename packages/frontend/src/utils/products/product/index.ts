@@ -9,6 +9,7 @@ export type ProductVariantOptionValuesCore = {
 
 export type ProductVariantOption = {
     id: string;
+    name: string;
     title: string;
 } & (
     | { type: "dot"; values: (ProductVariantOptionValuesCore & { dot: CSSProperties["color"] })[] }
@@ -67,6 +68,7 @@ export type Product = {
 export const variantOptions: ProductVariantOption[] = [
     {
         id: "blend",
+        name: "Blend",
         title: "Choose a blend",
         type: "dot",
         values: [
