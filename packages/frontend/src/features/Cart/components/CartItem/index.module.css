@@ -1,0 +1,86 @@
+.cart-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 12px;
+
+    width: 100%;
+
+    @media (max-width: $mantine-breakpoint-xs) {
+        grid-template-columns: 80px 1fr;
+    }
+}
+
+.cart-item-thumbnail-image {
+    align-self: center;
+
+    width: 100%;
+    aspect-ratio: 1;
+}
+
+.cart-item-content {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 12px;
+}
+
+.cart-item-name {
+    font-family: "Radio Canada Big";
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.cart-item-content-middle {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 4px;
+}
+
+.cart-item-variant-option-info {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+}
+
+.cart-item-variant-option-name {
+    font-family: "Radio Canada Big";
+    font-weight: 500;
+}
+
+.cart-item-variant-option-value {
+    font-family: "Radio Canada Big";
+}
+
+.cart-item-content-bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+
+    @media (max-width: $mantine-breakpoint-xs) {
+        flex-direction: column-reverse;
+        align-items: start;
+    }
+}
+
+.cart-item-price-container {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+
+    font-size: 1.1rem;
+}
+
+.cart-item-price-current {
+    color: black;
+}
+
+.cart-item-price-base {
+    color: grey;
+    text-decoration: line-through;
+}
+
+.cart-item-price-discount-percentage {
+    color: rgb(40, 190, 20);
+}
