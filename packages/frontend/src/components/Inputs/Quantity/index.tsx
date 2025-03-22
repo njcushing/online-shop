@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import styles from "./index.module.css";
 
 export type TQuantity = {
+    defaultValue?: number;
     min?: number;
     max?: number;
     disabled?: boolean;
@@ -19,8 +20,15 @@ const isInteger = (value: unknown): value is number => {
     return false;
 };
 
-export function Quantity({ min, max, disabled, onChange, size = "m" }: TQuantity) {
-    const [quantity, setQuantity] = useState<number | null>(isInteger(min) ? min : 0);
+export function Quantity({ defaultValue, min, max, disabled, onChange, size = "m" }: TQuantity) {
+    const [quantity, setQuantity] = useState<number | null>(
+        (() => {
+            let value: number = defaultValue || 0;
+            if (isInteger(min)) value = Math.max(min, value);
+            if (isInteger(max)) value = Math.min(max, value);
+            return value;
+        })(),
+    );
 
     useEffect(() => {
         if (onChange) onChange(quantity);
