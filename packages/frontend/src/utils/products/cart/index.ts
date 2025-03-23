@@ -1,8 +1,14 @@
-import { Product } from "@/utils/products/product";
+import { ProductVariant, Product } from "@/utils/products/product";
 
 export type CartItemData = {
     productId: Product["id"];
     variantId: Product["variants"][number]["id"];
+    quantity: number;
+};
+
+export type PopulatedCartItemData = {
+    product: Product;
+    variant: ProductVariant;
     quantity: number;
 };
 
