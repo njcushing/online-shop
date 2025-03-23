@@ -19,3 +19,7 @@ export const mockCart: CartItemData[] = [
     { productId: "3", variantId: "3-1", quantity: 6 },
     { productId: "3", variantId: "3-3", quantity: 18 },
 ];
+
+export const calculateSubtotal = (cart: PopulatedCartItemData[]): number => {
+    return cart.reduce((acc, item) => acc + item.variant.price.current * item.quantity, 0);
+};
