@@ -78,6 +78,14 @@
     padding: 0px;
 }
 
+.decrement-button {
+    padding-left: 4px;
+}
+
+.increment-button {
+    padding-right: 4px;
+}
+
 .decrement-button:focus-visible,
 .increment-button:focus-visible {
     outline: 2px solid #000;
