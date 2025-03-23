@@ -1,5 +1,6 @@
+import { useContext } from "react";
+import { UserContext } from "@/pages/Root";
 import { Drawer } from "@mantine/core";
-import { mockCart } from "@/utils/products/cart";
 import { CartItem } from "../CartItem";
 import styles from "./index.module.css";
 
@@ -9,6 +10,8 @@ export type TCartDrawer = {
 };
 
 export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
+    const { cart } = useContext(UserContext);
+
     return (
         <Drawer
             position="right"
@@ -23,9 +26,11 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
                 body: styles["drawer-body"],
             }}
         >
-            {mockCart.map((item) => {
-                return <CartItem itemData={item} key={item.variantId} />;
-            })}
+            <ul className={styles["cart-drawer-items"]}>
+                {cart.data.map((item) => {
+                    return <CartItem data={item} key={item.variant.id} />;
+                })}
+            </ul>
         </Drawer>
     );
 }

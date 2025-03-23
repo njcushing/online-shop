@@ -27,9 +27,25 @@
 }
 
 .drawer-body {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: 8px;
+
+    height: 100%;
+    padding: 0px;
+}
+
+.cart-drawer-items {
     display: flex;
     flex-direction: column;
     gap: 24px;
+
+    padding: 16px;
+}
+
+.cart-drawer-bottom {
+    display: flex;
+    flex-direction: column;
 
     padding: 16px;
 }

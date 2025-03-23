@@ -1,19 +1,12 @@
-import { useMemo } from "react";
 import { Image } from "@mantine/core";
 import { Quantity } from "@/components/Inputs/Quantity";
-import {
-    ProductVariant,
-    Product,
-    variantOptions,
-    findProductFromId,
-    findVariantFromId,
-} from "@/utils/products/product";
-import { CartItemData } from "@/utils/products/cart";
+import { ProductVariant, Product, variantOptions } from "@/utils/products/product";
+import { PopulatedCartItemData } from "@/utils/products/cart";
 import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString";
 import styles from "./index.module.css";
 
 export type TCartItem = {
-    itemData: CartItemData;
+    data: PopulatedCartItemData;
 };
 
 const calculateMaximumAvailability = (
@@ -25,21 +18,11 @@ const calculateMaximumAvailability = (
     return Math.min(stock, allowance);
 };
 
-export function CartItem({ itemData }: TCartItem) {
-    const { productId, variantId, quantity } = itemData;
+export function CartItem({ data }: TCartItem) {
+    const { product, variant, quantity } = data;
 
-    const productData = useMemo<ReturnType<typeof findProductFromId>>(() => {
-        return findProductFromId(productId || "");
-    }, [productId]);
-
-    const variantData = useMemo<ReturnType<typeof findVariantFromId>>(() => {
-        return productData ? findVariantFromId(variantId) : null;
-    }, [variantId, productData]);
-
-    if (!productData || !variantData) return null;
-
-    const { name, images, allowance } = productData;
-    const { price, stock, options, allowanceOverride, image } = variantData;
+    const { name, images, allowance } = product;
+    const { price, stock, options, allowanceOverride, image } = variant;
 
     return (
         <div className={styles["cart-item"]}>
