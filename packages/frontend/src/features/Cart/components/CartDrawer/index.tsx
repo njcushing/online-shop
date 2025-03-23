@@ -1,12 +1,16 @@
 import { useContext } from "react";
-import { UserContext } from "@/pages/Root";
-import { Drawer } from "@mantine/core";
+import { IUserContext, UserContext } from "@/pages/Root";
+import { Divider, Drawer } from "@mantine/core";
 import { CartItem } from "../CartItem";
 import styles from "./index.module.css";
 
 export type TCartDrawer = {
     opened?: boolean;
     onClose?: () => unknown;
+};
+
+const calculateSubtotal = (cart: IUserContext["cart"]["data"]): number => {
+    return cart.reduce((acc, item) => acc + item.variant.price.current * item.quantity, 0);
 };
 
 export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
@@ -31,6 +35,17 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
                     return <CartItem data={item} key={item.variant.id} />;
                 })}
             </ul>
+
+            <Divider />
+
+            <div className={styles["cart-drawer-bottom"]}>
+                <div className={styles["subtotal"]}>
+                    {`Subtotal: `}
+                    <span className={styles["subtotal-value"]}>
+                        £{(calculateSubtotal(cart.data) / 100).toFixed(2)}
+                    </span>
+                </div>
+            </div>
         </Drawer>
     );
 }

@@ -29,7 +29,6 @@
 .drawer-body {
     display: grid;
     grid-template-rows: 1fr auto;
-    gap: 8px;
 
     height: 100%;
     padding: 0px;
@@ -48,4 +47,14 @@
     flex-direction: column;
 
     padding: 16px;
+}
+
+.subtotal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    font-family: "Radio Canada Big";
+    font-size: 1.4rem;
 }
