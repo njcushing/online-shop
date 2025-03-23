@@ -15,6 +15,7 @@ import {
 import { Link } from "react-router-dom";
 import { Logo } from "@/features/Logo";
 import { CartDrawer } from "@/features/Cart/components/CartDrawer";
+import { mockCart } from "@/utils/products/cart";
 import styles from "./index.module.css";
 
 export type Category = {
@@ -67,14 +68,19 @@ export function Navigation() {
                 <ActionIcon variant="transparent" color="gray" aria-label="User">
                     <User weight="bold" size={48} color="black" />
                 </ActionIcon>
-                <ActionIcon
-                    variant="transparent"
-                    color="gray"
-                    aria-label="Cart"
-                    onClick={() => setCartDrawerOpen(!cartDrawerOpen)}
-                >
-                    <ShoppingCartSimple weight="bold" size={48} color="black" />
-                </ActionIcon>
+                <div className={styles["cart-button-container"]}>
+                    <ActionIcon
+                        variant="transparent"
+                        color="gray"
+                        aria-label="Cart"
+                        onClick={() => setCartDrawerOpen(!cartDrawerOpen)}
+                    >
+                        <ShoppingCartSimple weight="bold" size={48} color="black" />
+                    </ActionIcon>
+                    {mockCart.length > 0 && (
+                        <span className={styles["cart-items-quantity"]}>{mockCart.length}</span>
+                    )}
+                </div>
             </div>
 
             <div className={`${styles["categories"]} mantine-visible-from-lg`}>

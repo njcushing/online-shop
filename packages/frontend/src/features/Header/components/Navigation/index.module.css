@@ -35,6 +35,27 @@
     }
 }
 
+.cart-button-container {
+    position: relative;
+}
+
+.cart-items-quantity {
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+
+    color: white;
+    font-family: "Radio Canada Big";
+    font-size: 0.7rem;
+    text-align: center;
+
+    border-radius: 9999px;
+    background-color: #f12626;
+
+    min-width: 1rem;
+    padding: 3px 4px 1px;
+}
+
 .categories {
     grid-area: 2 / 1 / -1 / -1;
 
