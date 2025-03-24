@@ -77,8 +77,6 @@ input, select, textarea, button {
 :root {
     /* Prevent horizontal scrollbar (viewport overflow) when vertical scrollbar is present */
     position: absolute;
-    overflow-x: hidden;
-    overflow-y: auto;
 
     font-family: Inter, system-ui, sans-serif;
     --font-family: var(--font-family, Inter, system-ui, sans-serif);
