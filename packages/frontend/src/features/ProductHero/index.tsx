@@ -36,12 +36,14 @@ const calculateMaximumVariantQuantity = (
     variant: ProductVariant,
 ): number => {
     const { allowance } = product;
-    const { allowanceOverride } = variant;
+    const { stock, allowanceOverride } = variant;
 
     const cartItem = cart.find((item) => item.variant.id === variant.id);
     if (!cartItem) return 0;
-    if (allowanceOverride) return Math.max(0, allowanceOverride - cartItem.quantity);
-    return Math.max(0, allowance - cartItem.quantity);
+    const { quantity } = cartItem;
+
+    if (allowanceOverride) return Math.max(0, Math.min(stock, allowanceOverride - quantity));
+    return Math.max(0, Math.min(stock, allowance - quantity));
 };
 
 export function ProductHero() {
