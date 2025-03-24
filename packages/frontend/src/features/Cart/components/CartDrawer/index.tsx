@@ -1,6 +1,7 @@
 import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { Button, Divider, Drawer } from "@mantine/core";
 import { UserContext } from "@/pages/Root";
-import { Divider, Drawer } from "@mantine/core";
 import { calculateSubtotal } from "@/utils/products/cart";
 import { CartItem } from "../CartItem";
 import styles from "./index.module.css";
@@ -42,6 +43,18 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
                         £{(calculateSubtotal(cart.data) / 100).toFixed(2)}
                     </span>
                 </div>
+
+                <Button
+                    component={Link}
+                    to="/checkout"
+                    color="#242424"
+                    classNames={{
+                        root: styles["checkout-button-root"],
+                        label: styles["checkout-button-label"],
+                    }}
+                >
+                    Proceed to Checkout
+                </Button>
             </div>
         </Drawer>
     );
