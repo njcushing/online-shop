@@ -13,7 +13,7 @@
     display: flex;
     flex-direction: column;
 
-    background-color: rgb(250, 244, 238);
+    background-color: white;
 }
 
 .drawer-header {

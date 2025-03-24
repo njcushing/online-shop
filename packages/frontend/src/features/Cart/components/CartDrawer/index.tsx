@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button, Divider, Drawer } from "@mantine/core";
 import { UserContext } from "@/pages/Root";
 import { calculateSubtotal } from "@/utils/products/cart";
+import { DeliveryProgress } from "@/features/DeliveryProgress";
 import { CartItem } from "../CartItem";
 import styles from "./index.module.css";
 
@@ -43,6 +44,8 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
                         £{(calculateSubtotal(cart.data) / 100).toFixed(2)}
                     </span>
                 </div>
+
+                <DeliveryProgress />
 
                 <Button
                     component={Link}
