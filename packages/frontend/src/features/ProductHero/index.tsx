@@ -260,7 +260,11 @@ export function ProductHero() {
                             onChange={(v) => setQuantity(v)}
                         />
 
-                        <Button className={styles["add-to-cart-button"]} disabled={stock === 0}>
+                        <Button
+                            color="#242424"
+                            className={styles["add-to-cart-button"]}
+                            disabled={stock === 0}
+                        >
                             Add to Cart
                         </Button>
                     </div>
