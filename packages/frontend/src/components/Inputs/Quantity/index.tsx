@@ -42,7 +42,7 @@ export function Quantity({ defaultValue, min, max, disabled, onChange, size = "m
         >
             <button
                 type="button"
-                disabled={disabled}
+                disabled={disabled || quantity === min}
                 onClick={() => {
                     if (isInteger(quantity)) {
                         setQuantity(isInteger(min) ? Math.max(min, quantity - 1) : quantity - 1);
@@ -95,7 +95,7 @@ export function Quantity({ defaultValue, min, max, disabled, onChange, size = "m
 
             <button
                 type="button"
-                disabled={disabled}
+                disabled={disabled || quantity === max}
                 onClick={() => {
                     if (isInteger(quantity)) {
                         setQuantity(isInteger(max) ? Math.min(max, quantity + 1) : quantity + 1);
