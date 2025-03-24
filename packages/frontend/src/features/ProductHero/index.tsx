@@ -1,5 +1,6 @@
 import { useParams, useSearchParams } from "react-router-dom";
-import { Fragment, useState, useMemo, useEffect } from "react";
+import { Fragment, useContext, useState, useMemo, useEffect } from "react";
+import { UserContext } from "@/pages/Root";
 import { Button, Divider, Image, Rating, Alert, AlertProps } from "@mantine/core";
 import {
     Product,
@@ -10,7 +11,7 @@ import {
     findVariantFromOptions,
     lowStockThreshold,
 } from "@/utils/products/product";
-import { CartItemData, mockCart } from "@/utils/products/cart";
+import { CartItemData, mockCart, PopulatedCartItemData } from "@/utils/products/cart";
 import { v4 as uuid } from "uuid";
 import { ErrorPage } from "@/pages/ErrorPage";
 import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString";
@@ -29,10 +30,26 @@ const AlertClassNames: AlertProps["classNames"] = {
     icon: styles["alert-icon"],
 };
 
+const calculateMaximumProductQuantity = (
+    cart: PopulatedCartItemData[],
+    product: Product,
+    variant: ProductVariant,
+): number => {
+    const { allowance } = product;
+    const { allowanceOverride } = variant;
+
+    const cartItem = cart.find((item) => item.variant.id === variant.id);
+    if (!cartItem) return 0;
+    if (allowanceOverride) return Math.max(0, allowanceOverride - cartItem.quantity);
+    return Math.max(0, allowance - cartItem.quantity);
+};
+
 export function ProductHero() {
     const params = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
     const { productSlug } = params;
+
+    const { cart } = useContext(UserContext);
 
     const productData = useMemo<Product | undefined>(() => {
         return findProductFromSlug(productSlug || "");
@@ -84,7 +101,7 @@ export function ProductHero() {
 
     if (!productData || !variantData) return <ErrorPage />;
 
-    const { name, description, images, rating, allowance, variantOptionOrder } = productData;
+    const { name, description, images, rating, variantOptionOrder } = productData;
     const { price, stock, options } = variantData;
 
     return (
@@ -234,7 +251,11 @@ export function ProductHero() {
                     <div className={styles["product-hero-buttons-container"]}>
                         <Inputs.Quantity
                             min={1}
-                            max={allowance}
+                            max={calculateMaximumProductQuantity(
+                                cart.data,
+                                productData,
+                                variantData,
+                            )}
                             disabled={stock === 0}
                             onChange={(v) => setQuantity(v)}
                         />
