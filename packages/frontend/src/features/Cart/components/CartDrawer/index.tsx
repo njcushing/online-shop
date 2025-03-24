@@ -35,7 +35,7 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
                 })}
             </ul>
 
-            <Divider />
+            <Divider variant="dashed" />
 
             <div className={styles["cart-drawer-bottom"]}>
                 <div className={styles["subtotal"]}>
