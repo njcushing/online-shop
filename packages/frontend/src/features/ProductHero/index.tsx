@@ -17,9 +17,9 @@ import { ErrorPage } from "@/pages/ErrorPage";
 import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString";
 import { Inputs } from "@/components/Inputs";
 import { WarningCircle, Info } from "@phosphor-icons/react";
+import { DeliveryProgress } from "@/features/DeliveryProgress";
 import { CollectionStep } from "./components/CollectionStep";
 import { VariantStep } from "./components/VariantStep";
-import { DeliveryProgress } from "./components/DeliveryProgress";
 import styles from "./index.module.css";
 
 const AlertClassNames: AlertProps["classNames"] = {
