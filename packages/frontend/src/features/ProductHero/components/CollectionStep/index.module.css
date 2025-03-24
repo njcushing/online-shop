@@ -48,17 +48,19 @@
 }
 
 .product-thumbnail-image {
-    outline: none;
+    outline: 2px solid transparent;
     outline-offset: 2px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 4px;
 
     width: 100%;
     aspect-ratio: 1;
+
+    transition: outline linear 0.16s;
 }
 
 .product-hero-step-product-link[data-selected="true"] .product-thumbnail-image {
-    outline: 2px solid black;
+    outline-color: black;
 
     transition-duration: 0s;
 }
