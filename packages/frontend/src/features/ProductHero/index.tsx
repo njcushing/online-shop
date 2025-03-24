@@ -30,7 +30,7 @@ const AlertClassNames: AlertProps["classNames"] = {
     icon: styles["alert-icon"],
 };
 
-const calculateMaximumProductQuantity = (
+const calculateMaximumVariantQuantity = (
     cart: PopulatedCartItemData[],
     product: Product,
     variant: ProductVariant,
@@ -98,6 +98,11 @@ export function ProductHero() {
     }, [variantData?.id]);
 
     const [, /* quantity */ setQuantity] = useState<number | null>(1);
+
+    const maximumVariantQuantity = useMemo(() => {
+        if (!productData || !variantData) return 0;
+        return calculateMaximumVariantQuantity(cart.data, productData, variantData);
+    }, [cart, productData, variantData]);
 
     if (!productData || !variantData) return <ErrorPage />;
 
@@ -251,19 +256,15 @@ export function ProductHero() {
                     <div className={styles["product-hero-buttons-container"]}>
                         <Inputs.Quantity
                             min={1}
-                            max={calculateMaximumProductQuantity(
-                                cart.data,
-                                productData,
-                                variantData,
-                            )}
-                            disabled={stock === 0}
+                            max={Math.max(1, maximumVariantQuantity)}
+                            disabled={maximumVariantQuantity === 0}
                             onChange={(v) => setQuantity(v)}
                         />
 
                         <Button
                             color="#242424"
                             className={styles["add-to-cart-button"]}
-                            disabled={stock === 0}
+                            disabled={maximumVariantQuantity === 0}
                         >
                             Add to Cart
                         </Button>
