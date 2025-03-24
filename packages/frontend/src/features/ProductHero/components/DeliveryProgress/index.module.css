@@ -1,0 +1,33 @@
+.delivery-progress {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr auto;
+    align-items: center;
+    gap: 12px;
+
+    border-radius: 4px;
+    background-color: rgb(255, 236, 218);
+
+    padding: 12px;
+}
+
+.delivery-progress[data-meets-threshold="false"] {
+    grid-template-rows: 1fr auto;
+}
+
+.delivery-progress[data-meets-threshold="true"] {
+    grid-template-rows: auto;
+}
+
+.delivery-progress-status-message {
+    grid-area: 1 / 2 / 2 / -1;
+
+    font-family: "Radio Canada Big";
+    font-size: 0.92rem;
+}
+
+.delivery-progress-bar {
+    grid-area: 2 / 1 / -1 / -1;
+
+    background-color: rgba(0, 0, 0, 0.1);
+}
