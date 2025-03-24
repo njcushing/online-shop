@@ -128,7 +128,7 @@
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
 
     width: 100%;
 }
