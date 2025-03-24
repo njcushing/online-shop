@@ -18,6 +18,7 @@ import { Inputs } from "@/components/Inputs";
 import { WarningCircle, Info } from "@phosphor-icons/react";
 import { CollectionStep } from "./components/CollectionStep";
 import { VariantStep } from "./components/VariantStep";
+import { DeliveryProgress } from "./components/DeliveryProgress";
 import styles from "./index.module.css";
 
 const AlertClassNames: AlertProps["classNames"] = {
@@ -242,6 +243,8 @@ export function ProductHero() {
                             Add to Cart
                         </Button>
                     </div>
+
+                    <DeliveryProgress />
                 </div>
             </div>
         </section>
