@@ -50,7 +50,7 @@ export type Product = {
         full: string;
         shorthands: { type: Collection["type"]; value: string }[];
     };
-    description: string[];
+    description: string;
     slug: string;
     images: { thumb: string; dynamic: string[] };
     rating: {
@@ -97,7 +97,7 @@ export const products: Product[] = [
             full: "Coffee - Whole Bean - 250g",
             shorthands: [{ type: "quantity", value: "250g bag" }],
         },
-        description: ["Product Description"],
+        description: "",
         slug: "coffee-whole-bean-250g",
         images: { thumb: "", dynamic: [] },
         rating: {
@@ -151,7 +151,7 @@ export const products: Product[] = [
             full: "Coffee - Whole Bean - 500g",
             shorthands: [{ type: "quantity", value: "500g bag" }],
         },
-        description: ["Product Description"],
+        description: "",
         slug: "coffee-whole-bean-500g",
         images: { thumb: "", dynamic: [] },
         rating: {
@@ -205,7 +205,7 @@ export const products: Product[] = [
             full: "Coffee - Whole Bean - 1kg",
             shorthands: [{ type: "quantity", value: "1kg bag" }],
         },
-        description: ["Product Description"],
+        description: "",
         slug: "coffee-whole-bean-1kg",
         images: { thumb: "", dynamic: [] },
         rating: {
