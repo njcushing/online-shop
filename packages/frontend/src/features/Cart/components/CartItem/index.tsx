@@ -25,7 +25,7 @@ export function CartItem({ data }: TCartItem) {
     const { price, stock, options, allowanceOverride, image } = variant;
 
     return (
-        <div className={styles["cart-item"]}>
+        <li className={styles["cart-item"]}>
             <Image className={styles["cart-item-thumbnail-image"]} src={image || images.thumb} />
 
             <div className={styles["cart-item-content"]}>
@@ -80,6 +80,6 @@ export function CartItem({ data }: TCartItem) {
                     </div>
                 </div>
             </div>
-        </div>
+        </li>
     );
 }
