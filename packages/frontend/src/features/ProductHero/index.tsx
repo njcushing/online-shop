@@ -18,6 +18,7 @@ import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString
 import { Inputs } from "@/components/Inputs";
 import { WarningCircle, Info } from "@phosphor-icons/react";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
+import { Description } from "./components/Description";
 import { CollectionStep } from "./components/CollectionStep";
 import { VariantStep } from "./components/VariantStep";
 import styles from "./index.module.css";
@@ -139,15 +140,7 @@ export function ProductHero() {
                         >{`(${rating.quantity})`}</div>
                     </div>
 
-                    <div className={styles["product-description-container"]}>
-                        {description.map((paragraph) => {
-                            return (
-                                <p className={styles["product-description"]} key={uuid()}>
-                                    {paragraph}
-                                </p>
-                            );
-                        })}
-                    </div>
+                    <Description text={description} />
 
                     <Divider />
 
