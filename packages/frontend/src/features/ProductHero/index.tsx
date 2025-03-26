@@ -1,18 +1,15 @@
-import { useParams, useSearchParams } from "react-router-dom";
-import { Fragment, useContext, useState, useMemo, useEffect } from "react";
+import { Fragment, useContext, useState, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
+import { ProductContext } from "@/pages/Product";
 import { Button, Divider, Image, Rating, Alert, AlertProps } from "@mantine/core";
 import {
     Product,
     ProductVariant,
-    findProductFromSlug,
     findCollections,
     filterVariantOptions,
-    findVariantFromOptions,
     lowStockThreshold,
 } from "@/utils/products/product";
 import { CartItemData, mockCart, PopulatedCartItemData } from "@/utils/products/cart";
-import { v4 as uuid } from "uuid";
 import { ErrorPage } from "@/pages/ErrorPage";
 import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString";
 import { Inputs } from "@/components/Inputs";
@@ -48,69 +45,33 @@ const calculateMaximumVariantQuantity = (
 };
 
 export function ProductHero() {
-    const params = useParams();
-    const [searchParams, setSearchParams] = useSearchParams();
-    const { productSlug } = params;
-
     const { cart } = useContext(UserContext);
-
-    const productData = useMemo<Product | undefined>(() => {
-        return findProductFromSlug(productSlug || "");
-    }, [productSlug]);
-
-    const [selectedOptions, setSelectedOptions] = useState<ProductVariant["options"]>(
-        (() => {
-            const optionsFromURL = Object.fromEntries(searchParams.entries());
-            const foundVariantData = productData
-                ? findVariantFromOptions(productData, optionsFromURL)
-                : null;
-            return foundVariantData ? foundVariantData.options : {};
-        })(),
-    );
-
-    const variantData = useMemo<ProductVariant | null>(() => {
-        const newVariantData = productData
-            ? findVariantFromOptions(productData, selectedOptions)
-            : null;
-        if (!newVariantData) return null;
-        if (JSON.stringify(newVariantData.options) !== JSON.stringify(selectedOptions)) {
-            setSelectedOptions(newVariantData.options);
-        }
-        return newVariantData;
-    }, [productData, selectedOptions]);
-
-    useEffect(() => {
-        const newSearchParams = new URLSearchParams();
-        Object.entries(selectedOptions).forEach((entry) => {
-            const [key, value] = entry;
-            newSearchParams.set(key, value);
-        });
-        setSearchParams(newSearchParams);
-    }, [setSearchParams, selectedOptions]);
+    const { product, variant, selectedVariantOptions, setSelectedVariantOptions } =
+        useContext(ProductContext);
 
     const variantOptions = useMemo<Map<string, Set<string>> | null>(() => {
-        return productData ? filterVariantOptions(productData, selectedOptions) : null;
-    }, [productData, selectedOptions]);
+        return product.data ? filterVariantOptions(product.data, selectedVariantOptions) : null;
+    }, [product.data, selectedVariantOptions]);
 
     const collectionsData = useMemo<ReturnType<typeof findCollections>>(() => {
-        return findCollections(productData?.id || "");
-    }, [productData?.id]);
+        return findCollections(product.data?.id || "");
+    }, [product.data?.id]);
 
     const cartItemData = useMemo<CartItemData | undefined>(() => {
-        return mockCart.find((cartItem) => cartItem.variantId === variantData?.id);
-    }, [variantData?.id]);
+        return mockCart.find((cartItem) => cartItem.variantId === variant?.id);
+    }, [variant?.id]);
 
     const [, /* quantity */ setQuantity] = useState<number | null>(1);
 
     const maximumVariantQuantity = useMemo(() => {
-        if (!productData || !variantData) return 0;
-        return calculateMaximumVariantQuantity(cart.data, productData, variantData);
-    }, [cart, productData, variantData]);
+        if (!product.data || !variant) return 0;
+        return calculateMaximumVariantQuantity(cart.data, product.data, variant);
+    }, [cart, product.data, variant]);
 
-    if (!productData || !variantData) return <ErrorPage />;
+    if (!product.data || !variant) return <ErrorPage />;
 
-    const { name, description, images, rating, variantOptionOrder } = productData;
-    const { price, stock, options } = variantData;
+    const { name, description, images, rating, variantOptionOrder } = product.data;
+    const { price, stock, options } = variant;
 
     return (
         <section className={styles["product-hero"]}>
@@ -167,9 +128,11 @@ export function ProductHero() {
                                         values={optionValues}
                                         selected={options[optionId] || ""}
                                         onClick={(value) => {
-                                            const newSelectedOptions = { ...selectedOptions };
-                                            newSelectedOptions[optionId] = value;
-                                            setSelectedOptions(newSelectedOptions);
+                                            const newselectedVariantOptions = {
+                                                ...selectedVariantOptions,
+                                            };
+                                            newselectedVariantOptions[optionId] = value;
+                                            setSelectedVariantOptions(newselectedVariantOptions);
                                         }}
                                     />
                                 );
