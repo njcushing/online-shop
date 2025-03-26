@@ -1,0 +1,16 @@
+.product-information {
+    background-color: #fff;
+
+    padding: 16px;
+}
+
+.accordion-label {
+    font-family: "Radio Canada Big";
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+.accordion-panel {
+    font-family: "Radio Canada Big";
+    font-size: 1.04rem;
+}
