@@ -4,6 +4,7 @@ import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { Hero } from "./Hero";
 import { ProductHero } from "./ProductHero";
+import { ProductInformation } from "./ProductInformation";
 import { ProductList } from "./ProductList";
 import { LoginForm } from "./LoginForm";
 import { Logo } from "./Logo";
@@ -16,6 +17,7 @@ export const Features = {
     Header,
     Hero,
     ProductHero,
+    ProductInformation,
     ProductList,
     LoginForm,
     Logo,
