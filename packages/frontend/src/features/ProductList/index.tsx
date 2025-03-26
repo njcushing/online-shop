@@ -4,11 +4,9 @@ import { useMantineTheme, Divider, NavLink } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { Link } from "react-router-dom";
 import { CaretRight } from "@phosphor-icons/react";
-import { products as allProducts, Product } from "@/utils/products/product";
+import { findProductFromId } from "@/utils/products/product";
 import { ProductCard } from "./components/ProductCard";
 import styles from "./index.module.css";
-
-const findProductFromId = (id: string): Product | undefined => allProducts.find((p) => p.id === id);
 
 export function ProductList() {
     const theme = useMantineTheme();
