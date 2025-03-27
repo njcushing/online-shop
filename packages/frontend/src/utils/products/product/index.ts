@@ -99,7 +99,7 @@ export const products: Product[] = [
         },
         description: "",
         slug: "coffee-whole-bean-250g",
-        images: { thumb: "", dynamic: [] },
+        images: { thumb: "", dynamic: ["", "", "", "", ""] },
         rating: {
             value: 4.87,
             quantity: 482,
@@ -153,7 +153,7 @@ export const products: Product[] = [
         },
         description: "",
         slug: "coffee-whole-bean-500g",
-        images: { thumb: "", dynamic: [] },
+        images: { thumb: "", dynamic: ["", "", "", "", ""] },
         rating: {
             value: 4.62,
             quantity: 370,
@@ -207,7 +207,7 @@ export const products: Product[] = [
         },
         description: "",
         slug: "coffee-whole-bean-1kg",
-        images: { thumb: "", dynamic: [] },
+        images: { thumb: "", dynamic: ["", "", "", "", ""] },
         rating: {
             value: 4.9,
             quantity: 872,
