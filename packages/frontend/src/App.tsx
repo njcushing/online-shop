@@ -4,6 +4,7 @@ import { DatesProvider } from "@mantine/dates";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import "@mantine/dates/styles.css";
+import "@mantine/carousel/styles.css";
 import "dayjs/locale/en";
 
 import { useEffect } from "react";
