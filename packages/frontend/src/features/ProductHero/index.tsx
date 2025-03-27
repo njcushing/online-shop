@@ -15,6 +15,7 @@ import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString
 import { Inputs } from "@/components/Inputs";
 import { WarningCircle, Info } from "@phosphor-icons/react";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
+import { ImageCarousel } from "./components/ImageCarousel";
 import { Description } from "./components/Description";
 import { CollectionStep } from "./components/CollectionStep";
 import { VariantStep } from "./components/VariantStep";
@@ -76,7 +77,7 @@ export function ProductHero() {
     return (
         <section className={styles["product-hero"]}>
             <div className={styles["product-hero-width-controller"]}>
-                <Image className={styles["product-image"]} src={images.dynamic[0] || ""} />
+                <ImageCarousel images={images.dynamic} />
 
                 <div className={styles["product-content"]}>
                     <h1 className={styles["product-name"]}>{name.full}</h1>
