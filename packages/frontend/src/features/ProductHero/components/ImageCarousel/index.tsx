@@ -39,6 +39,7 @@ export function ImageCarousel({ images }: TImageCarousel) {
                     );
                 })}
             </Carousel>
+
             <Carousel
                 getEmblaApi={setSmallEmbla}
                 slideSize={{
@@ -78,6 +79,10 @@ export function ImageCarousel({ images }: TImageCarousel) {
                     );
                 })}
             </Carousel>
+
+            <span className={styles["current-image-number"]}>
+                {currentSlide + 1} / {images.length}
+            </span>
         </div>
     );
 }
