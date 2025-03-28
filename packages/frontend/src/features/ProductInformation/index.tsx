@@ -24,7 +24,14 @@ export function ProductInformation() {
     return (
         <section className={styles["product-information"]}>
             <div className={styles["product-information-width-controller"]}>
-                <Accordion defaultValue="Description">
+                <Accordion
+                    defaultValue="Description"
+                    classNames={{
+                        root: styles["accordion-root"],
+                        item: styles["accordion-item"],
+                        control: styles["accordion-control"],
+                    }}
+                >
                     {segments.map((segment) => {
                         const { value, text } = segment;
                         return (

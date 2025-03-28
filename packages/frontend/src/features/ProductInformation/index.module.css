@@ -1,6 +1,4 @@
 .product-information {
-    background-color: #fff;
-
     width: 100%;
 }
 
@@ -11,6 +9,20 @@
     max-width: 1280px;
     padding: 16px;
     margin: auto;
+}
+
+.accordion-item:has(.accordion-control[data-active]) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.accordion-control {
+    padding: 0px 4px;
+}
+
+@media (hover: hover) {
+    .accordion-control:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
 }
 
 .accordion-label {
