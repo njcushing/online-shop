@@ -5,8 +5,10 @@ import styles from "./index.module.css";
 export function Footer() {
     return (
         <footer className={styles["footer"]}>
-            <Logo size="l" />
-            <Divider size="lg" orientation="vertical" color="black" />
+            <div className={styles["footer-width-controller"]}>
+                <Logo size="l" />
+                <Divider size="lg" orientation="vertical" color="black" />
+            </div>
         </footer>
     );
 }
