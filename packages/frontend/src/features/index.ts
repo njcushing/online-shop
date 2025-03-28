@@ -3,6 +3,7 @@ import { CategoryHero } from "./CategoryHero";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { Hero } from "./Hero";
+import { ProductCard } from "./ProductCard";
 import { ProductHero } from "./ProductHero";
 import { ProductInformation } from "./ProductInformation";
 import { ProductList } from "./ProductList";
@@ -17,6 +18,7 @@ export const Features = {
     Footer,
     Header,
     Hero,
+    ProductCard,
     ProductHero,
     ProductInformation,
     ProductList,

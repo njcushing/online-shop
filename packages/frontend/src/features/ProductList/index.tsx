@@ -5,7 +5,7 @@ import { useMediaQuery } from "@mantine/hooks";
 import { Link } from "react-router-dom";
 import { CaretRight } from "@phosphor-icons/react";
 import { findProductFromId } from "@/utils/products/product";
-import { ProductCard } from "./components/ProductCard";
+import { ProductCard } from "@/features/ProductCard";
 import styles from "./index.module.css";
 
 export function ProductList() {
