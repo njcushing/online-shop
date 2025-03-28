@@ -28,7 +28,7 @@ export function ImageCarousel({ images }: TImageCarousel) {
                 onSlideChange={(slideIndex) => setCurrentSlide(slideIndex)}
                 withControls={false}
                 classNames={{
-                    root: styles["carousel-large"],
+                    root: styles["carousel-large-root"],
                 }}
             >
                 {images.map((url) => {
@@ -55,8 +55,10 @@ export function ImageCarousel({ images }: TImageCarousel) {
                 nextControlIcon={<ArrowRight />}
                 onSlideChange={(slideIndex) => setCurrentSlide(slideIndex)}
                 classNames={{
-                    root: styles["carousel-small"],
-                    control: styles["carousel-control"],
+                    root: styles["carousel-small-root"],
+                    viewport: styles["carousel-small-viewport"],
+                    control: styles["carousel-small-control"],
+                    controls: styles["carousel-small-controls"],
                 }}
             >
                 {images.map((url, i) => {

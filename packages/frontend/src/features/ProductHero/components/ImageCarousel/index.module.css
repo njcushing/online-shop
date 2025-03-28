@@ -4,11 +4,37 @@
     gap: 8px;
 }
 
-.carousel-control {
-    &[data-inactive] {
-        opacity: 0;
-        cursor: default;
-    }
+.carousel-small-root {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+.carousel-small-viewport {
+    width: calc(100% - (2 * (26px + 8px))); /* Full width - width of both buttons - 2 * gap width */
+}
+
+.carousel-small-controls {
+    top: 0;
+
+    height: 100%;
+    padding: 0px;
+}
+
+.carousel-small-control {
+    display: flex;
+    align-content: start;
+
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    border-radius: 0px;
+    box-shadow: none;
+
+    height: 100%;
+}
+
+.carousel-small-control[data-inactive] {
+    opacity: 0.5;
+    cursor: default;
 }
 
 .carousel-slide {
