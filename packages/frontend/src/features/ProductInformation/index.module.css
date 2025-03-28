@@ -1,7 +1,16 @@
 .product-information {
     background-color: #fff;
 
+    width: 100%;
+}
+
+.product-information-width-controller {
+    box-sizing: border-box;
+
+    width: 100%;
+    max-width: 1280px;
     padding: 16px;
+    margin: auto;
 }
 
 .accordion-label {
