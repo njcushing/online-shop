@@ -3,6 +3,8 @@
 }
 
 .product-hero-width-controller {
+    box-sizing: border-box;
+
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     align-items: start;
