@@ -2,6 +2,7 @@ import { createContext, useState, useEffect, useRef, useMemo } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { ProductHero } from "@/features/ProductHero";
 import { ProductInformation } from "@/features/ProductInformation";
+import { RecommendedProducts } from "@/features/RecommendedProducts";
 import {
     Product as ProductDataType,
     ProductVariant,
@@ -116,6 +117,7 @@ export function Product() {
             <div className={styles["page"]}>
                 <ProductHero />
                 <ProductInformation />
+                <RecommendedProducts />
             </div>
         </ProductContext.Provider>
     );
