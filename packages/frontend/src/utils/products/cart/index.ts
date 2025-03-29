@@ -1,6 +1,7 @@
 import { ProductVariant, Product } from "@/utils/products/product";
 
 export const freeDeliveryThreshold = 5000;
+export const expressDeliveryCost = 599;
 
 export type CartItemData = {
     productId: Product["id"];
