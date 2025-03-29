@@ -1,0 +1,60 @@
+.recommended-products {
+    width: 100%;
+}
+
+.recommended-products-width-controller {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    width: 100%;
+    max-width: 1280px;
+    padding: 16px;
+    margin: auto;
+
+    @media (max-width: $mantine-breakpoint-xl) {
+        max-width: 1024px;
+    }
+
+    @media (max-width: $mantine-breakpoint-lg) {
+        max-width: 768px;
+    }
+
+    @media (max-width: $mantine-breakpoint-md) {
+        max-width: 640px;
+    }
+
+    @media (max-width: $mantine-breakpoint-sm) {
+        max-width: 100%;
+    }
+}
+
+.recommended-products-title {
+    font-family: "Radio Canada Big";
+    font-size: 2.2rem;
+    font-weight: 500;
+}
+
+.carousel-root {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.carousel-container {
+    align-self: start;
+}
+
+.carousel-indicators {
+    align-self: center;
+
+    position: initial;
+}
+
+.carousel-indicator {
+    border: 1px solid rgba(0, 0, 0, 0.6);
+}
+
+.carousel-slide {
+    cursor: pointer;
+}
