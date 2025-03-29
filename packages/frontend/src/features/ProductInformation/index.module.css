@@ -36,6 +36,16 @@
     font-size: 1.04rem;
 }
 
+.details-table {
+    --table-border-color: rgba(0, 0, 0, 0.6);
+}
+
+.details-table-th {
+    background-color: rgba(0, 0, 0, 0.08);
+
+    width: 160px;
+}
+
 .delivery-information {
     display: flex;
     flex-direction: column;

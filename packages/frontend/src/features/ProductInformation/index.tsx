@@ -1,19 +1,56 @@
-import { Accordion } from "@mantine/core";
+import { Accordion, Table } from "@mantine/core";
 import { freeDeliveryThreshold, expressDeliveryCost } from "@/utils/products/cart";
 import styles from "./index.module.css";
 
 const segments = [
     {
         value: "Description",
-        text: "",
+        content: "",
     },
     {
         value: "Product Details",
-        text: "",
+        content: (
+            <Table
+                variant="vertical"
+                layout="fixed"
+                withTableBorder
+                classNames={{
+                    table: styles["details-table"],
+                    th: styles["details-table-th"],
+                }}
+            >
+                <Table.Tbody>
+                    <Table.Tr>
+                        <Table.Th>Example Row 1</Table.Th>
+                        <Table.Td>Example Row 1 Content</Table.Td>
+                    </Table.Tr>
+
+                    <Table.Tr>
+                        <Table.Th>Example Row 2</Table.Th>
+                        <Table.Td>Example Row 2 Content</Table.Td>
+                    </Table.Tr>
+
+                    <Table.Tr>
+                        <Table.Th>Example Row 3</Table.Th>
+                        <Table.Td>Example Row 3 Content</Table.Td>
+                    </Table.Tr>
+
+                    <Table.Tr>
+                        <Table.Th>Example Row 4</Table.Th>
+                        <Table.Td>Example Row 4 Content</Table.Td>
+                    </Table.Tr>
+
+                    <Table.Tr>
+                        <Table.Th>Example Row 5</Table.Th>
+                        <Table.Td>Example Row 5 Content</Table.Td>
+                    </Table.Tr>
+                </Table.Tbody>
+            </Table>
+        ),
     },
     {
         value: "Delivery Information",
-        text: (
+        content: (
             <div className={styles["delivery-information"]}>
                 <div className={styles["delivery-information-segment"]}>
                     <p className={styles["delivery-information-segment-title"]}>
@@ -47,7 +84,7 @@ const segments = [
     },
     {
         value: "Customer Reviews",
-        text: "",
+        content: "",
     },
 ];
 
@@ -65,7 +102,7 @@ export function ProductInformation() {
                     }}
                 >
                     {segments.map((segment) => {
-                        const { value, text } = segment;
+                        const { value, content } = segment;
                         return (
                             <Accordion.Item key={value} value={value}>
                                 <Accordion.Control
@@ -74,7 +111,7 @@ export function ProductInformation() {
                                     {value}
                                 </Accordion.Control>
                                 <Accordion.Panel className={styles["accordion-panel"]}>
-                                    {text}
+                                    {content}
                                 </Accordion.Panel>
                             </Accordion.Item>
                         );
