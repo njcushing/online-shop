@@ -120,6 +120,7 @@ export const products: Product[] = [
                 stock: 321,
                 options: { blend: "LT" },
                 details: [
+                    { name: "Category", value: "Coffee, Whole Bean" },
                     { name: "Blend", value: "Light" },
                     { name: "Weight", value: "250g" },
                 ],
@@ -136,6 +137,7 @@ export const products: Product[] = [
                 stock: 40,
                 options: { blend: "MD" },
                 details: [
+                    { name: "Category", value: "Coffee, Whole Bean" },
                     { name: "Blend", value: "Medium" },
                     { name: "Weight", value: "250g" },
                 ],
@@ -152,6 +154,7 @@ export const products: Product[] = [
                 stock: 0,
                 options: { blend: "DK" },
                 details: [
+                    { name: "Category", value: "Coffee, Whole Bean" },
                     { name: "Blend", value: "Dark" },
                     { name: "Weight", value: "250g" },
                 ],
@@ -189,6 +192,7 @@ export const products: Product[] = [
                 stock: 237,
                 options: { blend: "LT" },
                 details: [
+                    { name: "Category", value: "Coffee, Whole Bean" },
                     { name: "Blend", value: "Light" },
                     { name: "Weight", value: "500g" },
                 ],
@@ -205,6 +209,7 @@ export const products: Product[] = [
                 stock: 123,
                 options: { blend: "MD" },
                 details: [
+                    { name: "Category", value: "Coffee, Whole Bean" },
                     { name: "Blend", value: "Medium" },
                     { name: "Weight", value: "500g" },
                 ],
@@ -221,6 +226,7 @@ export const products: Product[] = [
                 stock: 382,
                 options: { blend: "DK" },
                 details: [
+                    { name: "Category", value: "Coffee, Whole Bean" },
                     { name: "Blend", value: "Dark" },
                     { name: "Weight", value: "500g" },
                 ],
@@ -258,6 +264,7 @@ export const products: Product[] = [
                 stock: 89,
                 options: { blend: "LT" },
                 details: [
+                    { name: "Category", value: "Coffee, Whole Bean" },
                     { name: "Blend", value: "Light" },
                     { name: "Weight", value: "1kg" },
                 ],
@@ -274,6 +281,7 @@ export const products: Product[] = [
                 stock: 76,
                 options: { blend: "MD" },
                 details: [
+                    { name: "Category", value: "Coffee, Whole Bean" },
                     { name: "Blend", value: "Medium" },
                     { name: "Weight", value: "1kg" },
                 ],
@@ -290,6 +298,7 @@ export const products: Product[] = [
                 stock: 102,
                 options: { blend: "DK" },
                 details: [
+                    { name: "Category", value: "Coffee, Whole Bean" },
                     { name: "Blend", value: "Dark" },
                     { name: "Weight", value: "1kg" },
                 ],
