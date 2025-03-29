@@ -11,18 +11,18 @@
     margin: auto;
 }
 
-.accordion-item:has(.accordion-control[data-active]) {
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
 .accordion-control {
-    padding: 0px 4px;
+    padding: 0px;
 }
 
 @media (hover: hover) {
     .accordion-control:hover {
-        background-color: rgba(0, 0, 0, 0.05);
+        background-color: transparent; /* Overriding default Mantine component hover styles */
     }
+}
+
+.accordion-content {
+    padding: 4px 0px 12px;
 }
 
 .accordion-label {
@@ -34,4 +34,33 @@
 .accordion-panel {
     font-family: "Radio Canada Big";
     font-size: 1.04rem;
+}
+
+.delivery-information {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.delivery-information-segment {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.delivery-information-segment-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.delivery-information-segment-information {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    font-size: 1rem;
+
+    strong {
+        font-weight: 600;
+    }
 }
