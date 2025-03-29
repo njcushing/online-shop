@@ -16,7 +16,6 @@ import { Inputs } from "@/components/Inputs";
 import { WarningCircle, Info } from "@phosphor-icons/react";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
 import { ImageCarousel } from "./components/ImageCarousel";
-import { Description } from "./components/Description";
 import { CollectionStep } from "./components/CollectionStep";
 import { VariantStep } from "./components/VariantStep";
 import styles from "./index.module.css";
@@ -82,8 +81,6 @@ export function ProductHero() {
                 <div className={styles["product-content"]}>
                     <h1 className={styles["product-name"]}>{name.full}</h1>
 
-                    <Divider />
-
                     <div className={styles["product-hero-rating-container"]}>
                         <Rating
                             className={styles["product-rating"]}
@@ -101,8 +98,6 @@ export function ProductHero() {
                             className={styles["product-rating-quantity"]}
                         >{`(${rating.quantity})`}</div>
                     </div>
-
-                    <Description text={description} />
 
                     <Divider />
 
