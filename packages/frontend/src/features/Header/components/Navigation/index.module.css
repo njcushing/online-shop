@@ -41,19 +41,22 @@
 
 .cart-items-quantity {
     position: absolute;
-    top: -0.5rem;
-    right: -0.5rem;
+    top: -0.3rem;
+    right: -0.3rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     color: white;
     font-family: "Radio Canada Big";
     font-size: 0.7rem;
-    text-align: center;
 
     border-radius: 9999px;
     background-color: #f12626;
 
-    min-width: 1rem;
-    padding: 3px 4px 1px;
+    min-width: 0.98rem;
+    padding: 2px 4px;
 }
 
 .categories {
