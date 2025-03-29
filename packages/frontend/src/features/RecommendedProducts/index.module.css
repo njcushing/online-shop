@@ -49,10 +49,22 @@
     align-self: center;
 
     position: initial;
+
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
 }
 
 .carousel-indicator {
-    border: 1px solid rgba(0, 0, 0, 0.6);
+    border-radius: 0px;
+    background-color: rgba(0, 0, 0, 0.2);
+
+    width: 40px;
+    height: 3px;
+}
+
+.carousel-indicator[data-active] {
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 .carousel-slide {
