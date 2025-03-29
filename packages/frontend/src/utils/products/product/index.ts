@@ -25,6 +25,8 @@ export type ProductVariant = {
     options: Record<string, string>;
     allowanceOverride?: number;
     image?: string;
+    details: { name: string; value: string }[];
+    releaseDate: string;
 };
 
 export type ProductCustomisation = {
@@ -99,7 +101,7 @@ export const products: Product[] = [
         },
         description: "",
         slug: "coffee-whole-bean-250g",
-        images: { thumb: "", dynamic: ["", "", "", "", ""] },
+        images: { thumb: "", dynamic: ["a", "b", "c", "d", "e"] },
         rating: {
             value: 4.87,
             quantity: 482,
@@ -117,6 +119,11 @@ export const products: Product[] = [
                 },
                 stock: 321,
                 options: { blend: "LT" },
+                details: [
+                    { name: "Blend", value: "Light" },
+                    { name: "Weight", value: "250g" },
+                ],
+                releaseDate: new Date().toISOString(),
             },
             {
                 id: "1-2",
@@ -128,6 +135,11 @@ export const products: Product[] = [
                 },
                 stock: 40,
                 options: { blend: "MD" },
+                details: [
+                    { name: "Blend", value: "Medium" },
+                    { name: "Weight", value: "250g" },
+                ],
+                releaseDate: new Date().toISOString(),
             },
             {
                 id: "1-3",
@@ -139,6 +151,11 @@ export const products: Product[] = [
                 },
                 stock: 0,
                 options: { blend: "DK" },
+                details: [
+                    { name: "Blend", value: "Dark" },
+                    { name: "Weight", value: "250g" },
+                ],
+                releaseDate: new Date().toISOString(),
             },
         ],
         variantOptionOrder: ["blend"],
@@ -153,7 +170,7 @@ export const products: Product[] = [
         },
         description: "",
         slug: "coffee-whole-bean-500g",
-        images: { thumb: "", dynamic: ["", "", "", "", ""] },
+        images: { thumb: "", dynamic: ["a", "b", "c", "d", "e"] },
         rating: {
             value: 4.62,
             quantity: 370,
@@ -171,6 +188,11 @@ export const products: Product[] = [
                 },
                 stock: 237,
                 options: { blend: "LT" },
+                details: [
+                    { name: "Blend", value: "Light" },
+                    { name: "Weight", value: "500g" },
+                ],
+                releaseDate: new Date().toISOString(),
             },
             {
                 id: "2-2",
@@ -182,6 +204,11 @@ export const products: Product[] = [
                 },
                 stock: 123,
                 options: { blend: "MD" },
+                details: [
+                    { name: "Blend", value: "Medium" },
+                    { name: "Weight", value: "500g" },
+                ],
+                releaseDate: new Date().toISOString(),
             },
             {
                 id: "2-3",
@@ -193,6 +220,11 @@ export const products: Product[] = [
                 },
                 stock: 382,
                 options: { blend: "DK" },
+                details: [
+                    { name: "Blend", value: "Dark" },
+                    { name: "Weight", value: "500g" },
+                ],
+                releaseDate: new Date().toISOString(),
             },
         ],
         variantOptionOrder: ["blend"],
@@ -207,7 +239,7 @@ export const products: Product[] = [
         },
         description: "",
         slug: "coffee-whole-bean-1kg",
-        images: { thumb: "", dynamic: ["", "", "", "", ""] },
+        images: { thumb: "", dynamic: ["a", "b", "c", "d", "e"] },
         rating: {
             value: 4.9,
             quantity: 872,
@@ -225,6 +257,11 @@ export const products: Product[] = [
                 },
                 stock: 89,
                 options: { blend: "LT" },
+                details: [
+                    { name: "Blend", value: "Light" },
+                    { name: "Weight", value: "1kg" },
+                ],
+                releaseDate: new Date().toISOString(),
             },
             {
                 id: "3-2",
@@ -236,6 +273,11 @@ export const products: Product[] = [
                 },
                 stock: 76,
                 options: { blend: "MD" },
+                details: [
+                    { name: "Blend", value: "Medium" },
+                    { name: "Weight", value: "1kg" },
+                ],
+                releaseDate: new Date().toISOString(),
             },
             {
                 id: "3-3",
@@ -247,6 +289,11 @@ export const products: Product[] = [
                 },
                 stock: 102,
                 options: { blend: "DK" },
+                details: [
+                    { name: "Blend", value: "Dark" },
+                    { name: "Weight", value: "1kg" },
+                ],
+                releaseDate: new Date().toISOString(),
             },
         ],
         variantOptionOrder: ["blend"],
