@@ -1,6 +1,7 @@
 import { useContext, useMemo } from "react";
 import { ProductContext } from "@/pages/Product";
 import { useMatches, Accordion, Table } from "@mantine/core";
+import ReactMarkdown from "react-markdown";
 import dayjs from "dayjs";
 import { freeDeliveryThreshold, expressDeliveryCost } from "@/utils/products/cart";
 import styles from "./index.module.css";
@@ -8,7 +9,8 @@ import styles from "./index.module.css";
 export function ProductInformation() {
     const tableColumnCount = useMatches({ base: 1, lg: 2 });
 
-    const { variant } = useContext(ProductContext);
+    const { product, variant } = useContext(ProductContext);
+    const { description } = product.data || { description: "null" };
     const { sku, details, releaseDate } = variant || {
         sku: "null",
         details: [],
@@ -19,7 +21,7 @@ export function ProductInformation() {
         return [
             {
                 value: "Description",
-                content: "",
+                content: <ReactMarkdown>{description}</ReactMarkdown>,
             },
             {
                 value: "Product Details",
