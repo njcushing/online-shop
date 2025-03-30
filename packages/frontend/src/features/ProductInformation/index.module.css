@@ -36,6 +36,29 @@
     font-size: 1.04rem;
 }
 
+.markdown-container {
+    * {
+        font-family: "Radio Canada Big";
+        font-size: 1rem;
+    }
+
+    p {
+        margin-bottom: revert;
+    }
+
+    strong {
+        font-weight: 700;
+    }
+
+    em {
+        font-style: italic;
+    }
+
+    del {
+        text-decoration: line-through;
+    }
+}
+
 .details-table {
     --table-border-color: rgba(0, 0, 0, 0.6);
 }

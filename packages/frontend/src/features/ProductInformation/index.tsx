@@ -2,6 +2,7 @@ import { useContext, useMemo } from "react";
 import { ProductContext } from "@/pages/Product";
 import { useMatches, Accordion, Table } from "@mantine/core";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import dayjs from "dayjs";
 import { freeDeliveryThreshold, expressDeliveryCost } from "@/utils/products/cart";
 import styles from "./index.module.css";
@@ -21,7 +22,11 @@ export function ProductInformation() {
         return [
             {
                 value: "Description",
-                content: <ReactMarkdown>{description}</ReactMarkdown>,
+                content: (
+                    <div className={styles["markdown-container"]}>
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{description}</ReactMarkdown>
+                    </div>
+                ),
             },
             {
                 value: "Product Details",
@@ -123,7 +128,7 @@ export function ProductInformation() {
                 content: "",
             },
         ];
-    }, [tableColumnCount, sku, details, releaseDate]);
+    }, [tableColumnCount, description, sku, details, releaseDate]);
 
     return (
         <section className={styles["product-information"]}>
