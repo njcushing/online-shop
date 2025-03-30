@@ -1,7 +1,7 @@
 import { Fragment, useContext, useState, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { ProductContext } from "@/pages/Product";
-import { Button, Divider, Image, Rating, Alert, AlertProps } from "@mantine/core";
+import { Button, Divider, Rating, Alert, AlertProps } from "@mantine/core";
 import {
     Product,
     ProductVariant,
@@ -37,7 +37,7 @@ const calculateMaximumVariantQuantity = (
     const { stock, allowanceOverride } = variant;
 
     const cartItem = cart.find((item) => item.variant.id === variant.id);
-    if (!cartItem) return 0;
+    if (!cartItem) return Math.min(stock, allowanceOverride || allowance);
     const { quantity } = cartItem;
 
     if (allowanceOverride) return Math.max(0, Math.min(stock, allowanceOverride - quantity));
@@ -70,7 +70,7 @@ export function ProductHero() {
 
     if (!product.data || !variant) return <ErrorPage />;
 
-    const { name, description, images, rating, variantOptionOrder } = product.data;
+    const { name, images, rating, variantOptionOrder } = product.data;
     const { price, stock, options } = variant;
 
     return (
