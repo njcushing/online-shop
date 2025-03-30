@@ -1,11 +1,13 @@
 import { useContext, useMemo } from "react";
 import { ProductContext } from "@/pages/Product";
-import { Accordion, Table } from "@mantine/core";
+import { useMatches, Accordion, Table } from "@mantine/core";
 import dayjs from "dayjs";
 import { freeDeliveryThreshold, expressDeliveryCost } from "@/utils/products/cart";
 import styles from "./index.module.css";
 
 export function ProductInformation() {
+    const tableColumnCount = useMatches({ base: 1, lg: 2 });
+
     const { variant } = useContext(ProductContext);
     const { sku, details, releaseDate } = variant || {
         sku: "null",
@@ -21,43 +23,63 @@ export function ProductInformation() {
             },
             {
                 value: "Product Details",
-                content: (
-                    <Table
-                        variant="vertical"
-                        layout="fixed"
-                        withTableBorder
-                        classNames={{
-                            table: styles["details-table"],
-                            th: styles["details-table-th"],
-                        }}
-                    >
-                        <Table.Tbody>
-                            <Table.Tr>
-                                <Table.Th>SKU</Table.Th>
-                                <Table.Td>{sku}</Table.Td>
-                            </Table.Tr>
+                content: (() => {
+                    const rows = [
+                        { name: "SKU", value: sku },
+                        ...details,
+                        {
+                            name: "Release Date",
+                            value: releaseDate ? dayjs(releaseDate).format("MMMM D, YYYY") : "null",
+                        },
+                    ];
+                    const adjustedTableColumnCount = Math.min(rows.length, tableColumnCount);
+                    const columns = [];
+                    const columnHeight = Math.ceil(rows.length / adjustedTableColumnCount);
+                    for (let i = 0; i < adjustedTableColumnCount; i++) {
+                        columns.push(
+                            rows.slice(
+                                i * columnHeight,
+                                Math.min(rows.length, i * columnHeight + columnHeight),
+                            ),
+                        );
+                    }
 
-                            {details.map((detail) => {
-                                const { name, value } = detail;
+                    return (
+                        <Table
+                            variant="vertical"
+                            layout="fixed"
+                            withRowBorders
+                            classNames={{
+                                table: styles["details-table"],
+                                tbody: styles["details-table-tbody"],
+                                tr: styles["details-table-tr"],
+                                th: styles["details-table-th"],
+                            }}
+                            style={{
+                                display: "grid",
+                                gridTemplateColumns: `repeat(${adjustedTableColumnCount}, 1fr)`,
+                                alignItems: "start",
+                                gap: "8px",
+                            }}
+                        >
+                            {columns.map((column) => {
                                 return (
-                                    <Table.Tr key={name}>
-                                        <Table.Th>{name}</Table.Th>
-                                        <Table.Td>{value}</Table.Td>
-                                    </Table.Tr>
+                                    <Table.Tbody key={`${column.map((row) => row.name).join("-")}`}>
+                                        {column.map((row) => {
+                                            const { name, value } = row;
+                                            return (
+                                                <Table.Tr key={name}>
+                                                    <Table.Th>{name}</Table.Th>
+                                                    <Table.Td>{value}</Table.Td>
+                                                </Table.Tr>
+                                            );
+                                        })}
+                                    </Table.Tbody>
                                 );
                             })}
-
-                            <Table.Tr>
-                                <Table.Th>Release Date</Table.Th>
-                                <Table.Td>
-                                    {releaseDate
-                                        ? dayjs(releaseDate).format("MMMM D, YYYY")
-                                        : "null"}
-                                </Table.Td>
-                            </Table.Tr>
-                        </Table.Tbody>
-                    </Table>
-                ),
+                        </Table>
+                    );
+                })(),
             },
             {
                 value: "Delivery Information",
@@ -99,7 +121,7 @@ export function ProductInformation() {
                 content: "",
             },
         ];
-    }, [sku, details, releaseDate]);
+    }, [tableColumnCount, sku, details, releaseDate]);
 
     return (
         <section className={styles["product-information"]}>

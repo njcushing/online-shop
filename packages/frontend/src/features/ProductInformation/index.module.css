@@ -40,10 +40,20 @@
     --table-border-color: rgba(0, 0, 0, 0.6);
 }
 
+.details-table-tbody {
+    border: 1px solid var(--table-border-color, rgba(0, 0, 0, 0.6));
+}
+
+.details-table-tr {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    min-width: 100%;
+}
+
 .details-table-th {
     background-color: rgba(0, 0, 0, 0.08);
 
-    width: 160px;
+    width: 100%;
 }
 
 .delivery-information {
