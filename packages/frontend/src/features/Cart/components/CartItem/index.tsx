@@ -14,7 +14,9 @@ const calculateMaximumAvailability = (
     allowance: Product["allowance"],
     allowanceOverride: ProductVariant["allowanceOverride"],
 ): number => {
-    if (allowanceOverride) return Math.min(stock, allowanceOverride);
+    if (!Number.isNaN(Number(allowanceOverride))) {
+        return Math.min(stock, allowanceOverride as number);
+    }
     return Math.min(stock, allowance);
 };
 
