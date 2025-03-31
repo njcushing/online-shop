@@ -92,10 +92,10 @@ export function Navigation() {
                         aria-label="Search"
                         onClick={() => setSearchBarOpen(!searchBarOpen)}
                     >
-                        <MagnifyingGlass weight="bold" size={48} color="black" />
+                        <MagnifyingGlass size={48} color="black" />
                     </ActionIcon>
                     <ActionIcon variant="transparent" color="gray" aria-label="User">
-                        <User weight="bold" size={48} color="black" />
+                        <User size={48} color="black" />
                     </ActionIcon>
                     <div className={styles["cart-button-container"]}>
                         <ActionIcon
@@ -104,7 +104,7 @@ export function Navigation() {
                             aria-label="Cart"
                             onClick={() => setCartDrawerOpen(!cartDrawerOpen)}
                         >
-                            <ShoppingCartSimple weight="bold" size={48} color="black" />
+                            <ShoppingCartSimple size={48} color="black" />
                         </ActionIcon>
                         {mockCart.length > 0 && (
                             <span className={styles["cart-items-quantity"]}>{mockCart.length}</span>
