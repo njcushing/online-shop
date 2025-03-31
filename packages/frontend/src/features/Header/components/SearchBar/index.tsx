@@ -24,6 +24,7 @@ export function SearchBar({ opened = false, onClose }: TSearchBar) {
                     style={{ display: value ? undefined : "none" }}
                 />
             }
+            autoFocus
             classNames={{ wrapper: styles["input-wrapper"], input: styles["input"] }}
         />
     ) : null;
