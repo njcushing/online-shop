@@ -20,7 +20,7 @@ export function SearchBar({ opened = false, onClose }: TSearchBar) {
             rightSection={
                 <CloseButton
                     aria-label="Clear input"
-                    onClick={() => onClose && onClose()}
+                    onClick={() => setValue("")}
                     style={{ display: value ? undefined : "none" }}
                 />
             }
