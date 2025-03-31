@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ActionIcon, Burger, Drawer, NavLink } from "@mantine/core";
 import {
     MagnifyingGlass,
@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import { Logo } from "@/features/Logo";
 import { CartDrawer } from "@/features/Cart/components/CartDrawer";
 import { mockCart } from "@/utils/products/cart";
+import { SearchBar } from "../SearchBar";
 import styles from "./index.module.css";
 
 export type Category = {
@@ -43,61 +44,90 @@ const categories: Category[] = [
 
 export function Navigation() {
     const [navDrawerOpen, setNavDrawerOpen] = useState<boolean>(false);
+    const [searchBarOpen, setSearchBarOpen] = useState<boolean>(false);
     const [cartDrawerOpen, setCartDrawerOpen] = useState<boolean>(false);
 
+    useEffect(() => {
+        if (navDrawerOpen) {
+            setSearchBarOpen(false);
+            setCartDrawerOpen(false);
+        }
+    }, [navDrawerOpen]);
+
+    useEffect(() => {
+        if (searchBarOpen) {
+            setNavDrawerOpen(false);
+            setCartDrawerOpen(false);
+        }
+    }, [searchBarOpen]);
+
+    useEffect(() => {
+        if (cartDrawerOpen) {
+            setNavDrawerOpen(false);
+            setSearchBarOpen(false);
+        }
+    }, [cartDrawerOpen]);
+
     return (
-        <nav className={styles["navigation"]}>
-            <Burger
-                lineSize={2}
-                size="32px"
-                opened={navDrawerOpen}
-                onClick={() => {
-                    setNavDrawerOpen(!navDrawerOpen);
-                }}
-                aria-label="Toggle navigation"
-                hiddenFrom="lg"
-                className={styles["burger"]}
-            ></Burger>
+        <>
+            <nav className={styles["navigation"]}>
+                <Burger
+                    lineSize={2}
+                    size="32px"
+                    opened={navDrawerOpen}
+                    onClick={() => {
+                        setNavDrawerOpen(!navDrawerOpen);
+                    }}
+                    aria-label="Toggle navigation"
+                    hiddenFrom="lg"
+                    className={styles["burger"]}
+                ></Burger>
 
-            <Logo />
+                <Logo />
 
-            <div className={styles["other-links"]}>
-                <ActionIcon variant="transparent" color="gray" aria-label="Search">
-                    <MagnifyingGlass weight="bold" size={48} color="black" />
-                </ActionIcon>
-                <ActionIcon variant="transparent" color="gray" aria-label="User">
-                    <User weight="bold" size={48} color="black" />
-                </ActionIcon>
-                <div className={styles["cart-button-container"]}>
+                <div className={styles["other-links"]}>
                     <ActionIcon
                         variant="transparent"
                         color="gray"
-                        aria-label="Cart"
-                        onClick={() => setCartDrawerOpen(!cartDrawerOpen)}
+                        aria-label="Search"
+                        onClick={() => setSearchBarOpen(!searchBarOpen)}
                     >
-                        <ShoppingCartSimple weight="bold" size={48} color="black" />
+                        <MagnifyingGlass weight="bold" size={48} color="black" />
                     </ActionIcon>
-                    {mockCart.length > 0 && (
-                        <span className={styles["cart-items-quantity"]}>{mockCart.length}</span>
-                    )}
-                </div>
-            </div>
-
-            <div className={`${styles["categories"]} mantine-visible-from-lg`}>
-                {categories.map((category) => {
-                    const { name, path } = category;
-                    return (
-                        <Link
-                            to={path}
-                            className={styles["option"]}
-                            key={`navbar-category-${name}`}
+                    <ActionIcon variant="transparent" color="gray" aria-label="User">
+                        <User weight="bold" size={48} color="black" />
+                    </ActionIcon>
+                    <div className={styles["cart-button-container"]}>
+                        <ActionIcon
+                            variant="transparent"
+                            color="gray"
+                            aria-label="Cart"
+                            onClick={() => setCartDrawerOpen(!cartDrawerOpen)}
                         >
-                            {name}
-                            <div className={styles["underscore"]}></div>
-                        </Link>
-                    );
-                })}
-            </div>
+                            <ShoppingCartSimple weight="bold" size={48} color="black" />
+                        </ActionIcon>
+                        {mockCart.length > 0 && (
+                            <span className={styles["cart-items-quantity"]}>{mockCart.length}</span>
+                        )}
+                    </div>
+                </div>
+
+                <div className={`${styles["categories"]} mantine-visible-from-lg`}>
+                    {categories.map((category) => {
+                        const { name, path } = category;
+                        return (
+                            <Link
+                                to={path}
+                                className={styles["option"]}
+                                key={`navbar-category-${name}`}
+                            >
+                                {name}
+                                <div className={styles["underscore"]}></div>
+                            </Link>
+                        );
+                    })}
+                </div>
+            </nav>
 
             <Drawer
                 opened={navDrawerOpen}
@@ -128,6 +158,8 @@ export function Navigation() {
             </Drawer>
 
             <CartDrawer opened={cartDrawerOpen} onClose={() => setCartDrawerOpen(false)} />
-        </nav>
+
+            <SearchBar opened={searchBarOpen} onClose={() => setSearchBarOpen(false)} />
+        </>
     );
 }
