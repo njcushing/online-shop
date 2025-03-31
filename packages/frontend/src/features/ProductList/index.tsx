@@ -20,73 +20,71 @@ export function ProductList() {
     const currentCategory = useMemo(() => {
         return categoryData.length > 0 ? categoryData[categoryData.length - 1] : undefined;
     }, [categoryData]);
-    if (!currentCategory) return null;
 
-    const { subcategories, products } = currentCategory;
+    const { subcategories, products } = currentCategory || { subcategories: [], products: [] };
+
+    const filteredProducts = useMemo(() => {
+        if (!products) return [];
+        return products.map((p) => findProductFromId(p)).filter((p) => p);
+    }, [products]);
+    const filteredSubcategories = useMemo(() => {
+        if (!subcategories) return [];
+        return subcategories.flatMap((subCategory) => {
+            if (!subCategory.products) return [];
+            const filteredSubcategoryProducts = subCategory.products
+                .map((p) => findProductFromId(p))
+                .filter((p) => p);
+            return filteredSubcategoryProducts.length > 0
+                ? { ...subCategory, products: filteredSubcategoryProducts }
+                : [];
+        });
+    }, [subcategories]);
+
+    let productsToDisplay = 7;
+    if (breakpointLg) productsToDisplay = 5;
+    if (breakpointMd) productsToDisplay = 5;
+    if (breakpointXs) productsToDisplay = 3;
 
     return (
         <section className={styles["product-list"]}>
-            {products &&
-                (() => {
-                    const foundProducts = products
-                        .map((p) => findProductFromId(p))
-                        .filter((p) => p);
-                    if (foundProducts.length === 0) return null;
-
-                    return (
+            {filteredProducts.length > 0 && (
+                <div className={styles["product-list-category-group"]}>
+                    {filteredProducts.map((product) => (
+                        <ProductCard productData={product!} key={product!.id} />
+                    ))}
+                </div>
+            )}
+            {filteredSubcategories.map((subcategory, i) => {
+                const { products: subcategoryProducts } = subcategory;
+                return (
+                    <Fragment key={subcategory.name}>
                         <div className={styles["product-list-category-group"]}>
-                            {foundProducts.map((product) => (
+                            <div className={styles["subcategory-information"]}>
+                                <h2 className={styles["subcategory-name"]}>{subcategory.name}</h2>
+                                <p className={styles["subcategory-description"]}>
+                                    {subcategory.description}
+                                </p>
+                                <NavLink
+                                    component={Link}
+                                    to={[...urlPathSplit, subcategory.slug].join("/")}
+                                    label="Shop all"
+                                    rightSection={<CaretRight size={16} />}
+                                    style={{
+                                        flexShrink: 0,
+                                        padding: "8px",
+                                        marginLeft: "-8px",
+                                        width: "calc(100% + 8px)",
+                                    }}
+                                />
+                            </div>
+                            {subcategoryProducts.slice(0, productsToDisplay).map((product) => (
                                 <ProductCard productData={product!} key={product!.id} />
                             ))}
                         </div>
-                    );
-                })()}
-            {subcategories &&
-                subcategories.length > 0 &&
-                subcategories.map((subcategory, i) => {
-                    if (!subcategory.products) return null;
-
-                    const foundProducts = subcategory.products
-                        .map((p) => findProductFromId(p))
-                        .filter((p) => p);
-                    if (foundProducts.length === 0) return null;
-
-                    let productsToDisplay = 7;
-                    if (breakpointLg) productsToDisplay = 5;
-                    if (breakpointMd) productsToDisplay = 5;
-                    if (breakpointXs) productsToDisplay = 3;
-
-                    return (
-                        <Fragment key={subcategory.name}>
-                            <div className={styles["product-list-category-group"]}>
-                                <div className={styles["subcategory-information"]}>
-                                    <h2 className={styles["subcategory-name"]}>
-                                        {subcategory.name}
-                                    </h2>
-                                    <p className={styles["subcategory-description"]}>
-                                        {subcategory.description}
-                                    </p>
-                                    <NavLink
-                                        component={Link}
-                                        to={[...urlPathSplit, subcategory.slug].join("/")}
-                                        label="Shop all"
-                                        rightSection={<CaretRight size={16} />}
-                                        style={{
-                                            flexShrink: 0,
-                                            padding: "8px",
-                                            marginLeft: "-8px",
-                                            width: "calc(100% + 8px)",
-                                        }}
-                                    />
-                                </div>
-                                {foundProducts.slice(0, productsToDisplay).map((product) => (
-                                    <ProductCard productData={product!} key={product!.id} />
-                                ))}
-                            </div>
-                            {i < currentCategory.subcategories!.length - 1 && <Divider />}
-                        </Fragment>
-                    );
-                })}
+                        {i < filteredSubcategories.length - 1 && <Divider />}
+                    </Fragment>
+                );
+            })}
         </section>
     );
 }
