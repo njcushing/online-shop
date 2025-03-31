@@ -1,7 +1,6 @@
 import { Fragment, useContext, useMemo } from "react";
 import { CategoryContext } from "@/pages/Category";
-import { useMantineTheme, Divider, NavLink } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
+import { useMatches, Divider, NavLink } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { CaretRight } from "@phosphor-icons/react";
 import { findProductFromId } from "@/utils/products/product";
@@ -9,11 +8,7 @@ import { ProductCard } from "@/features/ProductCard";
 import styles from "./index.module.css";
 
 export function ProductList() {
-    const theme = useMantineTheme();
-
-    const breakpointLg = useMediaQuery(`(max-width: ${theme.breakpoints.lg})`);
-    const breakpointMd = useMediaQuery(`(max-width: ${theme.breakpoints.md})`);
-    const breakpointXs = useMediaQuery(`(max-width: ${theme.breakpoints.xxs})`);
+    const productsToDisplay = useMatches({ base: 3, xs: 5, lg: 7 });
 
     const { urlPathSplit, categoryData } = useContext(CategoryContext);
 
@@ -39,11 +34,6 @@ export function ProductList() {
                 : [];
         });
     }, [subcategories]);
-
-    let productsToDisplay = 7;
-    if (breakpointLg) productsToDisplay = 5;
-    if (breakpointMd) productsToDisplay = 5;
-    if (breakpointXs) productsToDisplay = 3;
 
     return (
         <section className={styles["product-list"]}>
