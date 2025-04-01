@@ -5,7 +5,13 @@
 }
 
 .input {
+    font-family: "Radio Canada Big";
+    font-size: 1rem;
+
     outline: none;
     border: 1px solid rgba(0, 0, 0, 0.6);
     border-radius: 0px;
+
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
 }
