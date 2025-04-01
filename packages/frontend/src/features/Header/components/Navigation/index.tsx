@@ -83,7 +83,9 @@ export function Navigation() {
                     className={styles["burger"]}
                 ></Burger>
 
-                <Logo />
+                <div className={styles["logo-container"]}>
+                    <Logo />
+                </div>
 
                 <div className={styles["other-links"]}>
                     <ActionIcon
