@@ -24,9 +24,13 @@ export function Header() {
             }
         };
 
-        window.addEventListener("scroll", scrollDirectionCheck);
+        window.addEventListener("wheel", scrollDirectionCheck);
+        window.addEventListener("touchmove", scrollDirectionCheck);
 
-        return () => window.removeEventListener("scroll", scrollDirectionCheck);
+        return () => {
+            window.removeEventListener("wheel", scrollDirectionCheck);
+            window.removeEventListener("touchmove", scrollDirectionCheck);
+        };
     }, []);
 
     return (
