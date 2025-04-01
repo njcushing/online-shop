@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Input, CloseButton, Collapse } from "@mantine/core";
 import styles from "./index.module.css";
 
@@ -9,9 +9,19 @@ export type TSearchBar = {
 
 export function SearchBar({ opened = false, onClose }: TSearchBar) {
     const [value, setValue] = useState<string>("");
+    const inputRef = useRef<HTMLInputElement>(null);
 
     return (
-        <Collapse in={opened} animateOpacity={false}>
+        <Collapse
+            in={opened}
+            animateOpacity={false}
+            onTransitionEnd={() => {
+                const { current } = inputRef;
+                if (!current) return;
+                if (opened) current.focus();
+                else current.blur();
+            }}
+        >
             <Input
                 placeholder="Search for a product"
                 value={value}
@@ -25,8 +35,8 @@ export function SearchBar({ opened = false, onClose }: TSearchBar) {
                         style={{ display: value ? undefined : "none" }}
                     />
                 }
-                autoFocus
                 classNames={{ wrapper: styles["input-wrapper"], input: styles["input"] }}
+                ref={inputRef}
             />
         </Collapse>
     );
