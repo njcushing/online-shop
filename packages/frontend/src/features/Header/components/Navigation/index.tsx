@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ActionIcon, Burger, Drawer, NavLink } from "@mantine/core";
+import { useClickOutside } from "@mantine/hooks";
 import {
     MagnifyingGlass,
     User,
@@ -51,6 +52,9 @@ export function Navigation({ opened = false }: TNavigation) {
     const [searchBarOpen, setSearchBarOpen] = useState<boolean>(false);
     const [cartDrawerOpen, setCartDrawerOpen] = useState<boolean>(false);
 
+    const [searchBarButtonRef, setSearchBarButtonRef] = useState<HTMLButtonElement | null>(null);
+    const [searchBarRef, setSearchBarRef] = useState<HTMLInputElement | null>(null);
+
     useEffect(() => {
         if (navDrawerOpen) {
             setSearchBarOpen(false);
@@ -80,6 +84,8 @@ export function Navigation({ opened = false }: TNavigation) {
         }
     }, [opened]);
 
+    useClickOutside(() => setSearchBarOpen(false), null, [searchBarButtonRef, searchBarRef]);
+
     return (
         <>
             <nav className={styles["navigation"]}>
@@ -105,6 +111,7 @@ export function Navigation({ opened = false }: TNavigation) {
                         color="gray"
                         aria-label="Search"
                         onClick={() => setSearchBarOpen(!searchBarOpen)}
+                        ref={setSearchBarButtonRef}
                     >
                         <MagnifyingGlass size={48} color="black" />
                     </ActionIcon>
@@ -173,7 +180,11 @@ export function Navigation({ opened = false }: TNavigation) {
 
             <CartDrawer opened={cartDrawerOpen} onClose={() => setCartDrawerOpen(false)} />
 
-            <SearchBar opened={searchBarOpen} onClose={() => setSearchBarOpen(false)} />
+            <SearchBar
+                opened={searchBarOpen}
+                onClose={() => setSearchBarOpen(false)}
+                ref={setSearchBarRef}
+            />
         </>
     );
 }
