@@ -41,7 +41,7 @@ export function Header() {
                 ref={headerRef}
             >
                 <div className={styles["header-width-controller"]}>
-                    <Navigation />
+                    <Navigation opened={open} />
                 </div>
             </header>
         </>

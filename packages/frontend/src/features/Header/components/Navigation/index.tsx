@@ -72,6 +72,14 @@ export function Navigation({ opened = false }: TNavigation) {
         }
     }, [cartDrawerOpen]);
 
+    useEffect(() => {
+        if (!opened) {
+            setNavDrawerOpen(false);
+            setSearchBarOpen(false);
+            setCartDrawerOpen(false);
+        }
+    }, [opened]);
+
     return (
         <>
             <nav className={styles["navigation"]}>
