@@ -24,12 +24,10 @@ export function Header() {
             }
         };
 
-        window.addEventListener("wheel", scrollDirectionCheck);
-        window.addEventListener("touchmove", scrollDirectionCheck);
+        window.addEventListener("scroll", scrollDirectionCheck);
 
         return () => {
-            window.removeEventListener("wheel", scrollDirectionCheck);
-            window.removeEventListener("touchmove", scrollDirectionCheck);
+            window.removeEventListener("scroll", scrollDirectionCheck);
         };
     }, []);
 
