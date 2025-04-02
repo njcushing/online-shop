@@ -42,7 +42,11 @@ const categories: Category[] = [
     },
 ];
 
-export function Navigation() {
+export type TNavigation = {
+    opened?: boolean;
+};
+
+export function Navigation({ opened = false }: TNavigation) {
     const [navDrawerOpen, setNavDrawerOpen] = useState<boolean>(false);
     const [searchBarOpen, setSearchBarOpen] = useState<boolean>(false);
     const [cartDrawerOpen, setCartDrawerOpen] = useState<boolean>(false);
