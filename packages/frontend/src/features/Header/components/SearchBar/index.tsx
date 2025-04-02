@@ -21,6 +21,7 @@ export function SearchBar({ opened = false, onClose }: TSearchBar) {
                 if (opened) current.focus();
                 else current.blur();
             }}
+            className={styles["search-bar"]}
         >
             <Input
                 placeholder="Search for a product"
