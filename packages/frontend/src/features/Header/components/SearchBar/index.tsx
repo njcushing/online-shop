@@ -5,11 +5,10 @@ import styles from "./index.module.css";
 
 export type TSearchBar = {
     opened?: boolean;
-    onClose?: () => unknown;
 };
 
 export const SearchBar = forwardRef<HTMLInputElement, TSearchBar>(
-    ({ opened = false, onClose }: TSearchBar, ref) => {
+    ({ opened = false }: TSearchBar, ref) => {
         const [value, setValue] = useState<string>("");
         const inputRef = useRef<HTMLInputElement>(null);
 

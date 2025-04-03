@@ -188,11 +188,7 @@ export function Navigation({ opened = false }: TNavigation) {
 
             <CartDrawer opened={cartDrawerOpen} onClose={() => setCartDrawerOpen(false)} />
 
-            <SearchBar
-                opened={searchBarOpen}
-                onClose={() => setSearchBarOpen(false)}
-                ref={setSearchBarRef}
-            />
+            <SearchBar opened={searchBarOpen} ref={setSearchBarRef} />
         </>
     );
 }
