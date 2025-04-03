@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ActionIcon, Burger, Drawer, NavLink } from "@mantine/core";
+import { useMatches, ActionIcon, Burger, BurgerProps, Drawer, NavLink } from "@mantine/core";
 import { useClickOutside } from "@mantine/hooks";
 import {
     MagnifyingGlass,
@@ -55,6 +55,14 @@ export function Navigation({ opened = false }: TNavigation) {
     const [searchBarButtonRef, setSearchBarButtonRef] = useState<HTMLButtonElement | null>(null);
     const [searchBarRef, setSearchBarRef] = useState<HTMLInputElement | null>(null);
 
+    const { burgerSize, iconSize } = useMatches<{
+        burgerSize: BurgerProps["size"];
+        iconSize: IconProps["size"];
+    }>({
+        base: { burgerSize: "28px", iconSize: "24px" },
+        xs: { burgerSize: "32px", iconSize: "26px" },
+    });
+
     useEffect(() => {
         if (navDrawerOpen) {
             setSearchBarOpen(false);
@@ -91,7 +99,7 @@ export function Navigation({ opened = false }: TNavigation) {
             <nav className={styles["navigation"]}>
                 <Burger
                     lineSize={2}
-                    size="32px"
+                    size={burgerSize}
                     opened={navDrawerOpen}
                     onClick={() => {
                         setNavDrawerOpen(!navDrawerOpen);
@@ -113,10 +121,10 @@ export function Navigation({ opened = false }: TNavigation) {
                         onClick={() => setSearchBarOpen(!searchBarOpen)}
                         ref={setSearchBarButtonRef}
                     >
-                        <MagnifyingGlass size={48} color="black" />
+                        <MagnifyingGlass size={iconSize} color="black" />
                     </ActionIcon>
                     <ActionIcon variant="transparent" color="gray" aria-label="User">
-                        <User size={48} color="black" />
+                        <User size={iconSize} color="black" />
                     </ActionIcon>
                     <div className={styles["cart-button-container"]}>
                         <ActionIcon
@@ -125,7 +133,7 @@ export function Navigation({ opened = false }: TNavigation) {
                             aria-label="Cart"
                             onClick={() => setCartDrawerOpen(!cartDrawerOpen)}
                         >
-                            <ShoppingCartSimple size={48} color="black" />
+                            <ShoppingCartSimple size={iconSize} color="black" />
                         </ActionIcon>
                         {mockCart.length > 0 && (
                             <span className={styles["cart-items-quantity"]}>{mockCart.length}</span>
