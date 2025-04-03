@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Divider } from "@mantine/core";
+import { Box, Divider } from "@mantine/core";
 import { Logo } from "../Logo";
 import styles from "./index.module.css";
 
@@ -9,9 +9,14 @@ export function Footer() {
             <div className={styles["footer-width-controller"]}>
                 <div className={styles["column-1"]}>
                     <Logo size="l" />
-                    <p className={styles["copyright-message"]}>© njcushing 2025</p>
+                    <Box visibleFrom="sm">
+                        <p className={styles["copyright-message"]}>© njcushing 2025</p>
+                    </Box>
                 </div>
-                <Divider size="sm" orientation="vertical" color="black" />
+
+                <Divider size="sm" orientation="vertical" color="black" visibleFrom="sm" />
+                <Divider size="sm" orientation="horizontal" color="black" hiddenFrom="sm" />
+
                 <div className={styles["sections-container"]}>
                     <div className={styles["section"]}>
                         <h3 className={styles["section-heading"]}>Legal</h3>
@@ -28,6 +33,7 @@ export function Footer() {
                             Delivery
                         </Link>
                     </div>
+
                     <div className={styles["section"]}>
                         <h3 className={styles["section-heading"]}>Help</h3>
                         <Link to="/" className={styles["link"]}>
@@ -37,6 +43,7 @@ export function Footer() {
                             Email
                         </Link>
                     </div>
+
                     <div className={styles["section"]}>
                         <h3 className={styles["section-heading"]}>Contact</h3>
                         <Link to="/" className={styles["link"]}>
@@ -46,6 +53,7 @@ export function Footer() {
                             Address
                         </Link>
                     </div>
+
                     <div className={styles["section"]}>
                         <h3 className={styles["section-heading"]}>Socials</h3>
                         <Link to="/" className={styles["link"]}>
@@ -62,6 +70,12 @@ export function Footer() {
                         </Link>
                     </div>
                 </div>
+
+                <Divider size="sm" orientation="horizontal" color="black" hiddenFrom="sm" />
+
+                <Box hiddenFrom="sm">
+                    <p className={styles["copyright-message"]}>© njcushing 2025</p>
+                </Box>
             </div>
         </footer>
     );

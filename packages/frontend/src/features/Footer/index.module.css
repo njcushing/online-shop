@@ -2,7 +2,6 @@
     background-color: rgb(255, 236, 218);
 
     width: 100%;
-    height: 200px;
 }
 
 .footer-width-controller {
@@ -17,12 +16,20 @@
     max-width: 1280px;
     padding: 16px;
     margin: auto;
+
+    @media (max-width: $mantine-breakpoint-sm) {
+        flex-direction: column;
+    }
 }
 
 .column-1 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    @media (max-width: $mantine-breakpoint-sm) {
+        align-items: center;
+    }
 }
 
 .copyright-message {
@@ -32,19 +39,31 @@
     text-align: center;
 
     width: 100%;
+
+    @media (max-width: $mantine-breakpoint-sm) {
+        text-align: start;
+    }
 }
 
 .sections-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
 
     width: 100%;
+
+    @media (max-width: $mantine-breakpoint-lg) {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, auto);
+    }
 }
 
 .section {
     display: flex;
     flex-direction: column;
     gap: 2px;
+
+    width: 100%;
 }
 
 .section-heading {
