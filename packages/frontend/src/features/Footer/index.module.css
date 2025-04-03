@@ -9,12 +9,12 @@
 
     display: flex;
     flex-direction: row;
-    gap: 16px;
+    gap: 32px;
 
     width: 100%;
     height: 100%;
     max-width: 1280px;
-    padding: 16px;
+    padding: 32px 16px;
     margin: auto;
 
     @media (max-width: $mantine-breakpoint-sm) {
@@ -48,7 +48,7 @@
 .sections-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
+    gap: 24px;
 
     width: 100%;
 
