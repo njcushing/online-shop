@@ -8,12 +8,18 @@
 }
 
 .input-wrapper {
+    /* Had to do some odd positioning for this component to get the right section to remain
+    correctly-positioned */
+
+    position: relative;
+    top: 4px;
+
     --mantine-spacing-md: 0px; /* Removes padding from top of Mantine Input component */
 
-    width: 100%;
-    max-width: 1280px;
-    padding: 4px 16px 16px;
-    margin: auto;
+    width: calc(100% - 32px);
+    max-width: calc(1280px - 32px);
+    padding: 0px 0px 0px;
+    margin: 4px auto 20px;
 
     @media (max-width: $mantine-breakpoint-lg) {
         padding: 12px 16px 16px;
