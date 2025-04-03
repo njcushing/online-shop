@@ -136,7 +136,6 @@ export function ProductInformation() {
                 <Accordion
                     defaultValue="Description"
                     classNames={{
-                        root: styles["accordion-root"],
                         item: styles["accordion-item"],
                         control: styles["accordion-control"],
                         content: styles["accordion-content"],

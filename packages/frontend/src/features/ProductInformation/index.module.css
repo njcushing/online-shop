@@ -1,5 +1,8 @@
 .product-information {
+    background-color: rgb(255, 236, 218);
+
     width: 100%;
+    padding: 32px 0px;
 }
 
 .product-information-width-controller {
@@ -13,6 +16,10 @@
 
 .accordion-control {
     padding: 0px;
+}
+
+.accordion-item {
+    --item-border-color: rgba(0, 0, 0, 0.6);
 }
 
 @media (hover: hover) {
