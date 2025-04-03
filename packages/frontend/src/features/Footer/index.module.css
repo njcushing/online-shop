@@ -33,3 +33,61 @@
 
     width: 100%;
 }
+
+.sections-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    width: 100%;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.section-heading {
+    font-family: "Radio Canada Big";
+    font-size: 1.5rem;
+    font-weight: 500;
+
+    width: 100%;
+    margin-bottom: 6px;
+}
+
+.link {
+    display: block;
+
+    position: relative;
+
+    color: black;
+    font-family: "Radio Canada Big";
+    text-decoration: none;
+    font-size: 1.1rem;
+    text-wrap: nowrap;
+
+    width: min-content;
+    padding: 0px 0px 2px;
+}
+
+.link::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    background-color: black;
+
+    width: 0;
+    height: 2px;
+
+    transition: width 0.25s ease-in-out;
+}
+
+@media (hover: hover) {
+    .link:hover::after {
+        width: 100%;
+    }
+}
