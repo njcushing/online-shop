@@ -50,7 +50,7 @@ export function Product() {
 
     const getProductDataTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     useEffect(() => {
-        const fetchCart = async (slug: string) => {
+        const fetchProductData = async (slug: string) => {
             // Simulate API request delay
             await new Promise((resolve) => {
                 getProductDataTimeoutRef.current = setTimeout(resolve, 1000);
@@ -69,7 +69,7 @@ export function Product() {
         };
 
         if (productSlug) {
-            fetchCart(productSlug);
+            fetchProductData(productSlug);
             setProduct((curr) => ({ ...curr, awaiting: true }));
         } else {
             if (getProductDataTimeoutRef.current) {
