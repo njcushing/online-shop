@@ -70,6 +70,7 @@ export function Product() {
 
         if (productSlug) {
             fetchCart(productSlug);
+            setProduct((curr) => ({ ...curr, awaiting: true }));
         } else {
             if (getProductDataTimeoutRef.current) {
                 clearTimeout(getProductDataTimeoutRef.current);

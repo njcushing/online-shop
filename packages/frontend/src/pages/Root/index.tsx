@@ -62,6 +62,7 @@ export function Root() {
         };
 
         fetchCart();
+        setCart((curr) => ({ ...curr, awaiting: true }));
 
         return () => {
             if (getPopulatedCartDataTimeoutRef.current) {
