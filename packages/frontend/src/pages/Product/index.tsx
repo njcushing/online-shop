@@ -19,7 +19,7 @@ export interface IProductContext {
 }
 
 const defaultProductContext: IProductContext = {
-    product: { data: null, awaiting: false, status: 200, message: "Success" },
+    product: { data: null, awaiting: true, status: 200, message: "Success" },
     variant: null,
     selectedVariantOptions: {},
     setSelectedVariantOptions: () => {},
