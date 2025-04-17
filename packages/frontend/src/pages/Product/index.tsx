@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useRef, useMemo } from "react";
+import { createContext, useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { ProductHero } from "@/features/ProductHero";
 import { ProductInformation } from "@/features/ProductInformation";
@@ -39,35 +39,37 @@ export function Product() {
         defaultProductContext.variant,
     );
     const [selectedVariantOptions, setSelectedVariantOptions] = useState<ProductVariant["options"]>(
-        (() => {
-            const optionsFromURL = Object.fromEntries(searchParams.entries());
-            const foundVariantData = product.data
-                ? findVariantFromOptions(product.data, optionsFromURL)
-                : null;
-            return foundVariantData ? foundVariantData.options : {};
-        })(),
+        Object.fromEntries(searchParams.entries()),
     );
+    const selectedVariantOptionsRef = useRef<ProductVariant["options"]>(selectedVariantOptions);
+    useEffect(() => {
+        selectedVariantOptionsRef.current = selectedVariantOptions;
+    }, [selectedVariantOptions]);
 
     const getProductDataTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-    useEffect(() => {
-        const fetchProductData = async (slug: string) => {
-            // Simulate API request delay
-            await new Promise((resolve) => {
-                getProductDataTimeoutRef.current = setTimeout(resolve, 1000);
-            });
+    const fetchProductData = useCallback(async (slug: string) => {
+        await new Promise((resolve) => {
+            getProductDataTimeoutRef.current = setTimeout(resolve, 1000);
+        });
 
-            getProductDataTimeoutRef.current = null;
+        getProductDataTimeoutRef.current = null;
 
-            const response = {
-                data: mockGetProductDataFromSlug(slug),
-                awaiting: false,
-                status: 200,
-                message: "Success",
-            };
-
-            setProduct(response);
+        const response = {
+            data: mockGetProductDataFromSlug(slug),
+            awaiting: false,
+            status: 200,
+            message: "Success",
         };
 
+        setProduct(response);
+
+        const newVariantData = response.data
+            ? findVariantFromOptions(response.data, selectedVariantOptionsRef.current)
+            : null;
+        setVariant(newVariantData);
+    }, []);
+
+    useEffect(() => {
         if (productSlug) {
             fetchProductData(productSlug);
             setProduct((curr) => ({ ...curr, awaiting: true }));
@@ -84,7 +86,7 @@ export function Product() {
                 clearTimeout(getProductDataTimeoutRef.current);
             }
         };
-    }, [productSlug]);
+    }, [productSlug, fetchProductData]);
 
     useEffect(() => {
         const newVariantData = product.data
