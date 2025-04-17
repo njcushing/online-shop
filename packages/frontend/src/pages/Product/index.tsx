@@ -35,9 +35,15 @@ export function Product() {
     const [product, setProduct] = useState<IProductContext["product"]>(
         defaultProductContext.product,
     );
+    const productDataRef = useRef<IProductContext["product"]["data"]>(product.data);
+    useEffect(() => {
+        productDataRef.current = product.data;
+    }, [product]);
+
     const [variant, setVariant] = useState<IProductContext["variant"]>(
         defaultProductContext.variant,
     );
+
     const [selectedVariantOptions, setSelectedVariantOptions] = useState<ProductVariant["options"]>(
         Object.fromEntries(searchParams.entries()),
     );
@@ -105,8 +111,8 @@ export function Product() {
     }, [productSlug, fetchProductData]);
 
     useEffect(() => {
-        updateSelectedVariantData(product.data);
-    }, [product, selectedVariantOptions, updateSelectedVariantData]);
+        updateSelectedVariantData(productDataRef.current);
+    }, [selectedVariantOptions, updateSelectedVariantData]);
 
     useEffect(() => {
         const newSearchParams = new URLSearchParams();
