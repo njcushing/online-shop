@@ -46,28 +46,44 @@ export function Product() {
         selectedVariantOptionsRef.current = selectedVariantOptions;
     }, [selectedVariantOptions]);
 
+    const updateSelectedVariantData = useCallback(
+        (productData: IProductContext["product"]["data"]) => {
+            const newVariantData = productData
+                ? findVariantFromOptions(productData, selectedVariantOptionsRef.current)
+                : null;
+            setVariant(newVariantData);
+            if (
+                newVariantData &&
+                JSON.stringify(newVariantData.options) !==
+                    JSON.stringify(selectedVariantOptionsRef.current)
+            ) {
+                setSelectedVariantOptions(newVariantData.options);
+            }
+        },
+        [],
+    );
+
     const getProductDataTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-    const fetchProductData = useCallback(async (slug: string) => {
-        await new Promise((resolve) => {
-            getProductDataTimeoutRef.current = setTimeout(resolve, 1000);
-        });
+    const fetchProductData = useCallback(
+        async (slug: string) => {
+            await new Promise((resolve) => {
+                getProductDataTimeoutRef.current = setTimeout(resolve, 1000);
+            });
 
-        getProductDataTimeoutRef.current = null;
+            getProductDataTimeoutRef.current = null;
 
-        const response = {
-            data: mockGetProductDataFromSlug(slug),
-            awaiting: false,
-            status: 200,
-            message: "Success",
-        };
+            const response = {
+                data: mockGetProductDataFromSlug(slug),
+                awaiting: false,
+                status: 200,
+                message: "Success",
+            };
 
-        setProduct(response);
-
-        const newVariantData = response.data
-            ? findVariantFromOptions(response.data, selectedVariantOptionsRef.current)
-            : null;
-        setVariant(newVariantData);
-    }, []);
+            setProduct(response);
+            updateSelectedVariantData(response.data);
+        },
+        [updateSelectedVariantData],
+    );
 
     useEffect(() => {
         if (productSlug) {
@@ -89,17 +105,8 @@ export function Product() {
     }, [productSlug, fetchProductData]);
 
     useEffect(() => {
-        const newVariantData = product.data
-            ? findVariantFromOptions(product.data, selectedVariantOptions)
-            : null;
-        setVariant(newVariantData);
-        if (
-            newVariantData &&
-            JSON.stringify(newVariantData.options) !== JSON.stringify(selectedVariantOptions)
-        ) {
-            setSelectedVariantOptions(newVariantData.options);
-        }
-    }, [product, selectedVariantOptions]);
+        updateSelectedVariantData(product.data);
+    }, [product, selectedVariantOptions, updateSelectedVariantData]);
 
     useEffect(() => {
         const newSearchParams = new URLSearchParams();
