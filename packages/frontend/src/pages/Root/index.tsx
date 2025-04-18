@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import { Header } from "@/features/Header";
 import { Footer } from "@/features/Footer";
 import { PopulatedCartItemData } from "@/utils/products/cart";
-import { mockGetPopulatedCartItemData } from "@/api/cart";
+import { mockGetCart } from "@/api/cart";
 import { Home } from "../Home";
 import { Category } from "../Category";
 import { Product } from "../Product";
@@ -41,18 +41,18 @@ export const UserContext = createContext<IUserContext>(defaultUserContext);
 export function Root() {
     const [cart, setCart] = useState<IUserContext["cart"]>(defaultUserContext.cart);
 
-    const getPopulatedCartDataTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const getCartTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     useEffect(() => {
         const fetchCart = async () => {
             // Simulate API request delay
             await new Promise((resolve) => {
-                getPopulatedCartDataTimeoutRef.current = setTimeout(resolve, 1000);
+                getCartTimeoutRef.current = setTimeout(resolve, 1000);
             });
 
-            getPopulatedCartDataTimeoutRef.current = null;
+            getCartTimeoutRef.current = null;
 
             const response = {
-                data: mockGetPopulatedCartItemData(),
+                data: mockGetCart(),
                 awaiting: false,
                 status: 200,
                 message: "Success",
@@ -65,9 +65,7 @@ export function Root() {
         setCart((curr) => ({ ...curr, awaiting: true }));
 
         return () => {
-            if (getPopulatedCartDataTimeoutRef.current) {
-                clearTimeout(getPopulatedCartDataTimeoutRef.current);
-            }
+            if (getCartTimeoutRef.current) clearTimeout(getCartTimeoutRef.current);
         };
     }, []);
 

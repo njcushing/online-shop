@@ -3,7 +3,7 @@ import { CartItemData, PopulatedCartItemData, mockCart } from "@/utils/products/
 import * as HTTPMethodTypes from "../types";
 import { saveTokenFromAPIResponse } from "../utils/saveTokenFromAPIResponse";
 
-export const getPopulatedCartItemData: HTTPMethodTypes.GET<
+export const getCart: HTTPMethodTypes.GET<
     undefined,
     { cartData: PopulatedCartItemData[] }
 > = async (data, abortController) => {
@@ -15,7 +15,6 @@ export const getPopulatedCartItemData: HTTPMethodTypes.GET<
         method: "GET",
         mode: "cors",
         headers: { Authorization: token },
-        body: JSON.stringify({ populated: true }),
     })
         .then(async (response) => {
             const responseJSON = await response.json();
@@ -37,7 +36,7 @@ export const getPopulatedCartItemData: HTTPMethodTypes.GET<
     return result;
 };
 
-export const mockGetPopulatedCartItemData = (): PopulatedCartItemData[] => {
+export const mockGetCart = (): PopulatedCartItemData[] => {
     return mockCart.flatMap((cartItem) => {
         const { productId, variantId, quantity } = cartItem;
         const matchedProduct = productData.find((product) => product.id === productId);
@@ -48,7 +47,7 @@ export const mockGetPopulatedCartItemData = (): PopulatedCartItemData[] => {
     });
 };
 
-export const addProductToCart: HTTPMethodTypes.PUT<
+export const updateCart: HTTPMethodTypes.PUT<
     undefined,
     { products: CartItemData[] },
     { cartData: PopulatedCartItemData[] }
@@ -66,7 +65,7 @@ export const addProductToCart: HTTPMethodTypes.PUT<
         method: "PUT",
         mode: "cors",
         headers: { Authorization: token },
-        body: JSON.stringify({ products, populated: true }),
+        body: JSON.stringify({ products }),
     })
         .then(async (response) => {
             const responseJSON = await response.json();
