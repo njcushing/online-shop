@@ -1,6 +1,7 @@
-import React, { forwardRef, useCallback, useMemo } from "react";
+import React, { forwardRef, useState, useCallback, useMemo, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Image, Rating } from "@mantine/core";
+import { useIntersection, useMergedRef } from "@mantine/hooks";
 import {
     lowStockThreshold,
     Product as ProductDataType,
@@ -16,6 +17,17 @@ export type TProductCard = {
 
 export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
     ({ productData }: TProductCard, ref) => {
+        const containerRef = useRef<HTMLDivElement>(null);
+        const { ref: productCardRef, entry: intersectionEntry } = useIntersection({
+            root: containerRef.current,
+            threshold: 0.2,
+        });
+        const mergedProductCardRef = useMergedRef(ref, productCardRef);
+        const [visible, setVisible] = useState<boolean>(intersectionEntry?.isIntersecting || false);
+        useEffect(() => {
+            if (intersectionEntry?.isIntersecting) setVisible(true);
+        }, [intersectionEntry?.isIntersecting]);
+
         const productInformationBanner = useCallback((): React.ReactNode | null => {
             if (productData.variants.length === 0) return null;
             const highestStockVariant = productData.variants.reduce(
@@ -54,7 +66,12 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
         if (!lowestPriceVariant) return null;
 
         return (
-            <Link to={`/p/${productData.slug}`} className={styles["product-card"]} ref={ref}>
+            <Link
+                to={`/p/${productData.slug}`}
+                className={styles["product-card"]}
+                data-visible={visible}
+                ref={mergedProductCardRef}
+            >
                 <div className={styles["product-card-image-container"]}>
                     <Image className={styles["product-image"]} src={productData.images.thumb} />
                     {productInformationBanner()}
