@@ -2,6 +2,7 @@ import { products as productData } from "@/utils/products/product";
 import { CartItemData, PopulatedCartItemData, mockCart } from "@/utils/products/cart";
 import * as HTTPMethodTypes from "../types";
 import { saveTokenFromAPIResponse } from "../utils/saveTokenFromAPIResponse";
+import { mockGetProductDataFromSlug } from "../product";
 
 export const getCart: HTTPMethodTypes.GET<
     undefined,
@@ -36,8 +37,8 @@ export const getCart: HTTPMethodTypes.GET<
     return result;
 };
 
-export const mockGetCart = (): PopulatedCartItemData[] => {
-    return mockCart.flatMap((cartItem) => {
+export const mockPopulateCartItems = (cart: CartItemData[]): PopulatedCartItemData[] => {
+    return cart.flatMap((cartItem) => {
         const { productId, variantId, quantity } = cartItem;
         const matchedProduct = productData.find((product) => product.id === productId);
         if (!matchedProduct) return [];
@@ -45,6 +46,10 @@ export const mockGetCart = (): PopulatedCartItemData[] => {
         if (!matchedVariant) return [];
         return { product: matchedProduct, variant: matchedVariant, quantity };
     });
+};
+
+export const mockGetCart = (): PopulatedCartItemData[] => {
+    return mockPopulateCartItems(mockCart);
 };
 
 export const updateCart: HTTPMethodTypes.PUT<
@@ -85,4 +90,34 @@ export const updateCart: HTTPMethodTypes.PUT<
             };
         });
     return result;
+};
+
+export const mockUpdateCart = (products: CartItemData[]): PopulatedCartItemData[] => {
+    const updatedCart = structuredClone(mockCart);
+
+    products.forEach((productToUpdate) => {
+        const { productId, variantId, quantity } = productToUpdate;
+
+        const existingEntryIndex = updatedCart.findIndex((cartItem) => {
+            return cartItem.productId === productId && cartItem.variantId === variantId;
+        });
+        if (existingEntryIndex >= 0) {
+            if (updatedCart[existingEntryIndex].quantity + quantity <= 0) {
+                updatedCart.splice(existingEntryIndex, 1);
+            } else {
+                updatedCart[existingEntryIndex].quantity += quantity;
+            }
+        } else {
+            const foundProduct = mockGetProductDataFromSlug(productId);
+            if (!foundProduct) return;
+            const variant = foundProduct.variants.find(
+                (productVariant) => productVariant.id === variantId,
+            );
+            if (!variant) return;
+
+            updatedCart.push(productToUpdate);
+        }
+    });
+
+    return mockPopulateCartItems(updatedCart);
 };
