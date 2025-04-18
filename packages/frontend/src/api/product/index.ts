@@ -33,7 +33,7 @@ export const getProductDataFromSlug: HTTPMethodTypes.GET<Params, Response> = asy
             return {
                 status: responseJSON.status,
                 message: responseJSON.message,
-                data: responseJSON.data ? responseJSON.data._id : null,
+                data: responseJSON.data,
             };
         })
         .catch((error) => {
