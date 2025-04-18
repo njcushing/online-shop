@@ -3,28 +3,18 @@ import { PopulatedCartItemData, mockCart } from "@/utils/products/cart";
 import * as HTTPMethodTypes from "../types";
 import { saveTokenFromAPIResponse } from "../utils/saveTokenFromAPIResponse";
 
-export type Params = {
-    accountId: string;
-};
+export const getPopulatedCartItemData: HTTPMethodTypes.GET<
+    undefined,
+    { cartData: PopulatedCartItemData[] }
+> = async (data, abortController = null) => {
+    const token = localStorage.getItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION);
+    if (!token) return { status: 400, message: "No token provided for query", data: null };
 
-export type Response = {
-    cartData: PopulatedCartItemData[];
-};
-
-export const getPopulatedCartItemData: HTTPMethodTypes.GET<Params, Response> = async (
-    data,
-    abortController = null,
-) => {
-    const { accountId } = data.params as Params;
-    if (!accountId) return { status: 400, message: "No accountId provided for query", data: null };
-
-    const result = await fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/user/${accountId}/cart`, {
+    const result = await fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/cart`, {
         signal: abortController ? abortController.signal : null,
         method: "GET",
         mode: "cors",
-        headers: {
-            Authorization: localStorage.getItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION) || "",
-        },
+        headers: { Authorization: token },
         body: JSON.stringify({ populated: true }),
     })
         .then(async (response) => {
