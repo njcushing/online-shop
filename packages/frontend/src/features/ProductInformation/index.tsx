@@ -1,6 +1,7 @@
 import { useContext, useMemo } from "react";
 import { ProductContext } from "@/pages/Product";
 import { useMatches, Accordion, Table } from "@mantine/core";
+import { ProductReviews } from "@/features/ProductReviews";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import dayjs from "dayjs";
@@ -125,7 +126,7 @@ export function ProductInformation() {
             },
             {
                 value: "Customer Reviews",
-                content: "",
+                content: <ProductReviews />,
             },
         ];
     }, [tableColumnCount, description, sku, details, releaseDate]);
