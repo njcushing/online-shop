@@ -1,10 +1,11 @@
 import { useContext } from "react";
 import { ProductContext } from "@/pages/Product";
 import { Rating, Progress } from "@mantine/core";
+import { Review } from "./components/Review";
 import styles from "./index.module.css";
 
 export function ProductReviews() {
-    const { product } = useContext(ProductContext);
+    const { product, reviews } = useContext(ProductContext);
     const { data: productData, awaiting } = product;
 
     if (awaiting || !productData) return null;
@@ -65,6 +66,11 @@ export function ProductReviews() {
                             );
                         })}
                 </div>
+            </div>
+            <div className={styles["reviews"]}>
+                {reviews.map((review) => {
+                    return <Review data={review} key={review.id} />;
+                })}
             </div>
         </div>
     );

@@ -1,6 +1,7 @@
 .product-reviews {
     display: grid;
     grid-template-columns: 300px 1fr;
+    gap: 16px;
 
     width: 100%;
     height: 1000px;
@@ -56,4 +57,10 @@
 
 .product-reviews-rating-tier-percentage {
     text-align: right;
+}
+
+.reviews {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
