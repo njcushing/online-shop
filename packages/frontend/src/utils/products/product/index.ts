@@ -75,6 +75,7 @@ export type Product = {
     variants: ProductVariant[];
     variantOptionOrder: string[];
     customisations: { id: string; options: string[] }[];
+    reviews: string[];
     releaseDate: string;
 };
 
@@ -174,6 +175,7 @@ export const products: Product[] = [
         ],
         variantOptionOrder: ["blend"],
         customisations: [],
+        reviews: [],
         releaseDate: new Date().toISOString(),
     },
     {
@@ -246,6 +248,7 @@ export const products: Product[] = [
         ],
         variantOptionOrder: ["blend"],
         customisations: [],
+        reviews: [],
         releaseDate: new Date().toISOString(),
     },
     {
@@ -318,6 +321,7 @@ export const products: Product[] = [
         ],
         variantOptionOrder: ["blend"],
         customisations: [],
+        reviews: [],
         releaseDate: new Date().toISOString(),
     },
 ];
