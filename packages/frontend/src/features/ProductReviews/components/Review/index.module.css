@@ -1,0 +1,33 @@
+.review {
+    width: 100%;
+}
+
+.comment {
+    width: 100%;
+}
+
+.markdown-container {
+    * {
+        font-family: "Radio Canada Big";
+        font-size: 1rem;
+    }
+
+    p {
+        margin-bottom: revert;
+    }
+    p:nth-last-child(-n + 1) {
+        margin-bottom: 0px;
+    }
+
+    strong {
+        font-weight: 700;
+    }
+
+    em {
+        font-style: italic;
+    }
+
+    del {
+        text-decoration: line-through;
+    }
+}
