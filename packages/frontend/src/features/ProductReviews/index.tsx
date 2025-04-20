@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { ProductContext } from "@/pages/Product";
-import { Rating, Progress } from "@mantine/core";
+import { Rating, Progress, Divider } from "@mantine/core";
 import { Review } from "./components/Review";
 import styles from "./index.module.css";
 
@@ -68,8 +68,13 @@ export function ProductReviews() {
                 </div>
             </div>
             <div className={styles["reviews"]}>
-                {reviews.map((review) => {
-                    return <Review data={review} key={review.id} />;
+                {reviews.map((review, i) => {
+                    return (
+                        <>
+                            <Review data={review} key={review.id} />
+                            {i < reviews.length - 1 && <Divider className={styles["divider"]} />}
+                        </>
+                    );
                 })}
             </div>
         </div>
