@@ -58,6 +58,7 @@ export function ProductReviews() {
                                         left={key}
                                         size="0.8rem"
                                         style={{ width: "100%" }}
+                                        className={styles["progress"]}
                                     />
                                     <p className={styles["product-reviews-rating-tier-percentage"]}>
                                         {Math.floor((value * 100) / rating.quantity + 0.5)}%
@@ -73,12 +74,7 @@ export function ProductReviews() {
                 <Divider className={styles["divider"]} />
 
                 {reviews.map((review, i) => {
-                    return (
-                        <>
-                            <Review data={review} key={review.id} />
-                            {i < reviews.length - 1 && <Divider className={styles["divider"]} />}
-                        </>
-                    );
+                    return <Review data={review} key={review.id} />;
                 })}
             </div>
         </div>
