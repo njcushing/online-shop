@@ -46,6 +46,17 @@ export type Collection = {
     type: "quantity";
 };
 
+export type ProductReview = {
+    id: string;
+    productId: string;
+    variantId: string;
+    userId: string;
+    rating: number;
+    comment: string;
+    images?: string[];
+    datePosted: string;
+};
+
 export type Product = {
     id: string;
     name: {
