@@ -10,7 +10,7 @@ export function ProductReviews() {
 
     if (awaiting || !productData) return null;
 
-    const { rating } = productData;
+    const { rating, reviews: reviewIds } = productData;
 
     const mockRatingQuantities = {
         1: Math.floor(rating.quantity * 0.03 + 0.5),
@@ -68,6 +68,10 @@ export function ProductReviews() {
                 </div>
             </div>
             <div className={styles["reviews"]}>
+                <p className={styles["review-count"]}>{reviewIds.length} reviews</p>
+
+                <Divider className={styles["divider"]} />
+
                 {reviews.map((review, i) => {
                     return (
                         <>
