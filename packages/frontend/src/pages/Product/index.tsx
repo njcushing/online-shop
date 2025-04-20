@@ -8,7 +8,7 @@ import {
     ProductVariant,
     findVariantFromOptions,
 } from "@/utils/products/product";
-import { mockGetProductDataFromSlug } from "@/api/product";
+import { mockGetProduct } from "@/api/product";
 import styles from "./index.module.css";
 
 export interface IProductContext {
@@ -79,7 +79,7 @@ export function Product() {
             getProductDataTimeoutRef.current = null;
 
             const response = {
-                data: mockGetProductDataFromSlug(slug),
+                data: mockGetProduct(slug),
                 awaiting: false,
                 status: 200,
                 message: "Success",

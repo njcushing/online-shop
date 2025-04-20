@@ -2,19 +2,11 @@ import { Product, products } from "@/utils/products/product";
 import * as HTTPMethodTypes from "../types";
 import { saveTokenFromAPIResponse } from "../utils/saveTokenFromAPIResponse";
 
-export type Params = {
-    productSlug: string;
-};
-
-export type Response = {
-    product: Product | null;
-};
-
-export const getProductDataFromSlug: HTTPMethodTypes.GET<Params, Response> = async (
-    data,
-    abortController = null,
-) => {
-    const { productSlug } = data.params as Params;
+export const getProduct: HTTPMethodTypes.GET<
+    { productSlug: string },
+    { product: Product | null }
+> = async (data, abortController = null) => {
+    const { productSlug } = data.params || { productSlug: null };
     if (!productSlug)
         return { status: 400, message: "No product slug provided for query", data: null };
 
@@ -46,6 +38,6 @@ export const getProductDataFromSlug: HTTPMethodTypes.GET<Params, Response> = asy
     return result;
 };
 
-export const mockGetProductDataFromSlug = (productSlug: string): Product | null => {
+export const mockGetProduct = (productSlug: string): Product | null => {
     return products.find((product) => product.slug === productSlug) || null;
 };

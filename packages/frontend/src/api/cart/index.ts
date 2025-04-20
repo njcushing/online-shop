@@ -2,7 +2,7 @@ import { products as productData } from "@/utils/products/product";
 import { CartItemData, PopulatedCartItemData, mockCart } from "@/utils/products/cart";
 import * as HTTPMethodTypes from "../types";
 import { saveTokenFromAPIResponse } from "../utils/saveTokenFromAPIResponse";
-import { mockGetProductDataFromSlug } from "../product";
+import { mockGetProduct } from "../product";
 
 export const getCart: HTTPMethodTypes.GET<
     undefined,
@@ -108,7 +108,7 @@ export const mockUpdateCart = (products: CartItemData[]): PopulatedCartItemData[
                 updatedCart[existingEntryIndex].quantity += quantity;
             }
         } else {
-            const foundProduct = mockGetProductDataFromSlug(productId);
+            const foundProduct = mockGetProduct(productId);
             if (!foundProduct) return;
             const variant = foundProduct.variants.find(
                 (productVariant) => productVariant.id === variantId,
