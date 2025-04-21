@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { RootContext } from "@/pages/Root";
 import { ProductContext } from "@/pages/Product";
 import { Rating, Progress, Divider, Pagination } from "@mantine/core";
 import { useScrollIntoView } from "@mantine/hooks";
@@ -8,6 +9,7 @@ import styles from "./index.module.css";
 const reviewsPerPage = 10;
 
 export function ProductReviews() {
+    const { headerInfo } = useContext(RootContext);
     const { product, reviews } = useContext(ProductContext);
     const { data: productData, awaiting } = product;
 
@@ -34,7 +36,14 @@ export function ProductReviews() {
 
     return (
         <div className={styles["product-reviews"]}>
-            <div className={styles["overview"]}>
+            <div
+                className={styles["overview"]}
+                style={{
+                    top: !headerInfo.open
+                        ? "16px"
+                        : `calc(max(${16}px, ${headerInfo.height + 16}px))`,
+                }}
+            >
                 <div className={styles["product-reviews-rating-container"]}>
                     <Rating
                         className={styles["product-rating"]}
