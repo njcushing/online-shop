@@ -1,9 +1,16 @@
-import { useState, useEffect, useRef } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
+import { useResizeObserver } from "@mantine/hooks";
+import { HeaderContext } from "@/pages/Root";
 import { Navigation } from "./components/Navigation";
 import styles from "./index.module.css";
 
 export function Header() {
-    const headerRef = useRef<HTMLElement>(null);
+    const { setHeaderInfo } = useContext(HeaderContext);
+
+    const [headerRef, headerRect] = useResizeObserver();
+    const [headerHeight, setHeaderHeight] = useState<number>(0);
+    useEffect(() => setHeaderHeight(headerRect.height), [headerRect]);
+
     const baseRef = useRef<HTMLDivElement>(null);
 
     const lastScrollPos = useRef<number>(0);
@@ -17,8 +24,7 @@ export function Header() {
 
             if (headerRef.current && baseRef.current) {
                 const { y } = baseRef.current.getBoundingClientRect();
-                const { height } = headerRef.current.getBoundingClientRect();
-                setActive(-y >= height);
+                setActive(-y >= headerHeight);
             } else {
                 setActive(false);
             }
@@ -29,7 +35,11 @@ export function Header() {
         return () => {
             window.removeEventListener("scroll", scrollDirectionCheck);
         };
-    }, []);
+    }, [headerRef, headerHeight]);
+
+    useEffect(() => {
+        setHeaderInfo({ active, open, height: headerHeight });
+    }, [setHeaderInfo, headerHeight, active, open]);
 
     return (
         <>
