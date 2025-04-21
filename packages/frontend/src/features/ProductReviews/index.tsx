@@ -13,6 +13,7 @@ export function ProductReviews() {
 
     const [page, setPage] = useState<number>(0);
     const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({
+        offset: 16 /* Top padding */,
         duration: 600,
         cancelable: false,
         easing: (t) => 1 - (1 - t) ** 2,
