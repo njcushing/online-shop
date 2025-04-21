@@ -1,4 +1,5 @@
 import { CSSProperties } from "react";
+import { loremIpsum } from "lorem-ipsum";
 
 export const lowStockThreshold = 50;
 
@@ -79,98 +80,26 @@ export type Product = {
     releaseDate: string;
 };
 
-export const reviews: ProductReview[] = [
-    {
-        id: "review-1",
-        productId: "1",
-        variantId: "1-1",
+export const reviews: ProductReview[] = Array.from({ length: 1000 }).map((entry, i) => {
+    const productId = `${Math.ceil(Math.random() * 3)}`;
+    const variantId = `${productId}-${Math.ceil(Math.random() * 3)}`;
+
+    return {
+        id: `review-${i}`,
+        productId,
+        variantId,
         userId: "",
         rating: Math.ceil((1 - Math.random() ** 5) * 5),
-        comment: "",
+        comment: `${loremIpsum({
+            paragraphLowerBound: 3,
+            paragraphUpperBound: 9,
+            sentenceLowerBound: 16,
+            sentenceUpperBound: 40,
+        })}`,
         images: [],
         datePosted: new Date().toISOString(),
-    },
-    {
-        id: "review-2",
-        productId: "1",
-        variantId: "1-2",
-        userId: "",
-        rating: Math.ceil((1 - Math.random() ** 5) * 5),
-        comment: "",
-        images: [],
-        datePosted: new Date().toISOString(),
-    },
-    {
-        id: "review-3",
-        productId: "1",
-        variantId: "1-3",
-        userId: "",
-        rating: Math.ceil((1 - Math.random() ** 5) * 5),
-        comment: "",
-        images: [],
-        datePosted: new Date().toISOString(),
-    },
-    {
-        id: "review-4",
-        productId: "2",
-        variantId: "2-1",
-        userId: "",
-        rating: Math.ceil((1 - Math.random() ** 5) * 5),
-        comment: "",
-        images: [],
-        datePosted: new Date().toISOString(),
-    },
-    {
-        id: "review-5",
-        productId: "2",
-        variantId: "2-2",
-        userId: "",
-        rating: Math.ceil((1 - Math.random() ** 5) * 5),
-        comment: "",
-        images: [],
-        datePosted: new Date().toISOString(),
-    },
-    {
-        id: "review-6",
-        productId: "2",
-        variantId: "2-3",
-        userId: "",
-        rating: Math.ceil((1 - Math.random() ** 5) * 5),
-        comment: "",
-        images: [],
-        datePosted: new Date().toISOString(),
-    },
-    {
-        id: "review-7",
-        productId: "3",
-        variantId: "3-1",
-        userId: "",
-        rating: Math.ceil((1 - Math.random() ** 5) * 5),
-        comment: "",
-        images: [],
-        datePosted: new Date().toISOString(),
-    },
-    {
-        id: "review-8",
-        productId: "3",
-        variantId: "3-2",
-        userId: "",
-        rating: Math.ceil((1 - Math.random() ** 5) * 5),
-        comment: "",
-        images: [],
-        datePosted: new Date().toISOString(),
-    },
-    {
-        id: "review-9",
-        productId: "3",
-        variantId: "3-3",
-        userId: "",
-        rating: Math.ceil((1 - Math.random() ** 5) * 5),
-        comment: "",
-        images: [],
-        datePosted: new Date().toISOString(),
-    },
-];
+    };
+});
 
 export const variantOptions: ProductVariantOption[] = [
     {
@@ -268,7 +197,7 @@ export const products: Product[] = [
         ],
         variantOptionOrder: ["blend"],
         customisations: [],
-        reviews: ["review-1", "review-2", "review-3"],
+        reviews: reviews.filter((review) => review.productId === "1").map((review) => review.id),
         releaseDate: new Date().toISOString(),
     },
     {
@@ -341,7 +270,7 @@ export const products: Product[] = [
         ],
         variantOptionOrder: ["blend"],
         customisations: [],
-        reviews: ["review-4", "review-5", "review-6"],
+        reviews: reviews.filter((review) => review.productId === "2").map((review) => review.id),
         releaseDate: new Date().toISOString(),
     },
     {
@@ -414,7 +343,7 @@ export const products: Product[] = [
         ],
         variantOptionOrder: ["blend"],
         customisations: [],
-        reviews: ["review-7", "review-8", "review-9"],
+        reviews: reviews.filter((review) => review.productId === "3").map((review) => review.id),
         releaseDate: new Date().toISOString(),
     },
 ];
