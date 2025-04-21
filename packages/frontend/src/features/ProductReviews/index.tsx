@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { ProductContext } from "@/pages/Product";
 import { Rating, Progress, Divider, Pagination } from "@mantine/core";
+import { useScrollIntoView } from "@mantine/hooks";
 import { Review } from "./components/Review";
 import styles from "./index.module.css";
 
@@ -11,6 +12,12 @@ export function ProductReviews() {
     const { data: productData, awaiting } = product;
 
     const [page, setPage] = useState<number>(0);
+    const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({
+        duration: 600,
+        cancelable: false,
+        easing: (t) => 1 - (1 - t) ** 2,
+        onScrollFinish: () => {},
+    });
 
     if (awaiting || !productData) return null;
 
@@ -72,7 +79,7 @@ export function ProductReviews() {
                         })}
                 </div>
             </div>
-            <div className={styles["reviews"]}>
+            <div className={styles["reviews"]} ref={targetRef}>
                 <p className={styles["review-count"]}>{reviewIds.length} reviews</p>
 
                 <Divider className={styles["divider"]} />
@@ -87,7 +94,10 @@ export function ProductReviews() {
                     <Pagination
                         total={Math.floor(reviewIds.length / reviewsPerPage)}
                         withEdges
-                        onChange={setPage}
+                        onChange={(newPageNo) => {
+                            setPage(newPageNo);
+                            scrollIntoView();
+                        }}
                         classNames={{ control: styles["pagination-control"] }}
                     />
                 </div>
