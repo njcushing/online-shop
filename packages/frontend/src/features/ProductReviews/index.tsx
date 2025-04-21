@@ -88,6 +88,7 @@ export function ProductReviews() {
                         total={Math.floor(reviewIds.length / reviewsPerPage)}
                         withEdges
                         onChange={setPage}
+                        classNames={{ control: styles["pagination-control"] }}
                     />
                 </div>
             </div>
