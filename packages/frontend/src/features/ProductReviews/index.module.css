@@ -11,7 +11,6 @@
 
 .overview {
     position: sticky;
-    top: 16px;
 
     display: flex;
     flex-direction: column;
@@ -22,6 +21,12 @@
     width: 100%;
     height: min-content;
     padding: 16px;
+
+    transition: top 0.2s cubic-bezier(0.99, -0.02, 0.7, 1);
+}
+
+.overview.shifted {
+    transition: top 0.2s cubic-bezier(0.3, 0, 0.01, 1.02);
 }
 
 .product-reviews-rating-container {

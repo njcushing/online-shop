@@ -37,7 +37,7 @@ export function ProductReviews() {
     return (
         <div className={styles["product-reviews"]}>
             <div
-                className={styles["overview"]}
+                className={`${styles["overview"]} ${styles[headerInfo.open ? "shifted" : ""]}`}
                 style={{
                     top: !headerInfo.open
                         ? "16px"
