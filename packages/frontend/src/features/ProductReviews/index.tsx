@@ -1,12 +1,16 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ProductContext } from "@/pages/Product";
-import { Rating, Progress, Divider } from "@mantine/core";
+import { Rating, Progress, Divider, Pagination } from "@mantine/core";
 import { Review } from "./components/Review";
 import styles from "./index.module.css";
+
+const reviewsPerPage = 10;
 
 export function ProductReviews() {
     const { product, reviews } = useContext(ProductContext);
     const { data: productData, awaiting } = product;
+
+    const [page, setPage] = useState<number>(0);
 
     if (awaiting || !productData) return null;
 
@@ -35,7 +39,7 @@ export function ProductReviews() {
                     />
                     <div className={styles["product-rating-description"]}>
                         <strong>{rating.value.toFixed(2)}</strong> out of <strong>5</strong> from{" "}
-                        <strong>{rating.quantity}</strong> reviews
+                        <strong>{reviewIds.length}</strong> reviews
                     </div>
                 </div>
                 <div className={styles["product-reviews-rating-bars"]}>
@@ -73,9 +77,19 @@ export function ProductReviews() {
 
                 <Divider className={styles["divider"]} />
 
-                {reviews.map((review, i) => {
-                    return <Review data={review} key={review.id} />;
-                })}
+                {reviews
+                    .slice(page * reviewsPerPage, page * reviewsPerPage + reviewsPerPage)
+                    .map((review) => {
+                        return <Review data={review} key={review.id} />;
+                    })}
+
+                <div className={styles["pagination-container"]}>
+                    <Pagination
+                        total={Math.floor(reviewIds.length / reviewsPerPage)}
+                        withEdges
+                        onChange={setPage}
+                    />
+                </div>
             </div>
         </div>
     );
