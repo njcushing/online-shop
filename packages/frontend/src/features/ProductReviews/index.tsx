@@ -26,14 +26,6 @@ export function ProductReviews() {
 
     const { rating, reviews: reviewIds } = productData;
 
-    const mockRatingQuantities = {
-        1: Math.floor(rating.quantity * 0.03 + 0.5),
-        2: Math.floor(rating.quantity * 0.01 + 0.5),
-        3: Math.floor(rating.quantity * 0.05 + 0.5),
-        4: Math.floor(rating.quantity * 0.1 + 0.5),
-        5: Math.floor(rating.quantity * 0.81 + 0.5),
-    };
-
     return (
         <div className={styles["product-reviews"]}>
             <div
@@ -50,17 +42,17 @@ export function ProductReviews() {
                         readOnly
                         count={5}
                         fractions={10}
-                        value={rating.value}
+                        value={rating.meanValue}
                         color="gold"
                         size="lg"
                     />
                     <div className={styles["product-rating-description"]}>
-                        <strong>{rating.value.toFixed(2)}</strong> out of <strong>5</strong> from{" "}
-                        <strong>{reviewIds.length}</strong> reviews
+                        <strong>{rating.meanValue.toFixed(2)}</strong> out of <strong>5</strong>{" "}
+                        from <strong>{reviewIds.length}</strong> reviews
                     </div>
                 </div>
                 <div className={styles["product-reviews-rating-bars"]}>
-                    {Object.entries(mockRatingQuantities)
+                    {Object.entries(rating.quantities)
                         .reverse()
                         .map((entry) => {
                             const [key, value] = entry;
@@ -74,7 +66,7 @@ export function ProductReviews() {
                                         {key}
                                     </p>
                                     <Progress
-                                        value={(value * 100) / rating.quantity}
+                                        value={(value * 100) / rating.totalQuantity}
                                         color="gold"
                                         left={key}
                                         size="0.8rem"
@@ -82,7 +74,7 @@ export function ProductReviews() {
                                         className={styles["progress"]}
                                     />
                                     <p className={styles["product-reviews-rating-tier-percentage"]}>
-                                        {Math.floor((value * 100) / rating.quantity + 0.5)}%
+                                        {Math.floor((value * 100) / rating.totalQuantity + 0.5)}%
                                     </p>
                                 </div>
                             );

@@ -101,16 +101,16 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
                         readOnly
                         count={5}
                         fractions={10}
-                        value={productData.rating.value}
+                        value={productData.rating.meanValue}
                         color="gold"
                         size="xs"
                     />
                     <div className={styles["product-rating-value"]}>
-                        {productData.rating.value.toFixed(2)}
+                        {productData.rating.meanValue.toFixed(2)}
                     </div>
                     <div
                         className={styles["product-rating-quantity"]}
-                    >{`(${productData.rating.quantity})`}</div>
+                    >{`(${productData.rating.totalQuantity})`}</div>
                 </div>
             </Link>
         );

@@ -68,8 +68,15 @@ export type Product = {
     slug: string;
     images: { thumb: string; dynamic: string[] };
     rating: {
-        value: number;
-        quantity: number;
+        meanValue: number;
+        totalQuantity: number;
+        quantities: {
+            5: number;
+            4: number;
+            3: number;
+            2: number;
+            1: number;
+        };
     };
     allowance: number;
     tags: string[];
@@ -100,6 +107,7 @@ export const reviews: ProductReview[] = Array.from({ length: 1000 }).map((entry,
         datePosted: new Date().toISOString(),
     };
 });
+const reviewMap = Object.fromEntries(reviews.map((review) => [review.id, review]));
 
 export const variantOptions: ProductVariantOption[] = [
     {
@@ -136,10 +144,7 @@ export const products: Product[] = [
         description: "",
         slug: "coffee-whole-bean-250g",
         images: { thumb: "", dynamic: ["a", "b", "c", "d", "e"] },
-        rating: {
-            value: 4.87,
-            quantity: 482,
-        },
+        rating: { meanValue: 0, totalQuantity: 0, quantities: { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 } },
         allowance: 50,
         tags: [],
         variants: [
@@ -209,10 +214,7 @@ export const products: Product[] = [
         description: "",
         slug: "coffee-whole-bean-500g",
         images: { thumb: "", dynamic: ["a", "b", "c", "d", "e"] },
-        rating: {
-            value: 4.62,
-            quantity: 370,
-        },
+        rating: { meanValue: 0, totalQuantity: 0, quantities: { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 } },
         allowance: 30,
         tags: [],
         variants: [
@@ -282,10 +284,7 @@ export const products: Product[] = [
         description: "",
         slug: "coffee-whole-bean-1kg",
         images: { thumb: "", dynamic: ["a", "b", "c", "d", "e"] },
-        rating: {
-            value: 4.9,
-            quantity: 872,
-        },
+        rating: { meanValue: 0, totalQuantity: 0, quantities: { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 } },
         allowance: 20,
         tags: [],
         variants: [
@@ -347,6 +346,34 @@ export const products: Product[] = [
         releaseDate: new Date().toISOString(),
     },
 ];
+(() => {
+    products.forEach((product) => {
+        const { rating, reviews: reviewIds } = product;
+
+        const ratingsNew: Product["rating"] = {
+            meanValue: 0,
+            totalQuantity: 0,
+            quantities: { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 },
+        };
+        reviewIds.forEach((reviewId) => {
+            const foundReview = reviewMap[reviewId];
+            if (foundReview) {
+                ratingsNew.totalQuantity += 1;
+                ratingsNew.quantities[foundReview.rating as keyof typeof ratingsNew.quantities] +=
+                    1;
+            }
+        });
+
+        ratingsNew.meanValue =
+            Object.entries(ratingsNew.quantities).reduce((acc, [tier, count]) => {
+                return acc + parseInt(tier, 10) * count;
+            }, 0) / ratingsNew.totalQuantity;
+
+        rating.meanValue = ratingsNew.meanValue;
+        rating.totalQuantity = ratingsNew.totalQuantity;
+        rating.quantities = ratingsNew.quantities;
+    });
+})();
 
 export const collections: Collection[] = [{ id: "coffee-wholebean", type: "quantity" }];
 
