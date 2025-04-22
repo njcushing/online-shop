@@ -35,6 +35,14 @@
     gap: 8px;
 }
 
+.rating-star-symbol {
+    stroke: none;
+}
+
+.rating-star-symbol:not([data-filled]) {
+    fill: rgb(250, 223, 198);
+}
+
 .product-rating-description {
     color: black;
     font-family: "Radio Canada Big";

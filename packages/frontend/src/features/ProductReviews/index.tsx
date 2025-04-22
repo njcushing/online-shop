@@ -38,7 +38,7 @@ export function ProductReviews() {
             >
                 <div className={styles["product-reviews-rating-container"]}>
                     <Rating
-                        className={styles["product-rating"]}
+                        classNames={{ starSymbol: styles["rating-star-symbol"] }}
                         readOnly
                         count={5}
                         fractions={10}
