@@ -14,7 +14,7 @@ export function Review({ data }: TReview) {
 
     return (
         <div className={styles["review"]}>
-            <Rating readOnly count={rating} value={rating} color="gold" size="lg" />
+            <Rating readOnly count={rating} value={rating} color="gold" size="md" />
             <span className={styles["date-posted"]}>
                 Posted by username on {dayjs(datePosted).format("MMMM D, YYYY")}
             </span>

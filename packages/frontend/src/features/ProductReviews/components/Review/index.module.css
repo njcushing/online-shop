@@ -3,12 +3,15 @@
     flex-direction: column;
     gap: 8px;
 
+    background-color: rgb(255, 236, 218);
+
     width: 100%;
+    padding: 16px;
 }
 
 .date-posted {
     font-family: "Radio Canada Big";
-    font-size: 1.1rem;
+    font-size: 1.06rem;
 }
 
 .comment {
