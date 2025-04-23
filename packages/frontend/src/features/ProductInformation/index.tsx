@@ -12,9 +12,9 @@ export function ProductInformation() {
     const tableColumnCount = useMatches({ base: 1, lg: 2 });
 
     const { product, variant } = useContext(ProductContext);
-    const { description } = product.data || { description: "null" };
+    const { description } = product.data || { description: "" };
     const { sku, details, releaseDate } = variant || {
-        sku: "null",
+        sku: "",
         details: [],
         releaseDate: null,
     };
