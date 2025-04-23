@@ -29,11 +29,16 @@ export const Routes = [
 ];
 
 export interface IRootContext {
-    headerInfo: { active: boolean; open: boolean; height: number };
+    headerInfo: {
+        active: boolean;
+        open: boolean;
+        height: number;
+        forceClose: (state: boolean) => void;
+    };
 }
 
 const defaultRootContext: IRootContext = {
-    headerInfo: { active: false, open: true, height: 0 },
+    headerInfo: { active: false, open: true, height: 0, forceClose: () => {} },
 };
 
 export interface IUserContext {

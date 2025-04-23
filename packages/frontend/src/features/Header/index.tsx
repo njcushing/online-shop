@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, useRef } from "react";
+import { useContext, useState, useEffect, useCallback, useRef } from "react";
 import { useResizeObserver } from "@mantine/hooks";
 import { HeaderContext } from "@/pages/Root";
 import { Navigation } from "./components/Navigation";
@@ -16,10 +16,11 @@ export function Header() {
     const lastScrollPos = useRef<number>(0);
     const [active, setActive] = useState<boolean>(false);
     const [open, setOpen] = useState<boolean>(document.body.getBoundingClientRect().top === 0);
+    const isForceClosed = useRef<boolean>(false);
     useEffect(() => {
         const scrollDirectionCheck = () => {
             const newScrollPos = document.body.getBoundingClientRect().top;
-            setOpen(newScrollPos > lastScrollPos.current);
+            setOpen(!isForceClosed.current && newScrollPos > lastScrollPos.current);
             lastScrollPos.current = newScrollPos;
 
             if (headerRef.current && baseRef.current) {
@@ -37,9 +38,14 @@ export function Header() {
         };
     }, [headerRef, headerHeight]);
 
+    const forceClose = useCallback((isClosed: boolean) => {
+        isForceClosed.current = isClosed;
+        if (!isClosed) setOpen(false);
+    }, []);
+
     useEffect(() => {
-        setHeaderInfo({ active, open, height: headerHeight });
-    }, [setHeaderInfo, headerHeight, active, open]);
+        setHeaderInfo({ active, open, height: headerHeight, forceClose });
+    }, [setHeaderInfo, headerHeight, active, open, forceClose]);
 
     return (
         <>
