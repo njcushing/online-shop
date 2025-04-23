@@ -7,6 +7,12 @@
 
     width: 100%;
     padding: 16px;
+
+    @media (max-width: $mantine-breakpoint-lg) {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+    }
 }
 
 .overview {
@@ -23,6 +29,10 @@
     padding: 16px;
 
     transition: top 0.2s cubic-bezier(0.99, -0.02, 0.7, 1);
+
+    @media (max-width: $mantine-breakpoint-lg) {
+        position: initial;
+    }
 }
 
 .overview.shifted {
