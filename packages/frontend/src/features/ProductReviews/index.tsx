@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { RootContext } from "@/pages/Root";
 import { ProductContext } from "@/pages/Product";
 import { Rating, Progress, Divider, Pagination } from "@mantine/core";
@@ -21,6 +21,10 @@ export function ProductReviews() {
         easing: (t) => 1 - (1 - t) ** 2,
         onScrollFinish: () => headerInfo.forceClose(false),
     });
+
+    useEffect(() => {
+        headerInfo.forceClose(false);
+    }, [headerInfo]);
 
     if (awaiting || !productData) return null;
 
