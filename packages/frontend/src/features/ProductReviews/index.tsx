@@ -19,7 +19,7 @@ export function ProductReviews() {
         duration: 600,
         cancelable: false,
         easing: (t) => 1 - (1 - t) ** 2,
-        onScrollFinish: () => {},
+        onScrollFinish: () => headerInfo.forceClose(false),
     });
 
     if (awaiting || !productData) return null;
@@ -99,6 +99,7 @@ export function ProductReviews() {
                         onChange={(newPageNo) => {
                             setPage(newPageNo);
                             scrollIntoView();
+                            headerInfo.forceClose(true);
                         }}
                         classNames={{ control: styles["pagination-control"] }}
                     />
