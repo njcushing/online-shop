@@ -15,9 +15,28 @@
     }
 }
 
-.overview {
+.sticky-panel {
     position: sticky;
 
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    width: 100%;
+    height: min-content;
+
+    transition: top 0.2s cubic-bezier(0.99, -0.02, 0.7, 1);
+
+    @media (max-width: $mantine-breakpoint-lg) {
+        position: initial;
+    }
+}
+
+.sticky-panel.shifted {
+    transition: top 0.2s cubic-bezier(0.3, 0, 0.01, 1.02);
+}
+
+.overview {
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -27,16 +46,6 @@
     width: 100%;
     height: min-content;
     padding: 16px;
-
-    transition: top 0.2s cubic-bezier(0.99, -0.02, 0.7, 1);
-
-    @media (max-width: $mantine-breakpoint-lg) {
-        position: initial;
-    }
-}
-
-.overview.shifted {
-    transition: top 0.2s cubic-bezier(0.3, 0, 0.01, 1.02);
 }
 
 .product-reviews-rating-container {
@@ -86,6 +95,41 @@
 
 .product-reviews-rating-tier-percentage {
     text-align: right;
+}
+
+.filter-and-sort-options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    width: 100%;
+    height: min-content;
+}
+
+.label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    color: black;
+    font-size: 1.1rem;
+    font-family: "Radio Canada Big";
+}
+
+.select {
+    align-self: center;
+
+    color: black;
+    font-size: 1rem;
+    font-family: "Radio Canada Big";
+    text-transform: capitalize;
+
+    border: none;
+    outline: none;
+
+    width: 100%;
+    height: min-content;
+    padding: 2px;
 }
 
 .reviews {
