@@ -104,6 +104,14 @@
 
     width: 100%;
     height: min-content;
+
+    @media (max-width: $mantine-breakpoint-lg) {
+        flex-direction: row;
+    }
+
+    @media (max-width: $mantine-breakpoint-xs) {
+        flex-direction: column;
+    }
 }
 
 .label {
@@ -114,6 +122,8 @@
     color: black;
     font-size: 1.1rem;
     font-family: "Radio Canada Big";
+
+    min-width: 200px;
 }
 
 .select {
