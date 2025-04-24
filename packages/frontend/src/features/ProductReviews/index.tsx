@@ -11,6 +11,7 @@ const reviewsPerPage = 10;
 
 export function ProductReviews() {
     const { headerInfo } = useContext(RootContext);
+    const { forceClose } = headerInfo;
 
     const { product, reviews } = useContext(ProductContext);
     const { data: productData, awaiting } = product;
@@ -27,8 +28,8 @@ export function ProductReviews() {
     });
 
     useEffect(() => {
-        headerInfo.forceClose(false, forceCloseId.current);
-    }, [headerInfo]);
+        forceClose(false, forceCloseId.current);
+    }, [forceClose]);
 
     if (awaiting || !productData) return null;
 
