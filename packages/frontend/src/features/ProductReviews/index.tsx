@@ -1,8 +1,9 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import { RootContext } from "@/pages/Root";
 import { ProductContext } from "@/pages/Product";
 import { Rating, Progress, Divider, Pagination } from "@mantine/core";
 import { useScrollIntoView } from "@mantine/hooks";
+import { v4 as uuid } from "uuid";
 import { Review } from "./components/Review";
 import styles from "./index.module.css";
 
@@ -10,20 +11,23 @@ const reviewsPerPage = 10;
 
 export function ProductReviews() {
     const { headerInfo } = useContext(RootContext);
+
     const { product, reviews } = useContext(ProductContext);
     const { data: productData, awaiting } = product;
 
     const [page, setPage] = useState<number>(0);
+
+    const forceCloseId = useRef<string>(uuid());
     const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({
         offset: 16 /* Top padding */,
         duration: 600,
         cancelable: false,
         easing: (t) => 1 - (1 - t) ** 2,
-        onScrollFinish: () => headerInfo.forceClose(false),
+        onScrollFinish: () => headerInfo.forceClose(false, forceCloseId.current),
     });
 
     useEffect(() => {
-        headerInfo.forceClose(false);
+        headerInfo.forceClose(false, forceCloseId.current);
     }, [headerInfo]);
 
     if (awaiting || !productData) return null;
@@ -103,7 +107,7 @@ export function ProductReviews() {
                         onChange={(newPageNo) => {
                             setPage(newPageNo);
                             scrollIntoView();
-                            headerInfo.forceClose(true);
+                            headerInfo.forceClose(true, forceCloseId.current);
                         }}
                         classNames={{ control: styles["pagination-control"] }}
                     />

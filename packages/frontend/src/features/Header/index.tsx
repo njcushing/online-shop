@@ -16,11 +16,11 @@ export function Header() {
     const lastScrollPos = useRef<number>(0);
     const [active, setActive] = useState<boolean>(false);
     const [open, setOpen] = useState<boolean>(document.body.getBoundingClientRect().top === 0);
-    const isForceClosed = useRef<boolean>(false);
+    const forceClosedIds = useRef<Set<string>>(new Set());
     useEffect(() => {
         const scrollDirectionCheck = () => {
             const newScrollPos = document.body.getBoundingClientRect().top;
-            setOpen(!isForceClosed.current && newScrollPos > lastScrollPos.current);
+            setOpen(forceClosedIds.current.size === 0 && newScrollPos > lastScrollPos.current);
             lastScrollPos.current = newScrollPos;
 
             if (headerRef.current && baseRef.current) {
@@ -38,9 +38,15 @@ export function Header() {
         };
     }, [headerRef, headerHeight]);
 
-    const forceClose = useCallback((isClosed: boolean) => {
-        isForceClosed.current = isClosed;
-        if (!isClosed) setOpen(false);
+    const forceClose = useCallback((state: boolean, id: string) => {
+        if (!state) {
+            if (forceClosedIds.current.has(id)) {
+                forceClosedIds.current.delete(id);
+            }
+        } else {
+            forceClosedIds.current.add(id);
+            setOpen(false);
+        }
     }, []);
 
     useEffect(() => {

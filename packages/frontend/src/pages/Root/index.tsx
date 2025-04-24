@@ -33,7 +33,7 @@ export interface IRootContext {
         active: boolean;
         open: boolean;
         height: number;
-        forceClose: (state: boolean) => void;
+        forceClose: (state: boolean, id: string) => void;
     };
 }
 
