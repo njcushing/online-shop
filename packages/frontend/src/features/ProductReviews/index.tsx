@@ -28,7 +28,10 @@ export function ProductReviews() {
     });
 
     useEffect(() => {
-        forceClose(false, forceCloseId.current);
+        const { current } = forceCloseId;
+        return () => {
+            forceClose(false, current);
+        };
     }, [forceClose]);
 
     if (awaiting || !productData) return null;
