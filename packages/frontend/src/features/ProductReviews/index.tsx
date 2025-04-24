@@ -78,6 +78,10 @@ export function ProductReviews() {
                                 return (
                                     <button
                                         type="button"
+                                        onClick={() => {
+                                            if (key === filter) setFilter("All");
+                                            else setFilter(key as (typeof filterOptions)[number]);
+                                        }}
                                         className={styles["product-reviews-rating-bar"]}
                                         key={`product-reviews-tier-${key}-progress-bar`}
                                     >
@@ -138,7 +142,7 @@ export function ProductReviews() {
                             id="filter-reviews"
                             name="filter-reviews"
                             aria-label="filter-reviews"
-                            defaultValue="All"
+                            value={filter}
                             onChange={(e) => {
                                 const { value } = e.target;
                                 setFilter(value as (typeof filterOptions)[number]);
@@ -165,7 +169,7 @@ export function ProductReviews() {
                             id="sort-reviews"
                             name="sort-reviews"
                             aria-label="sort-reviews"
-                            defaultValue="All"
+                            defaultValue={sort}
                             onChange={(e) => {
                                 const { value } = e.target;
                                 setSort(value as (typeof sortOptions)[number]);
