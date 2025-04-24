@@ -76,11 +76,23 @@ export function ProductReviews() {
                                 const [key, value] = entry;
 
                                 return (
-                                    <div
+                                    <button
+                                        type="button"
                                         className={styles["product-reviews-rating-bar"]}
                                         key={`product-reviews-tier-${key}-progress-bar`}
                                     >
                                         <p className={styles["product-reviews-rating-tier-key"]}>
+                                            {Object.keys(rating.quantities).map((k) => {
+                                                return (
+                                                    <span
+                                                        className={styles["column-sizer"]}
+                                                        aria-hidden
+                                                        key={`product-reviews-tier-${key}-progress-bar-column-sizer-${k}`}
+                                                    >
+                                                        {k}
+                                                    </span>
+                                                );
+                                            })}
                                             {key}
                                         </p>
                                         <Progress
@@ -96,10 +108,24 @@ export function ProductReviews() {
                                                 styles["product-reviews-rating-tier-percentage"]
                                             }
                                         >
+                                            {Object.values(rating.quantities).map((v) => {
+                                                return (
+                                                    <span
+                                                        className={styles["column-sizer"]}
+                                                        aria-hidden
+                                                        key={`product-reviews-tier-${key}-progress-bar-column-sizer-${v}`}
+                                                    >
+                                                        {Math.floor(
+                                                            (v * 100) / rating.totalQuantity + 0.5,
+                                                        )}
+                                                        %
+                                                    </span>
+                                                );
+                                            })}
                                             {Math.floor((value * 100) / rating.totalQuantity + 0.5)}
                                             %
                                         </p>
-                                    </div>
+                                    </button>
                                 );
                             })}
                     </div>
