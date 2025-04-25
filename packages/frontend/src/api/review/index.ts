@@ -117,9 +117,17 @@ export const mockGetReviews = (opts: {
                 );
                 break;
             case "Highest Rating":
+                // Sort by recency first
+                sortedReviews.sort(
+                    (a, b) => new Date(b.datePosted).getTime() - new Date(a.datePosted).getTime(),
+                );
                 sortedReviews.sort((a, b) => b.rating - a.rating);
                 break;
             case "Lowest Rating":
+                // Sort by recency first
+                sortedReviews.sort(
+                    (a, b) => new Date(b.datePosted).getTime() - new Date(a.datePosted).getTime(),
+                );
                 sortedReviews.sort((a, b) => a.rating - b.rating);
                 break;
             default:
