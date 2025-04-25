@@ -14,57 +14,62 @@ export const sortOptions = ["Most Recent", "Highest Rating", "Lowest Rating"] as
 
 const reviewsPerPage = 10;
 
+const defaultReviews = { data: [], awaiting: true, status: 200, message: "Success" };
+
 export function ProductReviews() {
     const { headerInfo } = useContext(RootContext);
     const { forceClose } = headerInfo;
 
     const { product } = useContext(ProductContext);
-    const { data: productData, awaiting } = product;
+    const { data: productData, awaiting: awaitingProductData } = product;
 
     const [filter, setFilter] = useState<(typeof filterOptions)[number]>("All");
     const [sort, setSort] = useState<(typeof sortOptions)[number]>("Most Recent");
     const [page, setPage] = useState<number>(0);
 
-    const [reviews, setReviews] = useState<ProductReview[]>([]);
+    const [reviews, setReviews] = useState<{
+        data: ProductReview[];
+        awaiting: boolean;
+        status: number;
+        message: string;
+    }>(defaultReviews);
 
     const getReviewsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const fetchReviews = useCallback(async () => {
-        if (!productData) {
-            setReviews([]);
-            return;
-        }
-
         await new Promise((resolve) => {
             getReviewsTimeoutRef.current = setTimeout(resolve, 1000);
         });
 
         getReviewsTimeoutRef.current = null;
 
-        const response = {
-            data: mockGetReviews({
-                productId: productData.id,
-                filter: filter === "All" ? undefined : filter,
-                sort,
-                start: page * reviewsPerPage,
-                end: page * reviewsPerPage + reviewsPerPage,
-            }),
-            awaiting: false,
-            status: 200,
-            message: "Success",
-        };
+        const response = productData?.id
+            ? {
+                  data: mockGetReviews({
+                      productId: productData.id,
+                      filter: filter === "All" ? undefined : filter,
+                      sort,
+                      start: page * reviewsPerPage,
+                      end: page * reviewsPerPage + reviewsPerPage,
+                  }),
+                  awaiting: false,
+                  status: 200,
+                  message: "Success",
+              }
+            : { data: [], awaiting: false, status: 400, message: "No product id provided" };
 
-        setReviews(response.data);
+        setReviews(response);
     }, [productData, filter, sort, page]);
 
     useEffect(() => {
         if (product.data) {
             fetchReviews();
+            setReviews((curr) => ({ ...curr, awaiting: true }));
         } else {
             if (getReviewsTimeoutRef.current) {
                 clearTimeout(getReviewsTimeoutRef.current);
                 getReviewsTimeoutRef.current = null;
             }
-            setReviews([]);
+            setReviews(defaultReviews);
         }
 
         return () => {
@@ -90,7 +95,7 @@ export function ProductReviews() {
         };
     }, [forceClose]);
 
-    if (awaiting || !productData) return null;
+    if (awaitingProductData || !productData) return null;
 
     const { rating, reviews: reviewIds } = productData;
 
@@ -252,8 +257,8 @@ export function ProductReviews() {
 
                 <Divider className={styles["divider"]} />
 
-                {reviews.map((review) => {
-                    return <Review data={review} key={review.id} />;
+                {reviews.data.map((review) => {
+                    return <Review data={review} awaiting={reviews.awaiting} key={review.id} />;
                 })}
 
                 <div className={styles["pagination-container"]}>
