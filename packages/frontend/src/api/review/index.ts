@@ -1,4 +1,5 @@
 import { ProductReview, reviews } from "@/utils/products/product";
+import { filterOptions, sortOptions } from "@/features/ProductReviews";
 import * as HTTPMethodTypes from "../types";
 import { saveTokenFromAPIResponse } from "../utils/saveTokenFromAPIResponse";
 
@@ -40,4 +41,93 @@ export const getReview: HTTPMethodTypes.GET<
 
 export const mockGetReview = (reviewId: string): ProductReview | null => {
     return reviews.find((review) => review.id === reviewId) || null;
+};
+
+export const getReviews: HTTPMethodTypes.GET<
+    {
+        productId: string;
+        filter?: (typeof filterOptions)[number];
+        sort?: (typeof sortOptions)[number];
+        start?: number;
+        end?: number;
+    },
+    { review: ProductReview | null }
+> = async (data, abortController = null) => {
+    const token = localStorage.getItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION);
+    if (!token) return { status: 400, message: "No token provided for query", data: null };
+
+    const { productId } = data.params || { reviewId: null };
+    if (!productId) return { status: 400, message: "No product id provided for query", data: null };
+
+    const urlParams = new URLSearchParams();
+    Object.entries(data).forEach(([key, value]) => urlParams.append(key, `${value}`));
+
+    const result = await fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/reviews?${urlParams}`, {
+        signal: abortController ? abortController.signal : null,
+        method: "GET",
+        mode: "cors",
+        headers: { Authorization: token },
+    })
+        .then(async (response) => {
+            const responseJSON = await response.json();
+            saveTokenFromAPIResponse(responseJSON);
+
+            return {
+                status: responseJSON.status,
+                message: responseJSON.message,
+                data: responseJSON.data,
+            };
+        })
+        .catch((error) => {
+            return {
+                status: error.status ? error.status : 500,
+                message: error.message,
+                data: null,
+            };
+        });
+    return result;
+};
+
+export const mockGetReviews = (opts: {
+    productId: string;
+    filter?: (typeof filterOptions)[number];
+    sort?: (typeof sortOptions)[number];
+    start?: number;
+    end?: number;
+}): ProductReview[] => {
+    const { productId, filter, sort, start, end } = opts || {};
+
+    if (!productId) return [];
+
+    const productReviews = reviews.filter((review) => review.productId === productId);
+
+    let filteredReviews = productReviews;
+    if (filter) {
+        filteredReviews = filteredReviews.filter(
+            (review) => review.rating === Number.parseInt(filter, 10),
+        );
+    }
+
+    const sortedReviews = filteredReviews;
+    if (sort) {
+        switch (sort) {
+            case "Most Recent":
+                sortedReviews.sort(
+                    (a, b) => new Date(b.datePosted).getTime() - new Date(a.datePosted).getTime(),
+                );
+                break;
+            case "Highest Rating":
+                sortedReviews.sort((a, b) => b.rating - a.rating);
+                break;
+            case "Lowest Rating":
+                sortedReviews.sort((a, b) => a.rating - b.rating);
+                break;
+            default:
+        }
+    }
+
+    let slicedReviews = sortedReviews;
+    slicedReviews = slicedReviews.slice(start, end);
+
+    return slicedReviews;
 };
