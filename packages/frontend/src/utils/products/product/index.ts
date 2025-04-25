@@ -1,5 +1,6 @@
 import { CSSProperties } from "react";
 import { loremIpsum } from "lorem-ipsum";
+import { generateDateWithinRandomRange } from "@/utils/dates";
 
 export const lowStockThreshold = 50;
 
@@ -104,7 +105,7 @@ export const reviews: ProductReview[] = Array.from({ length: 1000 }).map((entry,
             sentenceUpperBound: 40,
         })}`,
         images: [],
-        datePosted: new Date().toISOString(),
+        datePosted: generateDateWithinRandomRange(new Date("2024-01-01"), new Date()).toISOString(),
     };
 });
 const reviewMap = Object.fromEntries(reviews.map((review) => [review.id, review]));
@@ -163,7 +164,10 @@ export const products: Product[] = [
                     { name: "Blend", value: "Light" },
                     { name: "Weight", value: "250g" },
                 ],
-                releaseDate: new Date().toISOString(),
+                releaseDate: generateDateWithinRandomRange(
+                    new Date("2024-01-01"),
+                    new Date(),
+                ).toISOString(),
             },
             {
                 id: "1-2",
@@ -180,7 +184,10 @@ export const products: Product[] = [
                     { name: "Blend", value: "Medium" },
                     { name: "Weight", value: "250g" },
                 ],
-                releaseDate: new Date().toISOString(),
+                releaseDate: generateDateWithinRandomRange(
+                    new Date("2024-01-01"),
+                    new Date(),
+                ).toISOString(),
             },
             {
                 id: "1-3",
@@ -197,13 +204,19 @@ export const products: Product[] = [
                     { name: "Blend", value: "Dark" },
                     { name: "Weight", value: "250g" },
                 ],
-                releaseDate: new Date().toISOString(),
+                releaseDate: generateDateWithinRandomRange(
+                    new Date("2024-01-01"),
+                    new Date(),
+                ).toISOString(),
             },
         ],
         variantOptionOrder: ["blend"],
         customisations: [],
         reviews: reviews.filter((review) => review.productId === "1").map((review) => review.id),
-        releaseDate: new Date().toISOString(),
+        releaseDate: generateDateWithinRandomRange(
+            new Date("2024-01-01"),
+            new Date(),
+        ).toISOString(),
     },
     {
         id: "2",
@@ -233,7 +246,10 @@ export const products: Product[] = [
                     { name: "Blend", value: "Light" },
                     { name: "Weight", value: "500g" },
                 ],
-                releaseDate: new Date().toISOString(),
+                releaseDate: generateDateWithinRandomRange(
+                    new Date("2024-01-01"),
+                    new Date(),
+                ).toISOString(),
             },
             {
                 id: "2-2",
@@ -250,7 +266,10 @@ export const products: Product[] = [
                     { name: "Blend", value: "Medium" },
                     { name: "Weight", value: "500g" },
                 ],
-                releaseDate: new Date().toISOString(),
+                releaseDate: generateDateWithinRandomRange(
+                    new Date("2024-01-01"),
+                    new Date(),
+                ).toISOString(),
             },
             {
                 id: "2-3",
@@ -267,13 +286,19 @@ export const products: Product[] = [
                     { name: "Blend", value: "Dark" },
                     { name: "Weight", value: "500g" },
                 ],
-                releaseDate: new Date().toISOString(),
+                releaseDate: generateDateWithinRandomRange(
+                    new Date("2024-01-01"),
+                    new Date(),
+                ).toISOString(),
             },
         ],
         variantOptionOrder: ["blend"],
         customisations: [],
         reviews: reviews.filter((review) => review.productId === "2").map((review) => review.id),
-        releaseDate: new Date().toISOString(),
+        releaseDate: generateDateWithinRandomRange(
+            new Date("2024-01-01"),
+            new Date(),
+        ).toISOString(),
     },
     {
         id: "3",
@@ -303,7 +328,10 @@ export const products: Product[] = [
                     { name: "Blend", value: "Light" },
                     { name: "Weight", value: "1kg" },
                 ],
-                releaseDate: new Date().toISOString(),
+                releaseDate: generateDateWithinRandomRange(
+                    new Date("2024-01-01"),
+                    new Date(),
+                ).toISOString(),
             },
             {
                 id: "3-2",
@@ -320,7 +348,10 @@ export const products: Product[] = [
                     { name: "Blend", value: "Medium" },
                     { name: "Weight", value: "1kg" },
                 ],
-                releaseDate: new Date().toISOString(),
+                releaseDate: generateDateWithinRandomRange(
+                    new Date("2024-01-01"),
+                    new Date(),
+                ).toISOString(),
             },
             {
                 id: "3-3",
@@ -337,13 +368,19 @@ export const products: Product[] = [
                     { name: "Blend", value: "Dark" },
                     { name: "Weight", value: "1kg" },
                 ],
-                releaseDate: new Date().toISOString(),
+                releaseDate: generateDateWithinRandomRange(
+                    new Date("2024-01-01"),
+                    new Date(),
+                ).toISOString(),
             },
         ],
         variantOptionOrder: ["blend"],
         customisations: [],
         reviews: reviews.filter((review) => review.productId === "3").map((review) => review.id),
-        releaseDate: new Date().toISOString(),
+        releaseDate: generateDateWithinRandomRange(
+            new Date("2024-01-01"),
+            new Date(),
+        ).toISOString(),
     },
 ];
 (() => {
