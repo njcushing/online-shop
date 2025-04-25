@@ -5,12 +5,10 @@ import { ProductInformation } from "@/features/ProductInformation";
 import { RecommendedProducts } from "@/features/RecommendedProducts";
 import {
     Product as ProductDataType,
-    ProductReview,
     ProductVariant,
     findVariantFromOptions,
 } from "@/utils/products/product";
 import { mockGetProduct } from "@/api/product";
-import { mockGetReview } from "@/api/review";
 import styles from "./index.module.css";
 
 export interface IProductContext {
@@ -18,7 +16,6 @@ export interface IProductContext {
     variant: ProductVariant | null;
     selectedVariantOptions: ProductVariant["options"];
     setSelectedVariantOptions: React.Dispatch<React.SetStateAction<ProductVariant["options"]>>;
-    reviews: ProductReview[];
 }
 
 const defaultProductContext: IProductContext = {
@@ -26,7 +23,6 @@ const defaultProductContext: IProductContext = {
     variant: null,
     selectedVariantOptions: {},
     setSelectedVariantOptions: () => {},
-    reviews: [],
 };
 
 export const ProductContext = createContext<IProductContext>(defaultProductContext);
@@ -55,10 +51,6 @@ export function Product() {
     useEffect(() => {
         selectedVariantOptionsRef.current = selectedVariantOptions;
     }, [selectedVariantOptions]);
-
-    const [reviews, setReviews] = useState<IProductContext["reviews"]>(
-        defaultProductContext.reviews,
-    );
 
     const updateSelectedVariantData = useCallback(
         (productData: IProductContext["product"]["data"]) => {
@@ -122,42 +114,6 @@ export function Product() {
         updateSelectedVariantData(productDataRef.current);
     }, [selectedVariantOptions, updateSelectedVariantData]);
 
-    const getReviewsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-    const fetchReviews = useCallback(async (ids: string[]) => {
-        await new Promise((resolve) => {
-            getReviewsTimeoutRef.current = setTimeout(resolve, 1000);
-        });
-
-        getReviewsTimeoutRef.current = null;
-
-        const response = {
-            data: ids.flatMap((id) => mockGetReview(id) || []),
-            awaiting: false,
-            status: 200,
-            message: "Success",
-        };
-
-        setReviews(response.data);
-    }, []);
-
-    useEffect(() => {
-        if (product.data) {
-            fetchReviews(product.data.reviews);
-        } else {
-            if (getReviewsTimeoutRef.current) {
-                clearTimeout(getReviewsTimeoutRef.current);
-                getReviewsTimeoutRef.current = null;
-            }
-            setReviews([]);
-        }
-
-        return () => {
-            if (getReviewsTimeoutRef.current) {
-                clearTimeout(getReviewsTimeoutRef.current);
-            }
-        };
-    }, [product, fetchReviews]);
-
     useEffect(() => {
         const newSearchParams = new URLSearchParams();
         Object.entries(selectedVariantOptions).forEach((entry) => {
@@ -175,9 +131,8 @@ export function Product() {
                     variant,
                     selectedVariantOptions,
                     setSelectedVariantOptions,
-                    reviews,
                 }),
-                [product, variant, selectedVariantOptions, setSelectedVariantOptions, reviews],
+                [product, variant, selectedVariantOptions, setSelectedVariantOptions],
             )}
         >
             <div className={styles["page"]}>

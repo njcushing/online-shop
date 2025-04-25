@@ -1,14 +1,16 @@
-import { useContext, useState, useEffect, useRef } from "react";
+import { useContext, useState, useEffect, useCallback, useRef } from "react";
 import { RootContext } from "@/pages/Root";
 import { ProductContext } from "@/pages/Product";
 import { Rating, Progress, Divider, Pagination } from "@mantine/core";
 import { useScrollIntoView } from "@mantine/hooks";
+import { mockGetReviews } from "@/api/review";
 import { v4 as uuid } from "uuid";
+import { ProductReview } from "@/utils/products/product";
 import { Review } from "./components/Review";
 import styles from "./index.module.css";
 
-const filterOptions = ["All", "5", "4", "3", "2", "1"] as const;
-const sortOptions = ["Most Recent", "Highest Rating", "Lowest Rating"] as const;
+export const filterOptions = ["All", "5", "4", "3", "2", "1"] as const;
+export const sortOptions = ["Most Recent", "Highest Rating", "Lowest Rating"] as const;
 
 const reviewsPerPage = 10;
 
@@ -16,12 +18,61 @@ export function ProductReviews() {
     const { headerInfo } = useContext(RootContext);
     const { forceClose } = headerInfo;
 
-    const { product, reviews } = useContext(ProductContext);
+    const { product } = useContext(ProductContext);
     const { data: productData, awaiting } = product;
 
-    const [page, setPage] = useState<number>(0);
     const [filter, setFilter] = useState<(typeof filterOptions)[number]>("All");
     const [sort, setSort] = useState<(typeof sortOptions)[number]>("Most Recent");
+    const [page, setPage] = useState<number>(0);
+
+    const [reviews, setReviews] = useState<ProductReview[]>([]);
+
+    const getReviewsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const fetchReviews = useCallback(async () => {
+        if (!productData) {
+            setReviews([]);
+            return;
+        }
+
+        await new Promise((resolve) => {
+            getReviewsTimeoutRef.current = setTimeout(resolve, 1000);
+        });
+
+        getReviewsTimeoutRef.current = null;
+
+        const response = {
+            data: mockGetReviews({
+                productId: productData.id,
+                filter: filter === "All" ? undefined : filter,
+                sort,
+                start: page * reviewsPerPage,
+                end: page * reviewsPerPage + reviewsPerPage,
+            }),
+            awaiting: false,
+            status: 200,
+            message: "Success",
+        };
+
+        setReviews(response.data);
+    }, [productData, filter, sort, page]);
+
+    useEffect(() => {
+        if (product.data) {
+            fetchReviews();
+        } else {
+            if (getReviewsTimeoutRef.current) {
+                clearTimeout(getReviewsTimeoutRef.current);
+                getReviewsTimeoutRef.current = null;
+            }
+            setReviews([]);
+        }
+
+        return () => {
+            if (getReviewsTimeoutRef.current) {
+                clearTimeout(getReviewsTimeoutRef.current);
+            }
+        };
+    }, [product, fetchReviews]);
 
     const forceCloseId = useRef<string>(uuid());
     const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({
@@ -42,6 +93,11 @@ export function ProductReviews() {
     if (awaiting || !productData) return null;
 
     const { rating, reviews: reviewIds } = productData;
+
+    const reviewQuantity =
+        filter === "All"
+            ? reviewIds.length
+            : rating.quantities[Number.parseInt(filter, 10) as keyof typeof rating.quantities];
 
     return (
         <div className={styles["product-reviews"]}>
@@ -91,7 +147,7 @@ export function ProductReviews() {
                                                     <span
                                                         className={styles["column-sizer"]}
                                                         aria-hidden
-                                                        key={`product-reviews-tier-${key}-progress-bar-column-sizer-${k}`}
+                                                        key={`product-reviews-tier-${key}-aaprogress-bar-column-sizer-${k}`}
                                                     >
                                                         {k}
                                                     </span>
@@ -117,7 +173,7 @@ export function ProductReviews() {
                                                     <span
                                                         className={styles["column-sizer"]}
                                                         aria-hidden
-                                                        key={`product-reviews-tier-${key}-progress-bar-column-sizer-${v}`}
+                                                        key={`product-reviews-tier-${key}-bbprogress-bar-column-sizer-${v}`}
                                                     >
                                                         {Math.floor(
                                                             (v * 100) / rating.totalQuantity + 0.5,
@@ -192,22 +248,20 @@ export function ProductReviews() {
                 </div>
             </div>
             <div className={styles["reviews"]} ref={targetRef}>
-                <p className={styles["review-count"]}>{reviewIds.length} reviews</p>
+                <p className={styles["review-count"]}>{reviewQuantity} reviews</p>
 
                 <Divider className={styles["divider"]} />
 
-                {reviews
-                    .slice(page * reviewsPerPage, page * reviewsPerPage + reviewsPerPage)
-                    .map((review) => {
-                        return <Review data={review} key={review.id} />;
-                    })}
+                {reviews.map((review) => {
+                    return <Review data={review} key={review.id} />;
+                })}
 
                 <div className={styles["pagination-container"]}>
                     <Pagination
-                        total={Math.floor(reviewIds.length / reviewsPerPage)}
+                        total={Math.ceil(reviewQuantity / reviewsPerPage)}
                         withEdges
                         onChange={(newPageNo) => {
-                            setPage(newPageNo);
+                            setPage(newPageNo - 1);
                             scrollIntoView();
                             headerInfo.forceClose(true, forceCloseId.current);
                         }}
