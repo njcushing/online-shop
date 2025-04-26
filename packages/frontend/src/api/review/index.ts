@@ -45,7 +45,7 @@ export const mockGetReview = (reviewId: string): ProductReview | null => {
 
 export const getReviews: HTTPMethodTypes.GET<
     {
-        productId: string;
+        productId: string | undefined;
         filter?: (typeof filterOptions)[number];
         sort?: (typeof sortOptions)[number];
         start?: number;
@@ -90,7 +90,7 @@ export const getReviews: HTTPMethodTypes.GET<
 
 export const mockGetReviews: HTTPMethodTypes.GET<
     {
-        productId: string;
+        productId: string | undefined;
         filter?: (typeof filterOptions)[number];
         sort?: (typeof sortOptions)[number];
         start?: number;
