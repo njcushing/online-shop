@@ -2,7 +2,7 @@ export type GET<Params, Response> = (
     data: {
         params?: Params;
     },
-    abortController: AbortController | null,
+    abortController?: AbortController | null,
     ...args: unknown[]
 ) => Promise<{
     status: number;
@@ -17,7 +17,7 @@ export type POST<Params, Body, Response> = (
         params?: Params;
         body?: Body;
     },
-    abortController: AbortController | null,
+    abortController?: AbortController | null,
     ...args: unknown[]
 ) => Promise<{
     status: number;
