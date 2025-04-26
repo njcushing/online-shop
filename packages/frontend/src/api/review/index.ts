@@ -51,12 +51,12 @@ export const getReviews: HTTPMethodTypes.GET<
         start?: number;
         end?: number;
     },
-    { review: ProductReview | null }
+    { reviews: ProductReview[] }
 > = async (data, abortController = null) => {
     const token = localStorage.getItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION);
     if (!token) return { status: 400, message: "No token provided for query", data: null };
 
-    const { productId } = data.params || { reviewId: null };
+    const { productId } = data.params || { productId: null };
     if (!productId) return { status: 400, message: "No product id provided for query", data: null };
 
     const urlParams = new URLSearchParams();
@@ -88,16 +88,26 @@ export const getReviews: HTTPMethodTypes.GET<
     return result;
 };
 
-export const mockGetReviews = (opts: {
-    productId: string;
-    filter?: (typeof filterOptions)[number];
-    sort?: (typeof sortOptions)[number];
-    start?: number;
-    end?: number;
-}): ProductReview[] => {
-    const { productId, filter, sort, start, end } = opts || {};
+export const mockGetReviews: HTTPMethodTypes.GET<
+    {
+        productId: string;
+        filter?: (typeof filterOptions)[number];
+        sort?: (typeof sortOptions)[number];
+        start?: number;
+        end?: number;
+    },
+    ProductReview[]
+> = async (data /* , abortController = null */) => {
+    const { params } = data;
+    const { productId, filter, sort, start, end } = params || {};
 
-    if (!productId) return [];
+    if (!productId) {
+        return {
+            status: 400,
+            message: "No product id provided for query",
+            data: [],
+        };
+    }
 
     const productReviews = reviews.filter((review) => review.productId === productId);
 
@@ -137,5 +147,9 @@ export const mockGetReviews = (opts: {
     let slicedReviews = sortedReviews;
     slicedReviews = slicedReviews.slice(start, end);
 
-    return slicedReviews;
+    return {
+        status: 200,
+        message: "Success",
+        data: slicedReviews,
+    };
 };
