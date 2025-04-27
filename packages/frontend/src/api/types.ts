@@ -1,28 +1,28 @@
-export type GET<Params, Response> = (
-    data: {
-        params?: Params;
-    },
-    abortController?: AbortController | null,
-    ...args: unknown[]
-) => Promise<{
+type FuncResponseObject<FuncResponse> = {
     status: number;
     message: string;
-    data: Response | null;
-}>;
+    data: FuncResponse | null;
+};
 
-export type DELETE<Params, Response> = GET<Params, Response>;
-
-export type POST<Params, Body, Response> = (
-    data: {
-        params?: Params;
-        body?: Body;
+export type GET<FuncParams = unknown, FuncResponse = unknown> = (
+    props: {
+        params?: FuncParams;
+        abortController?: AbortController | null;
     },
-    abortController?: AbortController | null,
     ...args: unknown[]
-) => Promise<{
-    status: number;
-    message: string;
-    data?: Response;
-}>;
+) => Promise<FuncResponseObject<FuncResponse>>;
 
-export type PUT<Params, Body, Response> = POST<Params, Body, Response>;
+export type DELETE<FuncParams, FuncResponse> = GET<FuncParams, FuncResponse>;
+
+export type POST<FuncParams, FuncBody, FuncResponse> = {
+    (
+        props: {
+            params?: FuncParams;
+            body?: FuncBody;
+            abortController?: AbortController | null;
+        },
+        ...args: unknown[]
+    ): Promise<FuncResponseObject<FuncResponse>>;
+};
+
+export type PUT<FuncParams, FuncBody, FuncResponse> = POST<FuncParams, FuncBody, FuncResponse>;
