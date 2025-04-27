@@ -101,6 +101,10 @@ export const mockGetReviews: HTTPMethodTypes.GET<
     const { params } = data;
     const { productId, filter, sort, start, end } = params || {};
 
+    await new Promise((resolve) => {
+        setTimeout(resolve, 1000);
+    });
+
     if (!productId) {
         return {
             status: 400,
