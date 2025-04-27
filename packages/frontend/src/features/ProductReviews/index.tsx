@@ -24,6 +24,8 @@ export function ProductReviews() {
 
     const [filter, setFilter] = useState<(typeof filterOptions)[number]>("All");
     const [sort, setSort] = useState<(typeof sortOptions)[number]>("Most Recent");
+    useEffect(() => setPage(0), [filter, sort]);
+
     const [page, setPage] = useState<number>(0);
 
     const [functionParams, setFunctionParams] = useState({
@@ -250,6 +252,7 @@ export function ProductReviews() {
                 <div className={styles["pagination-container"]}>
                     <Pagination
                         total={Math.ceil(reviewQuantity / reviewsPerPage)}
+                        value={page + 1}
                         withEdges
                         onChange={(newPageNo) => {
                             setPage(newPageNo - 1);
