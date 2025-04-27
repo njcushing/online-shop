@@ -6,30 +6,36 @@ import { ProductReview } from "@/utils/products/product";
 import styles from "./index.module.css";
 
 export type TReview = {
-    data: ProductReview;
+    data?: ProductReview;
     awaiting?: boolean;
 };
 
 export function Review({ data, awaiting = false }: TReview) {
-    const { rating, comment, datePosted } = data;
+    if (!data && !awaiting) return null;
+
+    if (awaiting) {
+        return (
+            <div className={styles["review"]}>
+                <Skeleton visible={!data || awaiting} width="100px" height="20px"></Skeleton>
+                <Skeleton visible={!data || awaiting} width="20rem" height="1.06rem"></Skeleton>
+                <Skeleton visible={!data || awaiting} width="100%" height="2rem"></Skeleton>
+            </div>
+        );
+    }
+
+    const { rating, comment, datePosted } = data!;
 
     return (
         <div className={styles["review"]}>
-            <Skeleton visible={awaiting} width="min-content">
-                <Rating readOnly count={rating} value={rating} color="gold" size="md" />
-            </Skeleton>
-            <Skeleton visible={awaiting} width="20rem">
-                <span className={styles["date-posted"]}>
-                    Posted by username on {dayjs(datePosted).format("MMMM D, YYYY")}
-                </span>
-            </Skeleton>
-            <Skeleton visible={awaiting} width="100%">
-                <div className={styles["comment"]}>
-                    <div className={styles["markdown-container"]}>
-                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{comment}</ReactMarkdown>
-                    </div>
+            <Rating readOnly count={rating} value={rating} color="gold" size="md" />
+            <span className={styles["date-posted"]}>
+                Posted by username on {dayjs(datePosted).format("MMMM D, YYYY")}
+            </span>
+            <div className={styles["comment"]}>
+                <div className={styles["markdown-container"]}>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{comment}</ReactMarkdown>
                 </div>
-            </Skeleton>
+            </div>
         </div>
     );
 }
