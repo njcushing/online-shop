@@ -1,11 +1,12 @@
-import { useContext, useState, useEffect, useCallback, useRef } from "react";
+import { useContext, useState, useEffect, useRef, useMemo } from "react";
 import { RootContext } from "@/pages/Root";
 import { ProductContext } from "@/pages/Product";
 import { Rating, Progress, Divider, Pagination } from "@mantine/core";
 import { useScrollIntoView } from "@mantine/hooks";
 import { mockGetReviews } from "@/api/review";
-import { v4 as uuid } from "uuid";
 import { ProductReview } from "@/utils/products/product";
+import * as useAsync from "@/hooks/useAsync";
+import { v4 as uuid } from "uuid";
 import { Review } from "./components/Review";
 import styles from "./index.module.css";
 
@@ -13,8 +14,6 @@ export const filterOptions = ["All", "5", "4", "3", "2", "1"] as const;
 export const sortOptions = ["Most Recent", "Highest Rating", "Lowest Rating"] as const;
 
 const reviewsPerPage = 10;
-
-const defaultReviews = { data: [], awaiting: true, status: 200, message: "Success" };
 
 export function ProductReviews() {
     const { headerInfo } = useContext(RootContext);
@@ -27,57 +26,38 @@ export function ProductReviews() {
     const [sort, setSort] = useState<(typeof sortOptions)[number]>("Most Recent");
     const [page, setPage] = useState<number>(0);
 
-    const [reviews, setReviews] = useState<{
-        data: ProductReview[];
-        awaiting: boolean;
-        status: number;
-        message: string;
-    }>(defaultReviews);
-
-    const getReviewsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-    const fetchReviews = useCallback(async () => {
-        await new Promise((resolve) => {
-            getReviewsTimeoutRef.current = setTimeout(resolve, 1000);
+    const [functionParams, setFunctionParams] = useState({
+        productId: productData?.id,
+        filter: filter === "All" ? undefined : filter,
+        sort,
+        start: page * reviewsPerPage,
+        end: page * reviewsPerPage + reviewsPerPage,
+    });
+    useEffect(() => {
+        setFunctionParams({
+            productId: productData?.id,
+            filter: filter === "All" ? undefined : filter,
+            sort,
+            start: page * reviewsPerPage,
+            end: page * reviewsPerPage + reviewsPerPage,
         });
-
-        getReviewsTimeoutRef.current = null;
-
-        const response = productData?.id
-            ? {
-                  data: mockGetReviews({
-                      productId: productData.id,
-                      filter: filter === "All" ? undefined : filter,
-                      sort,
-                      start: page * reviewsPerPage,
-                      end: page * reviewsPerPage + reviewsPerPage,
-                  }),
-                  awaiting: false,
-                  status: 200,
-                  message: "Success",
-              }
-            : { data: [], awaiting: false, status: 400, message: "No product id provided" };
-
-        setReviews(response);
     }, [productData, filter, sort, page]);
 
-    useEffect(() => {
-        if (product.data) {
-            fetchReviews();
-            setReviews((curr) => ({ ...curr, awaiting: true }));
-        } else {
-            if (getReviewsTimeoutRef.current) {
-                clearTimeout(getReviewsTimeoutRef.current);
-                getReviewsTimeoutRef.current = null;
-            }
-            setReviews(defaultReviews);
-        }
+    const { response, setParams, attempt, awaiting } = useAsync.GET(
+        mockGetReviews,
+        [{ params: functionParams }],
+        { attemptOnMount: false },
+    );
 
-        return () => {
-            if (getReviewsTimeoutRef.current) {
-                clearTimeout(getReviewsTimeoutRef.current);
-            }
-        };
-    }, [product, fetchReviews]);
+    useEffect(() => {
+        setParams([{ params: functionParams }]);
+        attempt();
+    }, [functionParams, setParams, attempt]);
+
+    const reviews = useMemo<ProductReview[]>(() => {
+        if (response && response.data) return response.data;
+        return [];
+    }, [response]);
 
     const forceCloseId = useRef<string>(uuid());
     const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({
@@ -257,8 +237,8 @@ export function ProductReviews() {
 
                 <Divider className={styles["divider"]} />
 
-                {reviews.data.map((review) => {
-                    return <Review data={review} awaiting={reviews.awaiting} key={review.id} />;
+                {reviews.map((review) => {
+                    return <Review data={review} awaiting={awaiting} key={review.id} />;
                 })}
 
                 <div className={styles["pagination-container"]}>
