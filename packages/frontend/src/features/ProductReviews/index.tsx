@@ -237,9 +237,15 @@ export function ProductReviews() {
 
                 <Divider className={styles["divider"]} />
 
-                {reviews.map((review) => {
-                    return <Review data={review} awaiting={awaiting} key={review.id} />;
-                })}
+                {!awaiting
+                    ? reviews.map((review) => {
+                          return <Review data={review} key={review.id} />;
+                      })
+                    : Array.from({
+                          length: Math.min(reviewQuantity - page * reviewsPerPage, reviewsPerPage),
+                      }).map(() => {
+                          return <Review awaiting key={uuid()} />;
+                      })}
 
                 <div className={styles["pagination-container"]}>
                     <Pagination
