@@ -7,12 +7,12 @@ import { mockGetProduct } from "../product";
 export const getCart: HTTPMethodTypes.GET<
     undefined,
     { cartData: PopulatedCartItemData[] }
-> = async (data, abortController) => {
+> = async (data) => {
     const token = localStorage.getItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION);
     if (!token) return { status: 400, message: "No token provided for query", data: null };
 
     const result = await fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/cart`, {
-        signal: abortController ? abortController.signal : null,
+        signal: data.abortController ? data.abortController.signal : null,
         method: "GET",
         mode: "cors",
         headers: { Authorization: token },
@@ -56,7 +56,7 @@ export const updateCart: HTTPMethodTypes.PUT<
     undefined,
     { products: CartItemData[] },
     { cartData: PopulatedCartItemData[] }
-> = async (data, abortController) => {
+> = async (data) => {
     const token = localStorage.getItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION);
     if (!token) return { status: 400, message: "No token provided for query", data: null };
 
@@ -66,7 +66,7 @@ export const updateCart: HTTPMethodTypes.PUT<
     }
 
     const result = await fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/cart`, {
-        signal: abortController ? abortController.signal : null,
+        signal: data.abortController ? data.abortController.signal : null,
         method: "PUT",
         mode: "cors",
         headers: { Authorization: token },

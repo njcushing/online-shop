@@ -6,7 +6,7 @@ import { saveTokenFromAPIResponse } from "../utils/saveTokenFromAPIResponse";
 export const getReview: HTTPMethodTypes.GET<
     { reviewId: string },
     { review: ProductReview | null }
-> = async (data, abortController = null) => {
+> = async (data) => {
     const token = localStorage.getItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION);
     if (!token) return { status: 400, message: "No token provided for query", data: null };
 
@@ -14,7 +14,7 @@ export const getReview: HTTPMethodTypes.GET<
     if (!reviewId) return { status: 400, message: "No review id provided for query", data: null };
 
     const result = await fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/review/${reviewId}`, {
-        signal: abortController ? abortController.signal : null,
+        signal: data.abortController ? data.abortController.signal : null,
         method: "GET",
         mode: "cors",
         headers: { Authorization: token },
@@ -52,7 +52,7 @@ export const getReviews: HTTPMethodTypes.GET<
         end?: number;
     },
     { reviews: ProductReview[] }
-> = async (data, abortController = null) => {
+> = async (data) => {
     const token = localStorage.getItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION);
     if (!token) return { status: 400, message: "No token provided for query", data: null };
 
@@ -63,7 +63,7 @@ export const getReviews: HTTPMethodTypes.GET<
     Object.entries(data).forEach(([key, value]) => urlParams.append(key, `${value}`));
 
     const result = await fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/reviews?${urlParams}`, {
-        signal: abortController ? abortController.signal : null,
+        signal: data.abortController ? data.abortController.signal : null,
         method: "GET",
         mode: "cors",
         headers: { Authorization: token },
@@ -90,7 +90,7 @@ export const getReviews: HTTPMethodTypes.GET<
 
 export const mockGetReviews: HTTPMethodTypes.GET<
     {
-        productId: string | undefined;
+        productId?: string;
         filter?: (typeof filterOptions)[number];
         sort?: (typeof sortOptions)[number];
         start?: number;

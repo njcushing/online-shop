@@ -5,13 +5,13 @@ import { saveTokenFromAPIResponse } from "../utils/saveTokenFromAPIResponse";
 export const getProduct: HTTPMethodTypes.GET<
     { productSlug: string },
     { product: Product | null }
-> = async (data, abortController = null) => {
+> = async (data) => {
     const { productSlug } = data.params || { productSlug: null };
     if (!productSlug)
         return { status: 400, message: "No product slug provided for query", data: null };
 
     const result = await fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/product/${productSlug}`, {
-        signal: abortController ? abortController.signal : null,
+        signal: data.abortController ? data.abortController.signal : null,
         method: "GET",
         mode: "cors",
         headers: {
