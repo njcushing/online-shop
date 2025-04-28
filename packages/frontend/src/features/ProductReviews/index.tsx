@@ -28,33 +28,34 @@ export function ProductReviews() {
 
     const [page, setPage] = useState<number>(0);
 
-    const [functionParams, setFunctionParams] = useState({
-        productId: productData?.id,
-        filter: filter === "All" ? undefined : filter,
-        sort,
-        start: page * reviewsPerPage,
-        end: page * reviewsPerPage + reviewsPerPage,
-    });
-    useEffect(() => {
-        setFunctionParams({
+    const { response, setParams, attempt, awaiting } = useAsync.GET(
+        mockGetReviews,
+        [
+            {
+                params: {
+                    productId: productData?.id,
+                    filter: filter === "All" ? undefined : filter,
+                    sort,
+                    start: page * reviewsPerPage,
+                    end: page * reviewsPerPage + reviewsPerPage,
+                },
+            },
+        ],
+        { attemptOnMount: false },
+    );
+
+    useMemo(() => {
+        const newFunctionParams = {
             productId: productData?.id,
             filter: filter === "All" ? undefined : filter,
             sort,
             start: page * reviewsPerPage,
             end: page * reviewsPerPage + reviewsPerPage,
-        });
-    }, [productData, filter, sort, page]);
-
-    const { response, setParams, attempt, awaiting } = useAsync.GET(
-        mockGetReviews,
-        [{ params: functionParams }],
-        { attemptOnMount: false },
-    );
-
-    useEffect(() => {
-        setParams([{ params: functionParams }]);
+        };
+        setParams([{ params: newFunctionParams }]);
         attempt();
-    }, [functionParams, setParams, attempt]);
+        return newFunctionParams;
+    }, [productData, filter, sort, page, setParams, attempt]);
 
     const reviews = useMemo<ProductReview[]>(() => {
         if (response && response.data) return response.data;
