@@ -207,6 +207,7 @@ export function ProductReviews() {
                             onChange={(e) => {
                                 const { value } = e.target;
                                 setFilter(value as (typeof filterOptions)[number]);
+                                setQueueScroll(true);
                             }}
                             key="sort-options"
                         >
@@ -234,6 +235,7 @@ export function ProductReviews() {
                             onChange={(e) => {
                                 const { value } = e.target;
                                 setSort(value as (typeof sortOptions)[number]);
+                                setQueueScroll(true);
                             }}
                             key="sort-options"
                         >
