@@ -24,8 +24,6 @@ export function ProductReviews() {
 
     const [filter, setFilter] = useState<(typeof filterOptions)[number]>("All");
     const [sort, setSort] = useState<(typeof sortOptions)[number]>("Most Recent");
-    useEffect(() => setPage(0), [filter, sort]);
-
     const [page, setPage] = useState<number>(0);
 
     const { response, setParams, attempt, awaiting } = useAsync.GET(
@@ -207,6 +205,7 @@ export function ProductReviews() {
                             onChange={(e) => {
                                 const { value } = e.target;
                                 setFilter(value as (typeof filterOptions)[number]);
+                                setPage(0);
                                 setQueueScroll(true);
                             }}
                             key="sort-options"
@@ -235,6 +234,7 @@ export function ProductReviews() {
                             onChange={(e) => {
                                 const { value } = e.target;
                                 setSort(value as (typeof sortOptions)[number]);
+                                setPage(0);
                                 setQueueScroll(true);
                             }}
                             key="sort-options"
