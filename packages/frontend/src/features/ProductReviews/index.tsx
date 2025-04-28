@@ -68,8 +68,25 @@ export function ProductReviews() {
         duration: 600,
         cancelable: false,
         easing: (t) => 1 - (1 - t) ** 2,
-        onScrollFinish: () => headerInfo.forceClose(false, forceCloseId.current),
+        onScrollFinish: () => forceClose(false, forceCloseId.current),
     });
+    const [queueScroll, setQueueScroll] = useState<boolean>(false);
+    useEffect(() => {
+        if (!queueScroll) return undefined;
+
+        // Ensure Review components' container repaint before smooth scroll to prevent jumping
+        const rafId = requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                scrollIntoView();
+                forceClose(true, forceCloseId.current);
+                setQueueScroll(false);
+            });
+        });
+
+        return () => {
+            cancelAnimationFrame(rafId);
+        };
+    }, [forceClose, scrollIntoView, queueScroll]);
 
     useEffect(() => {
         const { current } = forceCloseId;
@@ -257,8 +274,7 @@ export function ProductReviews() {
                         withEdges
                         onChange={(newPageNo) => {
                             setPage(newPageNo - 1);
-                            scrollIntoView();
-                            headerInfo.forceClose(true, forceCloseId.current);
+                            setQueueScroll(true);
                         }}
                         classNames={{ control: styles["pagination-control"] }}
                     />
