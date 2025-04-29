@@ -39,8 +39,40 @@ export const getReview: HTTPMethodTypes.GET<
     return result;
 };
 
-export const mockGetReview = (reviewId: string): ProductReview | null => {
-    return reviews.find((review) => review.id === reviewId) || null;
+export const mockGetReview: HTTPMethodTypes.GET<
+    { reviewId: string },
+    ProductReview | null
+> = async (data) => {
+    const { params } = data;
+    const { reviewId } = params || {};
+
+    await new Promise((resolve) => {
+        setTimeout(resolve, 1000);
+    });
+
+    if (!reviewId) {
+        return {
+            status: 400,
+            message: "No review id provided for query",
+            data: null,
+        };
+    }
+
+    const foundReview = reviews.find((review) => review.id === reviewId);
+
+    if (!foundReview) {
+        return {
+            status: 404,
+            message: "Review not found",
+            data: null,
+        };
+    }
+
+    return {
+        status: 200,
+        message: "Success",
+        data: foundReview,
+    };
 };
 
 export const getReviews: HTTPMethodTypes.GET<
@@ -97,7 +129,7 @@ export const mockGetReviews: HTTPMethodTypes.GET<
         end?: number;
     },
     ProductReview[]
-> = async (data /* , abortController = null */) => {
+> = async (data) => {
     const { params } = data;
     const { productId, filter, sort, start, end } = params || {};
 
