@@ -3,23 +3,25 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { ProductHero } from "@/features/ProductHero";
 import { ProductInformation } from "@/features/ProductInformation";
 import { RecommendedProducts } from "@/features/RecommendedProducts";
+import * as useAsync from "@/hooks/useAsync";
 import {
     Product as ProductDataType,
     ProductVariant,
     findVariantFromOptions,
 } from "@/utils/products/product";
 import { mockGetProduct } from "@/api/product";
+import { FuncResponseObject } from "@/api/types";
 import styles from "./index.module.css";
 
 export interface IProductContext {
-    product: { data: ProductDataType | null; awaiting: boolean; status: number; message: string };
+    product: FuncResponseObject<ProductDataType> & { awaiting: boolean };
     variant: ProductVariant | null;
     selectedVariantOptions: ProductVariant["options"];
     setSelectedVariantOptions: React.Dispatch<React.SetStateAction<ProductVariant["options"]>>;
 }
 
 const defaultProductContext: IProductContext = {
-    product: { data: null, awaiting: true, status: 200, message: "Success" },
+    product: { data: null, status: 200, message: "Success", awaiting: true },
     variant: null,
     selectedVariantOptions: {},
     setSelectedVariantOptions: () => {},
@@ -35,7 +37,7 @@ export function Product() {
     const [product, setProduct] = useState<IProductContext["product"]>(
         defaultProductContext.product,
     );
-    const productDataRef = useRef<IProductContext["product"]["data"]>(product.data);
+    const productDataRef = useRef<ProductDataType | null>(product.data);
     useEffect(() => {
         productDataRef.current = product.data;
     }, [product]);
@@ -52,63 +54,35 @@ export function Product() {
         selectedVariantOptionsRef.current = selectedVariantOptions;
     }, [selectedVariantOptions]);
 
-    const updateSelectedVariantData = useCallback(
-        (productData: IProductContext["product"]["data"]) => {
-            const newVariantData = productData
-                ? findVariantFromOptions(productData, selectedVariantOptionsRef.current)
-                : null;
-            setVariant(newVariantData);
-            if (
-                newVariantData &&
-                JSON.stringify(newVariantData.options) !==
-                    JSON.stringify(selectedVariantOptionsRef.current)
-            ) {
-                setSelectedVariantOptions(newVariantData.options);
-            }
-        },
-        [],
+    const updateSelectedVariantData = useCallback((productData: ProductDataType | null) => {
+        const newVariantData = productData
+            ? findVariantFromOptions(productData, selectedVariantOptionsRef.current)
+            : null;
+        setVariant(newVariantData);
+        if (
+            newVariantData &&
+            JSON.stringify(newVariantData.options) !==
+                JSON.stringify(selectedVariantOptionsRef.current)
+        ) {
+            setSelectedVariantOptions(newVariantData.options);
+        }
+    }, []);
+
+    const { response, setParams, attempt, awaiting } = useAsync.GET(
+        mockGetProduct,
+        [{ params: { productSlug } }],
+        { attemptOnMount: false },
     );
 
-    const getProductDataTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-    const fetchProductData = useCallback(
-        async (slug: string) => {
-            await new Promise((resolve) => {
-                getProductDataTimeoutRef.current = setTimeout(resolve, 1000);
-            });
-
-            getProductDataTimeoutRef.current = null;
-
-            const response = {
-                data: mockGetProduct(slug),
-                awaiting: false,
-                status: 200,
-                message: "Success",
-            };
-
-            setProduct(response);
-            updateSelectedVariantData(response.data);
-        },
-        [updateSelectedVariantData],
-    );
+    useMemo(() => {
+        setParams([{ params: { productSlug } }]);
+        attempt();
+    }, [productSlug, setParams, attempt]);
 
     useEffect(() => {
-        if (productSlug) {
-            fetchProductData(productSlug);
-            setProduct((curr) => ({ ...curr, awaiting: true }));
-        } else {
-            if (getProductDataTimeoutRef.current) {
-                clearTimeout(getProductDataTimeoutRef.current);
-                getProductDataTimeoutRef.current = null;
-            }
-            setProduct(defaultProductContext.product);
-        }
-
-        return () => {
-            if (getProductDataTimeoutRef.current) {
-                clearTimeout(getProductDataTimeoutRef.current);
-            }
-        };
-    }, [productSlug, fetchProductData]);
+        setProduct({ ...response, awaiting });
+        updateSelectedVariantData(response?.data || null);
+    }, [updateSelectedVariantData, response, awaiting]);
 
     useEffect(() => {
         updateSelectedVariantData(productDataRef.current);
