@@ -48,8 +48,26 @@ export const mockPopulateCartItems = (cart: CartItemData[]): PopulatedCartItemDa
     });
 };
 
-export const mockGetCart = (): PopulatedCartItemData[] => {
-    return mockPopulateCartItems(mockCart);
+export const mockGetCart: HTTPMethodTypes.GET<undefined, PopulatedCartItemData[]> = async () => {
+    await new Promise((resolve) => {
+        setTimeout(resolve, 1000);
+    });
+
+    const foundCart = mockPopulateCartItems(mockCart);
+
+    if (!foundCart) {
+        return {
+            status: 404,
+            message: "Cart not found",
+            data: null,
+        };
+    }
+
+    return {
+        status: 200,
+        message: "Success",
+        data: foundCart,
+    };
 };
 
 export const updateCart: HTTPMethodTypes.PUT<
