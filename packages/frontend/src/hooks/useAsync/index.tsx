@@ -17,12 +17,18 @@ type GetAsyncOpts = {
     };
 };
 
+function genericResponseObject<FuncParams, FuncBody, FuncResponse>(): UnwrapPromise<
+    ReturnType<MethodTypes<FuncParams, FuncBody, FuncResponse>>
+> {
+    return { status: 500, message: "Something went wrong", data: null };
+}
+
 export function useAsyncBase<FuncParams = unknown, FuncBody = unknown, FuncResponse = unknown>(
     func: MethodTypes<FuncParams, FuncBody, FuncResponse>,
     parameters?: Parameters<MethodTypes<FuncParams, FuncBody, FuncResponse>>,
     opts?: GetAsyncOpts,
 ): {
-    response: UnwrapPromise<ReturnType<MethodTypes<FuncParams, FuncBody, FuncResponse>>> | null;
+    response: UnwrapPromise<ReturnType<MethodTypes<FuncParams, FuncBody, FuncResponse>>>;
     setParams: React.Dispatch<
         React.SetStateAction<
             Parameters<MethodTypes<FuncParams, FuncBody, FuncResponse>> | undefined
@@ -40,9 +46,10 @@ export function useAsyncBase<FuncParams = unknown, FuncBody = unknown, FuncRespo
     const [params, setParams] = useState<
         Parameters<MethodTypes<FuncParams, FuncBody, FuncResponse>> | undefined
     >(parameters);
-    const [response, setResp] = useState<UnwrapPromise<
-        ReturnType<MethodTypes<FuncParams, FuncBody, FuncResponse>>
-    > | null>(null);
+    const [response, setResponse] =
+        useState<UnwrapPromise<ReturnType<MethodTypes<FuncParams, FuncBody, FuncResponse>>>>(
+            genericResponseObject(),
+        );
     const [abortController, setAbortController] = useState<AbortController | null>(null);
     const [aborted, setAborted] = useState(false);
     const [attempting, setAttempting] = useState<boolean>(false);
@@ -63,13 +70,13 @@ export function useAsyncBase<FuncParams = unknown, FuncBody = unknown, FuncRespo
             }
             const abortControllerNew = new AbortController();
             setAbortController(abortControllerNew);
-            setResp(null);
+            setResponse(genericResponseObject());
             (async () => {
                 let data = {};
                 let args;
                 if (params) [data, ...args] = params;
                 const asyncResp = await func(data, args);
-                setResp(
+                setResponse(
                     asyncResp as UnwrapPromise<
                         ReturnType<MethodTypes<FuncParams, FuncBody, FuncResponse>>
                     >,
