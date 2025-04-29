@@ -4,10 +4,7 @@ import * as HTTPMethodTypes from "../types";
 import { saveTokenFromAPIResponse } from "../utils/saveTokenFromAPIResponse";
 import { mockGetProduct } from "../product";
 
-export const getCart: HTTPMethodTypes.GET<
-    undefined,
-    { cartData: PopulatedCartItemData[] }
-> = async (data) => {
+export const getCart: HTTPMethodTypes.GET<undefined, PopulatedCartItemData[]> = async (data) => {
     const token = localStorage.getItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION);
     if (!token) return { status: 400, message: "No token provided for query", data: null };
 
@@ -73,7 +70,7 @@ export const mockGetCart: HTTPMethodTypes.GET<undefined, PopulatedCartItemData[]
 export const updateCart: HTTPMethodTypes.PUT<
     undefined,
     { products: CartItemData[] },
-    { cartData: PopulatedCartItemData[] }
+    PopulatedCartItemData[]
 > = async (data) => {
     const token = localStorage.getItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION);
     if (!token) return { status: 400, message: "No token provided for query", data: null };
