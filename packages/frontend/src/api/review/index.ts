@@ -3,10 +3,7 @@ import { filterOptions, sortOptions } from "@/features/ProductReviews";
 import * as HTTPMethodTypes from "../types";
 import { saveTokenFromAPIResponse } from "../utils/saveTokenFromAPIResponse";
 
-export const getReview: HTTPMethodTypes.GET<
-    { reviewId: string },
-    { review: ProductReview }
-> = async (data) => {
+export const getReview: HTTPMethodTypes.GET<{ reviewId: string }, ProductReview> = async (data) => {
     const token = localStorage.getItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION);
     if (!token) return { status: 400, message: "No token provided for query", data: null };
 
@@ -82,7 +79,7 @@ export const getReviews: HTTPMethodTypes.GET<
         start?: number;
         end?: number;
     },
-    { reviews: ProductReview[] }
+    ProductReview[]
 > = async (data) => {
     const token = localStorage.getItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION);
     if (!token) return { status: 400, message: "No token provided for query", data: null };
