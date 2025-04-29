@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useRef, useMemo } from "react";
+import { createContext, useState, useEffect, useMemo } from "react";
 import { Outlet } from "react-router-dom";
 import { Header } from "@/features/Header";
 import { Footer } from "@/features/Footer";
