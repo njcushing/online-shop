@@ -5,7 +5,7 @@ import { saveTokenFromAPIResponse } from "../utils/saveTokenFromAPIResponse";
 
 export const getReview: HTTPMethodTypes.GET<
     { reviewId: string },
-    { review: ProductReview | null }
+    { review: ProductReview }
 > = async (data) => {
     const token = localStorage.getItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION);
     if (!token) return { status: 400, message: "No token provided for query", data: null };
@@ -39,10 +39,9 @@ export const getReview: HTTPMethodTypes.GET<
     return result;
 };
 
-export const mockGetReview: HTTPMethodTypes.GET<
-    { reviewId: string },
-    ProductReview | null
-> = async (data) => {
+export const mockGetReview: HTTPMethodTypes.GET<{ reviewId: string }, ProductReview> = async (
+    data,
+) => {
     const { params } = data;
     const { reviewId } = params || {};
 
