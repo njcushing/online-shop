@@ -4,7 +4,7 @@ import { saveTokenFromAPIResponse } from "../utils/saveTokenFromAPIResponse";
 
 export const getProduct: HTTPMethodTypes.GET<
     { productSlug: string },
-    { product: Product | null }
+    { product?: Product }
 > = async (data) => {
     const { productSlug } = data.params || { productSlug: null };
     if (!productSlug)
@@ -38,6 +38,37 @@ export const getProduct: HTTPMethodTypes.GET<
     return result;
 };
 
-export const mockGetProduct = (productSlug: string): Product | null => {
-    return products.find((product) => product.slug === productSlug) || null;
+export const mockGetProduct: HTTPMethodTypes.GET<{ productSlug?: string }, Product> = async (
+    data,
+) => {
+    const { params } = data;
+    const { productSlug } = params || {};
+
+    await new Promise((resolve) => {
+        setTimeout(resolve, 1000);
+    });
+
+    if (!productSlug) {
+        return {
+            status: 400,
+            message: "No product slug provided for query",
+            data: null,
+        };
+    }
+
+    const foundProduct = products.find((product) => product.slug === productSlug);
+
+    if (!foundProduct) {
+        return {
+            status: 404,
+            message: "Product not found",
+            data: null,
+        };
+    }
+
+    return {
+        status: 200,
+        message: "Success",
+        data: foundProduct as Product,
+    };
 };
