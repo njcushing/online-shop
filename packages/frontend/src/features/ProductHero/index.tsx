@@ -10,7 +10,6 @@ import {
     lowStockThreshold,
 } from "@/utils/products/product";
 import { CartItemData, mockCart, PopulatedCartItemData } from "@/utils/products/cart";
-import { ErrorPage } from "@/pages/ErrorPage";
 import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString";
 import { Inputs } from "@/components/Inputs";
 import { WarningCircle, Info } from "@phosphor-icons/react";
@@ -58,12 +57,13 @@ export function ProductHero() {
         useContext(ProductContext);
 
     const variantOptions = useMemo<Map<string, Set<string>> | null>(() => {
-        return product.data ? filterVariantOptions(product.data, selectedVariantOptions) : null;
-    }, [product.data, selectedVariantOptions]);
+        if (!product.data || !variant) return null;
+        return product.data ? filterVariantOptions(product.data, variant?.options) : null;
+    }, [product.data, variant]);
 
     const collectionsData = useMemo<ReturnType<typeof findCollections>>(() => {
         return findCollections(product.data?.id || "");
-    }, [product.data?.id]);
+    }, [product]);
 
     const cartItemData = useMemo<CartItemData | undefined>(() => {
         return mockCart.find((cartItem) => cartItem.variantId === variant?.id);
@@ -73,10 +73,10 @@ export function ProductHero() {
 
     const maximumVariantQuantity = useMemo(() => {
         if (!product.data || !variant) return 0;
-        return calculateMaximumVariantQuantity(cart.data, product.data, variant);
+        return calculateMaximumVariantQuantity(cart.data || [], product.data, variant);
     }, [cart, product.data, variant]);
 
-    if (!product.data || !variant) return <ErrorPage />;
+    if (!product.data || !variant) return null;
 
     const { name, images, rating, variantOptionOrder } = product.data;
     const { price, stock, options } = variant;
@@ -95,16 +95,16 @@ export function ProductHero() {
                             readOnly
                             count={5}
                             fractions={10}
-                            value={rating.value}
+                            value={rating.meanValue}
                             color="gold"
                             size="sm"
                         />
                         <div className={styles["product-rating-value"]}>
-                            {rating.value.toFixed(2)}
+                            {rating.meanValue.toFixed(2)}
                         </div>
                         <div
                             className={styles["product-rating-quantity"]}
-                        >{`(${rating.quantity})`}</div>
+                        >{`(${rating.totalQuantity})`}</div>
                     </div>
 
                     <Divider />

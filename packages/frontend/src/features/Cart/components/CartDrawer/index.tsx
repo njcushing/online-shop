@@ -14,6 +14,7 @@ export type TCartDrawer = {
 
 export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
     const { cart } = useContext(UserContext);
+    const { data } = cart;
 
     return (
         <Drawer
@@ -30,9 +31,10 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
             }}
         >
             <ul className={styles["cart-drawer-items"]}>
-                {cart.data.map((item) => {
-                    return <CartItem data={item} key={item.variant.id} />;
-                })}
+                {data &&
+                    data.map((item) => {
+                        return <CartItem data={item} key={item.variant.id} />;
+                    })}
             </ul>
 
             <Divider variant="dashed" />
@@ -41,7 +43,7 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
                 <div className={styles["subtotal"]}>
                     {`Subtotal: `}
                     <span className={styles["subtotal-value"]}>
-                        £{(calculateSubtotal(cart.data) / 100).toFixed(2)}
+                        £{(calculateSubtotal(data || []) / 100).toFixed(2)}
                     </span>
                 </div>
 

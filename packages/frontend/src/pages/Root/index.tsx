@@ -4,6 +4,8 @@ import { Header } from "@/features/Header";
 import { Footer } from "@/features/Footer";
 import { PopulatedCartItemData } from "@/utils/products/cart";
 import { mockGetCart } from "@/api/cart";
+import { FuncResponseObject } from "@/api/types";
+import * as useAsync from "@/hooks/useAsync";
 import { Home } from "../Home";
 import { Category } from "../Category";
 import { Product } from "../Product";
@@ -42,11 +44,11 @@ const defaultRootContext: IRootContext = {
 };
 
 export interface IUserContext {
-    cart: { data: PopulatedCartItemData[]; awaiting: boolean; status: number; message: string };
+    cart: FuncResponseObject<PopulatedCartItemData[]> & { awaiting: boolean };
 }
 
 const defaultUserContext: IUserContext = {
-    cart: { data: [], awaiting: false, status: 200, message: "Success" },
+    cart: { data: [], status: 200, message: "Success", awaiting: false },
 };
 
 export interface IHeaderContext {
@@ -69,34 +71,8 @@ export function Root() {
     );
 
     const [cart, setCart] = useState<IUserContext["cart"]>(defaultUserContext.cart);
-
-    const getCartTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-    useEffect(() => {
-        const fetchCart = async () => {
-            // Simulate API request delay
-            await new Promise((resolve) => {
-                getCartTimeoutRef.current = setTimeout(resolve, 1000);
-            });
-
-            getCartTimeoutRef.current = null;
-
-            const response = {
-                data: mockGetCart(),
-                awaiting: false,
-                status: 200,
-                message: "Success",
-            };
-
-            setCart(response);
-        };
-
-        fetchCart();
-        setCart((curr) => ({ ...curr, awaiting: true }));
-
-        return () => {
-            if (getCartTimeoutRef.current) clearTimeout(getCartTimeoutRef.current);
-        };
-    }, []);
+    const { response, awaiting } = useAsync.GET(mockGetCart, [{}], { attemptOnMount: true });
+    useEffect(() => setCart({ ...response, awaiting }), [response, awaiting]);
 
     return (
         <RootContext.Provider value={useMemo(() => ({ headerInfo }), [headerInfo])}>

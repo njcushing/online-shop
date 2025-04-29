@@ -8,7 +8,7 @@ import styles from "./index.module.css";
 export function DeliveryProgress() {
     const { cart } = useContext(UserContext);
 
-    const subtotal = useMemo(() => calculateSubtotal(cart.data), [cart]);
+    const subtotal = useMemo(() => calculateSubtotal(cart.data || []), [cart]);
     const meetsThreshold = useMemo(() => subtotal >= freeDeliveryThreshold, [subtotal]);
 
     return (
