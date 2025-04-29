@@ -1,4 +1,4 @@
-type FuncResponseObject<FuncResponse> = {
+export type FuncResponseObject<FuncResponse> = {
     status: number;
     message: string;
     data: FuncResponse | null;
