@@ -32,7 +32,7 @@ export const ProductContext = createContext<IProductContext>(defaultProductConte
 export function Product() {
     const params = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
-    const { productSlug } = params;
+    const { productId } = params;
 
     const [product, setProduct] = useState<IProductContext["product"]>(
         defaultProductContext.product,
@@ -70,14 +70,14 @@ export function Product() {
 
     const { response, setParams, attempt, awaiting } = useAsync.GET(
         mockGetProduct,
-        [{ params: { productSlug } }],
+        [{ params: { productId } }],
         { attemptOnMount: false },
     );
 
     useMemo(() => {
-        setParams([{ params: { productSlug } }]);
+        setParams([{ params: { productId } }]);
         attempt();
-    }, [productSlug, setParams, attempt]);
+    }, [productId, setParams, attempt]);
 
     useEffect(() => {
         setProduct({ ...response, awaiting });

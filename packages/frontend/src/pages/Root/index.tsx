@@ -24,7 +24,7 @@ export const Routes = [
         errorElement: <ErrorPage />,
     },
     {
-        path: "p/:productSlug",
+        path: "p/:productId/:productSlug",
         element: <Product />,
         errorElement: <ErrorPage />,
     },

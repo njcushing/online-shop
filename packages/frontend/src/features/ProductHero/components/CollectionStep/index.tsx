@@ -10,7 +10,7 @@ export type TCollectionStep = {
 
 export function CollectionStep({ collectionData }: TCollectionStep) {
     const params = useParams();
-    const { productSlug: URLProductSlug } = params;
+    const { productId: URLProductId } = params;
 
     const { collection, products } = collectionData;
     const { id, type } = collection;
@@ -22,17 +22,17 @@ export function CollectionStep({ collectionData }: TCollectionStep) {
 
     const items = useMemo(() => {
         return products.map((product) => {
-            const { slug: productSlug, images, name } = product;
+            const { id: productId, slug: productSlug, images, name } = product;
             const { thumb } = images;
             const { full, shorthands } = name;
             const shorthand = shorthands.find((entry) => entry.type === type)?.value;
             const usedName = shorthand || full;
             return (
                 <Link
-                    to={`/p/${productSlug}`}
+                    to={`/p/${productId}/${productSlug}`}
                     className={styles["product-hero-step-product-link"]}
-                    data-selected={productSlug === URLProductSlug}
-                    tabIndex={productSlug === URLProductSlug ? -1 : 0}
+                    data-selected={productId === URLProductId}
+                    tabIndex={productId === URLProductId ? -1 : 0}
                     key={`variant-options-${id}-${usedName}`}
                 >
                     <Image className={styles["product-thumbnail-image"]} src={thumb || ""} />
@@ -40,7 +40,7 @@ export function CollectionStep({ collectionData }: TCollectionStep) {
                 </Link>
             );
         });
-    }, [URLProductSlug, products, id, type]);
+    }, [URLProductId, products, id, type]);
 
     return (
         <div className={styles["product-hero-step"]}>

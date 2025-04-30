@@ -67,7 +67,7 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
 
         return (
             <Link
-                to={`/p/${productData.slug}`}
+                to={`/p/${productData.id}/${productData.slug}`}
                 className={styles["product-card"]}
                 data-visible={visible}
                 ref={mergedProductCardRef}
