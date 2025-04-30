@@ -27,12 +27,15 @@ export function CollectionStep({ collectionData }: TCollectionStep) {
             const { full, shorthands } = name;
             const shorthand = shorthands.find((entry) => entry.type === type)?.value;
             const usedName = shorthand || full;
+
+            const isSelected = productId === URLProductId;
+
             return (
                 <Link
                     to={`/p/${productId}/${productSlug}`}
                     className={styles["product-hero-step-product-link"]}
-                    data-selected={productId === URLProductId}
-                    tabIndex={productId === URLProductId ? -1 : 0}
+                    data-selected={isSelected}
+                    tabIndex={isSelected ? -1 : 0}
                     key={`variant-options-${id}-${usedName}`}
                 >
                     <Image className={styles["product-thumbnail-image"]} src={thumb || ""} />
