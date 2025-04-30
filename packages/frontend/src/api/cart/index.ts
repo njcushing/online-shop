@@ -107,10 +107,26 @@ export const updateCart: HTTPMethodTypes.PUT<
     return result;
 };
 
-export const mockUpdateCart = (products: CartItemData[]): PopulatedCartItemData[] => {
+export const mockUpdateCart: HTTPMethodTypes.PUT<
+    undefined,
+    { products: CartItemData[] },
+    PopulatedCartItemData[]
+> = async (data) => {
+    const token = localStorage.getItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION);
+    if (!token) return { status: 400, message: "No token provided for query", data: null };
+
+    const { products } = data.body || { products: [] };
+    if (products.length === 0) {
+        return { status: 400, message: "No products provided for query", data: null };
+    }
+
+    await new Promise((resolve) => {
+        setTimeout(resolve, 1000);
+    });
+
     const updatedCart = structuredClone(mockCart);
 
-    products.forEach((productToUpdate) => {
+    products.forEach(async (productToUpdate) => {
         const { productId, variantId, quantity } = productToUpdate;
 
         const existingEntryIndex = updatedCart.findIndex((cartItem) => {
@@ -123,9 +139,9 @@ export const mockUpdateCart = (products: CartItemData[]): PopulatedCartItemData[
                 updatedCart[existingEntryIndex].quantity += quantity;
             }
         } else {
-            const foundProduct = mockGetProduct(productId);
-            if (!foundProduct) return;
-            const variant = foundProduct.variants.find(
+            const foundProduct = await mockGetProduct({ params: { productId } });
+            if (!foundProduct || !foundProduct.data) return;
+            const variant = foundProduct.data.variants.find(
                 (productVariant) => productVariant.id === variantId,
             );
             if (!variant) return;
@@ -134,5 +150,9 @@ export const mockUpdateCart = (products: CartItemData[]): PopulatedCartItemData[
         }
     });
 
-    return mockPopulateCartItems(updatedCart);
+    return {
+        status: 200,
+        message: "Success",
+        data: mockPopulateCartItems(updatedCart),
+    };
 };
