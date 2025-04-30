@@ -62,13 +62,17 @@ export function VariantStep({ id, values, selected, preventSort, onClick }: TVar
                     name,
                     dot,
                 } = valueData || { id: value, name: value, dot: "rgba(0, 0, 0, 0.2)" };
+
+                const isSelected = selected === valueId;
+
                 return (
                     <button
                         type="button"
                         onClick={() => onClick && onClick(valueId)}
                         className={styles["product-hero-step-dot-button"]}
-                        data-selected={selected === valueId}
-                        tabIndex={selected === valueId ? -1 : 0}
+                        data-selected={isSelected}
+                        tabIndex={isSelected ? -1 : 0}
+                        disabled={isSelected}
                         key={`variant-options-${id}-${name}`}
                     >
                         <span

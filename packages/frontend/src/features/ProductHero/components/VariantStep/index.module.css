@@ -43,6 +43,10 @@
     max-width: 60px;
 }
 
+.product-hero-step-dot-button[data-selected="true"] {
+    pointer-events: none;
+}
+
 .product-hero-step-dot {
     outline: 2px solid transparent;
     outline-offset: 2px;
