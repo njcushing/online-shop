@@ -87,18 +87,6 @@
     font-weight: 600;
 }
 
-.product-description-container {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.product-description {
-    color: black;
-    font-size: 0.96rem;
-    font-weight: 300;
-}
-
 .product-hero-steps-container {
     display: flex;
     flex-direction: column;
@@ -137,28 +125,5 @@
 
 .add-to-cart-button {
     font-family: "Radio Canada Big";
-    font-size: 1rem;
-}
-
-.alert-root {
-    padding: 12px;
-}
-
-.alert-wrapper {
-    gap: 12px;
-}
-
-.alert-body {
-    align-self: center;
-}
-
-.alert-icon {
-    width: 1.4rem;
-    height: 1.4rem;
-    padding: 0px;
-    margin: 0px;
-}
-
-.alert-title {
     font-size: 1rem;
 }

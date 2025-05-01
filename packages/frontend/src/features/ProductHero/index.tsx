@@ -1,32 +1,23 @@
-import { Fragment, useContext, useState, useEffect, useRef, useMemo } from "react";
+import { Fragment, useContext, useState, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { IProductContext, ProductContext } from "@/pages/Product";
-import { Skeleton, Button, Divider, Rating, Alert, AlertProps, Collapse } from "@mantine/core";
+import { Skeleton, Button, Divider, Rating } from "@mantine/core";
 import {
     Product,
     ProductVariant,
     findCollections,
     filterVariantOptions,
-    lowStockThreshold,
 } from "@/utils/products/product";
-import { CartItemData, mockCart, PopulatedCartItemData } from "@/utils/products/cart";
+import { PopulatedCartItemData } from "@/utils/products/cart";
 import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString";
 import { Inputs } from "@/components/Inputs";
-import { WarningCircle, Info } from "@phosphor-icons/react";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
 import { RecursivePartial } from "@/utils/types";
 import { ImageCarousel } from "./components/ImageCarousel";
 import { CollectionStep } from "./components/CollectionStep";
 import { VariantStep } from "./components/VariantStep";
+import { VariantAlerts } from "./components/VariantAlerts";
 import styles from "./index.module.css";
-
-const AlertClassNames: AlertProps["classNames"] = {
-    root: styles["alert-root"],
-    wrapper: styles["alert-wrapper"],
-    body: styles["alert-body"],
-    title: styles["alert-title"],
-    icon: styles["alert-icon"],
-};
 
 const defaultProductData: RecursivePartial<NonNullable<IProductContext["product"]["data"]>> = {
     name: { full: "Product Name" },
@@ -37,7 +28,6 @@ const defaultProductData: RecursivePartial<NonNullable<IProductContext["product"
 
 const defaultProductVariantData: RecursivePartial<NonNullable<IProductContext["variant"]>> = {
     price: { base: 1000, current: 1000 },
-    stock: 1000,
     options: {},
 };
 
@@ -81,10 +71,6 @@ export function ProductHero() {
         return findCollections(product.data?.id || "");
     }, [product]);
 
-    const cartItemData = useMemo<CartItemData | undefined>(() => {
-        return mockCart.find((cartItem) => cartItem.variantId === variant?.id);
-    }, [variant?.id]);
-
     const [, /* quantity */ setQuantity] = useState<number | null>(1);
 
     const maximumVariantQuantity = useMemo(() => {
@@ -92,27 +78,12 @@ export function ProductHero() {
         return calculateMaximumVariantQuantity(cart.data || [], product.data, variant);
     }, [cart, product.data, variant]);
 
-    const lastValidStockCount = useRef<number>(0);
-    const lastValidStockAlert = useRef<"None" | "Low">("None");
-    useEffect(() => {
-        if (!variant || variant.stock > lowStockThreshold) return;
-        lastValidStockCount.current = variant.stock;
-        lastValidStockAlert.current = variant.stock === 0 ? "None" : "Low";
-    }, [variant]);
-
-    const lastValidCartItemQuantity = useRef<number>(0);
-    useEffect(() => {
-        const { current } = lastValidCartItemQuantity;
-        lastValidCartItemQuantity.current =
-            cartItemData && cartItemData.quantity > 0 ? cartItemData.quantity : current;
-    }, [cartItemData]);
-
     if (!awaiting && (!product.data || !variant)) return null;
 
     const { name, images, rating, variantOptionOrder } = !awaiting
         ? product.data!
         : (defaultProductData as NonNullable<IProductContext["product"]["data"]>);
-    const { price, stock, options } = !awaiting
+    const { price, options } = !awaiting
         ? variant!
         : (defaultProductVariantData as NonNullable<IProductContext["variant"]>);
 
@@ -228,55 +199,7 @@ export function ProductHero() {
                         </div>
                     </Skeleton>
 
-                    <Collapse in={stock <= lowStockThreshold}>
-                        {(() => {
-                            if (lastValidStockAlert.current === "None") {
-                                return (
-                                    <Alert
-                                        color="red"
-                                        icon={<WarningCircle weight="bold" size="100%" />}
-                                        title="Out of stock"
-                                        classNames={AlertClassNames}
-                                    >
-                                        <p>
-                                            We are unsure when this item will be back in stock.
-                                            Check back soon, or add this item to your watchlist to
-                                            be notified when it comes back in stock.
-                                        </p>
-                                    </Alert>
-                                );
-                            }
-                            return (
-                                <Alert
-                                    color="yellow"
-                                    icon={<WarningCircle weight="bold" size="100%" />}
-                                    title="Low stock"
-                                    classNames={AlertClassNames}
-                                >
-                                    <p>
-                                        There {stock === 1 ? "is" : "are"} only{" "}
-                                        <span style={{ fontWeight: "bold" }}>
-                                            {lastValidStockCount.current}
-                                        </span>{" "}
-                                        of this item left in stock.
-                                    </p>
-                                </Alert>
-                            );
-                        })()}
-                    </Collapse>
-
-                    <Collapse in={!!cartItemData && cartItemData.quantity > 0}>
-                        <Alert
-                            icon={<Info weight="bold" size="100%" />}
-                            classNames={AlertClassNames}
-                        >
-                            You already have{" "}
-                            <span style={{ fontWeight: "bold" }}>
-                                {cartItemData?.quantity || lastValidCartItemQuantity.current}
-                            </span>{" "}
-                            of this item in your cart.
-                        </Alert>
-                    </Collapse>
+                    <VariantAlerts />
 
                     <div className={styles["product-hero-buttons-container"]}>
                         <Inputs.Quantity
