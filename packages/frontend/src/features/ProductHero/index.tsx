@@ -31,6 +31,36 @@ const defaultProductVariantData: RecursivePartial<NonNullable<IProductContext["v
     options: {},
 };
 
+const defaultCollectionStepsData: ReturnType<typeof findCollections> = [
+    {
+        collection: { id: "", type: "quantity" },
+        products: Array.from({ length: 3 }).map((v, i) => {
+            return {
+                id: "",
+                name: {
+                    full: "Product Name",
+                    shorthands: [{ type: "quantity", value: `Shorthand ${i}` }],
+                },
+                description: "",
+                slug: "",
+                images: { thumb: "", dynamic: [] },
+                rating: {
+                    meanValue: 0.0,
+                    totalQuantity: 0,
+                    quantities: { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0 },
+                },
+                allowance: 0,
+                tags: [],
+                variants: [],
+                variantOptionOrder: [],
+                customisations: [],
+                reviews: [],
+                releaseDate: "",
+            };
+        }),
+    },
+];
+
 const calculateMaximumVariantQuantity = (
     cart: PopulatedCartItemData[],
     product: Product,
@@ -68,8 +98,9 @@ export function ProductHero() {
     }, [product.data, variant]);
 
     const collectionsData = useMemo<ReturnType<typeof findCollections>>(() => {
+        if (awaiting) return defaultCollectionStepsData;
         return findCollections(product.data?.id || "");
-    }, [product]);
+    }, [product, awaiting]);
 
     const [, /* quantity */ setQuantity] = useState<number | null>(1);
 
@@ -136,10 +167,10 @@ export function ProductHero() {
                             {collectionsData.map((collectionData, i) => {
                                 const step = <CollectionStep collectionData={collectionData} />;
                                 return (
-                                    <Fragment key={collectionData.collection.id}>
+                                    <Skeleton visible={awaiting} key={collectionData.collection.id}>
                                         {step}
                                         {i < collectionsData.length - 1 && <Divider />}
-                                    </Fragment>
+                                    </Skeleton>
                                 );
                             })}
 

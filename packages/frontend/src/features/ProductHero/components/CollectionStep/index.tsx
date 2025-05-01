@@ -1,11 +1,16 @@
 import { useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
-import { findCollections } from "@/utils/products/product";
+import { Collection, findCollections } from "@/utils/products/product";
 import { Image } from "@mantine/core";
 import styles from "./index.module.css";
 
 export type TCollectionStep = {
     collectionData: ReturnType<typeof findCollections>[number];
+};
+
+const getTitle = (type: Collection["type"]): string => {
+    if (type === "quantity") return "Select a quantity";
+    return "Other products in this collection";
 };
 
 export function CollectionStep({ collectionData }: TCollectionStep) {
@@ -14,11 +19,6 @@ export function CollectionStep({ collectionData }: TCollectionStep) {
 
     const { collection, products } = collectionData;
     const { id, type } = collection;
-
-    const title = useMemo<string>(() => {
-        if (type === "quantity") return "Select a quantity";
-        return "Other products in this collection";
-    }, [type]);
 
     const items = useMemo(() => {
         return products.map((product) => {
@@ -47,7 +47,7 @@ export function CollectionStep({ collectionData }: TCollectionStep) {
 
     return (
         <div className={styles["product-hero-step"]}>
-            <p className={styles["product-hero-step-title"]}>{title}</p>
+            <p className={styles["product-hero-step-title"]}>{getTitle(type)}</p>
             <div className={styles["product-hero-step-options"]}>{items}</div>
         </div>
     );
