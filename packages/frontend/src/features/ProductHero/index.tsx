@@ -145,47 +145,51 @@ export function ProductHero() {
 
                     <Divider />
 
-                    <div className={styles["product-hero-steps-container"]}>
-                        {collectionsData.map((collectionData, i) => {
-                            const step = <CollectionStep collectionData={collectionData} />;
-                            return (
-                                <Fragment key={collectionData.collection.id}>
-                                    {step}
-                                    {i < collectionsData.length - 1 && <Divider />}
-                                </Fragment>
-                            );
-                        })}
-
-                        {collectionsData.length > 0 && <Divider />}
-
-                        {variantOptions &&
-                            variantOptionOrder.map((optionId, i) => {
-                                const optionValues = variantOptions.get(optionId);
-                                if (!optionValues || optionValues.size === 0) return null;
-                                const step = (
-                                    <VariantStep
-                                        id={optionId}
-                                        values={optionValues}
-                                        selected={options[optionId] || ""}
-                                        onClick={(value) => {
-                                            const newselectedVariantOptions = {
-                                                ...selectedVariantOptions,
-                                            };
-                                            newselectedVariantOptions[optionId] = value;
-                                            setSelectedVariantOptions(newselectedVariantOptions);
-                                        }}
-                                    />
-                                );
+                    {(collectionsData.length > 0 || variantOptionOrder.length > 0) && (
+                        <div className={styles["product-hero-steps-container"]}>
+                            {collectionsData.map((collectionData, i) => {
+                                const step = <CollectionStep collectionData={collectionData} />;
                                 return (
-                                    <Fragment key={optionId}>
+                                    <Fragment key={collectionData.collection.id}>
                                         {step}
-                                        {i < variantOptions.size - 1 && <Divider />}
+                                        {i < collectionsData.length - 1 && <Divider />}
                                     </Fragment>
                                 );
                             })}
-                    </div>
 
-                    <Divider />
+                            {collectionsData.length > 0 && <Divider />}
+
+                            {variantOptions &&
+                                variantOptionOrder.map((optionId, i) => {
+                                    const optionValues = variantOptions.get(optionId);
+                                    if (!optionValues || optionValues.size === 0) return null;
+                                    const step = (
+                                        <VariantStep
+                                            id={optionId}
+                                            values={optionValues}
+                                            selected={options[optionId] || ""}
+                                            onClick={(value) => {
+                                                const newselectedVariantOptions = {
+                                                    ...selectedVariantOptions,
+                                                };
+                                                newselectedVariantOptions[optionId] = value;
+                                                setSelectedVariantOptions(
+                                                    newselectedVariantOptions,
+                                                );
+                                            }}
+                                        />
+                                    );
+                                    return (
+                                        <Fragment key={optionId}>
+                                            {step}
+                                            {i < variantOptions.size - 1 && <Divider />}
+                                        </Fragment>
+                                    );
+                                })}
+
+                            {variantOptionOrder.length > 0 && <Divider />}
+                        </div>
+                    )}
 
                     <Skeleton visible={awaiting}>
                         <div
