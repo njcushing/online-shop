@@ -1,7 +1,7 @@
 import { Fragment, useContext, useState, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
-import { ProductContext } from "@/pages/Product";
-import { Button, Divider, Rating, Alert, AlertProps } from "@mantine/core";
+import { IProductContext, ProductContext } from "@/pages/Product";
+import { Skeleton, Button, Divider, Rating, Alert, AlertProps } from "@mantine/core";
 import {
     Product,
     ProductVariant,
@@ -14,6 +14,7 @@ import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString
 import { Inputs } from "@/components/Inputs";
 import { WarningCircle, Info } from "@phosphor-icons/react";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
+import { RecursivePartial } from "@/utils/types";
 import { ImageCarousel } from "./components/ImageCarousel";
 import { CollectionStep } from "./components/CollectionStep";
 import { VariantStep } from "./components/VariantStep";
@@ -25,6 +26,19 @@ const AlertClassNames: AlertProps["classNames"] = {
     body: styles["alert-body"],
     title: styles["alert-title"],
     icon: styles["alert-icon"],
+};
+
+const defaultProductData: RecursivePartial<NonNullable<IProductContext["product"]["data"]>> = {
+    name: { full: "Product Name" },
+    images: { thumb: "", dynamic: ["a", "b", "c", "d", "e"] },
+    rating: { meanValue: 5.0, totalQuantity: 100, quantities: { 5: 90, 4: 6, 3: 2, 2: 1, 1: 1 } },
+    variantOptionOrder: [],
+};
+
+const defaultProductVariantData: RecursivePartial<NonNullable<IProductContext["variant"]>> = {
+    price: { base: 1000, current: 1000 },
+    stock: 1000,
+    options: {},
 };
 
 const calculateMaximumVariantQuantity = (
@@ -56,6 +70,8 @@ export function ProductHero() {
     const { product, variant, selectedVariantOptions, setSelectedVariantOptions } =
         useContext(ProductContext);
 
+    const { awaiting } = product;
+
     const variantOptions = useMemo<Map<string, Set<string>> | null>(() => {
         if (!product.data || !variant) return null;
         return product.data ? filterVariantOptions(product.data, variant?.options) : null;
@@ -76,36 +92,56 @@ export function ProductHero() {
         return calculateMaximumVariantQuantity(cart.data || [], product.data, variant);
     }, [cart, product.data, variant]);
 
-    if (!product.data || !variant) return null;
+    if (!awaiting && (!product.data || !variant)) return null;
 
-    const { name, images, rating, variantOptionOrder } = product.data;
-    const { price, stock, options } = variant;
+    const { name, images, rating, variantOptionOrder } = !awaiting
+        ? product.data!
+        : (defaultProductData as NonNullable<IProductContext["product"]["data"]>);
+    const { price, stock, options } = !awaiting
+        ? variant!
+        : (defaultProductVariantData as NonNullable<IProductContext["variant"]>);
 
     return (
         <section className={styles["product-hero"]}>
             <div className={styles["product-hero-width-controller"]}>
-                <ImageCarousel images={images.dynamic} />
+                <Skeleton visible={awaiting}>
+                    <div style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                        <ImageCarousel images={images.dynamic} />
+                    </div>
+                </Skeleton>
 
                 <div className={styles["product-content"]}>
-                    <h1 className={styles["product-name"]}>{name.full}</h1>
+                    <Skeleton visible={awaiting}>
+                        <h1
+                            className={styles["product-name"]}
+                            style={{ visibility: awaiting ? "hidden" : "initial" }}
+                        >
+                            {name!.full}
+                        </h1>
+                    </Skeleton>
 
-                    <div className={styles["product-hero-rating-container"]}>
-                        <Rating
-                            className={styles["product-rating"]}
-                            readOnly
-                            count={5}
-                            fractions={10}
-                            value={rating.meanValue}
-                            color="gold"
-                            size="sm"
-                        />
-                        <div className={styles["product-rating-value"]}>
-                            {rating.meanValue.toFixed(2)}
-                        </div>
+                    <Skeleton visible={awaiting}>
                         <div
-                            className={styles["product-rating-quantity"]}
-                        >{`(${rating.totalQuantity})`}</div>
-                    </div>
+                            className={styles["product-hero-rating-container"]}
+                            style={{ visibility: awaiting ? "hidden" : "initial" }}
+                        >
+                            <Rating
+                                className={styles["product-rating"]}
+                                readOnly
+                                count={5}
+                                fractions={10}
+                                value={rating.meanValue}
+                                color="gold"
+                                size="sm"
+                            />
+                            <div className={styles["product-rating-value"]}>
+                                {rating.meanValue.toFixed(2)}
+                            </div>
+                            <div
+                                className={styles["product-rating-quantity"]}
+                            >{`(${rating.totalQuantity})`}</div>
+                        </div>
+                    </Skeleton>
 
                     <Divider />
 
@@ -151,22 +187,27 @@ export function ProductHero() {
 
                     <Divider />
 
-                    <div className={styles["product-hero-price-container"]}>
-                        <span className={styles["product-price-current"]}>
-                            £{(price.current / 100).toFixed(2)}
-                        </span>
+                    <Skeleton visible={awaiting}>
+                        <div
+                            className={styles["product-hero-price-container"]}
+                            style={{ visibility: awaiting ? "hidden" : "initial" }}
+                        >
+                            <span className={styles["product-price-current"]}>
+                                £{(price.current / 100).toFixed(2)}
+                            </span>
 
-                        {price.current !== price.base && (
-                            <>
-                                <span className={styles["product-price-base"]}>
-                                    £{(price.base / 100).toFixed(2)}
-                                </span>
-                                <span className={styles["product-price-discount-percentage"]}>
-                                    {createPriceAdjustmentString(price.current, price.base)}
-                                </span>
-                            </>
-                        )}
-                    </div>
+                            {price.current !== price.base && (
+                                <>
+                                    <span className={styles["product-price-base"]}>
+                                        £{(price.base / 100).toFixed(2)}
+                                    </span>
+                                    <span className={styles["product-price-discount-percentage"]}>
+                                        {createPriceAdjustmentString(price.current, price.base)}
+                                    </span>
+                                </>
+                            )}
+                        </div>
+                    </Skeleton>
 
                     {(() => {
                         if (stock === 0) {
@@ -232,7 +273,11 @@ export function ProductHero() {
                         </Button>
                     </div>
 
-                    <DeliveryProgress />
+                    <Skeleton visible={awaiting}>
+                        <div style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                            <DeliveryProgress />
+                        </div>
+                    </Skeleton>
                 </div>
             </div>
         </section>
