@@ -1,7 +1,7 @@
-import { Fragment, useContext, useState, useMemo } from "react";
+import { Fragment, useContext, useState, useEffect, useRef, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { IProductContext, ProductContext } from "@/pages/Product";
-import { Skeleton, Button, Divider, Rating, Alert, AlertProps } from "@mantine/core";
+import { Skeleton, Button, Divider, Rating, Alert, AlertProps, Collapse } from "@mantine/core";
 import {
     Product,
     ProductVariant,
@@ -91,6 +91,21 @@ export function ProductHero() {
         if (!product.data || !variant) return 0;
         return calculateMaximumVariantQuantity(cart.data || [], product.data, variant);
     }, [cart, product.data, variant]);
+
+    const lastValidStockCount = useRef<number>(0);
+    const lastValidStockAlert = useRef<"None" | "Low">("None");
+    useEffect(() => {
+        if (!variant || variant.stock > lowStockThreshold) return;
+        lastValidStockCount.current = variant.stock;
+        lastValidStockAlert.current = variant.stock === 0 ? "None" : "Low";
+    }, [variant]);
+
+    const lastValidCartItemQuantity = useRef<number>(0);
+    useEffect(() => {
+        const { current } = lastValidCartItemQuantity;
+        lastValidCartItemQuantity.current =
+            cartItemData && cartItemData.quantity > 0 ? cartItemData.quantity : current;
+    }, [cartItemData]);
 
     if (!awaiting && (!product.data || !variant)) return null;
 
@@ -213,24 +228,24 @@ export function ProductHero() {
                         </div>
                     </Skeleton>
 
-                    {(() => {
-                        if (stock === 0) {
-                            return (
-                                <Alert
-                                    color="red"
-                                    icon={<WarningCircle weight="bold" size="100%" />}
-                                    title="Out of stock"
-                                    classNames={AlertClassNames}
-                                >
-                                    <p>
-                                        We are unsure when this item will be back in stock. Check
-                                        back soon, or add this item to your watchlist to be notified
-                                        when it comes back in stock.
-                                    </p>
-                                </Alert>
-                            );
-                        }
-                        if (stock <= lowStockThreshold) {
+                    <Collapse in={stock <= lowStockThreshold}>
+                        {(() => {
+                            if (lastValidStockAlert.current === "None") {
+                                return (
+                                    <Alert
+                                        color="red"
+                                        icon={<WarningCircle weight="bold" size="100%" />}
+                                        title="Out of stock"
+                                        classNames={AlertClassNames}
+                                    >
+                                        <p>
+                                            We are unsure when this item will be back in stock.
+                                            Check back soon, or add this item to your watchlist to
+                                            be notified when it comes back in stock.
+                                        </p>
+                                    </Alert>
+                                );
+                            }
                             return (
                                 <Alert
                                     color="yellow"
@@ -240,25 +255,28 @@ export function ProductHero() {
                                 >
                                     <p>
                                         There {stock === 1 ? "is" : "are"} only{" "}
-                                        <span style={{ fontWeight: "bold" }}>{stock}</span> of this
-                                        item left in stock.
+                                        <span style={{ fontWeight: "bold" }}>
+                                            {lastValidStockCount.current}
+                                        </span>{" "}
+                                        of this item left in stock.
                                     </p>
                                 </Alert>
                             );
-                        }
-                        return null;
-                    })()}
+                        })()}
+                    </Collapse>
 
-                    {cartItemData && (
+                    <Collapse in={!!cartItemData && cartItemData.quantity > 0}>
                         <Alert
                             icon={<Info weight="bold" size="100%" />}
                             classNames={AlertClassNames}
                         >
                             You already have{" "}
-                            <span style={{ fontWeight: "bold" }}>{cartItemData.quantity}</span> of
-                            this item in your cart.
+                            <span style={{ fontWeight: "bold" }}>
+                                {cartItemData?.quantity || lastValidCartItemQuantity.current}
+                            </span>{" "}
+                            of this item in your cart.
                         </Alert>
-                    )}
+                    </Collapse>
 
                     <div className={styles["product-hero-buttons-container"]}>
                         <Inputs.Quantity
