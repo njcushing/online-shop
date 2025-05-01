@@ -150,7 +150,7 @@ export function ProductReviews() {
                                                     <span
                                                         className={styles["column-sizer"]}
                                                         aria-hidden
-                                                        key={`product-reviews-tier-${key}-aaprogress-bar-column-sizer-${k}`}
+                                                        key={`product-reviews-tier-${key}-progress-bar-column-sizer-${k}`}
                                                     >
                                                         {k}
                                                     </span>
@@ -171,12 +171,12 @@ export function ProductReviews() {
                                                 styles["product-reviews-rating-tier-percentage"]
                                             }
                                         >
-                                            {Object.values(rating.quantities).map((v) => {
+                                            {Object.entries(rating.quantities).map(([k, v]) => {
                                                 return (
                                                     <span
                                                         className={styles["column-sizer"]}
                                                         aria-hidden
-                                                        key={`product-reviews-tier-${key}-bbprogress-bar-column-sizer-${v}`}
+                                                        key={`product-reviews-tier-${key}-progress-bar-column-sizer-${k}`}
                                                     >
                                                         {Math.floor(
                                                             (v * 100) / rating.totalQuantity + 0.5,
