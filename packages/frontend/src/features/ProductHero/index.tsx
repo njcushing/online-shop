@@ -175,8 +175,12 @@ export function ProductHero() {
                                 const step = <CollectionStep collectionData={collectionData} />;
                                 return (
                                     <Skeleton visible={awaiting} key={collectionData.collection.id}>
-                                        {step}
-                                        {i < collectionsData.length - 1 && <Divider />}
+                                        <div
+                                            style={{ visibility: awaiting ? "hidden" : "initial" }}
+                                        >
+                                            {step}
+                                            {i < collectionsData.length - 1 && <Divider />}
+                                        </div>
                                     </Skeleton>
                                 );
                             })}
@@ -205,8 +209,14 @@ export function ProductHero() {
                                     );
                                     return (
                                         <Skeleton visible={awaiting} key={optionId}>
-                                            {step}
-                                            {i < variantOptions.size - 1 && <Divider />}
+                                            <div
+                                                style={{
+                                                    visibility: awaiting ? "hidden" : "initial",
+                                                }}
+                                            >
+                                                {step}
+                                                {i < variantOptions.size - 1 && <Divider />}
+                                            </div>
                                         </Skeleton>
                                     );
                                 })}
