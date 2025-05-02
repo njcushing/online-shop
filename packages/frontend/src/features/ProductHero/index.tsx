@@ -1,4 +1,4 @@
-import { Fragment, useContext, useState, useMemo } from "react";
+import { useContext, useState, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { IProductContext, ProductContext } from "@/pages/Product";
 import { Skeleton, Button, Divider, Rating } from "@mantine/core";
@@ -23,13 +23,17 @@ const defaultProductData: RecursivePartial<NonNullable<IProductContext["product"
     name: { full: "Product Name" },
     images: { thumb: "", dynamic: ["a", "b", "c", "d", "e"] },
     rating: { meanValue: 5.0, totalQuantity: 100, quantities: { 5: 90, 4: 6, 3: 2, 2: 1, 1: 1 } },
-    variantOptionOrder: [],
+    variantOptionOrder: ["option"],
 };
 
 const defaultProductVariantData: RecursivePartial<NonNullable<IProductContext["variant"]>> = {
     price: { base: 1000, current: 1000 },
     options: {},
 };
+
+const defaultVariantOptionsData: ReturnType<typeof filterVariantOptions> = new Map([
+    ["option", new Set(["1", "2", "3"])],
+]);
 
 const defaultCollectionStepsData: ReturnType<typeof findCollections> = [
     {
@@ -92,10 +96,11 @@ export function ProductHero() {
 
     const { awaiting } = product;
 
-    const variantOptions = useMemo<Map<string, Set<string>> | null>(() => {
+    const variantOptions = useMemo<ReturnType<typeof filterVariantOptions> | null>(() => {
+        if (awaiting) return defaultVariantOptionsData;
         if (!product.data || !variant) return null;
         return product.data ? filterVariantOptions(product.data, variant?.options) : null;
-    }, [product.data, variant]);
+    }, [product.data, variant, awaiting]);
 
     const collectionsData = useMemo<ReturnType<typeof findCollections>>(() => {
         if (awaiting) return defaultCollectionStepsData;
@@ -197,10 +202,10 @@ export function ProductHero() {
                                         />
                                     );
                                     return (
-                                        <Fragment key={optionId}>
+                                        <Skeleton visible={awaiting} key={optionId}>
                                             {step}
                                             {i < variantOptions.size - 1 && <Divider />}
-                                        </Fragment>
+                                        </Skeleton>
                                     );
                                 })}
 
