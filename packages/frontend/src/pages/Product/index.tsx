@@ -8,16 +8,72 @@ import {
     Product as ProductDataType,
     ProductVariant,
     findVariantFromOptions,
+    filterVariantOptions,
+    findCollections,
 } from "@/utils/products/product";
 import { mockGetProduct } from "@/api/product";
 import { FuncResponseObject } from "@/api/types";
+import { RecursivePartial } from "@/utils/types";
 import styles from "./index.module.css";
+
+const defaultProductData: RecursivePartial<ProductDataType> = {
+    name: { full: "Product Name" },
+    images: { thumb: "", dynamic: ["a", "b", "c", "d", "e"] },
+    rating: { meanValue: 5.0, totalQuantity: 100, quantities: { 5: 90, 4: 6, 3: 2, 2: 1, 1: 1 } },
+    variantOptionOrder: ["option"],
+};
+
+const defaultProductVariantData: RecursivePartial<ProductVariant> = {
+    price: { base: 1000, current: 1000 },
+    options: {},
+};
+
+const defaultVariantOptionsData: ReturnType<typeof filterVariantOptions> = new Map([
+    ["option", new Set(["1", "2", "3"])],
+]);
+
+const defaultCollectionStepsData: ReturnType<typeof findCollections> = [
+    {
+        collection: { id: "", type: "quantity" },
+        products: Array.from({ length: 3 }).map((v, i) => {
+            return {
+                id: "",
+                name: {
+                    full: "Product Name",
+                    shorthands: [{ type: "quantity", value: `Shorthand ${i}` }],
+                },
+                description: "",
+                slug: "",
+                images: { thumb: "", dynamic: [] },
+                rating: {
+                    meanValue: 0.0,
+                    totalQuantity: 0,
+                    quantities: { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0 },
+                },
+                allowance: 0,
+                tags: [],
+                variants: [],
+                variantOptionOrder: [],
+                customisations: [],
+                reviews: [],
+                releaseDate: "",
+            };
+        }),
+    },
+];
 
 export interface IProductContext {
     product: FuncResponseObject<ProductDataType> & { awaiting: boolean };
     variant: ProductVariant | null;
     selectedVariantOptions: ProductVariant["options"];
     setSelectedVariantOptions: React.Dispatch<React.SetStateAction<ProductVariant["options"]>>;
+
+    defaultData: {
+        product: RecursivePartial<ProductDataType>;
+        variant: RecursivePartial<ProductVariant>;
+        variantOptions: ReturnType<typeof filterVariantOptions>;
+        collectionSteps: ReturnType<typeof findCollections>;
+    };
 }
 
 const defaultProductContext: IProductContext = {
@@ -25,6 +81,13 @@ const defaultProductContext: IProductContext = {
     variant: null,
     selectedVariantOptions: {},
     setSelectedVariantOptions: () => {},
+
+    defaultData: {
+        product: defaultProductData,
+        variant: defaultProductVariantData,
+        variantOptions: defaultVariantOptionsData,
+        collectionSteps: defaultCollectionStepsData,
+    },
 };
 
 export const ProductContext = createContext<IProductContext>(defaultProductContext);
@@ -105,6 +168,8 @@ export function Product() {
                     variant,
                     selectedVariantOptions,
                     setSelectedVariantOptions,
+
+                    defaultData: defaultProductContext.defaultData,
                 }),
                 [product, variant, selectedVariantOptions, setSelectedVariantOptions],
             )}
