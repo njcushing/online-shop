@@ -38,8 +38,12 @@ export function VariantAlerts() {
     }, [cartItemData]);
 
     return (
-        <>
-            <Collapse in={stock <= lowStockThreshold}>
+        <div className={styles["variant-alerts-container"]}>
+            <Collapse
+                in={stock <= lowStockThreshold}
+                animateOpacity={false}
+                transitionDuration={500}
+            >
                 {(() => {
                     if (lastValidStockAlert.current === "None") {
                         return (
@@ -76,7 +80,11 @@ export function VariantAlerts() {
                 })()}
             </Collapse>
 
-            <Collapse in={!!cartItemData && cartItemData.quantity > 0}>
+            <Collapse
+                in={!!cartItemData && cartItemData.quantity > 0}
+                animateOpacity={false}
+                transitionDuration={500}
+            >
                 <Alert icon={<Info weight="bold" size="100%" />} classNames={AlertClassNames}>
                     You already have{" "}
                     <span style={{ fontWeight: "bold" }}>
@@ -85,6 +93,6 @@ export function VariantAlerts() {
                     of this item in your cart.
                 </Alert>
             </Collapse>
-        </>
+        </div>
     );
 }

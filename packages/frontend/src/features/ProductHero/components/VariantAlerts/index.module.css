@@ -1,5 +1,12 @@
+.variant-alerts-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .alert-root {
     padding: 12px;
+
+    margin-bottom: 12px;
 }
 
 .alert-wrapper {

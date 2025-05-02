@@ -133,7 +133,7 @@ export function ProductHero() {
                 </Skeleton>
 
                 <div className={styles["product-content"]}>
-                    <Skeleton visible={awaiting}>
+                    <Skeleton visible={awaiting} className={styles["margin"]}>
                         <h1
                             className={styles["product-name"]}
                             style={{ visibility: awaiting ? "hidden" : "initial" }}
@@ -142,7 +142,7 @@ export function ProductHero() {
                         </h1>
                     </Skeleton>
 
-                    <Skeleton visible={awaiting}>
+                    <Skeleton visible={awaiting} className={styles["margin"]}>
                         <div
                             className={styles["product-hero-rating-container"]}
                             style={{ visibility: awaiting ? "hidden" : "initial" }}
@@ -165,10 +165,12 @@ export function ProductHero() {
                         </div>
                     </Skeleton>
 
-                    <Divider />
+                    <Divider className={styles["margin"]} />
 
                     {(collectionsData.length > 0 || variantOptionOrder.length > 0) && (
-                        <div className={styles["product-hero-steps-container"]}>
+                        <div
+                            className={`${styles["product-hero-steps-container"]} ${styles["margin"]}`}
+                        >
                             {collectionsData.map((collectionData, i) => {
                                 const step = <CollectionStep collectionData={collectionData} />;
                                 return (
@@ -213,7 +215,7 @@ export function ProductHero() {
                         </div>
                     )}
 
-                    <Skeleton visible={awaiting}>
+                    <Skeleton visible={awaiting} className={styles["margin"]}>
                         <div
                             className={styles["product-hero-price-container"]}
                             style={{ visibility: awaiting ? "hidden" : "initial" }}
@@ -237,7 +239,9 @@ export function ProductHero() {
 
                     <VariantAlerts />
 
-                    <div className={styles["product-hero-buttons-container"]}>
+                    <div
+                        className={`${styles["product-hero-buttons-container"]} ${styles["margin"]}`}
+                    >
                         <Inputs.Quantity
                             min={1}
                             max={Math.max(1, maximumVariantQuantity)}
