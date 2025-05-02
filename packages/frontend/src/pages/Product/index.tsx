@@ -71,7 +71,7 @@ export function Product() {
     const { response, setParams, attempt, awaiting } = useAsync.GET(
         mockGetProduct,
         [{ params: { productId } }],
-        { attemptOnMount: false },
+        { attemptOnMount: true },
     );
 
     useMemo(() => {
