@@ -244,6 +244,7 @@ export function ProductReviews() {
                                 setPage(0);
                                 setQueueScroll(true);
                             }}
+                            disabled={awaitingProductData}
                             key="sort-options"
                         >
                             {filterOptions.map((option) => {
@@ -273,6 +274,7 @@ export function ProductReviews() {
                                 setPage(0);
                                 setQueueScroll(true);
                             }}
+                            disabled={awaitingProductData}
                             key="sort-options"
                         >
                             {sortOptions.map((option) => {
