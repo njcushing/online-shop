@@ -1,0 +1,91 @@
+.product-reviews-rating-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    background-color: rgb(255, 236, 218);
+
+    width: 100%;
+    height: min-content;
+    padding: 16px;
+}
+
+.overview {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.rating-star-symbol {
+    stroke: none;
+}
+
+.rating-star-symbol:not([data-filled]) {
+    fill: rgb(250, 223, 198);
+}
+
+.product-rating-description {
+    color: black;
+    font-family: "Radio Canada Big";
+    font-size: 1.1rem;
+}
+
+.product-rating-description > strong {
+    font-weight: 600;
+}
+
+.product-reviews-rating-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.product-reviews-rating-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+
+    border: none;
+    outline: none;
+    background-color: transparent;
+
+    width: 100%;
+    padding: 0px;
+}
+
+@media (hover: hover) {
+    .product-reviews-rating-bar:hover {
+        cursor: pointer;
+
+        p {
+            text-decoration: underline;
+        }
+    }
+}
+
+.product-reviews-rating-bar:focus-visible {
+    outline: 2px solid #000;
+}
+
+.column-sizer {
+    display: flex;
+    flex-direction: column;
+
+    visibility: hidden;
+
+    height: 0;
+}
+
+.product-reviews-rating-tier-key {
+    text-align: center;
+}
+
+.progress {
+    background-color: rgb(250, 223, 198);
+}
+
+.product-reviews-rating-tier-percentage {
+    text-align: right;
+    text-wrap: nowrap;
+}

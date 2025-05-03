@@ -1,12 +1,13 @@
 import { useContext, useState, useEffect, useRef, useMemo } from "react";
 import { RootContext } from "@/pages/Root";
 import { IProductContext, ProductContext } from "@/pages/Product";
-import { Rating, Progress, Divider, Pagination, Skeleton } from "@mantine/core";
+import { Divider, Pagination, Skeleton } from "@mantine/core";
 import { useScrollIntoView } from "@mantine/hooks";
 import { mockGetReviews } from "@/api/review";
 import { ProductReview } from "@/utils/products/product";
 import * as useAsync from "@/hooks/useAsync";
 import { v4 as uuid } from "uuid";
+import { ProductRatingBars } from "./components/ProductRatingBars";
 import { Review } from "./components/Review";
 import styles from "./index.module.css";
 
@@ -72,7 +73,7 @@ export function ProductReviews() {
     useEffect(() => {
         if (!queueScroll) return undefined;
 
-        // Ensure Review components' container repaint before smooth scroll to prevent jumping
+        // Ensure Review components' container repaints before smooth scroll to prevent jumping
         const rafId = requestAnimationFrame(() => {
             requestAnimationFrame(() => {
                 scrollIntoView();
@@ -114,121 +115,13 @@ export function ProductReviews() {
                         : `calc(max(${16}px, ${headerInfo.height + 16}px))`,
                 }}
             >
-                <div className={styles["overview"]}>
-                    <div className={styles["product-reviews-rating-container"]}>
-                        <Skeleton visible={awaitingProductData} width="min-content">
-                            <div style={{ visibility: awaitingProductData ? "hidden" : "initial" }}>
-                                <Rating
-                                    classNames={{ starSymbol: styles["rating-star-symbol"] }}
-                                    readOnly
-                                    count={5}
-                                    fractions={10}
-                                    value={rating.meanValue}
-                                    color="gold"
-                                    size="lg"
-                                />
-                            </div>
-                        </Skeleton>
-                        <Skeleton visible={awaitingProductData}>
-                            <div
-                                className={styles["product-rating-description"]}
-                                style={{ visibility: awaitingProductData ? "hidden" : "initial" }}
-                            >
-                                <strong>{rating.meanValue.toFixed(2)}</strong> out of{" "}
-                                <strong>5</strong> from <strong>{reviewIds.length}</strong> reviews
-                            </div>
-                        </Skeleton>
-                    </div>
-                    <div className={styles["product-reviews-rating-bars"]}>
-                        {Object.entries(rating.quantities)
-                            .reverse()
-                            .map((entry) => {
-                                const [key, value] = entry;
-
-                                return (
-                                    <Skeleton
-                                        visible={awaitingProductData}
-                                        key={`product-reviews-tier-${key}-progress-bar-skeleton`}
-                                    >
-                                        <button
-                                            type="button"
-                                            onClick={() => {
-                                                if (key === filter) setFilter("All");
-                                                else
-                                                    setFilter(
-                                                        key as (typeof filterOptions)[number],
-                                                    );
-                                            }}
-                                            className={styles["product-reviews-rating-bar"]}
-                                            style={{
-                                                visibility: awaitingProductData
-                                                    ? "hidden"
-                                                    : "initial",
-                                            }}
-                                            key={`product-reviews-tier-${key}-progress-bar`}
-                                        >
-                                            <p
-                                                className={
-                                                    styles["product-reviews-rating-tier-key"]
-                                                }
-                                            >
-                                                {Object.keys(rating.quantities).map((k) => {
-                                                    return (
-                                                        <span
-                                                            className={styles["column-sizer"]}
-                                                            aria-hidden
-                                                            key={`product-reviews-tier-${key}-progress-bar-column-sizer-${k}`}
-                                                        >
-                                                            {k}
-                                                        </span>
-                                                    );
-                                                })}
-                                                {key}
-                                            </p>
-                                            <Progress
-                                                value={
-                                                    awaitingProductData
-                                                        ? 0
-                                                        : (value * 100) / rating.totalQuantity
-                                                }
-                                                color="gold"
-                                                left={key}
-                                                size="0.8rem"
-                                                transitionDuration={500}
-                                                style={{ width: "100%" }}
-                                                className={styles["progress"]}
-                                            />
-                                            <p
-                                                className={
-                                                    styles["product-reviews-rating-tier-percentage"]
-                                                }
-                                            >
-                                                {Object.entries(rating.quantities).map(([k, v]) => {
-                                                    return (
-                                                        <span
-                                                            className={styles["column-sizer"]}
-                                                            aria-hidden
-                                                            key={`product-reviews-tier-${key}-progress-bar-column-sizer-${k}`}
-                                                        >
-                                                            {Math.floor(
-                                                                (v * 100) / rating.totalQuantity +
-                                                                    0.5,
-                                                            )}
-                                                            %
-                                                        </span>
-                                                    );
-                                                })}
-                                                {Math.floor(
-                                                    (value * 100) / rating.totalQuantity + 0.5,
-                                                )}
-                                                %
-                                            </p>
-                                        </button>
-                                    </Skeleton>
-                                );
-                            })}
-                    </div>
-                </div>
+                <ProductRatingBars
+                    clickable={false}
+                    onClick={(tier) => {
+                        if (`${tier}` === filter) setFilter("All");
+                        else setFilter(`${tier}` as (typeof filterOptions)[number]);
+                    }}
+                />
                 <div className={styles["filter-and-sort-options-container"]}>
                     <label htmlFor="filter-reviews" className={styles["label"]}>
                         Rating

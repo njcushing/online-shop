@@ -21,6 +21,7 @@ const defaultProductData: RecursivePartial<ProductDataType> = {
     images: { thumb: "", dynamic: ["a", "b", "c", "d", "e"] },
     rating: { meanValue: 5.0, totalQuantity: 100, quantities: { 5: 90, 4: 6, 3: 2, 2: 1, 1: 1 } },
     variantOptionOrder: ["option"],
+    reviews: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
 };
 
 const defaultProductVariantData: RecursivePartial<ProductVariant> = {
