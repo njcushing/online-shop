@@ -64,39 +64,46 @@ export function ProductInformation() {
                     }
 
                     return (
-                        <Table
-                            variant="vertical"
-                            layout="fixed"
-                            withRowBorders
-                            classNames={{
-                                table: styles["details-table"],
-                                tbody: styles["details-table-tbody"],
-                                tr: styles["details-table-tr"],
-                                th: styles["details-table-th"],
-                            }}
-                            style={{
-                                display: "grid",
-                                gridTemplateColumns: `repeat(${adjustedTableColumnCount}, 1fr)`,
-                                alignItems: "start",
-                                gap: "8px",
-                            }}
-                        >
-                            {columns.map((column) => {
-                                return (
-                                    <Table.Tbody key={`${column.map((row) => row.name).join("-")}`}>
-                                        {column.map((row) => {
-                                            const { name, value } = row;
-                                            return (
-                                                <Table.Tr key={name}>
-                                                    <Table.Th>{name}</Table.Th>
-                                                    <Table.Td>{value}</Table.Td>
-                                                </Table.Tr>
-                                            );
-                                        })}
-                                    </Table.Tbody>
-                                );
-                            })}
-                        </Table>
+                        <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                            <Table
+                                variant="vertical"
+                                layout="fixed"
+                                withRowBorders
+                                classNames={{
+                                    table: styles["details-table"],
+                                    tbody: styles["details-table-tbody"],
+                                    tr: styles["details-table-tr"],
+                                    th: styles["details-table-th"],
+                                }}
+                                style={{
+                                    display: "grid",
+                                    gridTemplateColumns: `repeat(${adjustedTableColumnCount}, 1fr)`,
+                                    alignItems: "start",
+                                    gap: "8px",
+
+                                    visibility: awaiting ? "hidden" : "initial",
+                                }}
+                            >
+                                {columns.map((column) => {
+                                    return (
+                                        <Table.Tbody
+                                            style={{ width: "100%" }}
+                                            key={`${column.map((row) => row.name).join("-")}`}
+                                        >
+                                            {column.map((row) => {
+                                                const { name, value } = row;
+                                                return (
+                                                    <Table.Tr key={name}>
+                                                        <Table.Th>{name}</Table.Th>
+                                                        <Table.Td>{value}</Table.Td>
+                                                    </Table.Tr>
+                                                );
+                                            })}
+                                        </Table.Tbody>
+                                    );
+                                })}
+                            </Table>
+                        </Skeleton>
                     );
                 })(),
             },
