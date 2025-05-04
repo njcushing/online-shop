@@ -1,6 +1,6 @@
 import { useContext, useMemo } from "react";
-import { ProductContext } from "@/pages/Product";
-import { useMatches, Accordion, Table } from "@mantine/core";
+import { IProductContext, ProductContext } from "@/pages/Product";
+import { useMatches, Accordion, Table, Skeleton, SkeletonProps } from "@mantine/core";
 import { ProductReviews } from "@/features/ProductReviews";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -8,22 +8,33 @@ import dayjs from "dayjs";
 import { freeDeliveryThreshold, expressDeliveryCost } from "@/utils/products/cart";
 import styles from "./index.module.css";
 
+const SkeletonClassNames: SkeletonProps["classNames"] = {
+    root: styles["skeleton-root"],
+};
+
 export function ProductInformation() {
     const tableColumnCount = useMatches({ base: 1, lg: 2 });
 
-    const { product, variant } = useContext(ProductContext);
-    const { description } = product.data || { description: "" };
-    const { sku, details, releaseDate } = variant || {
-        sku: "",
-        details: [],
-        releaseDate: null,
-    };
+    const { product, variant, defaultData } = useContext(ProductContext);
+    const { data, awaiting } = product;
+    const { description } =
+        data || (defaultData.product as NonNullable<IProductContext["product"]["data"]>);
+    const { sku, details, releaseDate } =
+        variant || (defaultData.variant as NonNullable<IProductContext["variant"]>);
 
     const segments = useMemo(() => {
         return [
             {
                 value: "Description",
-                content: (
+                content: awaiting ? (
+                    <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                        <Skeleton visible height="1rem" classNames={SkeletonClassNames}></Skeleton>
+                        <Skeleton visible height="1rem" classNames={SkeletonClassNames}></Skeleton>
+                        <Skeleton visible height="1rem" classNames={SkeletonClassNames}></Skeleton>
+                        <Skeleton visible height="1rem" classNames={SkeletonClassNames}></Skeleton>
+                        <Skeleton visible height="1rem" classNames={SkeletonClassNames}></Skeleton>
+                    </div>
+                ) : (
                     <div className={styles["markdown-container"]}>
                         <ReactMarkdown remarkPlugins={[remarkGfm]}>{description}</ReactMarkdown>
                     </div>
@@ -129,7 +140,7 @@ export function ProductInformation() {
                 content: <ProductReviews />,
             },
         ];
-    }, [tableColumnCount, description, sku, details, releaseDate]);
+    }, [tableColumnCount, awaiting, description, sku, details, releaseDate]);
 
     return (
         <section className={styles["product-information"]}>
