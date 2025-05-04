@@ -1,4 +1,4 @@
-import { Rating, Skeleton } from "@mantine/core";
+import { Rating, Skeleton, SkeletonProps } from "@mantine/core";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import dayjs from "dayjs";
@@ -10,15 +10,34 @@ export type TReview = {
     awaiting?: boolean;
 };
 
+const SkeletonClassNames: SkeletonProps["classNames"] = {
+    root: styles["skeleton-root"],
+};
+
 export function Review({ data, awaiting = false }: TReview) {
     if (!data && !awaiting) return null;
 
     if (awaiting) {
         return (
             <div className={styles["review"]}>
-                <Skeleton visible={!data || awaiting} width="100px" height="20px"></Skeleton>
-                <Skeleton visible={!data || awaiting} width="20rem" height="1.06rem"></Skeleton>
-                <Skeleton visible={!data || awaiting} width="100%" height="2rem"></Skeleton>
+                <Skeleton
+                    visible={!data || awaiting}
+                    width="100px"
+                    height="20px"
+                    classNames={SkeletonClassNames}
+                ></Skeleton>
+                <Skeleton
+                    visible={!data || awaiting}
+                    width="20rem"
+                    height="1.06rem"
+                    classNames={SkeletonClassNames}
+                ></Skeleton>
+                <Skeleton
+                    visible={!data || awaiting}
+                    width="100%"
+                    height="2rem"
+                    classNames={SkeletonClassNames}
+                ></Skeleton>
             </div>
         );
     }

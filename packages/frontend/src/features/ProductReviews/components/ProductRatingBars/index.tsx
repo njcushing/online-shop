@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { IProductContext, ProductContext } from "@/pages/Product";
-import { Skeleton, Rating, Progress } from "@mantine/core";
+import { Skeleton, Rating, Progress, SkeletonProps } from "@mantine/core";
 import styles from "./index.module.css";
 
 export type TProductRatingBars = {
@@ -8,6 +8,10 @@ export type TProductRatingBars = {
     onClick: (
         tier: keyof NonNullable<IProductContext["product"]["data"]>["rating"]["quantities"],
     ) => unknown;
+};
+
+const SkeletonClassNames: SkeletonProps["classNames"] = {
+    root: styles["skeleton-root"],
 };
 
 export function ProductRatingBars({ clickable = true, onClick }: TProductRatingBars) {
@@ -23,7 +27,7 @@ export function ProductRatingBars({ clickable = true, onClick }: TProductRatingB
     return (
         <div className={styles["product-reviews-rating-container"]}>
             <div className={styles["overview"]}>
-                <Skeleton visible={awaiting} width="min-content">
+                <Skeleton visible={awaiting} width="min-content" classNames={SkeletonClassNames}>
                     <div style={{ visibility: awaiting ? "hidden" : "initial" }}>
                         <Rating
                             classNames={{ starSymbol: styles["rating-star-symbol"] }}
@@ -36,7 +40,7 @@ export function ProductRatingBars({ clickable = true, onClick }: TProductRatingB
                         />
                     </div>
                 </Skeleton>
-                <Skeleton visible={awaiting}>
+                <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
                     <div
                         className={styles["product-rating-description"]}
                         style={{ visibility: awaiting ? "hidden" : "initial" }}
@@ -55,6 +59,7 @@ export function ProductRatingBars({ clickable = true, onClick }: TProductRatingB
                         return (
                             <Skeleton
                                 visible={awaiting}
+                                classNames={SkeletonClassNames}
                                 key={`product-reviews-tier-${key}-progress-bar-skeleton`}
                             >
                                 <button

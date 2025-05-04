@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Carousel, Embla } from "@mantine/carousel";
 import { Skeleton, Image } from "@mantine/core";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
-import { classicNameResolver } from "typescript";
 import styles from "./index.module.css";
 
 export type TImageCarousel = {

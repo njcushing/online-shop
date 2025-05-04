@@ -186,7 +186,10 @@ export function ProductReviews() {
                 </div>
             </div>
             <div className={styles["reviews"]} ref={targetRef}>
-                <Skeleton visible={awaitingProductData}>
+                <Skeleton
+                    visible={awaitingProductData}
+                    classNames={{ root: styles["skeleton-root"] }}
+                >
                     <p
                         className={styles["review-count"]}
                         style={{ visibility: awaitingProductData ? "hidden" : "initial" }}
