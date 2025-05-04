@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { v4 as uuid } from "uuid";
 import styles from "./index.module.css";
 
 export type TQuantity = {
@@ -34,6 +35,8 @@ export function Quantity({ defaultValue, min, max, disabled, onChange, size = "m
         if (onChange) onChange(quantity);
     }, [onChange, quantity]);
 
+    const inputId = useMemo(() => uuid(), []);
+
     return (
         <div
             className={styles["quantity-input-container"]}
@@ -43,7 +46,7 @@ export function Quantity({ defaultValue, min, max, disabled, onChange, size = "m
             <button
                 type="button"
                 aria-label="Reduce quantity"
-                aria-controls="Quantity"
+                aria-controls={inputId}
                 disabled={disabled || quantity === min}
                 onClick={() => {
                     if (isInteger(quantity)) {
@@ -62,6 +65,7 @@ export function Quantity({ defaultValue, min, max, disabled, onChange, size = "m
             <input
                 type="number"
                 aria-label="Quantity"
+                id={inputId}
                 value={quantity === null ? "" : quantity}
                 disabled={disabled}
                 onBlur={(e) => {
@@ -99,7 +103,7 @@ export function Quantity({ defaultValue, min, max, disabled, onChange, size = "m
             <button
                 type="button"
                 aria-label="Increase quantity"
-                aria-controls="Quantity"
+                aria-controls={inputId}
                 disabled={disabled || quantity === max}
                 onClick={() => {
                     if (isInteger(quantity)) {
