@@ -118,9 +118,6 @@
     }
 }
 
-.skeleton-root {
-    --item-filled-color: "red";
-}
 .skeleton-root::before {
     background-color: rgba(0, 0, 0, 0.06);
 }
