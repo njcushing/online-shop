@@ -52,6 +52,9 @@
     p {
         margin-bottom: revert;
     }
+    p:nth-last-child(-n + 1) {
+        margin-bottom: 0px;
+    }
 
     strong {
         font-weight: 700;
