@@ -1,13 +1,17 @@
 .image-carousel {
+    --outline-width: 2px;
+    --outline-offset: 2px;
+    --outline-spacing: calc(var(--outline-width, 2px) + var(--outline-offset, 2px));
+
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: calc(8px - var(--outline-spacing, 4px));
 }
 
 .carousel-small-container {
     display: grid;
     grid-template-columns: auto 1fr auto;
-    gap: 8px;
+    gap: calc(8px - var(--outline-spacing, 4px));
 }
 
 .carousel-small-root {
@@ -17,7 +21,9 @@
 }
 
 .carousel-small-viewport {
-    width: 100%;
+    width: calc(100% + var(--outline-offset, 2px));
+
+    padding: var(--outline-spacing, 4px);
 }
 
 .carousel-small-control {
@@ -29,7 +35,8 @@
     background-color: transparent;
     box-shadow: none;
 
-    height: 100%;
+    height: calc(100% - calc(var(--outline-spacing, 4px) * 2));
+    margin-top: var(--outline-spacing, 4px);
 }
 
 .carousel-small-control:disabled {
@@ -57,6 +64,12 @@
 
     width: 100%;
     aspect-ratio: 1;
+}
+
+.carousel-image-small[data-selected="true"] {
+    outline: var(--outline-width, 2px) solid #000;
+    outline-offset: var(--outline-offset, 2px);
+    background-color: "red";
 }
 
 .current-image-number {
