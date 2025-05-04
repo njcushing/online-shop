@@ -116,7 +116,6 @@ export function ProductReviews() {
                 }}
             >
                 <ProductRatingBars
-                    clickable={false}
                     onClick={(tier) => {
                         if (`${tier}` === filter) setFilter("All");
                         else setFilter(`${tier}` as (typeof filterOptions)[number]);
