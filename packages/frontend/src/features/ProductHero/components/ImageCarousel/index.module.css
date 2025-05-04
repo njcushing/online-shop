@@ -4,6 +4,12 @@
     gap: 8px;
 }
 
+.carousel-small-container {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 8px;
+}
+
 .carousel-small-root {
     display: flex;
     justify-content: center;
@@ -11,36 +17,35 @@
 }
 
 .carousel-small-viewport {
-    width: calc(100% - (2 * (26px + 8px))); /* Full width - width of both buttons - 2 * gap width */
-}
-
-.carousel-small-controls {
-    top: 0;
-
-    height: 100%;
-    padding: 0px;
+    width: 100%;
 }
 
 .carousel-small-control {
     display: flex;
-    align-content: start;
+    align-items: center;
 
     border: 1px solid rgba(0, 0, 0, 0.6);
-    border-radius: 0px;
+    border-radius: 2px;
+    background-color: transparent;
     box-shadow: none;
 
     height: 100%;
 }
 
-.carousel-small-control[data-inactive] {
+.carousel-small-control:disabled {
     opacity: 0.5;
     cursor: default;
+}
+
+@media (hover: hover) {
+    .carousel-small-control:hover {
+        cursor: pointer;
+    }
 }
 
 .carousel-slide {
     cursor: pointer;
 
-    width: 60px;
     aspect-ratio: 1;
     padding: 0px;
 }
@@ -62,4 +67,14 @@
 
     width: 100%;
     padding: 0px;
+}
+
+.skeleton-root {
+    --item-filled-color: "red";
+}
+.skeleton-root::before {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+.skeleton-root::after {
+    background-color: rgba(0, 0, 0, 0.16);
 }

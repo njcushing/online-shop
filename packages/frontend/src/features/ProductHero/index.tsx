@@ -85,11 +85,9 @@ export function ProductHero() {
     return (
         <section className={styles["product-hero"]}>
             <div className={styles["product-hero-width-controller"]}>
-                <Skeleton visible={awaiting}>
-                    <div style={{ visibility: awaiting ? "hidden" : "initial" }}>
-                        <ImageCarousel images={images.dynamic} />
-                    </div>
-                </Skeleton>
+                <div>
+                    <ImageCarousel images={images.dynamic} awaiting={awaiting} />
+                </div>
 
                 <div className={styles["product-content"]}>
                     <Skeleton visible={awaiting} className={styles["margin"]}>
