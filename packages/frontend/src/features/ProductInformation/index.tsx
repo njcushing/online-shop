@@ -169,7 +169,10 @@ export function ProductInformation() {
                                 >
                                     {value}
                                 </Accordion.Control>
-                                <Accordion.Panel className={styles["accordion-panel"]}>
+                                <Accordion.Panel
+                                    className={styles["accordion-panel"]}
+                                    style={{ opacity: 1 }} // Override default opacity transition
+                                >
                                     {content}
                                 </Accordion.Panel>
                             </Accordion.Item>
