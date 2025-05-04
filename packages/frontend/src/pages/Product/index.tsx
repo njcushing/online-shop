@@ -26,7 +26,16 @@ const defaultProductData: RecursivePartial<ProductDataType> = {
         sentenceLowerBound: 16,
         sentenceUpperBound: 40,
     })}`,
-    images: { thumb: "", dynamic: ["a", "b", "c", "d", "e"] },
+    images: {
+        thumb: { src: "", alt: "" },
+        dynamic: [
+            { src: "a", alt: "" },
+            { src: "b", alt: "" },
+            { src: "c", alt: "" },
+            { src: "d", alt: "" },
+            { src: "e", alt: "" },
+        ],
+    },
     rating: { meanValue: 5.0, totalQuantity: 100, quantities: { 5: 90, 4: 6, 3: 2, 2: 1, 1: 1 } },
     variantOptionOrder: ["option"],
     reviews: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
@@ -63,7 +72,7 @@ const defaultCollectionStepsData: ReturnType<typeof findCollections> = [
                 },
                 description: "",
                 slug: "",
-                images: { thumb: "", dynamic: [] },
+                images: { thumb: { src: "", alt: "" }, dynamic: [] },
                 rating: {
                     meanValue: 0.0,
                     totalQuantity: 0,

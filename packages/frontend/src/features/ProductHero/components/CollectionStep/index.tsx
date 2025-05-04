@@ -38,7 +38,11 @@ export function CollectionStep({ collectionData }: TCollectionStep) {
                     tabIndex={isSelected ? -1 : 0}
                     key={`variant-options-${id}-${usedName}`}
                 >
-                    <Image className={styles["product-thumbnail-image"]} src={thumb || ""} />
+                    <Image
+                        className={styles["product-thumbnail-image"]}
+                        src={thumb.src || ""}
+                        alt={thumb.alt || ""}
+                    />
                     {usedName}
                 </Link>
             );

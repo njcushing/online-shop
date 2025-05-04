@@ -1,10 +1,12 @@
+import { GenericImage } from "@/utils/types";
+
 export type Category = {
     slug: string;
     name: string;
     description: string;
     subcategories?: Category[];
     products?: string[];
-    img?: string;
+    img?: GenericImage;
 };
 
 export const categories: Category[] = [

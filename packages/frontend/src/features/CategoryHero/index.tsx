@@ -52,7 +52,8 @@ export function CategoryHero() {
                                 >
                                     <Image
                                         radius="md"
-                                        src={img || ""}
+                                        src={img?.src || ""}
+                                        alt={img?.alt || ""}
                                         w={120}
                                         h={120}
                                         className={styles["subcategory-link-image"]}

@@ -26,9 +26,12 @@ export function CartItem({ data }: TCartItem) {
     const { name, images, allowance } = product;
     const { price, stock, options, allowanceOverride, image } = variant;
 
+    const usedImage = image || images.thumb;
+    const { src, alt } = usedImage;
+
     return (
         <li className={styles["cart-item"]}>
-            <Image className={styles["cart-item-thumbnail-image"]} src={image || images.thumb} />
+            <Image className={styles["cart-item-thumbnail-image"]} src={src} alt={alt} />
 
             <div className={styles["cart-item-content"]}>
                 <p className={styles["cart-item-name"]}>{name.full}</p>

@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 import { Carousel, Embla } from "@mantine/carousel";
 import { Skeleton, Image } from "@mantine/core";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
+import { GenericImage } from "@/utils/types";
 import styles from "./index.module.css";
 
 export type TImageCarousel = {
-    images: string[];
+    images: GenericImage[];
     awaiting?: boolean;
 };
 
@@ -38,10 +39,15 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                     }}
                     style={{ visibility: awaiting ? "hidden" : "initial" }}
                 >
-                    {images.map((url) => {
+                    {images.map((image) => {
+                        const { src, alt } = image;
                         return (
-                            <Carousel.Slide className={styles["carousel-slide"]} key={url}>
-                                <Image src={url} className={styles["carousel-image-main"]} />
+                            <Carousel.Slide className={styles["carousel-slide"]} key={src}>
+                                <Image
+                                    src={src}
+                                    alt={alt}
+                                    className={styles["carousel-image-main"]}
+                                />
                             </Carousel.Slide>
                         );
                     })}
@@ -79,13 +85,14 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                         viewport: styles["carousel-small-viewport"],
                     }}
                 >
-                    {images.map((url, i) => {
+                    {images.map((image, i) => {
+                        const { src, alt } = image;
                         return (
                             <Carousel.Slide
                                 onClick={() => setCurrentSlide(i)}
                                 data-last={i === images.length - 1}
                                 className={styles["carousel-slide"]}
-                                key={`image-carousel-slide-${url}`}
+                                key={`image-carousel-slide-${src}`}
                                 style={{
                                     marginRight:
                                         i === images.length - 1 ? "0px" : `${slideGapPx}px`,
@@ -94,10 +101,11 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                                 <Skeleton
                                     visible={awaiting}
                                     classNames={SkeletonClassNames}
-                                    key={`image-carousel-slide-${url}-skeleton`}
+                                    key={`image-carousel-slide-${src}-skeleton`}
                                 >
                                     <Image
-                                        src={url}
+                                        src={src}
+                                        alt={alt}
                                         data-selected={currentSlide === i}
                                         className={styles["carousel-image-small"]}
                                         style={{

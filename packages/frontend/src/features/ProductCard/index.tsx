@@ -73,7 +73,11 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
                 ref={mergedProductCardRef}
             >
                 <div className={styles["product-card-image-container"]}>
-                    <Image className={styles["product-image"]} src={productData.images.thumb} />
+                    <Image
+                        className={styles["product-image"]}
+                        src={productData.images.thumb.src || ""}
+                        alt={productData.images.thumb.alt || ""}
+                    />
                     {productInformationBanner()}
                 </div>
                 <p className={styles["product-name"]}>{productData.name.full}</p>

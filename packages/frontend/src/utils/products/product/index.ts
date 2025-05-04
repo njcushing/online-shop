@@ -1,6 +1,7 @@
 import { CSSProperties } from "react";
 import { loremIpsum } from "lorem-ipsum";
 import { generateDateWithinRandomRange } from "@/utils/dates";
+import { GenericImage } from "@/utils/types";
 
 export const lowStockThreshold = 50;
 
@@ -15,7 +16,7 @@ export type ProductVariantOption = {
     title: string;
 } & (
     | { type: "dot"; values: (ProductVariantOptionValuesCore & { dot: CSSProperties["color"] })[] }
-    | { type: "image"; values: (ProductVariantOptionValuesCore & { image: string })[] }
+    | { type: "image"; values: (ProductVariantOptionValuesCore & { image: GenericImage })[] }
 );
 
 export type ProductVariant = {
@@ -26,7 +27,7 @@ export type ProductVariant = {
     stock: number;
     options: Record<string, string>;
     allowanceOverride?: number;
-    image?: string;
+    image?: GenericImage;
     details: { name: string; value: string }[];
     releaseDate: string;
 };
@@ -55,7 +56,7 @@ export type ProductReview = {
     userId: string;
     rating: number;
     comment: string;
-    images?: string[];
+    images?: GenericImage[];
     datePosted: string;
 };
 
@@ -67,7 +68,7 @@ export type Product = {
     };
     description: string;
     slug: string;
-    images: { thumb: string; dynamic: string[] };
+    images: { thumb: GenericImage; dynamic: GenericImage[] };
     rating: {
         meanValue: number;
         totalQuantity: number;
@@ -144,7 +145,16 @@ export const products: Product[] = [
         },
         description: "",
         slug: "coffee-whole-bean-250g",
-        images: { thumb: "", dynamic: ["a", "b", "c", "d", "e"] },
+        images: {
+            thumb: { src: "", alt: "" },
+            dynamic: [
+                { src: "a", alt: "" },
+                { src: "b", alt: "" },
+                { src: "c", alt: "" },
+                { src: "d", alt: "" },
+                { src: "e", alt: "" },
+            ],
+        },
         rating: { meanValue: 0, totalQuantity: 0, quantities: { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 } },
         allowance: 50,
         tags: [],
@@ -226,7 +236,16 @@ export const products: Product[] = [
         },
         description: "",
         slug: "coffee-whole-bean-500g",
-        images: { thumb: "", dynamic: ["a", "b", "c", "d", "e"] },
+        images: {
+            thumb: { src: "", alt: "" },
+            dynamic: [
+                { src: "a", alt: "" },
+                { src: "b", alt: "" },
+                { src: "c", alt: "" },
+                { src: "d", alt: "" },
+                { src: "e", alt: "" },
+            ],
+        },
         rating: { meanValue: 0, totalQuantity: 0, quantities: { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 } },
         allowance: 30,
         tags: [],
@@ -308,7 +327,16 @@ export const products: Product[] = [
         },
         description: "",
         slug: "coffee-whole-bean-1kg",
-        images: { thumb: "", dynamic: ["a", "b", "c", "d", "e"] },
+        images: {
+            thumb: { src: "", alt: "" },
+            dynamic: [
+                { src: "a", alt: "" },
+                { src: "b", alt: "" },
+                { src: "c", alt: "" },
+                { src: "d", alt: "" },
+                { src: "e", alt: "" },
+            ],
+        },
         rating: { meanValue: 0, totalQuantity: 0, quantities: { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 } },
         allowance: 20,
         tags: [],
