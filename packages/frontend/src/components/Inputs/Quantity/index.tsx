@@ -60,6 +60,7 @@ export function Quantity({ defaultValue, min, max, disabled, onChange, size = "m
 
             <input
                 type="number"
+                aria-label="Quantity"
                 value={quantity === null ? "" : quantity}
                 disabled={disabled}
                 onBlur={(e) => {
