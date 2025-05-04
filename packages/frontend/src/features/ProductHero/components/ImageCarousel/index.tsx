@@ -52,6 +52,7 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                 <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
                     <button
                         type="button"
+                        aria-label="Previous image"
                         onClick={() => setCurrentSlide((curr) => curr - 1)}
                         disabled={currentSlide === 0}
                         className={styles["carousel-small-control"]}
@@ -111,6 +112,7 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                 <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
                     <button
                         type="button"
+                        aria-label="Next image"
                         onClick={() => setCurrentSlide((curr) => curr + 1)}
                         disabled={currentSlide === images.length - 1}
                         className={styles["carousel-small-control"]}

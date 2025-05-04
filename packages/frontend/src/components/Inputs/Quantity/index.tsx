@@ -42,6 +42,7 @@ export function Quantity({ defaultValue, min, max, disabled, onChange, size = "m
         >
             <button
                 type="button"
+                aria-label="Reduce quantity"
                 disabled={disabled || quantity === min}
                 onClick={() => {
                     if (isInteger(quantity)) {
@@ -95,6 +96,7 @@ export function Quantity({ defaultValue, min, max, disabled, onChange, size = "m
 
             <button
                 type="button"
+                aria-label="Increase quantity"
                 disabled={disabled || quantity === max}
                 onClick={() => {
                     if (isInteger(quantity)) {
