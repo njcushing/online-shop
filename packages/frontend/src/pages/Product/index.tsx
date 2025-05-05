@@ -10,51 +10,13 @@ import {
     findVariantFromOptions,
     filterVariantOptions,
     findCollections,
+    generateSkeletonProduct,
+    generateSkeletonProductVariant,
 } from "@/utils/products/product";
 import { mockGetProduct } from "@/api/product";
 import { FuncResponseObject } from "@/api/types";
 import { RecursivePartial } from "@/utils/types";
-import { v4 as uuid } from "uuid";
-import { loremIpsum } from "lorem-ipsum";
 import styles from "./index.module.css";
-
-const defaultProductData: RecursivePartial<ProductDataType> = {
-    name: { full: "Product Name" },
-    description: `${loremIpsum({
-        paragraphLowerBound: 3,
-        paragraphUpperBound: 9,
-        sentenceLowerBound: 16,
-        sentenceUpperBound: 40,
-    })}`,
-    images: {
-        thumb: { src: "", alt: "" },
-        dynamic: [
-            { src: "a", alt: "" },
-            { src: "b", alt: "" },
-            { src: "c", alt: "" },
-            { src: "d", alt: "" },
-            { src: "e", alt: "" },
-        ],
-    },
-    rating: { meanValue: 5.0, totalQuantity: 100, quantities: { 5: 90, 4: 6, 3: 2, 2: 1, 1: 1 } },
-    variantOptionOrder: ["option"],
-    reviews: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-};
-
-const defaultProductVariantData: RecursivePartial<ProductVariant> = {
-    id: uuid(),
-    name: "Variant Name",
-    sku: uuid(),
-    price: { base: 1000, current: 1000 },
-    stock: 1000,
-    options: { option: "value" },
-    details: [
-        { name: "Detail 1", value: "Value" },
-        { name: "Detail 2", value: "Value" },
-        { name: "Detail 3", value: "Value" },
-    ],
-    releaseDate: new Date().toISOString(),
-};
 
 const defaultVariantOptionsData: ReturnType<typeof filterVariantOptions> = new Map([
     ["option", new Set(["1", "2", "3"])],
@@ -111,8 +73,8 @@ const defaultProductContext: IProductContext = {
     setSelectedVariantOptions: () => {},
 
     defaultData: {
-        product: defaultProductData,
-        variant: defaultProductVariantData,
+        product: generateSkeletonProduct(),
+        variant: generateSkeletonProductVariant(),
         variantOptions: defaultVariantOptionsData,
         collectionSteps: defaultCollectionStepsData,
     },

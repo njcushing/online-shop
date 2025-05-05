@@ -1,7 +1,8 @@
 import { CSSProperties } from "react";
 import { loremIpsum } from "lorem-ipsum";
 import { generateDateWithinRandomRange } from "@/utils/dates";
-import { GenericImage } from "@/utils/types";
+import { GenericImage, RecursivePartial } from "@/utils/types";
+import { v4 as uuid } from "uuid";
 
 export const lowStockThreshold = 50;
 
@@ -581,3 +582,45 @@ export const findVariantFromOptions = (
 
     return exact ? null : closestMatch;
 };
+
+export const generateSkeletonProductVariant = (): RecursivePartial<ProductVariant> => ({
+    id: uuid(),
+    name: uuid(),
+    sku: uuid(),
+    price: { base: 1000, current: 1000 },
+    stock: 1000,
+    options: { option: "value" },
+    details: [
+        { name: "Detail 1", value: "Value" },
+        { name: "Detail 2", value: "Value" },
+        { name: "Detail 3", value: "Value" },
+    ],
+    releaseDate: new Date().toISOString(),
+});
+
+export const generateSkeletonProduct = (): RecursivePartial<Product> => ({
+    name: { full: uuid() },
+    description: `${loremIpsum({
+        paragraphLowerBound: 3,
+        paragraphUpperBound: 9,
+        sentenceLowerBound: 16,
+        sentenceUpperBound: 40,
+    })}`,
+    slug: uuid(),
+    images: {
+        thumb: { src: "", alt: "" },
+        dynamic: [
+            { src: "a", alt: "" },
+            { src: "b", alt: "" },
+            { src: "c", alt: "" },
+            { src: "d", alt: "" },
+            { src: "e", alt: "" },
+        ],
+    },
+    rating: { meanValue: 5.0, totalQuantity: 100, quantities: { 5: 90, 4: 6, 3: 2, 2: 1, 1: 1 } },
+    allowance: 100,
+    variants: Array.from({ length: 5 }).map(() => generateSkeletonProductVariant()),
+    variantOptionOrder: ["option"],
+    reviews: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+    releaseDate: new Date().toISOString(),
+});
