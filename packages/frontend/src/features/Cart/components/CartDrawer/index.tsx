@@ -1,7 +1,7 @@
 import { useContext } from "react";
+import { IUserContext, UserContext } from "@/pages/Root";
 import { Link } from "react-router-dom";
-import { Button, Divider, Drawer } from "@mantine/core";
-import { UserContext } from "@/pages/Root";
+import { Skeleton, SkeletonProps, Button, Divider, Drawer } from "@mantine/core";
 import { calculateSubtotal } from "@/utils/products/cart";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
 import { CartItem } from "../CartItem";
@@ -12,9 +12,15 @@ export type TCartDrawer = {
     onClose?: () => unknown;
 };
 
+const SkeletonClassNames: SkeletonProps["classNames"] = {
+    root: styles["skeleton-root"],
+};
+
 export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
-    const { cart } = useContext(UserContext);
-    const { data } = cart;
+    const { cart, defaultData } = useContext(UserContext);
+    const { awaiting } = cart;
+
+    const data = cart.data || (defaultData.cart as NonNullable<IUserContext["cart"]["data"]>);
 
     return (
         <Drawer
@@ -41,18 +47,47 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
 
             <div className={styles["cart-drawer-bottom"]}>
                 <div className={styles["subtotal"]}>
-                    {`Subtotal: `}
-                    <span className={styles["subtotal-value"]}>
-                        £{(calculateSubtotal(data || []) / 100).toFixed(2)}
-                    </span>
+                    <Skeleton
+                        visible={awaiting}
+                        width="min-content"
+                        classNames={SkeletonClassNames}
+                    >
+                        <span
+                            style={{ visibility: awaiting ? "hidden" : "initial" }}
+                        >{`Subtotal: `}</span>
+                    </Skeleton>
+                    <Skeleton
+                        visible={awaiting}
+                        width="min-content"
+                        classNames={SkeletonClassNames}
+                    >
+                        <span
+                            className={styles["subtotal-value"]}
+                            style={{ visibility: awaiting ? "hidden" : "initial" }}
+                        >
+                            £{(calculateSubtotal(data || []) / 100).toFixed(2)}
+                        </span>
+                    </Skeleton>
                 </div>
 
-                <DeliveryProgress />
+                <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                    <span style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                        <DeliveryProgress />
+                    </span>
+                </Skeleton>
+
+                {
+                    // Component polymorphism to react-router-dom Link converts Button to <a> tag;
+                    // 'disabled' prop doesn't work, clicks have to be intercepted with
+                    // e.preventDefault
+                }
 
                 <Button
                     component={Link}
                     to="/checkout"
                     color="#242424"
+                    onClick={(e) => awaiting && e.preventDefault()}
+                    disabled={awaiting}
                     classNames={{
                         root: styles["checkout-button-root"],
                         label: styles["checkout-button-label"],
