@@ -2,41 +2,16 @@ import { createContext, useState, useEffect, useMemo } from "react";
 import { Outlet } from "react-router-dom";
 import { Header } from "@/features/Header";
 import { Footer } from "@/features/Footer";
-import { PopulatedCartItemData } from "@/utils/products/cart";
+import { generateSkeletonCart, PopulatedCartItemData } from "@/utils/products/cart";
 import { mockGetCart } from "@/api/cart";
 import { FuncResponseObject } from "@/api/types";
-import { Product as ProductDataType, ProductVariant } from "@/utils/products/product";
 import { RecursivePartial } from "@/utils/types";
 import * as useAsync from "@/hooks/useAsync";
-import { v4 as uuid } from "uuid";
 import { Home } from "../Home";
 import { Category } from "../Category";
 import { Product } from "../Product";
 import { ErrorPage } from "../ErrorPage";
 import styles from "./index.module.css";
-
-const createDefaultProductData = (): RecursivePartial<ProductDataType> => ({
-    name: { full: "Product Name" },
-    images: { thumb: { src: "", alt: "" } },
-    variantOptionOrder: ["option"],
-    allowance: 100,
-});
-
-const createDefaultProductVariantData = (): RecursivePartial<ProductVariant> => ({
-    id: uuid(),
-    name: "Variant Name",
-    price: { base: 1000, current: 1000 },
-    options: { option: "value" },
-    stock: 100,
-});
-
-const defaultCartData: RecursivePartial<PopulatedCartItemData>[] = Array.from({ length: 5 }).map(
-    () => ({
-        product: createDefaultProductData(),
-        variant: createDefaultProductVariantData(),
-        quantity: 1,
-    }),
-);
 
 export const Routes = [
     {
@@ -81,7 +56,7 @@ const defaultUserContext: IUserContext = {
     cart: { data: [], status: 200, message: "Success", awaiting: false },
 
     defaultData: {
-        cart: defaultCartData,
+        cart: generateSkeletonCart(),
     },
 };
 

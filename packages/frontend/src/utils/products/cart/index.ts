@@ -1,4 +1,10 @@
-import { ProductVariant, Product } from "@/utils/products/product";
+import {
+    ProductVariant,
+    Product,
+    generateSkeletonProduct,
+    generateSkeletonProductVariant,
+} from "@/utils/products/product";
+import { RecursivePartial } from "@/utils/types";
 
 export const freeDeliveryThreshold = 5000;
 export const expressDeliveryCost = 599;
@@ -25,4 +31,16 @@ export const mockCart: CartItemData[] = [
 
 export const calculateSubtotal = (cart: PopulatedCartItemData[]): number => {
     return cart.reduce((acc, item) => acc + item.variant.price.current * item.quantity, 0);
+};
+
+export const generateSkeletonCart = (
+    length: number = 5,
+): RecursivePartial<PopulatedCartItemData>[] => {
+    return Array.from({
+        length,
+    }).map(() => ({
+        product: generateSkeletonProduct(),
+        variant: generateSkeletonProductVariant(),
+        quantity: 1,
+    }));
 };
