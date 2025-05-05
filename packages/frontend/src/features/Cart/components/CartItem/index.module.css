@@ -84,3 +84,10 @@
 .cart-item-price-discount-percentage {
     color: rgb(40, 190, 20);
 }
+
+.skeleton-root::before {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+.skeleton-root::after {
+    background-color: rgba(0, 0, 0, 0.16);
+}

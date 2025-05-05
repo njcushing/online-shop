@@ -1,4 +1,6 @@
-import { Image } from "@mantine/core";
+import { useContext } from "react";
+import { UserContext } from "@/pages/Root";
+import { Skeleton, SkeletonProps, Image } from "@mantine/core";
 import { Quantity } from "@/components/Inputs/Quantity";
 import { ProductVariant, Product, variantOptions } from "@/utils/products/product";
 import { PopulatedCartItemData } from "@/utils/products/cart";
@@ -20,7 +22,14 @@ const calculateMaximumAvailability = (
     return Math.min(stock, allowance);
 };
 
+const SkeletonClassNames: SkeletonProps["classNames"] = {
+    root: styles["skeleton-root"],
+};
+
 export function CartItem({ data }: TCartItem) {
+    const { cart } = useContext(UserContext);
+    const { awaiting } = cart;
+
     const { product, variant, quantity } = data;
 
     const { name, images, allowance } = product;
@@ -31,10 +40,24 @@ export function CartItem({ data }: TCartItem) {
 
     return (
         <li className={styles["cart-item"]}>
-            <Image className={styles["cart-item-thumbnail-image"]} src={src} alt={alt} />
+            <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                <Image
+                    className={styles["cart-item-thumbnail-image"]}
+                    src={src}
+                    alt={alt}
+                    style={{ visibility: awaiting ? "hidden" : "initial" }}
+                />
+            </Skeleton>
 
             <div className={styles["cart-item-content"]}>
-                <p className={styles["cart-item-name"]}>{name.full}</p>
+                <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                    <p
+                        className={styles["cart-item-name"]}
+                        style={{ visibility: awaiting ? "hidden" : "initial" }}
+                    >
+                        {name.full}
+                    </p>
+                </Skeleton>
 
                 <div className={styles["cart-item-content-middle"]}>
                     {Object.entries(options).map((option) => {
@@ -44,45 +67,78 @@ export function CartItem({ data }: TCartItem) {
                             (vOptVal) => vOptVal.id === value,
                         );
                         return (
-                            <div className={styles["cart-item-variant-option-info"]} key={key}>
-                                <p className={styles["cart-item-variant-option-name"]}>
-                                    {variantOption?.name || key}:{" "}
-                                </p>
-                                <p className={styles["cart-item-variant-option-value"]}>
-                                    {variantOptionValue?.name || value}
-                                </p>
-                            </div>
+                            <Skeleton
+                                visible={awaiting}
+                                width="min-content"
+                                classNames={SkeletonClassNames}
+                                key={`${key}-skeleton`}
+                            >
+                                <div
+                                    className={styles["cart-item-variant-option-info"]}
+                                    key={key}
+                                    style={{ visibility: awaiting ? "hidden" : "initial" }}
+                                >
+                                    <p className={styles["cart-item-variant-option-name"]}>
+                                        {variantOption?.name || key}:{" "}
+                                    </p>
+                                    <p className={styles["cart-item-variant-option-value"]}>
+                                        {variantOptionValue?.name || value}
+                                    </p>
+                                </div>
+                            </Skeleton>
                         );
                     })}
                 </div>
 
                 <div className={styles["cart-item-content-bottom"]}>
-                    <Quantity
-                        defaultValue={quantity}
-                        min={1}
-                        max={calculateMaximumAvailability(stock, allowance, allowanceOverride)}
-                        size="s"
-                    />
+                    <Skeleton
+                        visible={awaiting}
+                        width="min-content"
+                        classNames={SkeletonClassNames}
+                    >
+                        <div style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                            <Quantity
+                                defaultValue={quantity}
+                                min={1}
+                                max={calculateMaximumAvailability(
+                                    stock,
+                                    allowance,
+                                    allowanceOverride,
+                                )}
+                                disabled={awaiting}
+                                size="s"
+                            />
+                        </div>
+                    </Skeleton>
 
-                    <div className={styles["cart-item-price-container"]}>
-                        <span className={styles["cart-item-price-current"]}>
-                            £{((price.current * quantity) / 100).toFixed(2)}
-                        </span>
+                    <Skeleton
+                        visible={awaiting}
+                        width="min-content"
+                        classNames={SkeletonClassNames}
+                    >
+                        <div
+                            className={styles["cart-item-price-container"]}
+                            style={{ visibility: awaiting ? "hidden" : "initial" }}
+                        >
+                            <span className={styles["cart-item-price-current"]}>
+                                £{((price.current * quantity) / 100).toFixed(2)}
+                            </span>
 
-                        {price.current !== price.base && (
-                            <>
-                                <span className={styles["cart-item-price-base"]}>
-                                    £{((price.base * quantity) / 100).toFixed(2)}
-                                </span>
-                                <span className={styles["cart-item-price-discount-percentage"]}>
-                                    {createPriceAdjustmentString(
-                                        price.current * quantity,
-                                        price.base * quantity,
-                                    )}
-                                </span>
-                            </>
-                        )}
-                    </div>
+                            {price.current !== price.base && (
+                                <>
+                                    <span className={styles["cart-item-price-base"]}>
+                                        £{((price.base * quantity) / 100).toFixed(2)}
+                                    </span>
+                                    <span className={styles["cart-item-price-discount-percentage"]}>
+                                        {createPriceAdjustmentString(
+                                            price.current * quantity,
+                                            price.base * quantity,
+                                        )}
+                                    </span>
+                                </>
+                            )}
+                        </div>
+                    </Skeleton>
                 </div>
             </div>
         </li>
