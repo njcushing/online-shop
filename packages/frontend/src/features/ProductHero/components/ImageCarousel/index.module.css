@@ -41,12 +41,15 @@
 
 .carousel-small-control:disabled {
     opacity: 0.5;
-    cursor: default;
 }
 
 @media (hover: hover) {
     .carousel-small-control:hover {
         cursor: pointer;
+    }
+
+    .carousel-small-control:disabled:hover {
+        cursor: not-allowed;
     }
 }
 
