@@ -598,29 +598,37 @@ export const generateSkeletonProductVariant = (): RecursivePartial<ProductVarian
     releaseDate: new Date().toISOString(),
 });
 
-export const generateSkeletonProduct = (): RecursivePartial<Product> => ({
-    name: { full: uuid() },
-    description: `${loremIpsum({
-        paragraphLowerBound: 3,
-        paragraphUpperBound: 9,
-        sentenceLowerBound: 16,
-        sentenceUpperBound: 40,
-    })}`,
-    slug: uuid(),
-    images: {
-        thumb: { src: "", alt: "" },
-        dynamic: [
-            { src: "a", alt: "" },
-            { src: "b", alt: "" },
-            { src: "c", alt: "" },
-            { src: "d", alt: "" },
-            { src: "e", alt: "" },
-        ],
-    },
-    rating: { meanValue: 5.0, totalQuantity: 100, quantities: { 5: 90, 4: 6, 3: 2, 2: 1, 1: 1 } },
-    allowance: 100,
-    variants: Array.from({ length: 5 }).map(() => generateSkeletonProductVariant()),
-    variantOptionOrder: ["option"],
-    reviews: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-    releaseDate: new Date().toISOString(),
-});
+let skeletonProductId = 0;
+export const generateSkeletonProduct = (): RecursivePartial<Product> => {
+    skeletonProductId += 1;
+    return {
+        name: { full: `Product ${skeletonProductId}` },
+        description: `${loremIpsum({
+            paragraphLowerBound: 3,
+            paragraphUpperBound: 9,
+            sentenceLowerBound: 16,
+            sentenceUpperBound: 40,
+        })}`,
+        slug: uuid(),
+        images: {
+            thumb: { src: "", alt: "" },
+            dynamic: [
+                { src: "a", alt: "" },
+                { src: "b", alt: "" },
+                { src: "c", alt: "" },
+                { src: "d", alt: "" },
+                { src: "e", alt: "" },
+            ],
+        },
+        rating: {
+            meanValue: 5.0,
+            totalQuantity: 100,
+            quantities: { 5: 90, 4: 6, 3: 2, 2: 1, 1: 1 },
+        },
+        allowance: 100,
+        variants: Array.from({ length: 5 }).map(() => generateSkeletonProductVariant()),
+        variantOptionOrder: ["option"],
+        reviews: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+        releaseDate: new Date().toISOString(),
+    };
+};
