@@ -55,7 +55,11 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
             </Skeleton>
 
             <div className={styles["carousel-small-container"]}>
-                <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                <Skeleton
+                    visible={awaiting}
+                    className={styles["carousel-small-control-skeleton"]}
+                    classNames={SkeletonClassNames}
+                >
                     <button
                         type="button"
                         aria-label="Previous image"
@@ -117,7 +121,11 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                         );
                     })}
                 </Carousel>
-                <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                <Skeleton
+                    visible={awaiting}
+                    className={styles["carousel-small-control-skeleton"]}
+                    classNames={SkeletonClassNames}
+                >
                     <button
                         type="button"
                         aria-label="Next image"

@@ -26,6 +26,11 @@
     padding: var(--outline-spacing, 4px);
 }
 
+.carousel-small-control-skeleton {
+    height: calc(100% - calc(var(--outline-spacing, 4px) * 2));
+    margin-top: var(--outline-spacing, 4px);
+}
+
 .carousel-small-control {
     display: flex;
     align-items: center;
@@ -35,8 +40,7 @@
     background-color: transparent;
     box-shadow: none;
 
-    height: calc(100% - calc(var(--outline-spacing, 4px) * 2));
-    margin-top: var(--outline-spacing, 4px);
+    height: 100%;
 }
 
 .carousel-small-control:disabled {
