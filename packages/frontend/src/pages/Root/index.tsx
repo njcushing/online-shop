@@ -5,12 +5,38 @@ import { Footer } from "@/features/Footer";
 import { PopulatedCartItemData } from "@/utils/products/cart";
 import { mockGetCart } from "@/api/cart";
 import { FuncResponseObject } from "@/api/types";
+import { Product as ProductDataType, ProductVariant } from "@/utils/products/product";
+import { RecursivePartial } from "@/utils/types";
 import * as useAsync from "@/hooks/useAsync";
+import { v4 as uuid } from "uuid";
 import { Home } from "../Home";
 import { Category } from "../Category";
 import { Product } from "../Product";
 import { ErrorPage } from "../ErrorPage";
 import styles from "./index.module.css";
+
+const createDefaultProductData = (): RecursivePartial<ProductDataType> => ({
+    name: { full: "Product Name" },
+    images: { thumb: { src: "", alt: "" } },
+    variantOptionOrder: ["option"],
+    allowance: 100,
+});
+
+const createDefaultProductVariantData = (): RecursivePartial<ProductVariant> => ({
+    id: uuid(),
+    name: "Variant Name",
+    price: { base: 1000, current: 1000 },
+    options: { option: "value" },
+    stock: 100,
+});
+
+const defaultCartData: RecursivePartial<PopulatedCartItemData>[] = Array.from({ length: 5 }).map(
+    () => ({
+        product: createDefaultProductData(),
+        variant: createDefaultProductVariantData(),
+        quantity: 1,
+    }),
+);
 
 export const Routes = [
     {
@@ -45,10 +71,18 @@ const defaultRootContext: IRootContext = {
 
 export interface IUserContext {
     cart: FuncResponseObject<PopulatedCartItemData[]> & { awaiting: boolean };
+
+    defaultData: {
+        cart: RecursivePartial<PopulatedCartItemData>[];
+    };
 }
 
 const defaultUserContext: IUserContext = {
     cart: { data: [], status: 200, message: "Success", awaiting: false },
+
+    defaultData: {
+        cart: defaultCartData,
+    },
 };
 
 export interface IHeaderContext {
@@ -76,7 +110,12 @@ export function Root() {
 
     return (
         <RootContext.Provider value={useMemo(() => ({ headerInfo }), [headerInfo])}>
-            <UserContext.Provider value={useMemo(() => ({ cart }), [cart])}>
+            <UserContext.Provider
+                value={useMemo(
+                    () => ({ cart, defaultData: defaultUserContext.defaultData }),
+                    [cart],
+                )}
+            >
                 <div className={styles["page"]}>
                     <HeaderContext.Provider
                         value={useMemo(() => ({ setHeaderInfo }), [setHeaderInfo])}
