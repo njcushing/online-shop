@@ -23,7 +23,10 @@ export default defineConfig({
         },
     },
     resolve: {
-        alias: [{ find: "@", replacement: resolve(__dirname, "./src") }],
+        alias: [
+            { find: "@", replacement: resolve(__dirname, "./src") },
+            { find: "@test-utils", replacement: resolve(__dirname, "./test-utils") },
+        ],
     },
     test: {
         globals: true,

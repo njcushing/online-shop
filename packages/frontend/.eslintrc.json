@@ -55,7 +55,10 @@
                 "project": "./tsconfig.json"
             },
             "alias": {
-                "map": [["@", "./packages/frontend/src"]],
+                "map": [
+                    ["@", "./packages/frontend/src"],
+                    ["@test-utils", "./packages/frontend/test-utils"]
+                ],
                 "extensions": [".ts", ".tsx", ".js", ".jsx"]
             }
         },
