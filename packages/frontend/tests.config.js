@@ -8,6 +8,8 @@ afterEach(() => {
     cleanup();
 });
 
+// Mock Web APIs
+
 Object.defineProperty(window, "matchMedia", {
     writable: true,
     value: vi.fn().mockImplementation((query) => ({
@@ -21,3 +23,16 @@ Object.defineProperty(window, "matchMedia", {
         dispatchEvent: vi.fn(),
     })),
 });
+
+const { getComputedStyle } = window;
+window.getComputedStyle = (elt) => getComputedStyle(elt);
+window.HTMLElement.prototype.scrollIntoView = () => {};
+
+const resizeObserverMock = vi.fn(() => {
+    return {
+        observe: vi.fn(),
+        unobserve: vi.fn(),
+        disconnect: vi.fn(),
+    };
+});
+global.ResizeObserver = resizeObserverMock;
