@@ -1,5 +1,5 @@
 import "@mantine/core/styles.css";
-import { MantineProvider, createTheme, Anchor } from "@mantine/core";
+import { MantineProvider } from "@mantine/core";
 import { DatesProvider } from "@mantine/dates";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -9,29 +9,12 @@ import "dayjs/locale/en";
 
 import { useEffect } from "react";
 import { Theme } from "./themes";
+import { theme } from "../mantine-config";
 import { Router } from "./routes";
 import "./index.css";
 
 dayjs.locale("en");
 dayjs.extend(customParseFormat);
-
-const mantineDefaultTheme = createTheme({
-    fontFamily: "var(--font-family, Inter, system-ui, sans-serif)",
-    breakpoints: {
-        xl: "1280px",
-        lg: "1024px",
-        md: "768px",
-        sm: "640px",
-        xs: "480px",
-    },
-    components: {
-        Anchor: Anchor.extend({
-            defaultProps: {
-                underline: "never",
-            },
-        }),
-    },
-});
 
 export function App() {
     // Calculate 'vw' and 'vh' units
@@ -52,7 +35,7 @@ export function App() {
     }, []);
 
     return (
-        <MantineProvider defaultColorScheme="light" theme={mantineDefaultTheme}>
+        <MantineProvider defaultColorScheme="light" theme={theme}>
             <DatesProvider settings={{ locale: "en" }}>
                 <Theme>
                     <Router />
