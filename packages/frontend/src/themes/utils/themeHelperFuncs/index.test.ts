@@ -1,23 +1,8 @@
 import { vi } from "vitest";
-import "@testing-library/jest-dom";
 import { options, themeSetter, loadTheme, saveTheme } from ".";
 
 // Mock dependencies
 vi.stubEnv("LOCALSTORAGE_PREFIX", "myAppPrefix");
-
-Object.defineProperty(window, "matchMedia", {
-    writable: true,
-    value: vi.fn().mockImplementation((query) => ({
-        matches: false,
-        media: query,
-        onchange: null,
-        addListener: vi.fn(), // Deprecated
-        removeListener: vi.fn(), // Deprecated
-        addEventListener: vi.fn(),
-        removeEventListener: vi.fn(),
-        dispatchEvent: vi.fn(),
-    })),
-});
 
 describe("The 'options' function...", () => {
     test("Should return an array of objects containing a string 'name' field and string 'colour' field", () => {
