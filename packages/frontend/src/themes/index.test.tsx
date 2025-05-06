@@ -1,6 +1,5 @@
 import { vi } from "vitest";
-import { render } from "@testing-library/react";
-import "@testing-library/jest-dom";
+import { render } from "@test-utils";
 import { act } from "react";
 import { ThemeContext, Theme } from ".";
 import * as themeHelperFuncs from "./utils/themeHelperFuncs";
