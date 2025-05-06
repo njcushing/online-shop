@@ -8,20 +8,6 @@ import * as themeHelperFuncs from "./utils/themeHelperFuncs";
 // Mock dependencies
 vi.stubEnv("LOCALSTORAGE_PREFIX", "myAppPrefix");
 
-Object.defineProperty(window, "matchMedia", {
-    writable: true,
-    value: vi.fn().mockImplementation((query) => ({
-        matches: false,
-        media: query,
-        onchange: null,
-        addListener: vi.fn(), // Deprecated
-        removeListener: vi.fn(), // Deprecated
-        addEventListener: vi.fn(),
-        removeEventListener: vi.fn(),
-        dispatchEvent: vi.fn(),
-    })),
-});
-
 const renderFunc = () => {
     let ThemeContextValue!: themeHelperFuncs.IThemeState;
 
