@@ -1,5 +1,6 @@
 import React from "react";
 import { render as testingLibraryRender } from "@testing-library/react";
+import "@testing-library/jest-dom";
 import { MantineProvider } from "@mantine/core";
 import { DatesProvider } from "@mantine/dates";
 import { theme } from "./mantine-config";
