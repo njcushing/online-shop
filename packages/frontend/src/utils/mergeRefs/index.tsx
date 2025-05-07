@@ -1,6 +1,6 @@
 import React from "react";
 
-export function mergeRefs<T>(...inputRefs: (React.Ref<T> | null)[]): React.Ref<T> {
+export function mergeRefs<T>(...inputRefs: (React.Ref<T> | null)[]): (value: T) => void {
     return (value: T) => {
         inputRefs.forEach((inputRef) => {
             if (!inputRef) return;
