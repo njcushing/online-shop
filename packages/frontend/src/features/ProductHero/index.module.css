@@ -119,7 +119,7 @@
 
 .product-hero-buttons-container {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
     gap: 12px;
 
@@ -129,6 +129,22 @@
 .add-to-cart-button {
     font-family: "Radio Canada Big";
     font-size: 1rem;
+}
+
+.add-to-watchlist-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 4px;
+
+    aspect-ratio: 1;
+}
+
+@media (hover: hover) {
+    .add-to-watchlist-button:hover {
+        background-color: transparent;
+    }
 }
 
 .skeleton-root::before {

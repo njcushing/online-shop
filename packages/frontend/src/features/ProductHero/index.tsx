@@ -12,6 +12,7 @@ import { PopulatedCartItemData } from "@/utils/products/cart";
 import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString";
 import { Inputs } from "@/components/Inputs";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
+import { Bell } from "@phosphor-icons/react";
 import { ImageCarousel } from "./components/ImageCarousel";
 import { CollectionStep } from "./components/CollectionStep";
 import { VariantStep } from "./components/VariantStep";
@@ -246,6 +247,16 @@ export function ProductHero() {
                             disabled={maximumVariantQuantity === 0}
                         >
                             Add to Cart
+                        </Button>
+
+                        <Button
+                            color="black"
+                            variant="outline"
+                            className={styles["add-to-watchlist-button"]}
+                            disabled={awaiting}
+                            aria-label="Add to watchlist"
+                        >
+                            <Bell size={24} weight="light" />
                         </Button>
                     </div>
 
