@@ -249,15 +249,25 @@ export function ProductHero() {
                             Add to Cart
                         </Button>
 
-                        <Button
-                            color="black"
-                            variant="outline"
-                            className={styles["add-to-watchlist-button"]}
-                            disabled={awaiting}
-                            aria-label="Add to watchlist"
-                        >
-                            <Bell size={24} weight="light" />
-                        </Button>
+                        <div className={styles["add-to-watchlist-button-container"]}>
+                            <Button
+                                color="black"
+                                variant="outline"
+                                className={styles["add-to-watchlist-button"]}
+                                disabled={awaiting}
+                                aria-label="Add to watchlist"
+                            >
+                                <Bell size={24} weight="light" />
+                            </Button>
+                            {true && (
+                                <span
+                                    className={`${styles["is-on-watchlist-icon"]} material-symbols-sharp`}
+                                    style={{ fontSize: "12px", fontWeight: "bold" }}
+                                >
+                                    Check
+                                </span>
+                            )}
+                        </div>
                     </div>
 
                     <Skeleton visible={awaiting} classNames={SkeletonClassNames}>

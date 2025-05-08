@@ -131,6 +131,10 @@
     font-size: 1rem;
 }
 
+.add-to-watchlist-button-container {
+    position: relative;
+}
+
 .add-to-watchlist-button {
     display: flex;
     justify-content: center;
@@ -145,6 +149,23 @@
     .add-to-watchlist-button:hover {
         background-color: transparent;
     }
+}
+
+.is-on-watchlist-icon {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+
+    color: white;
+    font-family: "Radio Canada Big";
+    font-size: 0.7rem;
+    text-align: center;
+
+    border-radius: 9999px;
+    background-color: green;
+
+    min-width: 1rem;
+    padding: 2px 0px;
 }
 
 .skeleton-root::before {
