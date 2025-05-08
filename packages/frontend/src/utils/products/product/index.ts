@@ -90,6 +90,12 @@ export type Product = {
     releaseDate: string;
 };
 
+export type Watchlist = {
+    userId: string;
+    productId: string;
+    variantId: string;
+};
+
 export const reviews: ProductReview[] = Array.from({ length: 1000 }).map((entry, i) => {
     const productId = `${Math.ceil(Math.random() * 3)}`;
     const variantId = `${productId}-${Math.ceil(Math.random() * 3)}`;
@@ -447,6 +453,14 @@ export const collectionsProducts: { collectionId: string; productId: string }[] 
     { collectionId: "coffee-wholebean", productId: "1" },
     { collectionId: "coffee-wholebean", productId: "2" },
     { collectionId: "coffee-wholebean", productId: "3" },
+];
+
+export const watchlists: Watchlist[] = [
+    { userId: "1", productId: "1", variantId: "1-1" },
+    { userId: "1", productId: "1", variantId: "1-2" },
+    { userId: "1", productId: "2", variantId: "2-2" },
+    { userId: "1", productId: "2", variantId: "2-3" },
+    { userId: "1", productId: "3", variantId: "3-1" },
 ];
 
 export const findProductFromId = (productId: string): Product | undefined => {
