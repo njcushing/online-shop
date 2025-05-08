@@ -96,6 +96,8 @@ export type Watchlist = {
     variantId: string;
 };
 
+export type UserWatchlist = Pick<Watchlist, "productId" | "variantId">[];
+
 export const reviews: ProductReview[] = Array.from({ length: 1000 }).map((entry, i) => {
     const productId = `${Math.ceil(Math.random() * 3)}`;
     const variantId = `${productId}-${Math.ceil(Math.random() * 3)}`;
