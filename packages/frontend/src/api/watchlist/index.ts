@@ -48,3 +48,41 @@ export const mockGetWatchlist: HTTPMethodTypes.GET<undefined, UserWatchlist> = a
         data: userWatchlist,
     };
 };
+
+export const updateWatchlist: HTTPMethodTypes.PUT<
+    undefined,
+    { variant: UserWatchlist[number] },
+    UserWatchlist[]
+> = async (data) => {
+    const token = localStorage.getItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION);
+    if (!token) return { status: 400, message: "No token provided for query", data: null };
+
+    const { variant } = data.body || { variant: null };
+    if (!variant) return { status: 400, message: "No variant provided for query", data: null };
+
+    const result = await fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/watchlist`, {
+        signal: data.abortController ? data.abortController.signal : null,
+        method: "PUT",
+        mode: "cors",
+        headers: { Authorization: token },
+        body: JSON.stringify({ variant }),
+    })
+        .then(async (response) => {
+            const responseJSON = await response.json();
+            saveTokenFromAPIResponse(responseJSON);
+
+            return {
+                status: responseJSON.status,
+                message: responseJSON.message,
+                data: responseJSON.data,
+            };
+        })
+        .catch((error) => {
+            return {
+                status: error.status ? error.status : 500,
+                message: error.message,
+                data: null,
+            };
+        });
+    return result;
+};
