@@ -1,3 +1,5 @@
+/* c8 ignore start */
+
 import { Category } from "./Category";
 import { CreateAccount } from "./CreateAccount";
 import { ErrorPage } from "./ErrorPage";
