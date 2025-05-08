@@ -48,7 +48,7 @@ const calculateMaximumVariantQuantity = (
 };
 
 export function ProductHero() {
-    const { cart } = useContext(UserContext);
+    const { cart, watchlist } = useContext(UserContext);
     const { product, variant, selectedVariantOptions, setSelectedVariantOptions, defaultData } =
         useContext(ProductContext);
     const {
@@ -86,6 +86,12 @@ export function ProductHero() {
     const { price, options } = !awaiting
         ? variant!
         : (defaultVariantData as NonNullable<IProductContext["variant"]>);
+
+    const userIsWatchingVariant =
+        watchlist.data &&
+        watchlist.data.findIndex((item) => {
+            return item.productId === product.data?.id && item.variantId === variant?.id;
+        }) > -1;
 
     return (
         <section className={styles["product-hero"]}>
@@ -259,7 +265,7 @@ export function ProductHero() {
                             >
                                 <Bell size={24} weight="light" />
                             </Button>
-                            {true && (
+                            {!awaiting && userIsWatchingVariant && (
                                 <span
                                     className={`${styles["is-on-watchlist-icon"]} material-symbols-sharp`}
                                     style={{ fontSize: "12px", fontWeight: "bold" }}
