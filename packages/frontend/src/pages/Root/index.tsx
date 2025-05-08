@@ -7,6 +7,8 @@ import { mockGetCart } from "@/api/cart";
 import { FuncResponseObject } from "@/api/types";
 import { RecursivePartial } from "@/utils/types";
 import * as useAsync from "@/hooks/useAsync";
+import { UserWatchlist } from "@/utils/products/watchlist";
+import { mockGetWatchlist } from "@/api/watchlist";
 import { Home } from "../Home";
 import { Category } from "../Category";
 import { Product } from "../Product";
@@ -46,6 +48,7 @@ const defaultRootContext: IRootContext = {
 
 export interface IUserContext {
     cart: FuncResponseObject<PopulatedCartItemData[]> & { awaiting: boolean };
+    watchlist: FuncResponseObject<UserWatchlist> & { awaiting: boolean };
 
     defaultData: {
         cart: RecursivePartial<PopulatedCartItemData>[];
@@ -54,6 +57,7 @@ export interface IUserContext {
 
 const defaultUserContext: IUserContext = {
     cart: { data: [], status: 200, message: "Success", awaiting: false },
+    watchlist: { data: [], status: 200, message: "Success", awaiting: false },
 
     defaultData: {
         cart: generateSkeletonCart(),
@@ -80,15 +84,33 @@ export function Root() {
     );
 
     const [cart, setCart] = useState<IUserContext["cart"]>(defaultUserContext.cart);
-    const { response, awaiting } = useAsync.GET(mockGetCart, [{}], { attemptOnMount: true });
-    useEffect(() => setCart({ ...response, awaiting }), [response, awaiting]);
+    const { response: cartResponse, awaiting: awaitingCartData } = useAsync.GET(mockGetCart, [{}], {
+        attemptOnMount: true,
+    });
+    useEffect(
+        () => setCart({ ...cartResponse, awaiting: awaitingCartData }),
+        [cartResponse, awaitingCartData],
+    );
+
+    const [watchlist, setWatchlist] = useState<IUserContext["watchlist"]>(
+        defaultUserContext.watchlist,
+    );
+    const { response: watchlistResponse, awaiting: awaitingWatchlistData } = useAsync.GET(
+        mockGetWatchlist,
+        [{}],
+        { attemptOnMount: true },
+    );
+    useEffect(
+        () => setWatchlist({ ...watchlistResponse, awaiting: awaitingWatchlistData }),
+        [watchlistResponse, awaitingWatchlistData],
+    );
 
     return (
         <RootContext.Provider value={useMemo(() => ({ headerInfo }), [headerInfo])}>
             <UserContext.Provider
                 value={useMemo(
-                    () => ({ cart, defaultData: defaultUserContext.defaultData }),
-                    [cart],
+                    () => ({ cart, watchlist, defaultData: defaultUserContext.defaultData }),
+                    [cart, watchlist],
                 )}
             >
                 <div className={styles["page"]}>
