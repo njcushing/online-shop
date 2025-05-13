@@ -16,7 +16,7 @@ const defaultStyles: Required<IExclamationMark["style"]> = {
 };
 
 export function ExclamationMark({
-    ariaLabel = "Error: ",
+    ariaLabel = "Error",
     width = "16",
     height = "16",
     style,
