@@ -241,6 +241,7 @@ export function ProductHero() {
                         className={`${styles["product-hero-buttons-container"]} ${styles["margin"]}`}
                     >
                         <Inputs.Quantity
+                            defaultValue={1}
                             min={1}
                             max={Math.max(1, maximumVariantQuantity)}
                             disabled={maximumVariantQuantity === 0}
