@@ -245,7 +245,7 @@ export function ProductHero() {
                             min={1}
                             max={Math.max(1, maximumVariantQuantity)}
                             disabled={maximumVariantQuantity === 0}
-                            onChange={(v) => setQuantity(v)}
+                            onQuantityChange={(v) => setQuantity(v)}
                         />
 
                         <Button
