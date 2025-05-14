@@ -2,12 +2,15 @@ import { useState, useEffect, useMemo } from "react";
 import { v4 as uuid } from "uuid";
 import styles from "./index.module.css";
 
+const baseVal = 0;
+
 export type TQuantity = {
     defaultValue?: number;
     min?: number;
     max?: number;
     disabled?: boolean;
-    onChange?: (value: number | null) => unknown;
+    onChange?: (value: string) => unknown;
+    onQuantityChange?: (value: number) => unknown;
     size?: "s" | "m" | "l";
 };
 
@@ -21,19 +24,43 @@ const isInteger = (value: unknown): value is number => {
     return false;
 };
 
-export function Quantity({ defaultValue, min, max, disabled, onChange, size = "m" }: TQuantity) {
-    const [quantity, setQuantity] = useState<number | null>(
-        (() => {
-            let value: number = defaultValue || 0;
-            if (isInteger(min)) value = Math.max(min, value);
-            if (isInteger(max)) value = Math.min(max, value);
-            return value;
-        })(),
-    );
+const deriveValue = (value: unknown, min: number | undefined, max: number | undefined): number => {
+    if (!isInteger(value)) return deriveValue(baseVal, min, max);
+    let val = value as number;
+    if (isInteger(min)) val = Math.max(min, val);
+    if (isInteger(max)) val = Math.min(max, val);
+    return val;
+};
+
+export function Quantity({
+    defaultValue,
+    min,
+    max,
+    disabled,
+    onChange,
+    onQuantityChange,
+    size = "m",
+}: TQuantity) {
+    const defaultValueToUse = useMemo<number>(() => {
+        if (isInteger(defaultValue)) return defaultValue;
+        return deriveValue(baseVal, min, max);
+    }, [defaultValue, min, max]);
+
+    const [currentValue, setCurrentValue] = useState<string>(defaultValueToUse.toString());
+    const [quantity, setQuantity] = useState<number>(defaultValueToUse);
 
     useEffect(() => {
-        if (onChange) onChange(quantity);
-    }, [onChange, quantity]);
+        const derivedNew = deriveValue(currentValue, min, max);
+        if (derivedNew !== quantity) setQuantity(derivedNew);
+    }, [currentValue, min, max, quantity]);
+
+    useEffect(() => {
+        if (onChange) onChange(currentValue);
+    }, [onChange, currentValue]);
+
+    useEffect(() => {
+        if (onQuantityChange) onQuantityChange(quantity);
+    }, [onQuantityChange, quantity]);
 
     const inputId = useMemo(() => uuid(), []);
 
@@ -49,10 +76,11 @@ export function Quantity({ defaultValue, min, max, disabled, onChange, size = "m
                 aria-controls={inputId}
                 disabled={disabled || quantity === min}
                 onClick={() => {
-                    if (isInteger(quantity)) {
-                        setQuantity(isInteger(min) ? Math.max(min, quantity - 1) : quantity - 1);
+                    const derivedCurrent = deriveValue(currentValue, min, max);
+                    if (typeof derivedCurrent === "undefined") {
+                        setCurrentValue(defaultValueToUse.toString());
                     } else {
-                        setQuantity(isInteger(min) ? min : 0);
+                        setCurrentValue((derivedCurrent - 1).toString());
                     }
                 }}
                 className={styles["decrement-button"]}
@@ -63,36 +91,30 @@ export function Quantity({ defaultValue, min, max, disabled, onChange, size = "m
             </button>
 
             <input
-                type="number"
+                type="text"
                 aria-label="Quantity"
                 id={inputId}
-                value={quantity === null ? "" : quantity}
+                value={currentValue}
                 disabled={disabled}
                 onBlur={(e) => {
-                    const value = e.currentTarget.value.trim();
-                    if (!isInteger(value)) {
-                        setQuantity(min || 0);
-                    } else {
-                        let newQuantity = Number(value);
-                        if (min) newQuantity = Math.max(min, newQuantity);
-                        if (max) newQuantity = Math.min(max, newQuantity);
-                        setQuantity(newQuantity);
-                    }
+                    setCurrentValue(deriveValue(quantity, min, max).toString());
                     e.preventDefault();
                 }}
-                onChange={(e) => {
-                    const { value } = e.currentTarget;
-                    if (value === "" || /^\d+$/.test(value)) {
-                        setQuantity(value === "" ? null : Number.parseInt(value, 10));
-                    }
-                }}
                 onInput={(e) => {
-                    e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, "");
-                }}
-                onPaste={(e) => {
-                    if (!/^\d+$/.test(e.clipboardData.getData("text"))) {
-                        e.preventDefault();
-                    }
+                    let { value } = e.currentTarget;
+
+                    // Normalize all types of dashes to standard hyphen-minus
+                    value = value.replace(/[–—−]/g, "-");
+
+                    const hasLeadingMinus = value.startsWith("-");
+
+                    // Strip non-digit characters and dashes
+                    value = value.replace(/[^0-9]/g, "");
+
+                    // Add leading minus back if applicable
+                    if (hasLeadingMinus) value = `-${value}`;
+
+                    setCurrentValue(value);
                 }}
                 min={min}
                 max={max}
@@ -106,10 +128,11 @@ export function Quantity({ defaultValue, min, max, disabled, onChange, size = "m
                 aria-controls={inputId}
                 disabled={disabled || quantity === max}
                 onClick={() => {
-                    if (isInteger(quantity)) {
-                        setQuantity(isInteger(max) ? Math.min(max, quantity + 1) : quantity + 1);
+                    const derivedCurrent = deriveValue(currentValue, min, max);
+                    if (typeof derivedCurrent === "undefined") {
+                        setCurrentValue(defaultValueToUse.toString());
                     } else {
-                        setQuantity(isInteger(min) ? min : 0);
+                        setCurrentValue((derivedCurrent + 1).toString());
                     }
                 }}
                 className={styles["increment-button"]}
