@@ -92,7 +92,12 @@ export function Quantity({
 
             <input
                 type="text"
+                inputMode="numeric"
+                role="spinbutton"
                 aria-label="Quantity"
+                aria-valuemin={min}
+                aria-valuemax={max}
+                aria-valuenow={quantity}
                 id={inputId}
                 value={currentValue}
                 disabled={disabled}
