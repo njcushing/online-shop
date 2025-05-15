@@ -27,6 +27,30 @@ describe("The Quantity component...", () => {
             expect(input.value).toBe("3");
         });
 
+        test("Which should allow a single leading minus symbol", async () => {
+            render(<Quantity defaultValue={3} />);
+
+            const input = screen.getByRole("spinbutton") as HTMLInputElement;
+            expect(input.value).toBe("3");
+
+            await act(async () => userEvent.type(input, "-"));
+
+            expect(input.value).toBe("3");
+
+            await act(async () => userEvent.clear(input));
+            await act(async () => userEvent.type(input, "-"));
+
+            expect(input.value).toBe("-");
+
+            await act(async () => userEvent.type(input, "1"));
+
+            expect(input.value).toBe("-1");
+
+            await act(async () => userEvent.type(input, "-"));
+
+            expect(input.value).toBe("-1");
+        });
+
         test("Which should, on blur, set the input's value to the current value of the internal quantity state", async () => {
             render(<Quantity defaultValue={3} min={1} max={10} />);
 
@@ -201,4 +225,43 @@ describe("The Quantity component...", () => {
             expect(callback).toHaveBeenCalledWith(2);
         });
     });
+
+    /*
+
+    test("manually entering a number and blurring updates value", () => {
+        render(<Quantity defaultValue={2} />);
+        const input = screen.getByLabelText("Quantity") as HTMLInputElement;
+
+        fireEvent.change(input, { target: { value: "10" } });
+        fireEvent.blur(input);
+        expect(input.value).toBe("10");
+    });
+
+    test("manually entering invalid value resets to min or 0 on blur", () => {
+        render(<Quantity defaultValue={2} min={1} />);
+        const input = screen.getByLabelText("Quantity") as HTMLInputElement;
+
+        fireEvent.change(input, { target: { value: "abc" } });
+        fireEvent.blur(input);
+        expect(input.value).toBe("1");
+    });
+
+    test("clamps manually entered value to max on blur", () => {
+        render(<Quantity defaultValue={1} min={1} max={5} />);
+        const input = screen.getByLabelText("Quantity") as HTMLInputElement;
+
+        fireEvent.change(input, { target: { value: "100" } });
+        fireEvent.blur(input);
+        expect(input.value).toBe("5");
+    });
+
+    test("calls onChange when quantity changes", () => {
+        const onChange = vi.fn();
+        render(<Quantity defaultValue={2} onChange={onChange} />);
+        const increment = screen.getByLabelText("Increase quantity");
+        fireEvent.click(increment);
+        expect(onChange).toHaveBeenCalledWith(3);
+    });
+
+    */
 });
