@@ -1,7 +1,7 @@
 import { ProductReview, reviews } from "@/utils/products/product";
 import { filterOptions, sortOptions } from "@/features/ProductReviews";
 import * as HTTPMethodTypes from "../types";
-import { saveTokenFromAPIResponse } from "../utils/saveTokenFromAPIResponse";
+import { fetcher } from "../utils/fetcher";
 
 export const getReview: HTTPMethodTypes.GET<{ reviewId: string }, ProductReview> = async (data) => {
     const token = localStorage.getItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION);
@@ -10,29 +10,16 @@ export const getReview: HTTPMethodTypes.GET<{ reviewId: string }, ProductReview>
     const { reviewId } = data.params || { reviewId: null };
     if (!reviewId) return { status: 400, message: "No review id provided for query", data: null };
 
-    const result = await fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/review/${reviewId}`, {
-        signal: data.abortController ? data.abortController.signal : null,
-        method: "GET",
-        mode: "cors",
-        headers: { Authorization: token },
-    })
-        .then(async (response) => {
-            const responseJSON = await response.json();
-            saveTokenFromAPIResponse(responseJSON);
+    const result = await fetcher<ProductReview>(
+        `${import.meta.env.VITE_SERVER_DOMAIN}/api/review/${reviewId}`,
+        {
+            signal: data.abortController ? data.abortController.signal : null,
+            method: "GET",
+            mode: "cors",
+            headers: { Authorization: token },
+        },
+    );
 
-            return {
-                status: responseJSON.status,
-                message: responseJSON.message,
-                data: responseJSON.data,
-            };
-        })
-        .catch((error) => {
-            return {
-                status: error.status ? error.status : 500,
-                message: error.message,
-                data: null,
-            };
-        });
     return result;
 };
 
@@ -90,29 +77,16 @@ export const getReviews: HTTPMethodTypes.GET<
     const urlParams = new URLSearchParams();
     Object.entries(data).forEach(([key, value]) => urlParams.append(key, `${value}`));
 
-    const result = await fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/reviews?${urlParams}`, {
-        signal: data.abortController ? data.abortController.signal : null,
-        method: "GET",
-        mode: "cors",
-        headers: { Authorization: token },
-    })
-        .then(async (response) => {
-            const responseJSON = await response.json();
-            saveTokenFromAPIResponse(responseJSON);
+    const result = await fetcher<ProductReview[]>(
+        `${import.meta.env.VITE_SERVER_DOMAIN}/api/reviews?${urlParams}`,
+        {
+            signal: data.abortController ? data.abortController.signal : null,
+            method: "GET",
+            mode: "cors",
+            headers: { Authorization: token },
+        },
+    );
 
-            return {
-                status: responseJSON.status,
-                message: responseJSON.message,
-                data: responseJSON.data,
-            };
-        })
-        .catch((error) => {
-            return {
-                status: error.status ? error.status : 500,
-                message: error.message,
-                data: null,
-            };
-        });
     return result;
 };
 

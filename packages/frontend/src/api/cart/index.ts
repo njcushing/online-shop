@@ -1,36 +1,23 @@
 import { products as productData } from "@/utils/products/product";
 import { CartItemData, PopulatedCartItemData, mockCart } from "@/utils/products/cart";
 import * as HTTPMethodTypes from "../types";
-import { saveTokenFromAPIResponse } from "../utils/saveTokenFromAPIResponse";
 import { mockGetProduct } from "../product";
+import { fetcher } from "../utils/fetcher";
 
 export const getCart: HTTPMethodTypes.GET<undefined, PopulatedCartItemData[]> = async (data) => {
     const token = localStorage.getItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION);
     if (!token) return { status: 400, message: "No token provided for query", data: null };
 
-    const result = await fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/cart`, {
-        signal: data.abortController ? data.abortController.signal : null,
-        method: "GET",
-        mode: "cors",
-        headers: { Authorization: token },
-    })
-        .then(async (response) => {
-            const responseJSON = await response.json();
-            saveTokenFromAPIResponse(responseJSON);
+    const result = await fetcher<PopulatedCartItemData[]>(
+        `${import.meta.env.VITE_SERVER_DOMAIN}/api/cart`,
+        {
+            signal: data.abortController ? data.abortController.signal : null,
+            method: "GET",
+            mode: "cors",
+            headers: { Authorization: token },
+        },
+    );
 
-            return {
-                status: responseJSON.status,
-                message: responseJSON.message,
-                data: responseJSON.data,
-            };
-        })
-        .catch((error) => {
-            return {
-                status: error.status ? error.status : 500,
-                message: error.message,
-                data: null,
-            };
-        });
     return result;
 };
 
@@ -80,30 +67,17 @@ export const updateCart: HTTPMethodTypes.PUT<
         return { status: 400, message: "No products provided for query", data: null };
     }
 
-    const result = await fetch(`${import.meta.env.VITE_SERVER_DOMAIN}/api/cart`, {
-        signal: data.abortController ? data.abortController.signal : null,
-        method: "PUT",
-        mode: "cors",
-        headers: { Authorization: token },
-        body: JSON.stringify({ products }),
-    })
-        .then(async (response) => {
-            const responseJSON = await response.json();
-            saveTokenFromAPIResponse(responseJSON);
+    const result = await fetcher<PopulatedCartItemData[]>(
+        `${import.meta.env.VITE_SERVER_DOMAIN}/api/cart`,
+        {
+            signal: data.abortController ? data.abortController.signal : null,
+            method: "PUT",
+            mode: "cors",
+            headers: { Authorization: token },
+            body: JSON.stringify({ products }),
+        },
+    );
 
-            return {
-                status: responseJSON.status,
-                message: responseJSON.message,
-                data: responseJSON.data,
-            };
-        })
-        .catch((error) => {
-            return {
-                status: error.status ? error.status : 500,
-                message: error.message,
-                data: null,
-            };
-        });
     return result;
 };
 
