@@ -119,6 +119,7 @@ export function ProductReviews() {
                     onClick={(tier) => {
                         if (`${tier}` === filter) setFilter("All");
                         else setFilter(`${tier}` as (typeof filterOptions)[number]);
+                        setQueueScroll(true);
                     }}
                 />
                 <div className={styles["filter-and-sort-options-container"]}>
