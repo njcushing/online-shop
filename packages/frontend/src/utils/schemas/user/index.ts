@@ -32,11 +32,6 @@ export const phone: z.ZodType<Phone> = z.string().refine(
     },
 );
 
-export type Gender = "male" | "female" | "other" | "unspecified";
-export const gender: z.ZodType<Gender> = z.enum(["male", "female", "other", "unspecified"], {
-    message: "Please select an option",
-});
-
 /*
  * Minimum age requirement of 13 in line with UK GDPR & ICO guidance on minimum age for data consent
  * https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/childrens-information/children-and-the-uk-gdpr/what-are-the-rules-about-an-iss-and-consent

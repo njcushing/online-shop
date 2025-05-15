@@ -1,15 +1,6 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-    Input,
-    TextInput,
-    NumberInput,
-    Button,
-    Divider,
-    Progress,
-    NativeSelect,
-    HoverCard,
-} from "@mantine/core";
+import { Input, TextInput, NumberInput, Button, Divider, Progress, HoverCard } from "@mantine/core";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Icons } from "@/components/Icons";
@@ -101,22 +92,6 @@ export function SetPersonalInformationForm({ onSuccess }: ISetPersonalInformatio
                     {...inputProps}
                     label="Phone number"
                     error={createInputError(errors.phone?.message)}
-                    onFocus={() => setCurrentStage(stage)}
-                    tabIndex={tabIndex}
-                />
-
-                <NativeSelect
-                    {...register("gender", { setValueAs: (v) => v || "unspecified" })}
-                    {...inputProps}
-                    label="Gender"
-                    data={[
-                        { label: "Male", value: "male" },
-                        { label: "Female", value: "female" },
-                        { label: "Other", value: "other" },
-                        { label: "Prefer not to say", value: "unspecified" },
-                    ]}
-                    defaultValue="unspecified"
-                    error={createInputError(errors.gender?.message)}
                     onFocus={() => setCurrentStage(stage)}
                     tabIndex={tabIndex}
                 />
