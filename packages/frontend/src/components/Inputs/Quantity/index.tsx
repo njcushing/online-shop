@@ -26,7 +26,7 @@ const isInteger = (value: unknown): value is number => {
 
 const deriveValue = (value: unknown, min: number | undefined, max: number | undefined): number => {
     if (!isInteger(value)) return deriveValue(baseVal, min, max);
-    let val = value as number;
+    let val = Number(value) as number;
     if (isInteger(min)) val = Math.max(min, val);
     if (isInteger(max)) val = Math.min(max, val);
     return val;
