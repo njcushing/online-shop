@@ -1,3 +1,5 @@
+/* c8 ignore start */
+
 import { AccountCreationForm } from "./AccountCreationForm";
 import { CategoryHero } from "./CategoryHero";
 import { Footer } from "./Footer";
