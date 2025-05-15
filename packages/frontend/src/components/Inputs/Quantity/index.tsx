@@ -77,11 +77,7 @@ export function Quantity({
                 disabled={disabled || quantity === min}
                 onClick={() => {
                     const derivedCurrent = deriveValue(currentValue, min, max);
-                    if (typeof derivedCurrent === "undefined") {
-                        setCurrentValue(defaultValueToUse.toString());
-                    } else {
-                        setCurrentValue((derivedCurrent - 1).toString());
-                    }
+                    setCurrentValue(deriveValue(derivedCurrent - 1, min, max).toString());
                 }}
                 className={styles["decrement-button"]}
             >
@@ -134,11 +130,7 @@ export function Quantity({
                 disabled={disabled || quantity === max}
                 onClick={() => {
                     const derivedCurrent = deriveValue(currentValue, min, max);
-                    if (typeof derivedCurrent === "undefined") {
-                        setCurrentValue(defaultValueToUse.toString());
-                    } else {
-                        setCurrentValue((derivedCurrent + 1).toString());
-                    }
+                    setCurrentValue(deriveValue(derivedCurrent + 1, min, max).toString());
                 }}
                 className={styles["increment-button"]}
             >
