@@ -53,6 +53,7 @@
         "zod": "^3.24.1"
     },
     "devDependencies": {
+        "@fetch-mock/vitest": "^0.2.13",
         "@flydotio/dockerfile": "^0.5.7",
         "@testing-library/jest-dom": "^6.6.3",
         "@testing-library/react": "^14.1.2",
