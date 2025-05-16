@@ -15,7 +15,7 @@ export async function fetcher<T>(path: string, init: RequestInit): Promise<FuncR
         })
         .catch((error) => {
             return {
-                status: error.status ? error.status : 500,
+                status: 500,
                 message: error.message,
                 data: null,
             };
