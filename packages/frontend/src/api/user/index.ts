@@ -7,18 +7,12 @@ export const createAccount: HTTPMethodTypes.POST<undefined, AccountCreationFormD
 ) => {
     const { body } = data;
 
-    const urlParams = new URLSearchParams();
-    Object.entries(data).forEach(([key, value]) => urlParams.append(key, `${value}`));
-
-    const result = await fetcher<null>(
-        `${import.meta.env.VITE_SERVER_DOMAIN}/api/reviews?${urlParams}`,
-        {
-            signal: data.abortController ? data.abortController.signal : null,
-            method: "POST",
-            mode: "cors",
-            body: JSON.stringify({ body }),
-        },
-    );
+    const result = await fetcher<null>(`${import.meta.env.VITE_SERVER_DOMAIN}/api/user`, {
+        signal: data.abortController ? data.abortController.signal : null,
+        method: "POST",
+        mode: "cors",
+        body: JSON.stringify(body),
+    });
 
     return result;
 };
