@@ -2,10 +2,11 @@ import { products as productData } from "@/utils/products/product";
 import { CartItemData, PopulatedCartItemData, mockCart } from "@/utils/products/cart";
 import * as HTTPMethodTypes from "../types";
 import { mockGetProduct } from "../product";
+import { getTokenFromStorage } from "../utils/getTokenFromStorage";
 import { fetcher } from "../utils/fetcher";
 
 export const getCart: HTTPMethodTypes.GET<undefined, PopulatedCartItemData[]> = async (data) => {
-    const token = localStorage.getItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION);
+    const token = getTokenFromStorage();
     if (!token) return { status: 400, message: "No token provided for query", data: null };
 
     const result = await fetcher<PopulatedCartItemData[]>(
@@ -59,7 +60,7 @@ export const updateCart: HTTPMethodTypes.PUT<
     { products: CartItemData[] },
     PopulatedCartItemData[]
 > = async (data) => {
-    const token = localStorage.getItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION);
+    const token = getTokenFromStorage();
     if (!token) return { status: 400, message: "No token provided for query", data: null };
 
     const { products } = data.body || { products: [] };
