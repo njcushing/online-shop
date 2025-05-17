@@ -68,14 +68,16 @@ export const getReviews: HTTPMethodTypes.GET<
     },
     ProductReview[]
 > = async (data) => {
+    const { params } = data;
+
     const token = localStorage.getItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION);
     if (!token) return { status: 400, message: "No token provided for query", data: null };
 
-    const { productId } = data.params || { productId: null };
+    const { productId } = params || { productId: null };
     if (!productId) return { status: 400, message: "No product id provided for query", data: null };
 
     const urlParams = new URLSearchParams();
-    Object.entries(data).forEach(([key, value]) => urlParams.append(key, `${value}`));
+    Object.entries(params!).forEach(([key, value]) => urlParams.append(key, `${value}`));
 
     const result = await fetcher<ProductReview[]>(
         `${import.meta.env.VITE_SERVER_DOMAIN}/api/reviews?${urlParams}`,
