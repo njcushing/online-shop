@@ -4,7 +4,7 @@ import { getTokenFromStorage } from ".";
 // Mock dependencies
 vi.stubEnv("VITE_TOKEN_LOCAL_LOCATION", "token_location");
 
-describe("The 'fetcher' function...", () => {
+describe("The 'getTokenFromStorage' function...", () => {
     afterEach(() => {
         vi.restoreAllMocks();
     });
