@@ -41,18 +41,12 @@ describe("The 'getCart' function...", () => {
     });
 
     test("Should call the fetcher function", async () => {
-        const mockGetItem = vi.spyOn(Storage.prototype, "getItem").mockReturnValueOnce("token");
-        mockGetItem.mockImplementationOnce(() => "token");
-
         await getCart(...mockArgs);
 
         expect(mockFetcher).toHaveBeenCalled();
     });
 
     test("Passing it the correct API endpoint as its first argument", async () => {
-        const mockGetItem = vi.spyOn(Storage.prototype, "getItem").mockReturnValueOnce("token");
-        mockGetItem.mockImplementationOnce(() => "token");
-
         await getCart(...mockArgs);
 
         const args = mockFetcher.mock.calls[0];
@@ -62,9 +56,6 @@ describe("The 'getCart' function...", () => {
     });
 
     test("Passing it the abort controller's signal if the abort controller is defined", async () => {
-        const mockGetItem = vi.spyOn(Storage.prototype, "getItem").mockReturnValueOnce("token");
-        mockGetItem.mockImplementationOnce(() => "token");
-
         const adjustedMockArgs = structuredClone(mockArgs);
         adjustedMockArgs[0].abortController = new AbortController();
 
@@ -78,9 +69,6 @@ describe("The 'getCart' function...", () => {
     });
 
     test("Passing it the correct HTTP method (GET)", async () => {
-        const mockGetItem = vi.spyOn(Storage.prototype, "getItem").mockReturnValueOnce("token");
-        mockGetItem.mockImplementationOnce(() => "token");
-
         await getCart(...mockArgs);
 
         const args = mockFetcher.mock.calls[0];
@@ -91,9 +79,6 @@ describe("The 'getCart' function...", () => {
     });
 
     test("Should return the return value of the fetcher function", async () => {
-        const mockGetItem = vi.spyOn(Storage.prototype, "getItem").mockReturnValueOnce("token");
-        mockGetItem.mockImplementationOnce(() => "token");
-
         // @ts-expect-error - Disabling type checking for function parameters in unit test
         mockFetcher.mockReturnValueOnce("test");
 
@@ -146,18 +131,12 @@ describe("The 'updateCart' function...", () => {
     });
 
     test("Should call the fetcher function", async () => {
-        const mockGetItem = vi.spyOn(Storage.prototype, "getItem").mockReturnValueOnce("token");
-        mockGetItem.mockImplementationOnce(() => "token");
-
         await updateCart(...mockArgs);
 
         expect(mockFetcher).toHaveBeenCalled();
     });
 
     test("Passing it the correct API endpoint as its first argument", async () => {
-        const mockGetItem = vi.spyOn(Storage.prototype, "getItem").mockReturnValueOnce("token");
-        mockGetItem.mockImplementationOnce(() => "token");
-
         await updateCart(...mockArgs);
 
         const args = mockFetcher.mock.calls[0];
@@ -167,9 +146,6 @@ describe("The 'updateCart' function...", () => {
     });
 
     test("Passing it the abort controller's signal if the abort controller is defined", async () => {
-        const mockGetItem = vi.spyOn(Storage.prototype, "getItem").mockReturnValueOnce("token");
-        mockGetItem.mockImplementationOnce(() => "token");
-
         const adjustedMockArgs = structuredClone(mockArgs);
         adjustedMockArgs[0].abortController = new AbortController();
 
@@ -183,9 +159,6 @@ describe("The 'updateCart' function...", () => {
     });
 
     test("Passing it the correct HTTP method (PUT)", async () => {
-        const mockGetItem = vi.spyOn(Storage.prototype, "getItem").mockReturnValueOnce("token");
-        mockGetItem.mockImplementationOnce(() => "token");
-
         await updateCart(...mockArgs);
 
         const args = mockFetcher.mock.calls[0];
@@ -196,9 +169,6 @@ describe("The 'updateCart' function...", () => {
     });
 
     test("Should return the return value of the fetcher function", async () => {
-        const mockGetItem = vi.spyOn(Storage.prototype, "getItem").mockReturnValueOnce("token");
-        mockGetItem.mockImplementationOnce(() => "token");
-
         // @ts-expect-error - Disabling type checking for function parameters in unit test
         mockFetcher.mockReturnValueOnce("test");
 

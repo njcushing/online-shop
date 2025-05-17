@@ -23,9 +23,6 @@ describe("The 'getProduct' function...", () => {
     });
 
     test("Should return an object with status: 400 if no product id is provided in the parameters", async () => {
-        const mockGetItem = vi.spyOn(Storage.prototype, "getItem").mockReturnValueOnce("token");
-        mockGetItem.mockImplementationOnce(() => "token");
-
         const adjustedMockArgs = structuredClone(mockArgs);
         const { params } = adjustedMockArgs[0];
         params!.productId = undefined;
@@ -42,18 +39,12 @@ describe("The 'getProduct' function...", () => {
     });
 
     test("Should call the fetcher function", async () => {
-        const mockGetItem = vi.spyOn(Storage.prototype, "getItem").mockReturnValueOnce("token");
-        mockGetItem.mockImplementationOnce(() => "token");
-
         await getProduct(...mockArgs);
 
         expect(mockFetcher).toHaveBeenCalled();
     });
 
     test("Passing it the correct API endpoint as its first argument", async () => {
-        const mockGetItem = vi.spyOn(Storage.prototype, "getItem").mockReturnValueOnce("token");
-        mockGetItem.mockImplementationOnce(() => "token");
-
         await getProduct(...mockArgs);
 
         const args = mockFetcher.mock.calls[0];
@@ -63,9 +54,6 @@ describe("The 'getProduct' function...", () => {
     });
 
     test("Passing it the abort controller's signal if the abort controller is defined", async () => {
-        const mockGetItem = vi.spyOn(Storage.prototype, "getItem").mockReturnValueOnce("token");
-        mockGetItem.mockImplementationOnce(() => "token");
-
         const adjustedMockArgs = structuredClone(mockArgs);
         adjustedMockArgs[0].abortController = new AbortController();
 
@@ -79,9 +67,6 @@ describe("The 'getProduct' function...", () => {
     });
 
     test("Passing it the correct HTTP method (GET)", async () => {
-        const mockGetItem = vi.spyOn(Storage.prototype, "getItem").mockReturnValueOnce("token");
-        mockGetItem.mockImplementationOnce(() => "token");
-
         await getProduct(...mockArgs);
 
         const args = mockFetcher.mock.calls[0];
@@ -92,9 +77,6 @@ describe("The 'getProduct' function...", () => {
     });
 
     test("Should return the return value of the fetcher function", async () => {
-        const mockGetItem = vi.spyOn(Storage.prototype, "getItem").mockReturnValueOnce("token");
-        mockGetItem.mockImplementationOnce(() => "token");
-
         // @ts-expect-error - Disabling type checking for function parameters in unit test
         mockFetcher.mockReturnValueOnce("test");
 
