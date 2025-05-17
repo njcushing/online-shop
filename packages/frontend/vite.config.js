@@ -31,7 +31,7 @@ export default defineConfig({
     test: {
         globals: true,
         environment: "jsdom",
-        setupFiles: ["./tests.config.js"],
+        setupFiles: ["./tests.config.ts"],
         coverage: {
             exclude: ["**/*.config.*/**", "**/zod.ts"],
         },

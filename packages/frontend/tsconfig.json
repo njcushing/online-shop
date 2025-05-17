@@ -21,5 +21,5 @@
             "@test-utils": ["./test-utils"]
         }
     },
-    "include": ["./src", "./vite.config.js", "./tests.config.js"]
+    "include": ["./src", "./vite.config.js", "tests.config.ts"]
 }
