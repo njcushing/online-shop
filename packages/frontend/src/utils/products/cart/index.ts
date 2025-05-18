@@ -6,9 +6,6 @@ import {
 } from "@/utils/products/product";
 import { RecursivePartial } from "@/utils/types";
 
-export const freeDeliveryThreshold = 5000;
-export const expressDeliveryCost = 599;
-
 export type CartItemData = {
     productId: Product["id"];
     variantId: Product["variants"][number]["id"];

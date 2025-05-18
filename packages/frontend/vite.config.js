@@ -25,6 +25,7 @@ export default defineConfig({
     resolve: {
         alias: [
             { find: "@", replacement: resolve(__dirname, "./src") },
+            { find: "@settings", replacement: resolve(__dirname, "./settings") },
             { find: "@test-utils", replacement: resolve(__dirname, "./test-utils") },
         ],
     },

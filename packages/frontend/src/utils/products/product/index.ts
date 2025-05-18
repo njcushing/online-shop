@@ -4,8 +4,6 @@ import { generateDateWithinRandomRange } from "@/utils/dates";
 import { GenericImage, RecursivePartial } from "@/utils/types";
 import { v4 as uuid } from "uuid";
 
-export const lowStockThreshold = 50;
-
 export type ProductVariantOptionValuesCore = {
     id: string;
     name: string;

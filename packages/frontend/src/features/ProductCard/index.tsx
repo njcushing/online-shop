@@ -2,12 +2,9 @@ import React, { forwardRef, useState, useCallback, useMemo, useRef, useEffect } 
 import { Link } from "react-router-dom";
 import { Image, Rating } from "@mantine/core";
 import { useIntersection, useMergedRef } from "@mantine/hooks";
-import {
-    lowStockThreshold,
-    Product as ProductDataType,
-    ProductVariant,
-} from "@/utils/products/product";
+import { Product as ProductDataType, ProductVariant } from "@/utils/products/product";
 import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString";
+import { settings } from "@settings";
 import dayjs from "dayjs";
 import styles from "./index.module.css";
 
@@ -41,7 +38,7 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
             }
 
             // Low stock
-            if (highestStockVariant <= lowStockThreshold) {
+            if (highestStockVariant <= settings.lowStockThreshold) {
                 return <div className={styles["product-information-banner"]}>Low stock</div>;
             }
 

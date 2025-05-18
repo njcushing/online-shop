@@ -5,7 +5,7 @@ import { ProductReviews } from "@/features/ProductReviews";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import dayjs from "dayjs";
-import { freeDeliveryThreshold, expressDeliveryCost } from "@/utils/products/cart";
+import { settings } from "@settings";
 import styles from "./index.module.css";
 
 const SkeletonClassNames: SkeletonProps["classNames"] = {
@@ -119,7 +119,12 @@ export function ProductInformation() {
                                 <span>
                                     Free delivery on all orders of at least £
                                     <strong>
-                                        {+parseFloat(`${freeDeliveryThreshold / 100}`).toFixed(2)}.
+                                        {
+                                            +parseFloat(
+                                                `${settings.freeDeliveryThreshold / 100}`,
+                                            ).toFixed(2)
+                                        }
+                                        .
                                     </strong>
                                 </span>
                                 <span>
@@ -131,7 +136,7 @@ export function ProductInformation() {
                         <div className={styles["delivery-information-segment"]}>
                             <p className={styles["delivery-information-segment-title"]}>
                                 Express Delivery (£
-                                {+parseFloat(`${expressDeliveryCost / 100}`).toFixed(2)})
+                                {+parseFloat(`${settings.expressDeliveryCost / 100}`).toFixed(2)})
                             </p>
                             <div className={styles["delivery-information-segment-information"]}>
                                 <span>

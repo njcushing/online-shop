@@ -57,6 +57,7 @@
             "alias": {
                 "map": [
                     ["@", "./packages/frontend/src"],
+                    ["@settings", "./packages/frontend/settings"],
                     ["@test-utils", "./packages/frontend/test-utils"]
                 ],
                 "extensions": [".ts", ".tsx", ".js", ".jsx"]

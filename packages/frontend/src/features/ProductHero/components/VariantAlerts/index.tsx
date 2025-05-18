@@ -1,8 +1,8 @@
 import { useContext, useEffect, useRef, useMemo } from "react";
 import { ProductContext } from "@/pages/Product";
 import { Collapse, Alert, AlertProps } from "@mantine/core";
-import { lowStockThreshold } from "@/utils/products/product";
 import { CartItemData, mockCart } from "@/utils/products/cart";
+import { settings } from "@settings";
 import { WarningCircle, Info } from "@phosphor-icons/react";
 import styles from "./index.module.css";
 
@@ -16,7 +16,7 @@ const AlertClassNames: AlertProps["classNames"] = {
 
 export function VariantAlerts() {
     const { variant } = useContext(ProductContext);
-    const { stock } = variant || { stock: lowStockThreshold + 1 };
+    const { stock } = variant || { stock: settings.lowStockThreshold + 1 };
 
     const cartItemData = useMemo<CartItemData | undefined>(() => {
         return mockCart.find((cartItem) => cartItem.variantId === variant?.id);
@@ -25,7 +25,7 @@ export function VariantAlerts() {
     const lastValidStockCount = useRef<number>(0);
     const lastValidStockAlert = useRef<"None" | "Low">("None");
     useEffect(() => {
-        if (!variant || variant.stock > lowStockThreshold) return;
+        if (!variant || variant.stock > settings.lowStockThreshold) return;
         lastValidStockCount.current = variant.stock;
         lastValidStockAlert.current = variant.stock === 0 ? "None" : "Low";
     }, [variant]);
@@ -40,7 +40,7 @@ export function VariantAlerts() {
     return (
         <div className={styles["variant-alerts-container"]}>
             <Collapse
-                in={stock <= lowStockThreshold}
+                in={stock <= settings.lowStockThreshold}
                 animateOpacity={false}
                 transitionDuration={500}
             >
