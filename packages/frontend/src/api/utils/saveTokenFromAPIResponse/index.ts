@@ -1,11 +1,23 @@
-export const saveTokenFromAPIResponse = async (response: JSON) => {
-    if (!response || typeof response !== "object") return;
+import { z } from "zod";
+import { FuncResponseObject } from "@/api/types";
 
-    if (!("data" in response) || !response.data || typeof response.data !== "object") return;
-    const { data } = response;
+const TokenDataSchema = z.object({ token: z.string() });
 
-    if (!("token" in data) || !data.token || typeof data.token !== "string") return;
-    const { token } = data;
+export async function saveTokenFromAPIResponse(
+    response: FuncResponseObject<unknown>,
+): Promise<{ success: true } | { success: false; message: string }> {
+    if (response.data == null) return { success: false, message: "DATA_NULL" };
 
-    localStorage.setItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION, token);
-};
+    const parse = TokenDataSchema.safeParse(response.data);
+    if (!parse.success) return { success: false, message: "NO_TOKEN" };
+
+    try {
+        localStorage.setItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION, parse.data.token);
+        return { success: true };
+    } catch (err) {
+        return {
+            success: false,
+            message: (err as DOMException).message,
+        };
+    }
+}
