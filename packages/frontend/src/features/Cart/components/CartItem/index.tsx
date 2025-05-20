@@ -116,12 +116,9 @@ export function CartItem({ data }: TCartItem) {
                         width="min-content"
                         classNames={SkeletonClassNames}
                     >
-                        <Price
-                            base={price.base}
-                            current={price.current}
-                            multiply={quantity}
-                            awaiting={awaiting}
-                        />
+                        <div style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                            <Price base={price.base} current={price.current} multiply={quantity} />
+                        </div>
                     </Skeleton>
                 </div>
             </div>

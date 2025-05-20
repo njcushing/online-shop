@@ -8,7 +8,6 @@ const mockProps: RecursivePartial<TPrice> = {
     base: 100,
     current: 100,
     multiply: 1,
-    awaiting: false,
     size: "md",
 };
 
@@ -36,19 +35,6 @@ describe("The Price component...", () => {
         expect(currentPrice).toBeInTheDocument();
     });
 
-    test("Unless the 'awaiting' prop is true, in which case its visibility should be 'hidden'", () => {
-        const adjustedMockProps = structuredClone(mockProps);
-        adjustedMockProps.awaiting = true;
-        render(<Price {...(adjustedMockProps as unknown as TPrice)} />);
-
-        const { current, multiply } = mockProps;
-        const currentPriceString = `£${((current! * multiply!) / 100).toFixed(2)}`;
-
-        // queryByText *does not* exclude hidden elements - must manually check visibility
-        const currentPrice = screen.queryByText(currentPriceString);
-        expect(currentPrice).not.toBeVisible();
-    });
-
     describe("If the 'base' and 'current' props are not equal...", () => {
         test("Should render the base price in the format £XX.XX, using the 'base' prop, in pence", () => {
             const adjustedMockProps = structuredClone(mockProps);
@@ -60,20 +46,6 @@ describe("The Price component...", () => {
 
             const basePrice = screen.getByText(basePriceString);
             expect(basePrice).toBeInTheDocument();
-        });
-
-        test("Unless the 'awaiting' prop is true, in which case its visibility should be 'hidden'", () => {
-            const adjustedMockProps = structuredClone(mockProps);
-            adjustedMockProps.base = 200;
-            adjustedMockProps.awaiting = true;
-            render(<Price {...(adjustedMockProps as unknown as TPrice)} />);
-
-            const { base, multiply } = mockProps;
-            const basePriceString = `£${((base! * multiply!) / 100).toFixed(2)}`;
-
-            // queryByText *does not* exclude hidden elements - must manually check visibility
-            const basePrice = screen.queryByText(basePriceString);
-            expect(basePrice).not.toBeVisible();
         });
 
         test("Should call the 'createPriceAdjustmentString' function with the correct props", () => {
@@ -99,19 +71,6 @@ describe("The Price component...", () => {
 
             const priceAdjustmentString = screen.getByText("test");
             expect(priceAdjustmentString).toBeInTheDocument();
-        });
-
-        test("Unless the 'awaiting' prop is true, in which case its visibility should be 'hidden'", () => {
-            mockCreatePriceAdjustmentString.mockReturnValueOnce("test");
-
-            const adjustedMockProps = structuredClone(mockProps);
-            adjustedMockProps.base = 200;
-            adjustedMockProps.awaiting = true;
-            render(<Price {...(adjustedMockProps as unknown as TPrice)} />);
-
-            // queryByText *does not* exclude hidden elements - must manually check visibility
-            const priceAdjustmentString = screen.queryByText("test");
-            expect(priceAdjustmentString).not.toBeVisible();
         });
     });
 });

@@ -5,23 +5,12 @@ export type TPrice = {
     base: number;
     current: number;
     multiply?: number;
-    awaiting?: boolean;
     size?: "sm" | "md" | "lg";
 };
 
-export function Price({
-    base = 0,
-    current = 0,
-    multiply = 1,
-    awaiting = false,
-    size = "md",
-}: TPrice) {
+export function Price({ base = 0, current = 0, multiply = 1, size = "md" }: TPrice) {
     return (
-        <div
-            className={styles["price-container"]}
-            style={{ visibility: awaiting ? "hidden" : "initial" }}
-            data-size={size}
-        >
+        <div className={styles["price-container"]} data-size={size}>
             <span className={styles["price-current"]}>
                 £{((current * multiply) / 100).toFixed(2)}
             </span>

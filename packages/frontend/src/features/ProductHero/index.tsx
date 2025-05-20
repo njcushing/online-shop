@@ -214,12 +214,9 @@ export function ProductHero() {
                         classNames={SkeletonClassNames}
                         className={styles["margin"]}
                     >
-                        <Price
-                            base={price.base}
-                            current={price.current}
-                            awaiting={awaiting}
-                            size="lg"
-                        />
+                        <div style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                            <Price base={price.base} current={price.current} size="lg" />
+                        </div>
                     </Skeleton>
 
                     <VariantAlerts />
