@@ -9,10 +9,10 @@ import {
     filterVariantOptions,
 } from "@/utils/products/product";
 import { PopulatedCartItemData } from "@/utils/products/cart";
-import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString";
 import { Inputs } from "@/components/Inputs";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
 import { Bell } from "@phosphor-icons/react";
+import { Price } from "@/features/Price";
 import { ImageCarousel } from "./components/ImageCarousel";
 import { CollectionStep } from "./components/CollectionStep";
 import { VariantStep } from "./components/VariantStep";
@@ -214,25 +214,12 @@ export function ProductHero() {
                         classNames={SkeletonClassNames}
                         className={styles["margin"]}
                     >
-                        <div
-                            className={styles["product-hero-price-container"]}
-                            style={{ visibility: awaiting ? "hidden" : "initial" }}
-                        >
-                            <span className={styles["product-price-current"]}>
-                                £{(price.current / 100).toFixed(2)}
-                            </span>
-
-                            {price.current !== price.base && (
-                                <>
-                                    <span className={styles["product-price-base"]}>
-                                        £{(price.base / 100).toFixed(2)}
-                                    </span>
-                                    <span className={styles["product-price-discount-percentage"]}>
-                                        {createPriceAdjustmentString(price.current, price.base)}
-                                    </span>
-                                </>
-                            )}
-                        </div>
+                        <Price
+                            base={price.base}
+                            current={price.current}
+                            awaiting={awaiting}
+                            size="lg"
+                        />
                     </Skeleton>
 
                     <VariantAlerts />

@@ -96,27 +96,6 @@
     gap: 16px;
 }
 
-.product-hero-price-container {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-
-    font-size: 1.5rem;
-}
-
-.product-price-current {
-    color: black;
-}
-
-.product-price-base {
-    color: grey;
-    text-decoration: line-through;
-}
-
-.product-price-discount-percentage {
-    color: rgb(40, 190, 20);
-}
-
 .product-hero-buttons-container {
     display: grid;
     grid-template-columns: auto 1fr auto;
