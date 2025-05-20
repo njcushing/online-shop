@@ -64,27 +64,6 @@
     }
 }
 
-.cart-item-price-container {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-
-    font-size: 1.1rem;
-}
-
-.cart-item-price-current {
-    color: black;
-}
-
-.cart-item-price-base {
-    color: grey;
-    text-decoration: line-through;
-}
-
-.cart-item-price-discount-percentage {
-    color: rgb(40, 190, 20);
-}
-
 .skeleton-root::before {
     background-color: rgba(0, 0, 0, 0.06);
 }

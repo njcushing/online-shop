@@ -4,7 +4,7 @@ import { Skeleton, SkeletonProps, Image } from "@mantine/core";
 import { Quantity } from "@/components/Inputs/Quantity";
 import { ProductVariant, Product, variantOptions } from "@/utils/products/product";
 import { PopulatedCartItemData } from "@/utils/products/cart";
-import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString";
+import { Price } from "@/features/Price";
 import styles from "./index.module.css";
 
 export type TCartItem = {
@@ -116,28 +116,12 @@ export function CartItem({ data }: TCartItem) {
                         width="min-content"
                         classNames={SkeletonClassNames}
                     >
-                        <div
-                            className={styles["cart-item-price-container"]}
-                            style={{ visibility: awaiting ? "hidden" : "initial" }}
-                        >
-                            <span className={styles["cart-item-price-current"]}>
-                                £{((price.current * quantity) / 100).toFixed(2)}
-                            </span>
-
-                            {price.current !== price.base && (
-                                <>
-                                    <span className={styles["cart-item-price-base"]}>
-                                        £{((price.base * quantity) / 100).toFixed(2)}
-                                    </span>
-                                    <span className={styles["cart-item-price-discount-percentage"]}>
-                                        {createPriceAdjustmentString(
-                                            price.current * quantity,
-                                            price.base * quantity,
-                                        )}
-                                    </span>
-                                </>
-                            )}
-                        </div>
+                        <Price
+                            base={price.base}
+                            current={price.current}
+                            multiply={quantity}
+                            awaiting={awaiting}
+                        />
                     </Skeleton>
                 </div>
             </div>
