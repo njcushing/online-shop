@@ -1,0 +1,32 @@
+.price-container {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+
+    font-size: 1.1rem;
+}
+
+.price-container[data-size="lg"] {
+    font-size: 1.5rem;
+}
+
+.price-container[data-size="md"] {
+    font-size: 1.1rem;
+}
+
+.price-container[data-size="sm"] {
+    font-size: 0.8rem;
+}
+
+.price-current {
+    color: black;
+}
+
+.price-base {
+    color: grey;
+    text-decoration: line-through;
+}
+
+.price-discount-percentage {
+    color: rgb(40, 190, 20);
+}
