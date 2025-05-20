@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { Image, Rating } from "@mantine/core";
 import { useIntersection, useMergedRef } from "@mantine/hooks";
 import { Product as ProductDataType, ProductVariant } from "@/utils/products/product";
-import { createPriceAdjustmentString } from "@/utils/createPriceAdjustmentString";
 import { settings } from "@settings";
 import dayjs from "dayjs";
+import { Price } from "@/features/Price";
 import styles from "./index.module.css";
 
 export type TProductCard = {
@@ -78,24 +78,11 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
                     {productInformationBanner()}
                 </div>
                 <p className={styles["product-name"]}>{productData.name.full}</p>
-                <div className={styles["product-card-price-container"]}>
-                    <span className={styles["product-price-current"]}>
-                        £{(lowestPriceVariant.price.current / 100).toFixed(2)}
-                    </span>
-                    {lowestPriceVariant.price.current !== lowestPriceVariant.price.base && (
-                        <>
-                            <span className={styles["product-price-base"]}>
-                                £{(lowestPriceVariant.price.base / 100).toFixed(2)}
-                            </span>
-                            <span className={styles["product-price-discount-percentage"]}>
-                                {createPriceAdjustmentString(
-                                    lowestPriceVariant.price.current,
-                                    lowestPriceVariant.price.base,
-                                )}
-                            </span>
-                        </>
-                    )}
-                </div>
+                <Price
+                    base={lowestPriceVariant.price.base}
+                    current={lowestPriceVariant.price.current}
+                    size="sm"
+                />
                 <div className={styles["product-card-rating-container"]}>
                     <Rating
                         className={styles["product-rating"]}

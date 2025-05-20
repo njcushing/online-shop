@@ -58,27 +58,6 @@
     font-weight: 600;
 }
 
-.product-card-price-container {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-
-    font-size: 0.92rem;
-}
-
-.product-price-current {
-    color: black;
-}
-
-.product-price-base {
-    color: grey;
-    text-decoration: line-through;
-}
-
-.product-price-discount-percentage {
-    color: rgb(40, 190, 20);
-}
-
 .product-card-rating-container {
     display: flex;
     flex-direction: row;
