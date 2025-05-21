@@ -88,6 +88,20 @@ vi.mock("@/features/Price", () => ({
     }),
 }));
 
+vi.mock("@/utils/products/product", async (importOriginal) => {
+    const actual = await importOriginal();
+    return {
+        ...(actual || {}),
+        variantOptions: [
+            {
+                id: "option1Name",
+                name: "Option 1 Name",
+                values: [{ id: "option1Value", name: "Option 1 Value" }],
+            },
+        ],
+    };
+});
+
 describe("The CartItem component...", () => {
     describe("Should render a Mantine Image component...", () => {
         test("With props pertaining to the variant's image as a priority", () => {
@@ -141,21 +155,27 @@ describe("The CartItem component...", () => {
     });
 
     describe("Should render informaton about each of the variant's options...", () => {
-        test("Including the name and value", () => {
+        test("Including the name and value from the defined variant options, or the key and value as a backup", () => {
             renderFunc();
 
             const QuantityComponent = screen.getByLabelText("Quantity component");
             expect(QuantityComponent).toBeInTheDocument();
 
-            Object.entries(mockProps.data!.variant!.options!).forEach((option) => {
-                const [key, value] = option;
+            expect(screen.getByText("Option 1 Name", { exact: false })).toBeInTheDocument();
+            expect(screen.getByText("Option 1 Value")).toBeInTheDocument();
+        });
 
-                const variantOptionName = screen.getByText(key, { exact: false });
-                const variantOptionValue = screen.getByText(value!);
+        test("Or the key and value as a backup", () => {
+            renderFunc();
 
-                expect(variantOptionName).toBeInTheDocument();
-                expect(variantOptionValue).toBeInTheDocument();
-            });
+            const QuantityComponent = screen.getByLabelText("Quantity component");
+            expect(QuantityComponent).toBeInTheDocument();
+
+            expect(screen.getByText("option2Name", { exact: false })).toBeInTheDocument();
+            expect(screen.getByText("option2Value")).toBeInTheDocument();
+
+            expect(screen.getByText("option3Name", { exact: false })).toBeInTheDocument();
+            expect(screen.getByText("option3Value")).toBeInTheDocument();
         });
 
         test("Unless the UserContext's cart data is still being awaited", () => {
@@ -166,16 +186,15 @@ describe("The CartItem component...", () => {
             const QuantityComponent = screen.getByLabelText("Quantity component");
             expect(QuantityComponent).toBeInTheDocument();
 
-            Object.entries(mockProps.data!.variant!.options!).forEach((option) => {
-                const [key, value] = option;
+            // queryByText *does not* exclude hidden elements - must manually check visibility
+            expect(screen.queryByText("Option 1 Name", { exact: false })).not.toBeVisible();
+            expect(screen.queryByText("Option 1 Value")).not.toBeVisible();
 
-                // queryByText *does not* exclude hidden elements - must manually check visibility
-                const variantOptionName = screen.queryByText(key, { exact: false });
-                const variantOptionValue = screen.queryByText(value!);
+            expect(screen.queryByText("option2Name", { exact: false })).not.toBeVisible();
+            expect(screen.queryByText("option2Value")).not.toBeVisible();
 
-                expect(variantOptionName).not.toBeVisible();
-                expect(variantOptionValue).not.toBeVisible();
-            });
+            expect(screen.queryByText("option3Name", { exact: false })).not.toBeVisible();
+            expect(screen.queryByText("option3Value")).not.toBeVisible();
         });
     });
 
