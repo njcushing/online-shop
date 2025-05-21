@@ -10,7 +10,12 @@ export * from "@testing-library/react";
 export function render(ui: React.ReactNode) {
     return testingLibraryRender(ui, {
         wrapper: ({ children }: { children: React.ReactNode }) => (
-            <BrowserRouter>
+            <BrowserRouter
+                future={{
+                    v7_startTransition: true,
+                    v7_relativeSplatPath: true,
+                }}
+            >
                 <MantineProvider theme={theme}>
                     <DatesProvider settings={{ locale: "en" }}>{children}</DatesProvider>
                 </MantineProvider>
