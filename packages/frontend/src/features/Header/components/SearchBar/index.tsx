@@ -24,23 +24,22 @@ export const SearchBar = forwardRef<HTMLInputElement, TSearchBar>(
                 }}
                 className={styles["search-bar"]}
             >
-                <Input.Wrapper ref={mergeRefs(ref, inputRef)}>
-                    <Input
-                        placeholder="Search for a product"
-                        value={value}
-                        onChange={(event) => setValue(event.currentTarget.value)}
-                        rightSectionPointerEvents="all"
-                        mt="md"
-                        rightSection={
-                            <CloseButton
-                                aria-label="Clear input"
-                                onClick={() => setValue("")}
-                                style={{ display: value ? undefined : "none" }}
-                            />
-                        }
-                        classNames={{ wrapper: styles["input-wrapper"], input: styles["input"] }}
-                    />
-                </Input.Wrapper>
+                <Input
+                    placeholder="Search for a product"
+                    value={value}
+                    onChange={(event) => setValue(event.currentTarget.value)}
+                    rightSectionPointerEvents="all"
+                    mt="md"
+                    rightSection={
+                        <CloseButton
+                            aria-label="Clear input"
+                            onClick={() => setValue("")}
+                            style={{ display: value ? undefined : "none" }}
+                        />
+                    }
+                    classNames={{ wrapper: styles["input-wrapper"], input: styles["input"] }}
+                    ref={mergeRefs(ref, inputRef)}
+                />
             </Collapse>
         );
     },
