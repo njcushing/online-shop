@@ -1,4 +1,4 @@
-import { forwardRef, useRef, useState } from "react";
+import { forwardRef, useState, useEffect, useRef } from "react";
 import { Input, CloseButton, Collapse } from "@mantine/core";
 import { mergeRefs } from "@/utils/mergeRefs";
 import styles from "./index.module.css";
@@ -12,6 +12,11 @@ export const SearchBar = forwardRef<HTMLInputElement, TSearchBar>(
         const [value, setValue] = useState<string>("");
         const inputRef = useRef<HTMLInputElement>(null);
 
+        useEffect(() => {
+            const { current } = inputRef;
+            if (current && !opened) current.blur();
+        }, [opened]);
+
         return (
             <Collapse
                 in={opened}
@@ -20,7 +25,6 @@ export const SearchBar = forwardRef<HTMLInputElement, TSearchBar>(
                     const { current } = inputRef;
                     if (!current) return;
                     if (opened) current.focus();
-                    else current.blur();
                 }}
                 className={styles["search-bar"]}
             >
