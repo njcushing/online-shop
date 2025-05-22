@@ -65,7 +65,7 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
                             className={styles["subtotal-value"]}
                             style={{ visibility: awaiting ? "hidden" : "initial" }}
                         >
-                            £{(calculateSubtotal(data || []) / 100).toFixed(2)}
+                            £{(calculateSubtotal(data) / 100).toFixed(2)}
                         </span>
                     </Skeleton>
                 </div>
