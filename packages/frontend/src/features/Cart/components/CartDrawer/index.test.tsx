@@ -4,6 +4,7 @@ import _ from "lodash";
 import { IUserContext, UserContext } from "@/pages/Root";
 import { RecursivePartial } from "@/utils/types";
 import { act } from "react";
+import { BrowserRouter } from "react-router-dom";
 import { CartDrawer, TCartDrawer } from ".";
 
 // Mock dependencies
@@ -47,15 +48,22 @@ const renderFunc = (args: renderFuncArgs = {}) => {
     const mergedProps = _.merge(structuredClone(mockProps), propsOverride);
 
     const component = (
-        <UserContext.Provider value={mergedUserContext}>
-            <UserContext.Consumer>
-                {(value) => {
-                    UserContextValue = value;
-                    return null;
-                }}
-            </UserContext.Consumer>
-            <CartDrawer {...mergedProps} />
-        </UserContext.Provider>
+        <BrowserRouter
+            future={{
+                v7_startTransition: true,
+                v7_relativeSplatPath: true,
+            }}
+        >
+            <UserContext.Provider value={mergedUserContext}>
+                <UserContext.Consumer>
+                    {(value) => {
+                        UserContextValue = value;
+                        return null;
+                    }}
+                </UserContext.Consumer>
+                <CartDrawer {...mergedProps} />
+            </UserContext.Provider>
+        </BrowserRouter>
     );
 
     const { rerender } = render(component);
