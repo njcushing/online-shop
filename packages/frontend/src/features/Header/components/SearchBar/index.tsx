@@ -1,4 +1,4 @@
-import { forwardRef, useState, useEffect, useRef } from "react";
+import { forwardRef, useState, useEffect, useRef, useCallback } from "react";
 import { Input, CloseButton, Collapse } from "@mantine/core";
 import { mergeRefs } from "@/utils/mergeRefs";
 import styles from "./index.module.css";
@@ -17,16 +17,19 @@ export const SearchBar = forwardRef<HTMLInputElement, TSearchBar>(
             if (current && !opened) current.blur();
         }, [opened]);
 
+        const focusInput = useCallback(() => {
+            const { current } = inputRef;
+            if (!current) return;
+            if (opened) current.focus();
+        }, [opened]);
+
         return (
             <Collapse
                 in={opened}
                 animateOpacity={false}
-                onTransitionEnd={() => {
-                    const { current } = inputRef;
-                    if (!current) return;
-                    if (opened) current.focus();
-                }}
+                onTransitionEnd={focusInput}
                 className={styles["search-bar"]}
+                data-testid="search-bar-Collapse"
             >
                 <Input
                     placeholder="Search for a product"
