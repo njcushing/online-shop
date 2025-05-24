@@ -82,7 +82,11 @@ const defaultProductContext: IProductContext = {
 
 export const ProductContext = createContext<IProductContext>(defaultProductContext);
 
-export function Product() {
+export type TProduct = {
+    children?: React.ReactNode;
+};
+
+export function Product({ children }: TProduct) {
     const params = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
     const { productId } = params;
@@ -169,6 +173,7 @@ export function Product() {
                 <ProductInformation />
                 <RecommendedProducts />
             </div>
+            {children}
         </ProductContext.Provider>
     );
 }
