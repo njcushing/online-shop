@@ -23,10 +23,13 @@ export function CategoryHero() {
                 >
                     <Link to="/">Home</Link>
                     {categoryData.map((category, i) => {
-                        const { slug, name: catName } = category;
+                        const { name: catName } = category;
                         const current = i === categoryData.length - 1;
                         return !current ? (
-                            <Link to={slug} key={catName}>
+                            <Link
+                                to={`/c/${[...urlPathSplit.slice(0, -1)].join("/")}`}
+                                key={catName}
+                            >
                                 {catName}
                             </Link>
                         ) : (
@@ -46,7 +49,7 @@ export function CategoryHero() {
                             const { slug, name: catName, img } = subcategory;
                             return (
                                 <Link
-                                    to={[...urlPathSplit, slug].join("/")}
+                                    to={slug}
                                     key={catName}
                                     className={styles["subcategory-link"]}
                                 >

@@ -10,7 +10,7 @@ import styles from "./index.module.css";
 export function ProductList() {
     const productsToDisplay = useMatches({ base: 3, xs: 5, lg: 7 });
 
-    const { urlPathSplit, categoryData } = useContext(CategoryContext);
+    const { categoryData } = useContext(CategoryContext);
 
     const currentCategory = useMemo(() => {
         return categoryData.length > 0 ? categoryData[categoryData.length - 1] : undefined;
@@ -56,7 +56,7 @@ export function ProductList() {
                                 </p>
                                 <NavLink
                                     component={Link}
-                                    to={[...urlPathSplit, subcategory.slug].join("/")}
+                                    to={subcategory.slug}
                                     label="Shop all"
                                     rightSection={<CaretRight size={16} />}
                                     style={{
