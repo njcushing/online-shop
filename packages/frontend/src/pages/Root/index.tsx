@@ -78,7 +78,11 @@ export const UserContext = createContext<IUserContext>(defaultUserContext);
 
 export const HeaderContext = createContext<IHeaderContext>(defaultHeaderContext);
 
-export function Root() {
+export type TRoot = {
+    children?: React.ReactNode;
+};
+
+export function Root({ children }: TRoot) {
     const [headerInfo, setHeaderInfo] = useState<IRootContext["headerInfo"]>(
         defaultRootContext.headerInfo,
     );
@@ -118,6 +122,7 @@ export function Root() {
                         value={useMemo(() => ({ setHeaderInfo }), [setHeaderInfo])}
                     >
                         <Header />
+                        {children}
                     </HeaderContext.Provider>
                     <Outlet />
                     <Footer />
