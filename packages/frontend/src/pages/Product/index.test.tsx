@@ -4,11 +4,10 @@ import _ from "lodash";
 import { act } from "react";
 import { RecursivePartial } from "@/utils/types";
 import { BrowserRouter } from "react-router-dom";
-import { Product as ProductDataType } from "@/utils/products/product";
 import { IProductContext, ProductContext, Product } from ".";
 
 // Mock dependencies
-const mockProduct: RecursivePartial<ProductDataType> = {
+const mockProduct: RecursivePartial<IProductContext["product"]["data"]> = {
     // Only using fields relevant to the Product component
     id: "productId",
     slug: "product-slug",
