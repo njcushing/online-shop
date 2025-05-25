@@ -44,8 +44,11 @@ const renderFunc = (args: renderFuncArgs = {}) => {
 
     let UserContextValue!: IUserContext;
 
-    const mergedUserContext = _.merge(structuredClone(mockUserContext), UserContextOverride);
-    const mergedProps = _.merge(structuredClone(mockProps), propsOverride);
+    const mergedUserContext = _.merge(
+        _.cloneDeep(structuredClone(mockUserContext)),
+        UserContextOverride,
+    );
+    const mergedProps = _.merge(_.cloneDeep(structuredClone(mockProps)), propsOverride);
 
     const component = (
         <BrowserRouter

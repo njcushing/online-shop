@@ -45,7 +45,7 @@ const renderFunc = async (args: renderFuncArgs = {}) => {
 
     let ProductContextValue!: IProductContext;
 
-    const mergedProductContext = _.merge(mockProductContext, ProductContextOverride);
+    const mergedProductContext = _.merge(_.cloneDeep(mockProductContext), ProductContextOverride);
 
     const component = (
         // Using BrowserRouter for useSearchParams hook from react-router-dom

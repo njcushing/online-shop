@@ -14,7 +14,7 @@ type renderFuncArgs = {
 const renderFunc = (args: renderFuncArgs = {}) => {
     const { propsOverride } = args;
 
-    const mergedProps = _.merge(structuredClone(mockProps), propsOverride);
+    const mergedProps = _.merge(_.cloneDeep(structuredClone(mockProps)), propsOverride);
 
     const component = <SearchBar {...mergedProps} />;
 
