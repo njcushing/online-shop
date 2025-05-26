@@ -41,7 +41,11 @@ const validatePath = (
     return null;
 };
 
-export function Category() {
+export type TCategory = {
+    children?: React.ReactNode;
+};
+
+export function Category({ children }: TCategory) {
     const { "*": urlPathFull } = useParams();
     const urlPathSplit = useMemo(() => (urlPathFull ? urlPathFull.split("/") : []), [urlPathFull]);
 
@@ -61,6 +65,7 @@ export function Category() {
                 <CategoryHero />
                 <ProductList />
             </div>
+            {children}
         </CategoryContext.Provider>
     );
 }
