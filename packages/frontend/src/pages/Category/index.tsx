@@ -1,6 +1,5 @@
 import { createContext, useMemo } from "react";
 import { useParams } from "react-router-dom";
-import { Pages } from "@/pages";
 import { CategoryHero } from "@/features/CategoryHero";
 import { ProductList } from "@/features/ProductList";
 import { categories, Category as CategoryDataType } from "@/utils/products/categories";
@@ -57,7 +56,7 @@ export function Category({ children }: TCategory) {
         return { urlPathFull: urlPathFull || "", urlPathSplit, categoryData };
     }, [urlPathFull, urlPathSplit, categoryData]);
 
-    if (categoryData.length === 0) return <Pages.ErrorPage />;
+    if (categoryData.length === 0) throw new Response("Category not found", { status: 404 });
 
     return (
         <CategoryContext.Provider value={contextValue}>
