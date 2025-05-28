@@ -9,28 +9,28 @@ export function Router() {
                     {
                         path: "/create-account",
                         element: <Pages.CreateAccount />,
-                        errorElement: <div></div>,
+                        errorElement: <Pages.ErrorPage />,
                     },
                     {
                         path: "/login",
                         element: <Pages.Login />,
-                        errorElement: <div></div>,
+                        errorElement: <Pages.ErrorPage />,
                     },
                     {
                         path: "/terms-and-conditions",
                         element: <Pages.TermsAndConditions />,
-                        errorElement: <div></div>,
+                        errorElement: <Pages.ErrorPage />,
                     },
                     {
                         path: "/privacy-policy",
                         element: <Pages.PrivacyPolicy />,
-                        errorElement: <div></div>,
+                        errorElement: <Pages.ErrorPage />,
                     },
                     {
                         path: "/",
                         element: <Pages.Root />,
                         children: Routes.Root,
-                        errorElement: <div></div>,
+                        errorElement: <Pages.ErrorPage />,
                     },
                 ],
                 {
