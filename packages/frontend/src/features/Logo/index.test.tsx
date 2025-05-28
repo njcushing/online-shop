@@ -7,7 +7,7 @@ import { Logo, TLogo } from ".";
 
 // Mock dependencies
 const mockProps: TLogo = {
-    size: "m",
+    size: "md",
     onClick: undefined,
 };
 

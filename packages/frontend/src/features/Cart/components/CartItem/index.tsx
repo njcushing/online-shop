@@ -106,7 +106,7 @@ export function CartItem({ data }: TCartItem) {
                                     allowanceOverride,
                                 )}
                                 disabled={awaiting}
-                                size="s"
+                                size="sm"
                             />
                         </div>
                     </Skeleton>

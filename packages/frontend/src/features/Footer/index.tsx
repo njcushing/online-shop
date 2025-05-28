@@ -8,7 +8,7 @@ export function Footer() {
         <footer className={styles["footer"]}>
             <div className={styles["footer-width-controller"]}>
                 <div className={styles["column-1"]}>
-                    <Logo size="l" />
+                    <Logo size="lg" />
                     <Box visibleFrom="sm">
                         <p className={styles["copyright-message"]}>© njcushing 2025</p>
                     </Box>

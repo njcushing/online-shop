@@ -11,7 +11,7 @@ export type TQuantity = {
     disabled?: boolean;
     onChange?: (value: string) => unknown;
     onQuantityChange?: (value: number) => unknown;
-    size?: "s" | "m" | "l";
+    size?: "sm" | "md" | "lg";
 };
 
 const isInteger = (value: unknown): value is number => {
@@ -39,7 +39,7 @@ export function Quantity({
     disabled,
     onChange,
     onQuantityChange,
-    size = "m",
+    size = "md",
 }: TQuantity) {
     const defaultValueToUse = useMemo<number>(() => {
         if (isInteger(defaultValue)) return defaultValue;

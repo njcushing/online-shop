@@ -16,11 +16,11 @@
     border-color: rgba(0, 0, 0, 0.3);
 }
 
-.quantity-input-container[data-size="s"] {
+.quantity-input-container[data-size="sm"] {
     width: 80px;
 }
 
-.quantity-input-container[data-size="l"] {
+.quantity-input-container[data-size="lg"] {
     width: 140px;
 }
 
@@ -52,11 +52,11 @@
     color: rgba(0, 0, 0, 0.5);
 }
 
-.quantity-input-container[data-size="s"] .quantity-input {
+.quantity-input-container[data-size="sm"] .quantity-input {
     font-size: 0.8rem;
 }
 
-.quantity-input-container[data-size="l"] .quantity-input {
+.quantity-input-container[data-size="lg"] .quantity-input {
     font-size: 1.2rem;
 }
 
@@ -101,12 +101,12 @@
     stroke: rgba(0, 0, 0, 0.5);
 }
 
-.quantity-input-container[data-size="s"] .decrement-button,
-.quantity-input-container[data-size="s"] .increment-button {
+.quantity-input-container[data-size="sm"] .decrement-button,
+.quantity-input-container[data-size="sm"] .increment-button {
     width: 16px;
 }
 
-.quantity-input-container[data-size="l"] .decrement-button,
-.quantity-input-container[data-size="l"] .increment-button {
+.quantity-input-container[data-size="lg"] .decrement-button,
+.quantity-input-container[data-size="lg"] .increment-button {
     width: 30px;
 }

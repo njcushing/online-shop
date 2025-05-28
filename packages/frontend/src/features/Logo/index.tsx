@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 import styles from "./index.module.css";
 
 export type TLogo = {
-    size?: "s" | "m" | "l";
+    size?: "sm" | "md" | "lg";
     onClick?: () => unknown;
 };
 
-export function Logo({ size = "m", onClick }: TLogo) {
+export function Logo({ size = "md", onClick }: TLogo) {
     return (
         <Link
             to="/"
