@@ -114,6 +114,21 @@ describe("The 'updateCart' function...", () => {
         );
     });
 
+    test("Should return an object with status: 400 if no request body is provided", async () => {
+        const adjustedMockArgs = structuredClone(mockArgs);
+        adjustedMockArgs[0].body = undefined;
+
+        const result = await updateCart(...adjustedMockArgs);
+
+        expect(result).toEqual(
+            expect.objectContaining({
+                status: 400,
+                message: expect.any(String),
+                data: null,
+            }),
+        );
+    });
+
     test("Should return an object with status: 400 if no product ids are provided for the request body", async () => {
         const adjustedMockArgs = structuredClone(mockArgs);
         const { body } = adjustedMockArgs[0];
