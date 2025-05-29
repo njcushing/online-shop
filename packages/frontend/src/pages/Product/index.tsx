@@ -13,7 +13,7 @@ import {
     generateSkeletonProduct,
     generateSkeletonProductVariant,
 } from "@/utils/products/product";
-import { mockGetProduct } from "@/api/product";
+import { mockGetProduct } from "@/api/mocks";
 import { FuncResponseObject } from "@/api/types";
 import { RecursivePartial } from "@/utils/types";
 import styles from "./index.module.css";

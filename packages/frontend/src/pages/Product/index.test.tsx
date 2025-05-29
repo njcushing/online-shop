@@ -82,7 +82,7 @@ export const mockMockGetProduct = vi.fn(async () => ({
     message: "Success",
     data: mockProduct,
 }));
-vi.mock("@/api/product", async (importOriginal) => {
+vi.mock("@/api/mocks", async (importOriginal) => {
     const actual = await importOriginal();
     return {
         ...(actual || {}),

@@ -1,4 +1,4 @@
-import { Product, products } from "@/utils/products/product";
+import { Product } from "@/utils/products/product";
 import * as HTTPMethodTypes from "../types";
 import { fetcher } from "../utils/fetcher";
 
@@ -20,39 +20,4 @@ export const getProduct: HTTPMethodTypes.GET<{ productId?: string }, Product> = 
     );
 
     return result;
-};
-
-export const mockGetProduct: HTTPMethodTypes.GET<{ productId?: string }, Product> = async (
-    data,
-) => {
-    const { params } = data;
-    const { productId } = params || {};
-
-    await new Promise((resolve) => {
-        setTimeout(resolve, 1000);
-    });
-
-    if (!productId) {
-        return {
-            status: 400,
-            message: "No product id provided for query",
-            data: null,
-        };
-    }
-
-    const foundProduct = products.find((product) => product.id === productId);
-
-    if (!foundProduct) {
-        return {
-            status: 404,
-            message: "Product not found",
-            data: null,
-        };
-    }
-
-    return {
-        status: 200,
-        message: "Success",
-        data: foundProduct as Product,
-    };
 };

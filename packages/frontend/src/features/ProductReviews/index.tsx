@@ -3,7 +3,7 @@ import { RootContext } from "@/pages/Root";
 import { IProductContext, ProductContext } from "@/pages/Product";
 import { Divider, Pagination, Skeleton } from "@mantine/core";
 import { useScrollIntoView } from "@mantine/hooks";
-import { mockGetReviews } from "@/api/review";
+import { mockGetReviews } from "@/api/mocks";
 import { ProductReview } from "@/utils/products/product";
 import * as useAsync from "@/hooks/useAsync";
 import { v4 as uuid } from "uuid";

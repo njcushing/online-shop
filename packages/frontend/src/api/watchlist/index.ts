@@ -1,4 +1,4 @@
-import { UserWatchlist, watchlists } from "@/utils/products/watchlist";
+import { UserWatchlist } from "@/utils/products/watchlist";
 import * as HTTPMethodTypes from "../types";
 import { getTokenFromStorage } from "../utils/getTokenFromStorage";
 import { fetcher } from "../utils/fetcher";
@@ -18,23 +18,6 @@ export const getWatchlist: HTTPMethodTypes.GET<undefined, UserWatchlist> = async
     );
 
     return result;
-};
-
-export const mockGetWatchlist: HTTPMethodTypes.GET<undefined, UserWatchlist> = async () => {
-    await new Promise((resolve) => {
-        setTimeout(resolve, 1000);
-    });
-
-    const userWatchlist = watchlists.flatMap((watchlist) => {
-        const { userId, productId, variantId } = watchlist;
-        return userId === "1" ? { productId, variantId } : [];
-    });
-
-    return {
-        status: 200,
-        message: "Success",
-        data: userWatchlist,
-    };
 };
 
 export const updateWatchlist: HTTPMethodTypes.PUT<

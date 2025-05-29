@@ -121,23 +121,16 @@ export const mockMockGetCart = vi.fn(async () => ({
     message: "Success",
     data: mockCart,
 }));
-vi.mock("@/api/cart", async (importOriginal) => {
-    const actual = await importOriginal();
-    return {
-        ...(actual || {}),
-        mockGetCart: () => mockMockGetCart(),
-    };
-});
-
 export const mockMockGetWatchlist = vi.fn(async () => ({
     status: 200,
     message: "Success",
     data: mockWatchlist,
 }));
-vi.mock("@/api/watchlist", async (importOriginal) => {
+vi.mock("@/api/mocks", async (importOriginal) => {
     const actual = await importOriginal();
     return {
         ...(actual || {}),
+        mockGetCart: () => mockMockGetCart(),
         mockGetWatchlist: () => mockMockGetWatchlist(),
     };
 });
@@ -211,7 +204,7 @@ describe("The Root component...", () => {
                 });
             });
 
-            test("Which should be populated by the 'response' field in the return value of the 'useAsync' hook for the 'mockGetCart' function", async () => {
+            test.only("Which should be populated by the 'response' field in the return value of the 'useAsync' hook for the 'mockGetCart' function", async () => {
                 const { getUserContextValue } = await renderFunc();
                 const UserContextValue = getUserContextValue();
 
