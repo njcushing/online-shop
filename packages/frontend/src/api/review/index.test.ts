@@ -41,6 +41,21 @@ describe("The 'getReview' function...", () => {
         );
     });
 
+    test("Should return an object with status: 400 if no request parameters are provided", async () => {
+        const adjustedMockArgs = structuredClone(mockArgs);
+        adjustedMockArgs[0].params = undefined;
+
+        const result = await getReview(...adjustedMockArgs);
+
+        expect(result).toEqual(
+            expect.objectContaining({
+                status: 400,
+                message: expect.any(String),
+                data: null,
+            }),
+        );
+    });
+
     test("Should return an object with status: 400 if no review id is provided in the parameters", async () => {
         const adjustedMockArgs = structuredClone(mockArgs);
         const { params } = adjustedMockArgs[0];
@@ -127,6 +142,21 @@ describe("The 'getReviews' function...", () => {
         mockGetTokenFromStorage.mockImplementationOnce(() => null);
 
         const result = await getReviews(...mockArgs);
+
+        expect(result).toEqual(
+            expect.objectContaining({
+                status: 400,
+                message: expect.any(String),
+                data: null,
+            }),
+        );
+    });
+
+    test("Should return an object with status: 400 if no request parameters are provided", async () => {
+        const adjustedMockArgs = structuredClone(mockArgs);
+        adjustedMockArgs[0].params = undefined;
+
+        const result = await getReviews(...adjustedMockArgs);
 
         expect(result).toEqual(
             expect.objectContaining({
