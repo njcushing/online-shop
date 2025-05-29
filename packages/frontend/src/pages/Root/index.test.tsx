@@ -204,7 +204,7 @@ describe("The Root component...", () => {
                 });
             });
 
-            test.only("Which should be populated by the 'response' field in the return value of the 'useAsync' hook for the 'mockGetCart' function", async () => {
+            test("Which should be populated by the 'response' field in the return value of the 'useAsync' hook for the 'mockGetCart' function", async () => {
                 const { getUserContextValue } = await renderFunc();
                 const UserContextValue = getUserContextValue();
 
