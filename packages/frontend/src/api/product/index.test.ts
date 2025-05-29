@@ -22,6 +22,21 @@ describe("The 'getProduct' function...", () => {
         vi.restoreAllMocks();
     });
 
+    test("Should return an object with status: 400 if no request parameters are provided", async () => {
+        const adjustedMockArgs = structuredClone(mockArgs);
+        adjustedMockArgs[0].params = undefined;
+
+        const result = await getProduct(...adjustedMockArgs);
+
+        expect(result).toEqual(
+            expect.objectContaining({
+                status: 400,
+                message: expect.any(String),
+                data: null,
+            }),
+        );
+    });
+
     test("Should return an object with status: 400 if no product id is provided in the parameters", async () => {
         const adjustedMockArgs = structuredClone(mockArgs);
         const { params } = adjustedMockArgs[0];
