@@ -25,7 +25,7 @@ const validatePath = (
     currentCategories: CategoryDataType[],
     categoriesArray: CategoryDataType[],
 ): CategoryDataType[] | null => {
-    if (stage === urlPathSplit.length) return null;
+    if (urlPathSplit.length === 0) return null;
 
     const slug = urlPathSplit[stage];
     const categoryIndex = categoriesArray.findIndex((category) => category.slug === slug);

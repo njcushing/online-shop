@@ -186,19 +186,42 @@ describe("The Category component...", () => {
         expect(ProductListComponent).toBeInTheDocument();
     });
 
-    describe("Unless the URL path doesn't resolve to valid category/subcategory...", () => {
-        test("In which case, the router's errorElement should be rendered", async () => {
-            // Expecting error to be thrown here - suppressing to avoid cluttering terminal
-            const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    describe("Or, should render the router's errorElement...", () => {
+        beforeEach(() => {
+            // Expecting errors to be thrown in tests - suppressing to avoid cluttering terminal
+            vi.spyOn(console, "error").mockImplementation(() => {});
+        });
 
+        afterEach(() => {
+            vi.spyOn(console, "error").mockRestore();
+        });
+
+        test("If the 'urlPathSplit' context field has a length of 0", async () => {
+            window.history.pushState({}, "", "/c");
+
+            await renderFunc();
+
+            const ErrorElement = screen.getByLabelText("Error element");
+            expect(ErrorElement).toBeInTheDocument();
+        });
+
+        test("If a matched category has no subcategories array but the current stage of the URL path has not been reached", async () => {
+            const path = `/c/${mockCategories[0]!.slug}/${mockCategories[0]!.subcategories![0].slug}/invalid-subcategory`;
+            window.history.pushState({}, "", path);
+
+            await renderFunc();
+
+            const ErrorElement = screen.getByLabelText("Error element");
+            expect(ErrorElement).toBeInTheDocument();
+        });
+
+        test("If the URL path doesn't resolve to valid category/subcategory", async () => {
             window.history.pushState({}, "", "/c/invalid-category");
 
             await renderFunc();
 
             const ErrorElement = screen.getByLabelText("Error element");
             expect(ErrorElement).toBeInTheDocument();
-
-            errorSpy.mockRestore();
         });
     });
 });
