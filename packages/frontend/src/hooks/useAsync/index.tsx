@@ -9,7 +9,7 @@ type MethodTypes<FuncParams = unknown, FuncBody = unknown, FuncResponse = unknow
     | HTTPMethodTypes.POST<FuncParams, FuncBody, FuncResponse>
     | HTTPMethodTypes.PUT<FuncParams, FuncBody, FuncResponse>;
 
-type GetAsyncOpts = {
+export type UseAsyncOpts = {
     attemptOnMount?: boolean;
     navigation?: {
         onSuccess?: string;
@@ -26,7 +26,7 @@ function genericResponseObject<FuncParams, FuncBody, FuncResponse>(): UnwrapProm
 export function useAsyncBase<FuncParams = unknown, FuncBody = unknown, FuncResponse = unknown>(
     func: MethodTypes<FuncParams, FuncBody, FuncResponse>,
     parameters?: Parameters<MethodTypes<FuncParams, FuncBody, FuncResponse>>,
-    opts?: GetAsyncOpts,
+    opts?: UseAsyncOpts,
 ): {
     response: UnwrapPromise<ReturnType<MethodTypes<FuncParams, FuncBody, FuncResponse>>>;
     setParams: React.Dispatch<
@@ -117,7 +117,7 @@ export function useAsyncBase<FuncParams = unknown, FuncBody = unknown, FuncRespo
 export function GET<FuncParams = unknown, FuncResponse = unknown>(
     func: HTTPMethodTypes.GET<FuncParams, FuncResponse>,
     parameters?: Parameters<HTTPMethodTypes.GET<FuncParams, FuncResponse>>,
-    opts?: GetAsyncOpts,
+    opts?: UseAsyncOpts,
 ) {
     return useAsyncBase<FuncParams, undefined, FuncResponse>(func, parameters, opts);
 }
@@ -125,7 +125,7 @@ export function GET<FuncParams = unknown, FuncResponse = unknown>(
 export function POST<FuncParams = unknown, FuncBody = unknown, FuncResponse = unknown>(
     func: HTTPMethodTypes.POST<FuncParams, FuncBody, FuncResponse>,
     parameters?: Parameters<HTTPMethodTypes.POST<FuncParams, FuncBody, FuncResponse>>,
-    opts?: GetAsyncOpts,
+    opts?: UseAsyncOpts,
 ) {
     return useAsyncBase<FuncParams, FuncBody, FuncResponse>(func, parameters, opts);
 }
@@ -133,7 +133,7 @@ export function POST<FuncParams = unknown, FuncBody = unknown, FuncResponse = un
 export function PUT<FuncParams = unknown, FuncBody = unknown, FuncResponse = unknown>(
     func: HTTPMethodTypes.PUT<FuncParams, FuncBody, FuncResponse>,
     parameters?: Parameters<HTTPMethodTypes.PUT<FuncParams, FuncBody, FuncResponse>>,
-    opts?: GetAsyncOpts,
+    opts?: UseAsyncOpts,
 ) {
     return useAsyncBase<FuncParams, FuncBody, FuncResponse>(func, parameters, opts);
 }
@@ -141,7 +141,7 @@ export function PUT<FuncParams = unknown, FuncBody = unknown, FuncResponse = unk
 export function DELETE<FuncParams = unknown, FuncResponse = unknown>(
     func: HTTPMethodTypes.DELETE<FuncParams, FuncResponse>,
     parameters?: Parameters<HTTPMethodTypes.DELETE<FuncParams, FuncResponse>>,
-    opts?: GetAsyncOpts,
+    opts?: UseAsyncOpts,
 ) {
     return useAsyncBase<FuncParams, undefined, FuncResponse>(func, parameters, opts);
 }
