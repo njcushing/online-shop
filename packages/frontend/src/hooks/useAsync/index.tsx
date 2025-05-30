@@ -74,45 +74,37 @@ export function useAsyncBase<FuncParams = unknown, FuncBody = unknown, FuncRespo
         setAttempting(false);
     }, [abortController]);
 
+    const request = useCallback(async () => {
+        let data = {};
+        let args;
+        if (params) [data, ...args] = params;
+
+        const asyncResp = await func(data, args);
+        setResponse(
+            asyncResp as UnwrapPromise<ReturnType<MethodTypes<FuncParams, FuncBody, FuncResponse>>>,
+        );
+
+        const { status } = asyncResp;
+        if (onSuccess && status >= 200 && status <= 299) navigate(onSuccess);
+        if (onFail && (status < 200 || status > 299)) navigate(onFail);
+
+        abortController.current = null;
+        setAttempting(false);
+    }, [func, onSuccess, onFail, navigate, params]);
+
     useEffect(() => {
         if (attempting) {
             if (abortController.current) abortController.current.abort();
             const abortControllerNew = new AbortController();
             abortController.current = abortControllerNew;
 
-            (async () => {
-                let data = {};
-                let args;
-                if (params) [data, ...args] = params;
-
-                const asyncResp = await func(data, args);
-                setResponse(
-                    asyncResp as UnwrapPromise<
-                        ReturnType<MethodTypes<FuncParams, FuncBody, FuncResponse>>
-                    >,
-                );
-
-                abortController.current = null;
-                setAttempting(false);
-            })();
+            request();
         }
 
         return () => {
             if (abortController.current) abortController.current.abort();
         };
-    }, [params, abortController, attempting, func]);
-
-    useEffect(() => {
-        if (response) {
-            const { status } = response;
-            if (onSuccess && status >= 200 && status <= 299) navigate(onSuccess);
-            if (onFail && (status < 200 || status > 299)) navigate(onFail);
-        }
-    }, [onSuccess, onFail, response, navigate]);
-
-    useEffect(() => {
-        if (!attempting && abortController.current) abortController.current.abort();
-    }, [abortController, attempting]);
+    }, [attempting, request]);
 
     return { response, setParams, attempt, abort, awaiting: attempting };
 }
