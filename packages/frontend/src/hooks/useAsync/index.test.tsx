@@ -33,9 +33,9 @@ describe("The 'useAsync.GET' hook...", () => {
         >(undefined);
         let HookContextValue!: ReturnType<typeof useAsync.GET<undefined, ResponseType>> | undefined;
 
-        const mergedUseAsyncOpts = _.merge(_.cloneDeep(defaultUseAsyncOpts), useAsyncOptsOverride);
+        function Component({ opts }: { opts: renderFuncArgs["useAsyncOptsOverride"] }) {
+            const mergedUseAsyncOpts = _.merge(_.cloneDeep(defaultUseAsyncOpts), opts);
 
-        function Component() {
             const result = useAsync.GET(mockGet, [{ params: undefined }], mergedUseAsyncOpts);
 
             return (
@@ -55,26 +55,30 @@ describe("The 'useAsync.GET' hook...", () => {
             );
         }
 
-        const componentToRender = (
-            <BrowserRouter
-                future={{
-                    v7_startTransition: true,
-                    v7_relativeSplatPath: true,
-                }}
-            >
-                <Component />
-            </BrowserRouter>
-        );
+        function BrowserRouterWrapper({ opts }: { opts: renderFuncArgs["useAsyncOptsOverride"] }) {
+            return (
+                <BrowserRouter
+                    future={{
+                        v7_startTransition: true,
+                        v7_relativeSplatPath: true,
+                    }}
+                >
+                    <Component opts={opts} />
+                </BrowserRouter>
+            );
+        }
 
         // When using initRender, must wrap 'expect' in 'await waitFor'
         const { rerender } = initRender
-            ? render(componentToRender)
-            : await act(() => render(componentToRender));
+            ? render(<BrowserRouterWrapper opts={useAsyncOptsOverride} />)
+            : await act(() => render(<BrowserRouterWrapper opts={useAsyncOptsOverride} />));
 
         return {
-            rerender,
+            rerenderFunc: (newArgs: renderFuncArgs) => {
+                rerender(<BrowserRouterWrapper opts={newArgs.useAsyncOptsOverride} />);
+            },
             getHookContextValue: () => HookContextValue,
-            componentToRender,
+            component: <BrowserRouterWrapper opts={useAsyncOptsOverride} />,
         };
     };
 
@@ -164,6 +168,28 @@ describe("The 'useAsync.GET' hook...", () => {
             expect(window.location.pathname).toBe("/fail");
         });
     });
+
+    test("Should abort the existing function if the callback function, its parameters, or the redirect URL paths are adjusted", async () => {
+        (mockGet as Mock).mockImplementationOnce(async () => {
+            await new Promise((resolve) => {
+                setTimeout(resolve, 1000);
+            });
+            return mockResponse;
+        });
+
+        const abortSpy = vi.spyOn(AbortController.prototype, "abort");
+
+        const { rerenderFunc, getHookContextValue } = await renderFunc();
+        const { attempt } = getHookContextValue()!;
+
+        await act(async () => attempt());
+
+        await act(async () => {
+            rerenderFunc({ useAsyncOptsOverride: { navigation: { onSuccess: "/" } } });
+        });
+
+        expect(abortSpy).toHaveBeenCalled();
+    });
 });
 
 describe("The 'useAsync.POST' hook...", () => {
@@ -182,9 +208,9 @@ describe("The 'useAsync.POST' hook...", () => {
             | ReturnType<typeof useAsync.POST<undefined, undefined, ResponseType>>
             | undefined;
 
-        const mergedUseAsyncOpts = _.merge(_.cloneDeep(defaultUseAsyncOpts), useAsyncOptsOverride);
+        function Component({ opts }: { opts: renderFuncArgs["useAsyncOptsOverride"] }) {
+            const mergedUseAsyncOpts = _.merge(_.cloneDeep(defaultUseAsyncOpts), opts);
 
-        function Component() {
             const result = useAsync.POST(mockPost, [{ params: undefined }], mergedUseAsyncOpts);
 
             return (
@@ -207,32 +233,32 @@ describe("The 'useAsync.POST' hook...", () => {
             );
         }
 
-        const componentToRender = (
-            <BrowserRouter
-                future={{
-                    v7_startTransition: true,
-                    v7_relativeSplatPath: true,
-                }}
-            >
-                <Component />
-            </BrowserRouter>
-        );
+        function BrowserRouterWrapper({ opts }: { opts: renderFuncArgs["useAsyncOptsOverride"] }) {
+            return (
+                <BrowserRouter
+                    future={{
+                        v7_startTransition: true,
+                        v7_relativeSplatPath: true,
+                    }}
+                >
+                    <Component opts={opts} />
+                </BrowserRouter>
+            );
+        }
 
         // When using initRender, must wrap 'expect' in 'await waitFor'
         const { rerender } = initRender
-            ? render(componentToRender)
-            : await act(() => render(componentToRender));
+            ? render(<BrowserRouterWrapper opts={useAsyncOptsOverride} />)
+            : await act(() => render(<BrowserRouterWrapper opts={useAsyncOptsOverride} />));
 
         return {
-            rerender,
+            rerenderFunc: (newArgs: renderFuncArgs) => {
+                rerender(<BrowserRouterWrapper opts={newArgs.useAsyncOptsOverride} />);
+            },
             getHookContextValue: () => HookContextValue,
-            componentToRender,
+            component: <BrowserRouterWrapper opts={useAsyncOptsOverride} />,
         };
     };
-
-    afterEach(() => {
-        vi.restoreAllMocks();
-    });
 
     test("Should return an 'attempt' function that, when called, should call the provided callback function", async () => {
         const { getHookContextValue } = await renderFunc();
@@ -316,6 +342,28 @@ describe("The 'useAsync.POST' hook...", () => {
             expect(window.location.pathname).toBe("/fail");
         });
     });
+
+    test("Should abort the existing function if the callback function, its parameters, or the redirect URL paths are adjusted", async () => {
+        (mockPost as Mock).mockImplementationOnce(async () => {
+            await new Promise((resolve) => {
+                setTimeout(resolve, 1000);
+            });
+            return mockResponse;
+        });
+
+        const abortSpy = vi.spyOn(AbortController.prototype, "abort");
+
+        const { rerenderFunc, getHookContextValue } = await renderFunc();
+        const { attempt } = getHookContextValue()!;
+
+        await act(async () => attempt());
+
+        await act(async () => {
+            rerenderFunc({ useAsyncOptsOverride: { navigation: { onSuccess: "/" } } });
+        });
+
+        expect(abortSpy).toHaveBeenCalled();
+    });
 });
 
 describe("The 'useAsync.DELETE' hook...", () => {
@@ -334,9 +382,9 @@ describe("The 'useAsync.DELETE' hook...", () => {
             | ReturnType<typeof useAsync.DELETE<undefined, ResponseType>>
             | undefined;
 
-        const mergedUseAsyncOpts = _.merge(_.cloneDeep(defaultUseAsyncOpts), useAsyncOptsOverride);
+        function Component({ opts }: { opts: renderFuncArgs["useAsyncOptsOverride"] }) {
+            const mergedUseAsyncOpts = _.merge(_.cloneDeep(defaultUseAsyncOpts), opts);
 
-        function Component() {
             const result = useAsync.DELETE(mockDelete, [{ params: undefined }], mergedUseAsyncOpts);
 
             return (
@@ -356,26 +404,30 @@ describe("The 'useAsync.DELETE' hook...", () => {
             );
         }
 
-        const componentToRender = (
-            <BrowserRouter
-                future={{
-                    v7_startTransition: true,
-                    v7_relativeSplatPath: true,
-                }}
-            >
-                <Component />
-            </BrowserRouter>
-        );
+        function BrowserRouterWrapper({ opts }: { opts: renderFuncArgs["useAsyncOptsOverride"] }) {
+            return (
+                <BrowserRouter
+                    future={{
+                        v7_startTransition: true,
+                        v7_relativeSplatPath: true,
+                    }}
+                >
+                    <Component opts={opts} />
+                </BrowserRouter>
+            );
+        }
 
         // When using initRender, must wrap 'expect' in 'await waitFor'
         const { rerender } = initRender
-            ? render(componentToRender)
-            : await act(() => render(componentToRender));
+            ? render(<BrowserRouterWrapper opts={useAsyncOptsOverride} />)
+            : await act(() => render(<BrowserRouterWrapper opts={useAsyncOptsOverride} />));
 
         return {
-            rerender,
+            rerenderFunc: (newArgs: renderFuncArgs) => {
+                rerender(<BrowserRouterWrapper opts={newArgs.useAsyncOptsOverride} />);
+            },
             getHookContextValue: () => HookContextValue,
-            componentToRender,
+            component: <BrowserRouterWrapper opts={useAsyncOptsOverride} />,
         };
     };
 
@@ -465,6 +517,28 @@ describe("The 'useAsync.DELETE' hook...", () => {
             expect(window.location.pathname).toBe("/fail");
         });
     });
+
+    test("Should abort the existing function if the callback function, its parameters, or the redirect URL paths are adjusted", async () => {
+        (mockDelete as Mock).mockImplementationOnce(async () => {
+            await new Promise((resolve) => {
+                setTimeout(resolve, 1000);
+            });
+            return mockResponse;
+        });
+
+        const abortSpy = vi.spyOn(AbortController.prototype, "abort");
+
+        const { rerenderFunc, getHookContextValue } = await renderFunc();
+        const { attempt } = getHookContextValue()!;
+
+        await act(async () => attempt());
+
+        await act(async () => {
+            rerenderFunc({ useAsyncOptsOverride: { navigation: { onSuccess: "/" } } });
+        });
+
+        expect(abortSpy).toHaveBeenCalled();
+    });
 });
 
 describe("The 'useAsync.PUT' hook...", () => {
@@ -483,9 +557,9 @@ describe("The 'useAsync.PUT' hook...", () => {
             | ReturnType<typeof useAsync.PUT<undefined, undefined, ResponseType>>
             | undefined;
 
-        const mergedUseAsyncOpts = _.merge(_.cloneDeep(defaultUseAsyncOpts), useAsyncOptsOverride);
+        function Component({ opts }: { opts: renderFuncArgs["useAsyncOptsOverride"] }) {
+            const mergedUseAsyncOpts = _.merge(_.cloneDeep(defaultUseAsyncOpts), opts);
 
-        function Component() {
             const result = useAsync.PUT(mockPut, [{ params: undefined }], mergedUseAsyncOpts);
 
             return (
@@ -508,26 +582,30 @@ describe("The 'useAsync.PUT' hook...", () => {
             );
         }
 
-        const componentToRender = (
-            <BrowserRouter
-                future={{
-                    v7_startTransition: true,
-                    v7_relativeSplatPath: true,
-                }}
-            >
-                <Component />
-            </BrowserRouter>
-        );
+        function BrowserRouterWrapper({ opts }: { opts: renderFuncArgs["useAsyncOptsOverride"] }) {
+            return (
+                <BrowserRouter
+                    future={{
+                        v7_startTransition: true,
+                        v7_relativeSplatPath: true,
+                    }}
+                >
+                    <Component opts={opts} />
+                </BrowserRouter>
+            );
+        }
 
         // When using initRender, must wrap 'expect' in 'await waitFor'
         const { rerender } = initRender
-            ? render(componentToRender)
-            : await act(() => render(componentToRender));
+            ? render(<BrowserRouterWrapper opts={useAsyncOptsOverride} />)
+            : await act(() => render(<BrowserRouterWrapper opts={useAsyncOptsOverride} />));
 
         return {
-            rerender,
+            rerenderFunc: (newArgs: renderFuncArgs) => {
+                rerender(<BrowserRouterWrapper opts={newArgs.useAsyncOptsOverride} />);
+            },
             getHookContextValue: () => HookContextValue,
-            componentToRender,
+            component: <BrowserRouterWrapper opts={useAsyncOptsOverride} />,
         };
     };
 
@@ -616,5 +694,27 @@ describe("The 'useAsync.PUT' hook...", () => {
 
             expect(window.location.pathname).toBe("/fail");
         });
+    });
+
+    test("Should abort the existing function if the callback function, its parameters, or the redirect URL paths are adjusted", async () => {
+        (mockPut as Mock).mockImplementationOnce(async () => {
+            await new Promise((resolve) => {
+                setTimeout(resolve, 1000);
+            });
+            return mockResponse;
+        });
+
+        const abortSpy = vi.spyOn(AbortController.prototype, "abort");
+
+        const { rerenderFunc, getHookContextValue } = await renderFunc();
+        const { attempt } = getHookContextValue()!;
+
+        await act(async () => attempt());
+
+        await act(async () => {
+            rerenderFunc({ useAsyncOptsOverride: { navigation: { onSuccess: "/" } } });
+        });
+
+        expect(abortSpy).toHaveBeenCalled();
     });
 });
