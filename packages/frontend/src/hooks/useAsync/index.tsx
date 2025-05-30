@@ -100,7 +100,7 @@ export function useAsyncBase<FuncParams = unknown, FuncBody = unknown, FuncRespo
         if (response) {
             const { status } = response;
             if (onSuccess && status >= 200 && status <= 299) navigate(onSuccess);
-            if (onFail && status < 200 && status > 299) navigate(onFail);
+            if (onFail && (status < 200 || status > 299)) navigate(onFail);
         }
     }, [onSuccess, onFail, response, navigate]);
 
