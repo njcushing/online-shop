@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import _ from "lodash";
 import * as HTTPMethodTypes from "@/api/types";
 import { UnwrapPromise } from "@/utils/types";
 
@@ -15,6 +16,11 @@ export type UseAsyncOpts = {
         onSuccess?: string;
         onFail?: string;
     };
+};
+
+const defaultUseAsyncOpts: Required<UseAsyncOpts> = {
+    attemptOnMount: false,
+    navigation: { onSuccess: undefined, onFail: undefined },
 };
 
 function initialResponseObject<FuncParams, FuncBody, FuncResponse>(): UnwrapPromise<
@@ -44,8 +50,8 @@ export function useAsyncBase<FuncParams = unknown, FuncBody = unknown, FuncRespo
     abort: () => void;
     awaiting: boolean;
 } {
-    const { attemptOnMount, navigation } = opts || { attemptOnMount: false, navigation: {} };
-    const { onSuccess, onFail } = navigation || { onSuccess: undefined, onFail: undefined };
+    const { attemptOnMount, navigation } = _.merge(_.cloneDeep(defaultUseAsyncOpts), opts);
+    const { onSuccess, onFail } = navigation;
 
     const navigate = useNavigate();
 
