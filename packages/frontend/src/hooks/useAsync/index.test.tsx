@@ -112,7 +112,7 @@ describe("The 'useAsync.GET' hook...", () => {
         expect(abortSpy).toHaveBeenCalled();
     });
 
-    describe("Should return a 'response' object that matches the return value of the callback function...", async () => {
+    describe("Should return a 'response' object that matches the return value of the callback function...", () => {
         test("When 'attempt' is called and the callback function has resolved", async () => {
             const { getHookContextValue } = await renderFunc();
             const { attempt } = getHookContextValue()!;
@@ -122,12 +122,46 @@ describe("The 'useAsync.GET' hook...", () => {
             expect(getHookContextValue()?.response).toStrictEqual(mockResponse);
         });
 
-        test("If the 'attemptOnMount' option it set to 'true' and the callback function has resolved", async () => {
+        test("If the 'attemptOnMount' option is set to 'true' and the callback function has resolved", async () => {
             const { getHookContextValue } = await renderFunc({
                 useAsyncOptsOverride: { attemptOnMount: true },
             });
 
             expect(getHookContextValue()?.response).toStrictEqual(mockResponse);
+        });
+    });
+
+    describe("Should redirect the user...", () => {
+        test("To the URL path provided in the 'onSuccess' prop if the response contains a status code indicating success", async () => {
+            window.history.pushState({}, "", "/");
+
+            const { getHookContextValue } = await renderFunc({
+                useAsyncOptsOverride: { navigation: { onSuccess: "/success" } },
+            });
+            const { attempt } = getHookContextValue()!;
+
+            await act(async () => attempt());
+
+            expect(window.location.pathname).toBe("/success");
+        });
+
+        test("To the URL path provided in the 'onFail' prop if the response contains a status code indicating failure", async () => {
+            window.history.pushState({}, "", "/");
+
+            (mockGet as Mock).mockImplementationOnce(async () => {
+                const adjustedMockResponse = structuredClone(mockResponse);
+                adjustedMockResponse.status = 404;
+                return adjustedMockResponse;
+            });
+
+            const { getHookContextValue } = await renderFunc({
+                useAsyncOptsOverride: { navigation: { onFail: "/fail" } },
+            });
+            const { attempt } = getHookContextValue()!;
+
+            await act(async () => attempt());
+
+            expect(window.location.pathname).toBe("/fail");
         });
     });
 });
@@ -230,7 +264,7 @@ describe("The 'useAsync.POST' hook...", () => {
         expect(abortSpy).toHaveBeenCalled();
     });
 
-    describe("Should return a 'response' object that matches the return value of the callback function...", async () => {
+    describe("Should return a 'response' object that matches the return value of the callback function...", () => {
         test("When 'attempt' is called and the callback function has resolved", async () => {
             const { getHookContextValue } = await renderFunc();
             const { attempt } = getHookContextValue()!;
@@ -240,12 +274,46 @@ describe("The 'useAsync.POST' hook...", () => {
             expect(getHookContextValue()?.response).toStrictEqual(mockResponse);
         });
 
-        test("If the 'attemptOnMount' option it set to 'true' and the callback function has resolved", async () => {
+        test("If the 'attemptOnMount' option is set to 'true' and the callback function has resolved", async () => {
             const { getHookContextValue } = await renderFunc({
                 useAsyncOptsOverride: { attemptOnMount: true },
             });
 
             expect(getHookContextValue()?.response).toStrictEqual(mockResponse);
+        });
+    });
+
+    describe("Should redirect the user...", () => {
+        test("To the URL path provided in the 'onSuccess' prop if the response contains a status code indicating success", async () => {
+            window.history.pushState({}, "", "/");
+
+            const { getHookContextValue } = await renderFunc({
+                useAsyncOptsOverride: { navigation: { onSuccess: "/success" } },
+            });
+            const { attempt } = getHookContextValue()!;
+
+            await act(async () => attempt());
+
+            expect(window.location.pathname).toBe("/success");
+        });
+
+        test("To the URL path provided in the 'onFail' prop if the response contains a status code indicating failure", async () => {
+            window.history.pushState({}, "", "/");
+
+            (mockPost as Mock).mockImplementationOnce(async () => {
+                const adjustedMockResponse = structuredClone(mockResponse);
+                adjustedMockResponse.status = 404;
+                return adjustedMockResponse;
+            });
+
+            const { getHookContextValue } = await renderFunc({
+                useAsyncOptsOverride: { navigation: { onFail: "/fail" } },
+            });
+            const { attempt } = getHookContextValue()!;
+
+            await act(async () => attempt());
+
+            expect(window.location.pathname).toBe("/fail");
         });
     });
 });
@@ -345,7 +413,7 @@ describe("The 'useAsync.DELETE' hook...", () => {
         expect(abortSpy).toHaveBeenCalled();
     });
 
-    describe("Should return a 'response' object that matches the return value of the callback function...", async () => {
+    describe("Should return a 'response' object that matches the return value of the callback function...", () => {
         test("When 'attempt' is called and the callback function has resolved", async () => {
             const { getHookContextValue } = await renderFunc();
             const { attempt } = getHookContextValue()!;
@@ -355,12 +423,46 @@ describe("The 'useAsync.DELETE' hook...", () => {
             expect(getHookContextValue()?.response).toStrictEqual(mockResponse);
         });
 
-        test("If the 'attemptOnMount' option it set to 'true' and the callback function has resolved", async () => {
+        test("If the 'attemptOnMount' option is set to 'true' and the callback function has resolved", async () => {
             const { getHookContextValue } = await renderFunc({
                 useAsyncOptsOverride: { attemptOnMount: true },
             });
 
             expect(getHookContextValue()?.response).toStrictEqual(mockResponse);
+        });
+    });
+
+    describe("Should redirect the user...", () => {
+        test("To the URL path provided in the 'onSuccess' prop if the response contains a status code indicating success", async () => {
+            window.history.pushState({}, "", "/");
+
+            const { getHookContextValue } = await renderFunc({
+                useAsyncOptsOverride: { navigation: { onSuccess: "/success" } },
+            });
+            const { attempt } = getHookContextValue()!;
+
+            await act(async () => attempt());
+
+            expect(window.location.pathname).toBe("/success");
+        });
+
+        test("To the URL path provided in the 'onFail' prop if the response contains a status code indicating failure", async () => {
+            window.history.pushState({}, "", "/");
+
+            (mockDelete as Mock).mockImplementationOnce(async () => {
+                const adjustedMockResponse = structuredClone(mockResponse);
+                adjustedMockResponse.status = 404;
+                return adjustedMockResponse;
+            });
+
+            const { getHookContextValue } = await renderFunc({
+                useAsyncOptsOverride: { navigation: { onFail: "/fail" } },
+            });
+            const { attempt } = getHookContextValue()!;
+
+            await act(async () => attempt());
+
+            expect(window.location.pathname).toBe("/fail");
         });
     });
 });
@@ -463,7 +565,7 @@ describe("The 'useAsync.PUT' hook...", () => {
         expect(abortSpy).toHaveBeenCalled();
     });
 
-    describe("Should return a 'response' object that matches the return value of the callback function...", async () => {
+    describe("Should return a 'response' object that matches the return value of the callback function...", () => {
         test("When 'attempt' is called and the callback function has resolved", async () => {
             const { getHookContextValue } = await renderFunc();
             const { attempt } = getHookContextValue()!;
@@ -473,12 +575,46 @@ describe("The 'useAsync.PUT' hook...", () => {
             expect(getHookContextValue()?.response).toStrictEqual(mockResponse);
         });
 
-        test("If the 'attemptOnMount' option it set to 'true' and the callback function has resolved", async () => {
+        test("If the 'attemptOnMount' option is set to 'true' and the callback function has resolved", async () => {
             const { getHookContextValue } = await renderFunc({
                 useAsyncOptsOverride: { attemptOnMount: true },
             });
 
             expect(getHookContextValue()?.response).toStrictEqual(mockResponse);
+        });
+    });
+
+    describe("Should redirect the user...", () => {
+        test("To the URL path provided in the 'onSuccess' prop if the response contains a status code indicating success", async () => {
+            window.history.pushState({}, "", "/");
+
+            const { getHookContextValue } = await renderFunc({
+                useAsyncOptsOverride: { navigation: { onSuccess: "/success" } },
+            });
+            const { attempt } = getHookContextValue()!;
+
+            await act(async () => attempt());
+
+            expect(window.location.pathname).toBe("/success");
+        });
+
+        test("To the URL path provided in the 'onFail' prop if the response contains a status code indicating failure", async () => {
+            window.history.pushState({}, "", "/");
+
+            (mockPut as Mock).mockImplementationOnce(async () => {
+                const adjustedMockResponse = structuredClone(mockResponse);
+                adjustedMockResponse.status = 404;
+                return adjustedMockResponse;
+            });
+
+            const { getHookContextValue } = await renderFunc({
+                useAsyncOptsOverride: { navigation: { onFail: "/fail" } },
+            });
+            const { attempt } = getHookContextValue()!;
+
+            await act(async () => attempt());
+
+            expect(window.location.pathname).toBe("/fail");
         });
     });
 });
