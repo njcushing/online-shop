@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import * as HTTPMethodTypes from "@/api/types";
 import { UnwrapPromise } from "@/utils/types";
@@ -17,10 +17,16 @@ export type UseAsyncOpts = {
     };
 };
 
-function genericResponseObject<FuncParams, FuncBody, FuncResponse>(): UnwrapPromise<
+function initialResponseObject<FuncParams, FuncBody, FuncResponse>(): UnwrapPromise<
     ReturnType<MethodTypes<FuncParams, FuncBody, FuncResponse>>
 > {
-    return { status: 500, message: "Something went wrong", data: null };
+    return { status: 200, message: "Awaiting attempt", data: null };
+}
+
+function abortedResponseObject<FuncParams, FuncBody, FuncResponse>(): UnwrapPromise<
+    ReturnType<MethodTypes<FuncParams, FuncBody, FuncResponse>>
+> {
+    return { status: 299, message: "Request aborted", data: null };
 }
 
 export function useAsyncBase<FuncParams = unknown, FuncBody = unknown, FuncResponse = unknown>(
@@ -48,49 +54,45 @@ export function useAsyncBase<FuncParams = unknown, FuncBody = unknown, FuncRespo
     >(parameters);
     const [response, setResponse] =
         useState<UnwrapPromise<ReturnType<MethodTypes<FuncParams, FuncBody, FuncResponse>>>>(
-            genericResponseObject(),
+            initialResponseObject(),
         );
-    const [abortController, setAbortController] = useState<AbortController | null>(null);
-    const [aborted, setAborted] = useState(false);
-    const [attempting, setAttempting] = useState<boolean>(false);
-    const [awaiting, setAwaiting] = useState<boolean>(attemptOnMount || false);
+    const abortController = useRef<AbortController | null>(null);
+    const [attempting, setAttempting] = useState<boolean>(attemptOnMount || false);
 
     const attempt = useCallback(() => setAttempting(true), []);
-    const abort = useCallback(() => setAttempting(false), []);
-
-    useEffect(() => {
-        if (attemptOnMount) setAttempting(true);
-    }, [attemptOnMount]);
+    const abort = useCallback(() => {
+        if (abortController.current) {
+            abortController.current.abort();
+            setResponse(abortedResponseObject());
+        }
+        setAttempting(false);
+    }, [abortController]);
 
     useEffect(() => {
         if (attempting) {
-            if (abortController) {
-                abortController.abort();
-                setAborted(true);
-            }
+            if (abortController.current) abortController.current.abort();
             const abortControllerNew = new AbortController();
-            setAbortController(abortControllerNew);
-            setResponse(genericResponseObject());
+            abortController.current = abortControllerNew;
+
             (async () => {
                 let data = {};
                 let args;
                 if (params) [data, ...args] = params;
+
                 const asyncResp = await func(data, args);
                 setResponse(
                     asyncResp as UnwrapPromise<
                         ReturnType<MethodTypes<FuncParams, FuncBody, FuncResponse>>
                     >,
                 );
-                setAbortController(null);
+
+                abortController.current = null;
+                setAttempting(false);
             })();
-            setAttempting(false);
         }
 
         return () => {
-            if (abortController) {
-                abortController.abort();
-                setAborted(true);
-            }
+            if (abortController.current) abortController.current.abort();
         };
     }, [params, abortController, attempting, func]);
 
@@ -103,15 +105,10 @@ export function useAsyncBase<FuncParams = unknown, FuncBody = unknown, FuncRespo
     }, [onSuccess, onFail, response, navigate]);
 
     useEffect(() => {
-        if (attempting) {
-            setAwaiting(true);
-            setAborted(false);
-        } else if (aborted) {
-            setAwaiting(false);
-        }
-    }, [attempting, response, aborted]);
+        if (!attempting && abortController.current) abortController.current.abort();
+    }, [abortController, attempting]);
 
-    return { response, setParams, attempt, abort, awaiting };
+    return { response, setParams, attempt, abort, awaiting: attempting };
 }
 
 export function GET<FuncParams = unknown, FuncResponse = unknown>(
