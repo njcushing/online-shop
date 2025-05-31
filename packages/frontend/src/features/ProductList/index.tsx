@@ -22,6 +22,7 @@ export function ProductList() {
         if (!products) return [];
         return products.map((p) => findProductFromId(p)).filter((p) => p);
     }, [products]);
+
     const filteredSubcategories = useMemo(() => {
         if (!subcategories) return [];
         return subcategories.flatMap((subCategory) => {
