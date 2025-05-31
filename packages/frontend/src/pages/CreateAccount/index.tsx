@@ -4,10 +4,14 @@ import { AccountCreationForm } from "@/features/AccountCreationForm";
 import { SetPersonalInformationForm } from "@/features/SetPersonalInformationForm";
 import styles from "./index.module.css";
 
-export function CreateAccount() {
+export type TCreateAccount = {
+    defaultStage?: 0 | 1;
+};
+
+export function CreateAccount({ defaultStage = 0 }: TCreateAccount) {
     const navigate = useNavigate();
 
-    const [currentStage, setCurrentStage] = useState<number>(0);
+    const [currentStage, setCurrentStage] = useState<number>(defaultStage);
 
     const pageContent = useMemo(() => {
         switch (currentStage) {
