@@ -36,3 +36,13 @@ const resizeObserverMock = vi.fn(() => {
     };
 });
 global.ResizeObserver = resizeObserverMock;
+
+Object.defineProperty(window, "IntersectionObserver", {
+    writable: true,
+    configurable: true,
+    value: vi.fn().mockImplementation(() => ({
+        observe: vi.fn(),
+        disconnect: vi.fn(),
+        unobserve: vi.fn(),
+    })),
+});
