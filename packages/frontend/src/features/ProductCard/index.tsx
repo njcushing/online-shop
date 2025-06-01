@@ -26,10 +26,13 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
         }, [intersectionEntry?.isIntersecting]);
 
         const productInformationBanner = useCallback((): React.ReactNode | null => {
-            if (productData.variants.length === 0) return null;
             const highestStockVariant = productData.variants.reduce(
                 (min, variant) => (variant.stock > min ? variant.stock : min),
                 productData.variants[0].stock,
+            );
+            const newestVariant = productData.variants.reduce(
+                (curr, variant) => (variant.releaseDate > curr.releaseDate ? variant : curr),
+                productData.variants[0],
             );
 
             // Out of stock
@@ -44,7 +47,9 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
 
             // New in stock (within last month)
             const daysInLastMonth = dayjs().subtract(1, "month").daysInMonth();
-            if (dayjs(productData.releaseDate).isAfter(dayjs().subtract(daysInLastMonth, "day"))) {
+            if (
+                dayjs(newestVariant.releaseDate).isAfter(dayjs().subtract(daysInLastMonth, "day"))
+            ) {
                 return <div className={styles["product-information-banner"]}>New in stock</div>;
             }
 
@@ -52,7 +57,6 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
         }, [productData]);
 
         const lowestPriceVariant = useMemo<ProductVariant | undefined>(() => {
-            if (productData.variants.length === 0) return undefined;
             return productData.variants.reduce(
                 (current, variant) =>
                     variant.price.current < current.price.current ? variant : current,
@@ -72,8 +76,8 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
                 <div className={styles["product-card-image-container"]}>
                     <Image
                         className={styles["product-image"]}
-                        src={productData.images.thumb.src || ""}
-                        alt={productData.images.thumb.alt || ""}
+                        src={productData.images.thumb.src}
+                        alt={productData.images.thumb.alt}
                     />
                     {productInformationBanner()}
                 </div>
