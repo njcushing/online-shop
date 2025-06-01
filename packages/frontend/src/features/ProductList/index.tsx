@@ -12,19 +12,16 @@ export function ProductList() {
 
     const { categoryData } = useContext(CategoryContext);
 
-    const currentCategory = useMemo(() => {
-        return categoryData.length > 0 ? categoryData[categoryData.length - 1] : undefined;
-    }, [categoryData]);
+    const currentCategory = useMemo(() => categoryData.at(-1), [categoryData]);
 
-    const { subcategories, products } = currentCategory || { subcategories: [], products: [] };
+    const products = useMemo(() => currentCategory?.products || [], [currentCategory]);
+    const subcategories = useMemo(() => currentCategory?.subcategories || [], [currentCategory]);
 
     const filteredProducts = useMemo(() => {
-        if (!products) return [];
         return products.map((p) => findProductFromId(p)).filter((p) => p);
     }, [products]);
 
     const filteredSubcategories = useMemo(() => {
-        if (!subcategories) return [];
         return subcategories.flatMap((subCategory) => {
             if (!subCategory.products) return [];
             const filteredSubcategoryProducts = subCategory.products

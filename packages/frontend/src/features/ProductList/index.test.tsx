@@ -1,6 +1,5 @@
 import { vi } from "vitest";
 import { screen, render } from "@test-utils";
-import _ from "lodash";
 import { ICategoryContext, CategoryContext } from "@/pages/Category";
 import { RecursivePartial } from "@/utils/types";
 import { BrowserRouter } from "react-router-dom";
@@ -105,11 +104,6 @@ const renderFunc = (args: renderFuncArgs = {}) => {
 
     let CategoryContextValue!: ICategoryContext;
 
-    const mergedCategoryContext = _.merge(
-        _.cloneDeep(structuredClone(mockCategoryContext)),
-        CategoryContextOverride,
-    );
-
     const component = (
         <BrowserRouter
             future={{
@@ -117,7 +111,9 @@ const renderFunc = (args: renderFuncArgs = {}) => {
                 v7_relativeSplatPath: true,
             }}
         >
-            <CategoryContext.Provider value={mergedCategoryContext}>
+            <CategoryContext.Provider
+                value={(CategoryContextOverride || mockCategoryContext) as ICategoryContext}
+            >
                 <CategoryContext.Consumer>
                     {(value) => {
                         CategoryContextValue = value;
@@ -251,11 +247,20 @@ describe("The ProductList component...", () => {
 
             renderFunc();
 
+            const NavLinkComponents = screen.queryAllByRole("link");
+            expect(NavLinkComponents).toHaveLength(0);
+
             const { categoryData } = mockCategoryContext;
             categoryData![categoryData!.length - 1]!.subcategories!.forEach((subcategory) => {
-                const { products } = subcategory;
+                const { name, description, products } = subcategory;
 
                 products!.forEach((id) => {
+                    const subcategoryHeading = screen.queryByRole("heading", { name });
+                    expect(subcategoryHeading).not.toBeInTheDocument();
+
+                    const subcategoryDescription = screen.queryByText(description);
+                    expect(subcategoryDescription).not.toBeInTheDocument();
+
                     const ProductCardComponent = screen.queryByLabelText(
                         `ProductCard component ${id}`,
                     );
@@ -264,6 +269,31 @@ describe("The ProductList component...", () => {
             });
 
             mockFindProductFromId.mockRestore();
+        });
+    });
+
+    describe("Should still render without throwing...", () => {
+        test("If the CategoryContext's 'categoryData' array is empty", () => {
+            const adjustedCategoryContext = structuredClone(mockCategoryContext);
+            adjustedCategoryContext.categoryData = [];
+
+            expect(() => {
+                renderFunc({
+                    CategoryContextOverride: adjustedCategoryContext as unknown as ICategoryContext,
+                });
+            }).not.toThrow();
+        });
+
+        test("If any subcategory doesn't have a 'products' field", () => {
+            const adjustedCategoryContext = structuredClone(mockCategoryContext);
+            adjustedCategoryContext.categoryData!.at(-1)!.subcategories!.at(-1)!.products =
+                undefined;
+
+            expect(() => {
+                renderFunc({
+                    CategoryContextOverride: adjustedCategoryContext as unknown as ICategoryContext,
+                });
+            }).not.toThrow();
         });
     });
 });
