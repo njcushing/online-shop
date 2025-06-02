@@ -20,9 +20,9 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
             threshold: 0.2,
         });
         const mergedProductCardRef = useMergedRef(ref, productCardRef);
-        const [visible, setVisible] = useState<boolean>(intersectionEntry?.isIntersecting || false);
+        const [visible, setVisible] = useState<boolean>(false);
         useEffect(() => {
-            if (intersectionEntry?.isIntersecting) setVisible(true);
+            setVisible(intersectionEntry?.isIntersecting || false);
         }, [intersectionEntry?.isIntersecting]);
 
         const productInformationBanner = useCallback((): React.ReactNode | null => {
