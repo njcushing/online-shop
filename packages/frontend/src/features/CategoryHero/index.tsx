@@ -27,7 +27,7 @@ export function CategoryHero() {
                         const current = i === categoryData.length - 1;
                         return !current ? (
                             <Link
-                                to={`/c/${[...urlPathSplit.slice(0, -1)].join("/")}`}
+                                to={`/c/${[...urlPathSplit.slice(0, i + 1)].join("/")}`}
                                 key={catName}
                             >
                                 {catName}
