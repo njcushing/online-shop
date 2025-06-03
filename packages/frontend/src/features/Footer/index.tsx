@@ -39,9 +39,6 @@ export function Footer() {
                         <Link to="/" className={styles["link"]}>
                             FAQs
                         </Link>
-                        <Link to="/" className={styles["link"]}>
-                            Email
-                        </Link>
                     </div>
 
                     <div className={styles["section"]}>
