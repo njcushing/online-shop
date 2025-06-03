@@ -18,7 +18,7 @@ const defaultProps = {
 
 export function OAuthButton({ leftSection, children }: TOAuthButton) {
     return (
-        <Button component="a" {...defaultProps} leftSection={leftSection}>
+        <Button component="a" role="link" {...defaultProps} leftSection={leftSection}>
             {children}
         </Button>
     );
