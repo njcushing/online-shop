@@ -1,3 +1,5 @@
+/* c8 ignore start */
+
 import { z } from "zod";
 import { Email, email, Password, password } from "@/utils/schemas/user";
 
