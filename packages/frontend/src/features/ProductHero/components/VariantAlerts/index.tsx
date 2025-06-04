@@ -42,6 +42,50 @@ export function VariantAlerts() {
             cartItemData && cartItemData.quantity > 0 ? cartItemData.quantity : current;
     }, [cartItemData]);
 
+    const stockAlert = useMemo(() => {
+        if (lastValidStockAlert.current === "None") {
+            return (
+                <Alert
+                    color="red"
+                    icon={<WarningCircle weight="bold" size="100%" />}
+                    title="Out of stock"
+                    classNames={AlertClassNames}
+                >
+                    <p>
+                        We are unsure when this item will be back in stock. Check back soon, or add
+                        this item to your watchlist to be notified when it comes back in stock.
+                    </p>
+                </Alert>
+            );
+        }
+        return (
+            <Alert
+                color="yellow"
+                icon={<WarningCircle weight="bold" size="100%" />}
+                title="Low stock"
+                classNames={AlertClassNames}
+            >
+                <p>
+                    There {stock === 1 ? "is" : "are"} only{" "}
+                    <span style={{ fontWeight: "bold" }}>{lastValidStockCount.current}</span> of
+                    this item left in stock.
+                </p>
+            </Alert>
+        );
+    }, [stock]);
+
+    const cartQuantityAlert = useMemo(() => {
+        return (
+            <Alert icon={<Info weight="bold" size="100%" />} classNames={AlertClassNames}>
+                You already have{" "}
+                <span style={{ fontWeight: "bold" }}>
+                    {cartItemData?.quantity || lastValidCartItemQuantity.current}
+                </span>{" "}
+                of this item in your cart.
+            </Alert>
+        );
+    }, [cartItemData?.quantity]);
+
     return (
         <div className={styles["variant-alerts-container"]}>
             <Collapse
@@ -49,40 +93,7 @@ export function VariantAlerts() {
                 animateOpacity={false}
                 transitionDuration={500}
             >
-                {(() => {
-                    if (lastValidStockAlert.current === "None") {
-                        return (
-                            <Alert
-                                color="red"
-                                icon={<WarningCircle weight="bold" size="100%" />}
-                                title="Out of stock"
-                                classNames={AlertClassNames}
-                            >
-                                <p>
-                                    We are unsure when this item will be back in stock. Check back
-                                    soon, or add this item to your watchlist to be notified when it
-                                    comes back in stock.
-                                </p>
-                            </Alert>
-                        );
-                    }
-                    return (
-                        <Alert
-                            color="yellow"
-                            icon={<WarningCircle weight="bold" size="100%" />}
-                            title="Low stock"
-                            classNames={AlertClassNames}
-                        >
-                            <p>
-                                There {stock === 1 ? "is" : "are"} only{" "}
-                                <span style={{ fontWeight: "bold" }}>
-                                    {lastValidStockCount.current}
-                                </span>{" "}
-                                of this item left in stock.
-                            </p>
-                        </Alert>
-                    );
-                })()}
+                {stockAlert}
             </Collapse>
 
             <Collapse
@@ -90,13 +101,7 @@ export function VariantAlerts() {
                 animateOpacity={false}
                 transitionDuration={500}
             >
-                <Alert icon={<Info weight="bold" size="100%" />} classNames={AlertClassNames}>
-                    You already have{" "}
-                    <span style={{ fontWeight: "bold" }}>
-                        {cartItemData?.quantity || lastValidCartItemQuantity.current}
-                    </span>{" "}
-                    of this item in your cart.
-                </Alert>
+                {cartQuantityAlert}
             </Collapse>
         </div>
     );
