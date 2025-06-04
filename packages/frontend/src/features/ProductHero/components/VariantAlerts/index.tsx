@@ -1,7 +1,8 @@
 import { useContext, useEffect, useRef, useMemo } from "react";
 import { ProductContext } from "@/pages/Product";
+import { UserContext } from "@/pages/Root";
 import { Collapse, Alert, AlertProps } from "@mantine/core";
-import { CartItemData, mockCart } from "@/utils/products/cart";
+import { PopulatedCartItemData } from "@/utils/products/cart";
 import { settings } from "@settings";
 import { WarningCircle, Info } from "@phosphor-icons/react";
 import styles from "./index.module.css";
@@ -18,9 +19,13 @@ export function VariantAlerts() {
     const { variant } = useContext(ProductContext);
     const { stock } = variant || { stock: settings.lowStockThreshold + 1 };
 
-    const cartItemData = useMemo<CartItemData | undefined>(() => {
-        return mockCart.find((cartItem) => cartItem.variantId === variant?.id);
-    }, [variant?.id]);
+    const { cart } = useContext(UserContext);
+    const { data: cartData } = cart;
+
+    const cartItemData = useMemo<PopulatedCartItemData | undefined>(() => {
+        if (!cartData) return undefined;
+        return cartData.find((cartItem) => cartItem.variant.id === variant?.id);
+    }, [variant?.id, cartData]);
 
     const lastValidStockCount = useRef<number>(0);
     const lastValidStockAlert = useRef<"None" | "Low">("None");
