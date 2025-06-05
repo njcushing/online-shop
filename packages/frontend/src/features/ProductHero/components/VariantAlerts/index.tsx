@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useMemo } from "react";
+import { useContext, useState, useEffect, useMemo } from "react";
 import { ProductContext } from "@/pages/Product";
 import { UserContext } from "@/pages/Root";
 import { Collapse, Alert, AlertProps } from "@mantine/core";
@@ -27,23 +27,23 @@ export function VariantAlerts() {
         return cartData.find((cartItem) => cartItem.variant.id === variant?.id);
     }, [variant?.id, cartData]);
 
-    const lastValidStockCount = useRef<number>(0);
-    const lastValidStockAlert = useRef<"None" | "Low">("None");
+    const [lastValidStockCount, setLastValidStockCount] = useState<number>(0);
+    const [lastValidStockAlert, setLastValidStockAlert] = useState<"None" | "Low">("None");
     useEffect(() => {
         if (!variant || variant.stock > settings.lowStockThreshold) return;
-        lastValidStockCount.current = variant.stock;
-        lastValidStockAlert.current = variant.stock === 0 ? "None" : "Low";
+        setLastValidStockCount(variant.stock);
+        setLastValidStockAlert(variant.stock === 0 ? "None" : "Low");
     }, [variant]);
 
-    const lastValidCartItemQuantity = useRef<number>(0);
+    const [lastValidCartItemQuantity, setLastValidCartItemQuantity] = useState<number>(0);
     useEffect(() => {
-        const { current } = lastValidCartItemQuantity;
-        lastValidCartItemQuantity.current =
-            cartItemData && cartItemData.quantity > 0 ? cartItemData.quantity : current;
+        setLastValidCartItemQuantity((current) =>
+            cartItemData && cartItemData.quantity > 0 ? cartItemData.quantity : current,
+        );
     }, [cartItemData]);
 
     const stockAlert = useMemo(() => {
-        if (lastValidStockAlert.current === "None") {
+        if (lastValidStockAlert === "None") {
             return (
                 <Alert
                     color="red"
@@ -67,24 +67,24 @@ export function VariantAlerts() {
             >
                 <p>
                     There {stock === 1 ? "is" : "are"} only{" "}
-                    <span style={{ fontWeight: "bold" }}>{lastValidStockCount.current}</span> of
-                    this item left in stock.
+                    <span style={{ fontWeight: "bold" }}>{lastValidStockCount}</span> of this item
+                    left in stock.
                 </p>
             </Alert>
         );
-    }, [stock]);
+    }, [lastValidStockCount, lastValidStockAlert, stock]);
 
     const cartQuantityAlert = useMemo(() => {
         return (
             <Alert icon={<Info weight="bold" size="100%" />} classNames={AlertClassNames}>
                 You already have{" "}
                 <span style={{ fontWeight: "bold" }}>
-                    {cartItemData?.quantity || lastValidCartItemQuantity.current}
+                    {cartItemData?.quantity || lastValidCartItemQuantity}
                 </span>{" "}
                 of this item in your cart.
             </Alert>
         );
-    }, [cartItemData?.quantity]);
+    }, [lastValidCartItemQuantity, cartItemData?.quantity]);
 
     return (
         <div className={styles["variant-alerts-container"]}>
