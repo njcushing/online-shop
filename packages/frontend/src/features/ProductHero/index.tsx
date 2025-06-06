@@ -224,7 +224,7 @@ export function ProductHero() {
                         </div>
                     </Skeleton>
 
-                    <VariantAlerts />
+                    <VariantAlerts awaiting={awaitingProduct} />
 
                     <div
                         className={`${styles["product-hero-buttons-container"]} ${styles["margin"]}`}
