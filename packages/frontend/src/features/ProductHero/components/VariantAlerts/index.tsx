@@ -1,11 +1,15 @@
 import { useContext, useState, useEffect, useMemo } from "react";
 import { ProductContext } from "@/pages/Product";
 import { UserContext } from "@/pages/Root";
-import { Collapse, Alert, AlertProps } from "@mantine/core";
+import { Skeleton, SkeletonProps, Collapse, Alert, AlertProps } from "@mantine/core";
 import { PopulatedCartItemData } from "@/utils/products/cart";
 import { settings } from "@settings";
 import { WarningCircle, Info } from "@phosphor-icons/react";
 import styles from "./index.module.css";
+
+const SkeletonClassNames: SkeletonProps["classNames"] = {
+    root: styles["skeleton-root"],
+};
 
 const AlertClassNames: AlertProps["classNames"] = {
     root: styles["alert-root"],
@@ -15,7 +19,11 @@ const AlertClassNames: AlertProps["classNames"] = {
     icon: styles["alert-icon"],
 };
 
-export function VariantAlerts() {
+export type TVariantAlerts = {
+    awaiting?: boolean;
+};
+
+export function VariantAlerts({ awaiting = false }: TVariantAlerts) {
     const { variant } = useContext(ProductContext);
     const { stock } = variant || { stock: settings.lowStockThreshold + 1 };
 
@@ -89,19 +97,25 @@ export function VariantAlerts() {
     return (
         <div className={styles["variant-alerts-container"]}>
             <Collapse
-                in={stock <= settings.lowStockThreshold}
+                in={!awaiting && stock <= settings.lowStockThreshold}
                 animateOpacity={false}
                 transitionDuration={500}
             >
-                {stockAlert}
+                <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                    <div style={{ visibility: awaiting ? "hidden" : "initial" }}>{stockAlert}</div>
+                </Skeleton>
             </Collapse>
 
             <Collapse
-                in={!!cartItemData && cartItemData.quantity > 0}
+                in={!awaiting && !!cartItemData && cartItemData.quantity > 0}
                 animateOpacity={false}
                 transitionDuration={500}
             >
-                {cartQuantityAlert}
+                <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                    <div style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                        {cartQuantityAlert}
+                    </div>
+                </Skeleton>
             </Collapse>
         </div>
     );
