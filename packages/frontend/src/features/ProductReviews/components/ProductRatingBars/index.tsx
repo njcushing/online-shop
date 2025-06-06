@@ -73,6 +73,7 @@ export function ProductRatingBars({ clickable = true, onClick }: TProductRatingB
                                         visibility: awaiting ? "hidden" : "initial",
                                         pointerEvents: clickable ? "initial" : "none",
                                     }}
+                                    disabled={!clickable}
                                     tabIndex={clickable ? 0 : -1}
                                     key={`product-reviews-tier-${key}-progress-bar`}
                                 >

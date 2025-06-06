@@ -78,6 +78,7 @@
 }
 
 .product-reviews-rating-tier-key {
+    color: black;
     text-align: center;
 }
 
@@ -86,6 +87,7 @@
 }
 
 .product-reviews-rating-tier-percentage {
+    color: black;
     text-align: right;
     text-wrap: nowrap;
 }
