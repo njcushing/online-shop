@@ -22,8 +22,8 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
         const mergedProductCardRef = useMergedRef(ref, productCardRef);
         const [visible, setVisible] = useState<boolean>(false);
         useEffect(() => {
-            setVisible(intersectionEntry?.isIntersecting || false);
-        }, [intersectionEntry?.isIntersecting]);
+            if (!visible) setVisible(intersectionEntry?.isIntersecting || false);
+        }, [intersectionEntry?.isIntersecting, visible]);
 
         const productInformationBanner = useCallback((): React.ReactNode | null => {
             const highestStockVariant = productData.variants.reduce(
