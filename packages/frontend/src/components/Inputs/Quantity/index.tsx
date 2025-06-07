@@ -62,6 +62,10 @@ export function Quantity({
         if (onQuantityChange) onQuantityChange(quantity);
     }, [onQuantityChange, quantity]);
 
+    useEffect(() => {
+        setCurrentValue((current) => deriveValue(current, min, max).toString());
+    }, [min, max]);
+
     const inputId = useMemo(() => uuid(), []);
 
     return (
