@@ -20,7 +20,7 @@ export const calculateMaxAddableVariantStock = (
     const { quantity } = cartItem;
 
     if (allowanceOverrideIsNumber) {
-        return Math.max(0, Math.min(stock, (allowanceOverride as number) - quantity));
+        return Math.max(0, Math.min(stock, allowanceOverride as number) - quantity);
     }
-    return Math.max(0, Math.min(stock, allowance - quantity));
+    return Math.max(0, Math.min(stock, allowance) - quantity);
 };
