@@ -5,9 +5,13 @@ import { IUserContext, UserContext } from "@/pages/Root";
 import { IProductContext, ProductContext } from "@/pages/Product";
 import { RecursivePartial } from "@/utils/types";
 import { act } from "react";
-import { VariantAlerts } from ".";
+import { VariantAlerts, TVariantAlerts } from ".";
 
 // Mock dependencies
+const mockProps: TVariantAlerts = {
+    awaiting: false,
+};
+
 const mockUserContext: RecursivePartial<IUserContext> = {
     // Only using fields relevant to the VariantAlerts component
     cart: { data: [] as IUserContext["cart"]["data"] } as IUserContext["cart"],
@@ -21,21 +25,24 @@ const mockProductContext: RecursivePartial<IProductContext> = {
 type renderFuncArgs = {
     UserContextOverride?: IUserContext;
     ProductContextOverride?: IProductContext;
+    propsOverride?: TVariantAlerts;
     initRender?: boolean;
 };
 const renderFunc = async (args: renderFuncArgs = {}) => {
-    const { UserContextOverride, ProductContextOverride, initRender = false } = args;
+    const { UserContextOverride, ProductContextOverride, propsOverride, initRender = false } = args;
 
     let UserContextValue!: IUserContext;
     let ProductContextValue!: IProductContext;
 
     function Component({
         context,
+        props,
     }: {
         context?: {
             User?: renderFuncArgs["UserContextOverride"];
             Product?: renderFuncArgs["ProductContextOverride"];
         };
+        props?: TVariantAlerts;
     }) {
         const mergedUserContext = _.merge(
             _.cloneDeep(structuredClone(mockUserContext)),
@@ -46,6 +53,8 @@ const renderFunc = async (args: renderFuncArgs = {}) => {
             _.cloneDeep(structuredClone(mockProductContext)),
             context?.Product,
         );
+
+        const mergedProps = _.merge(_.cloneDeep(structuredClone(mockProps)), props);
 
         return (
             <UserContext.Provider value={mergedUserContext}>
@@ -62,7 +71,7 @@ const renderFunc = async (args: renderFuncArgs = {}) => {
                             return null;
                         }}
                     </ProductContext.Consumer>
-                    <VariantAlerts />
+                    <VariantAlerts {...mergedProps} />
                 </ProductContext.Provider>
             </UserContext.Provider>
         );
@@ -76,6 +85,7 @@ const renderFunc = async (args: renderFuncArgs = {}) => {
                       User: UserContextOverride,
                       Product: ProductContextOverride,
                   }}
+                  props={propsOverride}
               />,
           )
         : await act(() =>
@@ -85,6 +95,7 @@ const renderFunc = async (args: renderFuncArgs = {}) => {
                           User: UserContextOverride,
                           Product: ProductContextOverride,
                       }}
+                      props={propsOverride}
                   />,
               ),
           );
@@ -97,6 +108,7 @@ const renderFunc = async (args: renderFuncArgs = {}) => {
                         User: newArgs.UserContextOverride,
                         Product: newArgs.ProductContextOverride,
                     }}
+                    props={newArgs.propsOverride}
                 />,
             );
         },
@@ -108,6 +120,7 @@ const renderFunc = async (args: renderFuncArgs = {}) => {
                     User: UserContextOverride,
                     Product: ProductContextOverride,
                 }}
+                props={propsOverride}
             />
         ),
     };
@@ -162,6 +175,13 @@ describe("The VariantAlerts component...", () => {
             expect(screen.queryByRole("alert", { name: "Low stock" })).not.toBeInTheDocument();
             expect(screen.queryByRole("alert", { name: "Out of stock" })).not.toBeInTheDocument();
         });
+
+        test("Unless the 'awaiting' prop is set to 'true'", () => {
+            renderFunc({ propsOverride: { awaiting: true } as TVariantAlerts });
+
+            expect(screen.queryByRole("alert", { name: "Low stock" })).not.toBeInTheDocument();
+            expect(screen.queryByRole("alert", { name: "Out of stock" })).not.toBeInTheDocument();
+        });
     });
 
     describe("Should render a Mantine Alert component regarding the UserContext's cart's data...", () => {
@@ -194,6 +214,17 @@ describe("The VariantAlerts component...", () => {
 
         test("Unless the UserContext's 'cart' array is 'null'", () => {
             renderFunc({ UserContextOverride: { cart: { data: null } } as IUserContext });
+
+            expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+        });
+
+        test("Unless the 'awaiting' prop is set to 'true'", () => {
+            renderFunc({
+                UserContextOverride: {
+                    cart: { data: [{ variant: { id: "variantId" }, quantity: 10 }] },
+                } as IUserContext,
+                propsOverride: { awaiting: true } as TVariantAlerts,
+            });
 
             expect(screen.queryByRole("alert")).not.toBeInTheDocument();
         });
