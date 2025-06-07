@@ -2,14 +2,8 @@ import { useContext, useState, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { IProductContext, ProductContext } from "@/pages/Product";
 import { Skeleton, SkeletonProps, Button, Divider, Rating } from "@mantine/core";
-import {
-    Product,
-    ProductVariant,
-    findCollections,
-    filterVariantOptions,
-} from "@/utils/products/product";
-import { PopulatedCartItemData } from "@/utils/products/cart";
-import { Inputs } from "@/components/Inputs";
+import { findCollections, filterVariantOptions } from "@/utils/products/product";
+import { Quantity } from "@/components/Inputs/Quantity";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
 import { Bell } from "@phosphor-icons/react";
 import { Price } from "@/features/Price";
@@ -17,34 +11,11 @@ import { ImageCarousel } from "./components/ImageCarousel";
 import { CollectionStep } from "./components/CollectionStep";
 import { VariantStep } from "./components/VariantStep";
 import { VariantAlerts } from "./components/VariantAlerts";
+import { calculateMaxAddableVariantStock } from "./utils/calculateMaxAddableVariantStock";
 import styles from "./index.module.css";
 
 const SkeletonClassNames: SkeletonProps["classNames"] = {
     root: styles["skeleton-root"],
-};
-
-const calculateMaximumVariantQuantity = (
-    cart: PopulatedCartItemData[],
-    product: Product,
-    variant: ProductVariant,
-): number => {
-    const { allowance } = product;
-    const { stock, allowanceOverride } = variant;
-    const allowanceOverrideIsNumber = !Number.isNaN(Number(allowanceOverride));
-
-    const cartItem = cart.find((item) => item.variant.id === variant.id);
-    if (!cartItem) {
-        return Math.min(
-            stock,
-            allowanceOverrideIsNumber ? (allowanceOverride as number) : allowance,
-        );
-    }
-    const { quantity } = cartItem;
-
-    if (allowanceOverrideIsNumber) {
-        return Math.max(0, Math.min(stock, (allowanceOverride as number) - quantity));
-    }
-    return Math.max(0, Math.min(stock, allowance - quantity));
 };
 
 export function ProductHero() {
@@ -76,7 +47,7 @@ export function ProductHero() {
 
     const maximumVariantQuantity = useMemo(() => {
         if (!product.data || !variant) return 0;
-        return calculateMaximumVariantQuantity(cart.data || [], product.data, variant);
+        return calculateMaxAddableVariantStock(cart.data || [], product.data, variant);
     }, [cart, product.data, variant]);
 
     if (!awaitingProduct && (!product.data || !variant)) return null;
@@ -229,7 +200,7 @@ export function ProductHero() {
                     <div
                         className={`${styles["product-hero-buttons-container"]} ${styles["margin"]}`}
                     >
-                        <Inputs.Quantity
+                        <Quantity
                             defaultValue={1}
                             min={1}
                             max={Math.max(1, maximumVariantQuantity)}
