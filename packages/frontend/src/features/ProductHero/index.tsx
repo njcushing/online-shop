@@ -31,9 +31,9 @@ export function ProductHero() {
     const { awaiting: awaitingCart } = cart;
     const { awaiting: awaitingProduct } = product;
 
-    const variantOptions = useMemo<ReturnType<typeof filterVariantOptions> | null>(() => {
+    const variantOptions = useMemo<ReturnType<typeof filterVariantOptions>>(() => {
         if (awaitingProduct) return defaultVariantOptionsData;
-        if (!product.data || !variant) return null;
+        if (!product.data || !variant) return new Map();
         return filterVariantOptions(product.data, variant.options);
     }, [product.data, variant, defaultVariantOptionsData, awaitingProduct]);
 
@@ -114,17 +114,47 @@ export function ProductHero() {
 
                     <Divider className={styles["margin"]} />
 
-                    {(collectionsData.length > 0 || variantOptionOrder.length > 0) && (
-                        <div
-                            className={`${styles["product-hero-steps-container"]} ${styles["margin"]}`}
-                        >
-                            {collectionsData.map((collectionData, i) => {
-                                const step = <CollectionStep collectionData={collectionData} />;
+                    <div
+                        className={`${styles["product-hero-steps-container"]} ${styles["margin"]}`}
+                    >
+                        {collectionsData.map((collectionData, i) => {
+                            const step = <CollectionStep collectionData={collectionData} />;
+                            return (
+                                <Skeleton
+                                    visible={awaitingProduct}
+                                    classNames={SkeletonClassNames}
+                                    key={collectionData.collection.id}
+                                >
+                                    <div
+                                        style={{
+                                            visibility: awaitingProduct ? "hidden" : "initial",
+                                        }}
+                                    >
+                                        {step}
+                                        {i < collectionsData.length - 1 && <Divider />}
+                                    </div>
+                                </Skeleton>
+                            );
+                        })}
+
+                        {collectionsData.length > 0 && <Divider />}
+
+                        {variantOptions &&
+                            variantOptionOrder.map((optionId, i) => {
+                                const optionValues = variantOptions.get(optionId);
+                                if (!optionValues || optionValues.size === 0) return null;
+                                const step = (
+                                    <VariantStep
+                                        id={optionId}
+                                        values={optionValues}
+                                        selected={options[optionId]}
+                                    />
+                                );
                                 return (
                                     <Skeleton
                                         visible={awaitingProduct}
                                         classNames={SkeletonClassNames}
-                                        key={collectionData.collection.id}
+                                        key={optionId}
                                     >
                                         <div
                                             style={{
@@ -132,48 +162,14 @@ export function ProductHero() {
                                             }}
                                         >
                                             {step}
-                                            {i < collectionsData.length - 1 && <Divider />}
+                                            {i < variantOptions.size - 1 && <Divider />}
                                         </div>
                                     </Skeleton>
                                 );
                             })}
 
-                            {collectionsData.length > 0 && <Divider />}
-
-                            {variantOptions &&
-                                variantOptionOrder.map((optionId, i) => {
-                                    const optionValues = variantOptions.get(optionId);
-                                    if (!optionValues || optionValues.size === 0) return null;
-                                    const step = (
-                                        <VariantStep
-                                            id={optionId}
-                                            values={optionValues}
-                                            selected={options[optionId] || ""}
-                                        />
-                                    );
-                                    return (
-                                        <Skeleton
-                                            visible={awaitingProduct}
-                                            classNames={SkeletonClassNames}
-                                            key={optionId}
-                                        >
-                                            <div
-                                                style={{
-                                                    visibility: awaitingProduct
-                                                        ? "hidden"
-                                                        : "initial",
-                                                }}
-                                            >
-                                                {step}
-                                                {i < variantOptions.size - 1 && <Divider />}
-                                            </div>
-                                        </Skeleton>
-                                    );
-                                })}
-
-                            {variantOptionOrder.length > 0 && <Divider />}
-                        </div>
-                    )}
+                        {variantOptionOrder.length > 0 && <Divider />}
+                    </div>
 
                     <Skeleton
                         visible={awaitingProduct}
