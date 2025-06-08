@@ -45,9 +45,9 @@ export function ProductHero() {
     const [, /* quantity */ setQuantity] = useState<number | null>(1);
 
     const maximumVariantQuantity = useMemo(() => {
-        if (!cart.data || !product.data || !variant) return 0;
+        if (!cart.data || awaitingCart || !product.data || awaitingProduct || !variant) return 0;
         return calculateMaxAddableVariantStock(cart.data, product.data, variant);
-    }, [cart, product.data, variant]);
+    }, [cart, awaitingCart, product.data, awaitingProduct, variant]);
 
     if (!awaitingProduct && (!product.data || !variant)) return null;
 
