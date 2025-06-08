@@ -5,12 +5,12 @@ import { Skeleton, SkeletonProps, Button, Divider, Rating } from "@mantine/core"
 import { findCollections, filterVariantOptions } from "@/utils/products/product";
 import { Quantity } from "@/components/Inputs/Quantity";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
-import { Bell } from "@phosphor-icons/react";
 import { Price } from "@/features/Price";
 import { ImageCarousel } from "./components/ImageCarousel";
 import { CollectionStep } from "./components/CollectionStep";
 import { VariantStep } from "./components/VariantStep";
 import { VariantAlerts } from "./components/VariantAlerts";
+import { WatchlistButton } from "./components/WatchlistButton";
 import { calculateMaxAddableVariantStock } from "./utils/calculateMaxAddableVariantStock";
 import styles from "./index.module.css";
 
@@ -19,7 +19,7 @@ const SkeletonClassNames: SkeletonProps["classNames"] = {
 };
 
 export function ProductHero() {
-    const { cart, watchlist } = useContext(UserContext);
+    const { cart } = useContext(UserContext);
     const { product, variant, defaultData } = useContext(ProductContext);
     const {
         product: defaultProductData,
@@ -57,12 +57,6 @@ export function ProductHero() {
     const { price, options } = !awaitingProduct
         ? variant!
         : (defaultVariantData as NonNullable<IProductContext["variant"]>);
-
-    const userIsWatchingVariant =
-        watchlist.data &&
-        watchlist.data.findIndex((item) => {
-            return item.productId === product.data?.id && item.variantId === variant?.id;
-        }) > -1;
 
     return (
         <section className={styles["product-hero"]}>
@@ -206,25 +200,7 @@ export function ProductHero() {
                             Add to Cart
                         </Button>
 
-                        <div className={styles["add-to-watchlist-button-container"]}>
-                            <Button
-                                color="black"
-                                variant="outline"
-                                className={styles["add-to-watchlist-button"]}
-                                disabled={awaitingProduct}
-                                aria-label="Add to watchlist"
-                            >
-                                <Bell size={24} weight="light" />
-                            </Button>
-                            {!awaitingProduct && userIsWatchingVariant && (
-                                <span
-                                    className={`${styles["is-on-watchlist-icon"]} material-symbols-sharp`}
-                                    style={{ fontSize: "12px", fontWeight: "bold" }}
-                                >
-                                    Check
-                                </span>
-                            )}
-                        </div>
+                        <WatchlistButton />
                     </div>
 
                     <Skeleton visible={awaitingProduct} classNames={SkeletonClassNames}>

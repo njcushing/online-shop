@@ -195,6 +195,18 @@ vi.mock("@/features/ProductHero/components/VariantAlerts", () => ({
     }),
 }));
 
+vi.mock("@/features/ProductHero/components/WatchlistButton", () => ({
+    WatchlistButton: vi.fn((props: unknown) => {
+        return (
+            <button
+                type="button"
+                aria-label="WatchlistButton component"
+                data-props={JSON.stringify(props)}
+            ></button>
+        );
+    }),
+}));
+
 vi.mock("@/components/Inputs/Quantity", () => ({
     Quantity: vi.fn((props: unknown) => {
         return <div aria-label="Quantity component" data-props={JSON.stringify(props)}></div>;
@@ -432,22 +444,11 @@ describe("The ProductHero component...", () => {
         });
     });
 
-    describe("Should render an 'Add to Watchlist' <button> element...", () => {
-        test("With an aria-label equal to: 'Add to watchlist'", () => {
-            renderFunc();
+    test("Should render the WatchlistButton component", () => {
+        renderFunc();
 
-            const AddToWatchlistButton = screen.getByRole("button", { name: "Add to watchlist" });
-            expect(AddToWatchlistButton).toBeInTheDocument();
-        });
-
-        test("Which should be disabled if the ProductContext's product data is still being awaited", () => {
-            renderFunc({
-                ProductContextOverride: { product: { awaiting: true } } as IProductContext,
-            });
-
-            const AddToWatchlistButton = screen.getByRole("button", { name: "Add to watchlist" });
-            expect(AddToWatchlistButton).toBeDisabled();
-        });
+        const WatchlistButtonComponent = screen.getByLabelText("WatchlistButton component");
+        expect(WatchlistButtonComponent).toBeInTheDocument();
     });
 
     describe("Should render the DeliveryProgress component...", () => {
