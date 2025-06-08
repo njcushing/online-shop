@@ -32,7 +32,7 @@ export function WatchlistButton() {
                 variant="outline"
                 className={styles["watchlist-button"]}
                 disabled={isDisabled}
-                aria-label="Add to watchlist"
+                aria-label={isWatching ? "Remove from watchlist" : "Add to watchlist"}
             >
                 <Bell size={24} weight="light" />
             </Button>
