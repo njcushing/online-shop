@@ -34,7 +34,7 @@ export function ProductHero() {
     const variantOptions = useMemo<ReturnType<typeof filterVariantOptions> | null>(() => {
         if (awaitingProduct) return defaultVariantOptionsData;
         if (!product.data || !variant) return null;
-        return product.data ? filterVariantOptions(product.data, variant?.options) : null;
+        return filterVariantOptions(product.data, variant.options);
     }, [product.data, variant, defaultVariantOptionsData, awaitingProduct]);
 
     const collectionsData = useMemo<ReturnType<typeof findCollections>>(() => {
