@@ -45,8 +45,8 @@ export function ProductHero() {
     const [, /* quantity */ setQuantity] = useState<number | null>(1);
 
     const maximumVariantQuantity = useMemo(() => {
-        if (!product.data || !variant) return 0;
-        return calculateMaxAddableVariantStock(cart.data || [], product.data, variant);
+        if (!cart.data || !product.data || !variant) return 0;
+        return calculateMaxAddableVariantStock(cart.data, product.data, variant);
     }, [cart, product.data, variant]);
 
     if (!awaitingProduct && (!product.data || !variant)) return null;
