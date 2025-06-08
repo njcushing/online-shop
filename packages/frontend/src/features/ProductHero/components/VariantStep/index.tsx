@@ -1,6 +1,7 @@
+import React, { useContext, useCallback, useMemo } from "react";
+import { ProductContext } from "@/pages/Product";
 import { variantOptions, ProductVariantOption } from "@/utils/products/product";
 import { sortSet } from "@/utils/sortSet";
-import React, { useCallback, useMemo } from "react";
 import styles from "./index.module.css";
 
 export type TVariantStep = {
@@ -8,7 +9,6 @@ export type TVariantStep = {
     values: Set<string>;
     selected: string;
     preventSort?: boolean;
-    onClick?: (value: string) => unknown;
 };
 
 const checkOptionType = <T extends ProductVariantOption["type"]>(
@@ -32,8 +32,21 @@ const sortValues = (values: Set<string>, variantOption: ProductVariantOption): S
     return new Set([...sortedSpecifiedIds, ...sortSet(unspecifiedIds)]);
 };
 
-export function VariantStep({ id, values, selected, preventSort, onClick }: TVariantStep) {
+export function VariantStep({ id, values, selected, preventSort }: TVariantStep) {
+    const { selectedVariantOptions, setSelectedVariantOptions } = useContext(ProductContext);
+
     const optionData = variantOptions.find((o) => o.id === id);
+
+    const onClick = useCallback(
+        (value: string) => {
+            const newselectedVariantOptions = {
+                ...selectedVariantOptions,
+            };
+            newselectedVariantOptions[id] = value;
+            setSelectedVariantOptions(newselectedVariantOptions);
+        },
+        [id, selectedVariantOptions, setSelectedVariantOptions],
+    );
 
     const createGenericTextButton = useCallback(
         (value: string): React.ReactNode => {

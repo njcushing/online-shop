@@ -20,8 +20,7 @@ const SkeletonClassNames: SkeletonProps["classNames"] = {
 
 export function ProductHero() {
     const { cart, watchlist } = useContext(UserContext);
-    const { product, variant, selectedVariantOptions, setSelectedVariantOptions, defaultData } =
-        useContext(ProductContext);
+    const { product, variant, defaultData } = useContext(ProductContext);
     const {
         product: defaultProductData,
         variant: defaultVariantData,
@@ -150,15 +149,6 @@ export function ProductHero() {
                                             id={optionId}
                                             values={optionValues}
                                             selected={options[optionId] || ""}
-                                            onClick={(value) => {
-                                                const newselectedVariantOptions = {
-                                                    ...selectedVariantOptions,
-                                                };
-                                                newselectedVariantOptions[optionId] = value;
-                                                setSelectedVariantOptions(
-                                                    newselectedVariantOptions,
-                                                );
-                                            }}
                                         />
                                     );
                                     return (
