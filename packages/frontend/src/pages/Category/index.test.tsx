@@ -74,7 +74,7 @@ vi.mock("@/utils/products/categories", async (importOriginal) => {
     const actual = await importOriginal();
     return {
         ...(actual || {}),
-        categories: mockCategories,
+        categories: (await import("./index.mocks")).mockCategories,
     };
 });
 
