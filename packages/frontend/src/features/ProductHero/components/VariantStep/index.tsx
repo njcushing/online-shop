@@ -48,57 +48,54 @@ export function VariantStep({ id, values, selected, preventSort }: TVariantStep)
         [id, selectedVariantOptions, setSelectedVariantOptions],
     );
 
-    const createGenericTextButton = useCallback(
-        (value: string): React.ReactNode => {
-            return (
-                <button
-                    type="button"
-                    onClick={() => onClick && onClick(value)}
-                    className={styles["product-hero-step-text-button"]}
-                    data-selected={selected === value}
-                    key={`variant-options-${id}-${value}`}
-                >
-                    {value}
-                </button>
-            );
+    const itemClassName = useMemo(() => {
+        if (!optionData) return "product-hero-step-text-button";
+        if (checkOptionType(optionData, "dot")) return "product-hero-step-dot-button";
+        return "product-hero-step-text-button";
+    }, [optionData]);
+
+    const itemButtonContent = useCallback(
+        (valueData: ProductVariantOption["values"][number] | undefined) => {
+            if (!optionData) return null;
+            if (checkOptionType(optionData, "dot")) {
+                const dot = valueData ? valueData.dot : "rgba(0, 0, 0, 0.2)";
+
+                return (
+                    <span
+                        className={styles["product-hero-step-dot"]}
+                        style={{ backgroundColor: dot || "black" }}
+                    ></span>
+                );
+            }
+            return null;
         },
-        [id, selected, onClick],
+        [optionData],
     );
 
     const items = useMemo(() => {
-        if (optionData && checkOptionType(optionData, "dot")) {
-            const sortedValues = preventSort ? values : sortValues(values, optionData);
-            return [...sortedValues.values()].map((value) => {
-                const valueData = optionData.values.find((v) => v.id === value);
-                const {
-                    id: valueId,
-                    name,
-                    dot,
-                } = valueData || { id: value, name: value, dot: "rgba(0, 0, 0, 0.2)" };
+        const sortedValues = !optionData || preventSort ? values : sortValues(values, optionData);
+        return [...sortedValues.values()].map((value) => {
+            const valueData = optionData?.values.find((v) => v.id === value);
+            const { id: valueId, name } = valueData || { id: value, name: value };
 
-                const isSelected = selected === valueId;
+            const isSelected = selected === valueId;
 
-                return (
-                    <button
-                        type="button"
-                        onClick={() => onClick && onClick(valueId)}
-                        className={styles["product-hero-step-dot-button"]}
-                        data-selected={isSelected}
-                        tabIndex={isSelected ? -1 : 0}
-                        disabled={isSelected}
-                        key={`variant-options-${id}-${name}`}
-                    >
-                        <span
-                            className={styles["product-hero-step-dot"]}
-                            style={{ backgroundColor: dot || "black" }}
-                        ></span>
-                        {name}
-                    </button>
-                );
-            });
-        }
-        return [...sortSet(values).values()].map((value) => createGenericTextButton(value));
-    }, [id, values, selected, preventSort, onClick, optionData, createGenericTextButton]);
+            return (
+                <button
+                    type="button"
+                    onClick={() => onClick && onClick(valueId)}
+                    className={styles[itemClassName]}
+                    data-selected={isSelected}
+                    tabIndex={isSelected ? -1 : 0}
+                    disabled={isSelected}
+                    key={`variant-options-${id}-${name}`}
+                >
+                    {itemButtonContent(valueData)}
+                    {name}
+                </button>
+            );
+        });
+    }, [id, values, selected, preventSort, onClick, optionData, itemClassName, itemButtonContent]);
 
     return (
         <div className={styles["product-hero-step"]} key={`variant-options-${id}`}>
