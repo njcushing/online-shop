@@ -55,10 +55,12 @@ export function VariantStep({ id, values, selected, preventSort }: TVariantStep)
     }, [optionData]);
 
     const itemButtonContent = useCallback(
-        (valueData: ProductVariantOption["values"][number] | undefined) => {
+        (valueData: ProductVariantOption["values"][number]) => {
             if (!optionData) return null;
             if (checkOptionType(optionData, "dot")) {
-                const dot = valueData ? valueData.dot : "rgba(0, 0, 0, 0.2)";
+                const dot = valueData
+                    ? (valueData as (typeof optionData)["values"][number]).dot
+                    : "rgba(0, 0, 0, 0.2)";
 
                 return (
                     <span
@@ -90,7 +92,7 @@ export function VariantStep({ id, values, selected, preventSort }: TVariantStep)
                     disabled={isSelected}
                     key={`variant-options-${id}-${name}`}
                 >
-                    {itemButtonContent(valueData)}
+                    {valueData && itemButtonContent(valueData)}
                     {name}
                 </button>
             );
