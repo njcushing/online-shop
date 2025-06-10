@@ -12,10 +12,10 @@ export type TVariantStep = {
 };
 
 const checkOptionType = <T extends ProductVariantOption["type"]>(
-    option: ProductVariantOption,
+    option: ProductVariantOption | undefined,
     type: T,
 ): option is Extract<ProductVariantOption, { type: T }> => {
-    return option.type === type;
+    return option ? option.type === type : false;
 };
 
 const sortValues = (values: Set<string>, variantOption: ProductVariantOption): Set<string> => {
@@ -49,25 +49,25 @@ export function VariantStep({ id, values, selected, preventSort }: TVariantStep)
     );
 
     const itemClassName = useMemo(() => {
-        if (!optionData) return "product-hero-step-text-button";
         if (checkOptionType(optionData, "dot")) return "product-hero-step-dot-button";
         return "product-hero-step-text-button";
     }, [optionData]);
 
     const itemButtonContent = useCallback(
-        (valueData: ProductVariantOption["values"][number]) => {
-            if (!optionData) return null;
-            if (checkOptionType(optionData, "dot")) {
-                const dot =
-                    (valueData as (typeof optionData)["values"][number]).dot ??
-                    "rgba(0, 0, 0, 0.2)";
+        (valueData: ProductVariantOption["values"][number] | undefined) => {
+            if (valueData) {
+                if (checkOptionType(optionData, "dot")) {
+                    const dot =
+                        (valueData as (typeof optionData)["values"][number]).dot ??
+                        "rgba(0, 0, 0, 0.2)";
 
-                return (
-                    <span
-                        className={styles["product-hero-step-dot"]}
-                        style={{ backgroundColor: dot || "black" }}
-                    ></span>
-                );
+                    return (
+                        <span
+                            className={styles["product-hero-step-dot"]}
+                            style={{ backgroundColor: dot }}
+                        ></span>
+                    );
+                }
             }
             return null;
         },
@@ -92,7 +92,7 @@ export function VariantStep({ id, values, selected, preventSort }: TVariantStep)
                     disabled={isSelected}
                     key={`variant-options-${id}-${name}`}
                 >
-                    {valueData && itemButtonContent(valueData)}
+                    {itemButtonContent(valueData)}
                     {name}
                 </button>
             );

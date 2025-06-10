@@ -109,22 +109,31 @@ describe("The VariantStep component...", () => {
         vi.restoreAllMocks();
     });
 
-    test("Should render an element with text content equal to the option's title", () => {
-        renderFunc();
+    describe("Should render an element with text content equal to...", () => {
+        test("The option's 'title', if the specified option is found in 'variantOptions'", () => {
+            renderFunc();
 
-        const title = screen.getByText(mockVariantOptions[0].title);
-        expect(title).toBeInTheDocument();
+            const title = screen.getByText(mockVariantOptions[0].title);
+            expect(title).toBeInTheDocument();
+        });
+
+        test("The 'id' prop, if the specified option is not found in 'variantOptions'", () => {
+            renderFunc({ propsOverride: { id: "variantOption0" } as TVariantStep });
+
+            const title = screen.getByText("variantOption0");
+            expect(title).toBeInTheDocument();
+        });
     });
 
     describe("Should render a <button> element...", () => {
-        describe("For each entry in the 'values' prop array...", () => {
+        describe("For each entry in the 'values' array prop...", () => {
             test("With text content equal to that option value's 'name' from 'variantOptions'", () => {
                 renderFunc();
 
-                const buttonValue1 = screen.getByRole("button", { name: "Value 1" });
+                const buttonValue1 = screen.getByRole("button", { name: "Option 1 Value 1" });
                 expect(buttonValue1).toBeInTheDocument();
 
-                const buttonValue2 = screen.getByRole("button", { name: "Value 2" });
+                const buttonValue2 = screen.getByRole("button", { name: "Option 1 Value 2" });
                 expect(buttonValue2).toBeInTheDocument();
             });
 
@@ -138,14 +147,14 @@ describe("The VariantStep component...", () => {
             test("That should have a 'data-selected' attribute of 'true' if its 'id' (from 'variantOptions') matches the 'selected' prop", () => {
                 renderFunc();
 
-                const buttonValue1 = screen.getByRole("button", { name: "Value 1" });
+                const buttonValue1 = screen.getByRole("button", { name: "Option 1 Value 1" });
                 expect(buttonValue1.getAttribute("data-selected")).toBe("true");
             });
 
             test("That should have a 'data-selected' attribute of 'false' if its 'id' (from 'variantOptions') does not match the 'selected' prop", () => {
                 renderFunc();
 
-                const buttonValue2 = screen.getByRole("button", { name: "Value 2" });
+                const buttonValue2 = screen.getByRole("button", { name: "Option 1 Value 2" });
                 expect(buttonValue2.getAttribute("data-selected")).toBe("false");
 
                 const buttonValue3 = screen.getByRole("button", { name: "variantOption1Value3" });
@@ -155,14 +164,14 @@ describe("The VariantStep component...", () => {
             test("That should be disabled if its 'id' (from 'variantOptions') matches the 'selected' prop", () => {
                 renderFunc();
 
-                const buttonValue1 = screen.getByRole("button", { name: "Value 1" });
+                const buttonValue1 = screen.getByRole("button", { name: "Option 1 Value 1" });
                 expect(buttonValue1).toBeDisabled();
             });
 
             test("That should be enabled if its 'id' (from 'variantOptions') does not match the 'selected' prop", () => {
                 renderFunc();
 
-                const buttonValue2 = screen.getByRole("button", { name: "Value 2" });
+                const buttonValue2 = screen.getByRole("button", { name: "Option 1 Value 2" });
                 expect(buttonValue2).not.toBeDisabled();
 
                 const buttonValue3 = screen.getByRole("button", { name: "variantOption1Value3" });
@@ -172,14 +181,14 @@ describe("The VariantStep component...", () => {
             test("That should have a 'tabIndex' of -1 if its 'id' (from 'variantOptions') matches the 'selected' prop", () => {
                 renderFunc();
 
-                const buttonValue1 = screen.getByRole("button", { name: "Value 1" });
+                const buttonValue1 = screen.getByRole("button", { name: "Option 1 Value 1" });
                 expect(buttonValue1.tabIndex).toBe(-1);
             });
 
             test("That should have a 'tabIndex' of 0 if its 'id' (from 'variantOptions') does not match the 'selected' prop", () => {
                 renderFunc();
 
-                const buttonValue2 = screen.getByRole("button", { name: "Value 2" });
+                const buttonValue2 = screen.getByRole("button", { name: "Option 1 Value 2" });
                 expect(buttonValue2.tabIndex).toBe(0);
 
                 const buttonValue3 = screen.getByRole("button", { name: "variantOption1Value3" });
@@ -189,7 +198,7 @@ describe("The VariantStep component...", () => {
             test("That should, on click, call the ProductContext's 'setSelectedVariantOptions' setter with the correct argument", async () => {
                 renderFunc();
 
-                const buttonValue2 = screen.getByRole("button", { name: "Value 2" });
+                const buttonValue2 = screen.getByRole("button", { name: "Option 1 Value 2" });
                 expect(buttonValue2).toBeEnabled();
 
                 await act(async () => userEvent.click(buttonValue2));
@@ -197,6 +206,19 @@ describe("The VariantStep component...", () => {
                 expect(mockSetSelectedVariantOptions).toHaveBeenCalledWith({
                     variantOption1: "variantOption1Value2",
                 });
+            });
+
+            test("Even if the specified option has no data in 'variantOptions'", () => {
+                renderFunc({
+                    propsOverride: {
+                        id: "variantOption0",
+                        values: new Set(["variantOption0Value1"]),
+                        selected: "variantOption0Value1",
+                    },
+                });
+
+                const buttonValue1 = screen.getByRole("button", { name: "variantOption0Value1" });
+                expect(buttonValue1).toBeInTheDocument();
             });
         });
     });
