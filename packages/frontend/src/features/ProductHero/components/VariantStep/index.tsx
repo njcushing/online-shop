@@ -58,9 +58,9 @@ export function VariantStep({ id, values, selected, preventSort }: TVariantStep)
         (valueData: ProductVariantOption["values"][number]) => {
             if (!optionData) return null;
             if (checkOptionType(optionData, "dot")) {
-                const dot = valueData
-                    ? (valueData as (typeof optionData)["values"][number]).dot
-                    : "rgba(0, 0, 0, 0.2)";
+                const dot =
+                    (valueData as (typeof optionData)["values"][number]).dot ??
+                    "rgba(0, 0, 0, 0.2)";
 
                 return (
                     <span
