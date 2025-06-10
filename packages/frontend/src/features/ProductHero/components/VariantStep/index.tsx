@@ -12,14 +12,14 @@ export type TVariantStep = {
 };
 
 const checkOptionType = <T extends ProductVariantOption["type"]>(
-    option: ProductVariantOption | undefined,
+    optionData: ProductVariantOption | undefined,
     type: T,
-): option is Extract<ProductVariantOption, { type: T }> => {
-    return option ? option.type === type : false;
+): optionData is Extract<ProductVariantOption, { type: T }> => {
+    return optionData ? optionData.type === type : false;
 };
 
-const sortValues = (values: Set<string>, variantOption: ProductVariantOption): Set<string> => {
-    const valueIds = new Map(variantOption.values.map((item, i) => [item.id, i]));
+const sortValues = (values: Set<string>, optionData: ProductVariantOption): Set<string> => {
+    const valueIds = new Map(optionData.values.map((item, i) => [item.id, i]));
     const specifiedIds = new Set<string>();
     const unspecifiedIds = new Set<string>();
 
