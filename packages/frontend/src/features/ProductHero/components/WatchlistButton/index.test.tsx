@@ -149,7 +149,7 @@ describe("The WatchlistButton component...", () => {
                 expect(button).toBeDisabled();
             });
 
-            test.only("The UserContext's watchlist data is falsy", () => {
+            test("The UserContext's watchlist data is falsy", () => {
                 renderFunc({
                     UserContextOverride: {
                         watchlist: { data: null },
