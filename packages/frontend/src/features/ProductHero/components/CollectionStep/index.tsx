@@ -40,8 +40,8 @@ export function CollectionStep({ collectionData }: TCollectionStep) {
                 >
                     <Image
                         className={styles["product-thumbnail-image"]}
-                        src={thumb.src || ""}
-                        alt={thumb.alt || ""}
+                        src={thumb.src}
+                        alt={thumb.alt}
                     />
                     {usedName}
                 </Link>
