@@ -129,7 +129,6 @@ export function ProductReviews() {
                             className={styles["select"]}
                             id="filter-reviews"
                             name="filter-reviews"
-                            aria-label="filter-reviews"
                             value={filter}
                             onChange={(e) => {
                                 const { value } = e.target;
@@ -159,7 +158,6 @@ export function ProductReviews() {
                             className={styles["select"]}
                             id="sort-reviews"
                             name="sort-reviews"
-                            aria-label="sort-reviews"
                             defaultValue={sort}
                             onChange={(e) => {
                                 const { value } = e.target;
