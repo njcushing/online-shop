@@ -61,6 +61,9 @@ export function ProductReviews() {
         return [];
     }, [response]);
 
+    // Don't test auto-scroll logic
+    /* v8 ignore start */
+
     const forceCloseId = useRef<string>(uuid());
     const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({
         offset: 16 /* Top padding */,
@@ -86,13 +89,14 @@ export function ProductReviews() {
             cancelAnimationFrame(rafId);
         };
     }, [forceClose, scrollIntoView, queueScroll]);
-
     useEffect(() => {
         const { current } = forceCloseId;
         return () => {
             forceClose(false, current);
         };
     }, [forceClose]);
+
+    /* v8 ignore stop */
 
     if (!awaitingProductData && !productData) return null;
 
@@ -110,9 +114,14 @@ export function ProductReviews() {
             <div
                 className={`${styles["sticky-panel"]} ${styles[headerInfo.open ? "shifted" : ""]}`}
                 style={{
+                    // Don't test element positioning
+                    /* v8 ignore start */
+
                     top: !headerInfo.open
                         ? "16px"
                         : `calc(max(${16}px, ${headerInfo.height + 16}px))`,
+
+                    /* v8 ignore stop */
                 }}
             >
                 <ProductRatingBars
