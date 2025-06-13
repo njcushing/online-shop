@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { UserContext } from "@/pages/Root";
 import { useMatches, ActionIcon, Burger, BurgerProps, Drawer, NavLink } from "@mantine/core";
 import { useClickOutside } from "@mantine/hooks";
 import {
@@ -16,7 +17,6 @@ import {
 import { Link } from "react-router-dom";
 import { Logo } from "@/features/Logo";
 import { CartDrawer } from "@/features/Cart/components/CartDrawer";
-import { mockCart } from "@/utils/products/cart";
 import { SearchBar } from "../SearchBar";
 import styles from "./index.module.css";
 
@@ -48,6 +48,9 @@ export type TNavigation = {
 };
 
 export function Navigation({ opened = false }: TNavigation) {
+    const { cart } = useContext(UserContext);
+    const { data: cartData } = cart;
+
     const [navDrawerOpen, setNavDrawerOpen] = useState<boolean>(false);
     const [searchBarOpen, setSearchBarOpen] = useState<boolean>(false);
     const [cartDrawerOpen, setCartDrawerOpen] = useState<boolean>(false);
@@ -135,8 +138,8 @@ export function Navigation({ opened = false }: TNavigation) {
                         >
                             <ShoppingCartSimple size={iconSize} color="black" />
                         </ActionIcon>
-                        {mockCart.length > 0 && (
-                            <span className={styles["cart-items-quantity"]}>{mockCart.length}</span>
+                        {cartData && cartData.length > 0 && (
+                            <span className={styles["cart-items-quantity"]}>{cartData.length}</span>
                         )}
                     </div>
                 </div>
