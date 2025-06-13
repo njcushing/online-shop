@@ -112,17 +112,17 @@ export function ProductReviews() {
     return (
         <div className={styles["product-reviews"]}>
             <div
+                // Don't test element positioning
+                /* v8 ignore start */
+
                 className={`${styles["sticky-panel"]} ${styles[headerInfo.open ? "shifted" : ""]}`}
                 style={{
-                    // Don't test element positioning
-                    /* v8 ignore start */
-
                     top: !headerInfo.open
                         ? "16px"
                         : `calc(max(${16}px, ${headerInfo.height + 16}px))`,
-
-                    /* v8 ignore stop */
                 }}
+
+                /* v8 ignore stop */
             >
                 <ProductRatingBars
                     onClick={(tier) => {
@@ -208,7 +208,7 @@ export function ProductReviews() {
                 <Divider className={styles["divider"]} />
 
                 {!awaiting
-                    ? reviews.map((review) => {
+                    ? reviews.slice(0, reviewsPerPage).map((review) => {
                           return <Review data={review} key={review.id} />;
                       })
                     : Array.from({
@@ -219,6 +219,10 @@ export function ProductReviews() {
 
                 <div className={styles["pagination-container"]}>
                     <Pagination
+                        // Adding datya-testid attribute to test onChange logic; Pagination
+                        // component doesn't have an accessible role and the page buttons' names
+                        // (numbers) often conflict with the ProductRatingBars component's buttons
+                        data-testid="pagination"
                         total={Math.ceil(reviewQuantity / reviewsPerPage)}
                         value={page + 1}
                         withEdges

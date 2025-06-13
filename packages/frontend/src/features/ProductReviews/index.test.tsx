@@ -9,35 +9,17 @@ import { IProductContext, ProductContext } from "@/pages/Product";
 import { ProductReviews } from ".";
 
 // Mock dependencies
-const mockReviews = [
-    {
-        id: "review1Id",
-        productId: "productId",
-        variantId: "variant1Id",
-        userId: "userId",
-        rating: 4,
-        comment: "Review 1 Comment",
-        datePosted: new Date().toISOString(),
-    },
-    {
-        id: "review2Id",
-        productId: "productId",
-        variantId: "variant2Id",
-        userId: "userId",
-        rating: 5,
-        comment: "Review 2 Comment",
-        datePosted: new Date().toISOString(),
-    },
-    {
-        id: "review3Id",
-        productId: "productId",
-        variantId: "variant3Id",
-        userId: "userId",
-        rating: 3,
-        comment: "Review 3 Comment",
-        datePosted: new Date().toISOString(),
-    },
-];
+const reviewsPerPage = 10;
+
+const mockReviews = Array.from({ length: 100 }).map((v, i) => ({
+    id: `review${i + 1}Id`,
+    productId: "productId",
+    variantId: "variant1Id",
+    userId: "userId",
+    rating: Math.ceil(Math.random() * 5),
+    comment: `Review ${i + 1} Comment`,
+    datePosted: new Date().toISOString(),
+}));
 
 // Mock contexts are only using fields relevant to component being tested
 const mockRootContext: RecursivePartial<IRootContext> = {
@@ -47,9 +29,18 @@ const mockRootContext: RecursivePartial<IRootContext> = {
 const mockProduct = {
     id: "productId",
     rating: {
-        meanValue: 4.0,
-        totalQuantity: 3,
-        quantities: { 5: 1, 4: 1, 3: 1, 2: 0, 1: 0 },
+        meanValue:
+            mockReviews.reduce((a, c) => {
+                return c.productId === "productId" ? a + c.rating : 0;
+            }, 0) / mockReviews.length,
+        totalQuantity: mockReviews.filter((r) => r.productId === "productId").length,
+        quantities: {
+            5: mockReviews.filter((r) => r.rating === 5).length,
+            4: mockReviews.filter((r) => r.rating === 4).length,
+            3: mockReviews.filter((r) => r.rating === 3).length,
+            2: mockReviews.filter((r) => r.rating === 2).length,
+            1: mockReviews.filter((r) => r.rating === 1).length,
+        },
     },
     reviews: mockReviews.flatMap((review) => (review.productId === "productId" ? review.id : [])),
 };
@@ -448,14 +439,14 @@ describe("The ProductReviews component...", () => {
     });
 
     describe("Should render Review components...", () => {
-        test("Equal to the length of the ProductContext's product's 'reviews' array, if review data is still being awaited", async () => {
+        test("Equal to the length of the ProductContext's product's 'reviews' array (max. 10), if review data is still being awaited", async () => {
             await renderFunc({ initRender: true });
 
             const { reviews } = mockProductContext.product!.data!;
 
             await waitFor(async () => {
                 const ReviewComponents = screen.queryAllByLabelText("Review component");
-                expect(ReviewComponents).toHaveLength(reviews.length);
+                expect(ReviewComponents).toHaveLength(Math.min(reviewsPerPage, reviews.length));
             });
         });
 
@@ -474,26 +465,62 @@ describe("The ProductReviews component...", () => {
         });
 
         describe("After awaiting the response from the 'mockGetReviews' API query function...", async () => {
-            test("One for each review returned by the function", async () => {
+            test("One for each review returned by the function (max. 10)", async () => {
                 await renderFunc();
 
                 const mockReviewData = (await mockMockGetReviews()).data;
 
                 const ReviewComponents = screen.getAllByLabelText("Review component");
-                expect(ReviewComponents).toHaveLength(mockReviewData.length);
+                expect(ReviewComponents).toHaveLength(
+                    Math.min(reviewsPerPage, mockReviewData.length),
+                );
             });
 
             test("Passing the correct props", async () => {
                 await renderFunc();
 
+                const mockReviewData = (await mockMockGetReviews()).data;
+
                 const ReviewComponents = screen.getAllByLabelText("Review component");
 
-                const mockReviewData = (await mockMockGetReviews()).data;
-                mockReviewData.forEach((mockReview, i) => {
-                    const props = ReviewComponents[i].getAttribute("data-props");
+                ReviewComponents.forEach((ReviewComponent, i) => {
+                    const mockReview = mockReviewData[i];
+                    const props = ReviewComponent.getAttribute("data-props");
                     expect(JSON.parse(props!)).toStrictEqual({ data: mockReview });
                 });
             });
+        });
+    });
+
+    describe("Should render a Mantine Pagination component...", () => {
+        test("That should, onChange, call the 'mockGetReviews' function with the correct 'start' and 'end' indices according to the selected page number", async () => {
+            await renderFunc();
+
+            const { reviews } = mockProductContext.product!.data!;
+            const finalPageNumber = Math.ceil(reviews.length / reviewsPerPage);
+            const start = (finalPageNumber - 1) * reviewsPerPage;
+            const end = finalPageNumber * reviewsPerPage;
+
+            const PaginationComponent = screen.getByTestId("pagination");
+            const PaginationComponentButtonLast = within(PaginationComponent).getByRole("button", {
+                name: `${finalPageNumber}`,
+            });
+
+            mockMockGetReviews.mockRestore();
+
+            await act(async () => userEvent.click(PaginationComponentButtonLast));
+
+            expect(mockMockGetReviews).toHaveBeenCalledTimes(1);
+            expect(mockMockGetReviews).toHaveBeenCalledWith(
+                expect.arrayContaining([
+                    expect.objectContaining({
+                        params: expect.objectContaining({
+                            start,
+                            end,
+                        }),
+                    }),
+                ]),
+            );
         });
     });
 
