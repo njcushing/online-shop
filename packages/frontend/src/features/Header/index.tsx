@@ -13,6 +13,12 @@ export function Header() {
 
     const baseRef = useRef<HTMLDivElement>(null);
 
+    // Mocking ResizeObserver doesn't seem to work when manually triggering the callback function
+    // provided to the API; the useEffect above that depends on headerRect doesn't set the
+    // headerHeight state. I'll continue to play around with it and try to find a solution that
+    // allows me to test this code in jsdom
+    /* v8 ignore start */
+
     const lastScrollPos = useRef<number>(0);
     const [active, setActive] = useState<boolean>(false);
     const [open, setOpen] = useState<boolean>(document.body.getBoundingClientRect().top === 0);
@@ -37,6 +43,8 @@ export function Header() {
             window.removeEventListener("scroll", scrollDirectionCheck);
         };
     }, [headerRef, headerHeight]);
+
+    /* v8 ignore end */
 
     const forceClose = useCallback((state: boolean, id: string) => {
         if (!state) {
