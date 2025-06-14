@@ -6,17 +6,14 @@ import {
     MagnifyingGlass,
     User,
     ShoppingCartSimple,
-    CoffeeBean,
-    Leaf,
-    Coffee,
-    Gear,
-    Gift,
     CaretRight,
     IconProps,
 } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
+import { categories } from "@/utils/products/categories";
 import { Logo } from "@/features/Logo";
 import { CartDrawer } from "@/features/Cart/components/CartDrawer";
+import { getIcon } from "./utils/getIcon";
 import { SearchBar } from "../SearchBar";
 import styles from "./index.module.css";
 
@@ -25,23 +22,6 @@ export type Category = {
     path: string;
     icon: React.ReactNode;
 };
-
-const iconProps: IconProps = {
-    weight: "fill",
-    size: 24,
-};
-
-const categories: Category[] = [
-    { name: "Coffee", path: "/c/coffee", icon: <CoffeeBean {...iconProps} /> },
-    { name: "Tea", path: "/c/tea", icon: <Leaf {...iconProps} /> },
-    { name: "Equipment", path: "/c/equipment", icon: <Gear {...iconProps} /> },
-    { name: "Accessories", path: "/c/accessories", icon: <Coffee {...iconProps} /> },
-    {
-        name: "Gifts & Subscriptions",
-        path: "/c/gifts-subscriptions",
-        icon: <Gift {...iconProps} />,
-    },
-];
 
 export type TNavigation = {
     opened?: boolean;
@@ -146,10 +126,10 @@ export function Navigation({ opened = false }: TNavigation) {
 
                 <div className={`${styles["categories"]} mantine-visible-from-lg`}>
                     {categories.map((category) => {
-                        const { name, path } = category;
+                        const { name, slug } = category;
                         return (
                             <Link
-                                to={path}
+                                to={`/c/${slug}`}
                                 className={styles["option"]}
                                 key={`navbar-category-${name}`}
                             >
@@ -173,13 +153,13 @@ export function Navigation({ opened = false }: TNavigation) {
                 }}
             >
                 {categories.map((category) => {
-                    const { name, path, icon } = category;
+                    const { name, slug } = category;
                     return (
                         <NavLink
                             component={Link}
-                            to={path}
+                            to={`/c/${slug}`}
                             label={name}
-                            leftSection={icon}
+                            leftSection={getIcon(name)}
                             rightSection={<CaretRight size={24} />}
                             onClick={() => setNavDrawerOpen(false)}
                             style={{ flexShrink: 0 }}
