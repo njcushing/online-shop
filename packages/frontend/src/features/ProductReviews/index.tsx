@@ -219,9 +219,9 @@ export function ProductReviews() {
 
                 <div className={styles["pagination-container"]}>
                     <Pagination
-                        // Adding datya-testid attribute to test onChange logic; Pagination
-                        // component doesn't have an accessible role and the page buttons' names
-                        // (numbers) often conflict with the ProductRatingBars component's buttons
+                        // Adding data-testid attribute to test onChange logic; Pagination component
+                        // doesn't have an accessible role and the page buttons' names (numbers)
+                        // often conflict with the ProductRatingBars component's buttons.
                         data-testid="pagination"
                         total={Math.ceil(reviewQuantity / reviewsPerPage)}
                         value={page + 1}
