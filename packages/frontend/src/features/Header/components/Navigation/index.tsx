@@ -79,7 +79,7 @@ export function Navigation({ opened = false }: TNavigation) {
                     size={burgerSize}
                     opened={navDrawerOpen}
                     onClick={() => {
-                        setNavDrawerOpen(!navDrawerOpen);
+                        if (opened) setNavDrawerOpen(!navDrawerOpen);
                     }}
                     aria-label="Toggle navigation"
                     hiddenFrom="lg"
@@ -95,7 +95,9 @@ export function Navigation({ opened = false }: TNavigation) {
                         variant="transparent"
                         color="gray"
                         aria-label="Search"
-                        onClick={() => setSearchBarOpen(!searchBarOpen)}
+                        onClick={() => {
+                            if (opened) setSearchBarOpen(!searchBarOpen);
+                        }}
                         ref={setSearchBarButtonRef}
                     >
                         <MagnifyingGlass size={iconSize} color="black" />
@@ -108,7 +110,9 @@ export function Navigation({ opened = false }: TNavigation) {
                             variant="transparent"
                             color="gray"
                             aria-label="Cart"
-                            onClick={() => setCartDrawerOpen(!cartDrawerOpen)}
+                            onClick={() => {
+                                if (opened) setCartDrawerOpen(!cartDrawerOpen);
+                            }}
                         >
                             <ShoppingCartSimple size={iconSize} color="black" />
                         </ActionIcon>
