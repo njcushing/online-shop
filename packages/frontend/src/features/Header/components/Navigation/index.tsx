@@ -1,21 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "@/pages/Root";
-import { useMatches, ActionIcon, Burger, BurgerProps, Drawer, NavLink } from "@mantine/core";
+import { useMatches, ActionIcon, Burger, BurgerProps } from "@mantine/core";
 import { useClickOutside } from "@mantine/hooks";
-import {
-    MagnifyingGlass,
-    User,
-    ShoppingCartSimple,
-    CaretRight,
-    IconProps,
-} from "@phosphor-icons/react";
+import { MagnifyingGlass, User, ShoppingCartSimple, IconProps } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
 import { categories } from "@/utils/products/categories";
 import { Logo } from "@/features/Logo";
 import { CartDrawer } from "@/features/Cart/components/CartDrawer";
-import { getIcon } from "./utils/getIcon";
 import { SearchBar } from "../SearchBar";
 import styles from "./index.module.css";
+import { NavDrawer } from "./components/NavDrawer";
 
 export type Category = {
     name: string;
@@ -141,36 +135,8 @@ export function Navigation({ opened = false }: TNavigation) {
                 </div>
             </nav>
 
-            <Drawer
-                opened={navDrawerOpen}
-                onClose={() => setNavDrawerOpen(false)}
-                title={<Logo onClick={() => setNavDrawerOpen(false)} />}
-                classNames={{
-                    root: styles["drawer-root"],
-                    content: styles["drawer-content"],
-                    header: styles["drawer-header"],
-                    body: styles["drawer-body"],
-                }}
-            >
-                {categories.map((category) => {
-                    const { name, slug } = category;
-                    return (
-                        <NavLink
-                            component={Link}
-                            to={`/c/${slug}`}
-                            label={name}
-                            leftSection={getIcon(name)}
-                            rightSection={<CaretRight size={24} />}
-                            onClick={() => setNavDrawerOpen(false)}
-                            style={{ flexShrink: 0 }}
-                            key={`navlink-category-${name}`}
-                        />
-                    );
-                })}
-            </Drawer>
-
+            <NavDrawer opened={navDrawerOpen} onClose={() => setNavDrawerOpen(false)} />
             <CartDrawer opened={cartDrawerOpen} onClose={() => setCartDrawerOpen(false)} />
-
             <SearchBar opened={searchBarOpen} ref={setSearchBarRef} />
         </>
     );
