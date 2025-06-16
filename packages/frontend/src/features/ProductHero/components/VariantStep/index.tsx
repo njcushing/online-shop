@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useMemo } from "react";
+import { useContext, useCallback, useMemo } from "react";
 import { ProductContext } from "@/pages/Product";
 import { variantOptions, ProductVariantOption } from "@/utils/products/product";
 import { sortSet } from "@/utils/sortSet";
