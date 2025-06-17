@@ -17,11 +17,21 @@ export const SearchBar = forwardRef<HTMLInputElement, TSearchBar>(
             if (current && !opened) current.blur();
         }, [opened]);
 
+        // I'm not sure if this branch is reachable when using Mantine's Collapse component to call
+        // it. I've tried firing a transitionEnd event on the component, and also recursively on its
+        // children, but nothing I do seems to invoke the callback function provided to its
+        // 'onTransitionEnd' prop. I'm unsure as to how the component calculates transitions under
+        // the hood, and as I don't want to mock the component to preserve its integration within
+        // the tests, I'm going to ignore this callback function from the coverage report for now.
+        /* v8 ignore start */
+
         const focusInput = useCallback(() => {
             const { current } = inputRef;
             if (!current) return;
             if (opened) current.focus();
         }, [opened]);
+
+        /* v8 ignore end */
 
         return (
             <Collapse
@@ -29,7 +39,6 @@ export const SearchBar = forwardRef<HTMLInputElement, TSearchBar>(
                 animateOpacity={false}
                 onTransitionEnd={focusInput}
                 className={styles["search-bar"]}
-                data-testid="search-bar-Collapse"
             >
                 <Input
                     placeholder="Search for a product"
