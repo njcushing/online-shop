@@ -1,4 +1,4 @@
-import { screen, render, within, userEvent } from "@test-utils";
+import { screen, render, within, userEvent, fireEvent } from "@test-utils";
 import _ from "lodash";
 import { act } from "react";
 import { ImageCarousel, TImageCarousel } from ".";
@@ -119,6 +119,31 @@ describe("The ImageCarousel component...", () => {
 
                 expect(allSlideElements[0].getAttribute("data-selected")).toBe("false");
                 expect(allSlideElements[1].getAttribute("data-selected")).toBe("true");
+            });
+
+            test("That should, when focussed and either the 'Enter' key or spacebar are pressed, set the 'data-selected' attribute to 'true' on that element", async () => {
+                await renderFunc();
+
+                const allSlideElements = mockProps.images.map((image, i) => {
+                    return screen.getByRole("button", {
+                        name: `View image ${i + 1} of ${mockProps.images.length}`,
+                    });
+                });
+
+                expect(allSlideElements[0].getAttribute("data-selected")).toBe("true");
+                expect(allSlideElements[1].getAttribute("data-selected")).toBe("false");
+
+                await act(async () => fireEvent.focus(allSlideElements[1]));
+                await act(async () => fireEvent.keyDown(allSlideElements[1], { key: "Enter" }));
+
+                expect(allSlideElements[0].getAttribute("data-selected")).toBe("false");
+                expect(allSlideElements[1].getAttribute("data-selected")).toBe("true");
+
+                await act(async () => fireEvent.focus(allSlideElements[0]));
+                await act(async () => fireEvent.keyDown(allSlideElements[0], { key: "Spacebar" }));
+
+                expect(allSlideElements[0].getAttribute("data-selected")).toBe("true");
+                expect(allSlideElements[1].getAttribute("data-selected")).toBe("false");
             });
         });
 
