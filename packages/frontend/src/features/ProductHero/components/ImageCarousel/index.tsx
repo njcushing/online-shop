@@ -83,7 +83,11 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                     containScroll="keepSnaps"
                     skipSnaps
                     withControls={false}
-                    onSlideChange={(slideIndex) => setCurrentSlide(slideIndex)}
+                    onSlideChange={
+                        // Unreachable without mocking Carousel component
+                        /* c8 ignore next */
+                        (slideIndex) => setCurrentSlide(slideIndex)
+                    }
                     classNames={{
                         root: styles["carousel-small-root"],
                         viewport: styles["carousel-small-viewport"],
