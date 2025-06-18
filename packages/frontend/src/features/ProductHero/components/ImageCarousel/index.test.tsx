@@ -1,4 +1,4 @@
-import { screen, render, userEvent } from "@test-utils";
+import { screen, render, within, userEvent } from "@test-utils";
 import _ from "lodash";
 import { act } from "react";
 import { ImageCarousel, TImageCarousel } from ".";
@@ -40,8 +40,90 @@ const renderFunc = async (args: renderFuncArgs = {}) => {
 
 describe("The ImageCarousel component...", () => {
     describe("For each image in the 'images' array prop...", () => {
-        describe("Should render two <img> elements...", () => {
-            test("One for the large carousel, and one as a thumbnail", () => {
+        describe("Should render an element with a 'button' role...", () => {
+            describe("Containing an <img> element...", () => {
+                test("With the correct 'src' and 'alt' attributes for that image", async () => {
+                    renderFunc();
+
+                    mockProps.images.forEach((image, i) => {
+                        const { src, alt } = image;
+
+                        const slideElement = screen.getByRole("button", {
+                            name: `View image ${i + 1} of ${mockProps.images.length}`,
+                        });
+
+                        const imgElement = within(slideElement).getByRole("img", { name: alt });
+                        expect(imgElement.getAttribute("src")).toBe(src);
+                    });
+                });
+
+                test("Unless the 'awaiting' prop is set to 'true'", () => {
+                    renderFunc({ propsOverride: { awaiting: true } as TImageCarousel });
+
+                    mockProps.images.forEach((image, i) => {
+                        const slideElement = screen.getByRole("button", {
+                            name: `View image ${i + 1} of ${mockProps.images.length}`,
+                        });
+                        expect(slideElement).toBeInTheDocument();
+
+                        const imgElement = within(slideElement).queryByRole("img");
+                        expect(imgElement).not.toBeInTheDocument();
+                    });
+                });
+            });
+
+            test("That should have a 'data-selected' boolean attribute", async () => {
+                renderFunc();
+
+                const allSlideElements = mockProps.images.map((image, i) => {
+                    return screen.getByRole("button", {
+                        name: `View image ${i + 1} of ${mockProps.images.length}`,
+                    });
+                });
+
+                allSlideElements.forEach((slideElement) => {
+                    expect(slideElement.getAttribute("data-selected")).toBeDefined();
+                });
+            });
+
+            test("Only first of which should have this attribute set to 'true'", async () => {
+                renderFunc();
+
+                const allSlideElements = mockProps.images.map((image, i) => {
+                    return screen.getByRole("button", {
+                        name: `View image ${i + 1} of ${mockProps.images.length}`,
+                    });
+                });
+
+                allSlideElements.forEach((slideElement, i) => {
+                    const isFirstIndex = i === 0;
+                    const selected = isFirstIndex ? "true" : "false";
+
+                    expect(slideElement.getAttribute("data-selected")).toBe(selected);
+                });
+            });
+
+            test("That should, on click, set the 'data-selected' attribute to 'true' on that element", async () => {
+                await renderFunc();
+
+                const allSlideElements = mockProps.images.map((image, i) => {
+                    return screen.getByRole("button", {
+                        name: `View image ${i + 1} of ${mockProps.images.length}`,
+                    });
+                });
+
+                expect(allSlideElements[0].getAttribute("data-selected")).toBe("true");
+                expect(allSlideElements[1].getAttribute("data-selected")).toBe("false");
+
+                await act(async () => userEvent.click(allSlideElements[1]));
+
+                expect(allSlideElements[0].getAttribute("data-selected")).toBe("false");
+                expect(allSlideElements[1].getAttribute("data-selected")).toBe("true");
+            });
+        });
+
+        describe("Should render an additional <img> element for the larger carousel", () => {
+            test("With the correct 'src' and 'alt' attributes for that image", () => {
                 renderFunc();
 
                 mockProps.images.forEach((image) => {
@@ -62,37 +144,6 @@ describe("The ImageCarousel component...", () => {
                     expect(imgElements).toHaveLength(0);
                 });
             });
-
-            describe("The thumbnail image...", () => {
-                test("Should have a 'data-selected' boolean attribute", () => {
-                    renderFunc();
-
-                    mockProps.images.forEach((image) => {
-                        const { alt } = image;
-
-                        const imgElements = screen.getAllByRole("img", { name: alt });
-
-                        expect(imgElements[0].getAttribute("data-selected")).toBeNull();
-                        expect(imgElements[1].getAttribute("data-selected")).toBeDefined();
-                    });
-                });
-
-                test("That should be true for the first image by default", () => {
-                    renderFunc();
-
-                    mockProps.images.forEach((image, i) => {
-                        const { alt } = image;
-
-                        const imgElements = screen.getAllByRole("img", { name: alt });
-
-                        const isFirstIndex = i === 0;
-                        const selected = isFirstIndex ? "true" : "false";
-
-                        expect(imgElements[0].getAttribute("data-selected")).toBeNull();
-                        expect(imgElements[1].getAttribute("data-selected")).toBe(selected);
-                    });
-                });
-            });
         });
     });
 
@@ -111,49 +162,49 @@ describe("The ImageCarousel component...", () => {
             expect(nextImageButton).not.toBeInTheDocument();
         });
 
-        test("That should, on click, set the 'data-selected' attribute to 'true' on the next image", async () => {
+        test("That should, on click, set the 'data-selected' attribute to 'true' on the next slide", async () => {
             await renderFunc();
 
             const nextImageButton = screen.getByRole("button", { name: "Next image" });
 
-            const allImgElements = mockProps.images.map((image) => {
-                const { alt } = image;
-
-                return screen.getAllByRole("img", { name: alt });
+            const allSlideElements = mockProps.images.map((image, i) => {
+                return screen.getByRole("button", {
+                    name: `View image ${i + 1} of ${mockProps.images.length}`,
+                });
             });
 
-            expect(allImgElements[0][1].getAttribute("data-selected")).toBe("true");
-            expect(allImgElements[1][1].getAttribute("data-selected")).toBe("false");
+            expect(allSlideElements[0].getAttribute("data-selected")).toBe("true");
+            expect(allSlideElements[1].getAttribute("data-selected")).toBe("false");
 
             await act(async () => userEvent.click(nextImageButton));
 
-            expect(allImgElements[0][1].getAttribute("data-selected")).toBe("false");
-            expect(allImgElements[1][1].getAttribute("data-selected")).toBe("true");
+            expect(allSlideElements[0].getAttribute("data-selected")).toBe("false");
+            expect(allSlideElements[1].getAttribute("data-selected")).toBe("true");
         });
 
-        test("Unless the selected image is the final image", async () => {
+        test("Unless the selected slide is the final one", async () => {
             await renderFunc();
 
             const nextImageButton = screen.getByRole("button", { name: "Next image" });
 
-            const allImgElements = mockProps.images.map((image) => {
-                const { alt } = image;
-
-                return screen.getAllByRole("img", { name: alt });
+            const allSlideElements = mockProps.images.map((image, i) => {
+                return screen.getByRole("button", {
+                    name: `View image ${i + 1} of ${mockProps.images.length}`,
+                });
             });
 
-            expect(allImgElements[0][1].getAttribute("data-selected")).toBe("true");
-            expect(allImgElements[1][1].getAttribute("data-selected")).toBe("false");
+            expect(allSlideElements[0].getAttribute("data-selected")).toBe("true");
+            expect(allSlideElements[1].getAttribute("data-selected")).toBe("false");
 
             await act(async () => userEvent.click(nextImageButton));
 
-            expect(allImgElements[0][1].getAttribute("data-selected")).toBe("false");
-            expect(allImgElements[1][1].getAttribute("data-selected")).toBe("true");
+            expect(allSlideElements[0].getAttribute("data-selected")).toBe("false");
+            expect(allSlideElements[1].getAttribute("data-selected")).toBe("true");
 
             await act(async () => userEvent.click(nextImageButton));
 
-            expect(allImgElements[0][1].getAttribute("data-selected")).toBe("false");
-            expect(allImgElements[1][1].getAttribute("data-selected")).toBe("true");
+            expect(allSlideElements[0].getAttribute("data-selected")).toBe("false");
+            expect(allSlideElements[1].getAttribute("data-selected")).toBe("true");
         });
     });
 
@@ -172,7 +223,7 @@ describe("The ImageCarousel component...", () => {
             expect(previousImageButton).not.toBeInTheDocument();
         });
 
-        test("That should, on click, set the 'data-selected' attribute to 'true' on the next image", async () => {
+        test("That should, on click, set the 'data-selected' attribute to 'true' on the next slide", async () => {
             await renderFunc();
 
             const nextImageButton = screen.getByRole("button", { name: "Next image" });
@@ -180,24 +231,24 @@ describe("The ImageCarousel component...", () => {
             const previousImageButton = screen.getByRole("button", { name: "Previous image" });
             expect(previousImageButton).toBeInTheDocument();
 
-            const allImgElements = mockProps.images.map((image) => {
-                const { alt } = image;
-
-                return screen.getAllByRole("img", { name: alt });
+            const allSlideElements = mockProps.images.map((image, i) => {
+                return screen.getByRole("button", {
+                    name: `View image ${i + 1} of ${mockProps.images.length}`,
+                });
             });
 
-            expect(allImgElements[0][1].getAttribute("data-selected")).toBe("true");
-            expect(allImgElements[1][1].getAttribute("data-selected")).toBe("false");
+            expect(allSlideElements[0].getAttribute("data-selected")).toBe("true");
+            expect(allSlideElements[1].getAttribute("data-selected")).toBe("false");
 
             await act(async () => userEvent.click(nextImageButton));
 
-            expect(allImgElements[0][1].getAttribute("data-selected")).toBe("false");
-            expect(allImgElements[1][1].getAttribute("data-selected")).toBe("true");
+            expect(allSlideElements[0].getAttribute("data-selected")).toBe("false");
+            expect(allSlideElements[1].getAttribute("data-selected")).toBe("true");
 
             await act(async () => userEvent.click(previousImageButton));
 
-            expect(allImgElements[0][1].getAttribute("data-selected")).toBe("true");
-            expect(allImgElements[1][1].getAttribute("data-selected")).toBe("false");
+            expect(allSlideElements[0].getAttribute("data-selected")).toBe("true");
+            expect(allSlideElements[1].getAttribute("data-selected")).toBe("false");
         });
 
         test("Unless the selected image is the final image", async () => {
@@ -206,19 +257,19 @@ describe("The ImageCarousel component...", () => {
             const previousImageButton = screen.getByRole("button", { name: "Previous image" });
             expect(previousImageButton).toBeInTheDocument();
 
-            const allImgElements = mockProps.images.map((image) => {
-                const { alt } = image;
-
-                return screen.getAllByRole("img", { name: alt });
+            const allSlideElements = mockProps.images.map((image, i) => {
+                return screen.getByRole("button", {
+                    name: `View image ${i + 1} of ${mockProps.images.length}`,
+                });
             });
 
-            expect(allImgElements[0][1].getAttribute("data-selected")).toBe("true");
-            expect(allImgElements[1][1].getAttribute("data-selected")).toBe("false");
+            expect(allSlideElements[0].getAttribute("data-selected")).toBe("true");
+            expect(allSlideElements[1].getAttribute("data-selected")).toBe("false");
 
             await act(async () => userEvent.click(previousImageButton));
 
-            expect(allImgElements[0][1].getAttribute("data-selected")).toBe("true");
-            expect(allImgElements[1][1].getAttribute("data-selected")).toBe("false");
+            expect(allSlideElements[0].getAttribute("data-selected")).toBe("true");
+            expect(allSlideElements[1].getAttribute("data-selected")).toBe("false");
         });
     });
 });

@@ -108,6 +108,7 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                                         setCurrentSlide(i);
                                     }
                                 }}
+                                data-selected={currentSlide === i}
                                 data-last={i === images.length - 1}
                                 className={styles["carousel-slide"]}
                                 key={`image-carousel-slide-${src}`}
@@ -124,7 +125,6 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                                     <Image
                                         src={src}
                                         alt={alt}
-                                        data-selected={currentSlide === i}
                                         className={styles["carousel-image-small"]}
                                         style={{
                                             visibility: awaiting ? "hidden" : "initial",
