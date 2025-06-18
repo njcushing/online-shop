@@ -83,6 +83,7 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                     containScroll="keepSnaps"
                     skipSnaps
                     withControls={false}
+                    withKeyboardEvents={false}
                     onSlideChange={
                         // Unreachable without mocking Carousel component
                         /* c8 ignore next */
@@ -97,7 +98,16 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                         const { src, alt } = image;
                         return (
                             <Carousel.Slide
+                                role="button"
+                                aria-label={`View image ${i + 1} of ${images.length}`}
+                                tabIndex={currentSlide === i ? -1 : 0}
                                 onClick={() => setCurrentSlide(i)}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter" || e.key === " ") {
+                                        e.preventDefault();
+                                        setCurrentSlide(i);
+                                    }
+                                }}
                                 data-last={i === images.length - 1}
                                 className={styles["carousel-slide"]}
                                 key={`image-carousel-slide-${src}`}

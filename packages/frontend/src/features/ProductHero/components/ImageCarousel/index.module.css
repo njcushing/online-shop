@@ -64,6 +64,12 @@
     padding: 0px;
 }
 
+.carousel-slide:focus {
+    outline: var(--outline-width, 2px) solid #000;
+    outline-offset: var(--outline-offset, 2px);
+    border-radius: 4px;
+}
+
 .carousel-image-main,
 .carousel-image-small {
     border: 1px solid rgba(0, 0, 0, 0.6);
