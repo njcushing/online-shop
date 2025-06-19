@@ -12,7 +12,15 @@ const SkeletonClassNames: SkeletonProps["classNames"] = {
     root: styles["skeleton-root"],
 };
 
-export function ProductInformation() {
+export type TProductInformation = {
+    defaultOpenTab?:
+        | "Description"
+        | "Product Details"
+        | "Delivery Information"
+        | "Customer Reviews";
+};
+
+export function ProductInformation({ defaultOpenTab = "Description" }: TProductInformation) {
     const tableColumnCount = useMatches({ base: 1, lg: 2 });
 
     const { product, variant, defaultData } = useContext(ProductContext);
@@ -158,7 +166,7 @@ export function ProductInformation() {
         <section className={styles["product-information"]}>
             <div className={styles["product-information-width-controller"]}>
                 <Accordion
-                    defaultValue="Description"
+                    defaultValue={defaultOpenTab}
                     classNames={{
                         item: styles["accordion-item"],
                         control: styles["accordion-control"],
