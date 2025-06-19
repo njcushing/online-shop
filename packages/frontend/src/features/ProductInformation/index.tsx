@@ -5,6 +5,7 @@ import { ProductReviews } from "@/features/ProductReviews";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import dayjs from "dayjs";
+import { v4 as uuid } from "uuid";
 import { settings } from "@settings";
 import styles from "./index.module.css";
 
@@ -34,29 +35,44 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
         return [
             {
                 value: "Description",
-                content: awaiting ? (
-                    <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                        <Skeleton visible height="1rem" classNames={SkeletonClassNames}></Skeleton>
-                        <Skeleton visible height="1rem" classNames={SkeletonClassNames}></Skeleton>
-                        <Skeleton visible height="1rem" classNames={SkeletonClassNames}></Skeleton>
-                        <Skeleton visible height="1rem" classNames={SkeletonClassNames}></Skeleton>
-                        <Skeleton visible height="1rem" classNames={SkeletonClassNames}></Skeleton>
-                    </div>
-                ) : (
-                    <div className={styles["markdown-container"]}>
-                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{description}</ReactMarkdown>
-                    </div>
-                ),
+                content: (() => {
+                    if (awaiting) {
+                        return (
+                            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                                {Array.from({ length: 5 }).map(() => {
+                                    return (
+                                        <Skeleton
+                                            visible
+                                            height="1rem"
+                                            classNames={SkeletonClassNames}
+                                            key={uuid()}
+                                        ></Skeleton>
+                                    );
+                                })}
+                            </div>
+                        );
+                    }
+
+                    if (!data) return null;
+
+                    return (
+                        <div className={styles["markdown-container"]}>
+                            <ReactMarkdown remarkPlugins={[remarkGfm]}>{description}</ReactMarkdown>
+                        </div>
+                    );
+                })(),
             },
             {
                 value: "Product Details",
                 content: (() => {
+                    if (!variant) return null;
+
                     const rows = [
                         { name: "SKU", value: sku },
                         ...details,
                         {
                             name: "Release Date",
-                            value: releaseDate ? dayjs(releaseDate).format("MMMM D, YYYY") : "null",
+                            value: dayjs(releaseDate).format("MMMM D, YYYY"),
                         },
                     ];
                     const adjustedTableColumnCount = Math.min(rows.length, tableColumnCount);
@@ -160,7 +176,7 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
                 content: <ProductReviews />,
             },
         ];
-    }, [tableColumnCount, awaiting, description, sku, details, releaseDate]);
+    }, [tableColumnCount, variant, data, awaiting, description, sku, details, releaseDate]);
 
     return (
         <section className={styles["product-information"]}>
