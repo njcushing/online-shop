@@ -24,11 +24,11 @@ const createInputError = (errorMessage: string | undefined) => {
     ) : null;
 };
 
-export type IAccountCreationForm = {
+export type TAccountCreationForm = {
     onSuccess: (data: AccountCreationFormData) => unknown;
 };
 
-export function AccountCreationForm({ onSuccess }: IAccountCreationForm) {
+export function AccountCreationForm({ onSuccess }: TAccountCreationForm) {
     const {
         register,
         handleSubmit,
@@ -93,6 +93,10 @@ export function AccountCreationForm({ onSuccess }: IAccountCreationForm) {
                             {...register("password", { required: true })}
                             {...inputProps}
                             label="Password"
+                            // Not sure why, but this component's <label> isn't accessible in unit
+                            // tests by the 'label' prop value, so I'm setting the aria attribute
+                            // too
+                            aria-label="Password"
                             required
                             error={createInputError(errors.password?.message)}
                         />
@@ -105,6 +109,8 @@ export function AccountCreationForm({ onSuccess }: IAccountCreationForm) {
                             {...register("confirmPassword", { required: true })}
                             {...inputProps}
                             label="Confirm password"
+                            // Using aria-label here for the same reason as the above PasswordInput
+                            aria-label="Confirm password"
                             required
                             error={createInputError(errors.confirmPassword?.message)}
                         />
