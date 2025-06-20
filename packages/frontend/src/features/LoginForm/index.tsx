@@ -24,11 +24,11 @@ const createInputError = (errorMessage: string | undefined) => {
     ) : null;
 };
 
-export type ILoginForm = {
+export type TLoginForm = {
     onSuccess: (data: LoginFormData) => unknown;
 };
 
-export function LoginForm({ onSuccess }: ILoginForm) {
+export function LoginForm({ onSuccess }: TLoginForm) {
     const {
         register,
         handleSubmit,
@@ -75,7 +75,7 @@ export function LoginForm({ onSuccess }: ILoginForm) {
                 >
                     <div className={styles["form-fields-container"]}>
                         <TextInput
-                            {...(register("email"), { required: true })}
+                            {...register("email", { required: true })}
                             {...inputProps}
                             label="Email address"
                             required
@@ -84,9 +84,13 @@ export function LoginForm({ onSuccess }: ILoginForm) {
                         />
 
                         <PasswordInput
-                            {...(register("password"), { required: true })}
+                            {...register("password", { required: true })}
                             {...inputProps}
                             label="Password"
+                            // Not sure why, but this component's <label> isn't accessible in unit
+                            // tests by the 'label' prop value, so I'm setting the aria attribute
+                            // too
+                            aria-label="Password"
                             required
                             styles={{ required: { display: "none" } }} // Hiding asterisk
                             error={createInputError(errors.password?.message)}

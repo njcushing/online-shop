@@ -8,6 +8,6 @@ export type LoginFormData = {
 };
 
 export const loginFormDataSchema: z.ZodType<LoginFormData> = z.object({
-    email: z.string({ message: "Please enter your email address" }),
-    password: z.string({ message: "Please enter your password" }),
+    email: z.string().nonempty({ message: "Please enter your email address" }),
+    password: z.string().nonempty({ message: "Please enter your password" }),
 });
