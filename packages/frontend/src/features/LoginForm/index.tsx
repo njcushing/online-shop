@@ -19,7 +19,9 @@ const createInputError = (errorMessage: string | undefined) => {
     return errorMessage ? (
         <span className={styles["form-field-error-container"]}>
             <Icons.ExclamationMark />
-            <Input.Error component="span">{errorMessage}</Input.Error>
+            <Input.Error component="span" role="alert">
+                {errorMessage}
+            </Input.Error>
         </span>
     ) : null;
 };
