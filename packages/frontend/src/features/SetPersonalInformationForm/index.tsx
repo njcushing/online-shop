@@ -26,11 +26,11 @@ const createInputError = (errorMessage: string | undefined) => {
 
 const formStages = 2;
 
-export type ISetPersonalInformationForm = {
+export type TSetPersonalInformationForm = {
     onSuccess: (data: PersonalInformationFormData) => unknown;
 };
 
-export function SetPersonalInformationForm({ onSuccess }: ISetPersonalInformationForm) {
+export function SetPersonalInformationForm({ onSuccess }: TSetPersonalInformationForm) {
     const navigate = useNavigate();
 
     const [currentStage, setCurrentStage] = useState<number>(0);
@@ -52,6 +52,8 @@ export function SetPersonalInformationForm({ onSuccess }: ISetPersonalInformatio
                 return "Tell us more about yourself";
             case 1:
                 return "What is your address";
+            // Switch statement default case shouldn't be reachable
+            /* v8 ignore next 2 */
             default:
                 return null;
         }
@@ -72,7 +74,6 @@ export function SetPersonalInformationForm({ onSuccess }: ISetPersonalInformatio
                         {...register("firstName", { setValueAs: (v) => v || undefined })}
                         {...inputProps}
                         label="First name"
-                        error={createInputError(errors.firstName?.message)}
                         onFocus={() => setCurrentStage(stage)}
                         tabIndex={tabIndex}
                     />
@@ -81,7 +82,6 @@ export function SetPersonalInformationForm({ onSuccess }: ISetPersonalInformatio
                         {...register("lastName", { setValueAs: (v) => v || undefined })}
                         {...inputProps}
                         label="Last name"
-                        error={createInputError(errors.lastName?.message)}
                         onFocus={() => setCurrentStage(stage)}
                         tabIndex={tabIndex}
                     />
@@ -153,9 +153,7 @@ export function SetPersonalInformationForm({ onSuccess }: ISetPersonalInformatio
                     />
                 </fieldset>
 
-                {"dob" in errors &&
-                    "root" in errors.dob! &&
-                    createInputError(errors.dob!.root!.message)}
+                {createInputError(errors.dob?.root?.message)}
             </div>
         );
     }, [currentStage, control, formState, register]);
@@ -174,7 +172,6 @@ export function SetPersonalInformationForm({ onSuccess }: ISetPersonalInformatio
                     {...register("address.line1", { setValueAs: (v) => v || undefined })}
                     {...inputProps}
                     label="Line 1"
-                    error={createInputError(errors.address?.line1?.message)}
                     onFocus={() => setCurrentStage(stage)}
                     tabIndex={tabIndex}
                 />
@@ -183,7 +180,6 @@ export function SetPersonalInformationForm({ onSuccess }: ISetPersonalInformatio
                     {...register("address.line2", { setValueAs: (v) => v || undefined })}
                     {...inputProps}
                     label="Line 2"
-                    error={createInputError(errors.address?.line2?.message)}
                     onFocus={() => setCurrentStage(stage)}
                     tabIndex={tabIndex}
                 />
@@ -192,7 +188,6 @@ export function SetPersonalInformationForm({ onSuccess }: ISetPersonalInformatio
                     {...register("address.townCity", { setValueAs: (v) => v || undefined })}
                     {...inputProps}
                     label="Town or City"
-                    error={createInputError(errors.address?.townCity?.message)}
                     onFocus={() => setCurrentStage(stage)}
                     tabIndex={tabIndex}
                 />
@@ -201,7 +196,6 @@ export function SetPersonalInformationForm({ onSuccess }: ISetPersonalInformatio
                     {...register("address.county", { setValueAs: (v) => v || undefined })}
                     {...inputProps}
                     label="County"
-                    error={createInputError(errors.address?.county?.message)}
                     onFocus={() => setCurrentStage(stage)}
                     tabIndex={tabIndex}
                 />
@@ -237,6 +231,7 @@ export function SetPersonalInformationForm({ onSuccess }: ISetPersonalInformatio
                 {currentStage > 0 && (
                     <Button
                         type="button"
+                        aria-label="Previous stage"
                         variant="transparent"
                         radius={9999}
                         onClick={() => setCurrentStage(currentStage - 1)}
