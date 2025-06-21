@@ -113,7 +113,7 @@ export function SetPersonalInformationForm({ onSuccess }: TSetPersonalInformatio
                                 label="Day"
                                 hideControls
                                 error={createInputError(errors.dob?.day?.message)}
-                                onChange={(v) => field.onChange(v || undefined)}
+                                onChange={(v) => field.onChange(v)}
                                 onFocus={() => setCurrentStage(stage)}
                                 tabIndex={tabIndex}
                             />
@@ -130,7 +130,7 @@ export function SetPersonalInformationForm({ onSuccess }: TSetPersonalInformatio
                                 label="Month"
                                 hideControls
                                 error={createInputError(errors.dob?.month?.message)}
-                                onChange={(v) => field.onChange(v || undefined)}
+                                onChange={(v) => field.onChange(v)}
                                 onFocus={() => setCurrentStage(stage)}
                                 tabIndex={tabIndex}
                             />
@@ -147,7 +147,7 @@ export function SetPersonalInformationForm({ onSuccess }: TSetPersonalInformatio
                                 label="Year"
                                 hideControls
                                 error={createInputError(errors.dob?.year?.message)}
-                                onChange={(v) => field.onChange(v || undefined)}
+                                onChange={(v) => field.onChange(v)}
                                 onFocus={() => setCurrentStage(stage)}
                                 tabIndex={tabIndex}
                             />
