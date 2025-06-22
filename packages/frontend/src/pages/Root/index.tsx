@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useMemo } from "react";
+import { createContext, useState, useEffect, useMemo, Children } from "react";
 import { Outlet } from "react-router-dom";
 import { Header } from "@/features/Header";
 import { Footer } from "@/features/Footer";
@@ -11,7 +11,7 @@ import { UserWatchlist } from "@/utils/products/watchlist";
 import { Home } from "../Home";
 import { Category } from "../Category";
 import { Product } from "../Product";
-import { Account } from "../Account";
+import { Account, Routes as AccountRoutes } from "../Account";
 import { ErrorPage } from "../ErrorPage";
 import styles from "./index.module.css";
 
@@ -34,6 +34,7 @@ export const Routes = [
     {
         path: "account",
         element: <Account />,
+        children: AccountRoutes,
         errorElement: <ErrorPage />,
     },
 ];
