@@ -11,6 +11,7 @@ import { UserWatchlist } from "@/utils/products/watchlist";
 import { Home } from "../Home";
 import { Category } from "../Category";
 import { Product } from "../Product";
+import { Account } from "../Account";
 import { ErrorPage } from "../ErrorPage";
 import styles from "./index.module.css";
 
@@ -28,6 +29,11 @@ export const Routes = [
     {
         path: "p/:productId/:productSlug",
         element: <Product />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: "account",
+        element: <Account />,
         errorElement: <ErrorPage />,
     },
 ];
