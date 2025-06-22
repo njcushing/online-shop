@@ -5,6 +5,7 @@ import { act } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { SetPersonalInformationForm, TSetPersonalInformationForm } from ".";
 
+// Mock dependencies
 const mockOnSuccess = vi.fn();
 const mockProps: TSetPersonalInformationForm = {
     onSuccess: mockOnSuccess,
@@ -49,6 +50,15 @@ const renderFunc = async (args: renderFuncArgs = {}) => {
         component: <BrowserRouterWrapper props={propsOverride} />,
     };
 };
+
+const mockUseNavigate = vi.fn();
+vi.mock("react-router-dom", async () => {
+    const actual = await vi.importActual("react-router-dom");
+    return {
+        ...actual,
+        useNavigate: () => mockUseNavigate,
+    };
+});
 
 describe("The SetPersonalInformationForm component...", () => {
     afterEach(() => {
@@ -221,8 +231,31 @@ describe("The SetPersonalInformationForm component...", () => {
             describe("That, on submission...", () => {
                 describe("If successful...", async () => {
                     test("Should invoke the callback function passed to the 'onSuccess' prop", async () => {
-                        // As none of the fields are required, submitting the form with all empty
-                        // fields will resolve successfully
+                        const errorProneFields = [
+                            { role: "textbox", name: "First name", validValue: "John" },
+                            { role: "textbox", name: "Last name", validValue: "Smith" },
+                            { role: "textbox", name: "Phone number", validValue: "+441234567890" },
+                            { role: "textbox", name: "Day", validValue: "1" },
+                            { role: "textbox", name: "Month", validValue: "1" },
+                            { role: "textbox", name: "Year", validValue: "1999" },
+                            { role: "textbox", name: "Line 1", validValue: "House number" },
+                            { role: "textbox", name: "Line 2", validValue: "Street name" },
+                            { role: "textbox", name: "Town or City", validValue: "Westminster" },
+                            { role: "textbox", name: "County", validValue: "Greater London" },
+                            { role: "textbox", name: "Postcode", validValue: "W1A 1AA" },
+                        ];
+
+                        for (let i = 0; i < errorProneFields.length; i++) {
+                            const { role, name, validValue } = errorProneFields[i];
+                            const field = screen.getByRole(role, { name });
+
+                            // Need to adjust the value of each input one at a time
+                            /* eslint-disable no-await-in-loop */
+
+                            await act(async () => userEvent.type(field, validValue));
+
+                            /* eslint-enable no-await-in-loop */
+                        }
 
                         const submitButton = screen.getByRole("button", { name: "Submit" });
 
@@ -306,10 +339,18 @@ describe("The SetPersonalInformationForm component...", () => {
         });
     });
 
-    test("Should render a 'Skip for now' button", () => {
+    test("Should render a 'Skip for now' button", async () => {
         renderFunc();
 
         const skipForNowButton = screen.getByRole("button", { name: "Skip for now" });
         expect(skipForNowButton).toBeInTheDocument();
+
+        mockUseNavigate.mockRestore();
+
+        await act(async () => userEvent.click(skipForNowButton));
+
+        expect(mockUseNavigate).toHaveBeenCalledWith("/");
+
+        mockUseNavigate.mockRestore();
     });
 });
