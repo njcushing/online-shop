@@ -3,7 +3,7 @@ import { UserContext } from "@/pages/Root";
 import { useMatches, ActionIcon, Burger, BurgerProps } from "@mantine/core";
 import { useClickOutside } from "@mantine/hooks";
 import { MagnifyingGlass, User, ShoppingCartSimple, IconProps } from "@phosphor-icons/react";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { categories } from "@/utils/products/categories";
 import { Logo } from "@/features/Logo";
 import { CartDrawer } from "@/features/Cart/components/CartDrawer";
@@ -24,6 +24,8 @@ export type TNavigation = {
 export function Navigation({ opened = false }: TNavigation) {
     const { cart } = useContext(UserContext);
     const { data: cartData } = cart;
+
+    const navigate = useNavigate();
 
     const [navDrawerOpen, setNavDrawerOpen] = useState<boolean>(false);
     const [searchBarOpen, setSearchBarOpen] = useState<boolean>(false);
@@ -102,7 +104,12 @@ export function Navigation({ opened = false }: TNavigation) {
                     >
                         <MagnifyingGlass size={iconSize} color="black" />
                     </ActionIcon>
-                    <ActionIcon variant="transparent" color="gray" aria-label="User">
+                    <ActionIcon
+                        variant="transparent"
+                        color="gray"
+                        aria-label="User"
+                        onClick={() => navigate("/account")}
+                    >
                         <User size={iconSize} color="black" />
                     </ActionIcon>
                     <div className={styles["cart-button-container"]}>
