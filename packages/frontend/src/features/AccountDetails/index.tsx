@@ -42,10 +42,10 @@ const NavLinkClassNames: NavLinkProps["classNames"] = {
     label: styles["NavLink-label"],
 };
 
-export function AccountSettings() {
+export function AccountDetails() {
     return (
-        <section className={styles["account-settings"]}>
-            <div className={styles["account-settings-width-controller"]}>
+        <section className={styles["account-details"]}>
+            <div className={styles["account-details-width-controller"]}>
                 <nav className={styles["menu"]}>
                     <NavLink
                         classNames={NavLinkClassNames}
