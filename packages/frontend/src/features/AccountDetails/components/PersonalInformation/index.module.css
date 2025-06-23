@@ -1,0 +1,9 @@
+.forms-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    padding: 8px;
+
+    border: 2px solid #000;
+}

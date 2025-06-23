@@ -1,0 +1,61 @@
+import { TextInput, Button } from "@mantine/core";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { createInputError } from "@/utils/createInputError";
+import { NamesFormData, namesFormDataSchema } from "./zodSchema";
+import styles from "./index.module.css";
+
+const inputProps = {
+    classNames: {
+        input: styles["form-field-input"],
+    },
+};
+
+export function Names() {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<NamesFormData>({
+        mode: "onTouched",
+        resolver: zodResolver(namesFormDataSchema),
+    });
+
+    const onSubmit: SubmitHandler<NamesFormData> = (/* data */) => {};
+
+    return (
+        <form
+            className={styles["form"]}
+            aria-label="Name"
+            onSubmit={handleSubmit(onSubmit)}
+            noValidate
+        >
+            <fieldset className={styles["fieldset"]}>
+                <legend>Names</legend>
+
+                <TextInput
+                    {...register("firstName", { setValueAs: (v) => v || undefined })}
+                    {...inputProps}
+                    label="First name"
+                    error={createInputError(errors.firstName?.message)}
+                />
+
+                <TextInput
+                    {...register("lastName", { setValueAs: (v) => v || undefined })}
+                    {...inputProps}
+                    label="Last name"
+                    error={createInputError(errors.lastName?.message)}
+                />
+            </fieldset>
+
+            <Button
+                type="submit"
+                variant="filled"
+                radius={9999}
+                className={styles["submit-button"]}
+            >
+                Save changes
+            </Button>
+        </form>
+    );
+}
