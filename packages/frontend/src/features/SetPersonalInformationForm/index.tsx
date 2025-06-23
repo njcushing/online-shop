@@ -1,29 +1,18 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { Input, TextInput, NumberInput, Button, Divider, Progress, HoverCard } from "@mantine/core";
+import { TextInput, NumberInput, Button, Divider, Progress, HoverCard } from "@mantine/core";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Icons } from "@/components/Icons";
 import { CaretLeft } from "@phosphor-icons/react";
+import { createInputError } from "@/utils/createInputError";
 import { PersonalInformationFormData, personalInformationFormDataSchema } from "./utils/zodSchema";
 import styles from "./index.module.css";
 
 const inputProps = {
     classNames: {
         input: styles["form-field-input"],
-        error: styles["form-field-input-error"],
     },
-};
-
-const createInputError = (errorMessage: string | undefined) => {
-    return errorMessage ? (
-        <span className={styles["form-field-error-container"]}>
-            <Icons.ExclamationMark />
-            <Input.Error component="span" role="alert">
-                {errorMessage}
-            </Input.Error>
-        </span>
-    ) : null;
 };
 
 const formStages = 2;

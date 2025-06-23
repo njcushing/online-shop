@@ -1,0 +1,12 @@
+.input-error-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 4px;
+
+    font-size: 0.825rem;
+}
+
+.input-error {
+    font-size: 0.825rem;
+}

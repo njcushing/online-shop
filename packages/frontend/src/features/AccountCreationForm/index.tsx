@@ -1,29 +1,17 @@
-import { Input, TextInput, PasswordInput, Button, Divider, Progress } from "@mantine/core";
+import { TextInput, PasswordInput, Button, Divider, Progress } from "@mantine/core";
 import { MantineCoreExtended } from "@/components/MantineCoreExtended";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Icons } from "@/components/Icons";
 import { google, facebook, x, github } from "@/utils/svgs/logos";
+import { createInputError } from "@/utils/createInputError";
 import { AccountCreationFormData, accountCreationFormDataSchema } from "./utils/zodSchema";
 import styles from "./index.module.css";
 
 const inputProps = {
     classNames: {
         input: styles["form-field-input"],
-        error: styles["form-field-input-error"],
     },
-};
-
-const createInputError = (errorMessage: string | undefined) => {
-    return errorMessage ? (
-        <span className={styles["form-field-error-container"]}>
-            <Icons.ExclamationMark />
-            <Input.Error component="span" role="alert">
-                {errorMessage}
-            </Input.Error>
-        </span>
-    ) : null;
 };
 
 export type TAccountCreationForm = {
