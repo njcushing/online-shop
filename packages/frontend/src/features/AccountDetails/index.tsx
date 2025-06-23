@@ -2,12 +2,13 @@ import { Outlet, Link } from "react-router-dom";
 import { NavLink, NavLinkProps } from "@mantine/core";
 import { CaretRight } from "@phosphor-icons/react";
 import { ErrorPage } from "@/pages/ErrorPage";
+import { PersonalInformation } from "./components/PersonalInformation";
 import styles from "./index.module.css";
 
 export const Routes = [
     {
         path: "personal-information",
-        element: <div></div>,
+        element: <PersonalInformation />,
         errorElement: <ErrorPage />,
     },
     {
