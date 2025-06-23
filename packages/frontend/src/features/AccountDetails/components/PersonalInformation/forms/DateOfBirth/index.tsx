@@ -8,6 +8,7 @@ import styles from "./index.module.css";
 const inputProps = {
     classNames: {
         input: styles["form-field-input"],
+        label: styles["form-field-label"],
     },
 };
 
@@ -31,7 +32,7 @@ export function DateOfBirth() {
             noValidate
         >
             <fieldset className={styles["fieldset"]}>
-                <legend>Date of birth</legend>
+                <legend className={styles["legend"]}>Date of birth</legend>
 
                 <Controller
                     control={control}
@@ -81,6 +82,7 @@ export function DateOfBirth() {
 
             <Button
                 type="submit"
+                color="rgb(48, 48, 48)"
                 variant="filled"
                 radius={9999}
                 className={styles["submit-button"]}

@@ -8,6 +8,7 @@ import styles from "./index.module.css";
 const inputProps = {
     classNames: {
         input: styles["form-field-input"],
+        label: styles["form-field-label"],
     },
 };
 
@@ -31,7 +32,7 @@ export function Names() {
             noValidate
         >
             <fieldset className={styles["fieldset"]}>
-                <legend>Names</legend>
+                <legend className={styles["legend"]}>Names</legend>
 
                 <TextInput
                     {...register("firstName", { setValueAs: (v) => v || undefined })}
@@ -50,6 +51,7 @@ export function Names() {
 
             <Button
                 type="submit"
+                color="rgb(48, 48, 48)"
                 variant="filled"
                 radius={9999}
                 className={styles["submit-button"]}
