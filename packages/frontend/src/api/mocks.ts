@@ -2,7 +2,30 @@ import { ProductReview, Product, reviews, products as productData } from "@/util
 import { CartItemData, PopulatedCartItemData, mockCart } from "@/utils/products/cart";
 import { UserWatchlist, watchlists } from "@/utils/products/watchlist";
 import { filterOptions, sortOptions } from "@/features/ProductReviews";
+import { AccountDetails } from "@/utils/schemas/account";
 import * as HTTPMethodTypes from "./types";
+
+export const mockGetAccountDetails: HTTPMethodTypes.GET<undefined, AccountDetails> = async () => {
+    await new Promise((resolve) => {
+        setTimeout(resolve, 1000);
+    });
+
+    const foundAccountDetails = {};
+
+    if (!foundAccountDetails) {
+        return {
+            status: 404,
+            message: "Account details not found",
+            data: null,
+        };
+    }
+
+    return {
+        status: 200,
+        message: "Success",
+        data: foundAccountDetails,
+    };
+};
 
 export const mockPopulateCartItems = (cart: CartItemData[]): PopulatedCartItemData[] => {
     return cart.flatMap((cartItem) => {
