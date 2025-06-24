@@ -1,4 +1,4 @@
-import { Outlet, Link } from "react-router-dom";
+import { useLocation, Outlet, Link } from "react-router-dom";
 import { NavLink, NavLinkProps } from "@mantine/core";
 import { CaretRight } from "@phosphor-icons/react";
 import { ErrorPage } from "@/pages/ErrorPage";
@@ -43,53 +43,37 @@ const NavLinkClassNames: NavLinkProps["classNames"] = {
     label: styles["NavLink-label"],
 };
 
+const groups = [
+    { to: "personal-information", label: "Personal Information" },
+    { to: "addresses", label: "Addresses" },
+    { to: "security", label: "Security" },
+    { to: "payment-information", label: "Payment Information" },
+    { to: "order-history", label: "Order History" },
+    { to: "subscriptions", label: "Subscriptions" },
+];
+
 export function AccountDetails() {
+    const { pathname } = useLocation();
+    const currentGroup = pathname.split("/").at(-1);
+
     return (
         <section className={styles["account-details"]}>
             <div className={styles["account-details-width-controller"]}>
                 <nav className={styles["menu"]}>
-                    <NavLink
-                        classNames={NavLinkClassNames}
-                        component={Link}
-                        to="personal-information"
-                        label="Personal Information"
-                        rightSection={<CaretRight size={16} weight="bold" />}
-                    />
-                    <NavLink
-                        classNames={NavLinkClassNames}
-                        component={Link}
-                        to="addresses"
-                        label="Addresses"
-                        rightSection={<CaretRight size={16} weight="bold" />}
-                    />
-                    <NavLink
-                        classNames={NavLinkClassNames}
-                        component={Link}
-                        to="security"
-                        label="Security"
-                        rightSection={<CaretRight size={16} weight="bold" />}
-                    />
-                    <NavLink
-                        classNames={NavLinkClassNames}
-                        component={Link}
-                        to="payment-information"
-                        label="Payment Information"
-                        rightSection={<CaretRight size={16} weight="bold" />}
-                    />
-                    <NavLink
-                        classNames={NavLinkClassNames}
-                        component={Link}
-                        to="order-history"
-                        label="Order History"
-                        rightSection={<CaretRight size={16} weight="bold" />}
-                    />
-                    <NavLink
-                        classNames={NavLinkClassNames}
-                        component={Link}
-                        to="subscriptions"
-                        label="Subscriptions"
-                        rightSection={<CaretRight size={16} weight="bold" />}
-                    />
+                    {groups.map((group) => {
+                        const { to, label } = group;
+                        return (
+                            <NavLink
+                                classNames={NavLinkClassNames}
+                                component={Link}
+                                to={to}
+                                label={label}
+                                rightSection={<CaretRight size={16} weight="bold" />}
+                                data-selected={currentGroup === to}
+                                key={label}
+                            />
+                        );
+                    })}
                 </nav>
                 <div className={styles["content"]}>
                     <Outlet />

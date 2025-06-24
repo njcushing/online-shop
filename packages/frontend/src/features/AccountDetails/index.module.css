@@ -33,6 +33,15 @@
     flex-shrink: 0;
 }
 
+@media (hover: hover) {
+    .NavLink-root:hover:not(:disabled) {
+        background-color: rgba(0, 0, 0, 0.06);
+    }
+}
+.NavLink-root[data-selected="true"] {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+
 .NavLink-label {
     color: black;
     font-family: "Radio Canada Big";
