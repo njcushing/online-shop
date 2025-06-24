@@ -17,8 +17,8 @@ const defaultStyles: Required<IExclamationMark["style"]> = {
 
 export function ExclamationMark({
     ariaLabel = "Error",
-    width = "16",
-    height = "16",
+    width = "20",
+    height = "20",
     style,
 }: IExclamationMark) {
     const concatenatedStyles = useMemo(() => ({ ...defaultStyles, ...style }), [style]);
