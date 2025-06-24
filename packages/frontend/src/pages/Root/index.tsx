@@ -3,11 +3,12 @@ import { Outlet } from "react-router-dom";
 import { Header } from "@/features/Header";
 import { Footer } from "@/features/Footer";
 import { generateSkeletonCart, PopulatedCartItemData } from "@/utils/products/cart";
-import { mockGetCart, mockGetWatchlist } from "@/api/mocks";
+import { mockGetAccountDetails, mockGetCart, mockGetWatchlist } from "@/api/mocks";
 import { FuncResponseObject } from "@/api/types";
 import { RecursivePartial } from "@/utils/types";
 import * as useAsync from "@/hooks/useAsync";
 import { UserWatchlist } from "@/utils/products/watchlist";
+import { AccountDetails } from "@/utils/schemas/account";
 import { Home } from "../Home";
 import { Category } from "../Category";
 import { Product } from "../Product";
@@ -55,6 +56,7 @@ const defaultRootContext: IRootContext = {
 export interface IUserContext {
     cart: FuncResponseObject<PopulatedCartItemData[]> & { awaiting: boolean };
     watchlist: FuncResponseObject<UserWatchlist> & { awaiting: boolean };
+    accountDetails: FuncResponseObject<AccountDetails> & { awaiting: boolean };
 
     defaultData: {
         cart: RecursivePartial<PopulatedCartItemData>[];
@@ -64,6 +66,7 @@ export interface IUserContext {
 const defaultUserContext: IUserContext = {
     cart: { data: [], status: 200, message: "Success", awaiting: false },
     watchlist: { data: [], status: 200, message: "Success", awaiting: false },
+    accountDetails: { data: {}, status: 200, message: "Success", awaiting: false },
 
     defaultData: {
         cart: generateSkeletonCart(),
@@ -115,12 +118,31 @@ export function Root({ children }: TRoot) {
         [watchlistResponse, awaitingWatchlistData],
     );
 
+    const [accountDetails, setAccountDetails] = useState<IUserContext["accountDetails"]>(
+        defaultUserContext.accountDetails,
+    );
+    const { response: accountDetailsResponse, awaiting: awaitingAccountDetailsData } = useAsync.GET(
+        mockGetAccountDetails,
+        [{}],
+        { attemptOnMount: true },
+    );
+    useEffect(
+        () =>
+            setAccountDetails({ ...accountDetailsResponse, awaiting: awaitingAccountDetailsData }),
+        [accountDetailsResponse, awaitingAccountDetailsData],
+    );
+
     return (
         <RootContext.Provider value={useMemo(() => ({ headerInfo }), [headerInfo])}>
             <UserContext.Provider
                 value={useMemo(
-                    () => ({ cart, watchlist, defaultData: defaultUserContext.defaultData }),
-                    [cart, watchlist],
+                    () => ({
+                        cart,
+                        watchlist,
+                        accountDetails,
+                        defaultData: defaultUserContext.defaultData,
+                    }),
+                    [cart, watchlist, accountDetails],
                 )}
             >
                 <div className={styles["page"]}>
