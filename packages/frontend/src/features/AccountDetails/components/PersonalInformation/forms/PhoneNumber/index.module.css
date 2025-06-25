@@ -4,6 +4,7 @@
     gap: 16px;
 
     width: 100%;
+    max-width: 640px;
 }
 
 .fieldset {
@@ -25,8 +26,6 @@
     font-weight: 400;
 
     background-color: transparent;
-
-    max-width: 640px;
 }
 
 .form-field-label {
