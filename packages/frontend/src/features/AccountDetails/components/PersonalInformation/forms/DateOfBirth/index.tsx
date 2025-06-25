@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { UserContext } from "@/pages/Root";
 import { NumberInput, Button } from "@mantine/core";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,6 +15,9 @@ const inputProps = {
 };
 
 export function DateOfBirth() {
+    const { accountDetails } = useContext(UserContext);
+    const { /* data, */ awaiting } = accountDetails;
+
     const {
         control,
         handleSubmit,
@@ -45,6 +50,7 @@ export function DateOfBirth() {
                             hideControls
                             error={createInputError(errors.dob?.day?.message)}
                             onChange={(v) => field.onChange(v)}
+                            disabled={awaiting}
                         />
                     )}
                 />
@@ -60,6 +66,7 @@ export function DateOfBirth() {
                             hideControls
                             error={createInputError(errors.dob?.month?.message)}
                             onChange={(v) => field.onChange(v)}
+                            disabled={awaiting}
                         />
                     )}
                 />
@@ -75,6 +82,7 @@ export function DateOfBirth() {
                             hideControls
                             error={createInputError(errors.dob?.year?.message)}
                             onChange={(v) => field.onChange(v)}
+                            disabled={awaiting}
                         />
                     )}
                 />
@@ -86,6 +94,7 @@ export function DateOfBirth() {
                 variant="filled"
                 radius={9999}
                 className={styles["submit-button"]}
+                disabled={awaiting}
             >
                 Save changes
             </Button>

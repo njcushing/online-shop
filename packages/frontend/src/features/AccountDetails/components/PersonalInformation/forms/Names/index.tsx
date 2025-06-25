@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { UserContext } from "@/pages/Root";
 import { TextInput, Button } from "@mantine/core";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,6 +15,9 @@ const inputProps = {
 };
 
 export function Names() {
+    const { accountDetails } = useContext(UserContext);
+    const { /* data, */ awaiting } = accountDetails;
+
     const {
         register,
         handleSubmit,
@@ -39,6 +44,7 @@ export function Names() {
                     {...inputProps}
                     label="First name"
                     error={createInputError(errors.firstName?.message)}
+                    disabled={awaiting}
                 />
 
                 <TextInput
@@ -46,6 +52,7 @@ export function Names() {
                     {...inputProps}
                     label="Last name"
                     error={createInputError(errors.lastName?.message)}
+                    disabled={awaiting}
                 />
             </fieldset>
 
@@ -55,6 +62,7 @@ export function Names() {
                 variant="filled"
                 radius={9999}
                 className={styles["submit-button"]}
+                disabled={awaiting}
             >
                 Save changes
             </Button>

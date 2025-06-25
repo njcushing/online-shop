@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { UserContext } from "@/pages/Root";
 import { TextInput, Button } from "@mantine/core";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,6 +15,9 @@ const inputProps = {
 };
 
 export function PhoneNumber() {
+    const { accountDetails } = useContext(UserContext);
+    const { /* data, */ awaiting } = accountDetails;
+
     const {
         register,
         handleSubmit,
@@ -39,6 +44,7 @@ export function PhoneNumber() {
                     {...inputProps}
                     label="Phone number"
                     error={createInputError(errors.phone?.message)}
+                    disabled={awaiting}
                 />
             </fieldset>
 
@@ -48,6 +54,7 @@ export function PhoneNumber() {
                 variant="filled"
                 radius={9999}
                 className={styles["submit-button"]}
+                disabled={awaiting}
             >
                 Save changes
             </Button>
