@@ -1,11 +1,25 @@
-import { useContext, useMemo } from "react";
+import { useContext, useCallback, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { NumberInput, Button } from "@mantine/core";
-import { useForm, SubmitHandler, Controller, ControllerRenderProps, Path } from "react-hook-form";
+import {
+    useForm,
+    UseFormProps,
+    SubmitHandler,
+    Controller,
+    ControllerRenderProps,
+    Path,
+} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createInputError } from "@/utils/createInputError";
 import { DateOfBirthFormData, dateOfBirthFormDataSchema } from "./zodSchema";
 import styles from "./index.module.css";
+
+function hasNestedField(obj: unknown, path: string[]): boolean {
+    if (obj === undefined || obj === null || typeof obj !== "object") return false;
+    if (path.length === 0) return false;
+    if (path.length === 1 && Object.hasOwn(obj, path[0])) return true;
+    return hasNestedField(obj[path[0] as keyof typeof obj], path.slice(1));
+}
 
 const inputProps = {
     classNames: {
@@ -14,7 +28,11 @@ const inputProps = {
     },
 };
 
-export function DateOfBirth() {
+export type TDateOfBirth = {
+    mode: UseFormProps["mode"];
+};
+
+export function DateOfBirth({ mode = "onTouched" }: TDateOfBirth) {
     const { accountDetails } = useContext(UserContext);
     const { data, awaiting } = accountDetails;
 
@@ -25,12 +43,12 @@ export function DateOfBirth() {
     const {
         control,
         handleSubmit,
-        formState: { errors },
+        formState: { touchedFields, errors },
         watch,
         trigger,
     } = useForm<DateOfBirthFormData>({
         defaultValues: { dob },
-        mode: "onBlur",
+        mode,
         resolver: zodResolver(dateOfBirthFormDataSchema),
     });
 
@@ -48,20 +66,45 @@ export function DateOfBirth() {
         return false;
     }, [day, month, year, formFields]);
 
-    const handleBlur = (
-        field: ControllerRenderProps<DateOfBirthFormData>,
-        sharedFields: string[],
-    ) => {
-        // I'm asserting the type of the sharedFields argument within 'trigger' because any paths
-        // that are dynamically-created within the schema, e.g. - for errors on a group of fields,
-        // aren't recognised in the schema's type, even though they can possibly exist. Also,
-        // attempting to forcibly resolve missing fields in this way is safe - it won't cause
-        // any errors.
-        return () => {
-            field.onBlur();
-            trigger([field.name, ...(sharedFields as unknown as Path<DateOfBirthFormData>[])]);
-        };
-    };
+    const handleValidate = useCallback(
+        (
+            eventType: "blur" | "change",
+            field: ControllerRenderProps<DateOfBirthFormData>,
+            sharedFields: string[],
+        ) => {
+            const isTouched = hasNestedField(touchedFields, field.name.split("."));
+
+            // I'm asserting the type of sharedFields because any paths that are dynamically-created
+            // within the schema, e.g. - for errors on a group of fields, aren't recognised in the
+            // schema's type, even though they can possibly exist. Also, attempting to forcibly
+            // resolve missing fields in this way is safe - it won't cause any errors.
+            const fields = [
+                field.name,
+                ...(sharedFields as unknown as Path<DateOfBirthFormData>[]),
+            ];
+
+            if (mode === "all") {
+                trigger(fields);
+                return;
+            }
+
+            if (mode === "onChange") {
+                if (eventType === "change") trigger(fields);
+                return;
+            }
+
+            if (mode === "onTouched" && isTouched) {
+                if (eventType === "blur") trigger(fields);
+                if (eventType === "change") trigger(fields);
+                return;
+            }
+
+            if (mode === "onBlur") {
+                if (eventType === "blur") trigger(fields);
+            }
+        },
+        [touchedFields, trigger, mode],
+    );
 
     const hasErrors = Object.keys(errors).length > 0;
     const hasRootError = !!errors.dob?.root;
@@ -86,8 +129,14 @@ export function DateOfBirth() {
                             label="Day"
                             hideControls
                             error={createInputError(errors.dob?.day?.message) || hasRootError}
-                            onBlur={handleBlur(field, ["dob.root"])}
-                            onChange={(v) => field.onChange(typeof v === "number" ? v : undefined)}
+                            onBlur={() => {
+                                field.onBlur();
+                                handleValidate("blur", field, ["dob.root"]);
+                            }}
+                            onChange={(v) => {
+                                field.onChange(typeof v === "number" ? v : undefined);
+                                handleValidate("change", field, ["dob.root"]);
+                            }}
                             disabled={awaiting}
                         />
                     )}
@@ -103,8 +152,14 @@ export function DateOfBirth() {
                             label="Month"
                             hideControls
                             error={createInputError(errors.dob?.month?.message) || hasRootError}
-                            onBlur={handleBlur(field, ["dob.root"])}
-                            onChange={(v) => field.onChange(typeof v === "number" ? v : undefined)}
+                            onBlur={() => {
+                                field.onBlur();
+                                handleValidate("blur", field, ["dob.root"]);
+                            }}
+                            onChange={(v) => {
+                                field.onChange(typeof v === "number" ? v : undefined);
+                                handleValidate("change", field, ["dob.root"]);
+                            }}
                             disabled={awaiting}
                         />
                     )}
@@ -120,8 +175,14 @@ export function DateOfBirth() {
                             label="Year"
                             hideControls
                             error={createInputError(errors.dob?.year?.message) || hasRootError}
-                            onBlur={handleBlur(field, ["dob.root"])}
-                            onChange={(v) => field.onChange(typeof v === "number" ? v : undefined)}
+                            onBlur={() => {
+                                field.onBlur();
+                                handleValidate("blur", field, ["dob.root"]);
+                            }}
+                            onChange={(v) => {
+                                field.onChange(typeof v === "number" ? v : undefined);
+                                handleValidate("change", field, ["dob.root"]);
+                            }}
                             disabled={awaiting}
                         />
                     )}
