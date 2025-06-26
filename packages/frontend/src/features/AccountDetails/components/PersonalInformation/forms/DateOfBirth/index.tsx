@@ -1,7 +1,7 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { NumberInput, Button } from "@mantine/core";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { useForm, SubmitHandler, Controller, ControllerRenderProps, Path } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createInputError } from "@/utils/createInputError";
 import { DateOfBirthFormData, dateOfBirthFormDataSchema } from "./zodSchema";
@@ -16,18 +16,55 @@ const inputProps = {
 
 export function DateOfBirth() {
     const { accountDetails } = useContext(UserContext);
-    const { /* data, */ awaiting } = accountDetails;
+    const { data, awaiting } = accountDetails;
+
+    const { personal } = data || {};
+    const { dob } = personal || {};
+    const { day, month, year } = dob || {};
 
     const {
         control,
         handleSubmit,
         formState: { errors },
+        watch,
+        trigger,
     } = useForm<DateOfBirthFormData>({
-        mode: "onTouched",
+        defaultValues: { dob },
+        mode: "onBlur",
         resolver: zodResolver(dateOfBirthFormDataSchema),
     });
 
     const onSubmit: SubmitHandler<DateOfBirthFormData> = (/* data */) => {};
+
+    const formFields = watch();
+    const valueIsChanged = useMemo(() => {
+        const { dob: dobNew } = formFields;
+        const { day: dayNew, month: monthNew, year: yearNew } = dobNew || {};
+
+        if (dayNew !== day && !(dayNew === undefined && day === undefined)) return true;
+        if (monthNew !== month && !(monthNew === undefined && month === undefined)) return true;
+        if (yearNew !== year && !(yearNew === undefined && year === undefined)) return true;
+
+        return false;
+    }, [day, month, year, formFields]);
+
+    const handleBlur = (
+        field: ControllerRenderProps<DateOfBirthFormData>,
+        sharedFields: string[],
+    ) => {
+        // I'm asserting the type of the sharedFields argument within 'trigger' because any paths
+        // that are dynamically-created within the schema, e.g. - for errors on a group of fields,
+        // aren't recognised in the schema's type, even though they can possibly exist. Also,
+        // attempting to forcibly resolve missing fields in this way is safe - it won't cause
+        // any errors.
+        return () => {
+            field.onBlur();
+            trigger([field.name, ...(sharedFields as unknown as Path<DateOfBirthFormData>[])]);
+        };
+    };
+
+    const hasErrors = Object.keys(errors).length > 0;
+    const hasRootError = !!errors.dob?.root;
 
     return (
         <form
@@ -48,8 +85,9 @@ export function DateOfBirth() {
                             {...inputProps}
                             label="Day"
                             hideControls
-                            error={createInputError(errors.dob?.day?.message)}
-                            onChange={(v) => field.onChange(v)}
+                            error={createInputError(errors.dob?.day?.message) || hasRootError}
+                            onBlur={handleBlur(field, ["dob.root"])}
+                            onChange={(v) => field.onChange(typeof v === "number" ? v : undefined)}
                             disabled={awaiting}
                         />
                     )}
@@ -64,8 +102,9 @@ export function DateOfBirth() {
                             {...inputProps}
                             label="Month"
                             hideControls
-                            error={createInputError(errors.dob?.month?.message)}
-                            onChange={(v) => field.onChange(v)}
+                            error={createInputError(errors.dob?.month?.message) || hasRootError}
+                            onBlur={handleBlur(field, ["dob.root"])}
+                            onChange={(v) => field.onChange(typeof v === "number" ? v : undefined)}
                             disabled={awaiting}
                         />
                     )}
@@ -80,13 +119,16 @@ export function DateOfBirth() {
                             {...inputProps}
                             label="Year"
                             hideControls
-                            error={createInputError(errors.dob?.year?.message)}
-                            onChange={(v) => field.onChange(v)}
+                            error={createInputError(errors.dob?.year?.message) || hasRootError}
+                            onBlur={handleBlur(field, ["dob.root"])}
+                            onChange={(v) => field.onChange(typeof v === "number" ? v : undefined)}
                             disabled={awaiting}
                         />
                     )}
                 />
             </fieldset>
+
+            {createInputError(errors.dob?.root?.message)}
 
             <Button
                 type="submit"
@@ -94,7 +136,7 @@ export function DateOfBirth() {
                 variant="filled"
                 radius={9999}
                 className={styles["submit-button"]}
-                disabled={awaiting}
+                disabled={awaiting || !valueIsChanged || hasErrors}
             >
                 Save changes
             </Button>
