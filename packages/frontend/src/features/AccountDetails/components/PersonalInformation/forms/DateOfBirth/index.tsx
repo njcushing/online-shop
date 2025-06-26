@@ -1,4 +1,4 @@
-import { useContext, useCallback, useMemo } from "react";
+import { useContext, useCallback, useState } from "react";
 import { UserContext } from "@/pages/Root";
 import { NumberInput, Button } from "@mantine/core";
 import {
@@ -54,17 +54,29 @@ export function DateOfBirth({ mode = "onTouched" }: TDateOfBirth) {
 
     const onSubmit: SubmitHandler<DateOfBirthFormData> = (/* data */) => {};
 
+    const [hasChanged, setHasChanged] = useState<boolean>(false);
     const formFields = watch();
-    const valueIsChanged = useMemo(() => {
+    const checkHasChanged = useCallback(() => {
         const { dob: dobNew } = formFields;
         const { day: dayNew, month: monthNew, year: yearNew } = dobNew || {};
 
-        if (dayNew !== day && !(dayNew === undefined && day === undefined)) return true;
-        if (monthNew !== month && !(monthNew === undefined && month === undefined)) return true;
-        if (yearNew !== year && !(yearNew === undefined && year === undefined)) return true;
+        if (dayNew !== day && !(dayNew === undefined && day === undefined))
+            return setHasChanged(true);
+        if (monthNew !== month && !(monthNew === undefined && month === undefined))
+            return setHasChanged(true);
+        if (yearNew !== year && !(yearNew === undefined && year === undefined))
+            return setHasChanged(true);
 
-        return false;
+        return setHasChanged(false);
     }, [day, month, year, formFields]);
+
+    const triggerValidation = useCallback(
+        (fields: Path<DateOfBirthFormData>[]) => {
+            trigger(fields);
+            checkHasChanged();
+        },
+        [trigger, checkHasChanged],
+    );
 
     const handleValidate = useCallback(
         (
@@ -84,26 +96,26 @@ export function DateOfBirth({ mode = "onTouched" }: TDateOfBirth) {
             ];
 
             if (mode === "all") {
-                trigger(fields);
+                triggerValidation(fields);
                 return;
             }
 
             if (mode === "onChange") {
-                if (eventType === "change") trigger(fields);
+                if (eventType === "change") triggerValidation(fields);
                 return;
             }
 
             if (mode === "onTouched" && isTouched) {
-                if (eventType === "blur") trigger(fields);
-                if (eventType === "change") trigger(fields);
+                if (eventType === "blur") triggerValidation(fields);
+                if (eventType === "change") triggerValidation(fields);
                 return;
             }
 
             if (mode === "onBlur") {
-                if (eventType === "blur") trigger(fields);
+                if (eventType === "blur") triggerValidation(fields);
             }
         },
-        [touchedFields, trigger, mode],
+        [mode, touchedFields, triggerValidation],
     );
 
     const hasErrors = Object.keys(errors).length > 0;
@@ -197,7 +209,7 @@ export function DateOfBirth({ mode = "onTouched" }: TDateOfBirth) {
                 variant="filled"
                 radius={9999}
                 className={styles["submit-button"]}
-                disabled={awaiting || !valueIsChanged || hasErrors}
+                disabled={awaiting || !hasChanged || hasErrors}
             >
                 Save changes
             </Button>
