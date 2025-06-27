@@ -84,7 +84,6 @@ export function DateOfBirth() {
 
     const { personal } = data || {};
     const { dob } = personal || {};
-    const { day, month, year } = dob || {};
 
     const {
         control,
@@ -103,18 +102,18 @@ export function DateOfBirth() {
     const [hasChanged, setHasChanged] = useState<boolean>(false);
     const formFields = watch();
     const checkHasChanged = useCallback(() => {
-        const { dob: dobNew } = formFields;
-        const { day: dayNew, month: monthNew, year: yearNew } = dobNew || {};
+        const fieldNames = fields.map((field) => field.name);
+        fieldNames.filter((fieldName) => {
+            const currentValue = getNestedField(personal, fieldName.split("."));
+            const newValue = getNestedField(formFields, fieldName.split("."));
 
-        if (dayNew !== day && !(dayNew === undefined && day === undefined))
-            return setHasChanged(true);
-        if (monthNew !== month && !(monthNew === undefined && month === undefined))
-            return setHasChanged(true);
-        if (yearNew !== year && !(yearNew === undefined && year === undefined))
-            return setHasChanged(true);
+            return (
+                newValue !== currentValue && !(newValue === undefined && currentValue === undefined)
+            );
+        });
 
-        return setHasChanged(false);
-    }, [day, month, year, formFields]);
+        return setHasChanged(fieldNames.length > 0);
+    }, [personal, formFields]);
 
     const triggerValidation = useCallback(
         (fieldsToValidate: Path<DateOfBirthFormData>[]) => {
