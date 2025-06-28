@@ -49,19 +49,19 @@ type FieldType<T extends FieldValues> = {
     sharedValidation: string[];
 };
 
-type TDateOfBirth<T extends FieldValues> = {
+type TFormBuilder<T extends FieldValues> = {
     fields: FieldType<T>[];
     defaultValues?: UseFormProps<T>["defaultValues"];
     resolver: UseFormProps<T>["resolver"];
     additionalErrorPaths?: string[];
 };
 
-export function DateOfBirth<T extends FieldValues>({
+export function FormBuilder<T extends FieldValues>({
     fields = [],
     defaultValues,
     resolver,
     additionalErrorPaths,
-}: TDateOfBirth<T>) {
+}: TFormBuilder<T>) {
     const { accountDetails } = useContext(UserContext);
     const { data, awaiting } = accountDetails;
 

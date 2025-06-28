@@ -3,9 +3,9 @@ import { UserContext } from "@/pages/Root";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Names } from "./forms/Names";
 import { PhoneNumber } from "./forms/PhoneNumber";
-import { DateOfBirth } from "./forms/DateOfBirth";
+import { FormBuilder } from "./forms/FormBuilder";
 import { Email } from "./forms/Email";
-import { DateOfBirthFormData, dateOfBirthFormDataSchema } from "./forms/DateOfBirth/zodSchema";
+import { DateOfBirthFormData, dateOfBirthFormDataSchema } from "./forms/FormBuilder/zodSchema";
 import styles from "./index.module.css";
 
 export function PersonalInformation() {
@@ -21,7 +21,7 @@ export function PersonalInformation() {
 
             <Names />
             <PhoneNumber />
-            <DateOfBirth<DateOfBirthFormData>
+            <FormBuilder<DateOfBirthFormData>
                 fields={[
                     {
                         type: "numeric",
