@@ -1,4 +1,4 @@
-import { useContext, useCallback, useState } from "react";
+import { useContext, useCallback, useState, Fragment } from "react";
 import { UserContext } from "@/pages/Root";
 import { NumberInput, NumberInputProps, Button } from "@mantine/core";
 import {
@@ -12,9 +12,7 @@ import {
     FieldPathValue,
     FieldValues,
 } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { createInputError } from "@/utils/createInputError";
-import { DateOfBirthFormData, dateOfBirthFormDataSchema } from "./zodSchema";
 import styles from "./index.module.css";
 
 function getNestedField(obj: unknown, path: string[]): unknown {
@@ -42,48 +40,32 @@ type ValidPath<T extends FieldValues> =
             : never
         : never;
 
-type FieldType = {
+type FieldType<T extends FieldValues> = {
     type: string;
-    name: ValidPath<DateOfBirthFormData>;
+    name: ValidPath<T>;
     label: string;
-    mode: UseFormProps["mode"];
+    mode: UseFormProps<T>["mode"];
     validateOther: string[];
     sharedValidation: string[];
 };
 
-const fields: FieldType[] = [
-    {
-        type: "numeric",
-        name: "dob.day",
-        label: "Day",
-        mode: "onTouched",
-        validateOther: ["dob.root"],
-        sharedValidation: ["dob.root"],
-    },
-    {
-        type: "numeric",
-        name: "dob.month",
-        label: "Month",
-        mode: "onTouched",
-        validateOther: ["dob.root"],
-        sharedValidation: ["dob.root"],
-    },
-    {
-        type: "numeric",
-        name: "dob.year",
-        label: "Year",
-        mode: "onTouched",
-        validateOther: ["dob.root"],
-        sharedValidation: ["dob.root"],
-    },
-];
+type TDateOfBirth<T extends FieldValues> = {
+    fields: FieldType<T>[];
+    defaultValues?: UseFormProps<T>["defaultValues"];
+    resolver: UseFormProps<T>["resolver"];
+    additionalErrorPaths?: string[];
+};
 
-export function DateOfBirth() {
+export function DateOfBirth<T extends FieldValues>({
+    fields = [],
+    defaultValues,
+    resolver,
+    additionalErrorPaths,
+}: TDateOfBirth<T>) {
     const { accountDetails } = useContext(UserContext);
     const { data, awaiting } = accountDetails;
 
     const { personal } = data || {};
-    const { dob } = personal || {};
 
     const {
         control,
@@ -91,13 +73,13 @@ export function DateOfBirth() {
         formState: { touchedFields, errors },
         watch,
         trigger,
-    } = useForm<DateOfBirthFormData>({
-        defaultValues: { dob },
+    } = useForm<T>({
+        defaultValues,
         mode: "onSubmit", // Setting to most restrictive to allow user to define mode for each field
-        resolver: zodResolver(dateOfBirthFormDataSchema),
+        resolver,
     });
 
-    const onSubmit: SubmitHandler<DateOfBirthFormData> = (/* data */) => {};
+    const onSubmit: SubmitHandler<T> = (/* data */) => {};
 
     const [hasChanged, setHasChanged] = useState<boolean>(false);
     const formFields = watch();
@@ -113,10 +95,10 @@ export function DateOfBirth() {
         });
 
         return setHasChanged(fieldNames.length > 0);
-    }, [personal, formFields]);
+    }, [fields, personal, formFields]);
 
     const triggerValidation = useCallback(
-        (fieldsToValidate: Path<DateOfBirthFormData>[]) => {
+        (fieldsToValidate: Path<T>[]) => {
             trigger(fieldsToValidate);
             checkHasChanged();
         },
@@ -126,8 +108,8 @@ export function DateOfBirth() {
     const handleValidate = useCallback(
         (
             eventType: "blur" | "change",
-            mode: UseFormProps["mode"],
-            field: ControllerRenderProps<DateOfBirthFormData>,
+            mode: UseFormProps<T>["mode"],
+            field: ControllerRenderProps<T>,
             sharedFields: string[],
         ) => {
             const isTouched = getNestedField(touchedFields, field.name.split("."));
@@ -136,10 +118,7 @@ export function DateOfBirth() {
             // within the schema, e.g. - for errors on a group of fields, aren't recognised in the
             // schema's type, even though they can possibly exist. Also, attempting to forcibly
             // resolve missing fields in this way is safe - it won't cause any errors.
-            const fieldsToValidate = [
-                field.name,
-                ...(sharedFields as unknown as Path<DateOfBirthFormData>[]),
-            ];
+            const fieldsToValidate = [field.name, ...(sharedFields as Path<T>[])];
 
             if (mode === "all") {
                 triggerValidation(fieldsToValidate);
@@ -217,7 +196,14 @@ export function DateOfBirth() {
                 })}
             </fieldset>
 
-            {createInputError(errors.dob?.root?.message)}
+            {additionalErrorPaths?.map((pathName) => {
+                const fieldError = getNestedField(errors, [...pathName.split("."), "message"]);
+                return (
+                    <Fragment key={pathName}>
+                        {createInputError(typeof fieldError === "string" ? fieldError : undefined)}
+                    </Fragment>
+                );
+            })}
 
             <Button
                 type="submit"
