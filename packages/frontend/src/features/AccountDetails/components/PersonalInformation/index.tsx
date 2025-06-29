@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import { UserContext } from "@/pages/Root";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Names } from "./forms/Names";
-import { PhoneNumber } from "./forms/PhoneNumber";
 import { FormBuilder } from "./forms/FormBuilder";
-import { Email } from "./forms/Email";
+import { NamesFormData, namesFormDataSchema } from "./schemas/namesSchema";
+import { PhoneNumberFormData, phoneNumberFormDataSchema } from "./schemas/phoneNumberSchema";
 import { DateOfBirthFormData, dateOfBirthFormDataSchema } from "./schemas/dateOfBirthSchema";
+import { EmailFormData, emailFormDataSchema } from "./schemas/emailSchema";
 import styles from "./index.module.css";
 
 export function PersonalInformation() {
@@ -13,14 +13,56 @@ export function PersonalInformation() {
     const { data } = accountDetails;
 
     const { personal } = data || {};
-    const { dob } = personal || {};
+    const { firstName, lastName, phone, dob, email } = personal || {};
 
     return (
         <div className={styles["forms-container"]}>
             <h1 className={styles["header"]}>Personal Information</h1>
 
-            <Names />
-            <PhoneNumber />
+            <FormBuilder<NamesFormData>
+                fieldsets={[
+                    {
+                        legend: "Names",
+                        fields: [
+                            {
+                                type: "text",
+                                name: "firstName",
+                                label: "First name",
+                                mode: "onTouched",
+                            },
+                            {
+                                type: "text",
+                                name: "lastName",
+                                label: "Last name",
+                                mode: "onTouched",
+                            },
+                        ],
+                    },
+                ]}
+                ariaLabel="Name"
+                defaultValues={{ firstName: firstName || "", lastName: lastName || "" }}
+                resolver={zodResolver(namesFormDataSchema)}
+            />
+
+            <FormBuilder<PhoneNumberFormData>
+                fieldsets={[
+                    {
+                        legend: "Phone number",
+                        fields: [
+                            {
+                                type: "text",
+                                name: "phone",
+                                label: "Phone number",
+                                mode: "onTouched",
+                            },
+                        ],
+                    },
+                ]}
+                ariaLabel="Name"
+                defaultValues={{ phone: phone || "" }}
+                resolver={zodResolver(phoneNumberFormDataSchema)}
+            />
+
             <FormBuilder<DateOfBirthFormData>
                 fieldsets={[
                     {
@@ -58,7 +100,25 @@ export function PersonalInformation() {
                 resolver={zodResolver(dateOfBirthFormDataSchema)}
                 additionalErrorPaths={["dob.root"]}
             />
-            <Email />
+
+            <FormBuilder<EmailFormData>
+                fieldsets={[
+                    {
+                        legend: "Email",
+                        fields: [
+                            {
+                                type: "text",
+                                name: "email",
+                                label: "Email address",
+                                mode: "onTouched",
+                            },
+                        ],
+                    },
+                ]}
+                ariaLabel="Email"
+                defaultValues={{ email: email || "" }}
+                resolver={zodResolver(emailFormDataSchema)}
+            />
         </div>
     );
 }
