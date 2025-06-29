@@ -22,30 +22,35 @@ export function PersonalInformation() {
             <Names />
             <PhoneNumber />
             <FormBuilder<DateOfBirthFormData>
-                fields={[
+                fieldsets={[
                     {
-                        type: "numeric",
-                        name: "dob.day",
-                        label: "Day",
-                        mode: "onTouched",
-                        validateOther: ["dob.root"],
-                        sharedValidation: ["dob.root"],
-                    },
-                    {
-                        type: "numeric",
-                        name: "dob.month",
-                        label: "Month",
-                        mode: "onTouched",
-                        validateOther: ["dob.root"],
-                        sharedValidation: ["dob.root"],
-                    },
-                    {
-                        type: "numeric",
-                        name: "dob.year",
-                        label: "Year",
-                        mode: "onTouched",
-                        validateOther: ["dob.root"],
-                        sharedValidation: ["dob.root"],
+                        legend: "Date of birth",
+                        fields: [
+                            {
+                                type: "numeric",
+                                name: "dob.day",
+                                label: "Day",
+                                mode: "onTouched",
+                                validateOther: ["dob.root"],
+                                sharedValidation: ["dob.root"],
+                            },
+                            {
+                                type: "numeric",
+                                name: "dob.month",
+                                label: "Month",
+                                mode: "onTouched",
+                                validateOther: ["dob.root"],
+                                sharedValidation: ["dob.root"],
+                            },
+                            {
+                                type: "numeric",
+                                name: "dob.year",
+                                label: "Year",
+                                mode: "onTouched",
+                                validateOther: ["dob.root"],
+                                sharedValidation: ["dob.root"],
+                            },
+                        ],
                     },
                 ]}
                 ariaLabel="Date of birth"

@@ -40,7 +40,7 @@ type ValidPath<T extends FieldValues> =
             : never
         : never;
 
-type FieldType<T extends FieldValues> = {
+type Field<T extends FieldValues> = {
     type: string;
     name: ValidPath<T>;
     label: string;
@@ -49,8 +49,13 @@ type FieldType<T extends FieldValues> = {
     sharedValidation: string[];
 };
 
+type Fieldset<T extends FieldValues> = {
+    legend: string;
+    fields: Field<T>[];
+};
+
 type TFormBuilder<T extends FieldValues> = {
-    fields: FieldType<T>[];
+    fieldsets: Fieldset<T>[];
     ariaLabel?: string;
     defaultValues?: UseFormProps<T>["defaultValues"];
     resolver: UseFormProps<T>["resolver"];
@@ -58,7 +63,7 @@ type TFormBuilder<T extends FieldValues> = {
 };
 
 export function FormBuilder<T extends FieldValues>({
-    fields = [],
+    fieldsets = [],
     ariaLabel,
     defaultValues,
     resolver,
@@ -86,7 +91,9 @@ export function FormBuilder<T extends FieldValues>({
     const [hasChanged, setHasChanged] = useState<boolean>(false);
     const formFields = watch();
     const checkHasChanged = useCallback(() => {
-        const fieldNames = fields.map((field) => field.name);
+        const fieldNames = fieldsets.flatMap((fieldset) =>
+            fieldset.fields.map((field) => field.name),
+        );
         fieldNames.filter((fieldName) => {
             const currentValue = getNestedField(personal, fieldName.split("."));
             const newValue = getNestedField(formFields, fieldName.split("."));
@@ -97,7 +104,7 @@ export function FormBuilder<T extends FieldValues>({
         });
 
         return setHasChanged(fieldNames.length > 0);
-    }, [fields, personal, formFields]);
+    }, [fieldsets, personal, formFields]);
 
     const triggerValidation = useCallback(
         (fieldsToValidate: Path<T>[]) => {
@@ -154,49 +161,71 @@ export function FormBuilder<T extends FieldValues>({
             onSubmit={handleSubmit(onSubmit)}
             noValidate
         >
-            <fieldset className={styles["fieldset"]}>
-                <legend className={styles["legend"]}>Date of birth</legend>
+            {fieldsets.map((fieldset) => {
+                const { legend, fields } = fieldset;
+                return (
+                    <fieldset className={styles["fieldset"]} key={legend}>
+                        <legend className={styles["legend"]}>{legend}</legend>
 
-                {fields.map((fieldData) => {
-                    const { /* type, */ name, label, mode, validateOther, sharedValidation } =
-                        fieldData;
+                        {fields.map((fieldData) => {
+                            const {
+                                /* type, */ name,
+                                label,
+                                mode,
+                                validateOther,
+                                sharedValidation,
+                            } = fieldData;
 
-                    const fieldError = getNestedField(errors, [...name.split("."), "message"]);
-                    const sharedFieldsHaveErrors = sharedValidation.filter((fieldName) => {
-                        return getNestedField(errors, fieldName.split("."));
-                    });
+                            const fieldError = getNestedField(errors, [
+                                ...name.split("."),
+                                "message",
+                            ]);
+                            const sharedFieldsHaveErrors = sharedValidation.filter((fieldName) => {
+                                return getNestedField(errors, fieldName.split("."));
+                            });
 
-                    return (
-                        <Controller
-                            control={control}
-                            name={name}
-                            render={({ field }) => (
-                                <NumberInput
-                                    {...field}
-                                    {...inputProps}
-                                    label={label}
-                                    hideControls
-                                    error={
-                                        createInputError(
-                                            typeof fieldError === "string" ? fieldError : undefined,
-                                        ) || sharedFieldsHaveErrors.length > 0
-                                    }
-                                    onBlur={() => {
-                                        field.onBlur();
-                                        handleValidate("blur", mode, field, validateOther);
-                                    }}
-                                    onChange={(v) => {
-                                        field.onChange(typeof v === "number" ? v : undefined);
-                                        handleValidate("change", mode, field, validateOther);
-                                    }}
-                                    disabled={awaiting}
+                            return (
+                                <Controller
+                                    control={control}
+                                    name={name}
+                                    render={({ field }) => (
+                                        <NumberInput
+                                            {...field}
+                                            {...inputProps}
+                                            label={label}
+                                            hideControls
+                                            error={
+                                                createInputError(
+                                                    typeof fieldError === "string"
+                                                        ? fieldError
+                                                        : undefined,
+                                                ) || sharedFieldsHaveErrors.length > 0
+                                            }
+                                            onBlur={() => {
+                                                field.onBlur();
+                                                handleValidate("blur", mode, field, validateOther);
+                                            }}
+                                            onChange={(v) => {
+                                                field.onChange(
+                                                    typeof v === "number" ? v : undefined,
+                                                );
+                                                handleValidate(
+                                                    "change",
+                                                    mode,
+                                                    field,
+                                                    validateOther,
+                                                );
+                                            }}
+                                            disabled={awaiting}
+                                        />
+                                    )}
+                                    key={name}
                                 />
-                            )}
-                            key={name}
-                        />
-                    );
-                })}
-            </fieldset>
+                            );
+                        })}
+                    </fieldset>
+                );
+            })}
 
             {additionalErrorPaths?.map((pathName) => {
                 const fieldError = getNestedField(errors, [...pathName.split("."), "message"]);
