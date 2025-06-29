@@ -89,22 +89,28 @@ export function FormBuilder<T extends FieldValues>({
     const onSubmit: SubmitHandler<T> = (/* data */) => {};
 
     const [hasChanged, setHasChanged] = useState<boolean>(false);
-    const formFields = watch();
     const checkHasChanged = useCallback(() => {
+        const formFields = watch();
         const fieldNames = fieldsets.flatMap((fieldset) =>
             fieldset.fields.map((field) => field.name),
         );
-        fieldNames.filter((fieldName) => {
+        const newHasChanged = fieldNames.some((fieldName) => {
             const currentValue = getNestedField(personal, fieldName.split("."));
             const newValue = getNestedField(formFields, fieldName.split("."));
 
-            return (
-                newValue !== currentValue && !(newValue === undefined && currentValue === undefined)
-            );
+            if (
+                (newValue === undefined || newValue === "") &&
+                (currentValue === undefined || currentValue === "")
+            ) {
+                return false;
+            }
+            if (newValue === currentValue) return false;
+
+            return true;
         });
 
-        return setHasChanged(fieldNames.length > 0);
-    }, [fieldsets, personal, formFields]);
+        return setHasChanged(newHasChanged);
+    }, [fieldsets, personal, watch]);
 
     const triggerValidation = useCallback(
         (fieldsToValidate: Path<T>[]) => {
@@ -140,9 +146,9 @@ export function FormBuilder<T extends FieldValues>({
                 return;
             }
 
-            if (mode === "onTouched" && isTouched) {
+            if (mode === "onTouched") {
                 if (eventType === "blur") triggerValidation(fieldsToValidate);
-                if (eventType === "change") triggerValidation(fieldsToValidate);
+                if (eventType === "change" && isTouched) triggerValidation(fieldsToValidate);
                 return;
             }
 
@@ -203,7 +209,8 @@ export function FormBuilder<T extends FieldValues>({
                                 handleValidate("blur", mode, field, validateOther);
                             }}
                             onChange={(v) => {
-                                field.onChange(v || undefined);
+                                const { value } = v.target;
+                                field.onChange(value.length > 0 ? value : undefined);
                                 handleValidate("change", mode, field, validateOther);
                             }}
                             disabled={awaiting}
