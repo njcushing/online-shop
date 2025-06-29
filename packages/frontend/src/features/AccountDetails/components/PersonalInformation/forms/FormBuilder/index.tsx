@@ -45,8 +45,8 @@ type Field<T extends FieldValues> = {
     name: ValidPath<T>;
     label: string;
     mode: UseFormProps<T>["mode"];
-    validateOther: string[];
-    sharedValidation: string[];
+    validateOther?: string[];
+    sharedValidation?: string[];
 };
 
 type Fieldset<T extends FieldValues> = {
@@ -119,15 +119,16 @@ export function FormBuilder<T extends FieldValues>({
             eventType: "blur" | "change",
             mode: UseFormProps<T>["mode"],
             field: ControllerRenderProps<T>,
-            sharedFields: string[],
+            validateOther?: string[],
         ) => {
             const isTouched = getNestedField(touchedFields, field.name.split("."));
 
-            // I'm asserting the type of sharedFields because any paths that are dynamically-created
-            // within the schema, e.g. - for errors on a group of fields, aren't recognised in the
-            // schema's type, even though they can possibly exist. Also, attempting to forcibly
-            // resolve missing fields in this way is safe - it won't cause any errors.
-            const fieldsToValidate = [field.name, ...(sharedFields as Path<T>[])];
+            // I'm asserting the type of validateOther because any paths that are
+            // dynamically-created within the schema, e.g. - for errors on a group of fields, aren't
+            // recognised in the schema's type, even though they can possibly exist. Also,
+            // attempting to forcibly resolve missing fields in this way is safe - it won't cause
+            // any errors.
+            const fieldsToValidate = [field.name, ...((validateOther as Path<T>[]) || [])];
 
             if (mode === "all") {
                 triggerValidation(fieldsToValidate);
@@ -157,7 +158,7 @@ export function FormBuilder<T extends FieldValues>({
             const { type, name, label, mode, validateOther, sharedValidation } = fieldData;
 
             const fieldError = getNestedField(errors, [...name.split("."), "message"]);
-            const sharedFieldsHaveErrors = sharedValidation.filter((fieldName) => {
+            const sharedFieldsHaveErrors = (sharedValidation || []).filter((fieldName) => {
                 return getNestedField(errors, fieldName.split("."));
             });
 
