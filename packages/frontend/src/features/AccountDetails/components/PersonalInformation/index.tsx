@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from "@/pages/Root";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormBuilder } from "./forms/FormBuilder";
+import { FormBuilder } from "@/features/AccountDetails/components/FormBuilder";
 import { NamesFormData, namesFormDataSchema } from "./schemas/namesSchema";
 import { PhoneNumberFormData, phoneNumberFormDataSchema } from "./schemas/phoneNumberSchema";
 import { DateOfBirthFormData, dateOfBirthFormDataSchema } from "./schemas/dateOfBirthSchema";
