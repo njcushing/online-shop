@@ -1,6 +1,6 @@
 import { useContext, useCallback, useState, Fragment } from "react";
 import { UserContext } from "@/pages/Root";
-import { NumberInput, NumberInputProps, Button } from "@mantine/core";
+import { TextInput, NumberInput, NumberInputProps, Button } from "@mantine/core";
 import {
     useForm,
     UseFormProps,
@@ -41,7 +41,7 @@ type ValidPath<T extends FieldValues> =
         : never;
 
 type Field<T extends FieldValues> = {
-    type: string;
+    type: "text" | "numeric";
     name: ValidPath<T>;
     label: string;
     mode: UseFormProps<T>["mode"];
@@ -152,6 +152,67 @@ export function FormBuilder<T extends FieldValues>({
         [touchedFields, triggerValidation],
     );
 
+    const createInput = useCallback(
+        (fieldData: Field<T>, field: ControllerRenderProps<T, ValidPath<T>>): JSX.Element => {
+            const { type, name, label, mode, validateOther, sharedValidation } = fieldData;
+
+            const fieldError = getNestedField(errors, [...name.split("."), "message"]);
+            const sharedFieldsHaveErrors = sharedValidation.filter((fieldName) => {
+                return getNestedField(errors, fieldName.split("."));
+            });
+
+            switch (type) {
+                case "numeric":
+                    return (
+                        <NumberInput
+                            {...field}
+                            {...inputProps}
+                            label={label}
+                            hideControls
+                            error={
+                                createInputError(
+                                    typeof fieldError === "string" ? fieldError : undefined,
+                                ) || sharedFieldsHaveErrors.length > 0
+                            }
+                            onBlur={() => {
+                                field.onBlur();
+                                handleValidate("blur", mode, field, validateOther);
+                            }}
+                            onChange={(v) => {
+                                field.onChange(typeof v === "number" ? v : undefined);
+                                handleValidate("change", mode, field, validateOther);
+                            }}
+                            disabled={awaiting}
+                        />
+                    );
+                case "text":
+                default:
+                    return (
+                        <TextInput
+                            {...field}
+                            {...inputProps}
+                            label={label}
+                            error={
+                                createInputError(
+                                    typeof fieldError === "string" ? fieldError : undefined,
+                                ) || sharedFieldsHaveErrors.length > 0
+                            }
+                            onBlur={() => {
+                                field.onBlur();
+                                handleValidate("blur", mode, field, validateOther);
+                            }}
+                            onChange={(v) => {
+                                field.onChange(v || undefined);
+                                handleValidate("change", mode, field, validateOther);
+                            }}
+                            disabled={awaiting}
+                        />
+                    );
+            }
+        },
+        [awaiting, errors, handleValidate],
+    );
+
     const hasErrors = Object.keys(errors).length > 0;
 
     return (
@@ -168,57 +229,13 @@ export function FormBuilder<T extends FieldValues>({
                         <legend className={styles["legend"]}>{legend}</legend>
 
                         {fields.map((fieldData) => {
-                            const {
-                                /* type, */ name,
-                                label,
-                                mode,
-                                validateOther,
-                                sharedValidation,
-                            } = fieldData;
-
-                            const fieldError = getNestedField(errors, [
-                                ...name.split("."),
-                                "message",
-                            ]);
-                            const sharedFieldsHaveErrors = sharedValidation.filter((fieldName) => {
-                                return getNestedField(errors, fieldName.split("."));
-                            });
+                            const { name } = fieldData;
 
                             return (
                                 <Controller
                                     control={control}
                                     name={name}
-                                    render={({ field }) => (
-                                        <NumberInput
-                                            {...field}
-                                            {...inputProps}
-                                            label={label}
-                                            hideControls
-                                            error={
-                                                createInputError(
-                                                    typeof fieldError === "string"
-                                                        ? fieldError
-                                                        : undefined,
-                                                ) || sharedFieldsHaveErrors.length > 0
-                                            }
-                                            onBlur={() => {
-                                                field.onBlur();
-                                                handleValidate("blur", mode, field, validateOther);
-                                            }}
-                                            onChange={(v) => {
-                                                field.onChange(
-                                                    typeof v === "number" ? v : undefined,
-                                                );
-                                                handleValidate(
-                                                    "change",
-                                                    mode,
-                                                    field,
-                                                    validateOther,
-                                                );
-                                            }}
-                                            disabled={awaiting}
-                                        />
-                                    )}
+                                    render={({ field }) => createInput(fieldData, field)}
                                     key={name}
                                 />
                             );
