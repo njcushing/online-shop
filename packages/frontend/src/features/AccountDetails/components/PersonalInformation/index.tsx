@@ -5,7 +5,7 @@ import { Names } from "./forms/Names";
 import { PhoneNumber } from "./forms/PhoneNumber";
 import { FormBuilder } from "./forms/FormBuilder";
 import { Email } from "./forms/Email";
-import { DateOfBirthFormData, dateOfBirthFormDataSchema } from "./forms/FormBuilder/zodSchema";
+import { DateOfBirthFormData, dateOfBirthFormDataSchema } from "./schemas/dateOfBirthSchema";
 import styles from "./index.module.css";
 
 export function PersonalInformation() {
@@ -48,6 +48,7 @@ export function PersonalInformation() {
                         sharedValidation: ["dob.root"],
                     },
                 ]}
+                ariaLabel="Date of birth"
                 defaultValues={dob as DateOfBirthFormData}
                 resolver={zodResolver(dateOfBirthFormDataSchema)}
                 additionalErrorPaths={["dob.root"]}

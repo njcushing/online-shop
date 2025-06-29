@@ -51,6 +51,7 @@ type FieldType<T extends FieldValues> = {
 
 type TFormBuilder<T extends FieldValues> = {
     fields: FieldType<T>[];
+    ariaLabel?: string;
     defaultValues?: UseFormProps<T>["defaultValues"];
     resolver: UseFormProps<T>["resolver"];
     additionalErrorPaths?: string[];
@@ -58,6 +59,7 @@ type TFormBuilder<T extends FieldValues> = {
 
 export function FormBuilder<T extends FieldValues>({
     fields = [],
+    ariaLabel,
     defaultValues,
     resolver,
     additionalErrorPaths,
@@ -148,7 +150,7 @@ export function FormBuilder<T extends FieldValues>({
     return (
         <form
             className={styles["form"]}
-            aria-label="Date of birth"
+            aria-label={ariaLabel}
             onSubmit={handleSubmit(onSubmit)}
             noValidate
         >
