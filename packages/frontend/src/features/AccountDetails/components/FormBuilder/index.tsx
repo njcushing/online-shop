@@ -52,6 +52,7 @@ type Field<T extends FieldValues> = {
 type Fieldset<T extends FieldValues> = {
     legend: string;
     fields: Field<T>[];
+    fullElement?: React.ReactNode;
 };
 
 export type TFormBuilder<T extends FieldValues> = {
@@ -243,23 +244,25 @@ export function FormBuilder<T extends FieldValues>({
             </Button>
 
             {fieldsets.map((fieldset) => {
-                const { legend, fields } = fieldset;
+                const { legend, fields, fullElement } = fieldset;
                 return (
                     <fieldset className={styles["fieldset"]} key={legend}>
                         <legend className={styles["legend"]}>{legend}</legend>
 
-                        {fields.map((fieldData) => {
-                            const { name } = fieldData;
+                        {open
+                            ? fields.map((fieldData) => {
+                                  const { name } = fieldData;
 
-                            return (
-                                <Controller
-                                    control={control}
-                                    name={name}
-                                    render={({ field }) => createInput(fieldData, field)}
-                                    key={name}
-                                />
-                            );
-                        })}
+                                  return (
+                                      <Controller
+                                          control={control}
+                                          name={name}
+                                          render={({ field }) => createInput(fieldData, field)}
+                                          key={name}
+                                      />
+                                  );
+                              })
+                            : fullElement}
                     </fieldset>
                 );
             })}
@@ -273,16 +276,18 @@ export function FormBuilder<T extends FieldValues>({
                 );
             })}
 
-            <Button
-                type="submit"
-                color="rgb(48, 48, 48)"
-                variant="filled"
-                radius={9999}
-                className={styles["submit-button"]}
-                disabled={awaiting || !hasChanged || hasErrors}
-            >
-                Save changes
-            </Button>
+            {open && (
+                <Button
+                    type="submit"
+                    color="rgb(48, 48, 48)"
+                    variant="filled"
+                    radius={9999}
+                    className={styles["submit-button"]}
+                    disabled={awaiting || !hasChanged || hasErrors}
+                >
+                    Save changes
+                </Button>
+            )}
         </form>
     );
 }
