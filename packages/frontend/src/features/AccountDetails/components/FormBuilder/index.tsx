@@ -75,6 +75,8 @@ export function FormBuilder<T extends FieldValues>({
 
     const { personal } = data || {};
 
+    const [open, setOpen] = useState<boolean>(false);
+
     const {
         control,
         handleSubmit,
@@ -190,6 +192,11 @@ export function FormBuilder<T extends FieldValues>({
                                 field.onChange(typeof v === "number" ? v : undefined);
                                 handleValidate("change", mode, field, validateOther);
                             }}
+                            aria-hidden={!open}
+                            style={{
+                                visibility: open ? "initial" : "hidden",
+                                display: open ? "initial" : "none",
+                            }}
                             disabled={awaiting}
                         />
                     );
@@ -214,17 +221,20 @@ export function FormBuilder<T extends FieldValues>({
                                 field.onChange(value.length > 0 ? value : undefined);
                                 handleValidate("change", mode, field, validateOther);
                             }}
+                            aria-hidden={!open}
+                            style={{
+                                visibility: open ? "initial" : "hidden",
+                                display: open ? "initial" : "none",
+                            }}
                             disabled={awaiting}
                         />
                     );
             }
         },
-        [awaiting, errors, handleValidate],
+        [awaiting, errors, handleValidate, open],
     );
 
     const hasErrors = Object.keys(errors).length > 0;
-
-    const [open, setOpen] = useState<boolean>(false);
 
     return (
         <form
@@ -249,20 +259,20 @@ export function FormBuilder<T extends FieldValues>({
                     <fieldset className={styles["fieldset"]} key={legend}>
                         <legend className={styles["legend"]}>{legend}</legend>
 
-                        {open
-                            ? fields.map((fieldData) => {
-                                  const { name } = fieldData;
+                        {fields.map((fieldData) => {
+                            const { name } = fieldData;
 
-                                  return (
-                                      <Controller
-                                          control={control}
-                                          name={name}
-                                          render={({ field }) => createInput(fieldData, field)}
-                                          key={name}
-                                      />
-                                  );
-                              })
-                            : fullElement}
+                            return (
+                                <Controller
+                                    control={control}
+                                    name={name}
+                                    render={({ field }) => createInput(fieldData, field)}
+                                    key={name}
+                                />
+                            );
+                        })}
+
+                        {open && fullElement}
                     </fieldset>
                 );
             })}
