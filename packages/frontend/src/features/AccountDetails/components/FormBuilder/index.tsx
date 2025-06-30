@@ -54,7 +54,7 @@ type Fieldset<T extends FieldValues> = {
     fields: Field<T>[];
 };
 
-type TFormBuilder<T extends FieldValues> = {
+export type TFormBuilder<T extends FieldValues> = {
     fieldsets: Fieldset<T>[];
     ariaLabel?: string;
     defaultValues?: UseFormProps<T>["defaultValues"];
@@ -223,6 +223,8 @@ export function FormBuilder<T extends FieldValues>({
 
     const hasErrors = Object.keys(errors).length > 0;
 
+    const [open, setOpen] = useState<boolean>(false);
+
     return (
         <form
             className={styles["form"]}
@@ -230,6 +232,16 @@ export function FormBuilder<T extends FieldValues>({
             onSubmit={handleSubmit(onSubmit)}
             noValidate
         >
+            <Button
+                onClick={() => setOpen(!open)}
+                color="rgb(48, 48, 48)"
+                variant="filled"
+                radius={9999}
+                className={styles["edit-button"]}
+            >
+                {open ? "Cancel" : "Edit"}
+            </Button>
+
             {fieldsets.map((fieldset) => {
                 const { legend, fields } = fieldset;
                 return (
