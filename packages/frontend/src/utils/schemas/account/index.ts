@@ -45,7 +45,7 @@ export const defaultAccountDetails: DeepRequired<AccountDetails> = {
     personal: {
         firstName: "John",
         lastName: "Smith",
-        phone: "+440123456789",
+        phone: "+447123456789",
         dob: {
             day: 1,
             month: 1,
