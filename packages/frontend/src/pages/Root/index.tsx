@@ -8,7 +8,7 @@ import { FuncResponseObject } from "@/api/types";
 import { RecursivePartial } from "@/utils/types";
 import * as useAsync from "@/hooks/useAsync";
 import { UserWatchlist } from "@/utils/products/watchlist";
-import { AccountDetails } from "@/utils/schemas/account";
+import { AccountDetails, defaultAccountDetails } from "@/utils/schemas/account";
 import { Home } from "../Home";
 import { Category } from "../Category";
 import { Product } from "../Product";
@@ -60,6 +60,7 @@ export interface IUserContext {
 
     defaultData: {
         cart: RecursivePartial<PopulatedCartItemData>[];
+        accountDetails: RecursivePartial<AccountDetails>;
     };
 }
 
@@ -70,6 +71,7 @@ const defaultUserContext: IUserContext = {
 
     defaultData: {
         cart: generateSkeletonCart(),
+        accountDetails: defaultAccountDetails,
     },
 };
 
