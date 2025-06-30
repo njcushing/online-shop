@@ -2,7 +2,7 @@ import { ProductReview, Product, reviews, products as productData } from "@/util
 import { CartItemData, PopulatedCartItemData, mockCart } from "@/utils/products/cart";
 import { UserWatchlist, watchlists } from "@/utils/products/watchlist";
 import { filterOptions, sortOptions } from "@/features/ProductReviews";
-import { AccountDetails } from "@/utils/schemas/account";
+import { AccountDetails, defaultAccountDetails } from "@/utils/schemas/account";
 import * as HTTPMethodTypes from "./types";
 
 export const mockGetAccountDetails: HTTPMethodTypes.GET<undefined, AccountDetails> = async () => {
@@ -10,7 +10,7 @@ export const mockGetAccountDetails: HTTPMethodTypes.GET<undefined, AccountDetail
         setTimeout(resolve, 1000);
     });
 
-    const foundAccountDetails = {};
+    const foundAccountDetails = defaultAccountDetails;
 
     if (!foundAccountDetails) {
         return {
