@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { Name, name, Email, email, Phone, phone, DOB, dob } from "@/utils/schemas/user";
 import { Postcode, postcode } from "@/utils/schemas/address";
+import { DeepRequired } from "react-hook-form";
 
 export type AccountDetails = {
     personal?: {
@@ -39,3 +40,24 @@ export const accountDetailsSchema: z.ZodType<AccountDetails> = z.object({
         })
         .optional(),
 });
+
+export const defaultAccountDetails: DeepRequired<AccountDetails> = {
+    personal: {
+        firstName: "John",
+        lastName: "Smith",
+        phone: "+440123456789",
+        dob: {
+            day: 1,
+            month: 1,
+            year: 1970,
+        },
+        email: "johnsmith@email.com",
+        address: {
+            line1: "0 Portland Place",
+            line2: "",
+            townCity: "Westminster",
+            county: "Greater London",
+            postcode: "W1A 1AA",
+        },
+    },
+};
