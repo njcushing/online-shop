@@ -1,19 +1,26 @@
 import { useContext } from "react";
 import { UserContext } from "@/pages/Root";
+import { Skeleton, SkeletonProps } from "@mantine/core";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormBuilder } from "@/features/AccountDetails/components/FormBuilder";
+import dayjs from "dayjs";
 import { NamesFormData, namesFormDataSchema } from "./schemas/namesSchema";
 import { PhoneNumberFormData, phoneNumberFormDataSchema } from "./schemas/phoneNumberSchema";
 import { DateOfBirthFormData, dateOfBirthFormDataSchema } from "./schemas/dateOfBirthSchema";
 import { EmailFormData, emailFormDataSchema } from "./schemas/emailSchema";
 import styles from "./index.module.css";
 
+const SkeletonClassNames: SkeletonProps["classNames"] = {
+    root: styles["skeleton-root"],
+};
+
 export function PersonalInformation() {
-    const { accountDetails } = useContext(UserContext);
-    const { data } = accountDetails;
+    const { accountDetails, defaultData } = useContext(UserContext);
+    const { data, awaiting } = accountDetails;
 
     const { personal } = data || {};
     const { firstName, lastName, phone, dob, email } = personal || {};
+    const { day, month, year } = dob || {};
 
     return (
         <div className={styles["forms-container"]}>
@@ -22,7 +29,7 @@ export function PersonalInformation() {
             <FormBuilder<NamesFormData>
                 fieldsets={[
                     {
-                        legend: "Names",
+                        legend: "Name",
                         fields: [
                             {
                                 type: "text",
@@ -37,11 +44,27 @@ export function PersonalInformation() {
                                 mode: "onTouched",
                             },
                         ],
+                        fullElement: (
+                            <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                                <div
+                                    className={styles["full-name"]}
+                                    style={{ visibility: awaiting ? "hidden" : "initial" }}
+                                >
+                                    {awaiting
+                                        ? `
+                                            ${defaultData.accountDetails.personal.firstName}
+                                            ${defaultData.accountDetails.personal.lastName}
+                                        `
+                                        : `${firstName || ""} ${lastName || ""}`}
+                                </div>
+                            </Skeleton>
+                        ),
                     },
                 ]}
                 ariaLabel="Name"
                 defaultValues={{ firstName: firstName || "", lastName: lastName || "" }}
                 resolver={zodResolver(namesFormDataSchema)}
+                disabled={awaiting}
             />
 
             <FormBuilder<PhoneNumberFormData>
@@ -56,11 +79,24 @@ export function PersonalInformation() {
                                 mode: "onTouched",
                             },
                         ],
+                        fullElement: (
+                            <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                                <div
+                                    className={styles["phone-number"]}
+                                    style={{ visibility: awaiting ? "hidden" : "initial" }}
+                                >
+                                    {awaiting
+                                        ? `${defaultData.accountDetails.personal.phone}`
+                                        : `${phone || ""}`}
+                                </div>
+                            </Skeleton>
+                        ),
                     },
                 ]}
-                ariaLabel="Name"
+                ariaLabel="Phone number"
                 defaultValues={{ phone: phone || "" }}
                 resolver={zodResolver(phoneNumberFormDataSchema)}
+                disabled={awaiting}
             />
 
             <FormBuilder<DateOfBirthFormData>
@@ -93,11 +129,28 @@ export function PersonalInformation() {
                                 sharedValidation: ["dob.root"],
                             },
                         ],
+                        fullElement: (
+                            <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                                <div
+                                    className={styles["date-of-birth"]}
+                                    style={{ visibility: awaiting ? "hidden" : "initial" }}
+                                >
+                                    {awaiting
+                                        ? `${dayjs(`
+                                                ${defaultData.accountDetails.personal.dob.year},
+                                                ${defaultData.accountDetails.personal.dob.month},
+                                                ${defaultData.accountDetails.personal.dob.day}
+                                            `).format("MMMM D, YYYY")}`
+                                        : `${dayjs(`${year}, ${month}, ${day}`).format("MMMM D, YYYY")}`}
+                                </div>
+                            </Skeleton>
+                        ),
                     },
                 ]}
                 ariaLabel="Date of birth"
                 defaultValues={dob as DateOfBirthFormData}
                 resolver={zodResolver(dateOfBirthFormDataSchema)}
+                disabled={awaiting}
                 additionalErrorPaths={["dob.root"]}
             />
 
@@ -113,11 +166,24 @@ export function PersonalInformation() {
                                 mode: "onTouched",
                             },
                         ],
+                        fullElement: (
+                            <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                                <div
+                                    className={styles["email-address"]}
+                                    style={{ visibility: awaiting ? "hidden" : "initial" }}
+                                >
+                                    {awaiting
+                                        ? `${defaultData.accountDetails.personal.email}`
+                                        : `${email || ""}`}
+                                </div>
+                            </Skeleton>
+                        ),
                     },
                 ]}
                 ariaLabel="Email"
                 defaultValues={{ email: email || "" }}
                 resolver={zodResolver(emailFormDataSchema)}
+                disabled={awaiting}
             />
         </div>
     );

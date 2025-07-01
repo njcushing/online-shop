@@ -8,3 +8,20 @@
     font-family: "Radio Canada Big";
     font-size: 2rem;
 }
+
+.full-name,
+.phone-number,
+.date-of-birth,
+.email-address {
+    display: flex;
+
+    font-family: "Radio Canada Big";
+    font-size: 1.1rem;
+}
+
+.skeleton-root::before {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+.skeleton-root::after {
+    background-color: rgba(0, 0, 0, 0.16);
+}
