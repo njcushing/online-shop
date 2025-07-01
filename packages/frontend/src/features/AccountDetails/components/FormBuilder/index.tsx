@@ -272,7 +272,7 @@ export function FormBuilder<T extends FieldValues>({
                             );
                         })}
 
-                        {open && fullElement}
+                        {!open && fullElement}
                     </fieldset>
                 );
             })}
