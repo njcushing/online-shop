@@ -1,6 +1,5 @@
-import { useContext, useCallback, useState, Fragment } from "react";
-import { UserContext } from "@/pages/Root";
-import { TextInput, NumberInput, NumberInputProps, Button } from "@mantine/core";
+import { useCallback, useState, Fragment } from "react";
+import { TextInput, TextInputProps, NumberInput, NumberInputProps, Button } from "@mantine/core";
 import {
     useForm,
     UseFormProps,
@@ -30,7 +29,7 @@ const inputProps = {
 };
 
 // 'name' must resolve to a type in the schema that is a valid 'value' in the input
-type ValidPathValueTypes = NumberInputProps["value"];
+type ValidPathValueTypes = TextInputProps["value"] | NumberInputProps["value"];
 type ValidPath<T extends FieldValues> =
     FieldPath<T> extends infer P
         ? P extends FieldPath<T>
@@ -72,11 +71,6 @@ export function FormBuilder<T extends FieldValues>({
     disabled,
     additionalErrorPaths,
 }: TFormBuilder<T>) {
-    const { accountDetails } = useContext(UserContext);
-    const { data } = accountDetails;
-
-    const { personal } = data || {};
-
     const [open, setOpen] = useState<boolean>(false);
 
     const {
@@ -96,26 +90,27 @@ export function FormBuilder<T extends FieldValues>({
     const [hasChanged, setHasChanged] = useState<boolean>(false);
     const checkHasChanged = useCallback(() => {
         const formFields = watch();
-        const fieldNames = fieldsets.flatMap((fieldset) =>
-            fieldset.fields.map((field) => field.name),
-        );
-        const newHasChanged = fieldNames.some((fieldName) => {
-            const currentValue = getNestedField(personal, fieldName.split("."));
-            const newValue = getNestedField(formFields, fieldName.split("."));
+        const newHasChanged = fieldsets.some((fieldset) => {
+            return fieldset.fields.some((field) => {
+                const { name } = field;
 
-            if (
-                (newValue === undefined || newValue === "") &&
-                (currentValue === undefined || currentValue === "")
-            ) {
-                return false;
-            }
-            if (newValue === currentValue) return false;
+                const currentValue = getNestedField(defaultValues, name.split("."));
+                const newValue = getNestedField(formFields, name.split("."));
 
-            return true;
+                if (
+                    (newValue === undefined || newValue === "") &&
+                    (currentValue === undefined || currentValue === "")
+                ) {
+                    return false;
+                }
+                if (newValue === currentValue) return false;
+
+                return true;
+            });
         });
 
         return setHasChanged(newHasChanged);
-    }, [fieldsets, personal, watch]);
+    }, [defaultValues, fieldsets, watch]);
 
     const triggerValidation = useCallback(
         (fieldsToValidate: Path<T>[]) => {
