@@ -60,6 +60,7 @@ export type TFormBuilder<T extends FieldValues> = {
     ariaLabel?: string;
     defaultValues?: UseFormProps<T>["defaultValues"];
     resolver: UseFormProps<T>["resolver"];
+    disabled?: boolean;
     additionalErrorPaths?: string[];
 };
 
@@ -68,10 +69,11 @@ export function FormBuilder<T extends FieldValues>({
     ariaLabel,
     defaultValues,
     resolver,
+    disabled,
     additionalErrorPaths,
 }: TFormBuilder<T>) {
     const { accountDetails } = useContext(UserContext);
-    const { data, awaiting } = accountDetails;
+    const { data } = accountDetails;
 
     const { personal } = data || {};
 
@@ -197,7 +199,7 @@ export function FormBuilder<T extends FieldValues>({
                                 visibility: open ? "initial" : "hidden",
                                 display: open ? "initial" : "none",
                             }}
-                            disabled={awaiting}
+                            disabled={disabled}
                         />
                     );
                 case "text":
@@ -226,12 +228,12 @@ export function FormBuilder<T extends FieldValues>({
                                 visibility: open ? "initial" : "hidden",
                                 display: open ? "initial" : "none",
                             }}
-                            disabled={awaiting}
+                            disabled={disabled}
                         />
                     );
             }
         },
-        [awaiting, errors, handleValidate, open],
+        [disabled, errors, handleValidate, open],
     );
 
     const hasErrors = Object.keys(errors).length > 0;
@@ -293,7 +295,7 @@ export function FormBuilder<T extends FieldValues>({
                     variant="filled"
                     radius={9999}
                     className={styles["submit-button"]}
-                    disabled={awaiting || !hasChanged || hasErrors}
+                    disabled={disabled || !hasChanged || hasErrors}
                 >
                     Save changes
                 </Button>
