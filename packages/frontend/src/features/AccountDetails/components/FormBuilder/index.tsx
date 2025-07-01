@@ -250,6 +250,7 @@ export function FormBuilder<T extends FieldValues>({
                 variant="filled"
                 radius={9999}
                 className={styles["edit-button"]}
+                disabled={disabled}
             >
                 {open ? "Cancel" : "Edit"}
             </Button>
