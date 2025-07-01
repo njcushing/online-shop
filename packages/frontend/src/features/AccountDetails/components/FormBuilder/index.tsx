@@ -1,8 +1,9 @@
-import { useCallback, useState, Fragment } from "react";
+import { useCallback, useState, Fragment, useEffect } from "react";
 import { TextInput, TextInputProps, NumberInput, NumberInputProps, Button } from "@mantine/core";
 import {
     useForm,
     UseFormProps,
+    DefaultValues,
     SubmitHandler,
     Controller,
     ControllerRenderProps,
@@ -79,6 +80,7 @@ export function FormBuilder<T extends FieldValues>({
         formState: { touchedFields, errors },
         watch,
         trigger,
+        reset,
     } = useForm<T>({
         defaultValues,
         mode: "onSubmit", // Setting to most restrictive to allow user to define mode for each field
@@ -86,6 +88,8 @@ export function FormBuilder<T extends FieldValues>({
     });
 
     const onSubmit: SubmitHandler<T> = (/* data */) => {};
+
+    useEffect(() => reset(defaultValues as DefaultValues<T>), [defaultValues, reset]);
 
     const [hasChanged, setHasChanged] = useState<boolean>(false);
     const checkHasChanged = useCallback(() => {
