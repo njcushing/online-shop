@@ -15,3 +15,18 @@ export type Postcode = string;
 export const postcode: z.ZodType<Postcode> = z
     .string()
     .regex(UKPostcodeRegex, { message: "Invalid UK postcode" });
+
+export type Address = {
+    line1?: string;
+    line2?: string;
+    townCity?: string;
+    county?: string;
+    postcode?: Postcode;
+};
+export const address: z.ZodType<Address> = z.object({
+    line1: z.string(),
+    line2: z.string(),
+    townCity: z.string(),
+    county: z.string(),
+    postcode,
+});

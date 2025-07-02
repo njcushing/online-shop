@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 import { Name, name, Email, email, Phone, phone, DOB, dob } from "@/utils/schemas/user";
-import { Postcode, postcode } from "@/utils/schemas/address";
+import { Address, address } from "@/utils/schemas/address";
 import { DeepRequired } from "react-hook-form";
 
 export type AccountDetails = {
@@ -14,20 +14,8 @@ export type AccountDetails = {
         email?: Email;
     };
     address?: {
-        delivery?: {
-            line1?: string;
-            line2?: string;
-            townCity?: string;
-            county?: string;
-            postcode?: Postcode;
-        };
-        billing?: {
-            line1?: string;
-            line2?: string;
-            townCity?: string;
-            county?: string;
-            postcode?: Postcode;
-        };
+        delivery?: Address;
+        billing?: Address;
     };
 };
 
@@ -43,24 +31,8 @@ export const accountDetailsSchema: z.ZodType<AccountDetails> = z.object({
         .optional(),
     address: z
         .object({
-            delivery: z
-                .object({
-                    line1: z.string().optional(),
-                    line2: z.string().optional(),
-                    townCity: z.string().optional(),
-                    county: z.string().optional(),
-                    postcode: postcode.optional(),
-                })
-                .optional(),
-            billing: z
-                .object({
-                    line1: z.string().optional(),
-                    line2: z.string().optional(),
-                    townCity: z.string().optional(),
-                    county: z.string().optional(),
-                    postcode: postcode.optional(),
-                })
-                .optional(),
+            delivery: address.optional(),
+            billing: address.optional(),
         })
         .optional(),
 });
