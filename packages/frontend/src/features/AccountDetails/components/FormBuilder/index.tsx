@@ -60,6 +60,7 @@ export type TFormBuilder<T extends FieldValues> = {
     ariaLabel?: string;
     defaultValues?: UseFormProps<T>["defaultValues"];
     resolver: UseFormProps<T>["resolver"];
+    onSubmit?: SubmitHandler<T>;
     disabled?: boolean;
     additionalErrorPaths?: string[];
 };
@@ -69,6 +70,7 @@ export function FormBuilder<T extends FieldValues>({
     ariaLabel,
     defaultValues,
     resolver,
+    onSubmit,
     disabled,
     additionalErrorPaths,
 }: TFormBuilder<T>) {
@@ -86,8 +88,6 @@ export function FormBuilder<T extends FieldValues>({
         mode: "onSubmit", // Setting to most restrictive to allow user to define mode for each field
         resolver,
     });
-
-    const onSubmit: SubmitHandler<T> = (/* data */) => {};
 
     useEffect(() => reset(defaultValues as DefaultValues<T>), [defaultValues, reset]);
 
@@ -241,7 +241,7 @@ export function FormBuilder<T extends FieldValues>({
         <form
             className={styles["form"]}
             aria-label={ariaLabel}
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={onSubmit && handleSubmit(onSubmit)}
             noValidate
         >
             <Button
