@@ -3,6 +3,7 @@ import { NavLink, NavLinkProps } from "@mantine/core";
 import { CaretRight } from "@phosphor-icons/react";
 import { ErrorPage } from "@/pages/ErrorPage";
 import { PersonalInformation } from "./components/PersonalInformation";
+import { Addresses } from "./components/Addresses";
 import styles from "./index.module.css";
 
 export const Routes = [
@@ -13,7 +14,7 @@ export const Routes = [
     },
     {
         path: "addresses",
-        element: <div></div>,
+        element: <Addresses />,
         errorElement: <ErrorPage />,
     },
     {
