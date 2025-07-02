@@ -68,7 +68,7 @@ export interface IUserContext {
 const defaultUserContext: IUserContext = {
     cart: { data: [], status: 200, message: "Success", awaiting: false },
     watchlist: { data: [], status: 200, message: "Success", awaiting: false },
-    accountDetails: { data: {}, status: 200, message: "Success", awaiting: false },
+    accountDetails: { data: {}, status: 200, message: "Success", awaiting: true },
 
     defaultData: {
         cart: generateSkeletonCart(),
