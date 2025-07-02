@@ -52,14 +52,14 @@ export const defaultAccountDetails: DeepRequired<AccountDetails> = {
     addresses: {
         delivery: {
             line1: "0 Portland Place",
-            line2: "",
+            line2: "Apartment 101a",
             townCity: "Westminster",
             county: "Greater London",
             postcode: "W1A 1AA",
         },
         billing: {
             line1: "0 Portland Place",
-            line2: "",
+            line2: "Apartment 101a",
             townCity: "Westminster",
             county: "Greater London",
             postcode: "W1A 1AA",
