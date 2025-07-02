@@ -45,7 +45,11 @@ export function PersonalInformation() {
                             },
                         ],
                         fullElement: (
-                            <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                            <Skeleton
+                                visible={awaiting}
+                                classNames={SkeletonClassNames}
+                                width="min-content"
+                            >
                                 <div
                                     className={styles["full-name"]}
                                     style={{ visibility: awaiting ? "hidden" : "initial" }}
@@ -80,7 +84,11 @@ export function PersonalInformation() {
                             },
                         ],
                         fullElement: (
-                            <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                            <Skeleton
+                                visible={awaiting}
+                                classNames={SkeletonClassNames}
+                                width="min-content"
+                            >
                                 <div
                                     className={styles["phone-number"]}
                                     style={{ visibility: awaiting ? "hidden" : "initial" }}
@@ -130,7 +138,11 @@ export function PersonalInformation() {
                             },
                         ],
                         fullElement: (
-                            <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                            <Skeleton
+                                visible={awaiting}
+                                classNames={SkeletonClassNames}
+                                width="min-content"
+                            >
                                 <div
                                     className={styles["date-of-birth"]}
                                     style={{ visibility: awaiting ? "hidden" : "initial" }}
@@ -167,7 +179,11 @@ export function PersonalInformation() {
                             },
                         ],
                         fullElement: (
-                            <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                            <Skeleton
+                                visible={awaiting}
+                                classNames={SkeletonClassNames}
+                                width="min-content"
+                            >
                                 <div
                                     className={styles["email-address"]}
                                     style={{ visibility: awaiting ? "hidden" : "initial" }}

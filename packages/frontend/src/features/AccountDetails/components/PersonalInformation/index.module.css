@@ -14,9 +14,11 @@
 .date-of-birth,
 .email-address {
     display: flex;
+    flex-wrap: nowrap;
 
     font-family: "Radio Canada Big";
     font-size: 1.1rem;
+    text-wrap: nowrap;
 }
 
 .skeleton-root::before {
