@@ -12,7 +12,16 @@ export type AccountDetails = {
         phone?: Phone;
         dob?: DOB;
         email?: Email;
-        address?: {
+    };
+    address?: {
+        delivery?: {
+            line1?: string;
+            line2?: string;
+            townCity?: string;
+            county?: string;
+            postcode?: Postcode;
+        };
+        billing?: {
             line1?: string;
             line2?: string;
             townCity?: string;
@@ -30,13 +39,28 @@ export const accountDetailsSchema: z.ZodType<AccountDetails> = z.object({
             phone: phone.optional(),
             dob: dob.optional(),
             email: email.optional(),
-            address: z.object({
-                line1: z.string().optional(),
-                line2: z.string().optional(),
-                townCity: z.string().optional(),
-                county: z.string().optional(),
-                postcode: postcode.optional(),
-            }),
+        })
+        .optional(),
+    address: z
+        .object({
+            delivery: z
+                .object({
+                    line1: z.string().optional(),
+                    line2: z.string().optional(),
+                    townCity: z.string().optional(),
+                    county: z.string().optional(),
+                    postcode: postcode.optional(),
+                })
+                .optional(),
+            billing: z
+                .object({
+                    line1: z.string().optional(),
+                    line2: z.string().optional(),
+                    townCity: z.string().optional(),
+                    county: z.string().optional(),
+                    postcode: postcode.optional(),
+                })
+                .optional(),
         })
         .optional(),
 });
@@ -52,7 +76,16 @@ export const defaultAccountDetails: DeepRequired<AccountDetails> = {
             year: 1970,
         },
         email: "johnsmith@email.com",
-        address: {
+    },
+    address: {
+        delivery: {
+            line1: "0 Portland Place",
+            line2: "",
+            townCity: "Westminster",
+            county: "Greater London",
+            postcode: "W1A 1AA",
+        },
+        billing: {
             line1: "0 Portland Place",
             line2: "",
             townCity: "Westminster",
