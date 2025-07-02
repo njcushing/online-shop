@@ -13,7 +13,7 @@ export type AccountDetails = {
         dob?: DOB;
         email?: Email;
     };
-    address?: {
+    addresses?: {
         delivery?: Address;
         billing?: Address;
     };
@@ -29,7 +29,7 @@ export const accountDetailsSchema: z.ZodType<AccountDetails> = z.object({
             email: email.optional(),
         })
         .optional(),
-    address: z
+    addresses: z
         .object({
             delivery: address.optional(),
             billing: address.optional(),
@@ -49,7 +49,7 @@ export const defaultAccountDetails: DeepRequired<AccountDetails> = {
         },
         email: "johnsmith@email.com",
     },
-    address: {
+    addresses: {
         delivery: {
             line1: "0 Portland Place",
             line2: "",
