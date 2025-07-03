@@ -1,4 +1,4 @@
-import { useCallback, useState, Fragment, useEffect } from "react";
+import { useCallback, useState, useEffect, Fragment } from "react";
 import { TextInput, TextInputProps, NumberInput, NumberInputProps, Button } from "@mantine/core";
 import {
     useForm,
@@ -248,6 +248,26 @@ export function FormBuilder<T extends FieldValues>({
         [disabled, errors, handleValidate, open],
     );
 
+    const additionalErrors = (() => {
+        const errorElements = (additionalErrorPaths || []).flatMap((pathName) => {
+            const fieldError = getNestedField(errors, [...pathName.split("."), "message"]);
+            if (!fieldError) return [];
+            return (
+                <Fragment key={pathName}>
+                    {createInputError(typeof fieldError === "string" ? fieldError : undefined)}
+                </Fragment>
+            );
+        });
+
+        return errorElements.length > 0 ? (
+            <div
+                className={`${styles["additional-field-errors-container"]} ${classNames?.additionalFieldErrorsContainer}`}
+            >
+                {errorElements}
+            </div>
+        ) : null;
+    })();
+
     const hasErrors = Object.keys(errors).length > 0;
 
     return (
@@ -308,20 +328,7 @@ export function FormBuilder<T extends FieldValues>({
                 })}
             </div>
 
-            <div
-                className={`${styles["additional-field-errors-container"]} ${classNames?.additionalFieldErrorsContainer}`}
-            >
-                {additionalErrorPaths?.map((pathName) => {
-                    const fieldError = getNestedField(errors, [...pathName.split("."), "message"]);
-                    return (
-                        <Fragment key={pathName}>
-                            {createInputError(
-                                typeof fieldError === "string" ? fieldError : undefined,
-                            )}
-                        </Fragment>
-                    );
-                })}
-            </div>
+            {additionalErrors}
 
             {open && (
                 <Button
