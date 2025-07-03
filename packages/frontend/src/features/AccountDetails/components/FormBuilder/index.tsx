@@ -53,6 +53,11 @@ type Fieldset<T extends FieldValues> = {
     legend: string;
     fields: Field<T>[];
     fullElement?: React.ReactNode;
+    classNames?: {
+        fieldset?: string;
+        legend?: string;
+        formFieldsContainer?: string;
+    };
 };
 
 export type TFormBuilder<T extends FieldValues> = {
@@ -63,6 +68,13 @@ export type TFormBuilder<T extends FieldValues> = {
     onSubmit?: SubmitHandler<T>;
     disabled?: boolean;
     additionalErrorPaths?: string[];
+    classNames?: {
+        form?: string;
+        editButton?: string;
+        fieldsetsContainer?: string;
+        additionalFieldErrorsContainer?: string;
+        submitButton?: string;
+    };
 };
 
 export function FormBuilder<T extends FieldValues>({
@@ -73,6 +85,7 @@ export function FormBuilder<T extends FieldValues>({
     onSubmit,
     disabled,
     additionalErrorPaths,
+    classNames,
 }: TFormBuilder<T>) {
     const [open, setOpen] = useState<boolean>(false);
 
@@ -239,7 +252,7 @@ export function FormBuilder<T extends FieldValues>({
 
     return (
         <form
-            className={styles["form"]}
+            className={`${styles["form"]} ${classNames?.form}`}
             aria-label={ariaLabel}
             onSubmit={onSubmit && handleSubmit(onSubmit)}
             noValidate
@@ -249,44 +262,66 @@ export function FormBuilder<T extends FieldValues>({
                 color="rgb(48, 48, 48)"
                 variant="filled"
                 radius={9999}
-                className={styles["edit-button"]}
+                className={`${styles["edit-button"]} ${classNames?.editButton}`}
                 disabled={disabled}
             >
                 {open ? "Cancel" : "Edit"}
             </Button>
 
-            {fieldsets.map((fieldset) => {
-                const { legend, fields, fullElement } = fieldset;
-                return (
-                    <fieldset className={styles["fieldset"]} key={legend}>
-                        <legend className={styles["legend"]}>{legend}</legend>
+            <div className={`${styles["fieldsets-container"]} ${classNames?.fieldsetsContainer}`}>
+                {fieldsets.map((fieldset) => {
+                    const {
+                        legend,
+                        fields,
+                        fullElement,
+                        classNames: fieldsetClassNames,
+                    } = fieldset;
+                    return (
+                        <fieldset
+                            className={`${styles["fieldset"]} ${fieldsetClassNames?.fieldset}`}
+                            key={legend}
+                        >
+                            <legend className={`${styles["legend"]} ${fieldsetClassNames?.legend}`}>
+                                {legend}
+                            </legend>
 
-                        {fields.map((fieldData) => {
-                            const { name } = fieldData;
+                            <div
+                                className={`${styles["form-fields-container"]} ${fieldsetClassNames?.formFieldsContainer}`}
+                            >
+                                {fields.map((fieldData) => {
+                                    const { name } = fieldData;
 
-                            return (
-                                <Controller
-                                    control={control}
-                                    name={name}
-                                    render={({ field }) => createInput(fieldData, field)}
-                                    key={name}
-                                />
-                            );
-                        })}
+                                    return (
+                                        <Controller
+                                            control={control}
+                                            name={name}
+                                            render={({ field }) => createInput(fieldData, field)}
+                                            key={name}
+                                        />
+                                    );
+                                })}
+                            </div>
 
-                        {!open && fullElement}
-                    </fieldset>
-                );
-            })}
+                            {!open && fullElement}
+                        </fieldset>
+                    );
+                })}
+            </div>
 
-            {additionalErrorPaths?.map((pathName) => {
-                const fieldError = getNestedField(errors, [...pathName.split("."), "message"]);
-                return (
-                    <Fragment key={pathName}>
-                        {createInputError(typeof fieldError === "string" ? fieldError : undefined)}
-                    </Fragment>
-                );
-            })}
+            <div
+                className={`${styles["additional-field-errors-container"]} ${classNames?.additionalFieldErrorsContainer}`}
+            >
+                {additionalErrorPaths?.map((pathName) => {
+                    const fieldError = getNestedField(errors, [...pathName.split("."), "message"]);
+                    return (
+                        <Fragment key={pathName}>
+                            {createInputError(
+                                typeof fieldError === "string" ? fieldError : undefined,
+                            )}
+                        </Fragment>
+                    );
+                })}
+            </div>
 
             {open && (
                 <Button
@@ -294,7 +329,7 @@ export function FormBuilder<T extends FieldValues>({
                     color="rgb(48, 48, 48)"
                     variant="filled"
                     radius={9999}
-                    className={styles["submit-button"]}
+                    className={`${styles["submit-button"]} ${classNames?.submitButton}`}
                     disabled={disabled || !hasChanged || hasErrors}
                 >
                     Save changes

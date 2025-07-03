@@ -18,10 +18,15 @@
     width: min-content;
 }
 
-.fieldset {
+.fieldsets-container {
     display: flex;
     flex-direction: column;
     gap: 8px;
+}
+
+.fieldset {
+    display: flex;
+    flex-direction: column;
 }
 
 .legend {
@@ -31,6 +36,12 @@
 
     padding-top: 4px;
     margin-bottom: 20px;
+}
+
+.form-fields-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .form-field-input {
@@ -44,6 +55,12 @@
     font-size: 0.96rem;
 
     background-color: transparent;
+}
+
+.additional-field-errors-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .submit-button {
