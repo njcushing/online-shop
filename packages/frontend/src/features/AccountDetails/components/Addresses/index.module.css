@@ -16,10 +16,15 @@
     gap: 8px;
 }
 
-.address-line {
+.address-line,
+.no-address {
     font-family: "Radio Canada Big";
     font-size: 1.1rem;
     text-wrap: nowrap;
+}
+
+.no-address {
+    font-style: italic;
 }
 
 .skeleton-root::before {

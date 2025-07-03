@@ -16,20 +16,6 @@ export function Addresses() {
 
     const { addresses } = data || {};
     const { delivery, billing } = addresses || {};
-    const {
-        line1: dLine1,
-        line2: dLine2,
-        townCity: dTownCity,
-        county: dCounty,
-        postcode: dPostcode,
-    } = delivery || {};
-    const {
-        line1: bLine1,
-        line2: bLine2,
-        townCity: bTownCity,
-        county: bCounty,
-        postcode: bPostcode,
-    } = billing || {};
 
     const { accountDetails: defaultAccountDetails } = defaultData;
     const { addresses: defaultAddresses } = defaultAccountDetails;
@@ -58,6 +44,58 @@ export function Addresses() {
             </Skeleton>
         ));
     }, [awaiting, defaultD, skeletonProps]);
+
+    const deliveryAddressFullElement = useMemo(() => {
+        if (awaiting) return skeletonAddress;
+        if (!delivery) return <div className={styles["address"]}>No address set</div>;
+        return (
+            <div className={styles["address"]}>
+                <div className={styles["address-line"]}>
+                    <div>{delivery.line1}</div>
+                </div>
+                {delivery.line2 && delivery.line2.length > 0 && (
+                    <div className={styles["address-line"]}>
+                        <div>{delivery.line2}</div>
+                    </div>
+                )}
+                <div className={styles["address-line"]}>
+                    <div>{delivery.townCity}</div>
+                </div>
+                <div className={styles["address-line"]}>
+                    <div>{delivery.county}</div>
+                </div>
+                <div className={styles["address-line"]}>
+                    <div>{delivery.postcode}</div>
+                </div>
+            </div>
+        );
+    }, [awaiting, delivery, skeletonAddress]);
+
+    const billingAddressFullElement = useMemo(() => {
+        if (awaiting) return skeletonAddress;
+        if (!billing) return <div className={styles["no-address"]}>No address set</div>;
+        return (
+            <div className={styles["address"]}>
+                <div className={styles["address-line"]}>
+                    <div>{billing.line1}</div>
+                </div>
+                {billing.line2 && billing.line2.length > 0 && (
+                    <div className={styles["address-line"]}>
+                        <div>{billing.line2}</div>
+                    </div>
+                )}
+                <div className={styles["address-line"]}>
+                    <div>{billing.townCity}</div>
+                </div>
+                <div className={styles["address-line"]}>
+                    <div>{billing.county}</div>
+                </div>
+                <div className={styles["address-line"]}>
+                    <div>{billing.postcode}</div>
+                </div>
+            </div>
+        );
+    }, [awaiting, billing, skeletonAddress]);
 
     return (
         <div className={styles["forms-container"]}>
@@ -99,39 +137,17 @@ export function Addresses() {
                                 mode: "onTouched",
                             },
                         ],
-                        fullElement: awaiting ? (
-                            skeletonAddress
-                        ) : (
-                            <div className={styles["address"]}>
-                                <div className={styles["address-line"]}>
-                                    <div>{dLine1}</div>
-                                </div>
-                                {dLine2 && dLine2.length > 0 && (
-                                    <div className={styles["address-line"]}>
-                                        <div>{dLine2}</div>
-                                    </div>
-                                )}
-                                <div className={styles["address-line"]}>
-                                    <div>{dTownCity}</div>
-                                </div>
-                                <div className={styles["address-line"]}>
-                                    <div>{dCounty}</div>
-                                </div>
-                                <div className={styles["address-line"]}>
-                                    <div>{dPostcode}</div>
-                                </div>
-                            </div>
-                        ),
+                        fullElement: awaiting ? skeletonAddress : deliveryAddressFullElement,
                     },
                 ]}
                 ariaLabel="Delivery Address"
                 defaultValues={{
                     address: {
-                        line1: dLine1 || "",
-                        line2: dLine2 || "",
-                        townCity: dTownCity || "",
-                        county: dCounty || "",
-                        postcode: dPostcode || "",
+                        line1: delivery?.line1 || "",
+                        line2: delivery?.line2 || "",
+                        townCity: delivery?.townCity || "",
+                        county: delivery?.county || "",
+                        postcode: delivery?.postcode || "",
                     },
                 }}
                 resolver={zodResolver(addressFormDataSchema)}
@@ -174,39 +190,17 @@ export function Addresses() {
                                 mode: "onTouched",
                             },
                         ],
-                        fullElement: awaiting ? (
-                            skeletonAddress
-                        ) : (
-                            <div className={styles["address"]}>
-                                <div className={styles["address-line"]}>
-                                    <div>{bLine1}</div>
-                                </div>
-                                {bLine2 && bLine2.length > 0 && (
-                                    <div className={styles["address-line"]}>
-                                        <div>{bLine2}</div>
-                                    </div>
-                                )}
-                                <div className={styles["address-line"]}>
-                                    <div>{bTownCity}</div>
-                                </div>
-                                <div className={styles["address-line"]}>
-                                    <div>{bCounty}</div>
-                                </div>
-                                <div className={styles["address-line"]}>
-                                    <div>{bPostcode}</div>
-                                </div>
-                            </div>
-                        ),
+                        fullElement: awaiting ? skeletonAddress : billingAddressFullElement,
                     },
                 ]}
                 ariaLabel="Billing Address"
                 defaultValues={{
                     address: {
-                        line1: bLine1 || "",
-                        line2: bLine2 || "",
-                        townCity: bTownCity || "",
-                        county: bCounty || "",
-                        postcode: bPostcode || "",
+                        line1: billing?.line1 || "",
+                        line2: billing?.line2 || "",
+                        townCity: billing?.townCity || "",
+                        county: billing?.county || "",
+                        postcode: billing?.postcode || "",
                     },
                 }}
                 resolver={zodResolver(addressFormDataSchema)}
