@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { Skeleton, SkeletonProps } from "@mantine/core";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -33,13 +33,31 @@ export function Addresses() {
 
     const { accountDetails: defaultAccountDetails } = defaultData;
     const { addresses: defaultAddresses } = defaultAccountDetails;
-    const { delivery: defaultD, billing: defaultB } = defaultAddresses;
+    const { delivery: defaultD } = defaultAddresses;
 
-    const skeletonProps = {
-        visible: awaiting,
-        classNames: SkeletonClassNames,
-        width: "min-content",
-    };
+    const skeletonProps = useMemo(
+        () => ({
+            visible: awaiting,
+            classNames: SkeletonClassNames,
+            width: "min-content",
+        }),
+        [awaiting],
+    );
+
+    const skeletonAddress = useMemo(() => {
+        const fields = ["line1", "line2", "townCity", "county", "postcode"];
+
+        return fields.map((field) => (
+            <Skeleton {...skeletonProps} key={field}>
+                <div
+                    className={styles["address-line"]}
+                    style={{ visibility: awaiting ? "hidden" : "initial" }}
+                >
+                    <div>{defaultD[field as keyof typeof defaultD]}</div>
+                </div>
+            </Skeleton>
+        ));
+    }, [awaiting, defaultD, skeletonProps]);
 
     return (
         <div className={styles["forms-container"]}>
@@ -81,58 +99,27 @@ export function Addresses() {
                                 mode: "onTouched",
                             },
                         ],
-                        fullElement: (
+                        fullElement: awaiting ? (
+                            skeletonAddress
+                        ) : (
                             <div className={styles["address"]}>
-                                <Skeleton {...skeletonProps}>
-                                    <div
-                                        className={styles["address-line"]}
-                                        style={{ visibility: awaiting ? "hidden" : "initial" }}
-                                    >
-                                        <div>{awaiting ? `${defaultD.line1}` : `${dLine1}`}</div>
+                                <div className={styles["address-line"]}>
+                                    <div>{dLine1}</div>
+                                </div>
+                                {dLine2 && dLine2.length > 0 && (
+                                    <div className={styles["address-line"]}>
+                                        <div>{dLine2}</div>
                                     </div>
-                                </Skeleton>
-                                {(awaiting || (dLine2 && dLine2.length > 0)) && (
-                                    <Skeleton {...skeletonProps}>
-                                        <div
-                                            className={styles["address-line"]}
-                                            style={{
-                                                visibility: awaiting ? "hidden" : "initial",
-                                            }}
-                                        >
-                                            <div>
-                                                {awaiting ? `${defaultD.line2}` : `${dLine2}`}
-                                            </div>
-                                        </div>
-                                    </Skeleton>
                                 )}
-                                <Skeleton {...skeletonProps}>
-                                    <div
-                                        className={styles["address-line"]}
-                                        style={{ visibility: awaiting ? "hidden" : "initial" }}
-                                    >
-                                        <div>
-                                            {awaiting ? `${defaultD.townCity}` : `${dTownCity}`}
-                                        </div>
-                                    </div>
-                                </Skeleton>
-                                <Skeleton {...skeletonProps}>
-                                    <div
-                                        className={styles["address-line"]}
-                                        style={{ visibility: awaiting ? "hidden" : "initial" }}
-                                    >
-                                        <div>{awaiting ? `${defaultD.county}` : `${dCounty}`}</div>
-                                    </div>
-                                </Skeleton>
-                                <Skeleton {...skeletonProps}>
-                                    <div
-                                        className={styles["address-line"]}
-                                        style={{ visibility: awaiting ? "hidden" : "initial" }}
-                                    >
-                                        <div>
-                                            {awaiting ? `${defaultD.postcode}` : `${dPostcode}`}
-                                        </div>
-                                    </div>
-                                </Skeleton>
+                                <div className={styles["address-line"]}>
+                                    <div>{dTownCity}</div>
+                                </div>
+                                <div className={styles["address-line"]}>
+                                    <div>{dCounty}</div>
+                                </div>
+                                <div className={styles["address-line"]}>
+                                    <div>{dPostcode}</div>
+                                </div>
                             </div>
                         ),
                     },
@@ -187,52 +174,27 @@ export function Addresses() {
                                 mode: "onTouched",
                             },
                         ],
-                        fullElement: (
+                        fullElement: awaiting ? (
+                            skeletonAddress
+                        ) : (
                             <div className={styles["address"]}>
-                                <Skeleton {...skeletonProps}>
-                                    <div
-                                        className={styles["address-line"]}
-                                        style={{ visibility: awaiting ? "hidden" : "initial" }}
-                                    >
-                                        <div>{awaiting ? `${defaultB.line1}` : `${bLine1}`}</div>
+                                <div className={styles["address-line"]}>
+                                    <div>{bLine1}</div>
+                                </div>
+                                {bLine2 && bLine2.length > 0 && (
+                                    <div className={styles["address-line"]}>
+                                        <div>{bLine2}</div>
                                     </div>
-                                </Skeleton>
-                                <Skeleton {...skeletonProps}>
-                                    <div
-                                        className={styles["address-line"]}
-                                        style={{ visibility: awaiting ? "hidden" : "initial" }}
-                                    >
-                                        <div>{awaiting ? `${defaultB.line2}` : `${bLine2}`}</div>
-                                    </div>
-                                </Skeleton>
-                                <Skeleton {...skeletonProps}>
-                                    <div
-                                        className={styles["address-line"]}
-                                        style={{ visibility: awaiting ? "hidden" : "initial" }}
-                                    >
-                                        <div>
-                                            {awaiting ? `${defaultB.townCity}` : `${bTownCity}`}
-                                        </div>
-                                    </div>
-                                </Skeleton>
-                                <Skeleton {...skeletonProps}>
-                                    <div
-                                        className={styles["address-line"]}
-                                        style={{ visibility: awaiting ? "hidden" : "initial" }}
-                                    >
-                                        <div>{awaiting ? `${defaultB.county}` : `${bCounty}`}</div>
-                                    </div>
-                                </Skeleton>
-                                <Skeleton {...skeletonProps}>
-                                    <div
-                                        className={styles["address-line"]}
-                                        style={{ visibility: awaiting ? "hidden" : "initial" }}
-                                    >
-                                        <div>
-                                            {awaiting ? `${defaultB.postcode}` : `${bPostcode}`}
-                                        </div>
-                                    </div>
-                                </Skeleton>
+                                )}
+                                <div className={styles["address-line"]}>
+                                    <div>{bTownCity}</div>
+                                </div>
+                                <div className={styles["address-line"]}>
+                                    <div>{bCounty}</div>
+                                </div>
+                                <div className={styles["address-line"]}>
+                                    <div>{bPostcode}</div>
+                                </div>
                             </div>
                         ),
                     },
