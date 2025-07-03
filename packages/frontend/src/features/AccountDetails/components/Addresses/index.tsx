@@ -98,114 +98,116 @@ export function Addresses() {
     }, [awaiting, billing, skeletonAddress]);
 
     return (
-        <div className={styles["forms-container"]}>
+        <div className={styles["account-settings-content"]}>
             <h1 className={styles["header"]}>Addresses</h1>
 
-            <FormBuilder<AddressFormData>
-                fieldsets={[
-                    {
-                        legend: "Delivery Address",
-                        fields: [
-                            {
-                                type: "text",
-                                name: "address.line1",
-                                label: "Line 1",
-                                mode: "onTouched",
-                            },
-                            {
-                                type: "text",
-                                name: "address.line2",
-                                label: "Line 2",
-                                mode: "onTouched",
-                            },
-                            {
-                                type: "text",
-                                name: "address.townCity",
-                                label: "Town or City",
-                                mode: "onTouched",
-                            },
-                            {
-                                type: "text",
-                                name: "address.county",
-                                label: "County",
-                                mode: "onTouched",
-                            },
-                            {
-                                type: "text",
-                                name: "address.postcode",
-                                label: "Postcode",
-                                mode: "onTouched",
-                            },
-                        ],
-                        fullElement: awaiting ? skeletonAddress : deliveryAddressFullElement,
-                    },
-                ]}
-                ariaLabel="Delivery Address"
-                defaultValues={{
-                    address: {
-                        line1: delivery?.line1 || "",
-                        line2: delivery?.line2 || "",
-                        townCity: delivery?.townCity || "",
-                        county: delivery?.county || "",
-                        postcode: delivery?.postcode || "",
-                    },
-                }}
-                resolver={zodResolver(addressFormDataSchema)}
-                disabled={awaiting}
-            />
+            <div className={styles["forms-container"]}>
+                <FormBuilder<AddressFormData>
+                    fieldsets={[
+                        {
+                            legend: "Delivery Address",
+                            fields: [
+                                {
+                                    type: "text",
+                                    name: "address.line1",
+                                    label: "Line 1",
+                                    mode: "onTouched",
+                                },
+                                {
+                                    type: "text",
+                                    name: "address.line2",
+                                    label: "Line 2",
+                                    mode: "onTouched",
+                                },
+                                {
+                                    type: "text",
+                                    name: "address.townCity",
+                                    label: "Town or City",
+                                    mode: "onTouched",
+                                },
+                                {
+                                    type: "text",
+                                    name: "address.county",
+                                    label: "County",
+                                    mode: "onTouched",
+                                },
+                                {
+                                    type: "text",
+                                    name: "address.postcode",
+                                    label: "Postcode",
+                                    mode: "onTouched",
+                                },
+                            ],
+                            fullElement: awaiting ? skeletonAddress : deliveryAddressFullElement,
+                        },
+                    ]}
+                    ariaLabel="Delivery Address"
+                    defaultValues={{
+                        address: {
+                            line1: delivery?.line1 || "",
+                            line2: delivery?.line2 || "",
+                            townCity: delivery?.townCity || "",
+                            county: delivery?.county || "",
+                            postcode: delivery?.postcode || "",
+                        },
+                    }}
+                    resolver={zodResolver(addressFormDataSchema)}
+                    disabled={awaiting}
+                />
 
-            <FormBuilder<AddressFormData>
-                fieldsets={[
-                    {
-                        legend: "Billing Address",
-                        fields: [
-                            {
-                                type: "text",
-                                name: "address.line1",
-                                label: "Line 1",
-                                mode: "onTouched",
-                            },
-                            {
-                                type: "text",
-                                name: "address.line2",
-                                label: "Line 2",
-                                mode: "onTouched",
-                            },
-                            {
-                                type: "text",
-                                name: "address.townCity",
-                                label: "Town or City",
-                                mode: "onTouched",
-                            },
-                            {
-                                type: "text",
-                                name: "address.county",
-                                label: "County",
-                                mode: "onTouched",
-                            },
-                            {
-                                type: "text",
-                                name: "address.postcode",
-                                label: "Postcode",
-                                mode: "onTouched",
-                            },
-                        ],
-                        fullElement: awaiting ? skeletonAddress : billingAddressFullElement,
-                    },
-                ]}
-                ariaLabel="Billing Address"
-                defaultValues={{
-                    address: {
-                        line1: billing?.line1 || "",
-                        line2: billing?.line2 || "",
-                        townCity: billing?.townCity || "",
-                        county: billing?.county || "",
-                        postcode: billing?.postcode || "",
-                    },
-                }}
-                resolver={zodResolver(addressFormDataSchema)}
-                disabled={awaiting}
-            />
+                <FormBuilder<AddressFormData>
+                    fieldsets={[
+                        {
+                            legend: "Billing Address",
+                            fields: [
+                                {
+                                    type: "text",
+                                    name: "address.line1",
+                                    label: "Line 1",
+                                    mode: "onTouched",
+                                },
+                                {
+                                    type: "text",
+                                    name: "address.line2",
+                                    label: "Line 2",
+                                    mode: "onTouched",
+                                },
+                                {
+                                    type: "text",
+                                    name: "address.townCity",
+                                    label: "Town or City",
+                                    mode: "onTouched",
+                                },
+                                {
+                                    type: "text",
+                                    name: "address.county",
+                                    label: "County",
+                                    mode: "onTouched",
+                                },
+                                {
+                                    type: "text",
+                                    name: "address.postcode",
+                                    label: "Postcode",
+                                    mode: "onTouched",
+                                },
+                            ],
+                            fullElement: awaiting ? skeletonAddress : billingAddressFullElement,
+                        },
+                    ]}
+                    ariaLabel="Billing Address"
+                    defaultValues={{
+                        address: {
+                            line1: billing?.line1 || "",
+                            line2: billing?.line2 || "",
+                            townCity: billing?.townCity || "",
+                            county: billing?.county || "",
+                            postcode: billing?.postcode || "",
+                        },
+                    }}
+                    resolver={zodResolver(addressFormDataSchema)}
+                    disabled={awaiting}
+                />
+            </div>
         </div>
     );
 }
