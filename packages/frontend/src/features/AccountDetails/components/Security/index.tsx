@@ -20,7 +20,7 @@ export function Security() {
                             legend: "Password",
                             fields: [
                                 {
-                                    type: "text",
+                                    type: "password",
                                     name: "newPassword",
                                     label: "New password",
                                     mode: "onTouched",
@@ -28,7 +28,7 @@ export function Security() {
                                     sharedValidation: ["root"],
                                 },
                                 {
-                                    type: "text",
+                                    type: "password",
                                     name: "confirmNewPassword",
                                     label: "Confirm new password",
                                     mode: "onTouched",
