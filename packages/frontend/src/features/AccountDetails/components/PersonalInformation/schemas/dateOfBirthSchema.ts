@@ -1,12 +1,14 @@
 /* c8 ignore start */
 
 import { z } from "zod";
-import { DOB, dob } from "@/utils/schemas/user";
+import { dob } from "@/utils/schemas/user";
+import { AccountDetails } from "@/utils/schemas/account";
+import { DeepPick } from "ts-deep-pick";
 
-export type DateOfBirthFormData = {
-    dob?: DOB;
-};
+export type DateOfBirthFormData = DeepPick<AccountDetails, "personal.dob">;
 
 export const dateOfBirthFormDataSchema: z.ZodType<DateOfBirthFormData> = z.object({
-    dob,
+    personal: z.object({
+        dob,
+    }),
 });

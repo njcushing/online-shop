@@ -34,13 +34,13 @@ export function PersonalInformation() {
                             fields: [
                                 {
                                     type: "text",
-                                    name: "firstName",
+                                    name: "personal.firstName",
                                     label: "First name",
                                     mode: "onTouched",
                                 },
                                 {
                                     type: "text",
-                                    name: "lastName",
+                                    name: "personal.lastName",
                                     label: "Last name",
                                     mode: "onTouched",
                                 },
@@ -67,7 +67,9 @@ export function PersonalInformation() {
                         },
                     ]}
                     ariaLabel="Name"
-                    defaultValues={{ firstName: firstName || "", lastName: lastName || "" }}
+                    defaultValues={{
+                        personal: { firstName: firstName || "", lastName: lastName || "" },
+                    }}
                     resolver={zodResolver(namesFormDataSchema)}
                     disabled={awaiting}
                 />
@@ -79,7 +81,7 @@ export function PersonalInformation() {
                             fields: [
                                 {
                                     type: "text",
-                                    name: "phone",
+                                    name: "personal.phone",
                                     label: "Phone number",
                                     mode: "onTouched",
                                 },
@@ -103,7 +105,7 @@ export function PersonalInformation() {
                         },
                     ]}
                     ariaLabel="Phone number"
-                    defaultValues={{ phone: phone || "" }}
+                    defaultValues={{ personal: { phone: phone || "" } }}
                     resolver={zodResolver(phoneNumberFormDataSchema)}
                     disabled={awaiting}
                 />
@@ -115,7 +117,7 @@ export function PersonalInformation() {
                             fields: [
                                 {
                                     type: "numeric",
-                                    name: "dob.day",
+                                    name: "personal.dob.day",
                                     label: "Day",
                                     mode: "onTouched",
                                     validateOther: ["dob.root"],
@@ -123,7 +125,7 @@ export function PersonalInformation() {
                                 },
                                 {
                                     type: "numeric",
-                                    name: "dob.month",
+                                    name: "personal.dob.month",
                                     label: "Month",
                                     mode: "onTouched",
                                     validateOther: ["dob.root"],
@@ -131,7 +133,7 @@ export function PersonalInformation() {
                                 },
                                 {
                                     type: "numeric",
-                                    name: "dob.year",
+                                    name: "personal.dob.year",
                                     label: "Year",
                                     mode: "onTouched",
                                     validateOther: ["dob.root"],
@@ -161,7 +163,7 @@ export function PersonalInformation() {
                         },
                     ]}
                     ariaLabel="Date of birth"
-                    defaultValues={dob as DateOfBirthFormData}
+                    defaultValues={{ personal: { dob } }}
                     resolver={zodResolver(dateOfBirthFormDataSchema)}
                     disabled={awaiting}
                     additionalErrorPaths={["dob.root"]}
@@ -174,7 +176,7 @@ export function PersonalInformation() {
                             fields: [
                                 {
                                     type: "text",
-                                    name: "email",
+                                    name: "personal.email",
                                     label: "Email address",
                                     mode: "onTouched",
                                 },
@@ -198,7 +200,7 @@ export function PersonalInformation() {
                         },
                     ]}
                     ariaLabel="Email"
-                    defaultValues={{ email: email || "" }}
+                    defaultValues={{ personal: { email: email || "" } }}
                     resolver={zodResolver(emailFormDataSchema)}
                     disabled={awaiting}
                 />

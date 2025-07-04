@@ -1,12 +1,14 @@
 /* c8 ignore start */
 
 import { z } from "zod";
-import { Phone, phone } from "@/utils/schemas/user";
+import { AccountDetails } from "@/utils/schemas/account";
+import { phone } from "@/utils/schemas/user";
+import { DeepPick } from "ts-deep-pick";
 
-export type PhoneNumberFormData = {
-    phone?: Phone;
-};
+export type PhoneNumberFormData = DeepPick<AccountDetails, "personal.phone">;
 
 export const phoneNumberFormDataSchema: z.ZodType<PhoneNumberFormData> = z.object({
-    phone,
+    personal: z.object({
+        phone,
+    }),
 });

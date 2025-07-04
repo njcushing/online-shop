@@ -3,7 +3,7 @@ import { UserContext } from "@/pages/Root";
 import { Skeleton, SkeletonProps } from "@mantine/core";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormBuilder } from "@/features/AccountDetails/components/FormBuilder";
-import { AddressFormData, addressFormDataSchema } from "./schemas/addressSchema";
+import { AddressesFormData, addressesFormDataSchema } from "./schemas/addressSchema";
 import styles from "./index.module.css";
 
 const SkeletonClassNames: SkeletonProps["classNames"] = {
@@ -102,38 +102,38 @@ export function Addresses() {
             <h1 className={styles["header"]}>Addresses</h1>
 
             <div className={styles["forms-container"]}>
-                <FormBuilder<AddressFormData>
+                <FormBuilder<AddressesFormData>
                     fieldsets={[
                         {
                             legend: "Delivery Address",
                             fields: [
                                 {
                                     type: "text",
-                                    name: "address.line1",
+                                    name: "addresses.delivery.line1",
                                     label: "Line 1",
                                     mode: "onTouched",
                                 },
                                 {
                                     type: "text",
-                                    name: "address.line2",
+                                    name: "addresses.delivery.line2",
                                     label: "Line 2",
                                     mode: "onTouched",
                                 },
                                 {
                                     type: "text",
-                                    name: "address.townCity",
+                                    name: "addresses.delivery.townCity",
                                     label: "Town or City",
                                     mode: "onTouched",
                                 },
                                 {
                                     type: "text",
-                                    name: "address.county",
+                                    name: "addresses.delivery.county",
                                     label: "County",
                                     mode: "onTouched",
                                 },
                                 {
                                     type: "text",
-                                    name: "address.postcode",
+                                    name: "addresses.delivery.postcode",
                                     label: "Postcode",
                                     mode: "onTouched",
                                 },
@@ -143,50 +143,52 @@ export function Addresses() {
                     ]}
                     ariaLabel="Delivery Address"
                     defaultValues={{
-                        address: {
-                            line1: delivery?.line1 || "",
-                            line2: delivery?.line2 || "",
-                            townCity: delivery?.townCity || "",
-                            county: delivery?.county || "",
-                            postcode: delivery?.postcode || "",
+                        addresses: {
+                            delivery: {
+                                line1: delivery?.line1 || "",
+                                line2: delivery?.line2 || "",
+                                townCity: delivery?.townCity || "",
+                                county: delivery?.county || "",
+                                postcode: delivery?.postcode || "",
+                            },
                         },
                     }}
-                    resolver={zodResolver(addressFormDataSchema)}
+                    resolver={zodResolver(addressesFormDataSchema)}
                     disabled={awaiting}
                 />
 
-                <FormBuilder<AddressFormData>
+                <FormBuilder<AddressesFormData>
                     fieldsets={[
                         {
                             legend: "Billing Address",
                             fields: [
                                 {
                                     type: "text",
-                                    name: "address.line1",
+                                    name: "addresses.billing.line1",
                                     label: "Line 1",
                                     mode: "onTouched",
                                 },
                                 {
                                     type: "text",
-                                    name: "address.line2",
+                                    name: "addresses.billing.line2",
                                     label: "Line 2",
                                     mode: "onTouched",
                                 },
                                 {
                                     type: "text",
-                                    name: "address.townCity",
+                                    name: "addresses.billing.townCity",
                                     label: "Town or City",
                                     mode: "onTouched",
                                 },
                                 {
                                     type: "text",
-                                    name: "address.county",
+                                    name: "addresses.billing.county",
                                     label: "County",
                                     mode: "onTouched",
                                 },
                                 {
                                     type: "text",
-                                    name: "address.postcode",
+                                    name: "addresses.billing.postcode",
                                     label: "Postcode",
                                     mode: "onTouched",
                                 },
@@ -196,15 +198,17 @@ export function Addresses() {
                     ]}
                     ariaLabel="Billing Address"
                     defaultValues={{
-                        address: {
-                            line1: billing?.line1 || "",
-                            line2: billing?.line2 || "",
-                            townCity: billing?.townCity || "",
-                            county: billing?.county || "",
-                            postcode: billing?.postcode || "",
+                        addresses: {
+                            billing: {
+                                line1: billing?.line1 || "",
+                                line2: billing?.line2 || "",
+                                townCity: billing?.townCity || "",
+                                county: billing?.county || "",
+                                postcode: billing?.postcode || "",
+                            },
                         },
                     }}
-                    resolver={zodResolver(addressFormDataSchema)}
+                    resolver={zodResolver(addressesFormDataSchema)}
                     disabled={awaiting}
                 />
             </div>

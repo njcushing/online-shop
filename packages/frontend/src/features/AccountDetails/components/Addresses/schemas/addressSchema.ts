@@ -1,12 +1,15 @@
 /* c8 ignore start */
 
 import { z } from "zod";
-import { Address, address } from "@/utils/schemas/address";
+import { AccountDetails } from "@/utils/schemas/account";
+import { address } from "@/utils/schemas/address";
+import { DeepPick } from "ts-deep-pick";
 
-export type AddressFormData = {
-    address?: Address;
-};
+export type AddressesFormData = DeepPick<AccountDetails, "addresses">;
 
-export const addressFormDataSchema: z.ZodType<AddressFormData> = z.object({
-    address,
+export const addressesFormDataSchema: z.ZodType<AddressesFormData> = z.object({
+    addresses: z.object({
+        delivery: address,
+        billing: address,
+    }),
 });
