@@ -3,11 +3,12 @@ import { Outlet } from "react-router-dom";
 import { Header } from "@/features/Header";
 import { Footer } from "@/features/Footer";
 import { generateSkeletonCart, PopulatedCartItemData } from "@/utils/products/cart";
-import { mockGetAccountDetails, mockGetCart, mockGetWatchlist } from "@/api/mocks";
+import { mockGetAccountDetails, mockGetCart, mockGetOrders, mockGetWatchlist } from "@/api/mocks";
 import { FuncResponseObject } from "@/api/types";
 import { RecursivePartial } from "@/utils/types";
 import * as useAsync from "@/hooks/useAsync";
 import { UserWatchlist } from "@/utils/products/watchlist";
+import { PopulatedOrderData } from "@/utils/products/orders";
 import { AccountDetails, defaultAccountDetails } from "@/utils/schemas/account";
 import { DeepRequired } from "react-hook-form";
 import { Home } from "../Home";
@@ -57,6 +58,7 @@ const defaultRootContext: IRootContext = {
 export interface IUserContext {
     cart: FuncResponseObject<PopulatedCartItemData[]> & { awaiting: boolean };
     watchlist: FuncResponseObject<UserWatchlist> & { awaiting: boolean };
+    orders: FuncResponseObject<PopulatedOrderData[]> & { awaiting: boolean };
     accountDetails: FuncResponseObject<AccountDetails> & { awaiting: boolean };
 
     defaultData: {
@@ -68,6 +70,7 @@ export interface IUserContext {
 const defaultUserContext: IUserContext = {
     cart: { data: [], status: 200, message: "Success", awaiting: false },
     watchlist: { data: [], status: 200, message: "Success", awaiting: false },
+    orders: { data: [], status: 200, message: "Success", awaiting: false },
     accountDetails: { data: {}, status: 200, message: "Success", awaiting: true },
 
     defaultData: {
@@ -121,6 +124,17 @@ export function Root({ children }: TRoot) {
         [watchlistResponse, awaitingWatchlistData],
     );
 
+    const [orders, setOrders] = useState<IUserContext["orders"]>(defaultUserContext.orders);
+    const { response: ordersResponse, awaiting: awaitingOrders } = useAsync.GET(
+        mockGetOrders,
+        [{}],
+        { attemptOnMount: true },
+    );
+    useEffect(
+        () => setOrders({ ...ordersResponse, awaiting: awaitingOrders }),
+        [ordersResponse, awaitingOrders],
+    );
+
     const [accountDetails, setAccountDetails] = useState<IUserContext["accountDetails"]>(
         defaultUserContext.accountDetails,
     );
@@ -142,10 +156,11 @@ export function Root({ children }: TRoot) {
                     () => ({
                         cart,
                         watchlist,
+                        orders,
                         accountDetails,
                         defaultData: defaultUserContext.defaultData,
                     }),
-                    [cart, watchlist, accountDetails],
+                    [cart, watchlist, orders, accountDetails],
                 )}
             >
                 <div className={styles["page"]}>
