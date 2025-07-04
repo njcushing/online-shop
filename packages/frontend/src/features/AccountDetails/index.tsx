@@ -4,6 +4,7 @@ import { CaretRight } from "@phosphor-icons/react";
 import { ErrorPage } from "@/pages/ErrorPage";
 import { PersonalInformation } from "./components/PersonalInformation";
 import { Addresses } from "./components/Addresses";
+import { Security } from "./components/Security";
 import styles from "./index.module.css";
 
 export const Routes = [
@@ -19,7 +20,7 @@ export const Routes = [
     },
     {
         path: "security",
-        element: <div></div>,
+        element: <Security />,
         errorElement: <ErrorPage />,
     },
     {
