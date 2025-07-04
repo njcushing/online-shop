@@ -1,6 +1,7 @@
 import { ProductReview, Product, reviews, products as productData } from "@/utils/products/product";
 import { CartItemData, PopulatedCartItemData, mockCart } from "@/utils/products/cart";
 import { UserWatchlist, watchlists } from "@/utils/products/watchlist";
+import { mockOrders, OrderData, PopulatedOrderData } from "@/utils/products/orders";
 import { filterOptions, sortOptions } from "@/features/ProductReviews";
 import { AccountDetails, defaultAccountDetails } from "@/utils/schemas/account";
 import * as HTTPMethodTypes from "./types";
@@ -107,6 +108,39 @@ export const mockUpdateCart: HTTPMethodTypes.PUT<
         status: 200,
         message: "Success",
         data: mockPopulateCartItems(updatedCart),
+    };
+};
+
+export const mockPopulateOrders = (orders: OrderData[]): PopulatedOrderData[] => {
+    return orders.flatMap((order) => {
+        const { productId, variantId, quantity, orderDate } = order;
+        const matchedProduct = productData.find((product) => product.id === productId);
+        if (!matchedProduct) return [];
+        const matchedVariant = matchedProduct.variants.find((variant) => variant.id === variantId);
+        if (!matchedVariant) return [];
+        return { product: matchedProduct, variant: matchedVariant, quantity, orderDate };
+    });
+};
+
+export const mockGetOrders: HTTPMethodTypes.GET<undefined, PopulatedOrderData[]> = async () => {
+    await new Promise((resolve) => {
+        setTimeout(resolve, 1000);
+    });
+
+    const foundOrders = mockPopulateOrders(mockOrders);
+
+    if (!foundOrders) {
+        return {
+            status: 404,
+            message: "Orders not found",
+            data: null,
+        };
+    }
+
+    return {
+        status: 200,
+        message: "Success",
+        data: foundOrders,
     };
 };
 
