@@ -1,5 +1,13 @@
 import { useCallback, useState, useEffect, Fragment } from "react";
-import { TextInput, TextInputProps, NumberInput, NumberInputProps, Button } from "@mantine/core";
+import {
+    TextInput,
+    TextInputProps,
+    NumberInput,
+    NumberInputProps,
+    PasswordInput,
+    PasswordInputProps,
+    Button,
+} from "@mantine/core";
 import {
     useForm,
     UseFormProps,
@@ -30,7 +38,10 @@ const inputProps = {
 };
 
 // 'name' must resolve to a type in the schema that is a valid 'value' in the input
-type ValidPathValueTypes = TextInputProps["value"] | NumberInputProps["value"];
+type ValidPathValueTypes =
+    | TextInputProps["value"]
+    | NumberInputProps["value"]
+    | PasswordInputProps["value"];
 type ValidPath<T extends FieldValues> =
     FieldPath<T> extends infer P
         ? P extends FieldPath<T>
@@ -41,7 +52,7 @@ type ValidPath<T extends FieldValues> =
         : never;
 
 type Field<T extends FieldValues> = {
-    type: "text" | "numeric";
+    type: "text" | "numeric" | "password";
     name: ValidPath<T>;
     label: string;
     mode: UseFormProps<T>["mode"];
@@ -204,6 +215,38 @@ export function FormBuilder<T extends FieldValues>({
                             }}
                             onChange={(v) => {
                                 field.onChange(typeof v === "number" ? v : undefined);
+                                handleValidate("change", mode, field, validateOther);
+                            }}
+                            aria-hidden={!open}
+                            style={{
+                                visibility: open ? "initial" : "hidden",
+                                display: open ? "initial" : "none",
+                            }}
+                            disabled={disabled}
+                        />
+                    );
+                case "password":
+                    return (
+                        <PasswordInput
+                            {...field}
+                            {...inputProps}
+                            label={label}
+                            // Not sure why, but this component's <label> isn't accessible in unit
+                            // tests by the 'label' prop value, so I'm setting the aria attribute
+                            // too
+                            aria-label={label}
+                            error={
+                                createInputError(
+                                    typeof fieldError === "string" ? fieldError : undefined,
+                                ) || sharedFieldsHaveErrors.length > 0
+                            }
+                            onBlur={() => {
+                                field.onBlur();
+                                handleValidate("blur", mode, field, validateOther);
+                            }}
+                            onChange={(v) => {
+                                const { value } = v.target;
+                                field.onChange(value.length > 0 ? value : undefined);
                                 handleValidate("change", mode, field, validateOther);
                             }}
                             aria-hidden={!open}
