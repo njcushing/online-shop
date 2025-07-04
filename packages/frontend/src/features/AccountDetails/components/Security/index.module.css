@@ -1,0 +1,33 @@
+.account-settings-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.header {
+    font-family: "Radio Canada Big";
+    font-size: 2rem;
+}
+
+.forms-container {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.update-password-message {
+    font-family: "Radio Canada Big";
+    font-size: 1.1rem;
+    text-wrap: nowrap;
+}
+
+.no-address {
+    font-style: italic;
+}
+
+.skeleton-root::before {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+.skeleton-root::after {
+    background-color: rgba(0, 0, 0, 0.16);
+}
