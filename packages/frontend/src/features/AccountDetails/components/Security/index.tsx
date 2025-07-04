@@ -24,12 +24,16 @@ export function Security() {
                                     name: "newPassword",
                                     label: "New password",
                                     mode: "onTouched",
+                                    validateOther: ["root"],
+                                    sharedValidation: ["root"],
                                 },
                                 {
                                     type: "text",
                                     name: "confirmNewPassword",
                                     label: "Confirm new password",
                                     mode: "onTouched",
+                                    validateOther: ["root"],
+                                    sharedValidation: ["root"],
                                 },
                             ],
                             fullElement: (
@@ -43,6 +47,7 @@ export function Security() {
                     defaultValues={{ newPassword: "", confirmNewPassword: "" }}
                     resolver={zodResolver(passwordsFormDataSchema)}
                     disabled={awaiting}
+                    additionalErrorPaths={["root"]}
                 />
             </div>
         </div>

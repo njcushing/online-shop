@@ -8,7 +8,12 @@ export type PasswordsFormData = {
     confirmNewPassword: Password;
 };
 
-export const passwordsFormDataSchema: z.ZodType<PasswordsFormData> = z.object({
-    newPassword: password,
-    confirmNewPassword: password,
-});
+export const passwordsFormDataSchema: z.ZodType<PasswordsFormData> = z
+    .object({
+        newPassword: password,
+        confirmNewPassword: password,
+    })
+    .refine((data) => data.newPassword === data.confirmNewPassword, {
+        message: "Passwords do not match",
+        path: ["root"],
+    });
