@@ -1,0 +1,117 @@
+.order-summary {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+
+    border: 1px solid #000;
+}
+
+.top-bar {
+    display: grid;
+    grid-template-columns: 1fr repeat(2, auto);
+    gap: 16px;
+
+    background-color: rgb(255, 236, 218);
+
+    padding: 8px;
+}
+
+.order-no,
+.total,
+.order-date {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    font-family: "Radio Canada Big";
+    font-size: 0.96rem;
+
+    strong {
+        font-weight: 600;
+        text-wrap: nowrap;
+    }
+}
+
+.content {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+
+    padding: 8px;
+}
+
+.product-thumbnail-image {
+    align-self: center;
+
+    width: 160px;
+    aspect-ratio: 1;
+}
+
+.content-column-2 {
+    display: grid;
+    grid-template-rows: repeat(3, auto) 1fr;
+    gap: 8px;
+}
+
+.product-full-name {
+    font-family: "Radio Canada Big";
+    font-size: 1.2rem;
+    font-weight: 400;
+
+    width: 100%;
+}
+
+.product-variant-options {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 4px;
+}
+
+.product-variant-option-info {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+}
+
+.product-variant-option-name {
+    font-family: "Radio Canada Big";
+    font-weight: 500;
+}
+
+.product-variant-option-value {
+    font-family: "Radio Canada Big";
+}
+
+.product-variant-unit-cost {
+    font-family: "Radio Canada Big";
+    font-size: 1.1rem;
+    font-weight: 400;
+
+    width: 100%;
+}
+
+.quantity {
+    align-self: end;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 4px;
+
+    font-family: "Radio Canada Big";
+    font-size: 1rem;
+
+    strong {
+        font-weight: 500;
+        text-wrap: nowrap;
+    }
+}
+
+.skeleton-root::before {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+.skeleton-root::after {
+    background-color: rgba(0, 0, 0, 0.16);
+}
