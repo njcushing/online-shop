@@ -4,6 +4,8 @@ import {
     generateSkeletonProduct,
     generateSkeletonProductVariant,
 } from "@/utils/products/product";
+import { defaultAccountDetails } from "@/utils/schemas/account";
+import { Address } from "@/utils/schemas/address";
 import { RecursivePartial } from "@/utils/types";
 import { ulid } from "ulid";
 
@@ -15,6 +17,8 @@ export type OrderData = {
     quantity: number;
     cost: number;
     orderDate: string;
+    deliveryAddress: Address;
+    billingAddress: Address;
 };
 
 export type PopulatedOrderData = {
@@ -25,6 +29,8 @@ export type PopulatedOrderData = {
     quantity: number;
     cost: number;
     orderDate: string;
+    deliveryAddress: Address;
+    billingAddress: Address;
 };
 
 export const mockOrders: OrderData[] = [
@@ -36,6 +42,8 @@ export const mockOrders: OrderData[] = [
         quantity: 3,
         cost: 1029,
         orderDate: new Date().toISOString(),
+        deliveryAddress: defaultAccountDetails.addresses.delivery,
+        billingAddress: defaultAccountDetails.addresses.billing,
     },
     {
         id: "2",
@@ -45,6 +53,8 @@ export const mockOrders: OrderData[] = [
         quantity: 14,
         cost: 3009,
         orderDate: new Date().toISOString(),
+        deliveryAddress: defaultAccountDetails.addresses.delivery,
+        billingAddress: defaultAccountDetails.addresses.billing,
     },
     {
         id: "3",
@@ -54,6 +64,8 @@ export const mockOrders: OrderData[] = [
         quantity: 18,
         cost: 989,
         orderDate: new Date().toISOString(),
+        deliveryAddress: defaultAccountDetails.addresses.delivery,
+        billingAddress: defaultAccountDetails.addresses.billing,
     },
     {
         id: "4",
@@ -63,6 +75,8 @@ export const mockOrders: OrderData[] = [
         quantity: 6,
         cost: 1099,
         orderDate: new Date().toISOString(),
+        deliveryAddress: defaultAccountDetails.addresses.delivery,
+        billingAddress: defaultAccountDetails.addresses.billing,
     },
     {
         id: "5",
@@ -72,6 +86,8 @@ export const mockOrders: OrderData[] = [
         quantity: 22,
         cost: 2019,
         orderDate: new Date().toISOString(),
+        deliveryAddress: defaultAccountDetails.addresses.delivery,
+        billingAddress: defaultAccountDetails.addresses.billing,
     },
 ];
 
@@ -88,5 +104,7 @@ export const generateSkeletonOrderList = (
         quantity: 1,
         cost: Math.floor(Math.random() * 2000) + 1000,
         orderDate: new Date().toISOString(),
+        deliveryAddress: defaultAccountDetails.addresses.delivery,
+        billingAddress: defaultAccountDetails.addresses.billing,
     }));
 };
