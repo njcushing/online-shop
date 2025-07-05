@@ -5,9 +5,11 @@ import {
     generateSkeletonProductVariant,
 } from "@/utils/products/product";
 import { RecursivePartial } from "@/utils/types";
+import { ulid } from "ulid";
 
 export type OrderData = {
     id: string;
+    orderNo: string;
     productId: Product["id"];
     variantId: Product["variants"][number]["id"];
     quantity: number;
@@ -17,6 +19,7 @@ export type OrderData = {
 
 export type PopulatedOrderData = {
     id: string;
+    orderNo: string;
     product: Product;
     variant: ProductVariant;
     quantity: number;
@@ -27,6 +30,7 @@ export type PopulatedOrderData = {
 export const mockOrders: OrderData[] = [
     {
         id: "1",
+        orderNo: ulid(),
         productId: "1",
         variantId: "1-1",
         quantity: 3,
@@ -35,6 +39,7 @@ export const mockOrders: OrderData[] = [
     },
     {
         id: "2",
+        orderNo: ulid(),
         productId: "1",
         variantId: "1-3",
         quantity: 14,
@@ -43,6 +48,7 @@ export const mockOrders: OrderData[] = [
     },
     {
         id: "3",
+        orderNo: ulid(),
         productId: "2",
         variantId: "2-1",
         quantity: 18,
@@ -51,6 +57,7 @@ export const mockOrders: OrderData[] = [
     },
     {
         id: "4",
+        orderNo: ulid(),
         productId: "2",
         variantId: "2-3",
         quantity: 6,
@@ -59,6 +66,7 @@ export const mockOrders: OrderData[] = [
     },
     {
         id: "5",
+        orderNo: ulid(),
         productId: "3",
         variantId: "3-1",
         quantity: 22,
@@ -74,6 +82,7 @@ export const generateSkeletonOrderList = (
         length,
     }).map((v, i) => ({
         id: `${i + 1}`,
+        orderNo: ulid(),
         product: generateSkeletonProduct(),
         variant: generateSkeletonProductVariant(),
         quantity: 1,
