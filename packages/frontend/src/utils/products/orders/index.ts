@@ -7,6 +7,7 @@ import {
 import { RecursivePartial } from "@/utils/types";
 
 export type OrderData = {
+    id: string;
     productId: Product["id"];
     variantId: Product["variants"][number]["id"];
     quantity: number;
@@ -15,6 +16,7 @@ export type OrderData = {
 };
 
 export type PopulatedOrderData = {
+    id: string;
     product: Product;
     variant: ProductVariant;
     quantity: number;
@@ -24,6 +26,7 @@ export type PopulatedOrderData = {
 
 export const mockOrders: OrderData[] = [
     {
+        id: "1",
         productId: "1",
         variantId: "1-1",
         quantity: 3,
@@ -31,6 +34,7 @@ export const mockOrders: OrderData[] = [
         orderDate: new Date().toISOString(),
     },
     {
+        id: "2",
         productId: "1",
         variantId: "1-3",
         quantity: 14,
@@ -38,6 +42,7 @@ export const mockOrders: OrderData[] = [
         orderDate: new Date().toISOString(),
     },
     {
+        id: "3",
         productId: "2",
         variantId: "2-1",
         quantity: 18,
@@ -45,6 +50,7 @@ export const mockOrders: OrderData[] = [
         orderDate: new Date().toISOString(),
     },
     {
+        id: "4",
         productId: "2",
         variantId: "2-3",
         quantity: 6,
@@ -52,6 +58,7 @@ export const mockOrders: OrderData[] = [
         orderDate: new Date().toISOString(),
     },
     {
+        id: "5",
         productId: "3",
         variantId: "3-1",
         quantity: 22,
@@ -65,7 +72,8 @@ export const generateSkeletonOrderList = (
 ): RecursivePartial<PopulatedOrderData>[] => {
     return Array.from({
         length,
-    }).map(() => ({
+    }).map((v, i) => ({
+        id: `${i + 1}`,
         product: generateSkeletonProduct(),
         variant: generateSkeletonProductVariant(),
         quantity: 1,
