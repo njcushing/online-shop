@@ -21,7 +21,10 @@ export type OrderDataBase = {
     status: OrderStatus;
     userId: string;
     quantity: number;
-    cost: number;
+    cost: {
+        unit: number;
+        paid: number;
+    };
     orderDate: string;
     deliveryAddress: Address;
     billingAddress: Address;
@@ -46,7 +49,7 @@ export const mockOrders: OrderData[] = [
         status: "pending",
         userId: "1",
         quantity: 3,
-        cost: 1029,
+        cost: { unit: 700, paid: 1899 },
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
@@ -62,7 +65,7 @@ export const mockOrders: OrderData[] = [
         status: "paid",
         userId: "1",
         quantity: 14,
-        cost: 3009,
+        cost: { unit: 700, paid: 8199 },
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
@@ -78,7 +81,7 @@ export const mockOrders: OrderData[] = [
         status: "shipped",
         userId: "1",
         quantity: 18,
-        cost: 989,
+        cost: { unit: 1250, paid: 20099 },
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
@@ -94,7 +97,7 @@ export const mockOrders: OrderData[] = [
         status: "delivered",
         userId: "1",
         quantity: 6,
-        cost: 1099,
+        cost: { unit: 1250, paid: 7099 },
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
@@ -110,7 +113,7 @@ export const mockOrders: OrderData[] = [
         status: "cancelled",
         userId: "1",
         quantity: 22,
-        cost: 2019,
+        cost: { unit: 2250, paid: 43099 },
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
@@ -133,7 +136,14 @@ export const generateSkeletonOrderList = (
         status: statuses[Math.floor(Math.random() * statuses.length)],
         userId: "1",
         quantity: 1,
-        cost: Math.floor(Math.random() * 2000) + 1000,
+        cost: (() => {
+            const unit = Math.floor(Math.random() * 2000) + 1000;
+
+            return {
+                unit,
+                paid: unit * Math.random() * 0.2 + 0.8,
+            };
+        })(),
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
