@@ -8,7 +8,7 @@ import { FuncResponseObject } from "@/api/types";
 import { RecursivePartial } from "@/utils/types";
 import * as useAsync from "@/hooks/useAsync";
 import { UserWatchlist } from "@/utils/products/watchlist";
-import { PopulatedOrderData } from "@/utils/products/orders";
+import { generateSkeletonOrderList, PopulatedOrderData } from "@/utils/products/orders";
 import { AccountDetails, defaultAccountDetails } from "@/utils/schemas/account";
 import { DeepRequired } from "react-hook-form";
 import { Home } from "../Home";
@@ -64,6 +64,7 @@ export interface IUserContext {
     defaultData: {
         cart: RecursivePartial<PopulatedCartItemData>[];
         accountDetails: DeepRequired<AccountDetails>;
+        orders: RecursivePartial<PopulatedOrderData>[];
     };
 }
 
@@ -76,6 +77,7 @@ const defaultUserContext: IUserContext = {
     defaultData: {
         cart: generateSkeletonCart(),
         accountDetails: defaultAccountDetails,
+        orders: generateSkeletonOrderList(),
     },
 };
 
