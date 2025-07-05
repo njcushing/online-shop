@@ -9,11 +9,14 @@ import { Address } from "@/utils/schemas/address";
 import { RecursivePartial } from "@/utils/types";
 import { ulid } from "ulid";
 
-export type OrderData = {
+const statuses = ["pending", "paid", "shipped", "delivered", "cancelled", "refunded"] as const;
+type OrderStatus = (typeof statuses)[number];
+
+export type OrderDataBase = {
     id: string;
     orderNo: string;
-    productId: Product["id"];
-    variantId: Product["variants"][number]["id"];
+    status: OrderStatus;
+    userId: string;
     quantity: number;
     cost: number;
     orderDate: string;
@@ -21,73 +24,86 @@ export type OrderData = {
     billingAddress: Address;
 };
 
-export type PopulatedOrderData = {
-    id: string;
-    orderNo: string;
+export type OrderData = OrderDataBase & {
+    productId: Product["id"];
+    variantId: Product["variants"][number]["id"];
+};
+
+export type PopulatedOrderData = OrderDataBase & {
     product: Product;
     variant: ProductVariant;
-    quantity: number;
-    cost: number;
-    orderDate: string;
-    deliveryAddress: Address;
-    billingAddress: Address;
 };
 
 export const mockOrders: OrderData[] = [
     {
         id: "1",
         orderNo: ulid(),
-        productId: "1",
-        variantId: "1-1",
+        status: "pending",
+        userId: "1",
         quantity: 3,
         cost: 1029,
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
+
+        productId: "1",
+        variantId: "1-1",
     },
     {
         id: "2",
         orderNo: ulid(),
-        productId: "1",
-        variantId: "1-3",
+        status: "paid",
+        userId: "1",
         quantity: 14,
         cost: 3009,
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
+
+        productId: "1",
+        variantId: "1-3",
     },
     {
         id: "3",
         orderNo: ulid(),
-        productId: "2",
-        variantId: "2-1",
+        status: "shipped",
+        userId: "1",
         quantity: 18,
         cost: 989,
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
+
+        productId: "2",
+        variantId: "2-1",
     },
     {
         id: "4",
         orderNo: ulid(),
-        productId: "2",
-        variantId: "2-3",
+        status: "delivered",
+        userId: "1",
         quantity: 6,
         cost: 1099,
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
+
+        productId: "2",
+        variantId: "2-3",
     },
     {
         id: "5",
         orderNo: ulid(),
-        productId: "3",
-        variantId: "3-1",
+        status: "cancelled",
+        userId: "1",
         quantity: 22,
         cost: 2019,
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
+
+        productId: "3",
+        variantId: "3-1",
     },
 ];
 
@@ -99,12 +115,15 @@ export const generateSkeletonOrderList = (
     }).map((v, i) => ({
         id: `${i + 1}`,
         orderNo: ulid(),
-        product: generateSkeletonProduct(),
-        variant: generateSkeletonProductVariant(),
+        status: statuses[Math.floor(Math.random() * statuses.length)],
+        userId: "1",
         quantity: 1,
         cost: Math.floor(Math.random() * 2000) + 1000,
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
+
+        product: generateSkeletonProduct(),
+        variant: generateSkeletonProductVariant(),
     }));
 };
