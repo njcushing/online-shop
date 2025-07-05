@@ -12,6 +12,9 @@ import { ulid } from "ulid";
 const statuses = ["pending", "paid", "shipped", "delivered", "cancelled", "refunded"] as const;
 type OrderStatus = (typeof statuses)[number];
 
+const paymentMethods = ["card", "paypal", "bank_transfer", "gift_card"] as const;
+type PaymentMethod = (typeof paymentMethods)[number];
+
 export type OrderDataBase = {
     id: string;
     orderNo: string;
@@ -22,6 +25,7 @@ export type OrderDataBase = {
     orderDate: string;
     deliveryAddress: Address;
     billingAddress: Address;
+    paymentMethod: PaymentMethod;
 };
 
 export type OrderData = OrderDataBase & {
@@ -45,6 +49,7 @@ export const mockOrders: OrderData[] = [
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
+        paymentMethod: "card",
 
         productId: "1",
         variantId: "1-1",
@@ -59,6 +64,7 @@ export const mockOrders: OrderData[] = [
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
+        paymentMethod: "card",
 
         productId: "1",
         variantId: "1-3",
@@ -73,6 +79,7 @@ export const mockOrders: OrderData[] = [
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
+        paymentMethod: "paypal",
 
         productId: "2",
         variantId: "2-1",
@@ -87,6 +94,7 @@ export const mockOrders: OrderData[] = [
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
+        paymentMethod: "bank_transfer",
 
         productId: "2",
         variantId: "2-3",
@@ -101,6 +109,7 @@ export const mockOrders: OrderData[] = [
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
+        paymentMethod: "gift_card",
 
         productId: "3",
         variantId: "3-1",
@@ -122,6 +131,7 @@ export const generateSkeletonOrderList = (
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
+        paymentMethod: paymentMethods[Math.floor(Math.random() * paymentMethods.length)],
 
         product: generateSkeletonProduct(),
         variant: generateSkeletonProductVariant(),
