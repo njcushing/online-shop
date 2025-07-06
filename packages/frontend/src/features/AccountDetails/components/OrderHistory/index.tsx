@@ -8,14 +8,15 @@ export function OrderHistory() {
 
     const data = orders.data || (defaultData.orders as NonNullable<IUserContext["orders"]["data"]>);
 
-    return (
+    return data && data.length > 0 ? (
         <ul className={styles["order-history"]}>
-            {data &&
-                data.map((order) => {
-                    const { id } = order;
+            {data.map((order) => {
+                const { id } = order;
 
-                    return <OrderSummary data={order} key={id} />;
-                })}
+                return <OrderSummary data={order} key={id} />;
+            })}
         </ul>
+    ) : (
+        <p className={styles["no-order-history-message"]}>Nothing to show!</p>
     );
 }
