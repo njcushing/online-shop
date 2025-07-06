@@ -10,10 +10,10 @@ import { RecursivePartial } from "@/utils/types";
 import { ulid } from "ulid";
 
 const statuses = ["pending", "paid", "shipped", "delivered", "cancelled", "refunded"] as const;
-type OrderStatus = (typeof statuses)[number];
+export type OrderStatus = (typeof statuses)[number];
 
 const paymentMethods = ["card", "paypal", "bank_transfer", "gift_card"] as const;
-type PaymentMethod = (typeof paymentMethods)[number];
+export type PaymentMethod = (typeof paymentMethods)[number];
 
 export type OrderDataBase = {
     id: string;
