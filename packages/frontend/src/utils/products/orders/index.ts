@@ -31,8 +31,8 @@ export type OrderDataBase = {
     billingAddress: Address;
     paymentMethod: PaymentMethod;
     deliveryInfo: {
-        expected: string;
-        delivered?: string;
+        expectedDate: string;
+        deliveredDate?: string;
         trackingNumber?: string;
     };
 };
@@ -60,8 +60,8 @@ export const mockOrders: OrderData[] = [
         billingAddress: defaultAccountDetails.addresses.billing,
         paymentMethod: "card",
         deliveryInfo: {
-            expected: new Date().toISOString(),
-            delivered: undefined,
+            expectedDate: new Date().toISOString(),
+            deliveredDate: undefined,
             trackingNumber: undefined,
         },
 
@@ -80,8 +80,8 @@ export const mockOrders: OrderData[] = [
         billingAddress: defaultAccountDetails.addresses.billing,
         paymentMethod: "card",
         deliveryInfo: {
-            expected: new Date().toISOString(),
-            delivered: undefined,
+            expectedDate: new Date().toISOString(),
+            deliveredDate: undefined,
             trackingNumber: undefined,
         },
 
@@ -100,8 +100,8 @@ export const mockOrders: OrderData[] = [
         billingAddress: defaultAccountDetails.addresses.billing,
         paymentMethod: "paypal",
         deliveryInfo: {
-            expected: new Date().toISOString(),
-            delivered: undefined,
+            expectedDate: new Date().toISOString(),
+            deliveredDate: undefined,
             trackingNumber: undefined,
         },
 
@@ -120,8 +120,8 @@ export const mockOrders: OrderData[] = [
         billingAddress: defaultAccountDetails.addresses.billing,
         paymentMethod: "bank_transfer",
         deliveryInfo: {
-            expected: new Date().toISOString(),
-            delivered: new Date().toISOString(),
+            expectedDate: new Date().toISOString(),
+            deliveredDate: new Date().toISOString(),
             trackingNumber: undefined,
         },
 
@@ -140,8 +140,8 @@ export const mockOrders: OrderData[] = [
         billingAddress: defaultAccountDetails.addresses.billing,
         paymentMethod: "gift_card",
         deliveryInfo: {
-            expected: new Date().toISOString(),
-            delivered: undefined,
+            expectedDate: new Date().toISOString(),
+            deliveredDate: undefined,
             trackingNumber: undefined,
         },
 
@@ -174,7 +174,11 @@ export const generateSkeletonOrderList = (
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
         paymentMethod: paymentMethods[Math.floor(Math.random() * paymentMethods.length)],
-        trackingNumber: undefined,
+        deliveryInfo: {
+            expectedDate: new Date().toISOString(),
+            deliveredDate: undefined,
+            trackingNumber: undefined,
+        },
 
         product: generateSkeletonProduct(),
         variant: generateSkeletonProductVariant(),
