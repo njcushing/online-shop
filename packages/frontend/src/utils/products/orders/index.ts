@@ -158,7 +158,7 @@ export const generateSkeletonOrderList = (
     }).map((v, i) => ({
         id: `${i + 1}`,
         orderNo: ulid(),
-        status: statuses[Math.floor(Math.random() * statuses.length)],
+        status: statuses[0],
         userId: "1",
         quantity: 1,
         cost: (() => {
@@ -167,13 +167,13 @@ export const generateSkeletonOrderList = (
             return {
                 unit,
                 postage: 0,
-                paid: unit * Math.random() * 0.2 + 0.8,
+                paid: unit * 0.8,
             };
         })(),
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
-        paymentMethod: paymentMethods[Math.floor(Math.random() * paymentMethods.length)],
+        paymentMethod: paymentMethods[0],
         deliveryInfo: {
             expectedDate: new Date().toISOString(),
             deliveredDate: undefined,
