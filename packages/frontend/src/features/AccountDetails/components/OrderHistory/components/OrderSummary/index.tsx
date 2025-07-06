@@ -10,50 +10,66 @@ const SkeletonClassNames: SkeletonProps["classNames"] = {
     root: styles["skeleton-root"],
 };
 
-const statusMessage = (status: OrderStatus, deliveryInfo: PopulatedOrderData["deliveryInfo"]) => {
+const statusMessage = (
+    awaiting: boolean,
+    status: OrderStatus,
+    deliveryInfo: PopulatedOrderData["deliveryInfo"],
+) => {
     const { expectedDate, deliveredDate } = deliveryInfo;
 
     const expectedDateElement = (
-        <span className={styles["expected-date"]}>
-            {expectedDate &&
-                `Expected delivery date: ${dayjs(deliveredDate).format("MMMM D, YYYY")}`}
-        </span>
+        <Skeleton visible={awaiting} width="min-content" classNames={SkeletonClassNames}>
+            <span
+                className={styles["expected-date"]}
+                style={{ visibility: awaiting ? "hidden" : "initial" }}
+            >
+                {expectedDate &&
+                    `Expected delivery date: ${dayjs(deliveredDate).format("MMMM D, YYYY")}`}
+            </span>
+        </Skeleton>
     );
+
+    let statusMessageText = "";
+    let includeExpectedDate = false;
 
     switch (status) {
         case "pending":
-            return (
-                <div className={styles["status-inner"]}>
-                    Order pending
-                    {expectedDateElement}
-                </div>
-            );
+            statusMessageText = "Order pending";
+            includeExpectedDate = true;
+            break;
         case "paid":
-            return (
-                <div className={styles["status-inner"]}>
-                    Awaiting dispatch
-                    {expectedDateElement}
-                </div>
-            );
+            statusMessageText = "Awaiting dispatch";
+            includeExpectedDate = true;
+            break;
         case "shipped":
-            return (
-                <div className={styles["status-inner"]}>
-                    Order dispatched
-                    {expectedDateElement}
-                </div>
-            );
+            statusMessageText = "Order dispatched";
+            includeExpectedDate = true;
+            break;
         case "delivered":
-            return (
-                <>Delivered{deliveredDate && ` ${dayjs(deliveredDate).format("MMMM D, YYYY")}`}</>
-            );
+            statusMessageText = `Delivered${deliveredDate && ` ${dayjs(deliveredDate).format("MMMM D, YYYY")}`}`;
+            break;
         case "cancelled":
-            return "Order cancelled";
+            statusMessageText = "Order cancelled";
+            break;
         case "refunded":
-            return "Order refunded";
+            statusMessageText = "Order refunded";
+            break;
         default:
     }
 
-    return null;
+    return (
+        <>
+            <Skeleton visible={awaiting} width="min-content" classNames={SkeletonClassNames}>
+                <p
+                    className={styles["status-message"]}
+                    style={{ visibility: awaiting ? "hidden" : "initial" }}
+                >
+                    {statusMessageText}
+                </p>
+            </Skeleton>
+            {includeExpectedDate && expectedDateElement}
+        </>
+    );
 };
 
 export type TOrderSummary = {
@@ -107,14 +123,9 @@ export function OrderSummary({ data }: TOrderSummary) {
             </div>
 
             <div className={styles["content"]}>
-                <Skeleton visible={awaiting} width="min-content" classNames={SkeletonClassNames}>
-                    <div
-                        className={styles["status"]}
-                        style={{ visibility: awaiting ? "hidden" : "initial" }}
-                    >
-                        {statusMessage(status, deliveryInfo)}
-                    </div>
-                </Skeleton>
+                <div className={styles["status"]}>
+                    {statusMessage(awaiting, status, deliveryInfo)}
+                </div>
 
                 <div className={styles["product-information"]}>
                     <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
