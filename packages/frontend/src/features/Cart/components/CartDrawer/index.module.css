@@ -21,7 +21,7 @@
 }
 
 .drawer-title {
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 1.8rem;
     font-weight: 500;
 }
@@ -59,7 +59,7 @@
     justify-content: space-between;
     align-items: center;
 
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 1.4rem;
 }
 
@@ -68,7 +68,7 @@
 }
 
 .checkout-button-label {
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 1.2rem;
 }
 

@@ -33,7 +33,7 @@
 }
 
 .copyright-message {
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 0.9rem;
     font-weight: 500;
     text-align: center;
@@ -67,7 +67,7 @@
 }
 
 .section-heading {
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 1.5rem;
     font-weight: 500;
 
@@ -81,7 +81,7 @@
     position: relative;
 
     color: black;
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     text-decoration: none;
     font-size: 1.1rem;
     text-wrap: nowrap;

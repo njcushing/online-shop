@@ -27,7 +27,7 @@
 }
 
 .input {
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 1rem;
 
     outline: none;

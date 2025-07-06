@@ -60,7 +60,7 @@
 
     color: black;
     font-size: 1.1rem;
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
 
     min-width: 200px;
 }
@@ -70,7 +70,7 @@
 
     color: black;
     font-size: 1.06rem;
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     text-transform: capitalize;
 
     border: none;
@@ -99,7 +99,7 @@
 
 .review-count {
     color: black;
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 1.8rem;
     font-weight: 600;
 }

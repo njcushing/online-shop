@@ -5,7 +5,7 @@
 }
 
 .header {
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 2rem;
 }
 
@@ -22,7 +22,7 @@
     display: flex;
     flex-wrap: nowrap;
 
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 1.1rem;
     text-wrap: nowrap;
 }

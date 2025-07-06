@@ -24,7 +24,7 @@
     right: -4px;
 
     color: white;
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 0.7rem;
     text-align: center;
 

@@ -22,7 +22,7 @@
 .delivery-progress-status-message {
     grid-area: 1 / 2 / 2 / -1;
 
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 0.92rem;
 }
 

@@ -22,7 +22,7 @@
     flex-direction: column;
     gap: 4px;
 
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 0.96rem;
 
     strong {
@@ -42,7 +42,7 @@
 }
 
 .status {
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 1.04rem;
     font-weight: 500;
     text-wrap: nowrap;
@@ -55,7 +55,7 @@
 }
 
 .expected-date {
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 0.96rem;
     font-weight: 400;
     text-wrap: nowrap;
@@ -81,7 +81,7 @@
 }
 
 .product-full-name {
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 1.2rem;
     font-weight: 400;
 
@@ -102,16 +102,16 @@
 }
 
 .product-variant-option-name {
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-weight: 500;
 }
 
 .product-variant-option-value {
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
 }
 
 .product-variant-unit-cost {
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 1.1rem;
     font-weight: 400;
 
@@ -126,7 +126,7 @@
     flex-wrap: nowrap;
     gap: 4px;
 
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 1rem;
 
     strong {

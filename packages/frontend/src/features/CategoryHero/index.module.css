@@ -36,7 +36,7 @@
 
 .category-header {
     color: black;
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 3rem;
 }
 

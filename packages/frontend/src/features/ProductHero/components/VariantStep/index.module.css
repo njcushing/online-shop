@@ -6,7 +6,7 @@
 
 .product-hero-step-title {
     color: black;
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 1rem;
 }
 
@@ -30,7 +30,7 @@
     cursor: pointer;
 
     color: black;
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 0.9rem;
     text-wrap: wrap;
 
@@ -67,7 +67,7 @@
     cursor: pointer;
 
     color: black;
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 1.2rem;
     text-wrap: wrap;
 

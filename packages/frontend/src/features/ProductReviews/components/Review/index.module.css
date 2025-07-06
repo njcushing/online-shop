@@ -10,7 +10,7 @@
 }
 
 .date-posted {
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 1.06rem;
 }
 
@@ -20,7 +20,7 @@
 
 .markdown-container {
     * {
-        font-family: "Radio Canada Big";
+        font-family: var(--font-primary);
         font-size: 1rem;
     }
 

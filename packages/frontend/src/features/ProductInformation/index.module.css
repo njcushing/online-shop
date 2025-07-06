@@ -33,19 +33,19 @@
 }
 
 .accordion-label {
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 1.6rem;
     font-weight: 500;
 }
 
 .accordion-panel {
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 1.04rem;
 }
 
 .markdown-container {
     * {
-        font-family: "Radio Canada Big";
+        font-family: var(--font-primary);
         font-size: 1rem;
     }
 

@@ -1,5 +1,5 @@
 .page-heading {
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 2.75rem;
     font-weight: 700;
     text-align: center;

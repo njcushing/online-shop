@@ -5,7 +5,7 @@
 }
 
 .header {
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 2rem;
 }
 
@@ -16,7 +16,7 @@
 }
 
 .update-password-message {
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 1.1rem;
     text-wrap: nowrap;
 }

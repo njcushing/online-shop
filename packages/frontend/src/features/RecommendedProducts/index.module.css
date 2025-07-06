@@ -31,7 +31,7 @@
 }
 
 .recommended-products-title {
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 2.2rem;
     font-weight: 500;
 }

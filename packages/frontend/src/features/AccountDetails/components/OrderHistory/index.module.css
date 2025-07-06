@@ -6,7 +6,7 @@
 
 .no-order-history-message {
     color: rgba(0, 0, 0, 0.8);
-    font-family: "Radio Canada Big";
+    font-family: var(--font-primary);
     font-size: 1.2rem;
     font-style: italic;
     text-align: center;
