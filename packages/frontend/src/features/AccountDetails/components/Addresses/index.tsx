@@ -46,7 +46,7 @@ export function Addresses() {
     }, [awaiting, defaultD, skeletonProps]);
 
     const deliveryAddressFullElement = useMemo(() => {
-        if (awaiting) return skeletonAddress;
+        if (awaiting) return <div className={styles["address"]}>{skeletonAddress}</div>;
         if (!delivery) return <div className={styles["address"]}>No address set</div>;
         return (
             <div className={styles["address"]}>
@@ -72,7 +72,7 @@ export function Addresses() {
     }, [awaiting, delivery, skeletonAddress]);
 
     const billingAddressFullElement = useMemo(() => {
-        if (awaiting) return skeletonAddress;
+        if (awaiting) return <div className={styles["address"]}>{skeletonAddress}</div>;
         if (!billing) return <div className={styles["no-address"]}>No address set</div>;
         return (
             <div className={styles["address"]}>
@@ -138,7 +138,7 @@ export function Addresses() {
                                     mode: "onTouched",
                                 },
                             ],
-                            fullElement: awaiting ? skeletonAddress : deliveryAddressFullElement,
+                            fullElement: deliveryAddressFullElement,
                         },
                     ]}
                     ariaLabel="Delivery Address"
@@ -193,7 +193,7 @@ export function Addresses() {
                                     mode: "onTouched",
                                 },
                             ],
-                            fullElement: awaiting ? skeletonAddress : billingAddressFullElement,
+                            fullElement: billingAddressFullElement,
                         },
                     ]}
                     ariaLabel="Billing Address"
