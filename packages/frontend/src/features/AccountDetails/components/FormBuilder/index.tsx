@@ -356,7 +356,7 @@ export function FormBuilder<T extends FieldValues>({
                 })}
             </div>
 
-            {additionalErrors}
+            {open && additionalErrors}
 
             {open && (
                 <Button
