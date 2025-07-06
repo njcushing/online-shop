@@ -33,12 +33,38 @@
 
 .content {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-rows: repeat(2, auto);
     gap: 16px;
 
     background-color: rgb(255, 236, 218);
 
     padding: 12px;
+}
+
+.status {
+    font-family: "Radio Canada Big";
+    font-size: 1.04rem;
+    font-weight: 500;
+    text-wrap: nowrap;
+}
+
+.status-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.expected-date {
+    font-family: "Radio Canada Big";
+    font-size: 0.96rem;
+    font-weight: 400;
+    text-wrap: nowrap;
+}
+
+.product-information {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
 }
 
 .product-thumbnail-image {
@@ -48,7 +74,7 @@
     aspect-ratio: 1;
 }
 
-.content-column-2 {
+.product-information-column-2 {
     display: grid;
     grid-template-rows: repeat(3, auto) 1fr;
     gap: 8px;

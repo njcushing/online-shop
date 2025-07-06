@@ -2,12 +2,58 @@ import { useContext } from "react";
 import { UserContext } from "@/pages/Root";
 import { Skeleton, SkeletonProps, Image } from "@mantine/core";
 import { variantOptions } from "@/utils/products/product";
-import { PopulatedOrderData } from "@/utils/products/orders";
+import { OrderStatus, PopulatedOrderData } from "@/utils/products/orders";
 import dayjs from "dayjs";
 import styles from "./index.module.css";
 
 const SkeletonClassNames: SkeletonProps["classNames"] = {
     root: styles["skeleton-root"],
+};
+
+const statusMessage = (status: OrderStatus, deliveryInfo: PopulatedOrderData["deliveryInfo"]) => {
+    const { expectedDate, deliveredDate } = deliveryInfo;
+
+    const expectedDateElement = (
+        <span className={styles["expected-date"]}>
+            {expectedDate &&
+                `Expected delivery date: ${dayjs(deliveredDate).format("MMMM D, YYYY")}`}
+        </span>
+    );
+
+    switch (status) {
+        case "pending":
+            return (
+                <div className={styles["status-inner"]}>
+                    Order pending
+                    {expectedDateElement}
+                </div>
+            );
+        case "paid":
+            return (
+                <div className={styles["status-inner"]}>
+                    Awaiting dispatch
+                    {expectedDateElement}
+                </div>
+            );
+        case "shipped":
+            return (
+                <div className={styles["status-inner"]}>
+                    Order dispatched
+                    {expectedDateElement}
+                </div>
+            );
+        case "delivered":
+            return (
+                <>Delivered{deliveredDate && ` ${dayjs(deliveredDate).format("MMMM D, YYYY")}`}</>
+            );
+        case "cancelled":
+            return "Order cancelled";
+        case "refunded":
+            return "Order refunded";
+        default:
+    }
+
+    return null;
 };
 
 export type TOrderSummary = {
@@ -18,7 +64,7 @@ export function OrderSummary({ data }: TOrderSummary) {
     const { orders } = useContext(UserContext);
     const { awaiting } = orders;
 
-    const { orderNo, product, variant, quantity, cost, orderDate } = data;
+    const { orderNo, status, product, variant, quantity, cost, orderDate, deliveryInfo } = data;
     const { unit, paid } = cost;
 
     const { name, images } = product;
@@ -59,71 +105,91 @@ export function OrderSummary({ data }: TOrderSummary) {
                     </Skeleton>
                 </div>
             </div>
+
             <div className={styles["content"]}>
-                <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
-                    <Image
-                        className={styles["product-thumbnail-image"]}
-                        src={src}
-                        alt={alt}
+                <Skeleton visible={awaiting} width="min-content" classNames={SkeletonClassNames}>
+                    <div
+                        className={styles["status"]}
                         style={{ visibility: awaiting ? "hidden" : "initial" }}
-                    />
+                    >
+                        {statusMessage(status, deliveryInfo)}
+                    </div>
                 </Skeleton>
 
-                <div className={styles["content-column-2"]}>
+                <div className={styles["product-information"]}>
                     <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
-                        <p
-                            className={styles["product-full-name"]}
+                        <Image
+                            className={styles["product-thumbnail-image"]}
+                            src={src}
+                            alt={alt}
                             style={{ visibility: awaiting ? "hidden" : "initial" }}
-                        >
-                            {name.full}
-                        </p>
+                        />
                     </Skeleton>
 
-                    <div className={styles["product-variant-options"]}>
-                        {Object.entries(options).map((option) => {
-                            const [key, value] = option;
-                            const variantOption = variantOptions.find((vOpt) => vOpt.id === key);
-                            const variantOptionValue = variantOption?.values.find(
-                                (vOptVal) => vOptVal.id === value,
-                            );
-                            return (
-                                <Skeleton
-                                    visible={awaiting}
-                                    classNames={SkeletonClassNames}
-                                    key={`${key}-skeleton`}
-                                >
-                                    <div
-                                        className={styles["product-variant-option-info"]}
-                                        key={key}
-                                        style={{ visibility: awaiting ? "hidden" : "initial" }}
-                                    >
-                                        <p className={styles["product-variant-option-name"]}>
-                                            {variantOption?.name || key}:{" "}
-                                        </p>
-                                        <p className={styles["product-variant-option-value"]}>
-                                            {variantOptionValue?.name || value}
-                                        </p>
-                                    </div>
-                                </Skeleton>
-                            );
-                        })}
-                    </div>
-
-                    <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
-                        <div
-                            className={styles["product-variant-unit-cost"]}
-                            style={{ visibility: awaiting ? "hidden" : "initial" }}
-                        >
-                            <p>{`£${(unit / 100).toFixed(2)}`}</p>
-                        </div>
-                    </Skeleton>
-
-                    <div className={styles["quantity"]}>
-                        <strong>Count: </strong>
+                    <div className={styles["product-information-column-2"]}>
                         <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
-                            <p style={{ visibility: awaiting ? "hidden" : "initial" }}>
-                                {quantity}
+                            <p
+                                className={styles["product-full-name"]}
+                                style={{ visibility: awaiting ? "hidden" : "initial" }}
+                            >
+                                {name.full}
                             </p>
+                        </Skeleton>
+
+                        <div className={styles["product-variant-options"]}>
+                            {Object.entries(options).map((option) => {
+                                const [key, value] = option;
+                                const variantOption = variantOptions.find(
+                                    (vOpt) => vOpt.id === key,
+                                );
+                                const variantOptionValue = variantOption?.values.find(
+                                    (vOptVal) => vOptVal.id === value,
+                                );
+                                return (
+                                    <Skeleton
+                                        visible={awaiting}
+                                        classNames={SkeletonClassNames}
+                                        key={`${key}-skeleton`}
+                                    >
+                                        <div
+                                            className={styles["product-variant-option-info"]}
+                                            key={key}
+                                            style={{ visibility: awaiting ? "hidden" : "initial" }}
+                                        >
+                                            <p className={styles["product-variant-option-name"]}>
+                                                {variantOption?.name || key}:{" "}
+                                            </p>
+                                            <p className={styles["product-variant-option-value"]}>
+                                                {variantOptionValue?.name || value}
+                                            </p>
+                                        </div>
+                                    </Skeleton>
+                                );
+                            })}
+                        </div>
+
+                        <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                            <div
+                                className={styles["product-variant-unit-cost"]}
+                                style={{ visibility: awaiting ? "hidden" : "initial" }}
+                            >
+                                <p>{`£${(unit / 100).toFixed(2)}`}</p>
+                            </div>
+                        </Skeleton>
+
+                        <Skeleton
+                            visible={awaiting}
+                            width="min-content"
+                            height="min-content"
+                            classNames={SkeletonClassNames}
+                        >
+                            <div
+                                className={styles["quantity"]}
+                                style={{ visibility: awaiting ? "hidden" : "initial" }}
+                            >
+                                <strong>Count: </strong>
+                                <p>{quantity}</p>
+                            </div>
                         </Skeleton>
                     </div>
                 </div>
