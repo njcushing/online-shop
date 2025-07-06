@@ -30,7 +30,11 @@ export type OrderDataBase = {
     deliveryAddress: Address;
     billingAddress: Address;
     paymentMethod: PaymentMethod;
-    trackingNumber?: string;
+    deliveryInfo: {
+        expected: string;
+        delivered?: string;
+        trackingNumber?: string;
+    };
 };
 
 export type OrderData = OrderDataBase & {
@@ -55,7 +59,11 @@ export const mockOrders: OrderData[] = [
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
         paymentMethod: "card",
-        trackingNumber: undefined,
+        deliveryInfo: {
+            expected: new Date().toISOString(),
+            delivered: undefined,
+            trackingNumber: undefined,
+        },
 
         productId: "1",
         variantId: "1-1",
@@ -71,7 +79,11 @@ export const mockOrders: OrderData[] = [
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
         paymentMethod: "card",
-        trackingNumber: undefined,
+        deliveryInfo: {
+            expected: new Date().toISOString(),
+            delivered: undefined,
+            trackingNumber: undefined,
+        },
 
         productId: "1",
         variantId: "1-3",
@@ -87,7 +99,11 @@ export const mockOrders: OrderData[] = [
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
         paymentMethod: "paypal",
-        trackingNumber: undefined,
+        deliveryInfo: {
+            expected: new Date().toISOString(),
+            delivered: undefined,
+            trackingNumber: undefined,
+        },
 
         productId: "2",
         variantId: "2-1",
@@ -103,7 +119,11 @@ export const mockOrders: OrderData[] = [
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
         paymentMethod: "bank_transfer",
-        trackingNumber: undefined,
+        deliveryInfo: {
+            expected: new Date().toISOString(),
+            delivered: new Date().toISOString(),
+            trackingNumber: undefined,
+        },
 
         productId: "2",
         variantId: "2-3",
@@ -119,7 +139,11 @@ export const mockOrders: OrderData[] = [
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
         paymentMethod: "gift_card",
-        trackingNumber: undefined,
+        deliveryInfo: {
+            expected: new Date().toISOString(),
+            delivered: undefined,
+            trackingNumber: undefined,
+        },
 
         productId: "3",
         variantId: "3-1",
