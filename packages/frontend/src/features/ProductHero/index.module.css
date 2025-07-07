@@ -7,38 +7,38 @@
     box-sizing: border-box;
 
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 100%;
     align-items: start;
     gap: 16px;
 
     width: 100%;
-    max-width: 1280px;
-    padding: 16px;
+    max-width: 100%;
+    padding: 0px;
     margin: auto;
 
-    @media (max-width: $mantine-breakpoint-xl) {
-        grid-template-columns: repeat(30%, 1fr);
-
-        max-width: 1024px;
-    }
-
-    @media (max-width: $mantine-breakpoint-lg) {
-        grid-template-columns: 100%;
-
-        max-width: 768px;
-    }
-
-    @media (max-width: $mantine-breakpoint-md) {
+    @media (min-width: $mantine-breakpoint-sm) {
         grid-template-columns: 100%;
 
         max-width: 640px;
     }
 
-    @media (max-width: $mantine-breakpoint-sm) {
+    @media (min-width: $mantine-breakpoint-md) {
         grid-template-columns: 100%;
 
-        max-width: 100%;
-        padding: 0px;
+        max-width: 768px;
+    }
+
+    @media (min-width: $mantine-breakpoint-lg) {
+        grid-template-columns: repeat(2, 1fr);
+
+        max-width: 1024px;
+    }
+
+    @media (min-width: $mantine-breakpoint-xl) {
+        grid-template-columns: repeat(2, 1fr);
+
+        max-width: 1280px;
+        padding: 16px;
     }
 }
 

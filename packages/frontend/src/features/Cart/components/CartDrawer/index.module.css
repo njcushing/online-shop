@@ -2,10 +2,10 @@
     position: absolute;
     left: 0;
 
-    --drawer-size: 540px;
+    --drawer-size: 480px;
 
-    @media (max-width: $mantine-breakpoint-lg) {
-        --drawer-size: 480px;
+    @media (min-width: $mantine-breakpoint-lg) {
+        --drawer-size: 540px;
     }
 }
 

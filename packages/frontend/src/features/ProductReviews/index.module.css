@@ -1,22 +1,22 @@
 .product-reviews {
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
 
     background-color: rgb(250, 223, 198);
 
     width: 100%;
     padding: 16px;
 
-    @media (max-width: $mantine-breakpoint-lg) {
-        display: flex;
-        flex-direction: column;
-        gap: 32px;
+    @media (min-width: $mantine-breakpoint-lg) {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 16px;
     }
 }
 
 .sticky-panel {
-    position: sticky;
+    position: initial;
 
     display: flex;
     flex-direction: column;
@@ -27,8 +27,8 @@
 
     transition: top 0.2s cubic-bezier(0.99, -0.02, 0.7, 1);
 
-    @media (max-width: $mantine-breakpoint-lg) {
-        position: initial;
+    @media (min-width: $mantine-breakpoint-lg) {
+        position: sticky;
     }
 }
 
@@ -38,17 +38,17 @@
 
 .filter-and-sort-options-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 16px;
 
     width: 100%;
     height: min-content;
 
-    @media (max-width: $mantine-breakpoint-lg) {
+    @media (min-width: $mantine-breakpoint-xs) {
         flex-direction: row;
     }
 
-    @media (max-width: $mantine-breakpoint-xs) {
+    @media (min-width: $mantine-breakpoint-lg) {
         flex-direction: column;
     }
 }

@@ -1,12 +1,12 @@
 .cart-item {
     display: grid;
-    grid-template-columns: 120px 1fr;
+    grid-template-columns: 80px 1fr;
     gap: 12px;
 
     width: 100%;
 
-    @media (max-width: $mantine-breakpoint-xs) {
-        grid-template-columns: 80px 1fr;
+    @media (min-width: $mantine-breakpoint-xs) {
+        grid-template-columns: 120px 1fr;
     }
 }
 
@@ -53,14 +53,14 @@
 
 .cart-item-content-bottom {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column-reverse;
+    align-items: start;
     gap: 4px;
 
-    @media (max-width: $mantine-breakpoint-xs) {
-        flex-direction: column-reverse;
-        align-items: start;
+    @media (min-width: $mantine-breakpoint-xs) {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
     }
 }
 
