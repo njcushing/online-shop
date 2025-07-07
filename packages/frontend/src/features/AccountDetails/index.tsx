@@ -1,5 +1,5 @@
 import { useLocation, Outlet, Link } from "react-router-dom";
-import { NavLink, NavLinkProps } from "@mantine/core";
+import { useMatches, Breadcrumbs, NavLink, NavLinkProps } from "@mantine/core";
 import { CaretRight } from "@phosphor-icons/react";
 import { ErrorPage } from "@/pages/ErrorPage";
 import { PersonalInformation } from "./components/PersonalInformation";
@@ -57,27 +57,66 @@ const groups = [
 
 export function AccountDetails() {
     const { pathname } = useLocation();
-    const currentGroup = pathname.split("/").at(-1);
+    /* Split includes empty string for part of URL before first '/'; slicing it off here */
+    const groupNames = pathname.split("/").slice(1);
+    const currentGroup = groupNames.at(-1);
+    const atBase = currentGroup === "account";
+
+    const wide = useMatches({ base: false, lg: true });
 
     return (
         <section className={styles["account-details"]}>
             <div className={styles["account-details-width-controller"]}>
-                <nav className={styles["menu"]}>
-                    {groups.map((group) => {
-                        const { to, label } = group;
-                        return (
-                            <NavLink
-                                classNames={NavLinkClassNames}
-                                component={Link}
-                                to={to}
-                                label={label}
-                                rightSection={<CaretRight size={16} weight="bold" />}
-                                data-selected={currentGroup === to}
-                                key={label}
-                            />
+                <Breadcrumbs
+                    component="nav"
+                    separator="·"
+                    classNames={{
+                        separator: styles["group-breadcrumbs-separator"],
+                        breadcrumb: styles["group-breadcrumb"],
+                    }}
+                >
+                    <Link to="/">Home</Link>
+                    {atBase ? (
+                        <span className={styles["group-breadcrumb-current"]}>Account</span>
+                    ) : (
+                        <Link to="/account">Account</Link>
+                    )}
+                    {groupNames.slice(1).map((groupName, i) => {
+                        const current = groupName === currentGroup;
+                        const group = groups.find((g) => g.to === groupName);
+                        const label = group?.label || groupName;
+
+                        return !current ? (
+                            <Link to={`/${[...groupNames.slice(0, i + 1)].join("/")}`} key={label}>
+                                {label}
+                            </Link>
+                        ) : (
+                            <span className={styles["group-breadcrumb-current"]} key={label}>
+                                {label}
+                            </span>
                         );
                     })}
-                </nav>
+                </Breadcrumbs>
+
+                {(wide || atBase) && (
+                    <nav className={styles["menu"]}>
+                        {groups.map((group) => {
+                            const { to, label } = group;
+                            return (
+                                <NavLink
+                                    classNames={NavLinkClassNames}
+                                    component={Link}
+                                    to={to}
+                                    label={label}
+                                    rightSection={<CaretRight size={16} weight="bold" />}
+                                    data-selected={currentGroup === to}
+                                    key={label}
+                                />
+                            );
+                        })}
+                    </nav>
+                )}
+
                 <div className={styles["content"]}>
                     <Outlet />
                 </div>
