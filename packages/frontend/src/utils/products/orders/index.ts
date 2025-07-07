@@ -15,17 +15,21 @@ export type OrderStatus = (typeof statuses)[number];
 const paymentMethods = ["card", "paypal", "bank_transfer", "gift_card"] as const;
 export type PaymentMethod = (typeof paymentMethods)[number];
 
-export type OrderDataBase = {
-    id: string;
-    orderNo: string;
-    status: OrderStatus;
-    userId: string;
+export type OrderProductData = {
     quantity: number;
     cost: {
         unit: number;
         postage: number;
         paid: number;
     };
+};
+
+export type OrderDataBase = {
+    id: string;
+    orderNo: string;
+    status: OrderStatus;
+    userId: string;
+    total: number;
     orderDate: string;
     deliveryAddress: Address;
     billingAddress: Address;
@@ -38,13 +42,17 @@ export type OrderDataBase = {
 };
 
 export type OrderData = OrderDataBase & {
-    productId: Product["id"];
-    variantId: Product["variants"][number]["id"];
+    products: (OrderProductData & {
+        productId: Product["id"];
+        variantId: Product["variants"][number]["id"];
+    })[];
 };
 
 export type PopulatedOrderData = OrderDataBase & {
-    product: Product;
-    variant: ProductVariant;
+    products: (OrderProductData & {
+        product: Product;
+        variant: ProductVariant;
+    })[];
 };
 
 export const mockOrders: OrderData[] = [
@@ -53,8 +61,21 @@ export const mockOrders: OrderData[] = [
         orderNo: ulid(),
         status: "pending",
         userId: "1",
-        quantity: 3,
-        cost: { unit: 700, postage: 0, paid: 1899 },
+        total: 1899,
+        products: [
+            {
+                quantity: 3,
+                cost: { unit: 700, postage: 0, paid: 1899 },
+                productId: "1",
+                variantId: "1-1",
+            },
+            {
+                quantity: 8,
+                cost: { unit: 700, postage: 0, paid: 5600 },
+                productId: "1",
+                variantId: "1-2",
+            },
+        ],
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
@@ -64,17 +85,21 @@ export const mockOrders: OrderData[] = [
             deliveredDate: undefined,
             trackingNumber: undefined,
         },
-
-        productId: "1",
-        variantId: "1-1",
     },
     {
         id: "2",
         orderNo: ulid(),
         status: "paid",
         userId: "1",
-        quantity: 14,
-        cost: { unit: 700, postage: 0, paid: 8199 },
+        total: 8199,
+        products: [
+            {
+                quantity: 14,
+                cost: { unit: 700, postage: 0, paid: 8199 },
+                productId: "1",
+                variantId: "1-3",
+            },
+        ],
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
@@ -84,17 +109,21 @@ export const mockOrders: OrderData[] = [
             deliveredDate: undefined,
             trackingNumber: undefined,
         },
-
-        productId: "1",
-        variantId: "1-3",
     },
     {
         id: "3",
         orderNo: ulid(),
         status: "shipped",
         userId: "1",
-        quantity: 18,
-        cost: { unit: 1250, postage: 0, paid: 20099 },
+        total: 20099,
+        products: [
+            {
+                quantity: 18,
+                cost: { unit: 1250, postage: 0, paid: 20099 },
+                productId: "2",
+                variantId: "2-1",
+            },
+        ],
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
@@ -104,17 +133,21 @@ export const mockOrders: OrderData[] = [
             deliveredDate: undefined,
             trackingNumber: undefined,
         },
-
-        productId: "2",
-        variantId: "2-1",
     },
     {
         id: "4",
         orderNo: ulid(),
         status: "delivered",
         userId: "1",
-        quantity: 6,
-        cost: { unit: 1250, postage: 0, paid: 7099 },
+        total: 7099,
+        products: [
+            {
+                quantity: 6,
+                cost: { unit: 1250, postage: 0, paid: 7099 },
+                productId: "2",
+                variantId: "2-3",
+            },
+        ],
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
@@ -124,17 +157,21 @@ export const mockOrders: OrderData[] = [
             deliveredDate: new Date().toISOString(),
             trackingNumber: undefined,
         },
-
-        productId: "2",
-        variantId: "2-3",
     },
     {
         id: "5",
         orderNo: ulid(),
         status: "cancelled",
         userId: "1",
-        quantity: 22,
-        cost: { unit: 2250, postage: 0, paid: 43099 },
+        total: 43099,
+        products: [
+            {
+                quantity: 22,
+                cost: { unit: 2250, postage: 0, paid: 43099 },
+                productId: "3",
+                variantId: "3-1",
+            },
+        ],
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
@@ -144,22 +181,13 @@ export const mockOrders: OrderData[] = [
             deliveredDate: undefined,
             trackingNumber: undefined,
         },
-
-        productId: "3",
-        variantId: "3-1",
     },
 ];
 
 export const generateSkeletonOrderList = (
     length: number = 5,
 ): RecursivePartial<PopulatedOrderData>[] => {
-    return Array.from({
-        length,
-    }).map((v, i) => ({
-        id: `${i + 1}`,
-        orderNo: ulid(),
-        status: statuses[0],
-        userId: "1",
+    const product = {
         quantity: 1,
         cost: (() => {
             const unit = Math.floor(Math.random() * 2000) + 1000;
@@ -170,6 +198,19 @@ export const generateSkeletonOrderList = (
                 paid: unit * 0.8,
             };
         })(),
+        product: generateSkeletonProduct(),
+        variant: generateSkeletonProductVariant(),
+    };
+
+    return Array.from({
+        length,
+    }).map((v, i) => ({
+        id: `${i + 1}`,
+        orderNo: ulid(),
+        status: statuses[0],
+        userId: "1",
+        total: product.cost.paid,
+        products: [product],
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
@@ -179,8 +220,5 @@ export const generateSkeletonOrderList = (
             deliveredDate: undefined,
             trackingNumber: undefined,
         },
-
-        product: generateSkeletonProduct(),
-        variant: generateSkeletonProductVariant(),
     }));
 };

@@ -113,12 +113,18 @@ export const mockUpdateCart: HTTPMethodTypes.PUT<
 
 export const mockPopulateOrders = (orders: OrderData[]): PopulatedOrderData[] => {
     return orders.flatMap((order) => {
-        const { productId, variantId } = order;
-        const matchedProduct = productData.find((product) => product.id === productId);
-        if (!matchedProduct) return [];
-        const matchedVariant = matchedProduct.variants.find((variant) => variant.id === variantId);
-        if (!matchedVariant) return [];
-        return { ...order, product: matchedProduct, variant: matchedVariant };
+        const { products } = order;
+        const matchedProducts = products.flatMap((product) => {
+            const { productId, variantId } = product;
+
+            const matchedProduct = productData.find((p) => p.id === productId);
+            if (!matchedProduct) return [];
+            const matchedVariant = matchedProduct.variants.find((v) => v.id === variantId);
+            if (!matchedVariant) return [];
+
+            return { ...product, product: matchedProduct, variant: matchedVariant };
+        });
+        return { ...order, products: matchedProducts };
     });
 };
 

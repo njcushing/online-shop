@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import { UserContext } from "@/pages/Root";
-import { Skeleton, SkeletonProps, Image } from "@mantine/core";
-import { variantOptions } from "@/utils/products/product";
+import { Skeleton, SkeletonProps } from "@mantine/core";
 import { OrderStatus, PopulatedOrderData } from "@/utils/products/orders";
 import dayjs from "dayjs";
+import { v4 as uuid } from "uuid";
+import { OrderProduct } from "../OrderProduct";
 import styles from "./index.module.css";
 
 const SkeletonClassNames: SkeletonProps["classNames"] = {
@@ -80,14 +81,7 @@ export function OrderSummary({ data }: TOrderSummary) {
     const { orders } = useContext(UserContext);
     const { awaiting } = orders;
 
-    const { orderNo, status, product, variant, quantity, cost, orderDate, deliveryInfo } = data;
-    const { unit, paid } = cost;
-
-    const { name, images } = product;
-    const { options, image } = variant;
-
-    const usedImage = image || images.thumb;
-    const { src, alt } = usedImage;
+    const { orderNo, status, total, products, orderDate, deliveryInfo } = data;
 
     return (
         <li className={styles["order-summary"]}>
@@ -108,7 +102,7 @@ export function OrderSummary({ data }: TOrderSummary) {
                     <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
                         <p
                             style={{ visibility: awaiting ? "hidden" : "initial" }}
-                        >{`£${(paid / 100).toFixed(2)}`}</p>
+                        >{`£${(total / 100).toFixed(2)}`}</p>
                     </Skeleton>
                 </div>
 
@@ -127,83 +121,11 @@ export function OrderSummary({ data }: TOrderSummary) {
                     {statusMessage(awaiting, status, deliveryInfo)}
                 </div>
 
-                <div className={styles["product-information"]}>
-                    <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
-                        <Image
-                            className={styles["product-thumbnail-image"]}
-                            src={src}
-                            alt={alt}
-                            style={{ visibility: awaiting ? "hidden" : "initial" }}
-                        />
-                    </Skeleton>
-
-                    <div className={styles["product-information-column-2"]}>
-                        <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
-                            <p
-                                className={styles["product-full-name"]}
-                                style={{ visibility: awaiting ? "hidden" : "initial" }}
-                            >
-                                {name.full}
-                            </p>
-                        </Skeleton>
-
-                        <div className={styles["product-variant-options"]}>
-                            {Object.entries(options).map((option) => {
-                                const [key, value] = option;
-                                const variantOption = variantOptions.find(
-                                    (vOpt) => vOpt.id === key,
-                                );
-                                const variantOptionValue = variantOption?.values.find(
-                                    (vOptVal) => vOptVal.id === value,
-                                );
-                                return (
-                                    <Skeleton
-                                        visible={awaiting}
-                                        classNames={SkeletonClassNames}
-                                        key={`${key}-skeleton`}
-                                    >
-                                        <div
-                                            className={styles["product-variant-option-info"]}
-                                            key={key}
-                                            style={{ visibility: awaiting ? "hidden" : "initial" }}
-                                        >
-                                            <p className={styles["product-variant-option-name"]}>
-                                                {variantOption?.name || key}:{" "}
-                                            </p>
-                                            <p className={styles["product-variant-option-value"]}>
-                                                {variantOptionValue?.name || value}
-                                            </p>
-                                        </div>
-                                    </Skeleton>
-                                );
-                            })}
-                        </div>
-
-                        <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
-                            <div
-                                className={styles["product-variant-unit-cost"]}
-                                style={{ visibility: awaiting ? "hidden" : "initial" }}
-                            >
-                                <p>{`£${(unit / 100).toFixed(2)}`}</p>
-                            </div>
-                        </Skeleton>
-
-                        <Skeleton
-                            visible={awaiting}
-                            width="min-content"
-                            height="min-content"
-                            classNames={SkeletonClassNames}
-                        >
-                            <div
-                                className={styles["quantity"]}
-                                style={{ visibility: awaiting ? "hidden" : "initial" }}
-                            >
-                                <strong>Count: </strong>
-                                <p>{quantity}</p>
-                            </div>
-                        </Skeleton>
-                    </div>
-                </div>
+                <ul className={styles["product-information"]}>
+                    {products.map((product) => {
+                        return <OrderProduct data={product} key={uuid()} />;
+                    })}
+                </ul>
             </div>
         </li>
     );
