@@ -59,6 +59,12 @@
     text-wrap: nowrap;
 }
 
+.products {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
 .skeleton-root::before {
     background-color: rgba(0, 0, 0, 0.06);
 }

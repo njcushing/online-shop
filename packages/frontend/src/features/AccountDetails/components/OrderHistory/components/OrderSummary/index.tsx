@@ -1,6 +1,6 @@
-import { useContext } from "react";
+import { Fragment, useContext } from "react";
 import { UserContext } from "@/pages/Root";
-import { Skeleton, SkeletonProps } from "@mantine/core";
+import { Divider, Skeleton, SkeletonProps } from "@mantine/core";
 import { OrderStatus, PopulatedOrderData } from "@/utils/products/orders";
 import dayjs from "dayjs";
 import { v4 as uuid } from "uuid";
@@ -121,9 +121,16 @@ export function OrderSummary({ data }: TOrderSummary) {
                     {statusMessage(awaiting, status, deliveryInfo)}
                 </div>
 
-                <ul className={styles["product-information"]}>
-                    {products.map((product) => {
-                        return <OrderProduct data={product} key={uuid()} />;
+                <ul className={styles["products"]}>
+                    {products.map((product, i) => {
+                        return (
+                            <Fragment key={uuid()}>
+                                <OrderProduct data={product} />
+                                {i < products.length - 1 && (
+                                    <Divider size="sm" color="rgb(250, 223, 198)" />
+                                )}
+                            </Fragment>
+                        );
                     })}
                 </ul>
             </div>
