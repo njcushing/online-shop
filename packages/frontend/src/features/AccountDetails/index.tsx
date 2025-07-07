@@ -99,7 +99,7 @@ export function AccountDetails() {
                 </Breadcrumbs>
 
                 {(wide || atBase) && (
-                    <nav className={styles["menu"]}>
+                    <nav className={styles["menu"]} data-at-base={atBase}>
                         {groups.map((group) => {
                             const { to, label } = group;
                             return (
