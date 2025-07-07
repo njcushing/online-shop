@@ -18,11 +18,23 @@
 }
 
 .product-full-name {
+    display: block;
+
+    position: relative;
+
+    color: black;
     font-family: var(--font-primary);
+    text-decoration: none;
     font-size: 1.2rem;
     font-weight: 400;
 
     width: 100%;
+}
+
+@media (hover: hover) {
+    .product-full-name:hover {
+        text-decoration: underline;
+    }
 }
 
 .product-variant-options {

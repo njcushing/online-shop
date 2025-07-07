@@ -3,6 +3,7 @@ import { UserContext } from "@/pages/Root";
 import { Skeleton, SkeletonProps, Image } from "@mantine/core";
 import { variantOptions } from "@/utils/products/product";
 import { PopulatedOrderData } from "@/utils/products/orders";
+import { Link } from "react-router-dom";
 import styles from "./index.module.css";
 
 const SkeletonClassNames: SkeletonProps["classNames"] = {
@@ -20,11 +21,14 @@ export function OrderProduct({ data }: TOrderProduct) {
     const { product, variant, quantity, cost } = data;
     const { unit } = cost;
 
-    const { name, images } = product;
+    const { id: productId, slug, name, images } = product;
     const { options, image } = variant;
 
     const usedImage = image || images.thumb;
     const { src, alt } = usedImage;
+
+    const variantUrlParams = new URLSearchParams();
+    Object.entries(options).forEach(([key, value]) => variantUrlParams.append(key, `${value}`));
 
     return (
         <li className={styles["order-product"]}>
@@ -39,12 +43,13 @@ export function OrderProduct({ data }: TOrderProduct) {
 
             <div className={styles["product-information"]}>
                 <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
-                    <p
+                    <Link
+                        to={`/p/${productId}/${slug}?${variantUrlParams}`}
                         className={styles["product-full-name"]}
                         style={{ visibility: awaiting ? "hidden" : "initial" }}
                     >
                         {name.full}
-                    </p>
+                    </Link>
                 </Skeleton>
 
                 <div className={styles["product-variant-options"]}>
