@@ -30,6 +30,7 @@ export type OrderDataBase = {
     userId: string;
     cost: {
         total: number;
+        products: number;
         postage: number;
     };
     orderDate: string;
@@ -64,8 +65,9 @@ export const mockOrders: OrderData[] = [
         status: "pending",
         userId: "1",
         cost: {
-            total: 1899,
-            postage: 0,
+            total: 7899,
+            products: 7499,
+            postage: 400,
         },
         products: [
             {
@@ -98,6 +100,7 @@ export const mockOrders: OrderData[] = [
         userId: "1",
         cost: {
             total: 8199,
+            products: 8199,
             postage: 0,
         },
         products: [
@@ -125,6 +128,7 @@ export const mockOrders: OrderData[] = [
         userId: "1",
         cost: {
             total: 20099,
+            products: 20099,
             postage: 0,
         },
         products: [
@@ -152,6 +156,7 @@ export const mockOrders: OrderData[] = [
         userId: "1",
         cost: {
             total: 7099,
+            products: 7099,
             postage: 0,
         },
         products: [
@@ -179,6 +184,7 @@ export const mockOrders: OrderData[] = [
         userId: "1",
         cost: {
             total: 43099,
+            products: 43099,
             postage: 0,
         },
         products: [
@@ -227,6 +233,7 @@ export const generateSkeletonOrderList = (
         userId: "1",
         cost: {
             total: product.cost.paid,
+            products: product.cost.paid,
             postage: 0,
         },
         products: [product],
