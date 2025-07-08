@@ -32,10 +32,18 @@
 
 .accordion-content {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 100%;
     gap: 32px;
 
     padding: 8px 12px 12px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: $mantine-breakpoint-md) {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 .details-title {
