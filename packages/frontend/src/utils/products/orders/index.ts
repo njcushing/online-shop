@@ -19,7 +19,6 @@ export type OrderProductData = {
     quantity: number;
     cost: {
         unit: number;
-        postage: number;
         paid: number;
     };
 };
@@ -29,7 +28,10 @@ export type OrderDataBase = {
     orderNo: string;
     status: OrderStatus;
     userId: string;
-    total: number;
+    cost: {
+        total: number;
+        postage: number;
+    };
     orderDate: string;
     deliveryAddress: Address;
     billingAddress: Address;
@@ -61,17 +63,20 @@ export const mockOrders: OrderData[] = [
         orderNo: ulid(),
         status: "pending",
         userId: "1",
-        total: 1899,
+        cost: {
+            total: 1899,
+            postage: 0,
+        },
         products: [
             {
                 quantity: 3,
-                cost: { unit: 700, postage: 0, paid: 1899 },
+                cost: { unit: 700, paid: 1899 },
                 productId: "1",
                 variantId: "1-1",
             },
             {
                 quantity: 8,
-                cost: { unit: 700, postage: 0, paid: 5600 },
+                cost: { unit: 700, paid: 5600 },
                 productId: "1",
                 variantId: "1-2",
             },
@@ -91,11 +96,14 @@ export const mockOrders: OrderData[] = [
         orderNo: ulid(),
         status: "paid",
         userId: "1",
-        total: 8199,
+        cost: {
+            total: 8199,
+            postage: 0,
+        },
         products: [
             {
                 quantity: 14,
-                cost: { unit: 700, postage: 0, paid: 8199 },
+                cost: { unit: 700, paid: 8199 },
                 productId: "1",
                 variantId: "1-3",
             },
@@ -115,11 +123,14 @@ export const mockOrders: OrderData[] = [
         orderNo: ulid(),
         status: "shipped",
         userId: "1",
-        total: 20099,
+        cost: {
+            total: 20099,
+            postage: 0,
+        },
         products: [
             {
                 quantity: 18,
-                cost: { unit: 1250, postage: 0, paid: 20099 },
+                cost: { unit: 1250, paid: 20099 },
                 productId: "2",
                 variantId: "2-1",
             },
@@ -139,11 +150,14 @@ export const mockOrders: OrderData[] = [
         orderNo: ulid(),
         status: "delivered",
         userId: "1",
-        total: 7099,
+        cost: {
+            total: 7099,
+            postage: 0,
+        },
         products: [
             {
                 quantity: 6,
-                cost: { unit: 1250, postage: 0, paid: 7099 },
+                cost: { unit: 1250, paid: 7099 },
                 productId: "2",
                 variantId: "2-3",
             },
@@ -163,11 +177,14 @@ export const mockOrders: OrderData[] = [
         orderNo: ulid(),
         status: "cancelled",
         userId: "1",
-        total: 43099,
+        cost: {
+            total: 43099,
+            postage: 0,
+        },
         products: [
             {
                 quantity: 22,
-                cost: { unit: 2250, postage: 0, paid: 43099 },
+                cost: { unit: 2250, paid: 43099 },
                 productId: "3",
                 variantId: "3-1",
             },
@@ -194,7 +211,6 @@ export const generateSkeletonOrderList = (
 
             return {
                 unit,
-                postage: 0,
                 paid: unit * 0.8,
             };
         })(),
@@ -209,7 +225,10 @@ export const generateSkeletonOrderList = (
         orderNo: ulid(),
         status: statuses[0],
         userId: "1",
-        total: product.cost.paid,
+        cost: {
+            total: product.cost.paid,
+            postage: 0,
+        },
         products: [product],
         orderDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
