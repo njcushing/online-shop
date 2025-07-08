@@ -32,8 +32,8 @@
 }
 
 .content {
-    display: grid;
-    grid-template-rows: repeat(2, auto);
+    display: flex;
+    flex-direction: column;
     gap: 16px;
 
     background-color: rgb(255, 236, 218);
@@ -63,6 +63,43 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+}
+
+.accordion-control {
+    padding: 12px;
+}
+
+.accordion-item {
+    --item-border-color: transparent;
+
+    background-color: rgb(250, 223, 198);
+}
+
+@media (hover: hover) {
+    .accordion-control:hover {
+        /* Overriding default Mantine component hover styles */
+        background-color: rgb(250, 223, 198);
+    }
+}
+.accordion-control:focus {
+    /* Overriding default Mantine component focus styles */
+    background-color: rgb(250, 223, 198);
+}
+
+.accordion-content {
+    padding: 4px 0px 12px;
+}
+
+.accordion-label {
+    font-family: var(--font-primary);
+    font-size: 1rem;
+
+    padding: 0px;
+}
+
+.accordion-panel {
+    font-family: var(--font-primary);
+    font-size: 1.04rem;
 }
 
 .skeleton-root::before {

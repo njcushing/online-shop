@@ -1,6 +1,6 @@
 import { Fragment, useContext } from "react";
 import { UserContext } from "@/pages/Root";
-import { Divider, Skeleton, SkeletonProps } from "@mantine/core";
+import { Divider, Skeleton, SkeletonProps, Accordion } from "@mantine/core";
 import { OrderStatus, PopulatedOrderData } from "@/utils/products/orders";
 import dayjs from "dayjs";
 import { v4 as uuid } from "uuid";
@@ -134,6 +134,24 @@ export function OrderSummary({ data }: TOrderSummary) {
                     })}
                 </ul>
             </div>
+
+            <Accordion
+                classNames={{
+                    item: styles["accordion-item"],
+                    control: styles["accordion-control"],
+                    content: styles["accordion-content"],
+                }}
+            >
+                <Accordion.Item value="Order Details">
+                    <Accordion.Control classNames={{ label: styles["accordion-label"] }}>
+                        Order Details
+                    </Accordion.Control>
+                    <Accordion.Panel
+                        className={styles["accordion-panel"]}
+                        style={{ opacity: 1 }} // Override default opacity transition
+                    ></Accordion.Panel>
+                </Accordion.Item>
+            </Accordion>
         </li>
     );
 }
