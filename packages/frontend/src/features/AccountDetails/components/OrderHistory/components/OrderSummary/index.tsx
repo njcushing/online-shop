@@ -166,42 +166,42 @@ export function OrderSummary({ data }: TOrderSummary) {
                             <div className={styles["address"]}>
                                 <p className={styles["details-title"]}>Delivery Address</p>
                                 <div className={styles["address-line"]}>
-                                    <div>{deliveryAddress.line1}</div>
+                                    <p>{deliveryAddress.line1}</p>
                                 </div>
                                 {deliveryAddress.line2 && deliveryAddress.line2.length > 0 && (
                                     <div className={styles["address-line"]}>
-                                        <div>{deliveryAddress.line2}</div>
+                                        <p>{deliveryAddress.line2}</p>
                                     </div>
                                 )}
                                 <div className={styles["address-line"]}>
-                                    <div>{deliveryAddress.townCity}</div>
+                                    <p>{deliveryAddress.townCity}</p>
                                 </div>
                                 <div className={styles["address-line"]}>
-                                    <div>{deliveryAddress.county}</div>
+                                    <p>{deliveryAddress.county}</p>
                                 </div>
                                 <div className={styles["address-line"]}>
-                                    <div>{deliveryAddress.postcode}</div>
+                                    <p>{deliveryAddress.postcode}</p>
                                 </div>
                             </div>
 
                             <div className={styles["address"]}>
                                 <p className={styles["details-title"]}>Billing Address</p>
                                 <div className={styles["address-line"]}>
-                                    <div>{billingAddress.line1}</div>
+                                    <p>{billingAddress.line1}</p>
                                 </div>
                                 {billingAddress.line2 && billingAddress.line2.length > 0 && (
                                     <div className={styles["address-line"]}>
-                                        <div>{billingAddress.line2}</div>
+                                        <p>{billingAddress.line2}</p>
                                     </div>
                                 )}
                                 <div className={styles["address-line"]}>
-                                    <div>{billingAddress.townCity}</div>
+                                    <p>{billingAddress.townCity}</p>
                                 </div>
                                 <div className={styles["address-line"]}>
-                                    <div>{billingAddress.county}</div>
+                                    <p>{billingAddress.county}</p>
                                 </div>
                                 <div className={styles["address-line"]}>
-                                    <div>{billingAddress.postcode}</div>
+                                    <p>{billingAddress.postcode}</p>
                                 </div>
                             </div>
                         </div>
