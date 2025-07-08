@@ -84,13 +84,15 @@ export function OrderSummary({ data }: TOrderSummary) {
     const {
         orderNo,
         status,
-        total,
+        cost,
         products,
         orderDate,
         deliveryAddress,
         billingAddress,
         deliveryInfo,
     } = data;
+
+    const { total, products: productsSubtotal, postage } = cost;
 
     return (
         <li className={styles["order-summary"]}>
@@ -202,6 +204,19 @@ export function OrderSummary({ data }: TOrderSummary) {
                                     <div>{billingAddress.postcode}</div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div className={styles["cost-breakdown"]}>
+                            <p className={styles["details-title"]}>Cost Breakdown</p>
+                            <p className={styles["cost-breakdown-line"]}>
+                                Item(s) Subtotal: {`£${(productsSubtotal / 100).toFixed(2)}`}
+                            </p>
+                            <p className={styles["cost-breakdown-line"]}>
+                                Postage: {postage > 0 ? `£${(postage / 100).toFixed(2)}` : "FREE"}
+                            </p>
+                            <p className={styles["total-cost"]}>
+                                Total: {`£${(total / 100).toFixed(2)}`}
+                            </p>
                         </div>
                     </Accordion.Panel>
                 </Accordion.Item>
