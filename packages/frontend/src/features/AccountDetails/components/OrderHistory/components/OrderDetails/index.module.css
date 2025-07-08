@@ -1,0 +1,83 @@
+.accordion-control {
+    padding: 12px;
+}
+
+.accordion-item {
+    --item-border-color: transparent;
+
+    background-color: rgb(250, 223, 198);
+}
+
+@media (hover: hover) {
+    .accordion-control:hover {
+        /* Overriding default Mantine component hover styles */
+        background-color: rgb(250, 223, 198);
+    }
+}
+.accordion-control:focus {
+    /* Overriding default Mantine component focus styles */
+    background-color: rgb(250, 223, 198);
+}
+
+.accordion-label {
+    font-family: var(--font-primary);
+    font-size: 1.08rem;
+
+    padding: 0px;
+}
+
+.accordion-panel {
+    padding: 0px;
+}
+
+.accordion-content {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 32px;
+
+    padding: 8px 12px 12px;
+}
+
+.details-title {
+    font-family: var(--font-primary);
+    font-size: 1.04rem;
+    font-weight: 500;
+
+    margin-bottom: 6px;
+}
+
+.addresses {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.address {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.address-line {
+    font-family: var(--font-primary);
+    font-size: 0.96rem;
+}
+
+.cost-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.cost-breakdown-line {
+    font-family: var(--font-primary);
+    font-size: 0.96rem;
+}
+
+.total-cost {
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    font-weight: 500;
+
+    margin-top: 6px;
+}
