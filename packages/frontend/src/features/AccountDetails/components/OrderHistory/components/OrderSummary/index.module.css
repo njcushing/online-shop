@@ -87,7 +87,7 @@
 }
 
 .accordion-content {
-    padding: 4px 0px 12px;
+    padding: 8px 12px 12px;
 }
 
 .accordion-label {
@@ -98,8 +98,33 @@
 }
 
 .accordion-panel {
+    padding: 0px;
+}
+
+.details-title {
     font-family: var(--font-primary);
-    font-size: 1.04rem;
+    font-size: 1rem;
+    font-weight: 500;
+    text-wrap: nowrap;
+}
+
+.addresses {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.address {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 6px;
+}
+
+.address-line {
+    font-family: var(--font-primary);
+    font-size: 0.96rem;
+    text-wrap: nowrap;
 }
 
 .skeleton-root::before {

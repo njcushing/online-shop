@@ -81,7 +81,16 @@ export function OrderSummary({ data }: TOrderSummary) {
     const { orders } = useContext(UserContext);
     const { awaiting } = orders;
 
-    const { orderNo, status, total, products, orderDate, deliveryInfo } = data;
+    const {
+        orderNo,
+        status,
+        total,
+        products,
+        orderDate,
+        deliveryAddress,
+        billingAddress,
+        deliveryInfo,
+    } = data;
 
     return (
         <li className={styles["order-summary"]}>
@@ -146,10 +155,55 @@ export function OrderSummary({ data }: TOrderSummary) {
                     <Accordion.Control classNames={{ label: styles["accordion-label"] }}>
                         Order Details
                     </Accordion.Control>
+
                     <Accordion.Panel
                         className={styles["accordion-panel"]}
                         style={{ opacity: 1 }} // Override default opacity transition
-                    ></Accordion.Panel>
+                    >
+                        <div className={styles["addresses"]}>
+                            <div className={styles["address"]}>
+                                <p className={styles["details-title"]}>Delivery Address</p>
+                                <div className={styles["address-line"]}>
+                                    <div>{deliveryAddress.line1}</div>
+                                </div>
+                                {deliveryAddress.line2 && deliveryAddress.line2.length > 0 && (
+                                    <div className={styles["address-line"]}>
+                                        <div>{deliveryAddress.line2}</div>
+                                    </div>
+                                )}
+                                <div className={styles["address-line"]}>
+                                    <div>{deliveryAddress.townCity}</div>
+                                </div>
+                                <div className={styles["address-line"]}>
+                                    <div>{deliveryAddress.county}</div>
+                                </div>
+                                <div className={styles["address-line"]}>
+                                    <div>{deliveryAddress.postcode}</div>
+                                </div>
+                            </div>
+
+                            <div className={styles["address"]}>
+                                <p className={styles["details-title"]}>Billing Address</p>
+                                <div className={styles["address-line"]}>
+                                    <div>{billingAddress.line1}</div>
+                                </div>
+                                {billingAddress.line2 && billingAddress.line2.length > 0 && (
+                                    <div className={styles["address-line"]}>
+                                        <div>{billingAddress.line2}</div>
+                                    </div>
+                                )}
+                                <div className={styles["address-line"]}>
+                                    <div>{billingAddress.townCity}</div>
+                                </div>
+                                <div className={styles["address-line"]}>
+                                    <div>{billingAddress.county}</div>
+                                </div>
+                                <div className={styles["address-line"]}>
+                                    <div>{billingAddress.postcode}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </Accordion.Panel>
                 </Accordion.Item>
             </Accordion>
         </li>
