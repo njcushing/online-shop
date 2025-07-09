@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { UserContext } from "@/pages/Root";
 import { Accordion } from "@mantine/core";
 import { PopulatedOrderData } from "@/utils/products/orders";
 import styles from "./index.module.css";
@@ -7,6 +9,9 @@ export type TOrderDetails = {
 };
 
 export function OrderDetails({ data }: TOrderDetails) {
+    const { orders } = useContext(UserContext);
+    const { awaiting } = orders;
+
     const { cost, deliveryAddress, billingAddress } = data;
 
     const { total, products: productsSubtotal, postage } = cost;
@@ -20,7 +25,10 @@ export function OrderDetails({ data }: TOrderDetails) {
             }}
         >
             <Accordion.Item value="Order Details">
-                <Accordion.Control classNames={{ label: styles["accordion-label"] }}>
+                <Accordion.Control
+                    classNames={{ label: styles["accordion-label"] }}
+                    disabled={awaiting}
+                >
                     Order Details
                 </Accordion.Control>
 
