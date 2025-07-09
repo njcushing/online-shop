@@ -108,7 +108,7 @@ export function Navigation({ opened = false }: TNavigation) {
                         variant="transparent"
                         color="gray"
                         aria-label="User"
-                        onClick={() => navigate("/account/personal-information")}
+                        onClick={() => navigate("/account")}
                     >
                         <User size={iconSize} color="black" />
                     </ActionIcon>
