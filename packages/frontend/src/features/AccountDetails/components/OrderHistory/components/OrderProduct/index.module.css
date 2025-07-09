@@ -7,8 +7,12 @@
 .product-thumbnail-image {
     align-self: center;
 
-    width: 160px;
+    width: 120px;
     aspect-ratio: 1;
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        width: 160px;
+    }
 }
 
 .product-information {
@@ -25,10 +29,14 @@
     color: black;
     font-family: var(--font-primary);
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 400;
 
     width: 100%;
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        font-size: 1.2rem;
+    }
 }
 
 @media (hover: hover) {
@@ -61,10 +69,14 @@
 
 .product-variant-unit-cost {
     font-family: var(--font-primary);
-    font-size: 1.1rem;
+    font-size: 1.04rem;
     font-weight: 400;
 
     width: 100%;
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        font-size: 1.1rem;
+    }
 }
 
 .quantity {
@@ -76,10 +88,14 @@
     gap: 4px;
 
     font-family: var(--font-primary);
-    font-size: 1rem;
+    font-size: 0.96rem;
 
     strong {
         font-weight: 500;
         text-wrap: nowrap;
+    }
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        font-size: 1rem;
     }
 }

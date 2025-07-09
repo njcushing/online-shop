@@ -21,9 +21,13 @@
 
 .accordion-label {
     font-family: var(--font-primary);
-    font-size: 1.08rem;
+    font-size: 1rem;
 
     padding: 0px;
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        font-size: 1.08rem;
+    }
 }
 
 .accordion-panel {
@@ -48,10 +52,14 @@
 
 .details-title {
     font-family: var(--font-primary);
-    font-size: 1.04rem;
+    font-size: 0.96rem;
     font-weight: 500;
 
     margin-bottom: 6px;
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        font-size: 1.04rem;
+    }
 }
 
 .addresses {
@@ -68,7 +76,11 @@
 
 .address-line {
     font-family: var(--font-primary);
-    font-size: 0.96rem;
+    font-size: 0.92rem;
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        font-size: 0.96rem;
+    }
 }
 
 .cost-breakdown {
@@ -79,13 +91,21 @@
 
 .cost-breakdown-line {
     font-family: var(--font-primary);
-    font-size: 0.96rem;
+    font-size: 0.92rem;
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        font-size: 0.96rem;
+    }
 }
 
 .total-cost {
     font-family: var(--font-primary);
-    font-size: 1rem;
+    font-size: 0.96rem;
     font-weight: 500;
 
     margin-top: 6px;
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        font-size: 1rem;
+    }
 }
