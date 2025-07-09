@@ -1,15 +1,11 @@
 import { useContext, useState, useEffect, useMemo } from "react";
 import { ProductContext } from "@/pages/Product";
 import { UserContext } from "@/pages/Root";
-import { Skeleton, SkeletonProps, Collapse, Alert, AlertProps } from "@mantine/core";
+import { Skeleton, Collapse, Alert, AlertProps } from "@mantine/core";
 import { PopulatedCartItemData } from "@/utils/products/cart";
 import { settings } from "@settings";
 import { WarningCircle, Info } from "@phosphor-icons/react";
 import styles from "./index.module.css";
-
-const SkeletonClassNames: SkeletonProps["classNames"] = {
-    root: styles["skeleton-root"],
-};
 
 const AlertClassNames: AlertProps["classNames"] = {
     root: styles["alert-root"],
@@ -101,7 +97,7 @@ export function VariantAlerts({ awaiting = false }: TVariantAlerts) {
                 animateOpacity={false}
                 transitionDuration={500}
             >
-                <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                <Skeleton visible={awaiting}>
                     <div style={{ visibility: awaiting ? "hidden" : "initial" }}>{stockAlert}</div>
                 </Skeleton>
             </Collapse>
@@ -111,7 +107,7 @@ export function VariantAlerts({ awaiting = false }: TVariantAlerts) {
                 animateOpacity={false}
                 transitionDuration={500}
             >
-                <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                <Skeleton visible={awaiting}>
                     <div style={{ visibility: awaiting ? "hidden" : "initial" }}>
                         {cartQuantityAlert}
                     </div>

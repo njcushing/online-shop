@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { UserContext } from "@/pages/Root";
-import { Skeleton, SkeletonProps, Image } from "@mantine/core";
+import { Skeleton, Image } from "@mantine/core";
 import { Quantity } from "@/components/Inputs/Quantity";
 import { ProductVariant, Product, variantOptions } from "@/utils/products/product";
 import { PopulatedCartItemData } from "@/utils/products/cart";
@@ -22,10 +22,6 @@ const calculateMaximumAvailability = (
     return Math.min(stock, allowance);
 };
 
-const SkeletonClassNames: SkeletonProps["classNames"] = {
-    root: styles["skeleton-root"],
-};
-
 export function CartItem({ data }: TCartItem) {
     const { cart } = useContext(UserContext);
     const { awaiting } = cart;
@@ -40,7 +36,7 @@ export function CartItem({ data }: TCartItem) {
 
     return (
         <li className={styles["cart-item"]}>
-            <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+            <Skeleton visible={awaiting}>
                 <Image
                     className={styles["cart-item-thumbnail-image"]}
                     src={src}
@@ -50,7 +46,7 @@ export function CartItem({ data }: TCartItem) {
             </Skeleton>
 
             <div className={styles["cart-item-content"]}>
-                <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                <Skeleton visible={awaiting}>
                     <p
                         className={styles["cart-item-name"]}
                         style={{ visibility: awaiting ? "hidden" : "initial" }}
@@ -70,7 +66,6 @@ export function CartItem({ data }: TCartItem) {
                             <Skeleton
                                 visible={awaiting}
                                 width="min-content"
-                                classNames={SkeletonClassNames}
                                 key={`${key}-skeleton`}
                             >
                                 <div
@@ -91,11 +86,7 @@ export function CartItem({ data }: TCartItem) {
                 </div>
 
                 <div className={styles["cart-item-content-bottom"]}>
-                    <Skeleton
-                        visible={awaiting}
-                        width="min-content"
-                        classNames={SkeletonClassNames}
-                    >
+                    <Skeleton visible={awaiting} width="min-content">
                         <div style={{ visibility: awaiting ? "hidden" : "initial" }}>
                             <Quantity
                                 defaultValue={quantity}
@@ -111,11 +102,7 @@ export function CartItem({ data }: TCartItem) {
                         </div>
                     </Skeleton>
 
-                    <Skeleton
-                        visible={awaiting}
-                        width="min-content"
-                        classNames={SkeletonClassNames}
-                    >
+                    <Skeleton visible={awaiting} width="min-content">
                         <div style={{ visibility: awaiting ? "hidden" : "initial" }}>
                             <Price base={price.base} current={price.current} multiply={quantity} />
                         </div>

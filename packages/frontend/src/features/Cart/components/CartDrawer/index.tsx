@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { IUserContext, UserContext } from "@/pages/Root";
 import { Link } from "react-router-dom";
-import { Skeleton, SkeletonProps, Button, Divider, Drawer } from "@mantine/core";
+import { Skeleton, Button, Divider, Drawer } from "@mantine/core";
 import { calculateSubtotal } from "@/utils/products/cart";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
 import { CartItem } from "../CartItem";
@@ -10,10 +10,6 @@ import styles from "./index.module.css";
 export type TCartDrawer = {
     opened?: boolean;
     onClose?: () => unknown;
-};
-
-const SkeletonClassNames: SkeletonProps["classNames"] = {
-    root: styles["skeleton-root"],
 };
 
 export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
@@ -47,20 +43,12 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
 
             <div className={styles["cart-drawer-bottom"]}>
                 <div className={styles["subtotal"]}>
-                    <Skeleton
-                        visible={awaiting}
-                        width="min-content"
-                        classNames={SkeletonClassNames}
-                    >
+                    <Skeleton visible={awaiting} width="min-content">
                         <span
                             style={{ visibility: awaiting ? "hidden" : "initial" }}
                         >{`Subtotal: `}</span>
                     </Skeleton>
-                    <Skeleton
-                        visible={awaiting}
-                        width="min-content"
-                        classNames={SkeletonClassNames}
-                    >
+                    <Skeleton visible={awaiting} width="min-content">
                         <span
                             className={styles["subtotal-value"]}
                             style={{ visibility: awaiting ? "hidden" : "initial" }}
@@ -70,7 +58,7 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
                     </Skeleton>
                 </div>
 
-                <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                <Skeleton visible={awaiting}>
                     <span style={{ visibility: awaiting ? "hidden" : "initial" }}>
                         <DeliveryProgress />
                     </span>

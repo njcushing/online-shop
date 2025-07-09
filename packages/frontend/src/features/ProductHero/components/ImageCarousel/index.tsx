@@ -12,10 +12,6 @@ export type TImageCarousel = {
 
 const slideGapPx = 8;
 
-const SkeletonClassNames = {
-    root: styles["skeleton-root"],
-};
-
 export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
     const [currentSlide, setCurrentSlide] = useState<number>(0);
     const [mainEmbla, setMainEmbla] = useState<Embla | null>(null);
@@ -28,7 +24,7 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
 
     return (
         <div className={styles["image-carousel"]}>
-            <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+            <Skeleton visible={awaiting}>
                 <Carousel
                     getEmblaApi={setMainEmbla}
                     skipSnaps
@@ -55,11 +51,7 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
             </Skeleton>
 
             <div className={styles["carousel-small-container"]}>
-                <Skeleton
-                    visible={awaiting}
-                    className={styles["carousel-small-control-skeleton"]}
-                    classNames={SkeletonClassNames}
-                >
+                <Skeleton visible={awaiting} className={styles["carousel-small-control-skeleton"]}>
                     <button
                         type="button"
                         aria-label="Previous image"
@@ -119,7 +111,6 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                             >
                                 <Skeleton
                                     visible={awaiting}
-                                    classNames={SkeletonClassNames}
                                     key={`image-carousel-slide-${src}-skeleton`}
                                 >
                                     <Image
@@ -135,11 +126,7 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                         );
                     })}
                 </Carousel>
-                <Skeleton
-                    visible={awaiting}
-                    className={styles["carousel-small-control-skeleton"]}
-                    classNames={SkeletonClassNames}
-                >
+                <Skeleton visible={awaiting} className={styles["carousel-small-control-skeleton"]}>
                     <button
                         type="button"
                         aria-label="Next image"

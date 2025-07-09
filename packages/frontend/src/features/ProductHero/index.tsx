@@ -1,7 +1,7 @@
 import { useContext, useState, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { IProductContext, ProductContext } from "@/pages/Product";
-import { Skeleton, SkeletonProps, Button, Divider, Rating } from "@mantine/core";
+import { Skeleton, Button, Divider, Rating } from "@mantine/core";
 import { findCollections, filterVariantOptions } from "@/utils/products/product";
 import { Quantity } from "@/components/Inputs/Quantity";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
@@ -13,10 +13,6 @@ import { VariantAlerts } from "./components/VariantAlerts";
 import { WatchlistButton } from "./components/WatchlistButton";
 import { calculateMaxAddableVariantStock } from "./utils/calculateMaxAddableVariantStock";
 import styles from "./index.module.css";
-
-const SkeletonClassNames: SkeletonProps["classNames"] = {
-    root: styles["skeleton-root"],
-};
 
 export function ProductHero() {
     const { cart } = useContext(UserContext);
@@ -66,11 +62,7 @@ export function ProductHero() {
                 </div>
 
                 <div className={styles["product-content"]}>
-                    <Skeleton
-                        visible={awaitingProduct}
-                        classNames={SkeletonClassNames}
-                        className={styles["margin"]}
-                    >
+                    <Skeleton visible={awaitingProduct} className={styles["margin"]}>
                         <h1
                             className={styles["product-name"]}
                             style={{ visibility: awaitingProduct ? "hidden" : "initial" }}
@@ -79,11 +71,7 @@ export function ProductHero() {
                         </h1>
                     </Skeleton>
 
-                    <Skeleton
-                        visible={awaitingProduct}
-                        classNames={SkeletonClassNames}
-                        className={styles["margin"]}
-                    >
+                    <Skeleton visible={awaitingProduct} className={styles["margin"]}>
                         <div
                             className={styles["product-hero-rating-container"]}
                             style={{ visibility: awaitingProduct ? "hidden" : "initial" }}
@@ -116,7 +104,6 @@ export function ProductHero() {
                             return (
                                 <Skeleton
                                     visible={awaitingProduct}
-                                    classNames={SkeletonClassNames}
                                     key={collectionData.collection.id}
                                 >
                                     <div
@@ -145,11 +132,7 @@ export function ProductHero() {
                                     />
                                 );
                                 return (
-                                    <Skeleton
-                                        visible={awaitingProduct}
-                                        classNames={SkeletonClassNames}
-                                        key={optionId}
-                                    >
+                                    <Skeleton visible={awaitingProduct} key={optionId}>
                                         <div
                                             style={{
                                                 visibility: awaitingProduct ? "hidden" : "initial",
@@ -165,11 +148,7 @@ export function ProductHero() {
                         {variantOptionOrder.length > 0 && <Divider />}
                     </div>
 
-                    <Skeleton
-                        visible={awaitingProduct}
-                        classNames={SkeletonClassNames}
-                        className={styles["margin"]}
-                    >
+                    <Skeleton visible={awaitingProduct} className={styles["margin"]}>
                         <div style={{ visibility: awaitingProduct ? "hidden" : "initial" }}>
                             <Price base={price.base} current={price.current} size="lg" />
                         </div>
@@ -203,7 +182,7 @@ export function ProductHero() {
                         <WatchlistButton />
                     </div>
 
-                    <Skeleton visible={awaitingProduct} classNames={SkeletonClassNames}>
+                    <Skeleton visible={awaitingProduct}>
                         <div style={{ visibility: awaitingProduct ? "hidden" : "initial" }}>
                             <DeliveryProgress />
                         </div>

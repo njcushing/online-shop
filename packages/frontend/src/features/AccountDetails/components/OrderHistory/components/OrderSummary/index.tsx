@@ -1,16 +1,12 @@
 import { Fragment, useContext } from "react";
 import { UserContext } from "@/pages/Root";
-import { Divider, Skeleton, SkeletonProps } from "@mantine/core";
+import { Divider, Skeleton } from "@mantine/core";
 import { OrderStatus, PopulatedOrderData } from "@/utils/products/orders";
 import dayjs from "dayjs";
 import { v4 as uuid } from "uuid";
 import { OrderProduct } from "../OrderProduct";
 import { OrderDetails } from "../OrderDetails";
 import styles from "./index.module.css";
-
-const SkeletonClassNames: SkeletonProps["classNames"] = {
-    root: styles["skeleton-root"],
-};
 
 const statusMessage = (
     awaiting: boolean,
@@ -20,7 +16,7 @@ const statusMessage = (
     const { expectedDate, deliveredDate } = deliveryInfo;
 
     const expectedDateElement = (
-        <Skeleton visible={awaiting} width="min-content" classNames={SkeletonClassNames}>
+        <Skeleton visible={awaiting} width="min-content">
             <span
                 className={styles["expected-date"]}
                 style={{ visibility: awaiting ? "hidden" : "initial" }}
@@ -61,7 +57,7 @@ const statusMessage = (
 
     return (
         <>
-            <Skeleton visible={awaiting} width="min-content" classNames={SkeletonClassNames}>
+            <Skeleton visible={awaiting} width="min-content">
                 <p
                     className={styles["status-message"]}
                     style={{ visibility: awaiting ? "hidden" : "initial" }}
@@ -90,35 +86,23 @@ export function OrderSummary({ data }: TOrderSummary) {
         <li className={styles["order-summary"]}>
             <div className={styles["top-bar"]}>
                 <div className={styles["order-no"]}>
-                    <Skeleton
-                        visible={awaiting}
-                        width="min-content"
-                        classNames={SkeletonClassNames}
-                    >
+                    <Skeleton visible={awaiting} width="min-content">
                         <strong style={{ visibility: awaiting ? "hidden" : "initial" }}>
                             Order Number
                         </strong>
                     </Skeleton>
-                    <Skeleton
-                        visible={awaiting}
-                        width="min-content"
-                        classNames={SkeletonClassNames}
-                    >
+                    <Skeleton visible={awaiting} width="min-content">
                         <p style={{ visibility: awaiting ? "hidden" : "initial" }}>{orderNo}</p>
                     </Skeleton>
                 </div>
 
                 <div className={styles["total"]}>
-                    <Skeleton
-                        visible={awaiting}
-                        width="min-content"
-                        classNames={SkeletonClassNames}
-                    >
+                    <Skeleton visible={awaiting} width="min-content">
                         <strong style={{ visibility: awaiting ? "hidden" : "initial" }}>
                             Total
                         </strong>
                     </Skeleton>
-                    <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                    <Skeleton visible={awaiting}>
                         <p
                             style={{ visibility: awaiting ? "hidden" : "initial" }}
                         >{`£${(total / 100).toFixed(2)}`}</p>
@@ -126,16 +110,12 @@ export function OrderSummary({ data }: TOrderSummary) {
                 </div>
 
                 <div className={styles["order-date"]}>
-                    <Skeleton
-                        visible={awaiting}
-                        width="min-content"
-                        classNames={SkeletonClassNames}
-                    >
+                    <Skeleton visible={awaiting} width="min-content">
                         <strong style={{ visibility: awaiting ? "hidden" : "initial" }}>
                             Order Date
                         </strong>
                     </Skeleton>
-                    <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                    <Skeleton visible={awaiting}>
                         <p
                             style={{ visibility: awaiting ? "hidden" : "initial" }}
                         >{`${dayjs(orderDate).format("MMMM D, YYYY")}`}</p>

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { UserContext } from "@/pages/Root";
-import { Skeleton, SkeletonProps } from "@mantine/core";
+import { Skeleton } from "@mantine/core";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormBuilder } from "@/features/AccountDetails/components/FormBuilder";
 import dayjs from "dayjs";
@@ -9,10 +9,6 @@ import { PhoneNumberFormData, phoneNumberFormDataSchema } from "./schemas/phoneN
 import { DateOfBirthFormData, dateOfBirthFormDataSchema } from "./schemas/dateOfBirthSchema";
 import { EmailFormData, emailFormDataSchema } from "./schemas/emailSchema";
 import styles from "./index.module.css";
-
-const SkeletonClassNames: SkeletonProps["classNames"] = {
-    root: styles["skeleton-root"],
-};
 
 export function PersonalInformation() {
     const { accountDetails, defaultData } = useContext(UserContext);
@@ -46,11 +42,7 @@ export function PersonalInformation() {
                                 },
                             ],
                             fullElement: (
-                                <Skeleton
-                                    visible={awaiting}
-                                    classNames={SkeletonClassNames}
-                                    width="min-content"
-                                >
+                                <Skeleton visible={awaiting} width="min-content">
                                     <div
                                         className={styles["full-name"]}
                                         style={{ visibility: awaiting ? "hidden" : "initial" }}
@@ -87,11 +79,7 @@ export function PersonalInformation() {
                                 },
                             ],
                             fullElement: (
-                                <Skeleton
-                                    visible={awaiting}
-                                    classNames={SkeletonClassNames}
-                                    width="min-content"
-                                >
+                                <Skeleton visible={awaiting} width="min-content">
                                     <div
                                         className={styles["phone-number"]}
                                         style={{ visibility: awaiting ? "hidden" : "initial" }}
@@ -141,11 +129,7 @@ export function PersonalInformation() {
                                 },
                             ],
                             fullElement: (
-                                <Skeleton
-                                    visible={awaiting}
-                                    classNames={SkeletonClassNames}
-                                    width="min-content"
-                                >
+                                <Skeleton visible={awaiting} width="min-content">
                                     <div
                                         className={styles["date-of-birth"]}
                                         style={{ visibility: awaiting ? "hidden" : "initial" }}
@@ -182,11 +166,7 @@ export function PersonalInformation() {
                                 },
                             ],
                             fullElement: (
-                                <Skeleton
-                                    visible={awaiting}
-                                    classNames={SkeletonClassNames}
-                                    width="min-content"
-                                >
+                                <Skeleton visible={awaiting} width="min-content">
                                     <div
                                         className={styles["email-address"]}
                                         style={{ visibility: awaiting ? "hidden" : "initial" }}

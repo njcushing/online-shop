@@ -1,6 +1,6 @@
 import { useContext, useMemo } from "react";
 import { IProductContext, ProductContext } from "@/pages/Product";
-import { useMatches, Accordion, Table, Skeleton, SkeletonProps } from "@mantine/core";
+import { useMatches, Accordion, Table, Skeleton } from "@mantine/core";
 import { ProductReviews } from "@/features/ProductReviews";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -8,10 +8,6 @@ import dayjs from "dayjs";
 import { v4 as uuid } from "uuid";
 import { settings } from "@settings";
 import styles from "./index.module.css";
-
-const SkeletonClassNames: SkeletonProps["classNames"] = {
-    root: styles["skeleton-root"],
-};
 
 export type TProductInformation = {
     defaultOpenTab?:
@@ -40,14 +36,7 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
                         return (
                             <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                                 {Array.from({ length: 5 }).map(() => {
-                                    return (
-                                        <Skeleton
-                                            visible
-                                            height="1rem"
-                                            classNames={SkeletonClassNames}
-                                            key={uuid()}
-                                        ></Skeleton>
-                                    );
+                                    return <Skeleton visible height="1rem" key={uuid()}></Skeleton>;
                                 })}
                             </div>
                         );
@@ -88,7 +77,7 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
                     }
 
                     return (
-                        <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                        <Skeleton visible={awaiting}>
                             <Table
                                 variant="vertical"
                                 layout="fixed"

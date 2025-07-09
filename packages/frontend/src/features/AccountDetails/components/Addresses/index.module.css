@@ -32,10 +32,3 @@
 .no-address {
     font-style: italic;
 }
-
-.skeleton-root::before {
-    background-color: rgba(0, 0, 0, 0.06);
-}
-.skeleton-root::after {
-    background-color: rgba(0, 0, 0, 0.16);
-}

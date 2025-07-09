@@ -1,14 +1,10 @@
 import { useContext } from "react";
 import { UserContext } from "@/pages/Root";
-import { Skeleton, SkeletonProps, Image } from "@mantine/core";
+import { Skeleton, Image } from "@mantine/core";
 import { variantOptions } from "@/utils/products/product";
 import { PopulatedOrderData } from "@/utils/products/orders";
 import { Link } from "react-router-dom";
 import styles from "./index.module.css";
-
-const SkeletonClassNames: SkeletonProps["classNames"] = {
-    root: styles["skeleton-root"],
-};
 
 export type TOrderProduct = {
     data: PopulatedOrderData["products"][number];
@@ -32,7 +28,7 @@ export function OrderProduct({ data }: TOrderProduct) {
 
     return (
         <li className={styles["order-product"]}>
-            <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+            <Skeleton visible={awaiting}>
                 <Image
                     className={styles["product-thumbnail-image"]}
                     src={src}
@@ -42,7 +38,7 @@ export function OrderProduct({ data }: TOrderProduct) {
             </Skeleton>
 
             <div className={styles["product-information"]}>
-                <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                <Skeleton visible={awaiting}>
                     <Link
                         to={`/p/${productId}/${slug}?${variantUrlParams}`}
                         className={styles["product-full-name"]}
@@ -60,11 +56,7 @@ export function OrderProduct({ data }: TOrderProduct) {
                             (vOptVal) => vOptVal.id === value,
                         );
                         return (
-                            <Skeleton
-                                visible={awaiting}
-                                classNames={SkeletonClassNames}
-                                key={`${key}-skeleton`}
-                            >
+                            <Skeleton visible={awaiting} key={`${key}-skeleton`}>
                                 <div
                                     className={styles["product-variant-option-info"]}
                                     key={key}
@@ -82,7 +74,7 @@ export function OrderProduct({ data }: TOrderProduct) {
                     })}
                 </div>
 
-                <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
+                <Skeleton visible={awaiting}>
                     <div
                         className={styles["product-variant-unit-cost"]}
                         style={{ visibility: awaiting ? "hidden" : "initial" }}
@@ -91,12 +83,7 @@ export function OrderProduct({ data }: TOrderProduct) {
                     </div>
                 </Skeleton>
 
-                <Skeleton
-                    visible={awaiting}
-                    width="min-content"
-                    height="min-content"
-                    classNames={SkeletonClassNames}
-                >
+                <Skeleton visible={awaiting} width="min-content" height="min-content">
                     <div
                         className={styles["quantity"]}
                         style={{ visibility: awaiting ? "hidden" : "initial" }}

@@ -79,6 +79,14 @@
     --button-secondary-focus: rgb(255, 255, 255);
     --button-secondary-disabled: rgb(255, 255, 255);
     --button-secondary-border: rgb(255, 255, 255);
+
+    /* Mantine Overrides */
+    .mantine-Skeleton-root::before {
+        background-color: rgba(0, 0, 0, 0.06);
+    }
+    .mantine-Skeleton-root::after {
+        background-color: rgba(0, 0, 0, 0.16);
+    }
 }
 
 :root[theme|="dark"] {

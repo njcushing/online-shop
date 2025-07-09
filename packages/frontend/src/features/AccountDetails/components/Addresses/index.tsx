@@ -1,14 +1,10 @@
 import { useContext, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
-import { Skeleton, SkeletonProps } from "@mantine/core";
+import { Skeleton } from "@mantine/core";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormBuilder } from "@/features/AccountDetails/components/FormBuilder";
 import { AddressesFormData, addressesFormDataSchema } from "./schemas/addressSchema";
 import styles from "./index.module.css";
-
-const SkeletonClassNames: SkeletonProps["classNames"] = {
-    root: styles["skeleton-root"],
-};
 
 export function Addresses() {
     const { accountDetails, defaultData } = useContext(UserContext);
@@ -21,14 +17,7 @@ export function Addresses() {
     const { addresses: defaultAddresses } = defaultAccountDetails;
     const { delivery: defaultD } = defaultAddresses;
 
-    const skeletonProps = useMemo(
-        () => ({
-            visible: awaiting,
-            classNames: SkeletonClassNames,
-            width: "min-content",
-        }),
-        [awaiting],
-    );
+    const skeletonProps = useMemo(() => ({ visible: awaiting, width: "min-content" }), [awaiting]);
 
     const skeletonAddress = useMemo(() => {
         const fields = ["line1", "line2", "townCity", "county", "postcode"];

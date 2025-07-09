@@ -63,10 +63,3 @@
         align-items: center;
     }
 }
-
-.skeleton-root::before {
-    background-color: rgba(0, 0, 0, 0.06);
-}
-.skeleton-root::after {
-    background-color: rgba(0, 0, 0, 0.16);
-}
