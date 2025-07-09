@@ -1,6 +1,6 @@
 import { Fragment, useContext } from "react";
 import { UserContext } from "@/pages/Root";
-import { Divider, Skeleton } from "@mantine/core";
+import { useMatches, Divider, Skeleton } from "@mantine/core";
 import { OrderStatus, PopulatedOrderData } from "@/utils/products/orders";
 import dayjs from "dayjs";
 import { v4 as uuid } from "uuid";
@@ -82,19 +82,23 @@ export function OrderSummary({ data }: TOrderSummary) {
 
     const { total } = cost;
 
+    const wide = useMatches({ base: false, md: true });
+
     return (
         <li className={styles["order-summary"]}>
-            <div className={styles["top-bar"]}>
-                <div className={styles["order-no"]}>
-                    <Skeleton visible={awaiting} width="min-content">
-                        <strong style={{ visibility: awaiting ? "hidden" : "initial" }}>
-                            Order Number
-                        </strong>
-                    </Skeleton>
-                    <Skeleton visible={awaiting} width="min-content">
-                        <p style={{ visibility: awaiting ? "hidden" : "initial" }}>{orderNo}</p>
-                    </Skeleton>
-                </div>
+            <div className={styles["top-bar"]} data-wide={wide}>
+                {wide && (
+                    <div className={styles["order-no-wide"]}>
+                        <Skeleton visible={awaiting} width="min-content">
+                            <strong style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                                Order Number
+                            </strong>
+                        </Skeleton>
+                        <Skeleton visible={awaiting} width="min-content">
+                            <p style={{ visibility: awaiting ? "hidden" : "initial" }}>{orderNo}</p>
+                        </Skeleton>
+                    </div>
+                )}
 
                 <div className={styles["total"]}>
                     <Skeleton visible={awaiting} width="min-content">
@@ -124,6 +128,24 @@ export function OrderSummary({ data }: TOrderSummary) {
             </div>
 
             <div className={styles["content"]}>
+                {!wide && (
+                    <div className={styles["order-no-thin"]}>
+                        <Skeleton visible={awaiting} width="min-content">
+                            <strong style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                                Order Number:
+                            </strong>
+                        </Skeleton>
+                        <Skeleton visible={awaiting} width="min-content">
+                            <p
+                                style={{ visibility: awaiting ? "hidden" : "initial" }}
+                                className="truncate-ellipsis"
+                            >
+                                {orderNo}
+                            </p>
+                        </Skeleton>
+                    </div>
+                )}
+
                 <div className={styles["status"]}>
                     {statusMessage(awaiting, status, deliveryInfo)}
                 </div>

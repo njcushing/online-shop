@@ -6,8 +6,9 @@
 }
 
 .top-bar {
-    display: grid;
-    grid-template-columns: 1fr repeat(2, auto);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     gap: 16px;
 
     background-color: rgb(250, 223, 198);
@@ -15,7 +16,12 @@
     padding: 12px;
 }
 
-.order-no,
+.top-bar[data-wide="true"] {
+    display: grid;
+    grid-template-columns: 1fr repeat(2, auto);
+}
+
+.order-no-wide,
 .total,
 .order-date {
     display: flex;
@@ -39,6 +45,22 @@
     background-color: rgb(255, 236, 218);
 
     padding: 12px;
+}
+
+.order-no-thin {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px;
+
+    color: rgba(0, 0, 0, 0.8);
+    font-family: var(--font-primary);
+    font-size: 0.86rem;
+
+    strong {
+        font-weight: 600;
+        text-wrap: nowrap;
+    }
 }
 
 .status {
