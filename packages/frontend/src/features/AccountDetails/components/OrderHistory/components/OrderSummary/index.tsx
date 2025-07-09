@@ -90,7 +90,15 @@ export function OrderSummary({ data }: TOrderSummary) {
         <li className={styles["order-summary"]}>
             <div className={styles["top-bar"]}>
                 <div className={styles["order-no"]}>
-                    <strong>Order Number</strong>
+                    <Skeleton
+                        visible={awaiting}
+                        width="min-content"
+                        classNames={SkeletonClassNames}
+                    >
+                        <strong style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                            Order Number
+                        </strong>
+                    </Skeleton>
                     <Skeleton
                         visible={awaiting}
                         width="min-content"
@@ -101,7 +109,15 @@ export function OrderSummary({ data }: TOrderSummary) {
                 </div>
 
                 <div className={styles["total"]}>
-                    <strong>Total</strong>{" "}
+                    <Skeleton
+                        visible={awaiting}
+                        width="min-content"
+                        classNames={SkeletonClassNames}
+                    >
+                        <strong style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                            Total
+                        </strong>
+                    </Skeleton>
                     <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
                         <p
                             style={{ visibility: awaiting ? "hidden" : "initial" }}
@@ -110,7 +126,15 @@ export function OrderSummary({ data }: TOrderSummary) {
                 </div>
 
                 <div className={styles["order-date"]}>
-                    <strong>Order Date</strong>{" "}
+                    <Skeleton
+                        visible={awaiting}
+                        width="min-content"
+                        classNames={SkeletonClassNames}
+                    >
+                        <strong style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                            Order Date
+                        </strong>
+                    </Skeleton>
                     <Skeleton visible={awaiting} classNames={SkeletonClassNames}>
                         <p
                             style={{ visibility: awaiting ? "hidden" : "initial" }}
