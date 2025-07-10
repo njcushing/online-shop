@@ -39,6 +39,7 @@
 .filter-and-sort-options-container {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 16px;
 
     width: 100%;

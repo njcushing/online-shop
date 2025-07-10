@@ -1,7 +1,10 @@
 .footer {
+    display: flex;
+    justify-content: center;
+
     background-color: var(--site-colour-secondary, rgb(255, 236, 218));
 
-    width: 100%;
+    width: calc(var(--vw) * 100);
 }
 
 .footer-width-controller {
@@ -11,11 +14,9 @@
     flex-direction: column;
     gap: 32px;
 
-    width: 100%;
+    width: min(calc(var(--vw) * 100), 1280px);
     height: 100%;
-    max-width: 1280px;
     padding: 32px 16px;
-    margin: auto;
 
     @media (min-width: $mantine-breakpoint-sm) {
         flex-direction: row;
