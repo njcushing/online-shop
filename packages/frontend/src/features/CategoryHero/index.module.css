@@ -1,5 +1,10 @@
 .category-hero {
+    display: flex;
+    justify-content: center;
+
     background-color: var(--site-colour-secondary, rgb(255, 236, 218));
+
+    width: calc(var(--vw) * 100);
 }
 
 .category-hero-width-controller {
@@ -7,10 +12,8 @@
     flex-direction: column;
     gap: 8px;
 
-    width: 100%;
-    max-width: 1280px;
+    width: min(calc(var(--vw) * 100), 1280px);
     padding: 16px;
-    margin: auto;
 }
 
 .category-breadcrumbs-separator {
@@ -55,6 +58,7 @@
     overflow-x: auto;
     overflow-y: hidden;
 
+    min-width: 0px;
     padding: 12px 2px;
 }
 
