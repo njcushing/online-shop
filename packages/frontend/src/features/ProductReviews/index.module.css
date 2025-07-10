@@ -3,7 +3,7 @@
     flex-direction: column;
     gap: 32px;
 
-    background-color: rgb(250, 223, 198);
+    background-color: var(--site-colour-tertiary, rgb(250, 223, 198));
 
     width: 100%;
     padding: 16px;
@@ -119,7 +119,7 @@
     color: black;
 
     border: none;
-    background-color: rgb(255, 236, 218);
+    background-color: var(--site-colour-secondary, rgb(255, 236, 218));
 }
 
 .pagination-control[data-active] {
@@ -127,5 +127,5 @@
 }
 
 .pagination-control[data-disabled] {
-    background-color: rgb(250, 223, 198);
+    background-color: var(--site-colour-tertiary, rgb(250, 223, 198));
 }

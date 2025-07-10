@@ -156,7 +156,10 @@ export function OrderSummary({ data }: TOrderSummary) {
                             <Fragment key={uuid()}>
                                 <OrderProduct data={product} />
                                 {i < products.length - 1 && (
-                                    <Divider size="sm" color="rgb(250, 223, 198)" />
+                                    <Divider
+                                        size="sm"
+                                        color="var(--site-colour-tertiary, rgb(250, 223, 198))"
+                                    />
                                 )}
                             </Fragment>
                         );

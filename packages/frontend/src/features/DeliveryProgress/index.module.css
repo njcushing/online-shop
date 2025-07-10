@@ -6,7 +6,7 @@
     gap: 12px;
 
     border-radius: 4px;
-    background-color: rgb(255, 236, 218);
+    background-color: var(--site-colour-secondary, rgb(255, 236, 218));
 
     padding: 12px;
 }

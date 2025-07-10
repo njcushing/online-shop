@@ -80,6 +80,11 @@
     --button-secondary-disabled: rgb(255, 255, 255);
     --button-secondary-border: rgb(255, 255, 255);
 
+    /* Site-Specific */
+    --site-colour-primary: rgb(255, 249, 243);
+    --site-colour-secondary: rgb(255, 236, 218);
+    --site-colour-tertiary: rgb(250, 223, 198);
+
     /* Mantine Overrides */
     .mantine-Skeleton-root::before {
         background-color: rgba(0, 0, 0, 0.06);

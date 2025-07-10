@@ -3,7 +3,7 @@
     flex-direction: column;
     gap: 16px;
 
-    background-color: rgb(255, 236, 218);
+    background-color: var(--site-colour-secondary, rgb(255, 236, 218));
 
     width: 100%;
     height: min-content;
@@ -21,7 +21,7 @@
 }
 
 .rating-star-symbol:not([data-filled]) {
-    fill: rgb(250, 223, 198);
+    fill: var(--site-colour-tertiary, rgb(250, 223, 198));
 }
 
 .product-rating-description {
@@ -83,7 +83,7 @@
 }
 
 .progress {
-    background-color: rgb(250, 223, 198);
+    background-color: var(--site-colour-tertiary, rgb(250, 223, 198));
 }
 
 .product-reviews-rating-tier-percentage {

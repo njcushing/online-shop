@@ -11,7 +11,7 @@
     flex-wrap: nowrap;
     gap: 16px;
 
-    background-color: rgb(250, 223, 198);
+    background-color: var(--site-colour-tertiary, rgb(250, 223, 198));
 
     padding: 12px;
 }
@@ -46,7 +46,7 @@
     flex-direction: column;
     gap: 16px;
 
-    background-color: rgb(255, 236, 218);
+    background-color: var(--site-colour-secondary, rgb(255, 236, 218));
 
     padding: 12px;
 }
