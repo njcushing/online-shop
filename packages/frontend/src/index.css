@@ -78,12 +78,14 @@ input, select, textarea, button {
     /* Prevent horizontal scrollbar (viewport overflow) when vertical scrollbar is present */
     position: absolute;
 
+    overflow-x: hidden;
+
+    color: var(--text-primary);
     font-family: Inter, system-ui, sans-serif;
     --font-family: var(--font-family, Inter, system-ui, sans-serif);
     line-height: 1.5;
     font-weight: 400;
 
-    color: var(--text-primary);
     background-color: var(--background-secondary, black);
 
     width: 100%;
