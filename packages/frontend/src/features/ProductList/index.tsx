@@ -35,39 +35,43 @@ export function ProductList() {
 
     return (
         <section className={styles["product-list"]}>
-            {filteredProducts.length > 0 && (
-                <div className={styles["product-list-category-group"]}>
-                    {filteredProducts.map((product) => (
-                        <ProductCard productData={product!} key={product!.id} />
-                    ))}
-                </div>
-            )}
-            {filteredSubcategories.map((subcategory, i) => {
-                const { products: subcategoryProducts } = subcategory;
-                return (
-                    <Fragment key={subcategory.name}>
-                        <div className={styles["product-list-category-group"]}>
-                            <div className={styles["subcategory-information"]}>
-                                <h2 className={styles["subcategory-name"]}>{subcategory.name}</h2>
-                                <p className={styles["subcategory-description"]}>
-                                    {subcategory.description}
-                                </p>
-                                <NavLink
-                                    component={Link}
-                                    to={subcategory.slug}
-                                    label="Shop all"
-                                    rightSection={<CaretRight size={16} />}
-                                    className={styles["shop-all-button"]}
-                                />
+            <div className={styles["product-list-width-controller"]}>
+                {filteredProducts.length > 0 && (
+                    <div className={styles["product-list-category-group"]}>
+                        {filteredProducts.map((product) => (
+                            <ProductCard productData={product!} key={product!.id} />
+                        ))}
+                    </div>
+                )}
+                {filteredSubcategories.map((subcategory, i) => {
+                    const { products: subcategoryProducts } = subcategory;
+                    return (
+                        <Fragment key={subcategory.name}>
+                            <div className={styles["product-list-category-group"]}>
+                                <div className={styles["subcategory-information"]}>
+                                    <h2 className={styles["subcategory-name"]}>
+                                        {subcategory.name}
+                                    </h2>
+                                    <p className={styles["subcategory-description"]}>
+                                        {subcategory.description}
+                                    </p>
+                                    <NavLink
+                                        component={Link}
+                                        to={subcategory.slug}
+                                        label="Shop all"
+                                        rightSection={<CaretRight size={16} />}
+                                        className={styles["shop-all-button"]}
+                                    />
+                                </div>
+                                {subcategoryProducts.slice(0, productsToDisplay).map((product) => (
+                                    <ProductCard productData={product!} key={product!.id} />
+                                ))}
                             </div>
-                            {subcategoryProducts.slice(0, productsToDisplay).map((product) => (
-                                <ProductCard productData={product!} key={product!.id} />
-                            ))}
-                        </div>
-                        {i < filteredSubcategories.length - 1 && <Divider />}
-                    </Fragment>
-                );
-            })}
+                            {i < filteredSubcategories.length - 1 && <Divider />}
+                        </Fragment>
+                    );
+                })}
+            </div>
         </section>
     );
 }

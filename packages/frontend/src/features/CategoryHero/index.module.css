@@ -4,7 +4,7 @@
 
     background-color: var(--site-colour-secondary, rgb(255, 236, 218));
 
-    width: calc(var(--vw) * 100);
+    width: min(calc(var(--vw) * 100), 100%);
 }
 
 .category-hero-width-controller {
@@ -12,7 +12,8 @@
     flex-direction: column;
     gap: 8px;
 
-    width: min(calc(var(--vw) * 100), 1280px);
+    width: min(calc(var(--vw) * 100), 100%);
+    max-width: 1280px;
     padding: 16px;
 }
 

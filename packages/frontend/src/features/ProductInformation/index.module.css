@@ -4,14 +4,15 @@
 
     background-color: var(--site-colour-secondary, rgb(255, 236, 218));
 
-    width: calc(var(--vw) * 100);
+    width: min(calc(var(--vw) * 100), 100%);
     padding: 32px 0px;
 }
 
 .product-information-width-controller {
     box-sizing: border-box;
 
-    width: min(calc(var(--vw) * 100), 1280px);
+    width: min(calc(var(--vw) * 100), 100%);
+    max-width: 1280px;
     padding: 16px;
 }
 
