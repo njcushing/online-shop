@@ -5,7 +5,7 @@ export type TPrice = {
     base: number;
     current: number;
     multiply?: number;
-    size?: "sm" | "md" | "lg";
+    size?: "xs" | "sm" | "md" | "lg" | "xl";
 };
 
 export function Price({ base = 0, current = 0, multiply = 1, size = "md" }: TPrice) {
