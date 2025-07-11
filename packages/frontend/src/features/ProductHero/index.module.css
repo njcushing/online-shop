@@ -72,8 +72,12 @@
 .product-name {
     color: black;
     font-family: var(--font-primary);
-    font-size: 2.75rem;
+    font-size: 2.4rem;
     font-weight: 500;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 2.75rem;
+    }
 }
 
 .product-hero-rating-container {
@@ -86,7 +90,11 @@
 .product-rating-value,
 .product-rating-quantity {
     color: black;
-    font-size: 0.92rem;
+    font-size: 0.86rem;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
 }
 
 .product-rating-value {
@@ -110,8 +118,12 @@
 
 .add-to-cart-button {
     font-family: var(--font-primary);
-    font-size: 1rem;
+    font-size: 0.92rem;
     text-align: center;
 
     padding: 0px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1rem;
+    }
 }

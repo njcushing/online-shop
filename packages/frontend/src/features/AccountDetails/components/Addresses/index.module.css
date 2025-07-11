@@ -6,7 +6,11 @@
 
 .header {
     font-family: var(--font-primary);
-    font-size: 2rem;
+    font-size: 1.8rem;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 2rem;
+    }
 }
 
 .forms-container {
@@ -25,8 +29,12 @@
 .address-line,
 .no-address {
     font-family: var(--font-primary);
-    font-size: 1.1rem;
+    font-size: 1rem;
     text-wrap: nowrap;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.1rem;
+    }
 }
 
 .no-address {

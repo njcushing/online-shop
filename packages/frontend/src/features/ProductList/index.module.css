@@ -36,12 +36,34 @@
 .subcategory-name {
     color: black;
     font-family: var(--font-primary);
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 500;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 2rem;
+    }
 }
 
 .subcategory-description {
     color: black;
-    font-size: 0.9rem;
+    font-size: 0.86rem;
     font-weight: 300;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
+}
+
+.shop-all-button {
+    flex-shrink: 0;
+
+    font-size: 0.86rem;
+
+    width: calc(100% + 8px);
+    padding: 8px;
+    margin-left: -8px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
 }

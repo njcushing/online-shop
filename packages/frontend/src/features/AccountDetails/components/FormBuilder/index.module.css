@@ -13,9 +13,15 @@
     position: absolute;
     right: 0px;
 
+    font-size: 0.86rem;
+
     border-radius: 4px;
 
     width: min-content;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
 }
 
 .fieldsets-container {
@@ -31,11 +37,15 @@
 
 .legend {
     font-family: var(--font-primary);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 500;
 
     padding-top: 4px;
     margin-bottom: 20px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.2rem;
+    }
 }
 
 .form-fields-container {
@@ -45,16 +55,24 @@
 }
 
 .form-field-input {
-    font-size: 0.9rem;
+    font-size: 0.86rem;
     font-weight: 400;
 
     background-color: transparent;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
 }
 
 .form-field-label {
-    font-size: 0.96rem;
+    font-size: 0.88rem;
 
     background-color: transparent;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.96rem;
+    }
 }
 
 .additional-field-errors-container {
@@ -66,7 +84,13 @@
 .submit-button {
     display: flex;
 
+    font-size: 0.86rem;
+
     border-radius: 4px;
 
     width: min-content;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
 }

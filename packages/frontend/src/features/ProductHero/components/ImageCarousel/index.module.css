@@ -87,10 +87,14 @@
 
 .current-image-number {
     font-family: var(--font-primary);
-    font-size: 0.86rem;
+    font-size: 0.84rem;
     font-weight: 500;
     text-align: center;
 
     width: 100%;
     padding: 0px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
 }

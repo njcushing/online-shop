@@ -87,6 +87,7 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
                                     tbody: styles["details-table-tbody"],
                                     tr: styles["details-table-tr"],
                                     th: styles["details-table-th"],
+                                    td: styles["details-table-td"],
                                 }}
                                 style={{
                                     display: "grid",

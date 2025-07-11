@@ -60,17 +60,21 @@
     gap: 8px;
 
     color: black;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-family: var(--font-primary);
 
     min-width: 200px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.1rem;
+    }
 }
 
 .select {
     align-self: center;
 
     color: black;
-    font-size: 1.06rem;
+    font-size: 1rem;
     font-family: var(--font-primary);
     text-transform: capitalize;
 
@@ -80,6 +84,10 @@
     width: 100%;
     height: min-content;
     padding: 6px 2px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.06rem;
+    }
 }
 
 @media (hover: hover) {
@@ -101,8 +109,12 @@
 .review-count {
     color: black;
     font-family: var(--font-primary);
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 600;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.8rem;
+    }
 }
 
 .divider {
@@ -118,9 +130,14 @@
 
 .pagination-control {
     color: black;
+    font-size: 0.92rem;
 
     border: none;
     background-color: var(--site-colour-secondary, rgb(255, 236, 218));
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1rem;
+    }
 }
 
 .pagination-control[data-active] {

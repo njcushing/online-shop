@@ -35,19 +35,31 @@
 
 .accordion-label {
     font-family: var(--font-primary);
-    font-size: 1.6rem;
+    font-size: 1.44rem;
     font-weight: 500;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.6rem;
+    }
 }
 
 .accordion-panel {
     font-family: var(--font-primary);
-    font-size: 1.04rem;
+    font-size: 0.92rem;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.04rem;
+    }
 }
 
 .markdown-container {
     * {
         font-family: var(--font-primary);
-        font-size: 1rem;
+        font-size: 0.92rem;
+
+        @media (min-width: $mantine-breakpoint-xs) {
+            font-size: 1rem;
+        }
     }
 
     p {
@@ -85,9 +97,23 @@
 }
 
 .details-table-th {
+    font-size: 0.86rem;
+
     background-color: rgba(0, 0, 0, 0.08);
 
     width: 100%;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
+}
+
+.details-table-td {
+    font-size: 0.86rem;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
 }
 
 .delivery-information {
@@ -103,8 +129,12 @@
 }
 
 .delivery-information-segment-title {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.1rem;
+    }
 }
 
 .delivery-information-segment-information {
@@ -112,9 +142,13 @@
     flex-direction: column;
     gap: 4px;
 
-    font-size: 1rem;
+    font-size: 0.92rem;
 
     strong {
         font-weight: 600;
+    }
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1rem;
     }
 }

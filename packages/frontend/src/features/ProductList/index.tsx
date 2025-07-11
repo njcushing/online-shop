@@ -57,12 +57,7 @@ export function ProductList() {
                                     to={subcategory.slug}
                                     label="Shop all"
                                     rightSection={<CaretRight size={16} />}
-                                    style={{
-                                        flexShrink: 0,
-                                        padding: "8px",
-                                        marginLeft: "-8px",
-                                        width: "calc(100% + 8px)",
-                                    }}
+                                    className={styles["shop-all-button"]}
                                 />
                             </div>
                             {subcategoryProducts.slice(0, productsToDisplay).map((product) => (

@@ -12,4 +12,8 @@
     text-align: center;
 
     width: 100%;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.2rem;
+    }
 }

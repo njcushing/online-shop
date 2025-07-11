@@ -108,7 +108,9 @@ export function AccountDetails() {
                                     component={Link}
                                     to={to}
                                     label={label}
-                                    rightSection={<CaretRight size={16} weight="bold" />}
+                                    rightSection={
+                                        <CaretRight size={wide ? 16 : 14} weight="bold" />
+                                    }
                                     data-selected={currentGroup === to}
                                     key={label}
                                 />

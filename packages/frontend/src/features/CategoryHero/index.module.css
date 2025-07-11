@@ -19,12 +19,20 @@
 .category-breadcrumbs-separator {
     font-size: 0.8rem;
     font-weight: 700;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.84rem;
+    }
 }
 
 .category-breadcrumb {
     color: black;
     font-size: 0.8rem;
     text-decoration: none;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.84rem;
+    }
 }
 
 .category-breadcrumb-current {
@@ -40,13 +48,21 @@
 .category-header {
     color: black;
     font-family: var(--font-primary);
-    font-size: 3rem;
+    font-size: 2.6rem;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 3rem;
+    }
 }
 
 .category-description {
     color: black;
     font-family: Inter;
-    font-size: 0.9rem;
+    font-size: 0.86rem;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
 }
 
 .subcategory-links {
@@ -70,11 +86,15 @@
 
     color: black;
     font-family: Inter;
-    font-size: 0.9rem;
+    font-size: 0.86rem;
     text-align: center;
     text-decoration: none;
 
     padding-bottom: 4px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
 }
 
 .subcategory-link-image {

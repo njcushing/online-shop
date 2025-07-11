@@ -71,11 +71,15 @@
 
 .section-heading {
     font-family: var(--font-primary);
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     font-weight: 500;
 
     width: 100%;
     margin-bottom: 6px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.5rem;
+    }
 }
 
 .link {
@@ -86,11 +90,15 @@
     color: black;
     font-family: var(--font-primary);
     text-decoration: none;
-    font-size: 1.1rem;
+    font-size: 1rem;
     text-wrap: nowrap;
 
     width: min-content;
     padding: 0px 0px 2px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.1rem;
+    }
 }
 
 .link::after {

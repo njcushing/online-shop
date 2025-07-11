@@ -12,6 +12,7 @@ const AlertClassNames: AlertProps["classNames"] = {
     wrapper: styles["alert-wrapper"],
     body: styles["alert-body"],
     title: styles["alert-title"],
+    message: styles["alert-message"],
     icon: styles["alert-icon"],
 };
 
