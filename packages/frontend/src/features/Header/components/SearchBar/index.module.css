@@ -18,11 +18,12 @@
 
     width: calc(100% - 32px);
     max-width: calc(1280px - 32px);
-    padding: 12px 0px 16px;
-    margin: 4px auto 20px;
+    padding: 12px 0px;
+    margin: 4px auto 8px;
 
     @media (min-width: $mantine-breakpoint-lg) {
         padding: 0px;
+        margin-bottom: 20px;
     }
 }
 
