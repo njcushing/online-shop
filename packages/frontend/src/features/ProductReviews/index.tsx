@@ -14,9 +14,13 @@ import styles from "./index.module.css";
 export const filterOptions = ["All", "5", "4", "3", "2", "1"] as const;
 export const sortOptions = ["Most Recent", "Highest Rating", "Lowest Rating"] as const;
 
+export type TProductReviews = {
+    containerIsTransitioning?: boolean;
+};
+
 const reviewsPerPage = 10;
 
-export function ProductReviews() {
+export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
     const { headerInfo } = useContext(RootContext);
     const { forceClose } = headerInfo;
 
@@ -116,11 +120,13 @@ export function ProductReviews() {
                 /* v8 ignore start */
 
                 className={`${styles["sticky-panel"]} ${styles[headerInfo.open ? "shifted" : ""]}`}
-                style={{
-                    top: !headerInfo.open
-                        ? "16px"
-                        : `calc(max(${16}px, ${headerInfo.height + 16}px))`,
-                }}
+                style={(() => {
+                    if (containerIsTransitioning) return { position: "initial" };
+                    if (headerInfo.open) {
+                        return { top: `calc(max(${16}px, ${headerInfo.height + 16}px))` };
+                    }
+                    return { top: "16px" };
+                })()}
 
                 /* v8 ignore stop */
             >

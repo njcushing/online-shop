@@ -1,4 +1,4 @@
-import { useContext, useMemo } from "react";
+import { useContext, useMemo, useState } from "react";
 import { IProductContext, ProductContext } from "@/pages/Product";
 import { useMatches, Accordion, Table, Skeleton } from "@mantine/core";
 import { ProductReviews } from "@/features/ProductReviews";
@@ -26,6 +26,8 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
         data || (defaultData.product as NonNullable<IProductContext["product"]["data"]>);
     const { sku, details, releaseDate } =
         variant || (defaultData.variant as NonNullable<IProductContext["variant"]>);
+
+    const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
 
     const segments = useMemo(() => {
         return [
@@ -163,10 +165,20 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
             },
             {
                 value: "Customer Reviews",
-                content: <ProductReviews />,
+                content: <ProductReviews containerIsTransitioning={isTransitioning} />,
             },
         ];
-    }, [tableColumnCount, variant, data, awaiting, description, sku, details, releaseDate]);
+    }, [
+        tableColumnCount,
+        variant,
+        data,
+        awaiting,
+        description,
+        sku,
+        details,
+        releaseDate,
+        isTransitioning,
+    ]);
 
     return (
         <section className={styles["product-information"]}>
@@ -178,12 +190,14 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
                         control: styles["accordion-control"],
                         content: styles["accordion-content"],
                     }}
+                    onTransitionEnd={() => setIsTransitioning(false)}
                 >
                     {segments.map((segment) => {
                         const { value, content } = segment;
                         return (
                             <Accordion.Item key={value} value={value}>
                                 <Accordion.Control
+                                    onClick={() => setIsTransitioning(true)}
                                     classNames={{ label: styles["accordion-label"] }}
                                 >
                                     {value}
