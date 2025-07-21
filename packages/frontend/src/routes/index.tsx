@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { Pages, Routes } from "@/pages";
 import { ScrollToTop } from "@/features/ScrollToTop";
 
@@ -6,54 +6,41 @@ export function Router() {
     const browserRouter = createBrowserRouter(
         [
             {
-                path: "/create-account",
+                path: "",
                 element: (
                     <>
                         <ScrollToTop />
-                        <Pages.CreateAccount />
+                        <Outlet />
                     </>
                 ),
-                errorElement: <Pages.ErrorPage />,
-            },
-            {
-                path: "/login",
-                element: (
-                    <>
-                        <ScrollToTop />
-                        <Pages.Login />
-                    </>
-                ),
-                errorElement: <Pages.ErrorPage />,
-            },
-            {
-                path: "/terms-and-conditions",
-                element: (
-                    <>
-                        <ScrollToTop />
-                        <Pages.TermsAndConditions />
-                    </>
-                ),
-                errorElement: <Pages.ErrorPage />,
-            },
-            {
-                path: "/privacy-policy",
-                element: (
-                    <>
-                        <ScrollToTop />
-                        <Pages.PrivacyPolicy />
-                    </>
-                ),
-                errorElement: <Pages.ErrorPage />,
-            },
-            {
-                path: "/",
-                element: (
-                    <>
-                        <ScrollToTop />
-                        <Pages.Root />
-                    </>
-                ),
-                children: Routes.Root,
+                children: [
+                    {
+                        path: "/create-account",
+                        element: <Pages.CreateAccount />,
+                        errorElement: <Pages.ErrorPage />,
+                    },
+                    {
+                        path: "/login",
+                        element: <Pages.Login />,
+                        errorElement: <Pages.ErrorPage />,
+                    },
+                    {
+                        path: "/terms-and-conditions",
+                        element: <Pages.TermsAndConditions />,
+                        errorElement: <Pages.ErrorPage />,
+                    },
+                    {
+                        path: "/privacy-policy",
+                        element: <Pages.PrivacyPolicy />,
+                        errorElement: <Pages.ErrorPage />,
+                    },
+                    {
+                        path: "/",
+                        element: <Pages.Root />,
+                        children: Routes.Root,
+                        errorElement: <Pages.ErrorPage />,
+                    },
+                ],
                 errorElement: <Pages.ErrorPage />,
             },
         ],
