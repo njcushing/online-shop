@@ -16,13 +16,13 @@ describe("The ExclamationMark component...", () => {
         expect(svg).toBeInTheDocument();
     });
 
-    test("Should render with default 'width' and 'height' props equal to '16px'", () => {
+    test("Should render with default 'width' and 'height' props equal to '20px'", () => {
         render(<ExclamationMark />);
 
         const svg = screen.getByLabelText("Error");
         expect(svg).toBeInTheDocument();
-        expect(svg).toHaveAttribute("width", "16");
-        expect(svg).toHaveAttribute("height", "16");
+        expect(svg).toHaveAttribute("width", "20");
+        expect(svg).toHaveAttribute("height", "20");
     });
 
     test("Should apply value of 'width' and 'height' props to SVG element's 'width' and 'height' attributes, respectively", () => {
