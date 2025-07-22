@@ -3,11 +3,11 @@
     flex-direction: row;
     gap: 8px;
 
-    font-size: 1.1rem;
+    font-size: 2rem;
 }
 
 .price-container[data-size="xl"] {
-    font-size: 1.1rem;
+    font-size: 2rem;
 }
 
 .price-container[data-size="lg"] {
