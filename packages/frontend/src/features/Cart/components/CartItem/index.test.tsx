@@ -155,7 +155,7 @@ describe("The CartItem component...", () => {
     });
 
     describe("Should render informaton about each of the variant's options...", () => {
-        test("Including the name and value from the defined variant options, or the key and value as a backup", () => {
+        test("Including the name and value from the defined variant options", () => {
             renderFunc();
 
             const QuantityComponent = screen.getByLabelText("Quantity component");
