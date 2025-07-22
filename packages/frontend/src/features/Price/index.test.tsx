@@ -9,6 +9,12 @@ const mockProps: RecursivePartial<TPrice> = {
     current: 100,
     multiply: 1,
     size: "md",
+    classNames: {
+        container: "container",
+        current: "current",
+        base: "base",
+        discountPercentage: "discountPercentage",
+    },
 };
 
 const mockCreatePriceAdjustmentString = vi.fn((current: number, base: number): string => {
