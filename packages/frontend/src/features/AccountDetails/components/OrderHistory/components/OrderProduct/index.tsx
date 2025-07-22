@@ -3,6 +3,7 @@ import { UserContext } from "@/pages/Root";
 import { Skeleton, Image } from "@mantine/core";
 import { variantOptions } from "@/utils/products/product";
 import { PopulatedOrderData } from "@/utils/products/orders";
+import { Price } from "@/features/Price";
 import { Link } from "react-router-dom";
 import styles from "./index.module.css";
 
@@ -75,11 +76,12 @@ export function OrderProduct({ data }: TOrderProduct) {
                 </div>
 
                 <Skeleton visible={awaiting}>
-                    <div
-                        className={styles["product-variant-unit-cost"]}
-                        style={{ visibility: awaiting ? "hidden" : "initial" }}
-                    >
-                        <p>{`£${(unit / 100).toFixed(2)}`}</p>
+                    <div style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                        <Price
+                            base={unit}
+                            current={unit}
+                            classNames={{ container: styles["price-container"] }}
+                        />
                     </div>
                 </Skeleton>
 

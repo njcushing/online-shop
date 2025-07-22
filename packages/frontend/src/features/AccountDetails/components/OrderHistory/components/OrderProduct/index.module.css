@@ -67,7 +67,7 @@
     font-family: var(--font-primary);
 }
 
-.product-variant-unit-cost {
+.price-container {
     font-family: var(--font-primary);
     font-size: 1.04rem;
     font-weight: 400;
