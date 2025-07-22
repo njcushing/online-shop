@@ -4,6 +4,7 @@ import { useMatches, Divider, Skeleton } from "@mantine/core";
 import { OrderStatus, PopulatedOrderData } from "@/utils/products/orders";
 import dayjs from "dayjs";
 import { v4 as uuid } from "uuid";
+import { Price } from "@/features/Price";
 import { OrderProduct } from "../OrderProduct";
 import { OrderDetails } from "../OrderDetails";
 import styles from "./index.module.css";
@@ -107,9 +108,13 @@ export function OrderSummary({ data }: TOrderSummary) {
                         </strong>
                     </Skeleton>
                     <Skeleton visible={awaiting}>
-                        <p
-                            style={{ visibility: awaiting ? "hidden" : "initial" }}
-                        >{`£${(total / 100).toFixed(2)}`}</p>
+                        <div style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                            <Price
+                                base={total}
+                                current={total}
+                                classNames={{ current: styles["price-current"] }}
+                            />
+                        </div>
                     </Skeleton>
                 </div>
 
