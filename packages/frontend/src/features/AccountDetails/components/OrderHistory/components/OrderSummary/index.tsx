@@ -23,7 +23,7 @@ const statusMessage = (
                 style={{ visibility: awaiting ? "hidden" : "initial" }}
             >
                 {expectedDate &&
-                    `Expected delivery date: ${dayjs(deliveredDate).format("MMMM D, YYYY")}`}
+                    `Expected delivery date: ${dayjs(expectedDate).format("MMMM D, YYYY")}`}
             </span>
         </Skeleton>
     );
