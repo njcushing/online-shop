@@ -88,18 +88,29 @@ export function OrderSummary({ data }: TOrderSummary) {
     return (
         <li className={styles["order-summary"]}>
             <div className={styles["top-bar"]} data-wide={wide}>
-                {wide && (
-                    <div className={styles["order-no-wide"]}>
-                        <Skeleton visible={awaiting} width="min-content">
-                            <strong style={{ visibility: awaiting ? "hidden" : "initial" }}>
-                                Order Number
-                            </strong>
-                        </Skeleton>
-                        <Skeleton visible={awaiting} width="min-content">
-                            <p style={{ visibility: awaiting ? "hidden" : "initial" }}>{orderNo}</p>
-                        </Skeleton>
-                    </div>
-                )}
+                {
+                    // Don't test logic dependent on window dimensions - this code will never be
+                    // accessible by default in unit tests using jsdom as an environment due to
+                    // window width being 0px
+                    /* v8 ignore start */
+
+                    wide && (
+                        <div className={styles["order-no-wide"]}>
+                            <Skeleton visible={awaiting} width="min-content">
+                                <strong style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                                    Order Number
+                                </strong>
+                            </Skeleton>
+                            <Skeleton visible={awaiting} width="min-content">
+                                <p style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                                    {orderNo}
+                                </p>
+                            </Skeleton>
+                        </div>
+                    )
+
+                    /* v8 ignore stop */
+                }
 
                 <div className={styles["total"]}>
                     <Skeleton visible={awaiting} width="min-content">
