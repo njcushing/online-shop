@@ -31,7 +31,7 @@ export const SearchBar = forwardRef<HTMLInputElement, TSearchBar>(
             if (opened) current.focus();
         }, [opened]);
 
-        /* v8 ignore end */
+        /* v8 ignore stop */
 
         return (
             <Collapse

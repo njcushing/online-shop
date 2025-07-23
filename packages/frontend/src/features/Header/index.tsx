@@ -44,7 +44,7 @@ export function Header() {
         };
     }, [headerRef, headerHeight]);
 
-    /* v8 ignore end */
+    /* v8 ignore stop */
 
     const forceClose = useCallback((state: boolean, id: string) => {
         if (!state) {

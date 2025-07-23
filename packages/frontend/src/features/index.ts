@@ -1,4 +1,4 @@
-/* c8 ignore start */
+/* v8 ignore start */
 
 import { AccountCreationForm } from "./AccountCreationForm";
 import { CategoryHero } from "./CategoryHero";

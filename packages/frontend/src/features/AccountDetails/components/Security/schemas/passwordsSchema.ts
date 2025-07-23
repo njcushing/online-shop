@@ -1,4 +1,4 @@
-/* c8 ignore start */
+/* v8 ignore start */
 
 import { z } from "zod";
 import { Password, password } from "@/utils/schemas/user";
