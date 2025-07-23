@@ -53,6 +53,8 @@ const statusMessage = (
         case "refunded":
             statusMessageText = "Order refunded";
             break;
+        // Switch statement default case shouldn't be reachable
+        /* v8 ignore next 2 */
         default:
     }
 
