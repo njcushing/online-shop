@@ -182,7 +182,7 @@ describe("The OrderProduct component...", () => {
                 expect(productImage.getAttribute("src")).toBe(src);
             });
 
-            test("Unless the UserContext's 'orders.data.awaiting' field is 'true'", () => {
+            test("Unless the UserContext's 'orders.awaiting' field is 'true'", () => {
                 renderFunc({
                     UserContextOverride: { orders: { awaiting: true } } as unknown as IUserContext,
                 });
@@ -229,7 +229,7 @@ describe("The OrderProduct component...", () => {
                 );
             });
 
-            test("Unless the UserContext's 'orders.data.awaiting' field is 'true'", () => {
+            test("Unless the UserContext's 'orders.awaiting' field is 'true'", () => {
                 renderFunc({
                     UserContextOverride: { orders: { awaiting: true } } as unknown as IUserContext,
                 });
@@ -279,7 +279,7 @@ describe("The OrderProduct component...", () => {
                 expect(props).toEqual(expect.objectContaining({ base: unit, current: unit }));
             });
 
-            test("Unless the UserContext's 'orders.data.awaiting' field is 'true'", () => {
+            test("Unless the UserContext's 'orders.awaiting' field is 'true'", () => {
                 renderFunc({
                     UserContextOverride: { orders: { awaiting: true } } as unknown as IUserContext,
                 });
@@ -304,7 +304,7 @@ describe("The OrderProduct component...", () => {
                 expect(quantityElement).toBeInTheDocument();
             });
 
-            test("Unless the UserContext's 'orders.data.awaiting' field is 'true'", () => {
+            test("Unless the UserContext's 'orders.awaiting' field is 'true'", () => {
                 renderFunc({
                     UserContextOverride: { orders: { awaiting: true } } as unknown as IUserContext,
                 });

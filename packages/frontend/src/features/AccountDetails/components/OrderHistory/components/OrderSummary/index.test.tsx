@@ -168,7 +168,7 @@ describe("The OrderSummary component...", () => {
                 expect(props).toEqual(expect.objectContaining({ base: total, current: total }));
             });
 
-            test("Unless the UserContext's 'orders.data.awaiting' field is 'true'", () => {
+            test("Unless the UserContext's 'orders.awaiting' field is 'true'", () => {
                 renderFunc({
                     UserContextOverride: { orders: { awaiting: true } } as unknown as IUserContext,
                 });
