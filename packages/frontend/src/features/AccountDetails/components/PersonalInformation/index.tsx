@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { Skeleton } from "@mantine/core";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,6 +17,36 @@ export function PersonalInformation() {
     const { personal } = data || {};
     const { firstName, lastName, phone, dob, email } = personal || {};
     const { day, month, year } = dob || {};
+
+    const nameFullElement = useMemo(() => {
+        if (awaiting) {
+            return `${defaultData.accountDetails.personal.firstName} ${defaultData.accountDetails.personal.lastName}`;
+        }
+        if (firstName && firstName.length > 0 && lastName && lastName.length > 0) {
+            return `${firstName} ${lastName}`;
+        }
+        return "Provide a name";
+    }, [awaiting, defaultData, firstName, lastName]);
+
+    const phoneFullElement = useMemo(() => {
+        if (awaiting) {
+            return defaultData.accountDetails.personal.phone;
+        }
+        if (phone && phone.length > 0) {
+            return phone;
+        }
+        return "Provide a phone number";
+    }, [awaiting, defaultData, phone]);
+
+    const emailFullElement = useMemo(() => {
+        if (awaiting) {
+            return defaultData.accountDetails.personal.email;
+        }
+        if (email && email.length > 0) {
+            return email;
+        }
+        return "Provide an email address";
+    }, [awaiting, defaultData, email]);
 
     return (
         <div className={styles["account-settings-content"]}>
@@ -47,12 +77,7 @@ export function PersonalInformation() {
                                         className={styles["full-name"]}
                                         style={{ visibility: awaiting ? "hidden" : "initial" }}
                                     >
-                                        {awaiting
-                                            ? `
-                                            ${defaultData.accountDetails.personal.firstName}
-                                            ${defaultData.accountDetails.personal.lastName}
-                                        `
-                                            : `${firstName || ""} ${lastName || ""}`}
+                                        {nameFullElement}
                                     </div>
                                 </Skeleton>
                             ),
@@ -84,9 +109,7 @@ export function PersonalInformation() {
                                         className={styles["phone-number"]}
                                         style={{ visibility: awaiting ? "hidden" : "initial" }}
                                     >
-                                        {awaiting
-                                            ? `${defaultData.accountDetails.personal.phone}`
-                                            : `${phone || ""}`}
+                                        {phoneFullElement}
                                     </div>
                                 </Skeleton>
                             ),
@@ -171,9 +194,7 @@ export function PersonalInformation() {
                                         className={styles["email-address"]}
                                         style={{ visibility: awaiting ? "hidden" : "initial" }}
                                     >
-                                        {awaiting
-                                            ? `${defaultData.accountDetails.personal.email}`
-                                            : `${email || ""}`}
+                                        {emailFullElement}
                                     </div>
                                 </Skeleton>
                             ),
