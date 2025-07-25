@@ -65,7 +65,9 @@ export function Header() {
         <>
             <div ref={baseRef}></div>
             <header
-                className={`${styles["header"]} ${styles[active ? "active" : "inactive"]} ${styles[open ? "open" : "closed"]}`}
+                data-active={active}
+                data-open={open}
+                className={styles["header"]}
                 ref={headerRef}
             >
                 <div className={styles["header-width-controller"]}>

@@ -4,6 +4,7 @@ import _ from "lodash";
 import { IHeaderContext, HeaderContext } from "@/pages/Root";
 import { RecursivePartial } from "@/utils/types";
 import { BrowserRouter } from "react-router-dom";
+import { act } from "react";
 import { Header } from ".";
 
 // Mock dependencies
@@ -130,15 +131,24 @@ describe("The Header component...", () => {
             });
         });
 
-        test("Containing the 'forceClose' function", () => {
-            const setHeaderInfoSpy = vi.fn();
+        describe("Containing the 'forceClose' state...", () => {
+            test("That should be a function", async () => {
+                const setHeaderInfoSpy = vi.fn();
 
-            renderFunc({ HeaderContextOverride: { setHeaderInfo: setHeaderInfoSpy } });
+                renderFunc({ HeaderContextOverride: { setHeaderInfo: setHeaderInfoSpy } });
 
-            const args = setHeaderInfoSpy.mock.calls[0][0];
-            const { forceClose } = args;
+                const args = setHeaderInfoSpy.mock.calls[0][0];
+                const { forceClose } = args;
 
-            expect(typeof forceClose).toBe("function");
+                expect(typeof forceClose).toBe("function");
+
+                // Forcing 'open' state to 'false'
+                await act(async () => forceClose(true, "1"));
+
+                // Removing id from Set that forces 'open' state to be 'false' when its length is
+                // greater than 0
+                await act(async () => forceClose(false, "1"));
+            });
         });
     });
 });
