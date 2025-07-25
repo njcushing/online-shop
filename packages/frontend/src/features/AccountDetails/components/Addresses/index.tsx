@@ -15,7 +15,7 @@ export function Addresses() {
 
     const { accountDetails: defaultAccountDetails } = defaultData;
     const { addresses: defaultAddresses } = defaultAccountDetails;
-    const { delivery: defaultD } = defaultAddresses;
+    const { delivery: defaultDelivery } = defaultAddresses;
 
     const skeletonProps = useMemo(() => ({ visible: awaiting, width: "min-content" }), [awaiting]);
 
@@ -28,11 +28,11 @@ export function Addresses() {
                     className={styles["address-line"]}
                     style={{ visibility: awaiting ? "hidden" : "initial" }}
                 >
-                    <div>{defaultD[field as keyof typeof defaultD]}</div>
+                    <div>{defaultDelivery[field as keyof typeof defaultDelivery]}</div>
                 </div>
             </Skeleton>
         ));
-    }, [awaiting, defaultD, skeletonProps]);
+    }, [awaiting, defaultDelivery, skeletonProps]);
 
     const deliveryAddressFullElement = useMemo(() => {
         if (awaiting) return <div className={styles["address"]}>{skeletonAddress}</div>;
