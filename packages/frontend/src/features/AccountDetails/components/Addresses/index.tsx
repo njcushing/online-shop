@@ -1,4 +1,4 @@
-import { useContext, useMemo } from "react";
+import { useCallback, useContext, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { Skeleton } from "@mantine/core";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,27 +15,29 @@ export function Addresses() {
 
     const { accountDetails: defaultAccountDetails } = defaultData;
     const { addresses: defaultAddresses } = defaultAccountDetails;
-    const { delivery: defaultDelivery } = defaultAddresses;
+    const { delivery: defaultDelivery, billing: defaultBilling } = defaultAddresses;
 
     const skeletonProps = useMemo(() => ({ visible: awaiting, width: "min-content" }), [awaiting]);
 
-    const skeletonAddress = useMemo(() => {
-        const fields = ["line1", "line2", "townCity", "county", "postcode"];
-
-        return fields.map((field) => (
-            <Skeleton {...skeletonProps} key={field}>
-                <div
-                    className={styles["address-line"]}
-                    style={{ visibility: awaiting ? "hidden" : "initial" }}
-                >
-                    <div>{defaultDelivery[field as keyof typeof defaultDelivery]}</div>
-                </div>
-            </Skeleton>
-        ));
-    }, [awaiting, defaultDelivery, skeletonProps]);
+    const skeletonAddress = useCallback(
+        (fields: (typeof defaultAddresses)["delivery"] | (typeof defaultAddresses)["billing"]) => {
+            return Object.entries(fields).map((field) => {
+                const [key, value] = field;
+                return (
+                    <Skeleton {...skeletonProps} key={key}>
+                        <div className={styles["address-line"]} style={{ visibility: "hidden" }}>
+                            <div>{value}</div>
+                        </div>
+                    </Skeleton>
+                );
+            });
+        },
+        [skeletonProps],
+    );
 
     const deliveryAddressFullElement = useMemo(() => {
-        if (awaiting) return <div className={styles["address"]}>{skeletonAddress}</div>;
+        if (awaiting)
+            return <div className={styles["address"]}>{skeletonAddress(defaultDelivery)}</div>;
         if (!delivery) return <div className={styles["address"]}>No address set</div>;
         return (
             <div className={styles["address"]}>
@@ -58,10 +60,11 @@ export function Addresses() {
                 </div>
             </div>
         );
-    }, [awaiting, delivery, skeletonAddress]);
+    }, [awaiting, delivery, defaultDelivery, skeletonAddress]);
 
     const billingAddressFullElement = useMemo(() => {
-        if (awaiting) return <div className={styles["address"]}>{skeletonAddress}</div>;
+        if (awaiting)
+            return <div className={styles["address"]}>{skeletonAddress(defaultBilling)}</div>;
         if (!billing) return <div className={styles["no-address"]}>No address set</div>;
         return (
             <div className={styles["address"]}>
@@ -84,7 +87,7 @@ export function Addresses() {
                 </div>
             </div>
         );
-    }, [awaiting, billing, skeletonAddress]);
+    }, [awaiting, billing, defaultBilling, skeletonAddress]);
 
     return (
         <div className={styles["account-settings-content"]}>
