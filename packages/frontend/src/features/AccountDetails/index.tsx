@@ -62,7 +62,7 @@ export function AccountDetails() {
     const currentGroup = groupNames.at(-1);
     const atBase = currentGroup === "account";
 
-    const wide = useMatches({ base: false, lg: true });
+    const [wide, caretSize] = useMatches({ base: [false, 14], lg: [true, 16] });
 
     return (
         <section className={styles["account-details"]}>
@@ -81,16 +81,11 @@ export function AccountDetails() {
                     ) : (
                         <Link to="/account">Account</Link>
                     )}
-                    {groupNames.slice(1).map((groupName, i) => {
-                        const current = groupName === currentGroup;
+                    {groupNames.slice(1).map((groupName) => {
                         const group = groups.find((g) => g.to === groupName);
-                        const label = group?.label || groupName;
+                        const { label } = group!;
 
-                        return !current ? (
-                            <Link to={`/${[...groupNames.slice(0, i + 1)].join("/")}`} key={label}>
-                                {label}
-                            </Link>
-                        ) : (
+                        return (
                             <span className={styles["group-breadcrumb-current"]} key={label}>
                                 {label}
                             </span>
@@ -108,9 +103,7 @@ export function AccountDetails() {
                                     component={Link}
                                     to={to}
                                     label={label}
-                                    rightSection={
-                                        <CaretRight size={wide ? 16 : 14} weight="bold" />
-                                    }
+                                    rightSection={<CaretRight size={caretSize} weight="bold" />}
                                     data-selected={currentGroup === to}
                                     key={label}
                                 />
