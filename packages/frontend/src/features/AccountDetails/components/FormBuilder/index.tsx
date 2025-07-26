@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect, Fragment } from "react";
+import { Fragment, useState, useEffect, useCallback, useMemo } from "react";
 import {
     TextInput,
     TextInputProps,
@@ -278,7 +278,7 @@ export function FormBuilder<T extends FieldValues>({
         [disabled, errors, handleValidate, open],
     );
 
-    const additionalErrors = (() => {
+    const additionalErrors = useMemo(() => {
         const errorElements = (additionalErrorPaths || []).flatMap((pathName) => {
             const fieldError = getNestedField(errors, [...pathName.split("."), "message"]);
             if (!fieldError) return [];
@@ -296,7 +296,7 @@ export function FormBuilder<T extends FieldValues>({
                 {errorElements}
             </div>
         ) : null;
-    })();
+    }, [additionalErrorPaths, classNames?.additionalFieldErrorsContainer, errors]);
 
     const hasErrors = Object.keys(errors).length > 0;
 
