@@ -78,6 +78,7 @@ export type TFormBuilder<T extends FieldValues> = {
     defaultValues?: UseFormProps<T>["defaultValues"];
     resolver: UseFormProps<T>["resolver"];
     onSubmit?: SubmitHandler<T>;
+    submitButtonText?: string;
     disabled?: boolean;
     additionalErrorPaths?: string[];
     classNames?: {
@@ -95,6 +96,7 @@ export function FormBuilder<T extends FieldValues>({
     defaultValues,
     resolver,
     onSubmit,
+    submitButtonText = "Submit",
     disabled,
     additionalErrorPaths,
     classNames,
@@ -367,7 +369,7 @@ export function FormBuilder<T extends FieldValues>({
                     className={`${styles["submit-button"]} ${classNames?.submitButton}`}
                     disabled={disabled || !hasChanged || hasErrors}
                 >
-                    Save changes
+                    {submitButtonText}
                 </Button>
             )}
         </form>
