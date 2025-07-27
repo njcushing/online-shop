@@ -52,7 +52,7 @@ type ValidPath<T extends FieldValues> =
             : never
         : never;
 
-type Field<T extends FieldValues> = {
+export type Field<T extends FieldValues> = {
     type: "text" | "numeric" | "password";
     name: ValidPath<T>;
     label: string;
@@ -61,7 +61,7 @@ type Field<T extends FieldValues> = {
     sharedValidation?: string[];
 };
 
-type Fieldset<T extends FieldValues> = {
+export type Fieldset<T extends FieldValues> = {
     legend: string;
     fields: Field<T>[];
     fullElement?: React.ReactNode;
