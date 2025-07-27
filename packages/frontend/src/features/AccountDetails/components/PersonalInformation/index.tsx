@@ -131,24 +131,24 @@ export function PersonalInformation() {
                                     name: "personal.dob.day",
                                     label: "Day",
                                     mode: "onTouched",
-                                    validateOther: ["dob.root"],
-                                    sharedValidation: ["dob.root"],
+                                    validateOther: ["personal.dob.root"],
+                                    sharedValidation: ["personal.dob.root"],
                                 },
                                 {
                                     type: "numeric",
                                     name: "personal.dob.month",
                                     label: "Month",
                                     mode: "onTouched",
-                                    validateOther: ["dob.root"],
-                                    sharedValidation: ["dob.root"],
+                                    validateOther: ["personal.dob.root"],
+                                    sharedValidation: ["personal.dob.root"],
                                 },
                                 {
                                     type: "numeric",
                                     name: "personal.dob.year",
                                     label: "Year",
                                     mode: "onTouched",
-                                    validateOther: ["dob.root"],
-                                    sharedValidation: ["dob.root"],
+                                    validateOther: ["personal.dob.root"],
+                                    sharedValidation: ["personal.dob.root"],
                                 },
                             ],
                             fullElement: (
@@ -173,7 +173,7 @@ export function PersonalInformation() {
                     defaultValues={{ personal: { dob } }}
                     resolver={zodResolver(dateOfBirthFormDataSchema)}
                     disabled={awaiting}
-                    additionalErrorPaths={["dob.root"]}
+                    additionalErrorPaths={["personal.dob.root"]}
                 />
 
                 <FormBuilder<EmailFormData>
