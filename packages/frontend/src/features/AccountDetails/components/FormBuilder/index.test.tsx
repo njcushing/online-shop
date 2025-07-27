@@ -1,61 +1,194 @@
-import { vi } from "vitest";
+import { Mock, vi } from "vitest";
 import { screen, render, within, userEvent, fireEvent } from "@test-utils";
 import _ from "lodash";
 import { act } from "react";
 import { RecursivePartial } from "@/utils/types";
+import { UseFormProps } from "react-hook-form";
 import { FormBuilder, TFormBuilder } from ".";
 
 // Mock dependencies
 // Mock props and contexts are only using fields relevant to component being tested
 
 type MockFormData = {
-    details: {
-        name: string;
-        age: number;
-        password: string;
+    examples: {
+        text: {
+            onTouched: string;
+            onChange: string;
+            onBlur: string;
+            onSubmit: string;
+            all: string;
+        };
+        number: {
+            onTouched: number;
+            onChange: number;
+            onBlur: number;
+            onSubmit: number;
+            all: number;
+        };
+        password: {
+            onTouched: string;
+            onChange: string;
+            onBlur: string;
+            onSubmit: string;
+            all: string;
+        };
     };
 };
 const defaultValues = {
-    details: {
-        name: "defaultName",
-        age: 30,
-        password: "defaultPassword",
+    examples: {
+        text: {
+            onTouched: "defaultTextOnTouched",
+            onChange: "defaultTextOnChange",
+            onBlur: "defaultTextOnBlur",
+            onSubmit: "defaultTextOnSubmit",
+            all: "defaultTextAll",
+        },
+        number: {
+            onTouched: 10,
+            onChange: 20,
+            onBlur: 30,
+            onSubmit: 40,
+            all: 50,
+        },
+        password: {
+            onTouched: "defaultPasswordOnTouched",
+            onChange: "defaultPasswordOnChange",
+            onBlur: "defaultPasswordOnBlur",
+            onSubmit: "defaultPasswordOnSubmit",
+            all: "defaultPasswordAll",
+        },
     },
 };
 const mockProps: RecursivePartial<TFormBuilder<MockFormData>> = {
     fieldsets: [
         {
-            legend: "Details",
+            legend: "Text",
             fields: [
                 {
                     type: "text",
-                    name: "details.name",
-                    label: "Name",
+                    name: "examples.text.onTouched",
+                    label: "Text onTouched",
+                    mode: "onTouched",
+                },
+                {
+                    type: "text",
+                    name: "examples.text.onChange",
+                    label: "Text onChange",
+                    mode: "onChange",
+                },
+                {
+                    type: "text",
+                    name: "examples.text.onBlur",
+                    label: "Text onBlur",
+                    mode: "onBlur",
+                },
+                {
+                    type: "text",
+                    name: "examples.text.onSubmit",
+                    label: "Text onSubmit",
+                    mode: "onSubmit",
+                },
+                { type: "text", name: "examples.text.all", label: "Text all", mode: "all" },
+            ],
+            fullElement: <div aria-label="full-element-text"></div>,
+            classNames: {
+                fieldset: "fieldset",
+                legend: "legend",
+                formFieldsContainer: "formFieldsContainer",
+            },
+        },
+        {
+            legend: "Number",
+            fields: [
+                {
+                    type: "numeric",
+                    name: "examples.number.onTouched",
+                    label: "Number onTouched",
                     mode: "onTouched",
                 },
                 {
                     type: "numeric",
-                    name: "details.age",
-                    label: "Age",
+                    name: "examples.number.onChange",
+                    label: "Number onChange",
+                    mode: "onChange",
+                },
+                {
+                    type: "numeric",
+                    name: "examples.number.onBlur",
+                    label: "Number onBlur",
+                    mode: "onBlur",
+                },
+                {
+                    type: "numeric",
+                    name: "examples.number.onSubmit",
+                    label: "Number onSubmit",
+                    mode: "onSubmit",
+                },
+                { type: "numeric", name: "examples.number.all", label: "Number all", mode: "all" },
+            ],
+            fullElement: <div aria-label="full-element-number"></div>,
+            classNames: {
+                fieldset: "fieldset",
+                legend: "legend",
+                formFieldsContainer: "formFieldsContainer",
+            },
+        },
+        {
+            legend: "Password",
+            fields: [
+                {
+                    type: "password",
+                    name: "examples.password.onTouched",
+                    label: "Password onTouched",
                     mode: "onTouched",
                 },
                 {
                     type: "password",
-                    name: "details.password",
-                    label: "Password",
-                    mode: "onTouched",
+                    name: "examples.password.onChange",
+                    label: "Password onChange",
+                    mode: "onChange",
+                },
+                {
+                    type: "password",
+                    name: "examples.password.onBlur",
+                    label: "Password onBlur",
+                    mode: "onBlur",
+                },
+                {
+                    type: "password",
+                    name: "examples.password.onSubmit",
+                    label: "Password onSubmit",
+                    mode: "onSubmit",
+                },
+                {
+                    type: "password",
+                    name: "examples.password.all",
+                    label: "Password all",
+                    mode: "all",
                 },
             ],
-            fullElement: <div aria-label="full-element"></div>,
+            fullElement: <div aria-label="full-element-password"></div>,
+            classNames: {
+                fieldset: "fieldset",
+                legend: "legend",
+                formFieldsContainer: "formFieldsContainer",
+            },
         },
     ],
-    ariaLabel: "User Details",
+    ariaLabel: "Examples",
     defaultValues,
     resolver: undefined,
     onSubmit: undefined,
     submitButtonText: undefined,
     disabled: false,
     additionalErrorPaths: [],
+    classNames: {
+        form: "form",
+        editButton: "editButton",
+        fieldsetsContainer: "fieldsetsContainer",
+        additionalFieldErrorsContainer: "additionalFieldErrorsContainer",
+        submitButton: "submitButton",
+    },
 };
 
 type renderFuncArgs = {
@@ -84,31 +217,69 @@ const renderFunc = async (args: renderFuncArgs = {}) => {
     };
 };
 
+const testInputValidation = async (
+    input: HTMLInputElement,
+    form: HTMLFormElement,
+    mode: UseFormProps<MockFormData>["mode"],
+    resolverSpy: Mock,
+) => {
+    // Each array entry is the cumulative expected number of calls of the resolverSpy
+    let expectedCalls = [0, 0, 0, 0, 0];
+    if (mode === "onChange") expectedCalls = [0, 0, 1, 2, 3];
+    if (mode === "onTouched") expectedCalls = [0, 1, 2, 3, 4];
+    if (mode === "onBlur") expectedCalls = [0, 1, 1, 1, 2];
+    if (mode === "onSubmit") expectedCalls = [0, 0, 0, 0, 1];
+    if (mode === "all") expectedCalls = [0, 1, 2, 3, 4];
+
+    expect(resolverSpy).toHaveBeenCalledTimes(0);
+
+    await act(async () => fireEvent.focus(input));
+
+    expect(resolverSpy).toHaveBeenCalledTimes(expectedCalls[0]);
+
+    await act(async () => fireEvent.blur(input));
+
+    expect(resolverSpy).toHaveBeenCalledTimes(expectedCalls[1]);
+
+    // Using a numeric value as it's valid for testing both text and number inputs
+    await act(async () => fireEvent.change(input, { target: { value: 1 } }));
+
+    expect(resolverSpy).toHaveBeenCalledTimes(expectedCalls[2]);
+
+    await act(async () => fireEvent.change(input, { target: { value: "" } }));
+
+    expect(resolverSpy).toHaveBeenCalledTimes(expectedCalls[3]);
+
+    await act(async () => fireEvent.submit(form));
+
+    expect(resolverSpy).toHaveBeenCalledTimes(expectedCalls[4]);
+};
+
 describe("The FormBuilder component...", () => {
     describe("Should render a <form> element...", () => {
         test("With an aria-label attribute equal to the value of the 'ariaLabel' prop", () => {
             renderFunc();
 
-            const formElement = screen.getByRole("form", { name: mockProps.ariaLabel });
-            expect(formElement).toBeInTheDocument();
+            const form = screen.getByRole("form", { name: mockProps.ariaLabel });
+            expect(form).toBeInTheDocument();
         });
 
         describe("That should contain an edit/cancel button...", () => {
             test("With text content equal to: 'Edit', initially, meaning the form is not 'open'", () => {
                 renderFunc();
 
-                const formElement = screen.getByRole("form", { name: mockProps.ariaLabel });
+                const form = screen.getByRole("form", { name: mockProps.ariaLabel });
 
-                const editCancelButton = within(formElement).getByRole("button", { name: "Edit" });
+                const editCancelButton = within(form).getByRole("button", { name: "Edit" });
                 expect(editCancelButton).toBeInTheDocument();
             });
 
             test("That, when clicked, should toggle the 'open' state of the form and therefore the button's text content between 'Edit' and 'Cancel'", async () => {
                 await renderFunc();
 
-                const formElement = screen.getByRole("form", { name: mockProps.ariaLabel });
+                const form = screen.getByRole("form", { name: mockProps.ariaLabel });
 
-                const editCancelButton = within(formElement).getByRole("button", { name: "Edit" });
+                const editCancelButton = within(form).getByRole("button", { name: "Edit" });
                 expect(editCancelButton).toBeInTheDocument();
 
                 await act(async () => userEvent.click(editCancelButton));
@@ -125,12 +296,12 @@ describe("The FormBuilder component...", () => {
             test("With a <legend> element with text content equal to that fieldset's 'legend' field", () => {
                 renderFunc();
 
-                const formElement = screen.getByRole("form", { name: mockProps.ariaLabel });
+                const form = screen.getByRole("form", { name: mockProps.ariaLabel });
 
                 const { fieldsets } = mockProps!;
                 const { legend } = fieldsets![0]!;
 
-                const fieldsetElement = within(formElement).getByRole("group", { name: legend });
+                const fieldsetElement = within(form).getByRole("group", { name: legend });
                 expect(fieldsetElement).toBeInTheDocument();
             });
 
@@ -140,7 +311,7 @@ describe("The FormBuilder component...", () => {
                     errors: {},
                 }));
                 const onSubmitSpy = vi.fn();
-                let fieldsetElement;
+                let form;
 
                 beforeEach(async () => {
                     await renderFunc({
@@ -151,19 +322,12 @@ describe("The FormBuilder component...", () => {
                         } as unknown as TFormBuilder<MockFormData>,
                     });
 
-                    const formElement = screen.getByRole("form", { name: mockProps.ariaLabel });
+                    form = screen.getByRole("form", { name: mockProps.ariaLabel });
 
-                    const editCancelButton = within(formElement).getByRole("button", {
+                    const editCancelButton = within(form).getByRole("button", {
                         name: "Edit",
                     });
                     await act(async () => userEvent.click(editCancelButton));
-
-                    const { fieldsets } = mockProps!;
-                    const { legend } = fieldsets![0]!;
-
-                    fieldsetElement = within(formElement).getByRole("group", {
-                        name: legend,
-                    });
                 });
 
                 afterEach(() => {
@@ -173,40 +337,199 @@ describe("The FormBuilder component...", () => {
 
                 describe("Contain a form input for each entry in that fieldset's 'fields' array...", async () => {
                     describe("Including text inputs...", async () => {
-                        test("That should have the correct default value from the 'defaultValues' prop", async () => {
-                            const { name } = defaultValues.details;
+                        let fieldsetElement;
 
-                            const nameInput = within(fieldsetElement!).getByRole("textbox", {
-                                name: "Name",
+                        beforeEach(() => {
+                            const { fieldsets } = mockProps!;
+                            const { legend } = fieldsets![0]!;
+
+                            fieldsetElement = within(form!).getByRole("group", {
+                                name: legend,
+                            });
+                        });
+
+                        test("That should have the correct default value from the 'defaultValues' prop", async () => {
+                            const { all } = defaultValues.examples.text;
+
+                            const textInput = within(fieldsetElement!).getByRole("textbox", {
+                                name: "Text all",
                             }) as HTMLInputElement;
-                            expect(nameInput).toBeInTheDocument();
-                            expect(nameInput.value).toBe(name);
+                            expect(textInput).toBeInTheDocument();
+                            expect(textInput.value).toBe(all);
+                        });
+
+                        describe("That should invoke the callback function passed to the 'resolver' prop...", async () => {
+                            test("On change or submit, if the input's 'mode' field is 'onChange'", async () => {
+                                const input = within(fieldsetElement!).getByLabelText(
+                                    "Text onChange",
+                                ) as HTMLInputElement;
+
+                                await testInputValidation(input, form!, "onChange", resolverSpy);
+                            });
+
+                            test("On blur, change or submit (after the input has been 'touched'), if the input's 'mode' field is 'onTouched'", async () => {
+                                const input = within(fieldsetElement!).getByLabelText(
+                                    "Text onTouched",
+                                ) as HTMLInputElement;
+
+                                await testInputValidation(input, form!, "onTouched", resolverSpy);
+                            });
+
+                            test("On blur or submit, if the input's 'mode' field is 'onBlur'", async () => {
+                                const input = within(fieldsetElement!).getByLabelText(
+                                    "Text onBlur",
+                                ) as HTMLInputElement;
+
+                                await testInputValidation(input, form!, "onBlur", resolverSpy);
+                            });
+
+                            test("On submit, if the input's 'mode' field is 'onSubmit'", async () => {
+                                const input = within(fieldsetElement!).getByLabelText(
+                                    "Text onSubmit",
+                                ) as HTMLInputElement;
+
+                                await testInputValidation(input, form!, "onSubmit", resolverSpy);
+                            });
+
+                            test("On blur, change or submit, if the input's 'mode' field is 'all'", async () => {
+                                const input = within(fieldsetElement!).getByLabelText(
+                                    "Text all",
+                                ) as HTMLInputElement;
+
+                                await testInputValidation(input, form!, "all", resolverSpy);
+                            });
                         });
                     });
 
                     describe("Including number inputs", async () => {
-                        test("That should have the correct default value from the 'defaultValues' prop", async () => {
-                            const { age } = defaultValues.details;
+                        let fieldsetElement;
 
-                            const ageInput = within(fieldsetElement!).getByRole("textbox", {
-                                name: "Age",
+                        beforeEach(() => {
+                            const { fieldsets } = mockProps!;
+                            const { legend } = fieldsets![1]!;
+
+                            fieldsetElement = within(form!).getByRole("group", {
+                                name: legend,
+                            });
+                        });
+
+                        test("That should have the correct default value from the 'defaultValues' prop", async () => {
+                            const { all } = defaultValues.examples.number;
+
+                            const numberInput = within(fieldsetElement!).getByRole("textbox", {
+                                name: "Number all",
                             }) as HTMLInputElement;
-                            expect(ageInput).toBeInTheDocument();
-                            expect(ageInput.value).toBe(`${age}`);
+                            expect(numberInput).toBeInTheDocument();
+                            expect(numberInput.value).toBe(`${all}`);
+                        });
+
+                        describe("That should invoke the callback function passed to the 'resolver' prop...", async () => {
+                            test("On change or submit, if the input's 'mode' field is 'onChange'", async () => {
+                                const input = within(fieldsetElement!).getByLabelText(
+                                    "Number onChange",
+                                ) as HTMLInputElement;
+
+                                await testInputValidation(input, form!, "onChange", resolverSpy);
+                            });
+
+                            test("On blur, change or submit (after the input has been 'touched'), if the input's 'mode' field is 'onTouched'", async () => {
+                                const input = within(fieldsetElement!).getByLabelText(
+                                    "Number onTouched",
+                                ) as HTMLInputElement;
+
+                                await testInputValidation(input, form!, "onTouched", resolverSpy);
+                            });
+
+                            test("On blur or submit, if the input's 'mode' field is 'onBlur'", async () => {
+                                const input = within(fieldsetElement!).getByLabelText(
+                                    "Number onBlur",
+                                ) as HTMLInputElement;
+
+                                await testInputValidation(input, form!, "onBlur", resolverSpy);
+                            });
+
+                            test("On submit, if the input's 'mode' field is 'onSubmit'", async () => {
+                                const input = within(fieldsetElement!).getByLabelText(
+                                    "Number onSubmit",
+                                ) as HTMLInputElement;
+
+                                await testInputValidation(input, form!, "onSubmit", resolverSpy);
+                            });
+
+                            test("On blur, change or submit, if the input's 'mode' field is 'all'", async () => {
+                                const input = within(fieldsetElement!).getByLabelText(
+                                    "Number all",
+                                ) as HTMLInputElement;
+
+                                await testInputValidation(input, form!, "all", resolverSpy);
+                            });
                         });
                     });
 
                     describe("Including password inputs", async () => {
+                        let fieldsetElement;
+
+                        beforeEach(() => {
+                            const { fieldsets } = mockProps!;
+                            const { legend } = fieldsets![2]!;
+
+                            fieldsetElement = within(form!).getByRole("group", {
+                                name: legend,
+                            });
+                        });
+
                         test("That should have the correct default value from the 'defaultValues' prop", async () => {
-                            const { password } = defaultValues.details;
+                            const { all } = defaultValues.examples.password;
 
                             const passwordInput = within(fieldsetElement!).getByLabelText(
-                                "Password",
+                                "Password all",
                             ) as HTMLInputElement;
                             expect(passwordInput).toBeInTheDocument();
-                            expect(passwordInput.value).toBe(password);
+                            expect(passwordInput.value).toBe(all);
                             expect(passwordInput.tagName).toBe("INPUT");
                             expect(passwordInput.getAttribute("type")).toBe("password");
+                        });
+
+                        describe("That should invoke the callback function passed to the 'resolver' prop...", async () => {
+                            test("On change or submit, if the input's 'mode' field is 'onChange'", async () => {
+                                const input = within(fieldsetElement!).getByLabelText(
+                                    "Password onChange",
+                                ) as HTMLInputElement;
+
+                                await testInputValidation(input, form!, "onChange", resolverSpy);
+                            });
+
+                            test("On blur, change or submit (after the input has been 'touched'), if the input's 'mode' field is 'onTouched'", async () => {
+                                const input = within(fieldsetElement!).getByLabelText(
+                                    "Password onTouched",
+                                ) as HTMLInputElement;
+
+                                await testInputValidation(input, form!, "onTouched", resolverSpy);
+                            });
+
+                            test("On blur or submit, if the input's 'mode' field is 'onBlur'", async () => {
+                                const input = within(fieldsetElement!).getByLabelText(
+                                    "Password onBlur",
+                                ) as HTMLInputElement;
+
+                                await testInputValidation(input, form!, "onBlur", resolverSpy);
+                            });
+
+                            test("On submit, if the input's 'mode' field is 'onSubmit'", async () => {
+                                const input = within(fieldsetElement!).getByLabelText(
+                                    "Password onSubmit",
+                                ) as HTMLInputElement;
+
+                                await testInputValidation(input, form!, "onSubmit", resolverSpy);
+                            });
+
+                            test("On blur, change or submit, if the input's 'mode' field is 'all'", async () => {
+                                const input = within(fieldsetElement!).getByLabelText(
+                                    "Password all",
+                                ) as HTMLInputElement;
+
+                                await testInputValidation(input, form!, "all", resolverSpy);
+                            });
                         });
                     });
                 });
@@ -216,17 +539,17 @@ describe("The FormBuilder component...", () => {
                 test("Contain the element specified in that fieldset's 'fullElement' field", () => {
                     renderFunc();
 
-                    const formElement = screen.getByRole("form", { name: mockProps.ariaLabel });
+                    const form = screen.getByRole("form", { name: mockProps.ariaLabel });
 
                     const { fieldsets } = mockProps!;
                     const { legend } = fieldsets![0]!;
 
-                    const fieldsetElement = within(formElement).getByRole("group", {
+                    const fieldsetElement = within(form).getByRole("group", {
                         name: legend,
                     });
 
                     const fieldsetFullElement =
-                        within(fieldsetElement).getByLabelText("full-element");
+                        within(fieldsetElement).getByLabelText("full-element-text");
                     expect(fieldsetFullElement).toBeInTheDocument();
                 });
             });
@@ -236,29 +559,29 @@ describe("The FormBuilder component...", () => {
             test("Render any additional errors from the resolver", async () => {
                 const resolverSpy = vi.fn(() => ({
                     values: {},
-                    errors: { form: { root: { message: "Additional error" } } },
+                    errors: { examples: { text: { root: { message: "Additional error" } } } },
                 }));
                 const onSubmitSpy = vi.fn();
                 await renderFunc({
                     propsOverride: {
                         resolver: resolverSpy,
                         onSubmit: onSubmitSpy,
-                        additionalErrorPaths: ["form.root"],
+                        additionalErrorPaths: ["examples.text.root"],
                     } as unknown as TFormBuilder<MockFormData>,
                 });
 
-                const formElement = screen.getByRole("form", { name: mockProps.ariaLabel });
+                const form = screen.getByRole("form", { name: mockProps.ariaLabel });
 
-                const editCancelButton = within(formElement).getByRole("button", {
+                const editCancelButton = within(form).getByRole("button", {
                     name: "Edit",
                 });
                 await act(async () => userEvent.click(editCancelButton));
 
-                await act(async () => fireEvent.submit(formElement));
+                await act(async () => fireEvent.submit(form));
 
                 expect(resolverSpy).toHaveBeenCalled();
 
-                const additionalErrorElement = within(formElement).getByText("Additional error");
+                const additionalErrorElement = within(form).getByText("Additional error");
                 expect(additionalErrorElement).toBeInTheDocument();
             });
 
@@ -270,14 +593,14 @@ describe("The FormBuilder component...", () => {
                         } as unknown as TFormBuilder<MockFormData>,
                     });
 
-                    const formElement = screen.getByRole("form", { name: mockProps.ariaLabel });
+                    const form = screen.getByRole("form", { name: mockProps.ariaLabel });
 
-                    const editCancelButton = within(formElement).getByRole("button", {
+                    const editCancelButton = within(form).getByRole("button", {
                         name: "Edit",
                     });
                     await act(async () => userEvent.click(editCancelButton));
 
-                    const submitButton = within(formElement).getByRole("button", {
+                    const submitButton = within(form).getByRole("button", {
                         name: "Save changes",
                     });
                     expect(submitButton).toBeInTheDocument();
@@ -286,14 +609,14 @@ describe("The FormBuilder component...", () => {
                 test("Or with text content equal to 'Submit' if the 'submitButtonText' prop is undefined", async () => {
                     await renderFunc();
 
-                    const formElement = screen.getByRole("form", { name: mockProps.ariaLabel });
+                    const form = screen.getByRole("form", { name: mockProps.ariaLabel });
 
-                    const editCancelButton = within(formElement).getByRole("button", {
+                    const editCancelButton = within(form).getByRole("button", {
                         name: "Edit",
                     });
                     await act(async () => userEvent.click(editCancelButton));
 
-                    const submitButton = within(formElement).getByRole("button", {
+                    const submitButton = within(form).getByRole("button", {
                         name: "Submit",
                     });
                     expect(submitButton).toBeInTheDocument();
@@ -305,7 +628,7 @@ describe("The FormBuilder component...", () => {
             test("Invoke the callback function passed to the 'resolver' prop", async () => {
                 const resolverSpy = vi.fn(() => ({
                     values: {},
-                    errors: { age: { message: "Invalid value" } },
+                    errors: { number: { message: "Invalid value" } },
                 }));
                 const onSubmitSpy = vi.fn();
                 renderFunc({
@@ -315,11 +638,11 @@ describe("The FormBuilder component...", () => {
                     } as unknown as TFormBuilder<MockFormData>,
                 });
 
-                const formElement = screen.getByRole("form", { name: mockProps.ariaLabel });
+                const form = screen.getByRole("form", { name: mockProps.ariaLabel });
 
                 expect(resolverSpy).not.toHaveBeenCalled();
 
-                await act(async () => fireEvent.submit(formElement));
+                await act(async () => fireEvent.submit(form));
 
                 expect(resolverSpy).toHaveBeenCalled();
             });
@@ -327,7 +650,7 @@ describe("The FormBuilder component...", () => {
             test("If the submission is unsuccessful, not invoke the callback function passed to the 'onSubmit' prop", async () => {
                 const resolverSpy = vi.fn(() => ({
                     values: {},
-                    errors: { age: { message: "Invalid value" } },
+                    errors: { number: { message: "Invalid value" } },
                 }));
                 const onSubmitSpy = vi.fn();
                 renderFunc({
@@ -337,11 +660,11 @@ describe("The FormBuilder component...", () => {
                     } as unknown as TFormBuilder<MockFormData>,
                 });
 
-                const formElement = screen.getByRole("form", { name: mockProps.ariaLabel });
+                const form = screen.getByRole("form", { name: mockProps.ariaLabel });
 
                 expect(onSubmitSpy).not.toHaveBeenCalled();
 
-                await act(async () => fireEvent.submit(formElement));
+                await act(async () => fireEvent.submit(form));
 
                 expect(onSubmitSpy).not.toHaveBeenCalled();
                 expect(resolverSpy).toHaveBeenCalled();
@@ -357,11 +680,11 @@ describe("The FormBuilder component...", () => {
                     } as unknown as TFormBuilder<MockFormData>,
                 });
 
-                const formElement = screen.getByRole("form", { name: mockProps.ariaLabel });
+                const form = screen.getByRole("form", { name: mockProps.ariaLabel });
 
                 expect(onSubmitSpy).not.toHaveBeenCalled();
 
-                await act(async () => fireEvent.submit(formElement));
+                await act(async () => fireEvent.submit(form));
 
                 expect(onSubmitSpy).toHaveBeenCalled();
                 expect(resolverSpy).toHaveBeenCalled();
