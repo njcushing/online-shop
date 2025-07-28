@@ -22,14 +22,8 @@ import {
     FieldValues,
 } from "react-hook-form";
 import { createInputError } from "@/utils/createInputError";
+import _ from "lodash";
 import styles from "./index.module.css";
-
-function getNestedField(obj: unknown, path: string[]): unknown {
-    if (obj === undefined || obj === null || typeof obj !== "object") return undefined;
-    if (path.length === 0) return undefined;
-    if (path.length === 1 && Object.hasOwn(obj, path[0])) return obj[path[0] as keyof typeof obj];
-    return getNestedField(obj[path[0] as keyof typeof obj], path.slice(1));
-}
 
 const inputProps = {
     classNames: {
@@ -98,7 +92,7 @@ export function FormBuilder<T extends FieldValues>({
     onSubmit,
     submitButtonText = "Submit",
     disabled,
-    additionalErrorPaths,
+    additionalErrorPaths = [],
     classNames,
 }: TFormBuilder<T>) {
     const [open, setOpen] = useState<boolean>(false);
@@ -125,8 +119,8 @@ export function FormBuilder<T extends FieldValues>({
             return fieldset.fields.some((field) => {
                 const { name } = field;
 
-                const currentValue = getNestedField(defaultValues, name.split("."));
-                const newValue = getNestedField(formFields, name.split("."));
+                const currentValue = _.get(defaultValues, name);
+                const newValue = _.get(formFields, name);
 
                 if (
                     (newValue === undefined || newValue === "") &&
@@ -158,7 +152,7 @@ export function FormBuilder<T extends FieldValues>({
             field: ControllerRenderProps<T>,
             validateOther?: string[],
         ) => {
-            const isTouched = getNestedField(touchedFields, field.name.split("."));
+            const isTouched = _.get(touchedFields, field.name);
 
             // I'm asserting the type of validateOther because any paths that are
             // dynamically-created within the schema, e.g. - for errors on a group of fields, aren't
@@ -194,9 +188,9 @@ export function FormBuilder<T extends FieldValues>({
         (fieldData: Field<T>, field: ControllerRenderProps<T, ValidPath<T>>): JSX.Element => {
             const { type, name, label, mode, validateOther, sharedValidation } = fieldData;
 
-            const fieldError = getNestedField(errors, [...name.split("."), "message"]);
+            const fieldError = _.get(errors, `${name}.message`);
             const sharedFieldsHaveErrors = (sharedValidation || []).filter((fieldName) => {
-                return getNestedField(errors, fieldName.split("."));
+                return _.get(errors, fieldName);
             });
 
             const inputError =
@@ -279,8 +273,8 @@ export function FormBuilder<T extends FieldValues>({
     );
 
     const additionalErrors = (() => {
-        const errorElements = (additionalErrorPaths || []).flatMap((pathName) => {
-            const fieldError = getNestedField(errors, [...pathName.split("."), "message"]);
+        const errorElements = additionalErrorPaths.flatMap((pathName) => {
+            const fieldError = _.get(errors, `${pathName}.message`);
             if (!fieldError) return [];
             return (
                 <Fragment key={pathName}>
