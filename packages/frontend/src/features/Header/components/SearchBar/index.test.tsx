@@ -1,6 +1,7 @@
-import { screen, render } from "@test-utils";
+import { screen, render, userEvent, fireEvent } from "@test-utils";
 import _ from "lodash";
 import { RecursivePartial } from "@/utils/types";
+import { act } from "react";
 import { SearchBar, TSearchBar } from ".";
 
 // Mock dependencies
@@ -41,6 +42,46 @@ describe("The SearchBar component...", () => {
 
             const InputComponent = screen.queryByRole("textbox");
             expect(InputComponent).not.toBeInTheDocument();
+        });
+    });
+
+    describe("Should render a 'Clear input' button", () => {
+        test("If the Input component's value is truthy", async () => {
+            renderFunc();
+
+            const InputComponent = screen.getByRole("textbox");
+
+            await act(async () => fireEvent.change(InputComponent, { target: { value: "test" } }));
+
+            const clearInputButton = screen.getByRole("button");
+            expect(clearInputButton).toBeInTheDocument();
+        });
+
+        test("Unless the Input component's value is falsy", async () => {
+            renderFunc();
+
+            const InputComponent = screen.getByRole("textbox");
+
+            await act(async () => fireEvent.change(InputComponent, { target: { value: "" } }));
+
+            const clearInputButton = screen.queryByRole("button");
+            expect(clearInputButton).not.toBeInTheDocument();
+        });
+
+        test("That should, on click, set the Input component's value to an empty string", async () => {
+            renderFunc();
+
+            const InputComponent = screen.getByRole("textbox") as HTMLInputElement;
+
+            await act(async () => fireEvent.change(InputComponent, { target: { value: "test" } }));
+
+            expect(InputComponent.value).toBe("test");
+
+            const clearInputButton = screen.getByRole("button");
+
+            await act(async () => userEvent.click(clearInputButton));
+
+            expect(InputComponent.value).toBe("");
         });
     });
 });
