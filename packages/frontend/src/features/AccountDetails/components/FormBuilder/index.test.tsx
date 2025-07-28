@@ -39,7 +39,9 @@ const defaultValues = {
         text: {
             onTouched: "defaultTextOnTouched",
             onChange: "defaultTextOnChange",
-            onBlur: "defaultTextOnBlur",
+            // Leaving blank to test that when empty string inputs are set to 'undefined' and
+            // vice-versa, the form doesn't mark that input as a changed field
+            onBlur: "",
             onSubmit: "defaultTextOnSubmit",
             all: "defaultTextAll",
         },
@@ -88,7 +90,13 @@ const mockProps: RecursivePartial<TFormBuilder<MockFormData>> = {
                     label: "Text onSubmit",
                     mode: "onSubmit",
                 },
-                { type: "text", name: "examples.text.all", label: "Text all", mode: "all" },
+                {
+                    type: "text",
+                    name: "examples.text.all",
+                    label: "Text all",
+                    mode: "all",
+                    sharedValidation: ["examples.text.onChange"],
+                },
             ],
             fullElement: <div aria-label="full-element-text"></div>,
             classNames: {
@@ -318,7 +326,6 @@ describe("The FormBuilder component...", () => {
                         propsOverride: {
                             resolver: resolverSpy,
                             onSubmit: onSubmitSpy,
-                            additionalErrorPaths: ["form.root"],
                         } as unknown as TFormBuilder<MockFormData>,
                     });
 
@@ -530,6 +537,56 @@ describe("The FormBuilder component...", () => {
 
                                 await testInputValidation(input, form!, "all", resolverSpy);
                             });
+                        });
+                    });
+
+                    describe("That have a 'data-error' attribute of 'true'...", async () => {
+                        test("When the resolver returns an error for that field", async () => {
+                            resolverSpy.mockReturnValueOnce({
+                                values: {},
+                                errors: {
+                                    examples: { text: { all: { message: "Error message" } } },
+                                },
+                            });
+
+                            const { fieldsets } = mockProps!;
+                            const { legend } = fieldsets![0]!;
+
+                            const fieldsetElement = within(form!).getByRole("group", {
+                                name: legend,
+                            });
+
+                            const textInput = within(fieldsetElement!).getByRole("textbox", {
+                                name: "Text all",
+                            }) as HTMLInputElement;
+
+                            await act(async () => fireEvent.submit(form!));
+
+                            expect(textInput.getAttribute("data-error")).toBe("true");
+                        });
+
+                        test("When the resolver returns an error for one of the field paths specified in that field's 'sharedValidation' array", async () => {
+                            resolverSpy.mockReturnValueOnce({
+                                values: {},
+                                errors: {
+                                    examples: { text: { onChange: { message: "Error message" } } },
+                                },
+                            });
+
+                            const { fieldsets } = mockProps!;
+                            const { legend } = fieldsets![0]!;
+
+                            const fieldsetElement = within(form!).getByRole("group", {
+                                name: legend,
+                            });
+
+                            const textInput = within(fieldsetElement!).getByRole("textbox", {
+                                name: "Text all",
+                            }) as HTMLInputElement;
+
+                            await act(async () => fireEvent.submit(form!));
+
+                            expect(textInput.getAttribute("data-error")).toBe("true");
                         });
                     });
                 });

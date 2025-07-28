@@ -276,11 +276,7 @@ export function FormBuilder<T extends FieldValues>({
         const errorElements = additionalErrorPaths.flatMap((pathName) => {
             const fieldError = _.get(errors, `${pathName}.message`);
             if (!fieldError) return [];
-            return (
-                <Fragment key={pathName}>
-                    {createInputError(typeof fieldError === "string" ? fieldError : undefined)}
-                </Fragment>
-            );
+            return <Fragment key={pathName}>{createInputError(fieldError)}</Fragment>;
         });
 
         return errorElements.length > 0 ? (
