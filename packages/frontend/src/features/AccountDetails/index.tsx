@@ -6,6 +6,7 @@ import { PersonalInformation } from "./components/PersonalInformation";
 import { Addresses } from "./components/Addresses";
 import { Security } from "./components/Security";
 import { OrderHistory } from "./components/OrderHistory";
+import { Subscriptions } from "./components/Subscriptions";
 import styles from "./index.module.css";
 
 export const Routes = [
@@ -36,7 +37,7 @@ export const Routes = [
     },
     {
         path: "subscriptions",
-        element: <div></div>,
+        element: <Subscriptions />,
         errorElement: <ErrorPage />,
     },
 ];
