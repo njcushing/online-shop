@@ -1,6 +1,12 @@
-import { ProductVariant, Product } from "@/utils/products/product";
+import {
+    ProductVariant,
+    Product,
+    generateSkeletonProduct,
+    generateSkeletonProductVariant,
+} from "@/utils/products/product";
 import { defaultAccountDetails } from "@/utils/schemas/account";
 import { Address } from "@/utils/schemas/address";
+import { RecursivePartial } from "@/utils/types";
 
 const frequencies = [
     "one_week",
@@ -99,3 +105,21 @@ export const mockSubscriptions: SubscriptionData[] = [
         variantId: "3-2",
     },
 ];
+
+export const generateSkeletonSubscriptionList = (
+    length: number = 5,
+): RecursivePartial<PopulatedSubscriptionData>[] => {
+    return Array.from({
+        length,
+    }).map((v, i) => ({
+        id: `${i + 1}`,
+        userId: "1",
+        subscriptionDateDate: new Date().toISOString(),
+        deliveryAddress: defaultAccountDetails.addresses.delivery,
+        billingAddress: defaultAccountDetails.addresses.billing,
+        frequency: frequencies[0],
+
+        product: generateSkeletonProduct(),
+        variant: generateSkeletonProductVariant(),
+    }));
+};
