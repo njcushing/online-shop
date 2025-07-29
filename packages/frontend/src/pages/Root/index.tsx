@@ -3,12 +3,22 @@ import { Outlet } from "react-router-dom";
 import { Header } from "@/features/Header";
 import { Footer } from "@/features/Footer";
 import { generateSkeletonCart, PopulatedCartItemData } from "@/utils/products/cart";
-import { mockGetAccountDetails, mockGetCart, mockGetOrders, mockGetWatchlist } from "@/api/mocks";
+import {
+    mockGetAccountDetails,
+    mockGetCart,
+    mockGetOrders,
+    mockGetSubscriptions,
+    mockGetWatchlist,
+} from "@/api/mocks";
 import { FuncResponseObject } from "@/api/types";
 import { RecursivePartial } from "@/utils/types";
 import * as useAsync from "@/hooks/useAsync";
 import { UserWatchlist } from "@/utils/products/watchlist";
 import { generateSkeletonOrderList, PopulatedOrderData } from "@/utils/products/orders";
+import {
+    generateSkeletonSubscriptionList,
+    PopulatedSubscriptionData,
+} from "@/utils/products/subscriptions";
 import { AccountDetails, defaultAccountDetails } from "@/utils/schemas/account";
 import { DeepRequired } from "react-hook-form";
 import { Home } from "../Home";
@@ -59,12 +69,14 @@ export interface IUserContext {
     cart: FuncResponseObject<PopulatedCartItemData[]> & { awaiting: boolean };
     watchlist: FuncResponseObject<UserWatchlist> & { awaiting: boolean };
     orders: FuncResponseObject<PopulatedOrderData[]> & { awaiting: boolean };
+    subscriptions: FuncResponseObject<PopulatedSubscriptionData[]> & { awaiting: boolean };
     accountDetails: FuncResponseObject<AccountDetails> & { awaiting: boolean };
 
     defaultData: {
         cart: RecursivePartial<PopulatedCartItemData>[];
         accountDetails: DeepRequired<AccountDetails>;
         orders: RecursivePartial<PopulatedOrderData>[];
+        subscriptions: RecursivePartial<PopulatedSubscriptionData>[];
     };
 }
 
@@ -72,12 +84,14 @@ const defaultUserContext: IUserContext = {
     cart: { data: [], status: 200, message: "Success", awaiting: false },
     watchlist: { data: [], status: 200, message: "Success", awaiting: false },
     orders: { data: [], status: 200, message: "Success", awaiting: false },
+    subscriptions: { data: [], status: 200, message: "Success", awaiting: false },
     accountDetails: { data: {}, status: 200, message: "Success", awaiting: true },
 
     defaultData: {
         cart: generateSkeletonCart(),
         accountDetails: defaultAccountDetails,
         orders: generateSkeletonOrderList(),
+        subscriptions: generateSkeletonSubscriptionList(),
     },
 };
 
@@ -137,6 +151,19 @@ export function Root({ children }: TRoot) {
         [ordersResponse, awaitingOrders],
     );
 
+    const [subscriptions, setSubscriptions] = useState<IUserContext["subscriptions"]>(
+        defaultUserContext.subscriptions,
+    );
+    const { response: subscriptionsResponse, awaiting: awaitingSubscriptions } = useAsync.GET(
+        mockGetSubscriptions,
+        [{}],
+        { attemptOnMount: true },
+    );
+    useEffect(
+        () => setSubscriptions({ ...subscriptionsResponse, awaiting: awaitingSubscriptions }),
+        [subscriptionsResponse, awaitingSubscriptions],
+    );
+
     const [accountDetails, setAccountDetails] = useState<IUserContext["accountDetails"]>(
         defaultUserContext.accountDetails,
     );
@@ -159,10 +186,11 @@ export function Root({ children }: TRoot) {
                         cart,
                         watchlist,
                         orders,
+                        subscriptions,
                         accountDetails,
                         defaultData: defaultUserContext.defaultData,
                     }),
-                    [cart, watchlist, orders, accountDetails],
+                    [cart, watchlist, orders, subscriptions, accountDetails],
                 )}
             >
                 <div className={styles["page"]}>
