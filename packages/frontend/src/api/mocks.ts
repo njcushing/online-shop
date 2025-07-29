@@ -1,7 +1,12 @@
 import { ProductReview, Product, reviews, products as productData } from "@/utils/products/product";
 import { CartItemData, PopulatedCartItemData, mockCart } from "@/utils/products/cart";
 import { UserWatchlist, watchlists } from "@/utils/products/watchlist";
-import { mockOrders, OrderData, PopulatedOrderData } from "@/utils/products/orders";
+import { OrderData, PopulatedOrderData, mockOrders } from "@/utils/products/orders";
+import {
+    SubscriptionData,
+    PopulatedSubscriptionData,
+    mockSubscriptions,
+} from "@/utils/products/subscriptions";
 import { filterOptions, sortOptions } from "@/features/ProductReviews";
 import { AccountDetails, defaultAccountDetails } from "@/utils/schemas/account";
 import * as HTTPMethodTypes from "./types";
@@ -147,6 +152,49 @@ export const mockGetOrders: HTTPMethodTypes.GET<undefined, PopulatedOrderData[]>
         status: 200,
         message: "Success",
         data: foundOrders,
+    };
+};
+
+export const mockPopulateSubscriptions = (
+    subscriptions: SubscriptionData[],
+): PopulatedSubscriptionData[] => {
+    return subscriptions.flatMap((subscription) => {
+        const { productId, variantId } = subscription;
+        const matchedProduct = productData.find((product) => product.id === productId);
+        if (!matchedProduct) return [];
+        const matchedVariant = matchedProduct.variants.find((variant) => variant.id === variantId);
+        if (!matchedVariant) return [];
+        const populatedSubscription = {
+            ...subscription,
+            product: matchedProduct,
+            variant: matchedVariant,
+        };
+        return populatedSubscription;
+    });
+};
+
+export const mockGetSubscriptions: HTTPMethodTypes.GET<
+    undefined,
+    PopulatedSubscriptionData[]
+> = async () => {
+    await new Promise((resolve) => {
+        setTimeout(resolve, 1000);
+    });
+
+    const foundSubscriptions = mockPopulateSubscriptions(mockSubscriptions);
+
+    if (!foundSubscriptions) {
+        return {
+            status: 404,
+            message: "Subscriptions not found",
+            data: null,
+        };
+    }
+
+    return {
+        status: 200,
+        message: "Success",
+        data: foundSubscriptions,
     };
 };
 
