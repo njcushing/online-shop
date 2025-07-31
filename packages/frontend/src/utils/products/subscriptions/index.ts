@@ -24,6 +24,7 @@ export type SubscriptionDataBase = {
     subscriptionDate: string;
     deliveryAddress: Address;
     billingAddress: Address;
+    count: number;
     frequency: SubscriptionFrequency;
 };
 
@@ -44,6 +45,7 @@ export const mockSubscriptions: SubscriptionData[] = [
         subscriptionDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
+        count: 8,
         frequency: "one_week",
 
         productId: "1",
@@ -55,6 +57,7 @@ export const mockSubscriptions: SubscriptionData[] = [
         subscriptionDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
+        count: 6,
         frequency: "two_weeks",
 
         productId: "1",
@@ -66,6 +69,7 @@ export const mockSubscriptions: SubscriptionData[] = [
         subscriptionDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
+        count: 12,
         frequency: "one_month",
 
         productId: "1",
@@ -77,6 +81,7 @@ export const mockSubscriptions: SubscriptionData[] = [
         subscriptionDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
+        count: 2,
         frequency: "three_months",
 
         productId: "2",
@@ -88,6 +93,7 @@ export const mockSubscriptions: SubscriptionData[] = [
         subscriptionDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
+        count: 3,
         frequency: "six_months",
 
         productId: "2",
@@ -99,6 +105,7 @@ export const mockSubscriptions: SubscriptionData[] = [
         subscriptionDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
+        count: 9,
         frequency: "one_year",
 
         productId: "3",
@@ -117,6 +124,7 @@ export const generateSkeletonSubscriptionList = (
         subscriptionDateDate: new Date().toISOString(),
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
+        count: Math.ceil(Math.random() * 10),
         frequency: frequencies[0],
 
         product: generateSkeletonProduct(),
