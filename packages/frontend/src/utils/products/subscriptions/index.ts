@@ -26,6 +26,7 @@ export type SubscriptionDataBase = {
     billingAddress: Address;
     count: number;
     frequency: SubscriptionFrequency;
+    nextDate: string;
 };
 
 export type SubscriptionData = SubscriptionDataBase & {
@@ -47,6 +48,7 @@ export const mockSubscriptions: SubscriptionData[] = [
         billingAddress: defaultAccountDetails.addresses.billing,
         count: 8,
         frequency: "one_week",
+        nextDate: new Date(new Date().getTime() + 6.048e8).toISOString(),
 
         productId: "1",
         variantId: "1-1",
@@ -59,6 +61,7 @@ export const mockSubscriptions: SubscriptionData[] = [
         billingAddress: defaultAccountDetails.addresses.billing,
         count: 6,
         frequency: "two_weeks",
+        nextDate: new Date(new Date().getTime() + 1.21e9).toISOString(),
 
         productId: "1",
         variantId: "1-2",
@@ -71,6 +74,7 @@ export const mockSubscriptions: SubscriptionData[] = [
         billingAddress: defaultAccountDetails.addresses.billing,
         count: 12,
         frequency: "one_month",
+        nextDate: new Date(new Date().getTime() + 2.628e9).toISOString(),
 
         productId: "1",
         variantId: "1-3",
@@ -83,6 +87,7 @@ export const mockSubscriptions: SubscriptionData[] = [
         billingAddress: defaultAccountDetails.addresses.billing,
         count: 2,
         frequency: "three_months",
+        nextDate: new Date(new Date().getTime() + 7.884e9).toISOString(),
 
         productId: "2",
         variantId: "2-1",
@@ -95,6 +100,7 @@ export const mockSubscriptions: SubscriptionData[] = [
         billingAddress: defaultAccountDetails.addresses.billing,
         count: 3,
         frequency: "six_months",
+        nextDate: new Date(new Date().getTime() + 3.156e10).toISOString(),
 
         productId: "2",
         variantId: "2-2",
@@ -107,6 +113,7 @@ export const mockSubscriptions: SubscriptionData[] = [
         billingAddress: defaultAccountDetails.addresses.billing,
         count: 9,
         frequency: "one_year",
+        nextDate: new Date(new Date().getTime() + 1000).toISOString(),
 
         productId: "3",
         variantId: "3-2",
@@ -126,6 +133,7 @@ export const generateSkeletonSubscriptionList = (
         billingAddress: defaultAccountDetails.addresses.billing,
         count: Math.ceil(Math.random() * 10),
         frequency: frequencies[0],
+        nextDate: new Date().toISOString(),
 
         product: generateSkeletonProduct(),
         variant: generateSkeletonProductVariant(),
