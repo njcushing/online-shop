@@ -3,9 +3,28 @@ import { UserContext } from "@/pages/Root";
 import { Link } from "react-router-dom";
 import { Skeleton, Image } from "@mantine/core";
 import { variantOptions } from "@/utils/products/product";
-import { PopulatedSubscriptionData } from "@/utils/products/subscriptions";
+import { SubscriptionFrequency, PopulatedSubscriptionData } from "@/utils/products/subscriptions";
 import { Price } from "@/features/Price";
 import styles from "./index.module.css";
+
+const subscriptionFrequencyMessage = (frequency: SubscriptionFrequency): string | null => {
+    switch (frequency) {
+        case "one_week":
+            return "week";
+        case "two_weeks":
+            return "two weeks";
+        case "one_month":
+            return "month";
+        case "three_months":
+            return "three months";
+        case "six_months":
+            return "six months";
+        case "one_year":
+            return "year";
+        default:
+            return null;
+    }
+};
 
 export type TSubscriptionSummary = {
     data: PopulatedSubscriptionData;
@@ -15,7 +34,7 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
     const { subscriptions } = useContext(UserContext);
     const { awaiting } = subscriptions;
 
-    const { product, variant } = data;
+    const { count, frequency, product, variant } = data;
 
     const { id: productId, slug, name, images } = product;
     const { price, options, image } = variant;
@@ -86,6 +105,15 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
                         </div>
                     </Skeleton>
                 </div>
+            </div>
+
+            <div className={styles["details"]}>
+                <Skeleton visible={awaiting}>
+                    <div
+                        className={styles["frequency"]}
+                        style={{ visibility: awaiting ? "hidden" : "initial" }}
+                    >{`${count} unit${count !== 1 ? "s" : ""} every ${subscriptionFrequencyMessage(frequency)}`}</div>
+                </Skeleton>
             </div>
         </li>
     );

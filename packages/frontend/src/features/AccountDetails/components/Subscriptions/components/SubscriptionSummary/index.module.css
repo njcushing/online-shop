@@ -1,18 +1,18 @@
 .subscription-summary {
     display: flex;
     flex-direction: column;
+    gap: 16px;
+
+    background-color: var(--site-colour-secondary, rgb(255, 236, 218));
 
     width: 100%;
+    padding: 12px;
 }
 
 .subscription-product {
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 16px;
-
-    background-color: var(--site-colour-secondary, rgb(255, 236, 218));
-
-    padding: 12px;
 }
 
 .product-thumbnail-image {
@@ -24,6 +24,8 @@
     @media (min-width: $mantine-breakpoint-xs) {
         width: 160px;
     }
+
+    border: 1px solid #000;
 }
 
 .product-information {
@@ -88,4 +90,16 @@
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 1.1rem;
     }
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 8px;
+}
+
+.frequency {
+    font-family: var(--font-primary);
+    font-size: 1rem;
 }
