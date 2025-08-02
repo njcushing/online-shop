@@ -39,7 +39,7 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
 
     const { id: productId, slug, name, images } = product;
     const { price, options, image } = variant;
-    const { current } = price;
+    const { base, current, subscriptionDiscountPercentage } = price;
 
     const usedImage = image || images.thumb;
     const { src, alt } = usedImage;
@@ -96,15 +96,25 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
                         })}
                     </div>
 
-                    <Skeleton visible={awaiting}>
-                        <div style={{ visibility: awaiting ? "hidden" : "initial" }}>
-                            <Price
-                                base={current}
-                                current={current}
-                                classNames={{ current: styles["price-container"] }}
-                            />
-                        </div>
-                    </Skeleton>
+                    <div className={styles["price-container"]}>
+                        <Skeleton visible={awaiting}>
+                            <div style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                                <Price
+                                    base={base}
+                                    current={current * (1 - subscriptionDiscountPercentage / 100)}
+                                    classNames={{ current: styles["price-current"] }}
+                                />
+                            </div>
+                        </Skeleton>
+
+                        {!awaiting && subscriptionDiscountPercentage > 0 && (
+                            <p className={styles["discount-percentage-message"]}>
+                                The above unit cost includes a{" "}
+                                <strong>{subscriptionDiscountPercentage}%</strong> discount for
+                                subscriptions to this product.
+                            </p>
+                        )}
+                    </div>
                 </div>
             </div>
 
