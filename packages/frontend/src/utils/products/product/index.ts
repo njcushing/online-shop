@@ -28,6 +28,7 @@ export type ProductVariant = {
     allowanceOverride?: number;
     image?: GenericImage;
     details: { name: string; value: string }[];
+    subscriptionDiscountPercentage: number;
     releaseDate: string;
 };
 
@@ -173,6 +174,7 @@ export const products: Product[] = [
                     { name: "Blend", value: "Light" },
                     { name: "Weight", value: "250g" },
                 ],
+                subscriptionDiscountPercentage: 10,
                 releaseDate: generateDateWithinRandomRange(
                     new Date("2024-01-01"),
                     new Date(),
@@ -193,6 +195,7 @@ export const products: Product[] = [
                     { name: "Blend", value: "Medium" },
                     { name: "Weight", value: "250g" },
                 ],
+                subscriptionDiscountPercentage: 10,
                 releaseDate: generateDateWithinRandomRange(
                     new Date("2024-01-01"),
                     new Date(),
@@ -213,6 +216,7 @@ export const products: Product[] = [
                     { name: "Blend", value: "Dark" },
                     { name: "Weight", value: "250g" },
                 ],
+                subscriptionDiscountPercentage: 15,
                 releaseDate: generateDateWithinRandomRange(
                     new Date("2024-01-01"),
                     new Date(),
@@ -264,6 +268,7 @@ export const products: Product[] = [
                     { name: "Blend", value: "Light" },
                     { name: "Weight", value: "500g" },
                 ],
+                subscriptionDiscountPercentage: 0,
                 releaseDate: generateDateWithinRandomRange(
                     new Date("2024-01-01"),
                     new Date(),
@@ -284,6 +289,7 @@ export const products: Product[] = [
                     { name: "Blend", value: "Medium" },
                     { name: "Weight", value: "500g" },
                 ],
+                subscriptionDiscountPercentage: 0,
                 releaseDate: generateDateWithinRandomRange(
                     new Date("2024-01-01"),
                     new Date(),
@@ -304,6 +310,7 @@ export const products: Product[] = [
                     { name: "Blend", value: "Dark" },
                     { name: "Weight", value: "500g" },
                 ],
+                subscriptionDiscountPercentage: 10,
                 releaseDate: generateDateWithinRandomRange(
                     new Date("2024-01-01"),
                     new Date(),
@@ -355,6 +362,7 @@ export const products: Product[] = [
                     { name: "Blend", value: "Light" },
                     { name: "Weight", value: "1kg" },
                 ],
+                subscriptionDiscountPercentage: 0,
                 releaseDate: generateDateWithinRandomRange(
                     new Date("2024-01-01"),
                     new Date(),
@@ -375,6 +383,7 @@ export const products: Product[] = [
                     { name: "Blend", value: "Medium" },
                     { name: "Weight", value: "1kg" },
                 ],
+                subscriptionDiscountPercentage: 10,
                 releaseDate: generateDateWithinRandomRange(
                     new Date("2024-01-01"),
                     new Date(),
@@ -395,6 +404,7 @@ export const products: Product[] = [
                     { name: "Blend", value: "Dark" },
                     { name: "Weight", value: "1kg" },
                 ],
+                subscriptionDiscountPercentage: 20,
                 releaseDate: generateDateWithinRandomRange(
                     new Date("2024-01-01"),
                     new Date(),
@@ -593,6 +603,7 @@ export const generateSkeletonProductVariant = (): RecursivePartial<ProductVarian
         { name: "Detail 2", value: "Value" },
         { name: "Detail 3", value: "Value" },
     ],
+    subscriptionDiscountPercentage: 0,
     releaseDate: new Date().toISOString(),
 });
 
