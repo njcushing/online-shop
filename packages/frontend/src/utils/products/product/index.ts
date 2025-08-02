@@ -22,13 +22,12 @@ export type ProductVariant = {
     id: string;
     name: string;
     sku: string;
-    price: { current: number; base: number };
+    price: { current: number; base: number; subscriptionDiscountPercentage: number };
     stock: number;
     options: Record<string, string>;
     allowanceOverride?: number;
     image?: GenericImage;
     details: { name: string; value: string }[];
-    subscriptionDiscountPercentage: number;
     releaseDate: string;
 };
 
@@ -166,6 +165,7 @@ export const products: Product[] = [
                 price: {
                     current: 550,
                     base: 700,
+                    subscriptionDiscountPercentage: 10,
                 },
                 stock: 321,
                 options: { blend: "LT" },
@@ -174,7 +174,6 @@ export const products: Product[] = [
                     { name: "Blend", value: "Light" },
                     { name: "Weight", value: "250g" },
                 ],
-                subscriptionDiscountPercentage: 10,
                 releaseDate: generateDateWithinRandomRange(
                     new Date("2024-01-01"),
                     new Date(),
@@ -187,6 +186,7 @@ export const products: Product[] = [
                 price: {
                     current: 700,
                     base: 700,
+                    subscriptionDiscountPercentage: 10,
                 },
                 stock: 40,
                 options: { blend: "MD" },
@@ -195,7 +195,6 @@ export const products: Product[] = [
                     { name: "Blend", value: "Medium" },
                     { name: "Weight", value: "250g" },
                 ],
-                subscriptionDiscountPercentage: 10,
                 releaseDate: generateDateWithinRandomRange(
                     new Date("2024-01-01"),
                     new Date(),
@@ -208,6 +207,7 @@ export const products: Product[] = [
                 price: {
                     current: 700,
                     base: 700,
+                    subscriptionDiscountPercentage: 15,
                 },
                 stock: 0,
                 options: { blend: "DK" },
@@ -216,7 +216,6 @@ export const products: Product[] = [
                     { name: "Blend", value: "Dark" },
                     { name: "Weight", value: "250g" },
                 ],
-                subscriptionDiscountPercentage: 15,
                 releaseDate: generateDateWithinRandomRange(
                     new Date("2024-01-01"),
                     new Date(),
@@ -260,6 +259,7 @@ export const products: Product[] = [
                 price: {
                     current: 1250,
                     base: 1250,
+                    subscriptionDiscountPercentage: 0,
                 },
                 stock: 237,
                 options: { blend: "LT" },
@@ -268,7 +268,6 @@ export const products: Product[] = [
                     { name: "Blend", value: "Light" },
                     { name: "Weight", value: "500g" },
                 ],
-                subscriptionDiscountPercentage: 0,
                 releaseDate: generateDateWithinRandomRange(
                     new Date("2024-01-01"),
                     new Date(),
@@ -281,6 +280,7 @@ export const products: Product[] = [
                 price: {
                     current: 1100,
                     base: 1250,
+                    subscriptionDiscountPercentage: 0,
                 },
                 stock: 123,
                 options: { blend: "MD" },
@@ -289,7 +289,6 @@ export const products: Product[] = [
                     { name: "Blend", value: "Medium" },
                     { name: "Weight", value: "500g" },
                 ],
-                subscriptionDiscountPercentage: 0,
                 releaseDate: generateDateWithinRandomRange(
                     new Date("2024-01-01"),
                     new Date(),
@@ -302,6 +301,7 @@ export const products: Product[] = [
                 price: {
                     current: 1100,
                     base: 1250,
+                    subscriptionDiscountPercentage: 10,
                 },
                 stock: 382,
                 options: { blend: "DK" },
@@ -310,7 +310,6 @@ export const products: Product[] = [
                     { name: "Blend", value: "Dark" },
                     { name: "Weight", value: "500g" },
                 ],
-                subscriptionDiscountPercentage: 10,
                 releaseDate: generateDateWithinRandomRange(
                     new Date("2024-01-01"),
                     new Date(),
@@ -354,6 +353,7 @@ export const products: Product[] = [
                 price: {
                     current: 1900,
                     base: 2250,
+                    subscriptionDiscountPercentage: 0,
                 },
                 stock: 89,
                 options: { blend: "LT" },
@@ -362,7 +362,6 @@ export const products: Product[] = [
                     { name: "Blend", value: "Light" },
                     { name: "Weight", value: "1kg" },
                 ],
-                subscriptionDiscountPercentage: 0,
                 releaseDate: generateDateWithinRandomRange(
                     new Date("2024-01-01"),
                     new Date(),
@@ -375,6 +374,7 @@ export const products: Product[] = [
                 price: {
                     current: 2250,
                     base: 2250,
+                    subscriptionDiscountPercentage: 10,
                 },
                 stock: 76,
                 options: { blend: "MD" },
@@ -383,7 +383,6 @@ export const products: Product[] = [
                     { name: "Blend", value: "Medium" },
                     { name: "Weight", value: "1kg" },
                 ],
-                subscriptionDiscountPercentage: 10,
                 releaseDate: generateDateWithinRandomRange(
                     new Date("2024-01-01"),
                     new Date(),
@@ -396,6 +395,7 @@ export const products: Product[] = [
                 price: {
                     current: 1900,
                     base: 2250,
+                    subscriptionDiscountPercentage: 20,
                 },
                 stock: 102,
                 options: { blend: "DK" },
@@ -404,7 +404,6 @@ export const products: Product[] = [
                     { name: "Blend", value: "Dark" },
                     { name: "Weight", value: "1kg" },
                 ],
-                subscriptionDiscountPercentage: 20,
                 releaseDate: generateDateWithinRandomRange(
                     new Date("2024-01-01"),
                     new Date(),
@@ -595,7 +594,7 @@ export const generateSkeletonProductVariant = (): RecursivePartial<ProductVarian
     id: uuid(),
     name: uuid(),
     sku: uuid(),
-    price: { base: 1000, current: 1000 },
+    price: { base: 1000, current: 1000, subscriptionDiscountPercentage: 0 },
     stock: 1000,
     options: { option: "value" },
     details: [
@@ -603,7 +602,6 @@ export const generateSkeletonProductVariant = (): RecursivePartial<ProductVarian
         { name: "Detail 2", value: "Value" },
         { name: "Detail 3", value: "Value" },
     ],
-    subscriptionDiscountPercentage: 0,
     releaseDate: new Date().toISOString(),
 });
 
