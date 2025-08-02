@@ -100,7 +100,7 @@ export const mockSubscriptions: SubscriptionData[] = [
         billingAddress: defaultAccountDetails.addresses.billing,
         count: 3,
         frequency: "six_months",
-        nextDate: new Date(new Date().getTime() + 3.156e10).toISOString(),
+        nextDate: new Date(new Date().getTime() + 1.577e10).toISOString(),
 
         productId: "2",
         variantId: "2-2",
@@ -113,7 +113,7 @@ export const mockSubscriptions: SubscriptionData[] = [
         billingAddress: defaultAccountDetails.addresses.billing,
         count: 9,
         frequency: "one_year",
-        nextDate: new Date(new Date().getTime() + 1000).toISOString(),
+        nextDate: new Date(new Date().getTime() + 3.156e10).toISOString(),
 
         productId: "3",
         variantId: "3-2",
