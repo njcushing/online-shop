@@ -1,15 +1,19 @@
 .subscription-product {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr;
     gap: 16px;
 
     width: 100%;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        grid-template-columns: auto 1fr;
+    }
 }
 
 .product-thumbnail-image {
     align-self: center;
 
-    width: 120px;
+    width: 240px;
     aspect-ratio: 1;
 
     @media (min-width: $mantine-breakpoint-xs) {

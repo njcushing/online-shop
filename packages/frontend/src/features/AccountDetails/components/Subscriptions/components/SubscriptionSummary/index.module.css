@@ -21,7 +21,8 @@
 }
 
 .frequency,
-.next-delivery-date {
+.next-delivery-date-wide,
+.next-delivery-date-thin {
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -40,7 +41,7 @@
     }
 }
 
-.next-delivery-date {
+.next-delivery-date-wide {
     align-items: end;
 }
 
@@ -52,6 +53,17 @@
     background-color: var(--site-colour-secondary, rgb(255, 236, 218));
 
     padding: 12px;
+}
+
+.next-delivery-date-thin {
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    font-size: 0.92rem;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1rem;
+    }
 }
 
 .options {

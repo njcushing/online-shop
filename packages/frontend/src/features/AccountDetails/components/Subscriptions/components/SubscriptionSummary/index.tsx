@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { UserContext } from "@/pages/Root";
-import { Skeleton, Button } from "@mantine/core";
+import { useMatches, Skeleton, Button } from "@mantine/core";
 import { SubscriptionFrequency, PopulatedSubscriptionData } from "@/utils/products/subscriptions";
 import dayjs from "dayjs";
 import { SubscriptionProduct } from "../SubscriptionProduct";
@@ -41,6 +41,8 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
     const variantUrlParams = new URLSearchParams();
     Object.entries(options).forEach(([key, value]) => variantUrlParams.append(key, `${value}`));
 
+    const wide = useMatches({ base: false, md: true });
+
     return (
         <li className={styles["subscription-summary"]}>
             <div className={styles["top-bar"]}>
@@ -58,22 +60,49 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
                     </Skeleton>
                 </div>
 
-                <div className={styles["next-delivery-date"]}>
-                    <Skeleton visible={awaiting} width="min-content">
-                        <strong style={{ visibility: awaiting ? "hidden" : "initial" }}>
-                            Next Delivery Date
-                        </strong>
-                    </Skeleton>
+                {
+                    // Don't test logic dependent on window dimensions - this code will never be
+                    // accessible by default in unit tests using jsdom as an environment due to
+                    // window width being 0px
+                    /* v8 ignore start */
 
-                    <Skeleton visible={awaiting} width="min-content">
-                        <p
-                            style={{ visibility: awaiting ? "hidden" : "initial" }}
-                        >{`${dayjs(nextDate).format("MMMM D, YYYY")}`}</p>
-                    </Skeleton>
-                </div>
+                    wide && (
+                        <div className={styles["next-delivery-date-wide"]}>
+                            <Skeleton visible={awaiting} width="min-content">
+                                <strong style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                                    Next Delivery Date
+                                </strong>
+                            </Skeleton>
+
+                            <Skeleton visible={awaiting} width="min-content">
+                                <p
+                                    style={{ visibility: awaiting ? "hidden" : "initial" }}
+                                >{`${dayjs(nextDate).format("MMMM D, YYYY")}`}</p>
+                            </Skeleton>
+                        </div>
+                    )
+
+                    /* v8 ignore stop */
+                }
             </div>
 
             <div className={styles["content"]}>
+                {!wide && (
+                    <div className={styles["next-delivery-date-thin"]}>
+                        <Skeleton visible={awaiting} width="min-content">
+                            <strong style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                                Next Delivery Date:
+                            </strong>
+                        </Skeleton>
+
+                        <Skeleton visible={awaiting} width="min-content">
+                            <p style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                                {`${dayjs(nextDate).format("MMMM D, YYYY")}`}
+                            </p>
+                        </Skeleton>
+                    </div>
+                )}
+
                 <SubscriptionProduct data={data} />
 
                 <div className={styles["options"]}>
