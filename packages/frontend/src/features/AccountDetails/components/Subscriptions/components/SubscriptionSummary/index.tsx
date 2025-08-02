@@ -3,8 +3,9 @@ import { UserContext } from "@/pages/Root";
 import { Skeleton, Button } from "@mantine/core";
 import { SubscriptionFrequency, PopulatedSubscriptionData } from "@/utils/products/subscriptions";
 import dayjs from "dayjs";
-import styles from "./index.module.css";
 import { SubscriptionProduct } from "../SubscriptionProduct";
+import { SubscriptionDetails } from "../SubscriptionDetails";
+import styles from "./index.module.css";
 
 const subscriptionFrequencyMessage = (frequency: SubscriptionFrequency): string => {
     switch (frequency) {
@@ -105,6 +106,8 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
                     </Skeleton>
                 </div>
             </div>
+
+            <SubscriptionDetails data={data} />
         </li>
     );
 }
