@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Skeleton, Image } from "@mantine/core";
 import { variantOptions } from "@/utils/products/product";
 import { SubscriptionFrequency, PopulatedSubscriptionData } from "@/utils/products/subscriptions";
+import dayjs from "dayjs";
 import { Price } from "@/features/Price";
 import styles from "./index.module.css";
 
@@ -34,7 +35,7 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
     const { subscriptions } = useContext(UserContext);
     const { awaiting } = subscriptions;
 
-    const { count, frequency, product, variant } = data;
+    const { count, frequency, nextDate, product, variant } = data;
 
     const { id: productId, slug, name, images } = product;
     const { price, options, image } = variant;
@@ -113,6 +114,15 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
                         className={styles["frequency"]}
                         style={{ visibility: awaiting ? "hidden" : "initial" }}
                     >{`${count} unit${count !== 1 ? "s" : ""} every ${subscriptionFrequencyMessage(frequency)}`}</div>
+                </Skeleton>
+
+                <Skeleton visible={awaiting}>
+                    <p
+                        className={styles["next-delivery-date"]}
+                        style={{ visibility: awaiting ? "hidden" : "initial" }}
+                    >
+                        Next delivery: {`${dayjs(nextDate).format("MMMM D, YYYY")}`}
+                    </p>
                 </Skeleton>
             </div>
         </li>

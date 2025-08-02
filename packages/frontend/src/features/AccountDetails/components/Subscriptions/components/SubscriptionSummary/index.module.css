@@ -99,7 +99,8 @@
     gap: 8px;
 }
 
-.frequency {
+.frequency,
+.next-delivery-date {
     font-family: var(--font-primary);
     font-size: 1rem;
 }
