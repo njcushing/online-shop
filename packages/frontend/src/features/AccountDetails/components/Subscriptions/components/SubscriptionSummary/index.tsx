@@ -1,14 +1,14 @@
 import { useContext } from "react";
 import { UserContext } from "@/pages/Root";
 import { Link } from "react-router-dom";
-import { Skeleton, Image } from "@mantine/core";
+import { Skeleton, Image, Button } from "@mantine/core";
 import { variantOptions } from "@/utils/products/product";
 import { SubscriptionFrequency, PopulatedSubscriptionData } from "@/utils/products/subscriptions";
 import dayjs from "dayjs";
 import { Price } from "@/features/Price";
 import styles from "./index.module.css";
 
-const subscriptionFrequencyMessage = (frequency: SubscriptionFrequency): string | null => {
+const subscriptionFrequencyMessage = (frequency: SubscriptionFrequency): string => {
     switch (frequency) {
         case "one_week":
             return "week";
@@ -23,7 +23,7 @@ const subscriptionFrequencyMessage = (frequency: SubscriptionFrequency): string 
         case "one_year":
             return "year";
         default:
-            return null;
+            return frequency;
     }
 };
 
@@ -123,6 +123,36 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
                     >
                         Next delivery: {`${dayjs(nextDate).format("MMMM D, YYYY")}`}
                     </p>
+                </Skeleton>
+            </div>
+
+            <div className={styles["options"]}>
+                <Skeleton visible={awaiting} width="min-content">
+                    <Button
+                        onClick={() => {}}
+                        color="rgb(241, 202, 168)"
+                        variant="filled"
+                        radius={9999}
+                        className={styles["button"]}
+                        disabled={awaiting}
+                        style={{ visibility: awaiting ? "hidden" : "initial" }}
+                    >
+                        Change delivery schedule
+                    </Button>
+                </Skeleton>
+
+                <Skeleton visible={awaiting} width="min-content">
+                    <Button
+                        onClick={() => {}}
+                        color="rgb(241, 202, 168)"
+                        variant="filled"
+                        radius={9999}
+                        className={styles["button"]}
+                        disabled={awaiting}
+                        style={{ visibility: awaiting ? "hidden" : "initial" }}
+                    >
+                        Cancel subscription
+                    </Button>
                 </Skeleton>
             </div>
         </li>

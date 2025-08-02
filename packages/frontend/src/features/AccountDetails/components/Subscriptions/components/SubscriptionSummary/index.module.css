@@ -104,3 +104,19 @@
     font-family: var(--font-primary);
     font-size: 1rem;
 }
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.button {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 0.86rem;
+
+    border-radius: 4px;
+
+    width: min-content;
+}
