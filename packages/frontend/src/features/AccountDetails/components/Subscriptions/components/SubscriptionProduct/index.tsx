@@ -81,7 +81,11 @@ export function SubscriptionProduct({ data }: TSubscriptionProduct) {
                             <Price
                                 base={base}
                                 current={current * (1 - subscriptionDiscountPercentage / 100)}
-                                classNames={{ current: styles["price-current"] }}
+                                classNames={{
+                                    base: styles["price-base"],
+                                    current: styles["price-current"],
+                                    discountPercentage: styles["price-discount-percentage"],
+                                }}
                             />
                         </div>
                     </Skeleton>

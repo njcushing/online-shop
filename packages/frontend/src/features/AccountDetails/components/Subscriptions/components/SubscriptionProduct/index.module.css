@@ -77,7 +77,9 @@
     gap: 8px;
 }
 
-.price-current {
+.price-base,
+.price-current,
+.price-discount-percentage {
     font-family: var(--font-primary);
     font-size: 1.04rem;
     font-weight: 400;
