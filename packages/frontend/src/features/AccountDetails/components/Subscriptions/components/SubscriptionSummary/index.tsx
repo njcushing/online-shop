@@ -103,7 +103,6 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
                 <div className={styles["options"]}>
                     <Skeleton visible={awaiting} width="min-content">
                         <Button
-                            onClick={() => {}}
                             color="rgb(241, 202, 168)"
                             variant="filled"
                             radius={9999}
@@ -117,7 +116,6 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
 
                     <Skeleton visible={awaiting} width="min-content">
                         <Button
-                            onClick={() => {}}
                             color="rgb(241, 202, 168)"
                             variant="filled"
                             radius={9999}
