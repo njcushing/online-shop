@@ -21,7 +21,7 @@ export function SubscriptionDetails({ data }: TSubscriptionDetails) {
 
     const { freeDeliveryThreshold, expressDeliveryCost } = settings;
 
-    const estimatedUnitCost = current * ((100 - subscriptionDiscountPercentage) / 100) * count;
+    const estimatedUnitCost = current * (1 - subscriptionDiscountPercentage / 100) * count;
     const meetsFreeDeliveryThreshold = estimatedUnitCost >= freeDeliveryThreshold;
     const deliveryCost = meetsFreeDeliveryThreshold ? 0 : expressDeliveryCost;
     const subtotal = estimatedUnitCost + deliveryCost;
