@@ -41,7 +41,7 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
     const variantUrlParams = new URLSearchParams();
     Object.entries(options).forEach(([key, value]) => variantUrlParams.append(key, `${value}`));
 
-    const wide = useMatches({ base: false, md: true });
+    const wide = useMatches({ base: false, xs: true });
 
     return (
         <li className={styles["subscription-summary"]}>
