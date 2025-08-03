@@ -34,12 +34,7 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
     const { subscriptions } = useContext(UserContext);
     const { awaiting } = subscriptions;
 
-    const { count, frequency, nextDate, variant } = data;
-
-    const { options } = variant;
-
-    const variantUrlParams = new URLSearchParams();
-    Object.entries(options).forEach(([key, value]) => variantUrlParams.append(key, `${value}`));
+    const { count, frequency, nextDate } = data;
 
     const wide = useMatches({ base: false, xs: true });
 
