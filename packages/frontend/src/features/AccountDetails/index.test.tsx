@@ -74,6 +74,12 @@ vi.mock("@/features/AccountDetails/components/OrderHistory", () => ({
     }),
 }));
 
+vi.mock("@/features/AccountDetails/components/Subscriptions", () => ({
+    Subscriptions: vi.fn((props: unknown) => {
+        return <div aria-label="Subscriptions component" data-props={JSON.stringify(props)}></div>;
+    }),
+}));
+
 describe("The AccountDetails component...", () => {
     beforeEach(() => {
         window.history.pushState({}, "", "/account");
