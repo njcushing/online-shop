@@ -1,6 +1,6 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "@/pages/Root";
-import { useMatches, Skeleton, Button } from "@mantine/core";
+import { useMatches, Skeleton, Button, Modal } from "@mantine/core";
 import { SubscriptionFrequency, PopulatedSubscriptionData } from "@/utils/products/subscriptions";
 import dayjs from "dayjs";
 import { SubscriptionProduct } from "../SubscriptionProduct";
@@ -37,6 +37,8 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
     const { count, frequency, nextDate } = data;
 
     const wide = useMatches({ base: false, xs: true });
+
+    const [cancellationModalOpen, setCancellationModalOpen] = useState<boolean>(false);
 
     return (
         <li className={styles["subscription-summary"]}>
@@ -116,6 +118,9 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
 
                     <Skeleton visible={awaiting} width="min-content">
                         <Button
+                            onClick={() => {
+                                if (!awaiting) setCancellationModalOpen(true);
+                            }}
                             color="rgb(241, 202, 168)"
                             variant="filled"
                             radius={9999}
@@ -130,6 +135,57 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
             </div>
 
             <SubscriptionDetails data={data} />
+
+            <Modal
+                opened={cancellationModalOpen}
+                onClose={() => setCancellationModalOpen(false)}
+                title="Are you sure you want to cancel this subscription?"
+                centered
+                closeButtonProps={{ size: 32 }}
+                classNames={{
+                    inner: styles["modal-inner"],
+                    header: styles["modal-header"],
+                    content: styles["modal-content"],
+                    title: styles["modal-title"],
+                    body: styles["modal-body"],
+                    close: styles["modal-close"],
+                }}
+            >
+                <SubscriptionProduct data={data} />
+
+                <p className={styles["cancellation-modal-frequency"]}>
+                    Your next delivery of {count} {`unit${count !== 1 ? "s" : ""}`} is set to be
+                    delivered on {`${dayjs(nextDate).format("MMMM D, YYYY")}`}
+                </p>
+
+                <div className={styles["cancellation-modal-options"]}>
+                    <Button
+                        onClick={() => {
+                            /* Cancel order */
+                        }}
+                        color="rgb(241, 202, 168)"
+                        variant="filled"
+                        radius={9999}
+                        className={`${styles["button"]} ${styles["cancel-button"]}`}
+                        disabled={awaiting}
+                        style={{ visibility: awaiting ? "hidden" : "initial" }}
+                    >
+                        Yes, I&apos;m sure
+                    </Button>
+
+                    <Button
+                        onClick={() => setCancellationModalOpen(false)}
+                        color="rgb(241, 202, 168)"
+                        variant="filled"
+                        radius={9999}
+                        className={styles["button"]}
+                        disabled={awaiting}
+                        style={{ visibility: awaiting ? "hidden" : "initial" }}
+                    >
+                        Go back
+                    </Button>
+                </div>
+            </Modal>
         </li>
     );
 }
