@@ -6,12 +6,12 @@ import { findCollections, filterVariantOptions } from "@/utils/products/product"
 import { Quantity } from "@/components/Inputs/Quantity";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
 import { Price } from "@/features/Price";
+import { calculateMaxAddableVariantStock } from "@/utils/products/utils/calculateMaxAddableVariantStock";
 import { ImageCarousel } from "./components/ImageCarousel";
 import { CollectionStep } from "./components/CollectionStep";
 import { VariantStep } from "./components/VariantStep";
 import { VariantAlerts } from "./components/VariantAlerts";
 import { WatchlistButton } from "./components/WatchlistButton";
-import { calculateMaxAddableVariantStock } from "./utils/calculateMaxAddableVariantStock";
 import styles from "./index.module.css";
 
 export function ProductHero() {
