@@ -100,11 +100,20 @@
     padding: 16px;
 }
 
-.modal-content {
+.modal-content-thin,
+.modal-content-wide {
     background-color: var(--site-colour-secondary, rgb(255, 236, 218));
 
     min-width: 100%;
+}
 
+.modal-content-thin {
+    @media (min-width: $mantine-breakpoint-xs) {
+        min-width: 448px; /* 'xs' breakpoint width minus 2 * padding = 480px - (2 * 16px) = 448px */
+    }
+}
+
+.modal-content-wide {
     @media (min-width: $mantine-breakpoint-md) {
         min-width: 736px; /* 'md' breakpoint width minus 2 * padding = 768px - (2 * 16px) = 736px */
     }
@@ -130,9 +139,85 @@
     padding: 16px;
 }
 
+.schedule-modal-message,
 .cancellation-modal-frequency {
+    color: black;
+    font-family: var(--font-primary);
     font-size: 0.92rem;
     text-wrap: wrap;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1rem;
+    }
+}
+
+.schedule-modal-fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.legend {
+    font-family: var(--font-primary);
+    font-size: 1rem;
+
+    padding-top: 4px;
+    margin-bottom: 8px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.1rem;
+    }
+}
+
+.schedule-modal-fields-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 1ch;
+    }
+}
+
+.Quantity-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 1ch;
+}
+
+.label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    color: black;
+    font-size: 0.92rem;
+    font-family: var(--font-primary);
+
+    width: 100%;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1rem;
+    }
+}
+
+.select {
+    align-self: center;
+
+    color: black;
+    font-size: 0.92rem;
+    font-family: var(--font-primary);
+    text-transform: capitalize;
+
+    border: 1px solid #000;
+
+    width: 100%;
+    height: min-content;
+    padding: 6px 2px;
 
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 1rem;
