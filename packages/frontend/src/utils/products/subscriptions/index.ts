@@ -8,15 +8,15 @@ import { defaultAccountDetails } from "@/utils/schemas/account";
 import { Address } from "@/utils/schemas/address";
 import { RecursivePartial } from "@/utils/types";
 
-const frequencies = [
-    "one_week",
-    "two_weeks",
-    "one_month",
-    "three_months",
-    "six_months",
-    "one_year",
-] as const;
-export type SubscriptionFrequency = (typeof frequencies)[number];
+export const frequencies = {
+    one_week: { text: "one week", optionName: "Weekly" },
+    two_weeks: { text: "two weeks", optionName: "Every two weeks" },
+    one_month: { text: "one month", optionName: "Monthly" },
+    three_months: { text: "three months", optionName: "Every three months" },
+    six_months: { text: "six months", optionName: "Every six months" },
+    one_year: { text: "one year", optionName: "Yearly" },
+} as const;
+export type SubscriptionFrequency = keyof typeof frequencies;
 
 export type SubscriptionDataBase = {
     id: string;
@@ -132,7 +132,7 @@ export const generateSkeletonSubscriptionList = (
         deliveryAddress: defaultAccountDetails.addresses.delivery,
         billingAddress: defaultAccountDetails.addresses.billing,
         count: Math.ceil(Math.random() * 10),
-        frequency: frequencies[0],
+        frequency: Object.keys(frequencies)[0] as keyof typeof frequencies,
         nextDate: new Date().toISOString(),
 
         product: generateSkeletonProduct(),

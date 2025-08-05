@@ -1,40 +1,16 @@
 import { useContext, useState, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { useMatches, Skeleton, Button, Modal } from "@mantine/core";
-import { SubscriptionFrequency, PopulatedSubscriptionData } from "@/utils/products/subscriptions";
+import {
+    frequencies,
+    SubscriptionFrequency,
+    PopulatedSubscriptionData,
+} from "@/utils/products/subscriptions";
 import dayjs from "dayjs";
 import { Quantity } from "@/components/Inputs/Quantity";
 import { SubscriptionProduct } from "../SubscriptionProduct";
 import { SubscriptionDetails } from "../SubscriptionDetails";
 import styles from "./index.module.css";
-
-const subscriptionFrequencyMessage = (frequency: SubscriptionFrequency): string => {
-    switch (frequency) {
-        case "one_week":
-            return "week";
-        case "two_weeks":
-            return "two weeks";
-        case "one_month":
-            return "month";
-        case "three_months":
-            return "three months";
-        case "six_months":
-            return "six months";
-        case "one_year":
-            return "year";
-        default:
-            return frequency;
-    }
-};
-
-const subscriptionFrequencyOptions: { frequency: SubscriptionFrequency; name: string }[] = [
-    { frequency: "one_week", name: "Weekly" },
-    { frequency: "two_weeks", name: "Every two weeks" },
-    { frequency: "one_month", name: "Monthly" },
-    { frequency: "three_months", name: "Every three months" },
-    { frequency: "six_months", name: "Every six months" },
-    { frequency: "one_year", name: "Yearly" },
-];
 
 export type TSubscriptionSummary = {
     data: PopulatedSubscriptionData;
@@ -77,7 +53,7 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
                     <Skeleton visible={awaiting} width="min-content">
                         <p
                             style={{ visibility: awaiting ? "hidden" : "initial" }}
-                        >{`${count} unit${count !== 1 ? "s" : ""} every ${subscriptionFrequencyMessage(frequency)}`}</p>
+                        >{`${count} unit${count !== 1 ? "s" : ""} every ${frequencies[frequency].text}`}</p>
                     </Skeleton>
                 </div>
 
@@ -178,8 +154,8 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
             >
                 <p className={styles["schedule-modal-message"]}>
                     You are currently receiving {count} {`unit${count !== 1 ? "s" : ""}`} every{" "}
-                    {`${subscriptionFrequencyMessage(frequency)}`}. Your next delivery is scheduled
-                    for {`${dayjs(nextDate).format("MMMM D, YYYY")}`}.
+                    {`${frequencies[frequency].text}`}. Your next delivery is scheduled for{" "}
+                    {`${dayjs(nextDate).format("MMMM D, YYYY")}`}.
                 </p>
 
                 <fieldset className={styles["schedule-modal-fieldset"]}>
@@ -208,16 +184,17 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
                             }}
                             disabled={awaiting}
                         >
-                            {subscriptionFrequencyOptions.map((option) => {
-                                const { frequency: value, name } = option;
+                            {Object.entries(frequencies).map((entry) => {
+                                const [key, value] = entry;
+                                const { optionName } = value;
 
                                 return (
                                     <option
                                         className={styles["update-delivery-frequency-option"]}
-                                        value={value}
-                                        key={`update-delivery-frequency-option-${value}`}
+                                        value={key}
+                                        key={`update-delivery-frequency-option-${key}`}
                                     >
-                                        {name}
+                                        {optionName}
                                     </option>
                                 );
                             })}
