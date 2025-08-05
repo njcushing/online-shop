@@ -1,9 +1,10 @@
 import { vi } from "vitest";
-import { screen, render, within } from "@test-utils";
+import { screen, render, within, userEvent } from "@test-utils";
 import _ from "lodash";
 import { act } from "react";
 import { RecursivePartial } from "@/utils/types";
 import { IUserContext, UserContext } from "@/pages/Root";
+import { mockFrequencies } from "./index.mocks";
 import { SubscriptionSummary, TSubscriptionSummary } from ".";
 
 const getProps = (component: HTMLElement) => {
@@ -119,6 +120,44 @@ vi.mock(
     }),
 );
 
+vi.mock("@/features/AccountDetails/components/Subscriptions/components/ScheduleModal", () => ({
+    ScheduleModal: vi.fn((props: unknown & { onClose: () => unknown }) => {
+        const { onClose } = props;
+
+        return (
+            <button
+                type="button"
+                aria-label="ScheduleModal component"
+                onClick={() => onClose && onClose()}
+                data-props={JSON.stringify(props)}
+            ></button>
+        );
+    }),
+}));
+
+vi.mock("@/features/AccountDetails/components/Subscriptions/components/CancellationModal", () => ({
+    CancellationModal: vi.fn((props: unknown & { onClose: () => unknown }) => {
+        const { onClose } = props;
+
+        return (
+            <button
+                type="button"
+                aria-label="CancellationModal component"
+                onClick={() => onClose && onClose()}
+                data-props={JSON.stringify(props)}
+            ></button>
+        );
+    }),
+}));
+
+vi.mock("@/utils/products/subscriptions", async () => {
+    const actual = await vi.importActual("@/utils/products/subscriptions");
+    return {
+        ...actual,
+        frequencies: (await import("./index.mocks")).mockFrequencies,
+    };
+});
+
 describe("The SubscriptionSummary component...", () => {
     describe("Should render a <li> element...", () => {
         test("As expected", () => {
@@ -136,8 +175,10 @@ describe("The SubscriptionSummary component...", () => {
 
                 const liElement = screen.getByRole("listitem");
 
+                const { count } = mockProps.data!;
+
                 const frequencyMessageElement = within(liElement).getByText(
-                    `${mockProps.data!.count} units every week`,
+                    `${count} units every ${mockFrequencies["one_week"].text}`,
                 );
                 expect(frequencyMessageElement).toBeInTheDocument();
             });
@@ -149,8 +190,10 @@ describe("The SubscriptionSummary component...", () => {
 
                 const liElement = screen.getByRole("listitem");
 
+                const { count } = mockProps.data!;
+
                 const frequencyMessageElement = within(liElement).getByText(
-                    `${mockProps.data!.count} units every two weeks`,
+                    `${count} units every ${mockFrequencies["two_weeks"].text}`,
                 );
                 expect(frequencyMessageElement).toBeInTheDocument();
             });
@@ -162,8 +205,10 @@ describe("The SubscriptionSummary component...", () => {
 
                 const liElement = screen.getByRole("listitem");
 
+                const { count } = mockProps.data!;
+
                 const frequencyMessageElement = within(liElement).getByText(
-                    `${mockProps.data!.count} units every month`,
+                    `${count} units every ${mockFrequencies["one_month"].text}`,
                 );
                 expect(frequencyMessageElement).toBeInTheDocument();
             });
@@ -175,8 +220,10 @@ describe("The SubscriptionSummary component...", () => {
 
                 const liElement = screen.getByRole("listitem");
 
+                const { count } = mockProps.data!;
+
                 const frequencyMessageElement = within(liElement).getByText(
-                    `${mockProps.data!.count} units every three months`,
+                    `${count} units every ${mockFrequencies["three_months"].text}`,
                 );
                 expect(frequencyMessageElement).toBeInTheDocument();
             });
@@ -188,8 +235,10 @@ describe("The SubscriptionSummary component...", () => {
 
                 const liElement = screen.getByRole("listitem");
 
+                const { count } = mockProps.data!;
+
                 const frequencyMessageElement = within(liElement).getByText(
-                    `${mockProps.data!.count} units every six months`,
+                    `${count} units every ${mockFrequencies["six_months"].text}`,
                 );
                 expect(frequencyMessageElement).toBeInTheDocument();
             });
@@ -201,8 +250,10 @@ describe("The SubscriptionSummary component...", () => {
 
                 const liElement = screen.getByRole("listitem");
 
+                const { count } = mockProps.data!;
+
                 const frequencyMessageElement = within(liElement).getByText(
-                    `${mockProps.data!.count} units every year`,
+                    `${count} units every ${mockFrequencies["one_year"].text}`,
                 );
                 expect(frequencyMessageElement).toBeInTheDocument();
             });
@@ -232,7 +283,9 @@ describe("The SubscriptionSummary component...", () => {
 
                 const liElement = screen.getByRole("listitem");
 
-                const frequencyMessageElement = within(liElement).getByText("1 unit every week");
+                const frequencyMessageElement = within(liElement).getByText(
+                    `1 unit every ${mockFrequencies["one_week"].text}`,
+                );
                 expect(frequencyMessageElement).toBeInTheDocument();
             });
 
@@ -241,13 +294,16 @@ describe("The SubscriptionSummary component...", () => {
                     UserContextOverride: {
                         subscriptions: { awaiting: true },
                     } as unknown as IUserContext,
+                    propsOverride: { data: { frequency: "one_week" } } as TSubscriptionSummary,
                 });
 
                 const liElement = screen.getByRole("listitem");
 
+                const { count } = mockProps.data!;
+
                 // queryByText *does not* exclude hidden elements - must manually check visibility
                 const frequencyMessageElement = within(liElement).queryByText(
-                    `${mockProps.data!.count} units every week`,
+                    `${count} units every ${mockFrequencies["one_week"].text}`,
                 );
                 expect(frequencyMessageElement).not.toBeVisible();
             });
@@ -322,6 +378,24 @@ describe("The SubscriptionSummary component...", () => {
                 expect(changeDeliveryScheduleButton).toBeInTheDocument();
             });
 
+            test("That, when clicked, should set the ScheduleModal's 'opened' prop to 'true'", async () => {
+                await renderFunc();
+
+                const liElement = screen.getByRole("listitem");
+
+                const changeDeliveryScheduleButton = within(liElement).getByRole("button", {
+                    name: "Change delivery schedule",
+                });
+
+                const ScheduleModalComponent =
+                    within(liElement).getByLabelText("ScheduleModal component");
+                expect(getProps(ScheduleModalComponent).opened).toBe(false);
+
+                await act(async () => userEvent.click(changeDeliveryScheduleButton));
+
+                expect(getProps(ScheduleModalComponent).opened).toBe(true);
+            });
+
             test("Unless the UserContext's 'subscriptions.awaiting' field is 'true'", () => {
                 renderFunc({
                     UserContextOverride: {
@@ -348,6 +422,25 @@ describe("The SubscriptionSummary component...", () => {
                     name: "Cancel subscription",
                 });
                 expect(cancelSubscriptionButton).toBeInTheDocument();
+            });
+
+            test("That, when clicked, should set the CancellationModal's 'opened' prop to 'true'", async () => {
+                await renderFunc();
+
+                const liElement = screen.getByRole("listitem");
+
+                const cancelSubscriptionButton = within(liElement).getByRole("button", {
+                    name: "Cancel subscription",
+                });
+
+                const CancellationModalComponent = within(liElement).getByLabelText(
+                    "CancellationModal component",
+                );
+                expect(getProps(CancellationModalComponent).opened).toBe(false);
+
+                await act(async () => userEvent.click(cancelSubscriptionButton));
+
+                expect(getProps(CancellationModalComponent).opened).toBe(true);
             });
 
             test("Unless the UserContext's 'subscriptions.awaiting' field is 'true'", () => {
@@ -390,6 +483,103 @@ describe("The SubscriptionSummary component...", () => {
                 );
                 const props = getProps(SubscriptionDetailsComponent);
                 expect(props).toEqual(expect.objectContaining({ data }));
+            });
+        });
+
+        describe("That should contain a ScheduleModal component...", () => {
+            test("As expected", () => {
+                renderFunc();
+
+                const liElement = screen.getByRole("listitem");
+
+                const ScheduleModalComponent =
+                    within(liElement).getByLabelText("ScheduleModal component");
+                expect(ScheduleModalComponent).toBeInTheDocument();
+            });
+
+            test("Passing the correct props", () => {
+                renderFunc();
+
+                const liElement = screen.getByRole("listitem");
+
+                const { data } = mockProps;
+
+                const ScheduleModalComponent =
+                    within(liElement).getByLabelText("ScheduleModal component");
+                const props = getProps(ScheduleModalComponent);
+                expect(props).toEqual(expect.objectContaining({ data }));
+            });
+
+            test("That should have a callback function passed to its 'onClose' prop that, when called, sets the ScheduleModal's 'opened' prop to 'false'", async () => {
+                await renderFunc();
+
+                const liElement = screen.getByRole("listitem");
+
+                const changeDeliveryScheduleButton = within(liElement).getByRole("button", {
+                    name: "Change delivery schedule",
+                });
+
+                const ScheduleModalComponent =
+                    within(liElement).getByLabelText("ScheduleModal component");
+                expect(getProps(ScheduleModalComponent).opened).toBe(false);
+
+                await act(async () => userEvent.click(changeDeliveryScheduleButton));
+
+                expect(getProps(ScheduleModalComponent).opened).toBe(true);
+
+                await act(async () => userEvent.click(ScheduleModalComponent));
+
+                expect(getProps(ScheduleModalComponent).opened).toBe(false);
+            });
+        });
+
+        describe("That should contain a CancellationModal component...", () => {
+            test("As expected", () => {
+                renderFunc();
+
+                const liElement = screen.getByRole("listitem");
+
+                const CancellationModalComponent = within(liElement).getByLabelText(
+                    "CancellationModal component",
+                );
+                expect(CancellationModalComponent).toBeInTheDocument();
+            });
+
+            test("Passing the correct props", () => {
+                renderFunc();
+
+                const liElement = screen.getByRole("listitem");
+
+                const { data } = mockProps;
+
+                const CancellationModalComponent = within(liElement).getByLabelText(
+                    "CancellationModal component",
+                );
+                const props = getProps(CancellationModalComponent);
+                expect(props).toEqual(expect.objectContaining({ data }));
+            });
+
+            test("That should have a callback function passed to its 'onClose' prop that, when called, sets the ScheduleModal's 'opened' prop to 'false'", async () => {
+                await renderFunc();
+
+                const liElement = screen.getByRole("listitem");
+
+                const cancelSubscriptionButton = within(liElement).getByRole("button", {
+                    name: "Cancel subscription",
+                });
+
+                const CancellationModalComponent = within(liElement).getByLabelText(
+                    "CancellationModal component",
+                );
+                expect(getProps(CancellationModalComponent).opened).toBe(false);
+
+                await act(async () => userEvent.click(cancelSubscriptionButton));
+
+                expect(getProps(CancellationModalComponent).opened).toBe(true);
+
+                await act(async () => userEvent.click(CancellationModalComponent));
+
+                expect(getProps(CancellationModalComponent).opened).toBe(false);
             });
         });
     });

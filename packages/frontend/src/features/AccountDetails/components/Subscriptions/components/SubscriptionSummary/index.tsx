@@ -5,9 +5,9 @@ import { frequencies, PopulatedSubscriptionData } from "@/utils/products/subscri
 import dayjs from "dayjs";
 import { SubscriptionProduct } from "../SubscriptionProduct";
 import { SubscriptionDetails } from "../SubscriptionDetails";
-import styles from "./index.module.css";
 import { ScheduleModal } from "../ScheduleModal";
 import { CancellationModal } from "../CancellationModal";
+import styles from "./index.module.css";
 
 export type TSubscriptionSummary = {
     data: PopulatedSubscriptionData;
@@ -37,7 +37,7 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
                     <Skeleton visible={awaiting} width="min-content">
                         <p
                             style={{ visibility: awaiting ? "hidden" : "initial" }}
-                        >{`${count} unit${count !== 1 ? "s" : ""} every ${frequencies[frequency].text}`}</p>
+                        >{`${count} unit${count !== 1 ? "s" : ""} every ${frequencies[frequency] ? frequencies[frequency].text : frequency}`}</p>
                     </Skeleton>
                 </div>
 
