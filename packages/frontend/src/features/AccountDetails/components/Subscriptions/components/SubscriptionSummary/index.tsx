@@ -1,12 +1,13 @@
 import { useContext, useState } from "react";
 import { UserContext } from "@/pages/Root";
-import { useMatches, Skeleton, Button, Modal } from "@mantine/core";
+import { useMatches, Skeleton, Button } from "@mantine/core";
 import { frequencies, PopulatedSubscriptionData } from "@/utils/products/subscriptions";
 import dayjs from "dayjs";
 import { SubscriptionProduct } from "../SubscriptionProduct";
 import { SubscriptionDetails } from "../SubscriptionDetails";
 import styles from "./index.module.css";
 import { ScheduleModal } from "../ScheduleModal";
+import { CancellationModal } from "../CancellationModal";
 
 export type TSubscriptionSummary = {
     data: PopulatedSubscriptionData;
@@ -126,41 +127,11 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
                 onClose={() => setScheduleModalOpen(false)}
             />
 
-            <Modal
+            <CancellationModal
+                data={data}
                 opened={cancellationModalOpen}
                 onClose={() => setCancellationModalOpen(false)}
-                title="Are you sure you want to cancel this subscription?"
-                centered
-                closeButtonProps={{ size: 32 }}
-                classNames={{
-                    inner: styles["modal-inner"],
-                    header: styles["modal-header"],
-                    content: styles["modal-content-wide"],
-                    title: styles["modal-title"],
-                    body: styles["modal-body"],
-                    close: styles["modal-close"],
-                }}
-            >
-                <SubscriptionProduct data={data} />
-
-                <p className={styles["cancellation-modal-frequency"]}>
-                    Your next delivery of {count} {`unit${count !== 1 ? "s" : ""}`} is set to be
-                    delivered on {`${dayjs(nextDate).format("MMMM D, YYYY")}`}.
-                </p>
-
-                <Button
-                    onClick={() => {
-                        /* Cancel subscription */
-                    }}
-                    color="rgb(241, 202, 168)"
-                    variant="filled"
-                    className={`${styles["button"]} ${styles["cancel-button"]}`}
-                    disabled={awaiting}
-                    style={{ visibility: awaiting ? "hidden" : "initial" }}
-                >
-                    Yes, I&apos;m sure
-                </Button>
-            </Modal>
+            />
         </li>
     );
 }
