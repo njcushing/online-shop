@@ -263,32 +263,18 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
                     delivered on {`${dayjs(nextDate).format("MMMM D, YYYY")}`}.
                 </p>
 
-                <div className={styles["cancellation-modal-options"]}>
-                    <Button
-                        onClick={() => {
-                            /* Cancel subscription */
-                        }}
-                        color="rgb(241, 202, 168)"
-                        variant="filled"
-                        className={`${styles["button"]} ${styles["cancel-button"]}`}
-                        disabled={awaiting}
-                        style={{ visibility: awaiting ? "hidden" : "initial" }}
-                    >
-                        Yes, I&apos;m sure
-                    </Button>
-
-                    <Button
-                        onClick={() => setCancellationModalOpen(false)}
-                        color="rgb(241, 202, 168)"
-                        variant="filled"
-                        radius={9999}
-                        className={styles["button"]}
-                        disabled={awaiting}
-                        style={{ visibility: awaiting ? "hidden" : "initial" }}
-                    >
-                        Go back
-                    </Button>
-                </div>
+                <Button
+                    onClick={() => {
+                        /* Cancel subscription */
+                    }}
+                    color="rgb(241, 202, 168)"
+                    variant="filled"
+                    className={`${styles["button"]} ${styles["cancel-button"]}`}
+                    disabled={awaiting}
+                    style={{ visibility: awaiting ? "hidden" : "initial" }}
+                >
+                    Yes, I&apos;m sure
+                </Button>
             </Modal>
         </li>
     );
