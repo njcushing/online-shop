@@ -31,9 +31,10 @@ export function ScheduleModal({ data, opened, onClose }: TScheduleModal) {
         return selectedCount !== count || selectedFrequency !== frequency;
     }, [count, selectedCount, frequency, selectedFrequency]);
 
-    const maximumVariantQuantity = !Number.isNaN(Number(allowanceOverride))
-        ? (allowanceOverride as number)
-        : allowance;
+    const maximumVariantQuantity =
+        typeof allowanceOverride === "number" && !Number.isNaN(allowanceOverride)
+            ? (allowanceOverride as number)
+            : allowance;
 
     return (
         <Modal

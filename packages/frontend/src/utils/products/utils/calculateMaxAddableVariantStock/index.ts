@@ -8,7 +8,8 @@ export const calculateMaxAddableVariantStock = (
 ): number => {
     const { allowance } = product;
     const { stock, allowanceOverride } = variant;
-    const allowanceOverrideIsNumber = !Number.isNaN(Number(allowanceOverride));
+    const allowanceOverrideIsNumber =
+        typeof allowanceOverride === "number" && !Number.isNaN(allowanceOverride);
 
     const cartItem = cart.find((item) => item.variant.id === variant.id);
     if (!cartItem) {
