@@ -1,4 +1,4 @@
-import { useContext, useState, useMemo } from "react";
+import { useContext, useState, useMemo, useEffect } from "react";
 import { UserContext } from "@/pages/Root";
 import { Button, Modal } from "@mantine/core";
 import {
@@ -14,9 +14,10 @@ export type TScheduleModal = {
     data: PopulatedSubscriptionData;
     opened: boolean;
     onClose: () => unknown;
+    onChange?: (newValues: { count: number; frequency: SubscriptionFrequency }) => unknown;
 };
 
-export function ScheduleModal({ data, opened, onClose }: TScheduleModal) {
+export function ScheduleModal({ data, opened, onClose, onChange }: TScheduleModal) {
     const { subscriptions } = useContext(UserContext);
     const { awaiting } = subscriptions;
 
@@ -30,6 +31,12 @@ export function ScheduleModal({ data, opened, onClose }: TScheduleModal) {
     const hasChanged = useMemo(() => {
         return selectedCount !== count || selectedFrequency !== frequency;
     }, [count, selectedCount, frequency, selectedFrequency]);
+
+    useEffect(() => {
+        if (hasChanged) {
+            if (onChange) onChange({ count: selectedCount, frequency: selectedFrequency });
+        }
+    }, [onChange, selectedCount, selectedFrequency, hasChanged]);
 
     const maximumVariantQuantity =
         typeof allowanceOverride === "number" && !Number.isNaN(allowanceOverride)
