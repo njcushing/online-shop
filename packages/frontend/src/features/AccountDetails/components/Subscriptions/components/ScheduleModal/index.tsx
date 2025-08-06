@@ -42,7 +42,7 @@ export function ScheduleModal({ data, opened, onClose }: TScheduleModal) {
             onClose={() => onClose && onClose()}
             title="Change delivery schedule"
             centered
-            closeButtonProps={{ size: 32 }}
+            closeButtonProps={{ "aria-label": "Close", size: 32 }}
             classNames={{
                 inner: styles["modal-inner"],
                 header: styles["modal-header"],
@@ -106,9 +106,6 @@ export function ScheduleModal({ data, opened, onClose }: TScheduleModal) {
 
             {hasChanged && (
                 <Button
-                    onClick={() => {
-                        /* Update schedule */
-                    }}
                     color="rgb(241, 202, 168)"
                     variant="filled"
                     className={styles["button"]}

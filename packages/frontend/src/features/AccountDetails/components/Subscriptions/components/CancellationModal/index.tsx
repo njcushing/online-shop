@@ -24,7 +24,7 @@ export function CancellationModal({ data, opened, onClose }: TCancellationModal)
             onClose={() => onClose && onClose()}
             title="Are you sure you want to cancel this subscription?"
             centered
-            closeButtonProps={{ size: 32 }}
+            closeButtonProps={{ "aria-label": "Close", size: 32 }}
             classNames={{
                 inner: styles["modal-inner"],
                 header: styles["modal-header"],
