@@ -28,6 +28,9 @@ export function ScheduleModal({ data, opened, onClose, onChange }: TScheduleModa
     const [selectedCount, setSelectedCount] = useState<number>(count);
     const [selectedFrequency, setSelectedFrequency] = useState<SubscriptionFrequency>(frequency);
 
+    useMemo(() => setSelectedCount(count), [count]);
+    useMemo(() => setSelectedFrequency(frequency), [frequency]);
+
     const hasChanged = useMemo(() => {
         return selectedCount !== count || selectedFrequency !== frequency;
     }, [count, selectedCount, frequency, selectedFrequency]);
