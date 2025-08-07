@@ -6,6 +6,17 @@ import { v4 as uuid } from "uuid";
 import { OrderSummary } from "./components/OrderSummary";
 import styles from "./index.module.css";
 
+export const filterOptions = {
+    "30_days": { optionName: "Past 30 days" },
+    "1_month": { optionName: "Past 3 months" },
+    "6_month": { optionName: "Past 6 months" },
+    "1_year": { optionName: "Past year" },
+    "2_years": { optionName: "Past 2 years" },
+    "3_years": { optionName: "Past 3 years" },
+    all: { optionName: "All time" },
+} as const;
+type FilterOption = keyof typeof filterOptions;
+
 const ordersPerPage = 10;
 
 export function OrderHistory() {
@@ -15,6 +26,7 @@ export function OrderHistory() {
     const { orders, defaultData } = useContext(UserContext);
     const { awaiting } = orders;
 
+    const [filter, setFilter] = useState<FilterOption>("30_days");
     const [page, setPage] = useState<number>(0);
 
     // Don't test auto-scroll logic
@@ -68,6 +80,41 @@ export function OrderHistory() {
             </Skeleton>
 
             <Divider className={styles["divider"]} />
+
+            <div className={styles["filter-container"]}>
+                <label htmlFor="filter-orders" className={styles["label"]}>
+                    Display orders placed within
+                    <select
+                        className={styles["select"]}
+                        id="filter-orders"
+                        name="filter-orders"
+                        value={filter}
+                        onChange={(e) => {
+                            const { value } = e.target;
+                            setFilter(value as FilterOption);
+                            setPage(0);
+                            setQueueScroll(true);
+                        }}
+                        disabled={awaiting}
+                        key="sort-options"
+                    >
+                        {Object.entries(filterOptions).map((entry) => {
+                            const [key, value] = entry;
+                            const { optionName } = value;
+
+                            return (
+                                <option
+                                    className={styles["filter-orders-option"]}
+                                    value={key}
+                                    key={`filter-orders-option-${key}`}
+                                >
+                                    {optionName}
+                                </option>
+                            );
+                        })}
+                    </select>
+                </label>
+            </div>
 
             <ul className={styles["order-history"]}>
                 {data

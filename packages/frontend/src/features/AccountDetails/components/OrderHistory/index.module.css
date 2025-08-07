@@ -19,6 +19,71 @@
     --divider-color: rgba(0, 0, 0, 0.6);
 }
 
+.filter-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    width: 100%;
+    height: min-content;
+}
+
+.label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 1ch;
+
+    color: black;
+    font-size: 1rem;
+    font-family: var(--font-primary);
+    text-wrap: nowrap;
+
+    min-width: 200px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+
+        font-size: 1.1rem;
+    }
+}
+
+.select {
+    align-self: center;
+
+    color: black;
+    font-size: 1rem;
+    font-family: var(--font-primary);
+    text-transform: capitalize;
+
+    border: none;
+    outline: 1px solid #000;
+
+    width: 100%;
+    height: min-content;
+    padding: 6px 2px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.06rem;
+
+        width: 200px;
+    }
+}
+
+@media (hover: hover) {
+    .select:hover {
+        cursor: pointer;
+    }
+}
+
+.select:focus-visible {
+    outline: 2px solid #000;
+}
+
 .order-history {
     display: flex;
     flex-direction: column;
