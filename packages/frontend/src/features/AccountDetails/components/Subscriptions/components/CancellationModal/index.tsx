@@ -42,9 +42,6 @@ export function CancellationModal({ data, opened, onClose }: TCancellationModal)
             </p>
 
             <Button
-                onClick={() => {
-                    /* Cancel subscription */
-                }}
                 color="rgb(241, 202, 168)"
                 variant="filled"
                 className={`${styles["button"]} ${styles["cancel-button"]}`}
