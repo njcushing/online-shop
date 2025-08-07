@@ -81,10 +81,10 @@ export interface IUserContext {
 }
 
 const defaultUserContext: IUserContext = {
-    cart: { data: [], status: 200, message: "Success", awaiting: false },
-    watchlist: { data: [], status: 200, message: "Success", awaiting: false },
-    orders: { data: [], status: 200, message: "Success", awaiting: false },
-    subscriptions: { data: [], status: 200, message: "Success", awaiting: false },
+    cart: { data: [], status: 200, message: "Success", awaiting: true },
+    watchlist: { data: [], status: 200, message: "Success", awaiting: true },
+    orders: { data: [], status: 200, message: "Success", awaiting: true },
+    subscriptions: { data: [], status: 200, message: "Success", awaiting: true },
     accountDetails: { data: {}, status: 200, message: "Success", awaiting: true },
 
     defaultData: {
