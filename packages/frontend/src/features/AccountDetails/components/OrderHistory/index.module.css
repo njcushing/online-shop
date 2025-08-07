@@ -1,7 +1,55 @@
+.order-history-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.order-count {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 1.6rem;
+    font-weight: 600;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.8rem;
+    }
+}
+
+.divider {
+    --divider-color: rgba(0, 0, 0, 0.6);
+}
+
 .order-history {
     display: flex;
     flex-direction: column;
     gap: 16px;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+
+    width: 100%;
+}
+
+.pagination-control {
+    color: black;
+    font-size: 0.92rem;
+
+    border: none;
+    background-color: var(--site-colour-secondary, rgb(255, 236, 218));
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1rem;
+    }
+}
+
+.pagination-control[data-active] {
+    outline: 1px solid rgba(0, 0, 0, 0.6);
+}
+
+.pagination-control[data-disabled] {
+    background-color: var(--site-colour-tertiary, rgb(250, 223, 198));
 }
 
 .no-order-history-message {
