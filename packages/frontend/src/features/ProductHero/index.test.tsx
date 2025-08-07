@@ -225,7 +225,7 @@ vi.mock("@/utils/products/product", async (importOriginal) => {
 });
 
 const mockCalculateMaxAddableVariantStock = vi.fn(() => 10);
-vi.mock("./utils/calculateMaxAddableVariantStock", async (importOriginal) => {
+vi.mock("@/utils/products/utils/calculateMaxAddableVariantStock", async (importOriginal) => {
     const actual = await importOriginal();
     return {
         ...(actual || {}),
