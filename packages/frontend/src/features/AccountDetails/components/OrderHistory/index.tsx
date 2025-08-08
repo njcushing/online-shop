@@ -7,15 +7,15 @@ import { OrderSummary } from "./components/OrderSummary";
 import styles from "./index.module.css";
 
 export const filterOptions = {
-    "30_days": { optionName: "Past 30 days" },
-    "1_month": { optionName: "Past 3 months" },
-    "6_month": { optionName: "Past 6 months" },
+    "1_month": { optionName: "Past month" },
+    "3_months": { optionName: "Past 3 months" },
+    "6_months": { optionName: "Past 6 months" },
     "1_year": { optionName: "Past year" },
     "2_years": { optionName: "Past 2 years" },
     "3_years": { optionName: "Past 3 years" },
     all: { optionName: "All time" },
 } as const;
-type FilterOption = keyof typeof filterOptions;
+export type FilterOption = keyof typeof filterOptions;
 
 const ordersPerPage = 10;
 
@@ -26,7 +26,7 @@ export function OrderHistory() {
     const { orders, defaultData } = useContext(UserContext);
     const { awaiting } = orders;
 
-    const [filter, setFilter] = useState<FilterOption>("30_days");
+    const [filter, setFilter] = useState<FilterOption>("1_month");
     const [page, setPage] = useState<number>(0);
 
     // Don't test auto-scroll logic
