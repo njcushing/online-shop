@@ -7,8 +7,10 @@ import {
     PopulatedSubscriptionData,
     mockSubscriptions,
 } from "@/utils/products/subscriptions";
-import { filterOptions, sortOptions } from "@/features/ProductReviews";
+import { filterOptions as reviewFilterOptions, sortOptions } from "@/features/ProductReviews";
+import { FilterOption as OrderFilterOption } from "@/features/AccountDetails/components/OrderHistory";
 import { AccountDetails, defaultAccountDetails } from "@/utils/schemas/account";
+import dayjs from "dayjs";
 import * as HTTPMethodTypes from "./types";
 
 export const mockGetAccountDetails: HTTPMethodTypes.GET<undefined, AccountDetails> = async () => {
@@ -133,25 +135,65 @@ export const mockPopulateOrders = (orders: OrderData[]): PopulatedOrderData[] =>
     });
 };
 
-export const mockGetOrders: HTTPMethodTypes.GET<undefined, PopulatedOrderData[]> = async () => {
+export const mockGetOrders: HTTPMethodTypes.GET<
+    {
+        filter?: OrderFilterOption;
+        start?: number;
+        end?: number;
+    },
+    PopulatedOrderData[]
+> = async (data) => {
+    const { params } = data;
+    const { filter, start, end } = params || {};
+
     await new Promise((resolve) => {
         setTimeout(resolve, 1000);
     });
 
     const foundOrders = mockPopulateOrders(mockOrders);
 
-    if (!foundOrders) {
-        return {
-            status: 404,
-            message: "Orders not found",
-            data: null,
-        };
+    let filteredOrders = foundOrders;
+    switch (filter) {
+        case "1_month":
+            filteredOrders = filteredOrders.filter((order) => {
+                return dayjs(new Date()).subtract(1, "month") <= dayjs(order.orderDate);
+            });
+            break;
+        case "3_months":
+            filteredOrders = filteredOrders.filter((order) => {
+                return dayjs(new Date()).subtract(3, "month") <= dayjs(order.orderDate);
+            });
+            break;
+        case "6_months":
+            filteredOrders = filteredOrders.filter((order) => {
+                return dayjs(new Date()).subtract(6, "month") <= dayjs(order.orderDate);
+            });
+            break;
+        case "1_year":
+            filteredOrders = filteredOrders.filter((order) => {
+                return dayjs(new Date()).subtract(1, "year") <= dayjs(order.orderDate);
+            });
+            break;
+        case "2_years":
+            filteredOrders = filteredOrders.filter((order) => {
+                return dayjs(new Date()).subtract(2, "year") <= dayjs(order.orderDate);
+            });
+            break;
+        case "3_years":
+            filteredOrders = filteredOrders.filter((order) => {
+                return dayjs(new Date()).subtract(3, "year") <= dayjs(order.orderDate);
+            });
+            break;
+        default:
     }
+
+    let slicedOrders = filteredOrders;
+    slicedOrders = slicedOrders.slice(start, end);
 
     return {
         status: 200,
         message: "Success",
-        data: foundOrders,
+        data: slicedOrders,
     };
 };
 
@@ -271,7 +313,7 @@ export const mockGetReview: HTTPMethodTypes.GET<{ reviewId: string }, ProductRev
 export const mockGetReviews: HTTPMethodTypes.GET<
     {
         productId?: string;
-        filter?: (typeof filterOptions)[number];
+        filter?: (typeof reviewFilterOptions)[number];
         sort?: (typeof sortOptions)[number];
         start?: number;
         end?: number;
