@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import _ from "lodash";
 import * as HTTPMethodTypes from "@/api/types";
@@ -106,7 +106,16 @@ export function useAsyncBase<FuncParams = unknown, FuncBody = unknown, FuncRespo
         };
     }, [attempting, request]);
 
-    return { response, setParams, attempt, abort, awaiting: attempting };
+    return useMemo(
+        () => ({
+            response,
+            setParams,
+            attempt,
+            abort,
+            awaiting: attempting,
+        }),
+        [response, setParams, attempt, abort, attempting],
+    );
 }
 
 export function GET<FuncParams = unknown, FuncResponse = unknown>(
