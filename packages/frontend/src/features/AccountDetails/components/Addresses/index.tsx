@@ -8,7 +8,8 @@ import styles from "./index.module.css";
 
 export function Addresses() {
     const { accountDetails, defaultData } = useContext(UserContext);
-    const { data, awaiting } = accountDetails;
+    const { response, awaiting } = accountDetails;
+    const { data } = response;
 
     const { addresses } = data || {};
     const { delivery, billing } = addresses || {};

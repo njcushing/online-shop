@@ -21,7 +21,8 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
     const tableColumnCount = useMatches({ base: 1, lg: 2 });
 
     const { product, variant, defaultData } = useContext(ProductContext);
-    const { data, awaiting } = product;
+    const { response, awaiting } = product;
+    const { data } = response;
     const { description } =
         data || (defaultData.product as NonNullable<IProductContext["product"]["data"]>);
     const { sku, details, releaseDate } =

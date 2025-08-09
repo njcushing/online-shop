@@ -10,10 +10,9 @@ import {
     mockGetSubscriptions,
     mockGetWatchlist,
 } from "@/api/mocks";
-import { FuncResponseObject } from "@/api/types";
 import { RecursivePartial } from "@/utils/types";
 import * as useAsync from "@/hooks/useAsync";
-import { UserWatchlist } from "@/utils/products/watchlist";
+import { createQueryContextObject } from "@/hooks/useAsync/utils/createQueryContextObject";
 import { generateSkeletonOrderList, PopulatedOrderData } from "@/utils/products/orders";
 import {
     generateSkeletonSubscriptionList,
@@ -66,11 +65,11 @@ const defaultRootContext: IRootContext = {
 };
 
 export interface IUserContext {
-    cart: FuncResponseObject<PopulatedCartItemData[]> & { awaiting: boolean };
-    watchlist: FuncResponseObject<UserWatchlist> & { awaiting: boolean };
-    orders: FuncResponseObject<PopulatedOrderData[]> & { awaiting: boolean };
-    subscriptions: FuncResponseObject<PopulatedSubscriptionData[]> & { awaiting: boolean };
-    accountDetails: FuncResponseObject<AccountDetails> & { awaiting: boolean };
+    cart: useAsync.UseAsyncReturnType;
+    watchlist: useAsync.UseAsyncReturnType;
+    orders: useAsync.UseAsyncReturnType;
+    subscriptions: useAsync.UseAsyncReturnType;
+    accountDetails: useAsync.UseAsyncReturnType;
 
     defaultData: {
         cart: RecursivePartial<PopulatedCartItemData>[];
@@ -81,11 +80,11 @@ export interface IUserContext {
 }
 
 const defaultUserContext: IUserContext = {
-    cart: { data: [], status: 200, message: "Success", awaiting: true },
-    watchlist: { data: [], status: 200, message: "Success", awaiting: true },
-    orders: { data: [], status: 200, message: "Success", awaiting: true },
-    subscriptions: { data: [], status: 200, message: "Success", awaiting: true },
-    accountDetails: { data: {}, status: 200, message: "Success", awaiting: true },
+    cart: createQueryContextObject(),
+    watchlist: createQueryContextObject(),
+    orders: createQueryContextObject(),
+    subscriptions: createQueryContextObject(),
+    accountDetails: createQueryContextObject(),
 
     defaultData: {
         cart: generateSkeletonCart(),
@@ -119,64 +118,32 @@ export function Root({ children }: TRoot) {
     );
 
     const [cart, setCart] = useState<IUserContext["cart"]>(defaultUserContext.cart);
-    const { response: cartResponse, awaiting: awaitingCartData } = useAsync.GET(mockGetCart, [{}], {
-        attemptOnMount: true,
-    });
-    useEffect(
-        () => setCart({ ...cartResponse, awaiting: awaitingCartData }),
-        [cartResponse, awaitingCartData],
-    );
+    const getCartReturn = useAsync.GET(mockGetCart, [{}], { attemptOnMount: true });
+    useEffect(() => setCart(getCartReturn), [getCartReturn]);
 
     const [watchlist, setWatchlist] = useState<IUserContext["watchlist"]>(
         defaultUserContext.watchlist,
     );
-    const { response: watchlistResponse, awaiting: awaitingWatchlistData } = useAsync.GET(
-        mockGetWatchlist,
-        [{}],
-        { attemptOnMount: true },
-    );
-    useEffect(
-        () => setWatchlist({ ...watchlistResponse, awaiting: awaitingWatchlistData }),
-        [watchlistResponse, awaitingWatchlistData],
-    );
+    const getWatchlistReturn = useAsync.GET(mockGetWatchlist, [{}], { attemptOnMount: true });
+    useEffect(() => setWatchlist(getWatchlistReturn), [getWatchlistReturn]);
 
     const [orders, setOrders] = useState<IUserContext["orders"]>(defaultUserContext.orders);
-    const { response: ordersResponse, awaiting: awaitingOrders } = useAsync.GET(
-        mockGetOrders,
-        [{}],
-        { attemptOnMount: true },
-    );
-    useEffect(
-        () => setOrders({ ...ordersResponse, awaiting: awaitingOrders }),
-        [ordersResponse, awaitingOrders],
-    );
+    const getOrdersReturn = useAsync.GET(mockGetOrders, [{}], { attemptOnMount: true });
+    useEffect(() => setOrders(getOrdersReturn), [getOrdersReturn]);
 
     const [subscriptions, setSubscriptions] = useState<IUserContext["subscriptions"]>(
         defaultUserContext.subscriptions,
     );
-    const { response: subscriptionsResponse, awaiting: awaitingSubscriptions } = useAsync.GET(
-        mockGetSubscriptions,
-        [{}],
-        { attemptOnMount: true },
-    );
-    useEffect(
-        () => setSubscriptions({ ...subscriptionsResponse, awaiting: awaitingSubscriptions }),
-        [subscriptionsResponse, awaitingSubscriptions],
-    );
+    const subscriptionsReturn = useAsync.GET(mockGetSubscriptions, [{}], { attemptOnMount: true });
+    useEffect(() => setSubscriptions(subscriptionsReturn), [subscriptionsReturn]);
 
     const [accountDetails, setAccountDetails] = useState<IUserContext["accountDetails"]>(
         defaultUserContext.accountDetails,
     );
-    const { response: accountDetailsResponse, awaiting: awaitingAccountDetailsData } = useAsync.GET(
-        mockGetAccountDetails,
-        [{}],
-        { attemptOnMount: true },
-    );
-    useEffect(
-        () =>
-            setAccountDetails({ ...accountDetailsResponse, awaiting: awaitingAccountDetailsData }),
-        [accountDetailsResponse, awaitingAccountDetailsData],
-    );
+    const accountDetailsReturn = useAsync.GET(mockGetAccountDetails, [{}], {
+        attemptOnMount: true,
+    });
+    useEffect(() => setAccountDetails(accountDetailsReturn), [accountDetailsReturn]);
 
     return (
         <RootContext.Provider value={useMemo(() => ({ headerInfo }), [headerInfo])}>
@@ -188,6 +155,7 @@ export function Root({ children }: TRoot) {
                         orders,
                         subscriptions,
                         accountDetails,
+
                         defaultData: defaultUserContext.defaultData,
                     }),
                     [cart, watchlist, orders, subscriptions, accountDetails],

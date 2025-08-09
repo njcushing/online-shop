@@ -14,9 +14,11 @@ export type TCartDrawer = {
 
 export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
     const { cart, defaultData } = useContext(UserContext);
-    const { awaiting } = cart;
+    const { response, awaiting } = cart;
 
-    const data = cart.data || (defaultData.cart as NonNullable<IUserContext["cart"]["data"]>);
+    const data =
+        response.data ||
+        (defaultData.cart as NonNullable<IUserContext["cart"]["response"]["data"]>);
 
     return (
         <Drawer

@@ -25,7 +25,8 @@ export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
     const { forceClose } = headerInfo;
 
     const { product, defaultData } = useContext(ProductContext);
-    const { data: productData, awaiting: awaitingProductData } = product;
+    const { response: productResponse, awaiting: awaitingProductData } = product;
+    const { data: productData } = productResponse;
 
     const [filter, setFilter] = useState<(typeof filterOptions)[number]>("All");
     const [sort, setSort] = useState<(typeof sortOptions)[number]>("Most Recent");

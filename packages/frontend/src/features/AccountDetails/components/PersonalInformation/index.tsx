@@ -12,7 +12,8 @@ import styles from "./index.module.css";
 
 export function PersonalInformation() {
     const { accountDetails, defaultData } = useContext(UserContext);
-    const { data, awaiting } = accountDetails;
+    const { response, awaiting } = accountDetails;
+    const { data } = response;
 
     const { personal } = data || {};
     const { firstName, lastName, phone, dob, email } = personal || {};

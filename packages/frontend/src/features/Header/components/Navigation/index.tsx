@@ -23,7 +23,8 @@ export type TNavigation = {
 
 export function Navigation({ opened = false }: TNavigation) {
     const { cart } = useContext(UserContext);
-    const { data: cartData } = cart;
+    const { response } = cart;
+    const { data: cartData } = response;
 
     const navigate = useNavigate();
 

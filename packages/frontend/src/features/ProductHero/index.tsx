@@ -24,31 +24,34 @@ export function ProductHero() {
         collectionSteps: defaultCollectionStepsData,
     } = defaultData;
 
-    const { awaiting: awaitingCart } = cart;
-    const { awaiting: awaitingProduct } = product;
+    const { response: cartResponse, awaiting: awaitingCart } = cart;
+    const { response: productResponse, awaiting: awaitingProduct } = product;
+
+    const { data: cartData } = cartResponse;
+    const { data: productData } = productResponse;
 
     const variantOptions = useMemo<ReturnType<typeof filterVariantOptions>>(() => {
         if (awaitingProduct) return defaultVariantOptionsData;
-        if (!product.data || !variant) return new Map();
-        return filterVariantOptions(product.data, variant.options);
-    }, [product.data, variant, defaultVariantOptionsData, awaitingProduct]);
+        if (!productData || !variant) return new Map();
+        return filterVariantOptions(productData, variant.options);
+    }, [productData, variant, defaultVariantOptionsData, awaitingProduct]);
 
     const collectionsData = useMemo<ReturnType<typeof findCollections>>(() => {
         if (awaitingProduct) return defaultCollectionStepsData;
-        return findCollections(product.data?.id || "");
-    }, [product, defaultCollectionStepsData, awaitingProduct]);
+        return findCollections(productData?.id || "");
+    }, [productData, defaultCollectionStepsData, awaitingProduct]);
 
     const [, /* quantity */ setQuantity] = useState<number | null>(1);
 
     const maximumVariantQuantity = useMemo(() => {
-        if (!cart.data || awaitingCart || !product.data || awaitingProduct || !variant) return 0;
-        return calculateMaxAddableVariantStock(cart.data, product.data, variant);
-    }, [cart, awaitingCart, product.data, awaitingProduct, variant]);
+        if (!cartData || awaitingCart || !productData || awaitingProduct || !variant) return 0;
+        return calculateMaxAddableVariantStock(cartData, productData, variant);
+    }, [cartData, awaitingCart, productData, awaitingProduct, variant]);
 
-    if (!awaitingProduct && (!product.data || !variant)) return null;
+    if (!awaitingProduct && (!productData || !variant)) return null;
 
     const { name, images, rating, variantOptionOrder } = !awaitingProduct
-        ? product.data!
+        ? productData!
         : (defaultProductData as NonNullable<IProductContext["product"]["data"]>);
     const { price, options } = !awaitingProduct
         ? variant!

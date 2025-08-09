@@ -4,6 +4,7 @@ import { ProductHero } from "@/features/ProductHero";
 import { ProductInformation } from "@/features/ProductInformation";
 import { RecommendedProducts } from "@/features/RecommendedProducts";
 import * as useAsync from "@/hooks/useAsync";
+import { createQueryContextObject } from "@/hooks/useAsync/utils/createQueryContextObject";
 import {
     Product as ProductDataType,
     ProductVariant,
@@ -14,7 +15,6 @@ import {
     generateSkeletonProductVariant,
 } from "@/utils/products/product";
 import { mockGetProduct } from "@/api/mocks";
-import { FuncResponseObject } from "@/api/types";
 import { RecursivePartial } from "@/utils/types";
 import styles from "./index.module.css";
 
@@ -53,7 +53,7 @@ const defaultCollectionStepsData: ReturnType<typeof findCollections> = [
 ];
 
 export interface IProductContext {
-    product: FuncResponseObject<ProductDataType> & { awaiting: boolean };
+    product: useAsync.UseAsyncReturnType;
     variant: ProductVariant | null;
     selectedVariantOptions: ProductVariant["options"];
     setSelectedVariantOptions: React.Dispatch<React.SetStateAction<ProductVariant["options"]>>;
@@ -67,7 +67,7 @@ export interface IProductContext {
 }
 
 const defaultProductContext: IProductContext = {
-    product: { data: null, status: 200, message: "Success", awaiting: true },
+    product: createQueryContextObject(),
     variant: null,
     selectedVariantOptions: {},
     setSelectedVariantOptions: () => {},
@@ -94,10 +94,16 @@ export function Product({ children }: TProduct) {
     const [product, setProduct] = useState<IProductContext["product"]>(
         defaultProductContext.product,
     );
+    const getProductReturn = useAsync.GET(mockGetProduct, [{ params: { productId } }], {
+        attemptOnMount: true,
+    });
+    useEffect(() => setProduct(getProductReturn), [getProductReturn]);
+    const { response, setParams, attempt } = getProductReturn;
+
     const productDataRef = useRef<ProductDataType | null>(product.data);
     useEffect(() => {
-        productDataRef.current = product.data;
-    }, [product]);
+        productDataRef.current = response.data;
+    }, [response]);
 
     const [variant, setVariant] = useState<IProductContext["variant"]>(
         defaultProductContext.variant,
@@ -125,21 +131,14 @@ export function Product({ children }: TProduct) {
         }
     }, []);
 
-    const { response, setParams, attempt, awaiting } = useAsync.GET(
-        mockGetProduct,
-        [{ params: { productId } }],
-        { attemptOnMount: true },
-    );
-
     useMemo(() => {
         setParams([{ params: { productId } }]);
         attempt();
-    }, [productId, setParams, attempt]);
+    }, [setParams, attempt, productId]);
 
     useEffect(() => {
-        setProduct({ ...response, awaiting });
         updateSelectedVariantData(response?.data || null);
-    }, [updateSelectedVariantData, response, awaiting]);
+    }, [response, updateSelectedVariantData]);
 
     useEffect(() => {
         updateSelectedVariantData(productDataRef.current);

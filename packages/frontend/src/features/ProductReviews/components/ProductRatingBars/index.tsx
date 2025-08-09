@@ -12,7 +12,8 @@ export type TProductRatingBars = {
 
 export function ProductRatingBars({ clickable = true, onClick }: TProductRatingBars) {
     const { product, defaultData } = useContext(ProductContext);
-    const { data, awaiting } = product;
+    const { response, awaiting } = product;
+    const { data } = response;
 
     if (!awaiting && !data) return null;
 

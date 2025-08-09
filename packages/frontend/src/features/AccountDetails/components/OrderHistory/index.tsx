@@ -24,7 +24,7 @@ export function OrderHistory() {
     const { forceClose } = headerInfo;
 
     const { orders, defaultData } = useContext(UserContext);
-    const { awaiting } = orders;
+    const { response, awaiting } = orders;
 
     const [filter, setFilter] = useState<FilterOption>("1_month");
     const [page, setPage] = useState<number>(0);
@@ -66,7 +66,9 @@ export function OrderHistory() {
 
     /* v8 ignore stop */
 
-    const data = orders.data || (defaultData.orders as NonNullable<IUserContext["orders"]["data"]>);
+    const data =
+        response.data ||
+        (defaultData.orders as NonNullable<IUserContext["orders"]["response"]["data"]>);
 
     return (data && data.length > 0) || awaiting ? (
         <div className={styles["order-history-container"]} ref={targetRef}>
@@ -136,7 +138,7 @@ export function OrderHistory() {
                         // doesn't have an accessible role and the page buttons' text content
                         // (numbers) often conflict with the other elements' text content.
                         data-testid="pagination"
-                        total={Math.ceil(orders.data ? orders.data.length / ordersPerPage : 1)}
+                        total={Math.ceil(response.data ? response.data.length / ordersPerPage : 1)}
                         value={page + 1}
                         withEdges
                         onChange={(newPageNo) => {

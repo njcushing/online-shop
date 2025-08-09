@@ -9,8 +9,11 @@ export function WatchlistButton() {
     const { watchlist } = useContext(UserContext);
     const { product, variant } = useContext(ProductContext);
 
-    const { data: watchlistData, awaiting: awaitingWatchlist } = watchlist;
-    const { data: productData, awaiting: awaitingProduct } = product;
+    const { response: watchlistResponse, awaiting: awaitingWatchlist } = watchlist;
+    const { response: productResponse, awaiting: awaitingProduct } = product;
+
+    const { data: watchlistData } = watchlistResponse;
+    const { data: productData } = productResponse;
 
     const isDisabled = useMemo(() => {
         return awaitingWatchlist || !watchlistData || awaitingProduct || !productData || !variant;

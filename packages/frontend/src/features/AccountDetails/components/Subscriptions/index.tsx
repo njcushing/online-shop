@@ -13,7 +13,7 @@ export function Subscriptions() {
     const { forceClose } = headerInfo;
 
     const { subscriptions, defaultData } = useContext(UserContext);
-    const { awaiting } = subscriptions;
+    const { response, awaiting } = subscriptions;
 
     const [page, setPage] = useState<number>(0);
 
@@ -55,7 +55,7 @@ export function Subscriptions() {
     /* v8 ignore stop */
 
     const data =
-        subscriptions.data ||
+        response.data ||
         (defaultData.subscriptions as NonNullable<IUserContext["subscriptions"]["data"]>);
 
     return (data && data.length > 0) || awaiting ? (
@@ -95,9 +95,7 @@ export function Subscriptions() {
                         // (numbers) often conflict with the other elements' text content.
                         data-testid="pagination"
                         total={Math.ceil(
-                            subscriptions.data
-                                ? subscriptions.data.length / subscriptionsPerPage
-                                : 1,
+                            response.data ? response.data.length / subscriptionsPerPage : 1,
                         )}
                         value={page + 1}
                         withEdges

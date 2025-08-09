@@ -25,7 +25,8 @@ export function VariantAlerts({ awaiting = false }: TVariantAlerts) {
     const { stock } = variant || { stock: settings.lowStockThreshold + 1 };
 
     const { cart } = useContext(UserContext);
-    const { data: cartData } = cart;
+    const { response } = cart;
+    const { data: cartData } = response;
 
     const cartItemData = useMemo<PopulatedCartItemData | undefined>(() => {
         if (!cartData) return undefined;
