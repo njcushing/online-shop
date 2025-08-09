@@ -4,7 +4,7 @@ import _ from "lodash";
 import * as HTTPMethodTypes from "@/api/types";
 import { UnwrapPromise } from "@/utils/types";
 
-type MethodTypes<FuncParams = unknown, FuncBody = unknown, FuncResponse = unknown> =
+export type MethodTypes<FuncParams = unknown, FuncBody = unknown, FuncResponse = unknown> =
     | HTTPMethodTypes.GET<FuncParams, FuncResponse>
     | HTTPMethodTypes.DELETE<FuncParams, FuncResponse>
     | HTTPMethodTypes.POST<FuncParams, FuncBody, FuncResponse>
@@ -35,11 +35,7 @@ function abortedResponseObject<FuncParams, FuncBody, FuncResponse>(): UnwrapProm
     return { status: 299, message: "Request aborted", data: null };
 }
 
-export function useAsyncBase<FuncParams = unknown, FuncBody = unknown, FuncResponse = unknown>(
-    func: MethodTypes<FuncParams, FuncBody, FuncResponse>,
-    parameters?: Parameters<MethodTypes<FuncParams, FuncBody, FuncResponse>>,
-    opts?: UseAsyncOpts,
-): {
+export type UseAsyncReturnType<FuncParams, FuncBody, FuncResponse> = {
     response: UnwrapPromise<ReturnType<MethodTypes<FuncParams, FuncBody, FuncResponse>>>;
     setParams: React.Dispatch<
         React.SetStateAction<
@@ -49,7 +45,13 @@ export function useAsyncBase<FuncParams = unknown, FuncBody = unknown, FuncRespo
     attempt: () => void;
     abort: () => void;
     awaiting: boolean;
-} {
+};
+
+export function useAsyncBase<FuncParams = unknown, FuncBody = unknown, FuncResponse = unknown>(
+    func: MethodTypes<FuncParams, FuncBody, FuncResponse>,
+    parameters?: Parameters<MethodTypes<FuncParams, FuncBody, FuncResponse>>,
+    opts?: UseAsyncOpts,
+): UseAsyncReturnType<FuncParams, FuncBody, FuncResponse> {
     const { attemptOnMount, navigation } = _.merge(_.cloneDeep(defaultUseAsyncOpts), opts);
     const { onSuccess, onFail } = navigation;
 
