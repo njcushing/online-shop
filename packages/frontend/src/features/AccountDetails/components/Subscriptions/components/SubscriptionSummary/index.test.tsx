@@ -12,7 +12,7 @@ const getProps = (component: HTMLElement) => {
 };
 
 const mockSubscription: RecursivePartial<
-    NonNullable<IUserContext["subscriptions"]["data"]>[number]
+    NonNullable<IUserContext["subscriptions"]["response"]["data"]>[number]
 > = {
     count: 10,
     frequency: "one_week",
@@ -20,14 +20,18 @@ const mockSubscription: RecursivePartial<
     product: { id: "productId" }, // Required for mocked SubscriptionProduct component
 };
 const mockProps: RecursivePartial<TSubscriptionSummary> = {
-    data: mockSubscription as NonNullable<IUserContext["subscriptions"]["data"]>[number],
+    data: mockSubscription as NonNullable<
+        IUserContext["subscriptions"]["response"]["data"]
+    >[number],
 };
 
 const mockUserContext: RecursivePartial<IUserContext> = {
     subscriptions: {
-        data: [],
-        status: 200,
-        message: "Success",
+        response: {
+            data: [],
+            status: 200,
+            message: "Success",
+        },
         awaiting: false,
     },
 

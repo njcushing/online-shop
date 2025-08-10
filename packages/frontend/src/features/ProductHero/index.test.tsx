@@ -9,11 +9,16 @@ import { ProductHero } from ".";
 
 // Mock dependencies
 const mockUserContext: RecursivePartial<IUserContext> = {
-    cart: { data: [] as IUserContext["cart"]["data"], awaiting: false } as IUserContext["cart"],
+    cart: {
+        response: { data: [] } as IUserContext["cart"]["response"]["data"],
+        awaiting: false,
+    } as IUserContext["cart"],
     watchlist: {
-        data: [
-            { productId: "productId", variantId: "variantId" },
-        ] as IUserContext["watchlist"]["data"],
+        response: {
+            data: [
+                { productId: "productId", variantId: "variantId" },
+            ] as IUserContext["watchlist"]["response"]["data"],
+        },
         awaiting: false,
     } as IUserContext["watchlist"],
 };
@@ -51,7 +56,9 @@ const mockProductContextDefaultData: RecursivePartial<IProductContext>["defaultD
 };
 const mockProductContext: RecursivePartial<IProductContext> = {
     product: {
-        data: mockProductContextDefaultData.product,
+        response: {
+            data: mockProductContextDefaultData.product,
+        },
         awaiting: false,
     } as IProductContext["product"],
     variant: mockProductContextDefaultData.variant as IProductContext["variant"],
@@ -245,7 +252,7 @@ describe("The ProductHero component...", () => {
         test("With text content equal to the product's full name", () => {
             renderFunc();
 
-            const { name } = mockProductContext.product!.data!;
+            const { name } = mockProductContext.product!.response!.data!;
 
             const productFullName = screen.getByRole("heading", { name: name.full });
             expect(productFullName).toBeInTheDocument();
@@ -256,7 +263,7 @@ describe("The ProductHero component...", () => {
                 ProductContextOverride: { product: { awaiting: true } } as IProductContext,
             });
 
-            const { name } = mockProductContext.product!.data!;
+            const { name } = mockProductContext.product!.response!.data!;
 
             const productFullName = screen.queryByRole("heading", { name: name.full });
             expect(productFullName).not.toBeInTheDocument();
@@ -474,7 +481,7 @@ describe("The ProductHero component...", () => {
         test("If the ProductContext's product data is not being awaited and the 'product.data' field is falsy", () => {
             renderFunc({
                 ProductContextOverride: {
-                    product: { data: null, awaiting: false },
+                    product: { response: { data: null }, awaiting: false },
                 } as IProductContext,
             });
 
@@ -485,7 +492,7 @@ describe("The ProductHero component...", () => {
         test("If the ProductContext's product data is not being awaited and the 'variant' field is falsy", () => {
             renderFunc({
                 ProductContextOverride: {
-                    product: { data: mockProduct, awaiting: false },
+                    product: { response: { data: mockProduct }, awaiting: false },
                     variant: null,
                 } as unknown as IProductContext,
             });

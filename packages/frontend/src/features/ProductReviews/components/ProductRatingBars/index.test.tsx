@@ -27,7 +27,9 @@ const mockDefaultData: RecursivePartial<IProductContext>["defaultData"] = {
 const mockProductContext: RecursivePartial<IProductContext> = {
     // Only using fields relevant to the ProductRatingBars component
     product: {
-        data: mockDefaultData.product,
+        response: {
+            data: mockDefaultData.product,
+        },
         awaiting: false,
     } as IProductContext["product"],
 
@@ -105,7 +107,7 @@ describe("The ProductRatingBars component...", () => {
             renderFunc();
 
             const ratingMeanValue = screen.getByText(
-                mockProductContext!.product!.data!.rating.meanValue.toFixed(2),
+                mockProductContext!.product!.response!.data!.rating.meanValue.toFixed(2),
             );
             expect(ratingMeanValue).toBeInTheDocument();
         });
@@ -114,7 +116,7 @@ describe("The ProductRatingBars component...", () => {
             renderFunc();
 
             const reviewQuantityValue = screen.getByText(
-                mockProductContext!.product!.data!.reviews.length,
+                mockProductContext!.product!.response!.data!.reviews.length,
             );
             expect(reviewQuantityValue).toBeInTheDocument();
         });
@@ -134,7 +136,7 @@ describe("The ProductRatingBars component...", () => {
             expect(ratingMeanValue).not.toBeVisible();
 
             const reviewQuantityValue = screen.queryByText(
-                mockProductContext!.product!.data!.reviews.length,
+                mockProductContext!.product!.response!.data!.reviews.length,
             );
             expect(reviewQuantityValue).not.toBeVisible();
         });
@@ -182,7 +184,8 @@ describe("The ProductRatingBars component...", () => {
 
             // Reversing array because tier 5 reviews will be rendered first
             ratingButtons.reverse().forEach((ratingButton, i) => {
-                const { totalQuantity, quantities } = mockProductContext!.product!.data!.rating;
+                const { totalQuantity, quantities } =
+                    mockProductContext!.product!.response!.data!.rating;
 
                 const ProgressComponent = within(ratingButton).getByRole("progressbar");
                 expect(ProgressComponent).toBeInTheDocument();
@@ -202,7 +205,8 @@ describe("The ProductRatingBars component...", () => {
 
             // Reversing array because tier 5 reviews will be rendered first
             ratingButtons.reverse().forEach((ratingButton, i) => {
-                const { totalQuantity, quantities } = mockProductContext!.product!.data!.rating;
+                const { totalQuantity, quantities } =
+                    mockProductContext!.product!.response!.data!.rating;
 
                 // Have to use getAll due to hidden column sizing elements sharing the same text
                 const ratingPercentage = within(ratingButton).getAllByText(
@@ -265,7 +269,9 @@ describe("The ProductRatingBars component...", () => {
 
     test("Should return 'null' if ProductContext's product's 'data' and 'awaiting' are falsy", async () => {
         renderFunc({
-            ProductContextOverride: { product: { data: null, awaiting: false } } as IProductContext,
+            ProductContextOverride: {
+                product: { response: { data: null }, awaiting: false },
+            } as IProductContext,
         });
 
         const wrapper = screen.getByTestId("product-rating-bars-wrapper");

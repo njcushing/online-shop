@@ -16,11 +16,13 @@ const mockProps: RecursivePartial<TCartDrawer> = {
 const mockUserContext: RecursivePartial<IUserContext> = {
     cart: {
         // Only using fields relevant to the CartDrawer component
-        data: [
-            { product: {}, variant: { id: "variant1Id" }, quantity: 1 },
-            { product: {}, variant: { id: "variant2Id" }, quantity: 1 },
-            { product: {}, variant: { id: "variant3Id" }, quantity: 1 },
-        ] as unknown as IUserContext["cart"]["data"],
+        response: {
+            data: [
+                { product: {}, variant: { id: "variant1Id" }, quantity: 1 },
+                { product: {}, variant: { id: "variant2Id" }, quantity: 1 },
+                { product: {}, variant: { id: "variant3Id" }, quantity: 1 },
+            ] as unknown as IUserContext["cart"]["response"]["data"],
+        },
         awaiting: false,
     },
     defaultData: {
@@ -157,7 +159,7 @@ describe("The CartDrawer component...", () => {
             renderFunc();
 
             const CartItemComponents = screen.getAllByLabelText("CartItem component");
-            expect(CartItemComponents).toHaveLength(mockUserContext.cart!.data!.length);
+            expect(CartItemComponents).toHaveLength(mockUserContext.cart!.response!.data!.length);
         });
 
         test("Passing the correct props", () => {
@@ -166,13 +168,17 @@ describe("The CartDrawer component...", () => {
             const CartItemComponents = screen.getAllByLabelText("CartItem component");
             CartItemComponents.forEach((CartItemComponent, i) => {
                 const props = CartItemComponent.getAttribute("data-props");
-                expect(JSON.parse(props!)).toStrictEqual({ data: mockUserContext.cart!.data![i] });
+                expect(JSON.parse(props!)).toStrictEqual({
+                    data: mockUserContext.cart!.response!.data![i],
+                });
             });
         });
 
         test("Or for each item in the UserContext's 'defaultData' field's 'cart' array if the actual cart data is null", () => {
             renderFunc({
-                UserContextOverride: { cart: { data: null } } as unknown as IUserContext,
+                UserContextOverride: {
+                    cart: { response: { data: null } },
+                } as unknown as IUserContext,
             });
 
             const CartItemComponents = screen.getAllByLabelText("CartItem component");
@@ -181,7 +187,9 @@ describe("The CartDrawer component...", () => {
 
         test("Passing the correct props", () => {
             renderFunc({
-                UserContextOverride: { cart: { data: null } } as unknown as IUserContext,
+                UserContextOverride: {
+                    cart: { response: { data: null } },
+                } as unknown as IUserContext,
             });
 
             const CartItemComponents = screen.getAllByLabelText("CartItem component");

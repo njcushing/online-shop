@@ -7,7 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import { IProductContext, ProductContext, Product } from ".";
 
 // Mock dependencies
-const mockProduct: RecursivePartial<IProductContext["product"]["data"]> = {
+const mockProduct: RecursivePartial<IProductContext["product"]["response"]["data"]> = {
     // Only using fields relevant to the Product component
     id: "productId",
     slug: "product-slug",
@@ -22,7 +22,7 @@ const mockProduct: RecursivePartial<IProductContext["product"]["data"]> = {
 };
 
 const mockProductContext: RecursivePartial<IProductContext> = {
-    product: { data: null, status: 200, message: "Success", awaiting: true },
+    product: { response: { data: null }, status: 200, message: "Success", awaiting: true },
     variant: null,
     selectedVariantOptions: {},
     setSelectedVariantOptions: () => {},
@@ -122,8 +122,8 @@ describe("The Product component...", () => {
     });
 
     describe("Should provide context to all its descendant components...", () => {
-        describe("Including the 'product' field...", () => {
-            test("Which should initially have the 'data' field set to 'null'", async () => {
+        describe("Including the 'product.response' field...", () => {
+            test("Which should initially have its 'data' field set to 'null'", async () => {
                 const { getProductContextValue } = await renderFunc({ initRender: true });
                 const ProductContextValue = getProductContextValue();
                 expect(ProductContextValue).toBeDefined();
@@ -131,8 +131,11 @@ describe("The Product component...", () => {
                 const { product } = ProductContextValue;
                 expect(product).toBeDefined();
 
+                const { response } = product;
+                expect(response).toBeDefined();
+
                 await waitFor(async () => {
-                    expect(product).toEqual(expect.objectContaining({ data: null }));
+                    expect(response).toEqual(expect.objectContaining({ data: null }));
                 });
             });
 
@@ -141,8 +144,9 @@ describe("The Product component...", () => {
                 const ProductContextValue = getProductContextValue();
 
                 const { product } = ProductContextValue;
+                const { response } = product;
 
-                expect(product).toEqual(expect.objectContaining(await mockMockGetProduct()));
+                expect(response).toEqual(expect.objectContaining(await mockMockGetProduct()));
             });
         });
 

@@ -12,7 +12,8 @@ const getProps = (component: HTMLElement) => {
 
 // Mock dependencies
 // Mock contexts are only using fields relevant to component being tested
-const mockSubscriptions: RecursivePartial<IUserContext["subscriptions"]["data"]> = [
+
+const mockSubscriptions: RecursivePartial<IUserContext["subscriptions"]["response"]["data"]> = [
     { id: "1" },
     { id: "2" },
     { id: "3" },
@@ -20,9 +21,11 @@ const mockSubscriptions: RecursivePartial<IUserContext["subscriptions"]["data"]>
 
 const mockUserContext: RecursivePartial<IUserContext> = {
     subscriptions: {
-        data: mockSubscriptions as IUserContext["subscriptions"]["data"],
-        status: 200,
-        message: "Success",
+        response: {
+            data: mockSubscriptions as IUserContext["subscriptions"]["response"]["data"],
+            status: 200,
+            message: "Success",
+        },
         awaiting: false,
     },
 
@@ -99,7 +102,11 @@ describe("The Subscriptions component...", () => {
         });
 
         test("Unless the UserContext's 'subscriptions.data' and 'defaultData.subscriptions' array fields are falsy or empty", () => {
-            renderFunc({ UserContextOverride: { subscriptions: { data: null } } as IUserContext });
+            renderFunc({
+                UserContextOverride: {
+                    subscriptions: { response: { data: null } },
+                } as IUserContext,
+            });
 
             const ulElement = screen.queryByRole("list");
             expect(ulElement).not.toBeInTheDocument();
@@ -124,7 +131,7 @@ describe("The Subscriptions component...", () => {
             test("For each entry in the UserContext's 'defaultData.subscriptions' array field if the UserContext's 'subscriptions.data' array field is falsy or empty", () => {
                 renderFunc({
                     UserContextOverride: {
-                        subscriptions: { data: null },
+                        subscriptions: { response: { data: null } },
                         defaultData: { subscriptions: [{ id: "4" }] },
                     } as IUserContext,
                 });
@@ -149,14 +156,18 @@ describe("The Subscriptions component...", () => {
                         `SubscriptionSummary id: ${id}`,
                     );
                     const props = getProps(SubscriptionSummaryComponent);
-                    expect(props).toStrictEqual({ data: mockUserContext.subscriptions!.data![i] });
+                    expect(props).toStrictEqual({
+                        data: mockUserContext.subscriptions!.response!.data![i],
+                    });
                 });
             });
         });
     });
 
     test("Should render a relevant message if the UserContext's 'subscriptions.data' and 'defaultData.subscriptions' array fields are falsy or empty", () => {
-        renderFunc({ UserContextOverride: { subscriptions: { data: null } } as IUserContext });
+        renderFunc({
+            UserContextOverride: { subscriptions: { response: { data: null } } } as IUserContext,
+        });
 
         const messageElement = screen.getByText("Nothing to show!");
         expect(messageElement).toBeInTheDocument();

@@ -6,7 +6,7 @@ import { DeliveryProgress } from ".";
 
 // Mock dependencies
 const mockUserContextValue: RecursivePartial<IUserContext> = {
-    cart: { data: [] },
+    cart: { response: { data: [] } },
 };
 
 type renderFuncArgs = {
@@ -73,7 +73,9 @@ describe("The DeliveryProgress component...", () => {
     });
 
     test("Should treat the subtotal of cart items as 0 if the UserContext does not contain valid cart data", () => {
-        renderFunc({ UserContextOverride: { cart: { data: null } } as unknown as IUserContext });
+        renderFunc({
+            UserContextOverride: { cart: { response: { data: null } } } as unknown as IUserContext,
+        });
 
         const element = screen.getByRole("progressbar");
         expect(element).toBeInTheDocument();

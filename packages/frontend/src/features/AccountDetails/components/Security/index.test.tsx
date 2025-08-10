@@ -11,9 +11,11 @@ import { Security } from ".";
 
 const mockUserContext: RecursivePartial<IUserContext> = {
     accountDetails: {
-        data: {},
-        status: 200,
-        message: "Success",
+        response: {
+            data: {},
+            status: 200,
+            message: "Success",
+        },
         awaiting: false,
     },
 };

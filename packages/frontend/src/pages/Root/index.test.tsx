@@ -15,14 +15,14 @@ import {
 } from ".";
 
 // Mock dependencies
-const mockCart: RecursivePartial<IUserContext["cart"]["data"]> = [
+const mockCart: RecursivePartial<IUserContext["cart"]["response"]["data"]> = [
     // Only using relevant fields
     { product: {}, variant: { id: "variant1Id" }, quantity: 1 },
     { product: {}, variant: { id: "variant2Id" }, quantity: 1 },
     { product: {}, variant: { id: "variant3Id" }, quantity: 1 },
 ];
 
-const mockWatchlist: RecursivePartial<IUserContext["watchlist"]["data"]> = [
+const mockWatchlist: RecursivePartial<IUserContext["watchlist"]["response"]["data"]> = [
     { productId: "1", variantId: "1-1" },
     { productId: "2", variantId: "2-1" },
     { productId: "3", variantId: "3-1" },
@@ -33,8 +33,8 @@ const mockRootContext: RecursivePartial<IRootContext> = {
 };
 
 const mockUserContext: RecursivePartial<IUserContext> = {
-    cart: { data: [], status: 200, message: "Success", awaiting: false },
-    watchlist: { data: [], status: 200, message: "Success", awaiting: false },
+    cart: { response: { data: [] }, status: 200, message: "Success", awaiting: false },
+    watchlist: { response: { data: [] }, status: 200, message: "Success", awaiting: false },
 
     defaultData: {
         cart: [],
@@ -191,16 +191,19 @@ describe("The Root component...", () => {
             expect(UserContextValue).toBeDefined();
         });
 
-        describe("Including the 'cart' field...", () => {
-            test("Which should initially have the 'data' field set to 'null'", async () => {
+        describe("Including the 'cart.response' field...", () => {
+            test("Which should initially have its 'data' field set to 'null'", async () => {
                 const { getUserContextValue } = await renderFunc({ initRender: true });
                 const UserContextValue = getUserContextValue();
 
                 const { cart } = UserContextValue;
                 expect(cart).toBeDefined();
 
+                const { response } = cart;
+                expect(response).toBeDefined();
+
                 await waitFor(async () => {
-                    expect(cart).toEqual(expect.objectContaining({ data: null }));
+                    expect(response).toEqual(expect.objectContaining({ data: null }));
                 });
             });
 
@@ -209,21 +212,25 @@ describe("The Root component...", () => {
                 const UserContextValue = getUserContextValue();
 
                 const { cart } = UserContextValue;
+                const { response } = cart;
 
-                expect(cart).toEqual(expect.objectContaining(await mockMockGetCart()));
+                expect(response).toEqual(expect.objectContaining(await mockMockGetCart()));
             });
         });
 
-        describe("Including the 'watchlist' field...", () => {
-            test("Which should initially have the 'data' field set to 'null'", async () => {
+        describe("Including the 'watchlist.response' field...", () => {
+            test("Which should initially have its 'data' field set to 'null'", async () => {
                 const { getUserContextValue } = await renderFunc({ initRender: true });
                 const UserContextValue = getUserContextValue();
 
                 const { watchlist } = UserContextValue;
                 expect(watchlist).toBeDefined();
 
+                const { response } = watchlist;
+                expect(response).toBeDefined();
+
                 await waitFor(async () => {
-                    expect(watchlist).toEqual(expect.objectContaining({ data: null }));
+                    expect(response).toEqual(expect.objectContaining({ data: null }));
                 });
             });
 
@@ -232,8 +239,9 @@ describe("The Root component...", () => {
                 const UserContextValue = getUserContextValue();
 
                 const { watchlist } = UserContextValue;
+                const { response } = watchlist;
 
-                expect(watchlist).toEqual(expect.objectContaining(await mockMockGetWatchlist()));
+                expect(response).toEqual(expect.objectContaining(await mockMockGetWatchlist()));
             });
         });
 

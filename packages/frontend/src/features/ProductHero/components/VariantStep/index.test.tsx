@@ -23,10 +23,10 @@ const mockProduct = {
     id: "productId",
     variants: [mockVariant],
     variantOptionOrder: ["variantOption1", "variantOption2", "variantOption3"],
-} as unknown as IProductContext["product"]["data"];
+} as unknown as IProductContext["product"]["response"]["data"];
 const mockSetSelectedVariantOptions = vi.fn();
 const mockProductContext: RecursivePartial<IProductContext> = {
-    product: { data: mockProduct, awaiting: false },
+    product: { response: { data: mockProduct }, awaiting: false },
     variant: mockVariant,
     selectedVariantOptions: { variantOption1: "variantOption1Value1" },
     setSelectedVariantOptions: mockSetSelectedVariantOptions,

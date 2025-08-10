@@ -30,7 +30,9 @@ const mockProductContextDefaultData: RecursivePartial<IProductContext>["defaultD
 };
 const mockProductContext: RecursivePartial<IProductContext> = {
     product: {
-        data: mockProductContextDefaultData.product,
+        response: {
+            data: mockProductContextDefaultData.product,
+        },
         awaiting: false,
     } as IProductContext["product"],
     variant: mockProductContextDefaultData.variant as IProductContext["variant"],
@@ -300,7 +302,9 @@ describe("The ProductInformation component...", () => {
 
         test("Unless the ProductContext's product data is falsy", async () => {
             await renderFunc({
-                ProductContextOverride: { product: { data: null } } as IProductContext,
+                ProductContextOverride: {
+                    product: { response: { data: null } },
+                } as IProductContext,
                 propsOverride: { defaultOpenTab: "Description" },
             });
 

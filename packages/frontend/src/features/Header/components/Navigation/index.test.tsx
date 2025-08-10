@@ -18,7 +18,7 @@ const mockProps: TNavigation = {
 };
 
 // Mock contexts are only using fields relevant to component being tested
-const mockCart: RecursivePartial<IUserContext["cart"]["data"]> = [
+const mockCart: RecursivePartial<IUserContext["cart"]["response"]["data"]> = [
     // Only using relevant fields
     { product: {}, variant: { id: "variant1Id" }, quantity: 1 },
     { product: {}, variant: { id: "variant2Id" }, quantity: 1 },
@@ -27,9 +27,11 @@ const mockCart: RecursivePartial<IUserContext["cart"]["data"]> = [
 
 const mockUserContext: RecursivePartial<IUserContext> = {
     cart: {
-        data: mockCart as IUserContext["cart"]["data"],
-        status: 200,
-        message: "Success",
+        response: {
+            data: mockCart as IUserContext["cart"]["response"]["data"],
+            status: 200,
+            message: "Success",
+        },
         awaiting: false,
     },
 

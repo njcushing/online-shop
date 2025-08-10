@@ -11,26 +11,28 @@ import { Addresses } from ".";
 
 const mockUserContext: RecursivePartial<IUserContext> = {
     accountDetails: {
-        data: {
-            addresses: {
-                delivery: {
-                    line1: "Delivery Address Line 1",
-                    line2: "Delivery Address Line 2",
-                    townCity: "Delivery Address Town/City",
-                    county: "Delivery Address County",
-                    postcode: "Delivery Address Postcode",
-                },
-                billing: {
-                    line1: "Billing Address Line 1",
-                    line2: "Billing Address Line 2",
-                    townCity: "Billing Address Town/City",
-                    county: "Billing Address County",
-                    postcode: "Billing Address Postcode",
+        response: {
+            data: {
+                addresses: {
+                    delivery: {
+                        line1: "Delivery Address Line 1",
+                        line2: "Delivery Address Line 2",
+                        townCity: "Delivery Address Town/City",
+                        county: "Delivery Address County",
+                        postcode: "Delivery Address Postcode",
+                    },
+                    billing: {
+                        line1: "Billing Address Line 1",
+                        line2: "Billing Address Line 2",
+                        townCity: "Billing Address Town/City",
+                        county: "Billing Address County",
+                        postcode: "Billing Address Postcode",
+                    },
                 },
             },
+            status: 200,
+            message: "Success",
         },
-        status: 200,
-        message: "Success",
         awaiting: false,
     },
 
@@ -142,7 +144,7 @@ describe("The Addresses component...", () => {
             test("Containing elements with text content equal to the various lines in the user's delivery address", () => {
                 renderFunc();
 
-                const { delivery } = mockUserContext.accountDetails!.data!.addresses!;
+                const { delivery } = mockUserContext.accountDetails!.response!.data!.addresses!;
                 const { line1, line2, townCity, county, postcode } = delivery!;
 
                 expect(screen.getByText(line1!)).toBeInTheDocument();
@@ -155,7 +157,7 @@ describe("The Addresses component...", () => {
             test("Or text content equal to: 'No address set' if the user's delivery address is null/undefined", () => {
                 renderFunc({
                     UserContextOverride: {
-                        accountDetails: { data: { addresses: { delivery: null } } },
+                        accountDetails: { response: { data: { addresses: { delivery: null } } } },
                     } as unknown as IUserContext,
                 });
 
@@ -208,7 +210,7 @@ describe("The Addresses component...", () => {
             test("Containing elements with text content equal to the various lines in the user's billing address", () => {
                 renderFunc();
 
-                const { billing } = mockUserContext.accountDetails!.data!.addresses!;
+                const { billing } = mockUserContext.accountDetails!.response!.data!.addresses!;
                 const { line1, line2, townCity, county, postcode } = billing!;
 
                 expect(screen.getByText(line1!)).toBeInTheDocument();
@@ -221,7 +223,7 @@ describe("The Addresses component...", () => {
             test("Or text content equal to: 'No address set' if the user's billing address is null/undefined", () => {
                 renderFunc({
                     UserContextOverride: {
-                        accountDetails: { data: { addresses: { billing: null } } },
+                        accountDetails: { response: { data: { addresses: { billing: null } } } },
                     } as unknown as IUserContext,
                 });
 
@@ -265,7 +267,9 @@ describe("The Addresses component...", () => {
     describe("Should still render without throwing...", () => {
         test("If the UserContext's 'accountDetails.data' field is null/undefined", () => {
             renderFunc({
-                UserContextOverride: { accountDetails: { data: null } } as IUserContext,
+                UserContextOverride: {
+                    accountDetails: { response: { data: null } },
+                } as IUserContext,
             });
 
             const headingElement = screen.getByRole("heading", { name: "Addresses" });

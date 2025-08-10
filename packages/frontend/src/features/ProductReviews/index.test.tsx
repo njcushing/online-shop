@@ -51,7 +51,9 @@ const mockDefaultProduct = {
 };
 const mockProductContext: RecursivePartial<IProductContext> = {
     product: {
-        data: mockProduct,
+        response: {
+            data: mockProduct,
+        },
         awaiting: false,
     } as IProductContext["product"],
 
@@ -398,7 +400,7 @@ describe("The ProductReviews component...", () => {
         test("Where 'X' is equal to the length of the ProductContext's product's 'reviews' array", async () => {
             await renderFunc({ initRender: true });
 
-            const { reviews } = mockProductContext.product!.data!;
+            const { reviews } = mockProductContext.product!.response!.data!;
 
             await waitFor(async () => {
                 const reviewQuantity = screen.getByText(`${reviews.length} reviews`);
@@ -442,7 +444,7 @@ describe("The ProductReviews component...", () => {
         test("Equal to the length of the ProductContext's product's 'reviews' array (max. 10), if review data is still being awaited", async () => {
             await renderFunc({ initRender: true });
 
-            const { reviews } = mockProductContext.product!.data!;
+            const { reviews } = mockProductContext.product!.response!.data!;
 
             await waitFor(async () => {
                 const ReviewComponents = screen.queryAllByLabelText("Review component");
@@ -496,7 +498,7 @@ describe("The ProductReviews component...", () => {
         test("That should, onChange, call the 'mockGetReviews' function with the correct 'start' and 'end' indices according to the selected page number", async () => {
             await renderFunc();
 
-            const { reviews } = mockProductContext.product!.data!;
+            const { reviews } = mockProductContext.product!.response!.data!;
             const finalPageNumber = Math.ceil(reviews.length / reviewsPerPage);
             const start = (finalPageNumber - 1) * reviewsPerPage;
             const end = finalPageNumber * reviewsPerPage;
@@ -526,7 +528,9 @@ describe("The ProductReviews component...", () => {
 
     test("Should return null if the ProductContext's product data is not being awaited and the 'product.data' field is falsy", () => {
         renderFunc({
-            ProductContextOverride: { product: { data: null, awaiting: false } } as IProductContext,
+            ProductContextOverride: {
+                product: { response: { data: null }, awaiting: false },
+            } as IProductContext,
         });
 
         const wrapper = screen.getByTestId("product-reviews-wrapper");

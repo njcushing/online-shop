@@ -8,50 +8,53 @@ import { OrderDetails, TOrderDetails } from ".";
 // Mock dependencies
 // Mock props and contexts are only using fields relevant to component being tested
 
-const mockOrder: RecursivePartial<NonNullable<IUserContext["orders"]["data"]>[number]> = {
-    id: "1",
-    orderNo: "Order 1 No",
-    status: "pending",
-    cost: {
-        total: 3000,
-        products: 2500,
-        postage: 500,
-    },
-    products: [
-        { product: { id: "product1Id" } },
-        { product: { id: "product2Id" } },
-        { product: { id: "product3Id" } },
-    ],
-    deliveryAddress: {
-        line1: "Delivery Address Line 1",
-        line2: "Delivery Address Line 2",
-        townCity: "Delivery Address Town/City",
-        county: "Delivery Address County",
-        postcode: "Delivery Address Postcode",
-    },
-    billingAddress: {
-        line1: "Billing Address Line 1",
-        line2: "Billing Address Line 2",
-        townCity: "Billing Address Town/City",
-        county: "Billing Address County",
-        postcode: "Billing Address Postcode",
-    },
-    orderDate: new Date("1970-01-01").toISOString(),
-    deliveryInfo: {
-        expectedDate: new Date("1970-01-02").toISOString(),
-        deliveredDate: new Date("1970-01-03").toISOString(),
-        trackingNumber: "Tracking No",
-    },
-};
+const mockOrder: RecursivePartial<NonNullable<IUserContext["orders"]["response"]["data"]>[number]> =
+    {
+        id: "1",
+        orderNo: "Order 1 No",
+        status: "pending",
+        cost: {
+            total: 3000,
+            products: 2500,
+            postage: 500,
+        },
+        products: [
+            { product: { id: "product1Id" } },
+            { product: { id: "product2Id" } },
+            { product: { id: "product3Id" } },
+        ],
+        deliveryAddress: {
+            line1: "Delivery Address Line 1",
+            line2: "Delivery Address Line 2",
+            townCity: "Delivery Address Town/City",
+            county: "Delivery Address County",
+            postcode: "Delivery Address Postcode",
+        },
+        billingAddress: {
+            line1: "Billing Address Line 1",
+            line2: "Billing Address Line 2",
+            townCity: "Billing Address Town/City",
+            county: "Billing Address County",
+            postcode: "Billing Address Postcode",
+        },
+        orderDate: new Date("1970-01-01").toISOString(),
+        deliveryInfo: {
+            expectedDate: new Date("1970-01-02").toISOString(),
+            deliveredDate: new Date("1970-01-03").toISOString(),
+            trackingNumber: "Tracking No",
+        },
+    };
 const mockProps: RecursivePartial<TOrderDetails> = {
     data: mockOrder as NonNullable<IUserContext["orders"]["data"]>[number],
 };
 
 const mockUserContext: RecursivePartial<IUserContext> = {
     orders: {
-        data: [],
-        status: 200,
-        message: "Success",
+        response: {
+            data: [],
+            status: 200,
+            message: "Success",
+        },
         awaiting: false,
     },
 

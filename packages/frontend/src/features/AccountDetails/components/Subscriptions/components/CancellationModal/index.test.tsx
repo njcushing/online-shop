@@ -14,7 +14,7 @@ const getProps = (component: HTMLElement) => {
 // Mock props and contexts are only using fields relevant to component being tested
 
 const mockSubscription: RecursivePartial<
-    NonNullable<IUserContext["subscriptions"]["data"]>[number]
+    NonNullable<IUserContext["subscriptions"]["response"]["data"]>[number]
 > = {
     count: 10,
     frequency: "one_week",
@@ -23,16 +23,20 @@ const mockSubscription: RecursivePartial<
     variant: { allowanceOverride: 5 },
 };
 const mockProps: RecursivePartial<TCancellationModal> = {
-    data: mockSubscription as NonNullable<IUserContext["subscriptions"]["data"]>[number],
+    data: mockSubscription as NonNullable<
+        IUserContext["subscriptions"]["response"]["data"]
+    >[number],
     opened: true,
     onClose: () => {},
 };
 
 const mockUserContext: RecursivePartial<IUserContext> = {
     subscriptions: {
-        data: [],
-        status: 200,
-        message: "Success",
+        response: {
+            data: [],
+            status: 200,
+            message: "Success",
+        },
         awaiting: false,
     },
 

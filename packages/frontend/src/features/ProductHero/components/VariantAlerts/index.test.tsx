@@ -14,7 +14,9 @@ const mockProps: TVariantAlerts = {
 
 const mockUserContext: RecursivePartial<IUserContext> = {
     // Only using fields relevant to the VariantAlerts component
-    cart: { data: [] as IUserContext["cart"]["data"] } as IUserContext["cart"],
+    cart: {
+        response: { data: [] } as IUserContext["cart"]["response"]["data"],
+    } as IUserContext["cart"],
 };
 
 const mockProductContext: RecursivePartial<IProductContext> = {
@@ -193,7 +195,7 @@ describe("The VariantAlerts component...", () => {
         test("If the ProductContext's variant is within the cart, to show the quantity in the cart", () => {
             renderFunc({
                 UserContextOverride: {
-                    cart: { data: [{ variant: { id: "variantId" }, quantity: 10 }] },
+                    cart: { response: { data: [{ variant: { id: "variantId" }, quantity: 10 }] } },
                 } as IUserContext,
             });
 
@@ -205,7 +207,7 @@ describe("The VariantAlerts component...", () => {
         test("Unless the UserContext's 'cart' array is empty", () => {
             renderFunc({
                 UserContextOverride: {
-                    cart: { data: [] as IUserContext["cart"]["data"] },
+                    cart: { response: { data: [] as IUserContext["cart"]["response"]["data"] } },
                 } as IUserContext,
             });
 
@@ -213,7 +215,9 @@ describe("The VariantAlerts component...", () => {
         });
 
         test("Unless the UserContext's 'cart' array is 'null'", () => {
-            renderFunc({ UserContextOverride: { cart: { data: null } } as IUserContext });
+            renderFunc({
+                UserContextOverride: { cart: { response: { data: null } } } as IUserContext,
+            });
 
             expect(screen.queryByRole("alert")).not.toBeInTheDocument();
         });
@@ -221,7 +225,7 @@ describe("The VariantAlerts component...", () => {
         test("Unless the 'awaiting' prop is set to 'true'", () => {
             renderFunc({
                 UserContextOverride: {
-                    cart: { data: [{ variant: { id: "variantId" }, quantity: 10 }] },
+                    cart: { response: { data: [{ variant: { id: "variantId" }, quantity: 10 }] } },
                 } as IUserContext,
                 propsOverride: { awaiting: true } as TVariantAlerts,
             });

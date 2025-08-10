@@ -13,7 +13,7 @@ const getProps = (component: HTMLElement) => {
 // Mock dependencies
 
 // Mock contexts are only using fields relevant to component being tested
-const mockOrders: RecursivePartial<IUserContext["orders"]["data"]> = [
+const mockOrders: RecursivePartial<IUserContext["orders"]["response"]["data"]> = [
     { id: "1" },
     { id: "2" },
     { id: "3" },
@@ -21,9 +21,11 @@ const mockOrders: RecursivePartial<IUserContext["orders"]["data"]> = [
 
 const mockUserContext: RecursivePartial<IUserContext> = {
     orders: {
-        data: mockOrders as IUserContext["orders"]["data"],
-        status: 200,
-        message: "Success",
+        response: {
+            data: mockOrders as IUserContext["orders"]["response"]["data"],
+            status: 200,
+            message: "Success",
+        },
         awaiting: false,
     },
 
@@ -97,7 +99,9 @@ describe("The OrderHistory component...", () => {
         });
 
         test("Unless the UserContext's 'orders.data' and 'defaultData.orders' array fields are falsy or empty", () => {
-            renderFunc({ UserContextOverride: { orders: { data: null } } as IUserContext });
+            renderFunc({
+                UserContextOverride: { orders: { response: { data: null } } } as IUserContext,
+            });
 
             const ulElement = screen.queryByRole("list");
             expect(ulElement).not.toBeInTheDocument();
@@ -122,7 +126,7 @@ describe("The OrderHistory component...", () => {
             test("For each entry in the UserContext's 'defaultData.orders' array field if the UserContext's 'orders.data' array field is falsy or empty", () => {
                 renderFunc({
                     UserContextOverride: {
-                        orders: { data: null },
+                        orders: { response: { data: null } },
                         defaultData: { orders: [{ id: "4" }] },
                     } as IUserContext,
                 });
@@ -145,14 +149,18 @@ describe("The OrderHistory component...", () => {
                         `OrderSummary id: ${id}`,
                     );
                     const props = getProps(OrderSummaryComponent);
-                    expect(props).toStrictEqual({ data: mockUserContext.orders!.data![i] });
+                    expect(props).toStrictEqual({
+                        data: mockUserContext.orders!.response!.data![i],
+                    });
                 });
             });
         });
     });
 
     test("Should render a relevant message if the UserContext's 'orders.data' and 'defaultData.orders' array fields are falsy or empty", () => {
-        renderFunc({ UserContextOverride: { orders: { data: null } } as IUserContext });
+        renderFunc({
+            UserContextOverride: { orders: { response: { data: null } } } as IUserContext,
+        });
 
         const messageElement = screen.getByText("Nothing to show!");
         expect(messageElement).toBeInTheDocument();

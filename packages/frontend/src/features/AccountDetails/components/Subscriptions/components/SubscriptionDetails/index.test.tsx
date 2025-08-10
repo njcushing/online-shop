@@ -10,7 +10,7 @@ import { SubscriptionDetails, TSubscriptionDetails } from ".";
 // Mock props and contexts are only using fields relevant to component being tested
 
 const mockSubscription: RecursivePartial<
-    NonNullable<IUserContext["subscriptions"]["data"]>[number]
+    NonNullable<IUserContext["subscriptions"]["response"]["data"]>[number]
 > = {
     id: "1",
     deliveryAddress: {
@@ -31,14 +31,18 @@ const mockSubscription: RecursivePartial<
     variant: { price: { current: 500, subscriptionDiscountPercentage: 10 } },
 };
 const mockProps: RecursivePartial<TSubscriptionDetails> = {
-    data: mockSubscription as NonNullable<IUserContext["subscriptions"]["data"]>[number],
+    data: mockSubscription as NonNullable<
+        IUserContext["subscriptions"]["response"]["data"]
+    >[number],
 };
 
 const mockUserContext: RecursivePartial<IUserContext> = {
     subscriptions: {
-        data: [],
-        status: 200,
-        message: "Success",
+        response: {
+            data: [],
+            status: 200,
+            message: "Success",
+        },
         awaiting: false,
     },
 

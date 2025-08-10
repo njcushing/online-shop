@@ -11,21 +11,23 @@ import { PersonalInformation } from ".";
 
 const mockUserContext: RecursivePartial<IUserContext> = {
     accountDetails: {
-        data: {
-            personal: {
-                firstName: "First",
-                lastName: "Last",
-                phone: "00000000000",
-                dob: {
-                    day: 1,
-                    month: 1,
-                    year: 1970,
+        response: {
+            data: {
+                personal: {
+                    firstName: "First",
+                    lastName: "Last",
+                    phone: "00000000000",
+                    dob: {
+                        day: 1,
+                        month: 1,
+                        year: 1970,
+                    },
+                    email: "email@address.com",
                 },
-                email: "email@address.com",
             },
+            status: 200,
+            message: "Success",
         },
-        status: 200,
-        message: "Success",
         awaiting: false,
     },
 
@@ -132,7 +134,8 @@ describe("The PersonalInformation component...", () => {
             test("With text content equal to the user's first and last names", () => {
                 renderFunc();
 
-                const { firstName, lastName } = mockUserContext.accountDetails!.data!.personal!;
+                const { firstName, lastName } =
+                    mockUserContext.accountDetails!.response!.data!.personal!;
 
                 const fullElement = screen.getByText(`${firstName} ${lastName}`);
                 expect(fullElement).toBeInTheDocument();
@@ -141,7 +144,9 @@ describe("The PersonalInformation component...", () => {
             test("Or text content equal to: 'Provide a name' if the user's first or last names are null/undefined", () => {
                 renderFunc({
                     UserContextOverride: {
-                        accountDetails: { data: { personal: { firstName: null, lastName: null } } },
+                        accountDetails: {
+                            response: { data: { personal: { firstName: null, lastName: null } } },
+                        },
                     } as unknown as IUserContext,
                 });
 
@@ -188,7 +193,7 @@ describe("The PersonalInformation component...", () => {
             test("With text content equal to the user's phone number", () => {
                 renderFunc();
 
-                const { phone } = mockUserContext.accountDetails!.data!.personal!;
+                const { phone } = mockUserContext.accountDetails!.response!.data!.personal!;
 
                 const fullElement = screen.getByText(phone!);
                 expect(fullElement).toBeInTheDocument();
@@ -197,7 +202,7 @@ describe("The PersonalInformation component...", () => {
             test("Or text content equal to: 'Provide a phone number' if the user's phone number is null/undefined", () => {
                 renderFunc({
                     UserContextOverride: {
-                        accountDetails: { data: { personal: { phone: null } } },
+                        accountDetails: { response: { data: { personal: { phone: null } } } },
                     } as unknown as IUserContext,
                 });
 
@@ -279,7 +284,7 @@ describe("The PersonalInformation component...", () => {
             test("With text content equal to the user's email address", () => {
                 renderFunc();
 
-                const { email } = mockUserContext.accountDetails!.data!.personal!;
+                const { email } = mockUserContext.accountDetails!.response!.data!.personal!;
 
                 const fullElement = screen.getByText(email!);
                 expect(fullElement).toBeInTheDocument();
@@ -288,7 +293,7 @@ describe("The PersonalInformation component...", () => {
             test("Or text content equal to: 'Provide an email address' if the user's email is null/undefined", () => {
                 renderFunc({
                     UserContextOverride: {
-                        accountDetails: { data: { personal: { email: null } } },
+                        accountDetails: { response: { data: { personal: { email: null } } } },
                     } as unknown as IUserContext,
                 });
 
@@ -324,7 +329,9 @@ describe("The PersonalInformation component...", () => {
     describe("Should still render without throwing...", () => {
         test("If the UserContext's 'accountDetails.data' field is null/undefined", () => {
             renderFunc({
-                UserContextOverride: { accountDetails: { data: null } } as IUserContext,
+                UserContextOverride: {
+                    accountDetails: { response: { data: null } },
+                } as IUserContext,
             });
 
             const headingElement = screen.getByRole("heading", { name: "Personal Information" });

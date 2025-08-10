@@ -13,32 +13,35 @@ const getProps = (component: HTMLElement) => {
 // Mock dependencies
 // Mock props and contexts are only using fields relevant to component being tested
 
-const mockOrder: RecursivePartial<NonNullable<IUserContext["orders"]["data"]>[number]> = {
-    id: "1",
-    orderNo: "Order 1 No",
-    status: "pending",
-    cost: { total: 3000 },
-    products: [
-        { product: { id: "product1Id" } },
-        { product: { id: "product2Id" } },
-        { product: { id: "product3Id" } },
-    ],
-    orderDate: new Date("1970-01-01").toISOString(),
-    deliveryInfo: {
-        expectedDate: new Date("1970-01-02").toISOString(),
-        deliveredDate: new Date("1970-01-03").toISOString(),
-        trackingNumber: "Tracking No",
-    },
-};
+const mockOrder: RecursivePartial<NonNullable<IUserContext["orders"]["response"]["data"]>[number]> =
+    {
+        id: "1",
+        orderNo: "Order 1 No",
+        status: "pending",
+        cost: { total: 3000 },
+        products: [
+            { product: { id: "product1Id" } },
+            { product: { id: "product2Id" } },
+            { product: { id: "product3Id" } },
+        ],
+        orderDate: new Date("1970-01-01").toISOString(),
+        deliveryInfo: {
+            expectedDate: new Date("1970-01-02").toISOString(),
+            deliveredDate: new Date("1970-01-03").toISOString(),
+            trackingNumber: "Tracking No",
+        },
+    };
 const mockProps: RecursivePartial<TOrderSummary> = {
-    data: mockOrder as NonNullable<IUserContext["orders"]["data"]>[number],
+    data: mockOrder as NonNullable<IUserContext["orders"]["response"]["data"]>[number],
 };
 
 const mockUserContext: RecursivePartial<IUserContext> = {
     orders: {
-        data: [],
-        status: 200,
-        message: "Success",
+        response: {
+            data: [],
+            status: 200,
+            message: "Success",
+        },
         awaiting: false,
     },
 

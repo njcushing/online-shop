@@ -30,9 +30,11 @@ const mockProps: RecursivePartial<TSubscriptionProduct> = {
 // Mock contexts are only using fields relevant to component being tested
 const mockUserContext: RecursivePartial<IUserContext> = {
     subscriptions: {
-        data: [],
-        status: 200,
-        message: "Success",
+        response: {
+            data: [],
+            status: 200,
+            message: "Success",
+        },
         awaiting: false,
     },
 
