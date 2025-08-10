@@ -152,6 +152,14 @@ export const mockGetOrders: HTTPMethodTypes.GET<
 
     const foundOrders = mockPopulateOrders(mockOrders);
 
+    if (!foundOrders) {
+        return {
+            status: 404,
+            message: "Orders not found",
+            data: null,
+        };
+    }
+
     let filteredOrders = foundOrders;
     switch (filter) {
         case "1_month":
@@ -216,9 +224,15 @@ export const mockPopulateSubscriptions = (
 };
 
 export const mockGetSubscriptions: HTTPMethodTypes.GET<
-    undefined,
+    {
+        start?: number;
+        end?: number;
+    },
     PopulatedSubscriptionData[]
-> = async () => {
+> = async (data) => {
+    const { params } = data;
+    const { start, end } = params || {};
+
     await new Promise((resolve) => {
         setTimeout(resolve, 1000);
     });
@@ -233,10 +247,12 @@ export const mockGetSubscriptions: HTTPMethodTypes.GET<
         };
     }
 
+    const slicedSubscriptions = foundSubscriptions.slice(start, end);
+
     return {
         status: 200,
         message: "Success",
-        data: foundSubscriptions,
+        data: slicedSubscriptions,
     };
 };
 
