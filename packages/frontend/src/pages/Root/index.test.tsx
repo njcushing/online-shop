@@ -28,6 +28,22 @@ const mockWatchlist: RecursivePartial<IUserContext["watchlist"]["response"]["dat
     { productId: "3", variantId: "3-1" },
 ];
 
+const mockOrders: RecursivePartial<IUserContext["orders"]["response"]["data"]> = [
+    { id: "orderId1" },
+    { id: "orderId2" },
+    { id: "orderId3" },
+];
+
+const mockSubscriptions: RecursivePartial<IUserContext["orders"]["response"]["data"]> = [
+    { id: "subscriptionId1" },
+    { id: "subscriptionId2" },
+    { id: "subscriptionId3" },
+];
+
+const mockAccountDetails: RecursivePartial<IUserContext["orders"]["response"]["data"]> = {
+    personal: { firstName: "First", lastName: "Last" },
+};
+
 const mockRootContext: RecursivePartial<IRootContext> = {
     headerInfo: { active: false, open: true, height: 0, forceClose: () => {} },
 };
@@ -35,9 +51,15 @@ const mockRootContext: RecursivePartial<IRootContext> = {
 const mockUserContext: RecursivePartial<IUserContext> = {
     cart: { response: { data: [] }, status: 200, message: "Success", awaiting: false },
     watchlist: { response: { data: [] }, status: 200, message: "Success", awaiting: false },
+    orders: { response: { data: [] }, status: 200, message: "Success", awaiting: false },
+    subscriptions: { response: { data: [] }, status: 200, message: "Success", awaiting: false },
+    accountDetails: { response: { data: [] }, status: 200, message: "Success", awaiting: false },
 
     defaultData: {
         cart: [],
+        orders: [],
+        subscriptions: [],
+        accountDetails: {},
     },
 };
 
@@ -126,12 +148,30 @@ export const mockMockGetWatchlist = vi.fn(async () => ({
     message: "Success",
     data: mockWatchlist,
 }));
+export const mockMockGetOrders = vi.fn(async () => ({
+    status: 200,
+    message: "Success",
+    data: mockOrders,
+}));
+export const mockMockGetSubscriptions = vi.fn(async () => ({
+    status: 200,
+    message: "Success",
+    data: mockSubscriptions,
+}));
+export const mockMockGetAccountDetails = vi.fn(async () => ({
+    status: 200,
+    message: "Success",
+    data: mockAccountDetails,
+}));
 vi.mock("@/api/mocks", async (importOriginal) => {
     const actual = await importOriginal();
     return {
         ...(actual || {}),
         mockGetCart: () => mockMockGetCart(),
         mockGetWatchlist: () => mockMockGetWatchlist(),
+        mockGetOrders: () => mockMockGetOrders(),
+        mockGetSubscriptions: () => mockMockGetSubscriptions(),
+        mockGetAccountDetails: () => mockMockGetAccountDetails(),
     };
 });
 
@@ -242,6 +282,89 @@ describe("The Root component...", () => {
                 const { response } = watchlist;
 
                 expect(response).toEqual(expect.objectContaining(await mockMockGetWatchlist()));
+            });
+        });
+
+        describe("Including the 'orders.response' field...", () => {
+            test("Which should initially have its 'data' field set to 'null'", async () => {
+                const { getUserContextValue } = await renderFunc({ initRender: true });
+                const UserContextValue = getUserContextValue();
+
+                const { orders } = UserContextValue;
+                expect(orders).toBeDefined();
+
+                const { response } = orders;
+                expect(response).toBeDefined();
+
+                await waitFor(async () => {
+                    expect(response).toEqual(expect.objectContaining({ data: null }));
+                });
+            });
+
+            test("Which should be populated by the 'response' field in the return value of the 'useAsync' hook for the 'mockGetOrders' function", async () => {
+                const { getUserContextValue } = await renderFunc();
+                const UserContextValue = getUserContextValue();
+
+                const { orders } = UserContextValue;
+                const { response } = orders;
+
+                expect(response).toEqual(expect.objectContaining(await mockMockGetOrders()));
+            });
+        });
+
+        describe("Including the 'subscriptions.response' field...", () => {
+            test("Which should initially have its 'data' field set to 'null'", async () => {
+                const { getUserContextValue } = await renderFunc({ initRender: true });
+                const UserContextValue = getUserContextValue();
+
+                const { subscriptions } = UserContextValue;
+                expect(subscriptions).toBeDefined();
+
+                const { response } = subscriptions;
+                expect(response).toBeDefined();
+
+                await waitFor(async () => {
+                    expect(response).toEqual(expect.objectContaining({ data: null }));
+                });
+            });
+
+            test("Which should be populated by the 'response' field in the return value of the 'useAsync' hook for the 'mockGetSubscriptions' function", async () => {
+                const { getUserContextValue } = await renderFunc();
+                const UserContextValue = getUserContextValue();
+
+                const { subscriptions } = UserContextValue;
+                const { response } = subscriptions;
+
+                expect(response).toEqual(expect.objectContaining(await mockMockGetSubscriptions()));
+            });
+        });
+
+        describe("Including the 'accountDetails.response' field...", () => {
+            test("Which should initially have its 'data' field set to 'null'", async () => {
+                const { getUserContextValue } = await renderFunc({ initRender: true });
+                const UserContextValue = getUserContextValue();
+
+                const { accountDetails } = UserContextValue;
+                expect(accountDetails).toBeDefined();
+
+                const { response } = accountDetails;
+                expect(response).toBeDefined();
+
+                await waitFor(async () => {
+                    expect(response).toEqual(expect.objectContaining({ data: null }));
+                });
+            });
+
+            test("Which should be populated by the 'response' field in the return value of the 'useAsync' hook for the 'mockGetAccountDetails' function", async () => {
+                const { getUserContextValue } = await renderFunc();
+                const UserContextValue = getUserContextValue();
+
+                const { accountDetails } = UserContextValue;
+                const { response } = accountDetails;
+
+                expect(response).toEqual(
+                    expect.objectContaining(await mockMockGetAccountDetails()),
+                );
             });
         });
 
