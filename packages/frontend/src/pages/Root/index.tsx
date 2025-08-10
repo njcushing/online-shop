@@ -128,13 +128,25 @@ export function Root({ children }: TRoot) {
     useEffect(() => setWatchlist(getWatchlistReturn), [getWatchlistReturn]);
 
     const [orders, setOrders] = useState<IUserContext["orders"]>(defaultUserContext.orders);
-    const getOrdersReturn = useAsync.GET(mockGetOrders, [{}], { attemptOnMount: true });
+    const getOrdersReturn = useAsync.GET(
+        mockGetOrders,
+        [{ params: { filter: "all", start: 0, end: 10 } }],
+        {
+            attemptOnMount: true,
+        },
+    );
     useEffect(() => setOrders(getOrdersReturn), [getOrdersReturn]);
 
     const [subscriptions, setSubscriptions] = useState<IUserContext["subscriptions"]>(
         defaultUserContext.subscriptions,
     );
-    const subscriptionsReturn = useAsync.GET(mockGetSubscriptions, [{}], { attemptOnMount: true });
+    const subscriptionsReturn = useAsync.GET(
+        mockGetSubscriptions,
+        [{ params: { start: 0, end: 10 } }],
+        {
+            attemptOnMount: true,
+        },
+    );
     useEffect(() => setSubscriptions(subscriptionsReturn), [subscriptionsReturn]);
 
     const [accountDetails, setAccountDetails] = useState<IUserContext["accountDetails"]>(
