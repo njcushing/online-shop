@@ -100,7 +100,7 @@ export function Product({ children }: TProduct) {
     useEffect(() => setProduct(getProductReturn), [getProductReturn]);
     const { response, setParams, attempt } = getProductReturn;
 
-    const productDataRef = useRef<ProductDataType | null>(product.data);
+    const productDataRef = useRef<ProductDataType | null>(response.data);
     useEffect(() => {
         productDataRef.current = response.data;
     }, [response]);
