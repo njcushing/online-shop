@@ -24,7 +24,8 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
     const { response, awaiting } = product;
     const { data } = response;
     const { description } =
-        data || (defaultData.product as NonNullable<IProductContext["product"]["data"]>);
+        data ||
+        (defaultData.product as NonNullable<IProductContext["product"]["response"]["data"]>);
     const { sku, details, releaseDate } =
         variant || (defaultData.variant as NonNullable<IProductContext["variant"]>);
 

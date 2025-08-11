@@ -6,7 +6,9 @@ import styles from "./index.module.css";
 export type TProductRatingBars = {
     clickable?: boolean;
     onClick: (
-        tier: keyof NonNullable<IProductContext["product"]["data"]>["rating"]["quantities"],
+        tier: keyof NonNullable<
+            IProductContext["product"]["response"]["data"]
+        >["rating"]["quantities"],
     ) => unknown;
 };
 
@@ -19,7 +21,7 @@ export function ProductRatingBars({ clickable = true, onClick }: TProductRatingB
 
     const { rating, reviews: reviewIds } = !awaiting
         ? data!
-        : (defaultData.product as NonNullable<IProductContext["product"]["data"]>);
+        : (defaultData.product as NonNullable<IProductContext["product"]["response"]["data"]>);
 
     return (
         <div className={styles["product-reviews-rating-container"]}>

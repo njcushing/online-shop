@@ -52,7 +52,7 @@ export function ProductHero() {
 
     const { name, images, rating, variantOptionOrder } = !awaitingProduct
         ? productData!
-        : (defaultProductData as NonNullable<IProductContext["product"]["data"]>);
+        : (defaultProductData as NonNullable<IProductContext["product"]["response"]["data"]>);
     const { price, options } = !awaitingProduct
         ? variant!
         : (defaultVariantData as NonNullable<IProductContext["variant"]>);
