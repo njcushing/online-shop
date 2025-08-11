@@ -124,7 +124,7 @@ export function GET<FuncParams = unknown, FuncResponse = unknown>(
     func: HTTPMethodTypes.GET<FuncParams, FuncResponse>,
     parameters?: Parameters<HTTPMethodTypes.GET<FuncParams, FuncResponse>>,
     opts?: UseAsyncOpts,
-) {
+): UseAsyncReturnType<FuncParams, undefined, FuncResponse> {
     return useAsyncBase<FuncParams, undefined, FuncResponse>(func, parameters, opts);
 }
 
@@ -132,7 +132,7 @@ export function POST<FuncParams = unknown, FuncBody = unknown, FuncResponse = un
     func: HTTPMethodTypes.POST<FuncParams, FuncBody, FuncResponse>,
     parameters?: Parameters<HTTPMethodTypes.POST<FuncParams, FuncBody, FuncResponse>>,
     opts?: UseAsyncOpts,
-) {
+): UseAsyncReturnType<FuncParams, FuncBody, FuncResponse> {
     return useAsyncBase<FuncParams, FuncBody, FuncResponse>(func, parameters, opts);
 }
 
@@ -140,7 +140,7 @@ export function PUT<FuncParams = unknown, FuncBody = unknown, FuncResponse = unk
     func: HTTPMethodTypes.PUT<FuncParams, FuncBody, FuncResponse>,
     parameters?: Parameters<HTTPMethodTypes.PUT<FuncParams, FuncBody, FuncResponse>>,
     opts?: UseAsyncOpts,
-) {
+): UseAsyncReturnType<FuncParams, FuncBody, FuncResponse> {
     return useAsyncBase<FuncParams, FuncBody, FuncResponse>(func, parameters, opts);
 }
 
@@ -148,6 +148,17 @@ export function DELETE<FuncParams = unknown, FuncResponse = unknown>(
     func: HTTPMethodTypes.DELETE<FuncParams, FuncResponse>,
     parameters?: Parameters<HTTPMethodTypes.DELETE<FuncParams, FuncResponse>>,
     opts?: UseAsyncOpts,
-) {
+): UseAsyncReturnType<FuncParams, undefined, FuncResponse> {
     return useAsyncBase<FuncParams, undefined, FuncResponse>(func, parameters, opts);
 }
+
+export type InferUseAsyncReturnTypeFromFunction<T> =
+    T extends HTTPMethodTypes.GET<infer FuncParams, infer FuncResponse>
+        ? ReturnType<typeof GET<FuncParams, FuncResponse>>
+        : T extends HTTPMethodTypes.POST<infer FuncParams, infer FuncBody, infer FuncResponse>
+          ? ReturnType<typeof POST<FuncParams, FuncBody, FuncResponse>>
+          : T extends HTTPMethodTypes.PUT<infer FuncParams, infer FuncBody, infer FuncResponse>
+            ? ReturnType<typeof PUT<FuncParams, FuncBody, FuncResponse>>
+            : T extends HTTPMethodTypes.DELETE<infer FuncParams, infer FuncResponse>
+              ? ReturnType<typeof DELETE<FuncParams, FuncResponse>>
+              : never;
