@@ -53,7 +53,7 @@ const defaultCollectionStepsData: ReturnType<typeof findCollections> = [
 ];
 
 export interface IProductContext {
-    product: useAsync.UseAsyncReturnType;
+    product: useAsync.InferUseAsyncReturnTypeFromFunction<typeof mockGetProduct>;
     variant: ProductVariant | null;
     selectedVariantOptions: ProductVariant["options"];
     setSelectedVariantOptions: React.Dispatch<React.SetStateAction<ProductVariant["options"]>>;

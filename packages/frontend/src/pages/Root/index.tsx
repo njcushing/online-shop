@@ -65,17 +65,17 @@ const defaultRootContext: IRootContext = {
 };
 
 export interface IUserContext {
-    cart: useAsync.UseAsyncReturnType;
-    watchlist: useAsync.UseAsyncReturnType;
-    orders: useAsync.UseAsyncReturnType;
-    subscriptions: useAsync.UseAsyncReturnType;
-    accountDetails: useAsync.UseAsyncReturnType;
+    cart: useAsync.InferUseAsyncReturnTypeFromFunction<typeof mockGetCart>;
+    watchlist: useAsync.InferUseAsyncReturnTypeFromFunction<typeof mockGetWatchlist>;
+    orders: useAsync.InferUseAsyncReturnTypeFromFunction<typeof mockGetOrders>;
+    subscriptions: useAsync.InferUseAsyncReturnTypeFromFunction<typeof mockGetSubscriptions>;
+    accountDetails: useAsync.InferUseAsyncReturnTypeFromFunction<typeof mockGetAccountDetails>;
 
     defaultData: {
         cart: RecursivePartial<PopulatedCartItemData>[];
-        accountDetails: DeepRequired<AccountDetails>;
         orders: RecursivePartial<PopulatedOrderData>[];
         subscriptions: RecursivePartial<PopulatedSubscriptionData>[];
+        accountDetails: DeepRequired<AccountDetails>;
     };
 }
 
@@ -131,9 +131,7 @@ export function Root({ children }: TRoot) {
     const getOrdersReturn = useAsync.GET(
         mockGetOrders,
         [{ params: { filter: "all", start: 0, end: 10 } }],
-        {
-            attemptOnMount: true,
-        },
+        { attemptOnMount: true },
     );
     useEffect(() => setOrders(getOrdersReturn), [getOrdersReturn]);
 
@@ -143,9 +141,7 @@ export function Root({ children }: TRoot) {
     const subscriptionsReturn = useAsync.GET(
         mockGetSubscriptions,
         [{ params: { start: 0, end: 10 } }],
-        {
-            attemptOnMount: true,
-        },
+        { attemptOnMount: true },
     );
     useEffect(() => setSubscriptions(subscriptionsReturn), [subscriptionsReturn]);
 
