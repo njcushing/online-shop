@@ -94,9 +94,13 @@ export function Product({ children }: TProduct) {
     const [product, setProduct] = useState<IProductContext["product"]>(
         defaultProductContext.product,
     );
-    const getProductReturn = useAsync.GET(mockGetProduct, [{ params: { productId } }], {
-        attemptOnMount: true,
-    });
+    const getProductReturn = useAsync.GET(
+        mockGetProduct,
+        [{ params: { productId } }] as Parameters<typeof mockGetProduct>,
+        {
+            attemptOnMount: true,
+        },
+    );
     useEffect(() => setProduct(getProductReturn), [getProductReturn]);
     const { response, setParams, attempt } = getProductReturn;
 

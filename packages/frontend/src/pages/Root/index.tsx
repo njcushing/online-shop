@@ -140,7 +140,7 @@ export function Root({ children }: TRoot) {
     );
     const subscriptionsReturn = useAsync.GET(
         mockGetSubscriptions,
-        [{ params: { start: 0, end: 10 } }],
+        [{ params: { start: 0, end: 10 } }] as Parameters<typeof mockGetSubscriptions>,
         { attemptOnMount: true },
     );
     useEffect(() => setSubscriptions(subscriptionsReturn), [subscriptionsReturn]);
