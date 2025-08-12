@@ -1,7 +1,7 @@
 /* v8 ignore start */
 
 import { z } from "zod";
-import { dob } from "@/utils/schemas/user";
+import { dob } from "@/utils/schemas/personal";
 import { AccountDetails } from "@/utils/schemas/account";
 import { DeepPick } from "ts-deep-pick";
 

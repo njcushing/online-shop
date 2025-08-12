@@ -1,7 +1,7 @@
 /* v8 ignore start */
 
 import { z } from "zod";
-import { Password, password } from "@/utils/schemas/user";
+import { Password, password } from "@/utils/schemas/personal";
 
 export type PasswordsFormData = {
     newPassword: Password;

@@ -1,7 +1,7 @@
 /* v8 ignore start */
 
 import { z } from "zod";
-import { Name, name, Email, email, Phone, phone, DOB, dob } from "@/utils/schemas/user";
+import { Name, name, Email, email, Phone, phone, DOB, dob } from "@/utils/schemas/personal";
 import { Address, address } from "@/utils/schemas/address";
 import { DeepRequired } from "react-hook-form";
 

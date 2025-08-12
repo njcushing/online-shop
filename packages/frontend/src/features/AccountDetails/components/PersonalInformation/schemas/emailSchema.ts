@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 import { AccountDetails } from "@/utils/schemas/account";
-import { email } from "@/utils/schemas/user";
+import { email } from "@/utils/schemas/personal";
 import { DeepPick } from "ts-deep-pick";
 
 export type EmailFormData = DeepPick<AccountDetails, "personal.email">;

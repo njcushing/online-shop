@@ -1,7 +1,7 @@
 /* v8 ignore start */
 
 import { z } from "zod";
-import { Name, name, Phone, phone, DOB, dob } from "@/utils/schemas/user";
+import { Name, name, Phone, phone, DOB, dob } from "@/utils/schemas/personal";
 import { Postcode, postcode } from "@/utils/schemas/address";
 
 export type PersonalInformationFormData = {

@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 import { AccountDetails } from "@/utils/schemas/account";
-import { phone } from "@/utils/schemas/user";
+import { phone } from "@/utils/schemas/personal";
 import { DeepPick } from "ts-deep-pick";
 
 export type PhoneNumberFormData = DeepPick<AccountDetails, "personal.phone">;
