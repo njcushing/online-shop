@@ -1,5 +1,5 @@
 import { vi, Mock } from "vitest";
-import { getAccountDetails } from ".";
+import { getProfile } from ".";
 
 // Mock dependencies
 const env = { VITE_SERVER_DOMAIN: "server_domain" };
@@ -15,8 +15,8 @@ vi.mock("@/api/utils/fetcher", () => ({
     fetcher: (path: string, init: RequestInit) => mockFetcher(path, init),
 }));
 
-describe("The 'getAccountDetails' function...", () => {
-    const mockArgs: Parameters<typeof getAccountDetails> = [
+describe("The 'getProfile' function...", () => {
+    const mockArgs: Parameters<typeof getProfile> = [
         {
             abortController: undefined,
         },
@@ -29,7 +29,7 @@ describe("The 'getAccountDetails' function...", () => {
     test("Should return an object with status: 400 if the auth token is not found in local storage", async () => {
         mockGetTokenFromStorage.mockImplementationOnce(() => null);
 
-        const result = await getAccountDetails(...mockArgs);
+        const result = await getProfile(...mockArgs);
 
         expect(result).toEqual(
             expect.objectContaining({
@@ -41,25 +41,25 @@ describe("The 'getAccountDetails' function...", () => {
     });
 
     test("Should call the fetcher function", async () => {
-        await getAccountDetails(...mockArgs);
+        await getProfile(...mockArgs);
 
         expect(mockFetcher).toHaveBeenCalled();
     });
 
     test("Passing it the correct API endpoint as its first argument", async () => {
-        await getAccountDetails(...mockArgs);
+        await getProfile(...mockArgs);
 
         const args = mockFetcher.mock.calls[0];
         const [path] = args;
 
-        expect(path).toBe(`${env.VITE_SERVER_DOMAIN}/api/account-details`);
+        expect(path).toBe(`${env.VITE_SERVER_DOMAIN}/api/profile`);
     });
 
     test("Passing it the abort controller's signal if the abort controller is defined", async () => {
         const adjustedMockArgs = structuredClone(mockArgs);
         adjustedMockArgs[0].abortController = new AbortController();
 
-        await getAccountDetails(...adjustedMockArgs);
+        await getProfile(...adjustedMockArgs);
 
         const args = mockFetcher.mock.calls[0];
         const [, init] = args;
@@ -69,7 +69,7 @@ describe("The 'getAccountDetails' function...", () => {
     });
 
     test("Passing it the correct HTTP method (GET)", async () => {
-        await getAccountDetails(...mockArgs);
+        await getProfile(...mockArgs);
 
         const args = mockFetcher.mock.calls[0];
         const [, init] = args;
@@ -82,7 +82,7 @@ describe("The 'getAccountDetails' function...", () => {
         // @ts-expect-error - Disabling type checking for function parameters in unit test
         mockFetcher.mockReturnValueOnce("test");
 
-        const result = await getAccountDetails(...mockArgs);
+        const result = await getProfile(...mockArgs);
 
         expect(result).toBe("test");
     });

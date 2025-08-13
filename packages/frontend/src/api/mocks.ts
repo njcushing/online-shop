@@ -9,21 +9,22 @@ import {
 } from "@/utils/products/subscriptions";
 import { filterOptions as reviewFilterOptions, sortOptions } from "@/features/ProductReviews";
 import { FilterOption as OrderFilterOption } from "@/features/AccountDetails/components/OrderHistory";
-import { AccountDetails, defaultAccountDetails } from "@/utils/schemas/account";
+import { User, defaultUser } from "@/utils/schemas/user";
+import { Profile, defaultProfile } from "@/utils/schemas/profile";
 import dayjs from "dayjs";
 import * as HTTPMethodTypes from "./types";
 
-export const mockGetAccountDetails: HTTPMethodTypes.GET<undefined, AccountDetails> = async () => {
+export const mockGetUser: HTTPMethodTypes.GET<undefined, User> = async () => {
     await new Promise((resolve) => {
         setTimeout(resolve, 1000);
     });
 
-    const foundAccountDetails = defaultAccountDetails;
+    const foundUser = defaultUser;
 
-    if (!foundAccountDetails) {
+    if (!foundUser) {
         return {
             status: 404,
-            message: "Account details not found",
+            message: "User not found",
             data: null,
         };
     }
@@ -31,7 +32,29 @@ export const mockGetAccountDetails: HTTPMethodTypes.GET<undefined, AccountDetail
     return {
         status: 200,
         message: "Success",
-        data: foundAccountDetails,
+        data: foundUser,
+    };
+};
+
+export const mockGetProfile: HTTPMethodTypes.GET<undefined, Profile> = async () => {
+    await new Promise((resolve) => {
+        setTimeout(resolve, 1000);
+    });
+
+    const foundProfile = defaultProfile;
+
+    if (!foundProfile) {
+        return {
+            status: 404,
+            message: "Profile not found",
+            data: null,
+        };
+    }
+
+    return {
+        status: 200,
+        message: "Success",
+        data: foundProfile,
     };
 };
 

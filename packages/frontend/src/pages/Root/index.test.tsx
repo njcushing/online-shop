@@ -40,8 +40,8 @@ const mockSubscriptions: RecursivePartial<IUserContext["orders"]["response"]["da
     { id: "subscriptionId3" },
 ];
 
-const mockAccountDetails: RecursivePartial<IUserContext["orders"]["response"]["data"]> = {
-    personal: { firstName: "First", lastName: "Last" },
+const mockUser: RecursivePartial<IUserContext["user"]["response"]["data"]> = {
+    profile: { personal: { firstName: "First", lastName: "Last" } },
 };
 
 const mockRootContext: RecursivePartial<IRootContext> = {
@@ -49,17 +49,17 @@ const mockRootContext: RecursivePartial<IRootContext> = {
 };
 
 const mockUserContext: RecursivePartial<IUserContext> = {
-    cart: { response: { data: [] }, status: 200, message: "Success", awaiting: false },
-    watchlist: { response: { data: [] }, status: 200, message: "Success", awaiting: false },
-    orders: { response: { data: [] }, status: 200, message: "Success", awaiting: false },
-    subscriptions: { response: { data: [] }, status: 200, message: "Success", awaiting: false },
-    accountDetails: { response: { data: [] }, status: 200, message: "Success", awaiting: false },
+    user: { response: { data: null, status: 200, message: "Success" }, awaiting: false },
+    cart: { response: { data: null, status: 200, message: "Success" }, awaiting: false },
+    watchlist: { response: { data: null, status: 200, message: "Success" }, awaiting: false },
+    orders: { response: { data: null, status: 200, message: "Success" }, awaiting: false },
+    subscriptions: { response: { data: null, status: 200, message: "Success" }, awaiting: false },
 
     defaultData: {
+        user: {},
         cart: [],
         orders: [],
         subscriptions: [],
-        accountDetails: {},
     },
 };
 
@@ -138,6 +138,11 @@ const renderFunc = async (args: renderFuncArgs = {}) => {
     };
 };
 
+export const mockMockGetUser = vi.fn(async () => ({
+    status: 200,
+    message: "Success",
+    data: mockUser,
+}));
 export const mockMockGetCart = vi.fn(async () => ({
     status: 200,
     message: "Success",
@@ -158,20 +163,15 @@ export const mockMockGetSubscriptions = vi.fn(async () => ({
     message: "Success",
     data: mockSubscriptions,
 }));
-export const mockMockGetAccountDetails = vi.fn(async () => ({
-    status: 200,
-    message: "Success",
-    data: mockAccountDetails,
-}));
 vi.mock("@/api/mocks", async (importOriginal) => {
     const actual = await importOriginal();
     return {
         ...(actual || {}),
+        mockGetUser: () => mockMockGetUser(),
         mockGetCart: () => mockMockGetCart(),
         mockGetWatchlist: () => mockMockGetWatchlist(),
         mockGetOrders: () => mockMockGetOrders(),
         mockGetSubscriptions: () => mockMockGetSubscriptions(),
-        mockGetAccountDetails: () => mockMockGetAccountDetails(),
     };
 });
 
@@ -229,6 +229,33 @@ describe("The Root component...", () => {
             const { getUserContextValue } = await renderFunc();
             const UserContextValue = getUserContextValue();
             expect(UserContextValue).toBeDefined();
+        });
+
+        describe("Including the 'user.response' field...", () => {
+            test("Which should initially have its 'data' field set to 'null'", async () => {
+                const { getUserContextValue } = await renderFunc({ initRender: true });
+                const UserContextValue = getUserContextValue();
+
+                const { user } = UserContextValue;
+                expect(user).toBeDefined();
+
+                const { response } = user;
+                expect(response).toBeDefined();
+
+                await waitFor(async () => {
+                    expect(response).toEqual(expect.objectContaining({ data: null }));
+                });
+            });
+
+            test("Which should be populated by the 'response' field in the return value of the 'useAsync' hook for the 'mockGetUser' function", async () => {
+                const { getUserContextValue } = await renderFunc();
+                const UserContextValue = getUserContextValue();
+
+                const { user } = UserContextValue;
+                const { response } = user;
+
+                expect(response).toEqual(expect.objectContaining(await mockMockGetUser()));
+            });
         });
 
         describe("Including the 'cart.response' field...", () => {
@@ -339,35 +366,6 @@ describe("The Root component...", () => {
             });
         });
 
-        describe("Including the 'accountDetails.response' field...", () => {
-            test("Which should initially have its 'data' field set to 'null'", async () => {
-                const { getUserContextValue } = await renderFunc({ initRender: true });
-                const UserContextValue = getUserContextValue();
-
-                const { accountDetails } = UserContextValue;
-                expect(accountDetails).toBeDefined();
-
-                const { response } = accountDetails;
-                expect(response).toBeDefined();
-
-                await waitFor(async () => {
-                    expect(response).toEqual(expect.objectContaining({ data: null }));
-                });
-            });
-
-            test("Which should be populated by the 'response' field in the return value of the 'useAsync' hook for the 'mockGetAccountDetails' function", async () => {
-                const { getUserContextValue } = await renderFunc();
-                const UserContextValue = getUserContextValue();
-
-                const { accountDetails } = UserContextValue;
-                const { response } = accountDetails;
-
-                expect(response).toEqual(
-                    expect.objectContaining(await mockMockGetAccountDetails()),
-                );
-            });
-        });
-
         describe("Which, when consumed by a component other than the Root component...", () => {
             test("Should match the shape of the expected context, but have fields containing default values", async () => {
                 let UserContextValue!: IUserContext;
@@ -385,10 +383,13 @@ describe("The Root component...", () => {
 
                 expect(UserContextValue).toBeDefined();
 
-                const { cart, watchlist } = UserContextValue;
+                const { user, cart, watchlist, orders, subscriptions } = UserContextValue;
 
+                expect(user).toBeDefined();
                 expect(cart).toBeDefined();
                 expect(watchlist).toBeDefined();
+                expect(orders).toBeDefined();
+                expect(subscriptions).toBeDefined();
             });
         });
     });

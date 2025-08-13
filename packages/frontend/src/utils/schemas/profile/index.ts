@@ -5,7 +5,7 @@ import { Name, name, Email, email, Phone, phone, DOB, dob } from "@/utils/schema
 import { Address, address } from "@/utils/schemas/address";
 import { DeepRequired } from "react-hook-form";
 
-export type AccountDetails = {
+export type Profile = {
     personal?: {
         firstName?: Name;
         lastName?: Name;
@@ -19,7 +19,7 @@ export type AccountDetails = {
     };
 };
 
-export const accountDetailsSchema: z.ZodType<AccountDetails> = z.object({
+export const profileSchema: z.ZodType<Profile> = z.object({
     personal: z
         .object({
             firstName: name.optional(),
@@ -37,7 +37,7 @@ export const accountDetailsSchema: z.ZodType<AccountDetails> = z.object({
         .optional(),
 });
 
-export const defaultAccountDetails: DeepRequired<AccountDetails> = {
+export const defaultProfile: DeepRequired<Profile> = {
     personal: {
         firstName: "John",
         lastName: "Smith",

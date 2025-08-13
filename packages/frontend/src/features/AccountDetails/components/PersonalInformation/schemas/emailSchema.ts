@@ -1,11 +1,11 @@
 /* v8 ignore start */
 
 import { z } from "zod";
-import { AccountDetails } from "@/utils/schemas/account";
+import { Profile } from "@/utils/schemas/profile";
 import { email } from "@/utils/schemas/personal";
 import { DeepPick } from "ts-deep-pick";
 
-export type EmailFormData = DeepPick<AccountDetails, "personal.email">;
+export type EmailFormData = DeepPick<Profile, "personal.email">;
 
 export const emailFormDataSchema: z.ZodType<EmailFormData> = z.object({
     personal: z.object({

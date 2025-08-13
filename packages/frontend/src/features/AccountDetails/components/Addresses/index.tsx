@@ -7,15 +7,17 @@ import { AddressesFormData, addressesFormDataSchema } from "./schemas/addressSch
 import styles from "./index.module.css";
 
 export function Addresses() {
-    const { accountDetails, defaultData } = useContext(UserContext);
-    const { response, awaiting } = accountDetails;
+    const { user, defaultData } = useContext(UserContext);
+    const { response, awaiting } = user;
     const { data } = response;
 
-    const { addresses } = data || {};
+    const { profile } = data || {};
+    const { addresses } = profile || {};
     const { delivery, billing } = addresses || {};
 
-    const { accountDetails: defaultAccountDetails } = defaultData;
-    const { addresses: defaultAddresses } = defaultAccountDetails;
+    const { user: defaultUser } = defaultData;
+    const { profile: defaultProfile } = defaultUser;
+    const { addresses: defaultAddresses } = defaultProfile;
     const { delivery: defaultDelivery, billing: defaultBilling } = defaultAddresses;
 
     const skeletonProps = useMemo(() => ({ visible: awaiting, width: "min-content" }), [awaiting]);

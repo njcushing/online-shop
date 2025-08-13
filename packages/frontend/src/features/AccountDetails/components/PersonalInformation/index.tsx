@@ -11,17 +11,18 @@ import { EmailFormData, emailFormDataSchema } from "./schemas/emailSchema";
 import styles from "./index.module.css";
 
 export function PersonalInformation() {
-    const { accountDetails, defaultData } = useContext(UserContext);
-    const { response, awaiting } = accountDetails;
+    const { user, defaultData } = useContext(UserContext);
+    const { response, awaiting } = user;
     const { data } = response;
 
-    const { personal } = data || {};
+    const { profile } = data || {};
+    const { personal } = profile || {};
     const { firstName, lastName, phone, dob, email } = personal || {};
     const { day, month, year } = dob || {};
 
     const nameFullElement = useMemo(() => {
         if (awaiting) {
-            return `${defaultData.accountDetails.personal.firstName} ${defaultData.accountDetails.personal.lastName}`;
+            return `${defaultData.user.profile.personal.firstName} ${defaultData.user.profile.personal.lastName}`;
         }
         if (firstName && firstName.length > 0 && lastName && lastName.length > 0) {
             return `${firstName} ${lastName}`;
@@ -31,7 +32,7 @@ export function PersonalInformation() {
 
     const phoneFullElement = useMemo(() => {
         if (awaiting) {
-            return defaultData.accountDetails.personal.phone;
+            return defaultData.user.profile.personal.phone;
         }
         if (phone && phone.length > 0) {
             return phone;
@@ -41,7 +42,7 @@ export function PersonalInformation() {
 
     const emailFullElement = useMemo(() => {
         if (awaiting) {
-            return defaultData.accountDetails.personal.email;
+            return defaultData.user.profile.personal.email;
         }
         if (email && email.length > 0) {
             return email;
@@ -160,9 +161,9 @@ export function PersonalInformation() {
                                     >
                                         {awaiting
                                             ? `${dayjs(`
-                                                ${defaultData.accountDetails.personal.dob.year},
-                                                ${defaultData.accountDetails.personal.dob.month},
-                                                ${defaultData.accountDetails.personal.dob.day}
+                                                ${defaultData.user.profile.personal.dob.year},
+                                                ${defaultData.user.profile.personal.dob.month},
+                                                ${defaultData.user.profile.personal.dob.day}
                                             `).format("MMMM D, YYYY")}`
                                             : `${dayjs(`${year}, ${month}, ${day}`).format("MMMM D, YYYY")}`}
                                     </div>

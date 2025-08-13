@@ -56,7 +56,9 @@ export function Subscriptions() {
 
     const data =
         response.data ||
-        (defaultData.subscriptions as NonNullable<IUserContext["subscriptions"]["data"]>);
+        (defaultData.subscriptions as NonNullable<
+            IUserContext["subscriptions"]["response"]["data"]
+        >);
 
     return (data && data.length > 0) || awaiting ? (
         <div className={styles["subscriptions-container"]} ref={targetRef}>

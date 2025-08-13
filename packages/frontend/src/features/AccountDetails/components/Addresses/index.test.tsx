@@ -10,26 +10,28 @@ import { Addresses } from ".";
 // Mock props and contexts are only using fields relevant to component being tested
 
 const mockUserContext: RecursivePartial<IUserContext> = {
-    accountDetails: {
+    user: {
         response: {
             data: {
-                addresses: {
-                    delivery: {
-                        line1: "Delivery Address Line 1",
-                        line2: "Delivery Address Line 2",
-                        townCity: "Delivery Address Town/City",
-                        county: "Delivery Address County",
-                        postcode: "Delivery Address Postcode",
-                    },
-                    billing: {
-                        line1: "Billing Address Line 1",
-                        line2: "Billing Address Line 2",
-                        townCity: "Billing Address Town/City",
-                        county: "Billing Address County",
-                        postcode: "Billing Address Postcode",
+                profile: {
+                    addresses: {
+                        delivery: {
+                            line1: "Delivery Address Line 1",
+                            line2: "Delivery Address Line 2",
+                            townCity: "Delivery Address Town/City",
+                            county: "Delivery Address County",
+                            postcode: "Delivery Address Postcode",
+                        },
+                        billing: {
+                            line1: "Billing Address Line 1",
+                            line2: "Billing Address Line 2",
+                            townCity: "Billing Address Town/City",
+                            county: "Billing Address County",
+                            postcode: "Billing Address Postcode",
+                        },
                     },
                 },
-            },
+            } as IUserContext["user"]["response"]["data"],
             status: 200,
             message: "Success",
         },
@@ -37,21 +39,23 @@ const mockUserContext: RecursivePartial<IUserContext> = {
     },
 
     defaultData: {
-        accountDetails: {
-            addresses: {
-                delivery: {
-                    line1: "dDelivery Address Line 1",
-                    line2: "dDelivery Address Line 2",
-                    townCity: "dDelivery Address Town/City",
-                    county: "dDelivery Address County",
-                    postcode: "dDelivery Address Postcode",
-                },
-                billing: {
-                    line1: "dBilling Address Line 1",
-                    line2: "dBilling Address Line 2",
-                    townCity: "dBilling Address Town/City",
-                    county: "dBilling Address County",
-                    postcode: "dBilling Address Postcode",
+        user: {
+            profile: {
+                addresses: {
+                    delivery: {
+                        line1: "dDelivery Address Line 1",
+                        line2: "dDelivery Address Line 2",
+                        townCity: "dDelivery Address Town/City",
+                        county: "dDelivery Address County",
+                        postcode: "dDelivery Address Postcode",
+                    },
+                    billing: {
+                        line1: "dBilling Address Line 1",
+                        line2: "dBilling Address Line 2",
+                        townCity: "dBilling Address Town/City",
+                        county: "dBilling Address County",
+                        postcode: "dBilling Address Postcode",
+                    },
                 },
             },
         },
@@ -144,7 +148,7 @@ describe("The Addresses component...", () => {
             test("Containing elements with text content equal to the various lines in the user's delivery address", () => {
                 renderFunc();
 
-                const { delivery } = mockUserContext.accountDetails!.response!.data!.addresses!;
+                const { delivery } = mockUserContext.user!.response!.data!.profile!.addresses!;
                 const { line1, line2, townCity, county, postcode } = delivery!;
 
                 expect(screen.getByText(line1!)).toBeInTheDocument();
@@ -157,7 +161,9 @@ describe("The Addresses component...", () => {
             test("Or text content equal to: 'No address set' if the user's delivery address is null/undefined", () => {
                 renderFunc({
                     UserContextOverride: {
-                        accountDetails: { response: { data: { addresses: { delivery: null } } } },
+                        user: {
+                            response: { data: { profile: { addresses: { delivery: null } } } },
+                        },
                     } as unknown as IUserContext,
                 });
 
@@ -165,12 +171,12 @@ describe("The Addresses component...", () => {
                 expect(fullElement).toBeInTheDocument();
             });
 
-            test("Or text content equal to the UserContext's default data if the UserContext's 'accountDetails.awaiting' field is 'true'", () => {
+            test("Or text content equal to the UserContext's default data if the UserContext's 'user.awaiting' field is 'true'", () => {
                 renderFunc({
-                    UserContextOverride: { accountDetails: { awaiting: true } } as IUserContext,
+                    UserContextOverride: { user: { awaiting: true } } as IUserContext,
                 });
 
-                const { delivery } = mockUserContext.defaultData!.accountDetails!.addresses!;
+                const { delivery } = mockUserContext.defaultData!.user!.profile!.addresses!;
                 const { line1, line2, townCity, county, postcode } = delivery!;
 
                 expect(screen.getByText(line1!)).toBeInTheDocument();
@@ -180,12 +186,12 @@ describe("The Addresses component...", () => {
                 expect(screen.getByText(postcode!)).toBeInTheDocument();
             });
 
-            test("That should not be visible if the UserContext's 'accountDetails.awaiting' field is 'true'", () => {
+            test("That should not be visible if the UserContext's 'user.awaiting' field is 'true'", () => {
                 renderFunc({
-                    UserContextOverride: { accountDetails: { awaiting: true } } as IUserContext,
+                    UserContextOverride: { user: { awaiting: true } } as IUserContext,
                 });
 
-                const { delivery } = mockUserContext.defaultData!.accountDetails!.addresses!;
+                const { delivery } = mockUserContext.defaultData!.user!.profile!.addresses!;
                 const { line1, line2, townCity, county, postcode } = delivery!;
 
                 // queryByText *does not* exclude hidden elements - must manually check visibility
@@ -210,7 +216,7 @@ describe("The Addresses component...", () => {
             test("Containing elements with text content equal to the various lines in the user's billing address", () => {
                 renderFunc();
 
-                const { billing } = mockUserContext.accountDetails!.response!.data!.addresses!;
+                const { billing } = mockUserContext.user!.response!.data!.profile!.addresses!;
                 const { line1, line2, townCity, county, postcode } = billing!;
 
                 expect(screen.getByText(line1!)).toBeInTheDocument();
@@ -223,7 +229,7 @@ describe("The Addresses component...", () => {
             test("Or text content equal to: 'No address set' if the user's billing address is null/undefined", () => {
                 renderFunc({
                     UserContextOverride: {
-                        accountDetails: { response: { data: { addresses: { billing: null } } } },
+                        user: { response: { data: { profile: { addresses: { billing: null } } } } },
                     } as unknown as IUserContext,
                 });
 
@@ -231,12 +237,12 @@ describe("The Addresses component...", () => {
                 expect(fullElement).toBeInTheDocument();
             });
 
-            test("Or text content equal to the UserContext's default data if the UserContext's 'accountDetails.awaiting' field is 'true'", () => {
+            test("Or text content equal to the UserContext's default data if the UserContext's 'user.awaiting' field is 'true'", () => {
                 renderFunc({
-                    UserContextOverride: { accountDetails: { awaiting: true } } as IUserContext,
+                    UserContextOverride: { user: { awaiting: true } } as IUserContext,
                 });
 
-                const { billing } = mockUserContext.defaultData!.accountDetails!.addresses!;
+                const { billing } = mockUserContext.defaultData!.user!.profile!.addresses!;
                 const { line1, line2, townCity, county, postcode } = billing!;
 
                 expect(screen.getByText(line1!)).toBeInTheDocument();
@@ -246,12 +252,12 @@ describe("The Addresses component...", () => {
                 expect(screen.getByText(postcode!)).toBeInTheDocument();
             });
 
-            test("That should not be visible if the UserContext's 'accountDetails.awaiting' field is 'true'", () => {
+            test("That should not be visible if the UserContext's 'user.awaiting' field is 'true'", () => {
                 renderFunc({
-                    UserContextOverride: { accountDetails: { awaiting: true } } as IUserContext,
+                    UserContextOverride: { user: { awaiting: true } } as IUserContext,
                 });
 
-                const { billing } = mockUserContext.defaultData!.accountDetails!.addresses!;
+                const { billing } = mockUserContext.defaultData!.user!.profile!.addresses!;
                 const { line1, line2, townCity, county, postcode } = billing!;
 
                 // queryByText *does not* exclude hidden elements - must manually check visibility
@@ -265,10 +271,10 @@ describe("The Addresses component...", () => {
     });
 
     describe("Should still render without throwing...", () => {
-        test("If the UserContext's 'accountDetails.data' field is null/undefined", () => {
+        test("If the UserContext's 'user.data' field is null/undefined", () => {
             renderFunc({
                 UserContextOverride: {
-                    accountDetails: { response: { data: null } },
+                    user: { response: { data: null } },
                 } as IUserContext,
             });
 

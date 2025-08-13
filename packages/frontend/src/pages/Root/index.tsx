@@ -4,7 +4,7 @@ import { Header } from "@/features/Header";
 import { Footer } from "@/features/Footer";
 import { generateSkeletonCart, PopulatedCartItemData } from "@/utils/products/cart";
 import {
-    mockGetAccountDetails,
+    mockGetUser,
     mockGetCart,
     mockGetOrders,
     mockGetSubscriptions,
@@ -18,7 +18,7 @@ import {
     generateSkeletonSubscriptionList,
     PopulatedSubscriptionData,
 } from "@/utils/products/subscriptions";
-import { AccountDetails, defaultAccountDetails } from "@/utils/schemas/account";
+import { User, defaultUser } from "@/utils/schemas/user";
 import { DeepRequired } from "react-hook-form";
 import { Home } from "../Home";
 import { Category } from "../Category";
@@ -65,30 +65,30 @@ const defaultRootContext: IRootContext = {
 };
 
 export interface IUserContext {
+    user: useAsync.InferUseAsyncReturnTypeFromFunction<typeof mockGetUser>;
     cart: useAsync.InferUseAsyncReturnTypeFromFunction<typeof mockGetCart>;
     watchlist: useAsync.InferUseAsyncReturnTypeFromFunction<typeof mockGetWatchlist>;
     orders: useAsync.InferUseAsyncReturnTypeFromFunction<typeof mockGetOrders>;
     subscriptions: useAsync.InferUseAsyncReturnTypeFromFunction<typeof mockGetSubscriptions>;
-    accountDetails: useAsync.InferUseAsyncReturnTypeFromFunction<typeof mockGetAccountDetails>;
 
     defaultData: {
+        user: DeepRequired<User>;
         cart: RecursivePartial<PopulatedCartItemData>[];
         orders: RecursivePartial<PopulatedOrderData>[];
         subscriptions: RecursivePartial<PopulatedSubscriptionData>[];
-        accountDetails: DeepRequired<AccountDetails>;
     };
 }
 
 const defaultUserContext: IUserContext = {
+    user: createQueryContextObject(),
     cart: createQueryContextObject(),
     watchlist: createQueryContextObject(),
     orders: createQueryContextObject(),
     subscriptions: createQueryContextObject(),
-    accountDetails: createQueryContextObject(),
 
     defaultData: {
+        user: defaultUser,
         cart: generateSkeletonCart(),
-        accountDetails: defaultAccountDetails,
         orders: generateSkeletonOrderList(),
         subscriptions: generateSkeletonSubscriptionList(),
     },
@@ -145,28 +145,26 @@ export function Root({ children }: TRoot) {
     );
     useEffect(() => setSubscriptions(subscriptionsReturn), [subscriptionsReturn]);
 
-    const [accountDetails, setAccountDetails] = useState<IUserContext["accountDetails"]>(
-        defaultUserContext.accountDetails,
-    );
-    const accountDetailsReturn = useAsync.GET(mockGetAccountDetails, [{}], {
+    const [user, setUser] = useState<IUserContext["user"]>(defaultUserContext.user);
+    const userReturn = useAsync.GET(mockGetUser, [{}], {
         attemptOnMount: true,
     });
-    useEffect(() => setAccountDetails(accountDetailsReturn), [accountDetailsReturn]);
+    useEffect(() => setUser(userReturn), [userReturn]);
 
     return (
         <RootContext.Provider value={useMemo(() => ({ headerInfo }), [headerInfo])}>
             <UserContext.Provider
                 value={useMemo(
                     () => ({
+                        user,
                         cart,
                         watchlist,
                         orders,
                         subscriptions,
-                        accountDetails,
 
                         defaultData: defaultUserContext.defaultData,
                     }),
-                    [cart, watchlist, orders, subscriptions, accountDetails],
+                    [user, cart, watchlist, orders, subscriptions],
                 )}
             >
                 <div className={styles["page"]}>

@@ -6,8 +6,8 @@ import { PasswordsFormData, passwordsFormDataSchema } from "./schemas/passwordsS
 import styles from "./index.module.css";
 
 export function Security() {
-    const { accountDetails } = useContext(UserContext);
-    const { awaiting } = accountDetails;
+    const { user } = useContext(UserContext);
+    const { awaiting } = user;
 
     return (
         <div className={styles["account-settings-content"]}>

@@ -10,21 +10,23 @@ import { PersonalInformation } from ".";
 // Mock props and contexts are only using fields relevant to component being tested
 
 const mockUserContext: RecursivePartial<IUserContext> = {
-    accountDetails: {
+    user: {
         response: {
             data: {
-                personal: {
-                    firstName: "First",
-                    lastName: "Last",
-                    phone: "00000000000",
-                    dob: {
-                        day: 1,
-                        month: 1,
-                        year: 1970,
+                profile: {
+                    personal: {
+                        firstName: "First",
+                        lastName: "Last",
+                        phone: "00000000000",
+                        dob: {
+                            day: 1,
+                            month: 1,
+                            year: 1970,
+                        },
+                        email: "email@address.com",
                     },
-                    email: "email@address.com",
                 },
-            },
+            } as IUserContext["user"]["response"]["data"],
             status: 200,
             message: "Success",
         },
@@ -32,17 +34,19 @@ const mockUserContext: RecursivePartial<IUserContext> = {
     },
 
     defaultData: {
-        accountDetails: {
-            personal: {
-                firstName: "dFirst",
-                lastName: "dLast",
-                phone: "00000000001",
-                dob: {
-                    day: 2,
-                    month: 2,
-                    year: 1971,
+        user: {
+            profile: {
+                personal: {
+                    firstName: "dFirst",
+                    lastName: "dLast",
+                    phone: "00000000001",
+                    dob: {
+                        day: 2,
+                        month: 2,
+                        year: 1971,
+                    },
+                    email: "dEmail@address.com",
                 },
-                email: "dEmail@address.com",
             },
         },
     },
@@ -135,7 +139,7 @@ describe("The PersonalInformation component...", () => {
                 renderFunc();
 
                 const { firstName, lastName } =
-                    mockUserContext.accountDetails!.response!.data!.personal!;
+                    mockUserContext.user!.response!.data!.profile!.personal!;
 
                 const fullElement = screen.getByText(`${firstName} ${lastName}`);
                 expect(fullElement).toBeInTheDocument();
@@ -144,8 +148,12 @@ describe("The PersonalInformation component...", () => {
             test("Or text content equal to: 'Provide a name' if the user's first or last names are null/undefined", () => {
                 renderFunc({
                     UserContextOverride: {
-                        accountDetails: {
-                            response: { data: { personal: { firstName: null, lastName: null } } },
+                        user: {
+                            response: {
+                                data: {
+                                    profile: { personal: { firstName: null, lastName: null } },
+                                },
+                            },
                         },
                     } as unknown as IUserContext,
                 });
@@ -154,25 +162,25 @@ describe("The PersonalInformation component...", () => {
                 expect(fullElement).toBeInTheDocument();
             });
 
-            test("Or text content equal to the UserContext's default data if the UserContext's 'accountDetails.awaiting' field is 'true'", () => {
+            test("Or text content equal to the UserContext's default data if the UserContext's 'user.awaiting' field is 'true'", () => {
                 renderFunc({
-                    UserContextOverride: { accountDetails: { awaiting: true } } as IUserContext,
+                    UserContextOverride: { user: { awaiting: true } } as IUserContext,
                 });
 
                 const { firstName, lastName } =
-                    mockUserContext.defaultData!.accountDetails!.personal!;
+                    mockUserContext.defaultData!.user!.profile!.personal!;
 
                 const fullElement = screen.getByText(`${firstName} ${lastName}`);
                 expect(fullElement).toBeInTheDocument();
             });
 
-            test("That should not be visible if the UserContext's 'accountDetails.awaiting' field is 'true'", () => {
+            test("That should not be visible if the UserContext's 'user.awaiting' field is 'true'", () => {
                 renderFunc({
-                    UserContextOverride: { accountDetails: { awaiting: true } } as IUserContext,
+                    UserContextOverride: { user: { awaiting: true } } as IUserContext,
                 });
 
                 const { firstName, lastName } =
-                    mockUserContext.defaultData!.accountDetails!.personal!;
+                    mockUserContext.defaultData!.user!.profile!.personal!;
 
                 // queryByText *does not* exclude hidden elements - must manually check visibility
                 const fullElement = screen.queryByText(`${firstName} ${lastName}`);
@@ -193,7 +201,7 @@ describe("The PersonalInformation component...", () => {
             test("With text content equal to the user's phone number", () => {
                 renderFunc();
 
-                const { phone } = mockUserContext.accountDetails!.response!.data!.personal!;
+                const { phone } = mockUserContext.user!.response!.data!.profile!.personal!;
 
                 const fullElement = screen.getByText(phone!);
                 expect(fullElement).toBeInTheDocument();
@@ -202,7 +210,7 @@ describe("The PersonalInformation component...", () => {
             test("Or text content equal to: 'Provide a phone number' if the user's phone number is null/undefined", () => {
                 renderFunc({
                     UserContextOverride: {
-                        accountDetails: { response: { data: { personal: { phone: null } } } },
+                        user: { response: { data: { profile: { personal: { phone: null } } } } },
                     } as unknown as IUserContext,
                 });
 
@@ -210,23 +218,23 @@ describe("The PersonalInformation component...", () => {
                 expect(fullElement).toBeInTheDocument();
             });
 
-            test("Or text content equal to the UserContext's default data if the UserContext's 'accountDetails.awaiting' field is 'true'", () => {
+            test("Or text content equal to the UserContext's default data if the UserContext's 'user.awaiting' field is 'true'", () => {
                 renderFunc({
-                    UserContextOverride: { accountDetails: { awaiting: true } } as IUserContext,
+                    UserContextOverride: { user: { awaiting: true } } as IUserContext,
                 });
 
-                const { phone } = mockUserContext.defaultData!.accountDetails!.personal!;
+                const { phone } = mockUserContext.defaultData!.user!.profile!.personal!;
 
                 const fullElement = screen.getByText(phone!);
                 expect(fullElement).toBeInTheDocument();
             });
 
-            test("That should not be visible if the UserContext's 'accountDetails.awaiting' field is 'true'", () => {
+            test("That should not be visible if the UserContext's 'user.awaiting' field is 'true'", () => {
                 renderFunc({
-                    UserContextOverride: { accountDetails: { awaiting: true } } as IUserContext,
+                    UserContextOverride: { user: { awaiting: true } } as IUserContext,
                 });
 
-                const { phone } = mockUserContext.defaultData!.accountDetails!.personal!;
+                const { phone } = mockUserContext.defaultData!.user!.profile!.personal!;
 
                 // queryByText *does not* exclude hidden elements - must manually check visibility
                 const fullElement = screen.queryByText(phone!);
@@ -251,18 +259,18 @@ describe("The PersonalInformation component...", () => {
                 expect(fullElement).toBeInTheDocument();
             });
 
-            test("Or text content equal to the UserContext's default data if the UserContext's 'accountDetails.awaiting' field is 'true'", () => {
+            test("Or text content equal to the UserContext's default data if the UserContext's 'user.awaiting' field is 'true'", () => {
                 renderFunc({
-                    UserContextOverride: { accountDetails: { awaiting: true } } as IUserContext,
+                    UserContextOverride: { user: { awaiting: true } } as IUserContext,
                 });
 
                 const fullElement = screen.getByText("February 2, 1971");
                 expect(fullElement).not.toBeVisible();
             });
 
-            test("That should not be visible if the UserContext's 'accountDetails.awaiting' field is 'true'", () => {
+            test("That should not be visible if the UserContext's 'user.awaiting' field is 'true'", () => {
                 renderFunc({
-                    UserContextOverride: { accountDetails: { awaiting: true } } as IUserContext,
+                    UserContextOverride: { user: { awaiting: true } } as IUserContext,
                 });
 
                 // queryByText *does not* exclude hidden elements - must manually check visibility
@@ -284,7 +292,7 @@ describe("The PersonalInformation component...", () => {
             test("With text content equal to the user's email address", () => {
                 renderFunc();
 
-                const { email } = mockUserContext.accountDetails!.response!.data!.personal!;
+                const { email } = mockUserContext.user!.response!.data!.profile!.personal!;
 
                 const fullElement = screen.getByText(email!);
                 expect(fullElement).toBeInTheDocument();
@@ -293,7 +301,7 @@ describe("The PersonalInformation component...", () => {
             test("Or text content equal to: 'Provide an email address' if the user's email is null/undefined", () => {
                 renderFunc({
                     UserContextOverride: {
-                        accountDetails: { response: { data: { personal: { email: null } } } },
+                        user: { response: { data: { profile: { personal: { email: null } } } } },
                     } as unknown as IUserContext,
                 });
 
@@ -301,23 +309,23 @@ describe("The PersonalInformation component...", () => {
                 expect(fullElement).toBeInTheDocument();
             });
 
-            test("Or text content equal to the UserContext's default data if the UserContext's 'accountDetails.awaiting' field is 'true'", () => {
+            test("Or text content equal to the UserContext's default data if the UserContext's 'user.awaiting' field is 'true'", () => {
                 renderFunc({
-                    UserContextOverride: { accountDetails: { awaiting: true } } as IUserContext,
+                    UserContextOverride: { user: { awaiting: true } } as IUserContext,
                 });
 
-                const { email } = mockUserContext.defaultData!.accountDetails!.personal!;
+                const { email } = mockUserContext.defaultData!.user!.profile!.personal!;
 
                 const fullElement = screen.getByText(email!);
                 expect(fullElement).toBeInTheDocument();
             });
 
-            test("That should not be visible if the UserContext's 'accountDetails.awaiting' field is 'true'", () => {
+            test("That should not be visible if the UserContext's 'user.awaiting' field is 'true'", () => {
                 renderFunc({
-                    UserContextOverride: { accountDetails: { awaiting: true } } as IUserContext,
+                    UserContextOverride: { user: { awaiting: true } } as IUserContext,
                 });
 
-                const { email } = mockUserContext.defaultData!.accountDetails!.personal!;
+                const { email } = mockUserContext.defaultData!.user!.profile!.personal!;
 
                 // queryByText *does not* exclude hidden elements - must manually check visibility
                 const fullElement = screen.queryByText(email!);
@@ -327,10 +335,10 @@ describe("The PersonalInformation component...", () => {
     });
 
     describe("Should still render without throwing...", () => {
-        test("If the UserContext's 'accountDetails.data' field is null/undefined", () => {
+        test("If the UserContext's 'user.data' field is null/undefined", () => {
             renderFunc({
                 UserContextOverride: {
-                    accountDetails: { response: { data: null } },
+                    user: { response: { data: null } },
                 } as IUserContext,
             });
 

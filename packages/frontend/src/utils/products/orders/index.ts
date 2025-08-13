@@ -4,7 +4,7 @@ import {
     generateSkeletonProduct,
     generateSkeletonProductVariant,
 } from "@/utils/products/product";
-import { defaultAccountDetails } from "@/utils/schemas/account";
+import { defaultProfile } from "@/utils/schemas/profile";
 import { Address } from "@/utils/schemas/address";
 import { RecursivePartial } from "@/utils/types";
 import { ulid } from "ulid";
@@ -84,8 +84,8 @@ export const mockOrders: OrderData[] = [
             },
         ],
         orderDate: new Date().toISOString(),
-        deliveryAddress: defaultAccountDetails.addresses.delivery,
-        billingAddress: defaultAccountDetails.addresses.billing,
+        deliveryAddress: defaultProfile.addresses.delivery,
+        billingAddress: defaultProfile.addresses.billing,
         paymentMethod: "card",
         deliveryInfo: {
             expectedDate: new Date().toISOString(),
@@ -112,8 +112,8 @@ export const mockOrders: OrderData[] = [
             },
         ],
         orderDate: new Date().toISOString(),
-        deliveryAddress: defaultAccountDetails.addresses.delivery,
-        billingAddress: defaultAccountDetails.addresses.billing,
+        deliveryAddress: defaultProfile.addresses.delivery,
+        billingAddress: defaultProfile.addresses.billing,
         paymentMethod: "card",
         deliveryInfo: {
             expectedDate: new Date().toISOString(),
@@ -140,8 +140,8 @@ export const mockOrders: OrderData[] = [
             },
         ],
         orderDate: new Date().toISOString(),
-        deliveryAddress: defaultAccountDetails.addresses.delivery,
-        billingAddress: defaultAccountDetails.addresses.billing,
+        deliveryAddress: defaultProfile.addresses.delivery,
+        billingAddress: defaultProfile.addresses.billing,
         paymentMethod: "paypal",
         deliveryInfo: {
             expectedDate: new Date().toISOString(),
@@ -168,8 +168,8 @@ export const mockOrders: OrderData[] = [
             },
         ],
         orderDate: new Date().toISOString(),
-        deliveryAddress: defaultAccountDetails.addresses.delivery,
-        billingAddress: defaultAccountDetails.addresses.billing,
+        deliveryAddress: defaultProfile.addresses.delivery,
+        billingAddress: defaultProfile.addresses.billing,
         paymentMethod: "bank_transfer",
         deliveryInfo: {
             expectedDate: new Date().toISOString(),
@@ -196,8 +196,8 @@ export const mockOrders: OrderData[] = [
             },
         ],
         orderDate: new Date().toISOString(),
-        deliveryAddress: defaultAccountDetails.addresses.delivery,
-        billingAddress: defaultAccountDetails.addresses.billing,
+        deliveryAddress: defaultProfile.addresses.delivery,
+        billingAddress: defaultProfile.addresses.billing,
         paymentMethod: "gift_card",
         deliveryInfo: {
             expectedDate: new Date().toISOString(),
@@ -238,8 +238,8 @@ export const generateSkeletonOrderList = (
         },
         products: [product],
         orderDate: new Date().toISOString(),
-        deliveryAddress: defaultAccountDetails.addresses.delivery,
-        billingAddress: defaultAccountDetails.addresses.billing,
+        deliveryAddress: defaultProfile.addresses.delivery,
+        billingAddress: defaultProfile.addresses.billing,
         paymentMethod: paymentMethods[0],
         deliveryInfo: {
             expectedDate: new Date().toISOString(),

@@ -10,9 +10,9 @@ import { Security } from ".";
 // Mock props and contexts are only using fields relevant to component being tested
 
 const mockUserContext: RecursivePartial<IUserContext> = {
-    accountDetails: {
+    user: {
         response: {
-            data: {},
+            data: {} as IUserContext["user"]["response"]["data"],
             status: 200,
             message: "Success",
         },
