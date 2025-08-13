@@ -13,6 +13,10 @@ const getProps = (component: HTMLElement) => {
 // Mock dependencies
 // Mock contexts are only using fields relevant to component being tested
 
+const mockUser: RecursivePartial<IUserContext["user"]["response"]["data"]> = {
+    subscriptions: [],
+};
+
 const mockSubscriptions: RecursivePartial<IUserContext["subscriptions"]["response"]["data"]> = [
     { id: "1" },
     { id: "2" },
@@ -20,12 +24,19 @@ const mockSubscriptions: RecursivePartial<IUserContext["subscriptions"]["respons
 ];
 
 const mockUserContext: RecursivePartial<IUserContext> = {
+    user: {
+        response: {
+            data: mockUser as IUserContext["user"]["response"]["data"],
+        },
+    },
     subscriptions: {
         response: {
             data: mockSubscriptions as IUserContext["subscriptions"]["response"]["data"],
             status: 200,
             message: "Success",
         },
+        setParams: () => {},
+        attempt: () => {},
         awaiting: false,
     },
 
