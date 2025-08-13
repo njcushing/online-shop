@@ -11,6 +11,6 @@ export type User = {
 
 export const defaultUser: DeepRequired<User> = {
     profile: defaultProfile,
-    orders: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
-    subscriptions: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+    orders: ["1", "2", "3", "4", "5"],
+    subscriptions: ["1", "2", "3", "4", "5", "6"],
 };
