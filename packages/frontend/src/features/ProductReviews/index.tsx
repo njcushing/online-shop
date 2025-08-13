@@ -107,7 +107,7 @@ export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
 
     const { rating, reviews: reviewIds } = !awaitingProductData
         ? productData!
-        : (defaultData.product as NonNullable<IProductContext["product"]["data"]>);
+        : (defaultData.product as NonNullable<IProductContext["product"]["response"]["data"]>);
 
     const reviewQuantity =
         filter === "All"
