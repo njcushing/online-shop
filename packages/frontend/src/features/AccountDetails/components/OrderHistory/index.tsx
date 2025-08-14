@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, useRef } from "react";
+import { useContext, useState, useEffect, useRef, useMemo } from "react";
 import { RootContext, IUserContext, UserContext } from "@/pages/Root";
 import { useScrollIntoView } from "@mantine/hooks";
 import { Skeleton, Divider, Pagination } from "@mantine/core";
@@ -23,11 +23,26 @@ export function OrderHistory() {
     const { headerInfo } = useContext(RootContext);
     const { forceClose } = headerInfo;
 
-    const { orders, defaultData } = useContext(UserContext);
-    const { response, awaiting } = orders;
+    const { user, orders, defaultData } = useContext(UserContext);
+
+    const { response: userResponse } = user;
+    const { response: ordersResponse, setParams, attempt, awaiting } = orders;
+
+    const { data: userData } = userResponse;
+    const { data: ordersData } = ordersResponse;
+
+    const { orders: orderIds = [] } = userData || {};
 
     const [filter, setFilter] = useState<FilterOption>("1_month");
     const [page, setPage] = useState<number>(0);
+    const [start, end] = useMemo(() => {
+        return [page * ordersPerPage, page * ordersPerPage + ordersPerPage];
+    }, [page]);
+
+    useEffect(() => {
+        setParams([{ params: { filter, start, end } }]);
+        attempt();
+    }, [setParams, attempt, filter, start, end]);
 
     // Don't test auto-scroll logic
     /* v8 ignore start */
@@ -67,7 +82,7 @@ export function OrderHistory() {
     /* v8 ignore stop */
 
     const data =
-        response.data ||
+        ordersData ||
         (defaultData.orders as NonNullable<IUserContext["orders"]["response"]["data"]>);
 
     return (data && data.length > 0) || awaiting ? (
@@ -77,7 +92,7 @@ export function OrderHistory() {
                     className={styles["order-count"]}
                     style={{ visibility: awaiting ? "hidden" : "initial" }}
                 >
-                    {data.length} orders
+                    {orderIds.length} orders
                 </p>
             </Skeleton>
 
@@ -119,13 +134,11 @@ export function OrderHistory() {
             </div>
 
             <ul className={styles["order-history"]}>
-                {data
-                    .slice(page * ordersPerPage, page * ordersPerPage + ordersPerPage)
-                    .map((order) => {
-                        const { id } = order;
+                {data.slice(0, ordersPerPage).map((order) => {
+                    const { id } = order;
 
-                        return <OrderSummary data={order} key={id} />;
-                    })}
+                    return <OrderSummary data={order} key={id} />;
+                })}
             </ul>
 
             <Skeleton visible={awaiting}>
@@ -138,7 +151,7 @@ export function OrderHistory() {
                         // doesn't have an accessible role and the page buttons' text content
                         // (numbers) often conflict with the other elements' text content.
                         data-testid="pagination"
-                        total={Math.ceil(response.data ? response.data.length / ordersPerPage : 1)}
+                        total={Math.ceil(orderIds.length / ordersPerPage)}
                         value={page + 1}
                         withEdges
                         onChange={(newPageNo) => {
