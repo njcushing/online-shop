@@ -22,12 +22,6 @@ const mockCart: RecursivePartial<IUserContext["cart"]["response"]["data"]> = [
     { product: {}, variant: { id: "variant3Id" }, quantity: 1 },
 ];
 
-const mockWatchlist: RecursivePartial<IUserContext["watchlist"]["response"]["data"]> = [
-    { productId: "1", variantId: "1-1" },
-    { productId: "2", variantId: "2-1" },
-    { productId: "3", variantId: "3-1" },
-];
-
 const mockOrders: RecursivePartial<IUserContext["orders"]["response"]["data"]> = [
     { id: "orderId1" },
     { id: "orderId2" },
@@ -51,7 +45,6 @@ const mockRootContext: RecursivePartial<IRootContext> = {
 const mockUserContext: RecursivePartial<IUserContext> = {
     user: { response: { data: null, status: 200, message: "Success" }, awaiting: false },
     cart: { response: { data: null, status: 200, message: "Success" }, awaiting: false },
-    watchlist: { response: { data: null, status: 200, message: "Success" }, awaiting: false },
     orders: { response: { data: null, status: 200, message: "Success" }, awaiting: false },
     subscriptions: { response: { data: null, status: 200, message: "Success" }, awaiting: false },
 
@@ -148,11 +141,6 @@ export const mockMockGetCart = vi.fn(async () => ({
     message: "Success",
     data: mockCart,
 }));
-export const mockMockGetWatchlist = vi.fn(async () => ({
-    status: 200,
-    message: "Success",
-    data: mockWatchlist,
-}));
 export const mockMockGetOrders = vi.fn(async () => ({
     status: 200,
     message: "Success",
@@ -169,7 +157,6 @@ vi.mock("@/api/mocks", async (importOriginal) => {
         ...(actual || {}),
         mockGetUser: () => mockMockGetUser(),
         mockGetCart: () => mockMockGetCart(),
-        mockGetWatchlist: () => mockMockGetWatchlist(),
         mockGetOrders: () => mockMockGetOrders(),
         mockGetSubscriptions: () => mockMockGetSubscriptions(),
     };
@@ -285,33 +272,6 @@ describe("The Root component...", () => {
             });
         });
 
-        describe("Including the 'watchlist.response' field...", () => {
-            test("Which should initially have its 'data' field set to 'null'", async () => {
-                const { getUserContextValue } = await renderFunc({ initRender: true });
-                const UserContextValue = getUserContextValue();
-
-                const { watchlist } = UserContextValue;
-                expect(watchlist).toBeDefined();
-
-                const { response } = watchlist;
-                expect(response).toBeDefined();
-
-                await waitFor(async () => {
-                    expect(response).toEqual(expect.objectContaining({ data: null }));
-                });
-            });
-
-            test("Which should be populated by the 'response' field in the return value of the 'useAsync' hook for the 'mockGetWatchlist' function", async () => {
-                const { getUserContextValue } = await renderFunc();
-                const UserContextValue = getUserContextValue();
-
-                const { watchlist } = UserContextValue;
-                const { response } = watchlist;
-
-                expect(response).toEqual(expect.objectContaining(await mockMockGetWatchlist()));
-            });
-        });
-
         describe("Including the 'orders.response' field...", () => {
             test("Which should initially have its 'data' field set to 'null'", async () => {
                 const { getUserContextValue } = await renderFunc({ initRender: true });
@@ -383,11 +343,10 @@ describe("The Root component...", () => {
 
                 expect(UserContextValue).toBeDefined();
 
-                const { user, cart, watchlist, orders, subscriptions } = UserContextValue;
+                const { user, cart, orders, subscriptions } = UserContextValue;
 
                 expect(user).toBeDefined();
                 expect(cart).toBeDefined();
-                expect(watchlist).toBeDefined();
                 expect(orders).toBeDefined();
                 expect(subscriptions).toBeDefined();
             });
