@@ -3,30 +3,34 @@ import { UserContext } from "@/pages/Root";
 import { ProductContext } from "@/pages/Product";
 import { Button } from "@mantine/core";
 import { Bell } from "@phosphor-icons/react";
+import { ProductVariant } from "@/utils/products/product";
+import { User } from "@/utils/schemas/user";
 import styles from "./index.module.css";
 
+const isVariantInWatchlist = (watchlist: User["watchlist"], variant: ProductVariant): boolean => {
+    return !!watchlist.find((entry) => entry === variant.id);
+};
+
 export function WatchlistButton() {
-    const { watchlist } = useContext(UserContext);
+    const { user } = useContext(UserContext);
     const { product, variant } = useContext(ProductContext);
 
-    const { response: watchlistResponse, awaiting: awaitingWatchlist } = watchlist;
+    const { response: userResponse, awaiting: awaitingUser } = user;
     const { response: productResponse, awaiting: awaitingProduct } = product;
 
-    const { data: watchlistData } = watchlistResponse;
+    const { data: userData } = userResponse;
     const { data: productData } = productResponse;
 
+    const { watchlist } = userData || {};
+
     const isDisabled = useMemo(() => {
-        return awaitingWatchlist || !watchlistData || awaitingProduct || !productData || !variant;
-    }, [awaitingWatchlist, watchlistData, awaitingProduct, productData, variant]);
+        return awaitingUser || !watchlist || awaitingProduct || !productData || !variant;
+    }, [awaitingUser, watchlist, awaitingProduct, productData, variant]);
 
     const isWatching = useMemo<boolean>(() => {
-        if (isDisabled) return false;
-        return (
-            watchlistData!.findIndex((item) => {
-                return item.productId === productData?.id && item.variantId === variant?.id;
-            }) > -1
-        );
-    }, [isDisabled, watchlistData, productData, variant]);
+        if (isDisabled || !watchlist || !variant) return false;
+        return isVariantInWatchlist(watchlist, variant);
+    }, [variant, watchlist, isDisabled]);
 
     return (
         <div className={styles["watchlist-button-container"]}>

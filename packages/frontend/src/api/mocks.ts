@@ -1,6 +1,5 @@
 import { ProductReview, Product, reviews, products as productData } from "@/utils/products/product";
 import { CartItemData, PopulatedCartItemData, mockCart } from "@/utils/products/cart";
-import { UserWatchlist, watchlists } from "@/utils/products/watchlist";
 import { OrderData, PopulatedOrderData, mockOrders } from "@/utils/products/orders";
 import {
     SubscriptionData,
@@ -416,22 +415,5 @@ export const mockGetReviews: HTTPMethodTypes.GET<
         status: 200,
         message: "Success",
         data: slicedReviews,
-    };
-};
-
-export const mockGetWatchlist: HTTPMethodTypes.GET<undefined, UserWatchlist> = async () => {
-    await new Promise((resolve) => {
-        setTimeout(resolve, 1000);
-    });
-
-    const userWatchlist = watchlists.flatMap((watchlist) => {
-        const { userId, productId, variantId } = watchlist;
-        return userId === "1" ? { productId, variantId } : [];
-    });
-
-    return {
-        status: 200,
-        message: "Success",
-        data: userWatchlist,
     };
 };

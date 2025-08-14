@@ -3,13 +3,7 @@ import { Outlet } from "react-router-dom";
 import { Header } from "@/features/Header";
 import { Footer } from "@/features/Footer";
 import { generateSkeletonCart, PopulatedCartItemData } from "@/utils/products/cart";
-import {
-    mockGetUser,
-    mockGetCart,
-    mockGetOrders,
-    mockGetSubscriptions,
-    mockGetWatchlist,
-} from "@/api/mocks";
+import { mockGetUser, mockGetCart, mockGetOrders, mockGetSubscriptions } from "@/api/mocks";
 import { RecursivePartial } from "@/utils/types";
 import * as useAsync from "@/hooks/useAsync";
 import { createQueryContextObject } from "@/hooks/useAsync/utils/createQueryContextObject";
@@ -67,7 +61,6 @@ const defaultRootContext: IRootContext = {
 export interface IUserContext {
     user: useAsync.InferUseAsyncReturnTypeFromFunction<typeof mockGetUser>;
     cart: useAsync.InferUseAsyncReturnTypeFromFunction<typeof mockGetCart>;
-    watchlist: useAsync.InferUseAsyncReturnTypeFromFunction<typeof mockGetWatchlist>;
     orders: useAsync.InferUseAsyncReturnTypeFromFunction<typeof mockGetOrders>;
     subscriptions: useAsync.InferUseAsyncReturnTypeFromFunction<typeof mockGetSubscriptions>;
 
@@ -82,7 +75,6 @@ export interface IUserContext {
 const defaultUserContext: IUserContext = {
     user: createQueryContextObject(),
     cart: createQueryContextObject(),
-    watchlist: createQueryContextObject(),
     orders: createQueryContextObject(),
     subscriptions: createQueryContextObject(),
 
@@ -117,15 +109,15 @@ export function Root({ children }: TRoot) {
         defaultRootContext.headerInfo,
     );
 
+    const [user, setUser] = useState<IUserContext["user"]>(defaultUserContext.user);
+    const userReturn = useAsync.GET(mockGetUser, [{}], {
+        attemptOnMount: true,
+    });
+    useEffect(() => setUser(userReturn), [userReturn]);
+
     const [cart, setCart] = useState<IUserContext["cart"]>(defaultUserContext.cart);
     const getCartReturn = useAsync.GET(mockGetCart, [{}], { attemptOnMount: true });
     useEffect(() => setCart(getCartReturn), [getCartReturn]);
-
-    const [watchlist, setWatchlist] = useState<IUserContext["watchlist"]>(
-        defaultUserContext.watchlist,
-    );
-    const getWatchlistReturn = useAsync.GET(mockGetWatchlist, [{}], { attemptOnMount: true });
-    useEffect(() => setWatchlist(getWatchlistReturn), [getWatchlistReturn]);
 
     const [orders, setOrders] = useState<IUserContext["orders"]>(defaultUserContext.orders);
     const getOrdersReturn = useAsync.GET(
@@ -145,12 +137,6 @@ export function Root({ children }: TRoot) {
     );
     useEffect(() => setSubscriptions(subscriptionsReturn), [subscriptionsReturn]);
 
-    const [user, setUser] = useState<IUserContext["user"]>(defaultUserContext.user);
-    const userReturn = useAsync.GET(mockGetUser, [{}], {
-        attemptOnMount: true,
-    });
-    useEffect(() => setUser(userReturn), [userReturn]);
-
     return (
         <RootContext.Provider value={useMemo(() => ({ headerInfo }), [headerInfo])}>
             <UserContext.Provider
@@ -158,13 +144,12 @@ export function Root({ children }: TRoot) {
                     () => ({
                         user,
                         cart,
-                        watchlist,
                         orders,
                         subscriptions,
 
                         defaultData: defaultUserContext.defaultData,
                     }),
-                    [user, cart, watchlist, orders, subscriptions],
+                    [user, cart, orders, subscriptions],
                 )}
             >
                 <div className={styles["page"]}>
