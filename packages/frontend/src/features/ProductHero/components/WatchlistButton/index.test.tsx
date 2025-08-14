@@ -10,7 +10,14 @@ import { WatchlistButton } from ".";
 
 // Mock contexts are only using fields relevant to component being tested
 const mockUserContext: RecursivePartial<IUserContext> = {
-    watchlist: { response: { data: [] }, awaiting: false },
+    user: {
+        response: {
+            data: {
+                watchlist: [],
+            } as unknown as IUserContext["user"]["response"]["data"],
+        },
+        awaiting: false,
+    },
 };
 
 const mockVariant = { id: "variantId" } as unknown as IProductContext["variant"];
@@ -123,9 +130,9 @@ describe("The WatchlistButton component...", () => {
             test("'Remove from watchlist' if the product variant is on the user's watchlist", () => {
                 renderFunc({
                     UserContextOverride: {
-                        watchlist: {
+                        user: {
                             response: {
-                                data: [{ productId: "productId", variantId: "variantId" }],
+                                data: { watchlist: ["variantId"] },
                             },
                         },
                     } as unknown as IUserContext,
@@ -147,7 +154,7 @@ describe("The WatchlistButton component...", () => {
             test("The UserContext's watchlist data is still being awaited", () => {
                 renderFunc({
                     UserContextOverride: {
-                        watchlist: { awaiting: true },
+                        user: { awaiting: true },
                     } as unknown as IUserContext,
                 });
 
@@ -158,7 +165,7 @@ describe("The WatchlistButton component...", () => {
             test("The UserContext's watchlist data is falsy", () => {
                 renderFunc({
                     UserContextOverride: {
-                        watchlist: { response: { data: null } },
+                        user: { response: { data: null } },
                     } as unknown as IUserContext,
                 });
 
@@ -212,8 +219,8 @@ describe("The WatchlistButton component...", () => {
         test("If the product variant is currently on the user's watchlist", () => {
             renderFunc({
                 UserContextOverride: {
-                    watchlist: {
-                        response: { data: [{ productId: "productId", variantId: "variantId" }] },
+                    user: {
+                        response: { data: { watchlist: ["variantId"] } },
                     },
                 } as unknown as IUserContext,
             });
