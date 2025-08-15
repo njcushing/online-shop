@@ -73,8 +73,8 @@ export interface IUserContext {
 }
 
 const defaultUserContext: IUserContext = {
-    user: createQueryContextObject(),
-    cart: createQueryContextObject(),
+    user: createQueryContextObject({ awaiting: true }),
+    cart: createQueryContextObject({ awaiting: true }),
     orders: createQueryContextObject(),
     subscriptions: createQueryContextObject(),
 
@@ -110,9 +110,7 @@ export function Root({ children }: TRoot) {
     );
 
     const [user, setUser] = useState<IUserContext["user"]>(defaultUserContext.user);
-    const userReturn = useAsync.GET(mockGetUser, [{}], {
-        attemptOnMount: true,
-    });
+    const userReturn = useAsync.GET(mockGetUser, [{}], { attemptOnMount: true });
     useEffect(() => setUser(userReturn), [userReturn]);
 
     const [cart, setCart] = useState<IUserContext["cart"]>(defaultUserContext.cart);
@@ -120,21 +118,13 @@ export function Root({ children }: TRoot) {
     useEffect(() => setCart(getCartReturn), [getCartReturn]);
 
     const [orders, setOrders] = useState<IUserContext["orders"]>(defaultUserContext.orders);
-    const getOrdersReturn = useAsync.GET(
-        mockGetOrders,
-        [{ params: { filter: "all", start: 0, end: 10 } }],
-        { attemptOnMount: true },
-    );
+    const getOrdersReturn = useAsync.GET(mockGetOrders, [{}], { attemptOnMount: false });
     useEffect(() => setOrders(getOrdersReturn), [getOrdersReturn]);
 
     const [subscriptions, setSubscriptions] = useState<IUserContext["subscriptions"]>(
         defaultUserContext.subscriptions,
     );
-    const subscriptionsReturn = useAsync.GET(
-        mockGetSubscriptions,
-        [{ params: { start: 0, end: 10 } }] as Parameters<typeof mockGetSubscriptions>,
-        { attemptOnMount: true },
-    );
+    const subscriptionsReturn = useAsync.GET(mockGetSubscriptions, [{}], { attemptOnMount: false });
     useEffect(() => setSubscriptions(subscriptionsReturn), [subscriptionsReturn]);
 
     return (

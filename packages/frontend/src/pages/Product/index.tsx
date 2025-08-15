@@ -67,7 +67,7 @@ export interface IProductContext {
 }
 
 const defaultProductContext: IProductContext = {
-    product: createQueryContextObject(),
+    product: createQueryContextObject({ awaiting: true }),
     variant: null,
     selectedVariantOptions: {},
     setSelectedVariantOptions: () => {},
