@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { UserContext } from "@/pages/Root";
 import { Accordion } from "@mantine/core";
 import { PopulatedSubscriptionData } from "@/utils/products/subscriptions";
 import { settings } from "@settings";
@@ -7,12 +5,10 @@ import styles from "./index.module.css";
 
 export type TSubscriptionDetails = {
     data: PopulatedSubscriptionData;
+    awaiting: boolean;
 };
 
-export function SubscriptionDetails({ data }: TSubscriptionDetails) {
-    const { subscriptions } = useContext(UserContext);
-    const { awaiting } = subscriptions;
-
+export function SubscriptionDetails({ data, awaiting }: TSubscriptionDetails) {
     const { deliveryAddress, billingAddress, count, variant } = data;
 
     const { price } = variant;

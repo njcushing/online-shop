@@ -1,5 +1,4 @@
-import { useContext, useState } from "react";
-import { UserContext } from "@/pages/Root";
+import { useState } from "react";
 import { useMatches, Skeleton, Button } from "@mantine/core";
 import { frequencies, PopulatedSubscriptionData } from "@/utils/products/subscriptions";
 import dayjs from "dayjs";
@@ -11,12 +10,10 @@ import styles from "./index.module.css";
 
 export type TSubscriptionSummary = {
     data: PopulatedSubscriptionData;
+    awaiting: boolean;
 };
 
-export function SubscriptionSummary({ data }: TSubscriptionSummary) {
-    const { subscriptions } = useContext(UserContext);
-    const { awaiting } = subscriptions;
-
+export function SubscriptionSummary({ data, awaiting }: TSubscriptionSummary) {
     const { count, frequency, nextDate } = data;
 
     const wide = useMatches({ base: false, xs: true });
@@ -84,7 +81,7 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
                     </div>
                 )}
 
-                <SubscriptionProduct data={data} />
+                <SubscriptionProduct data={data} awaiting={awaiting} />
 
                 <div className={styles["options"]}>
                     <Skeleton visible={awaiting} width="min-content">
@@ -119,18 +116,20 @@ export function SubscriptionSummary({ data }: TSubscriptionSummary) {
                 </div>
             </div>
 
-            <SubscriptionDetails data={data} />
+            <SubscriptionDetails data={data} awaiting={awaiting} />
 
             <ScheduleModal
                 data={data}
                 opened={scheduleModalOpen}
                 onClose={() => setScheduleModalOpen(false)}
+                awaiting={awaiting}
             />
 
             <CancellationModal
                 data={data}
                 opened={cancellationModalOpen}
                 onClose={() => setCancellationModalOpen(false)}
+                awaiting={awaiting}
             />
         </li>
     );

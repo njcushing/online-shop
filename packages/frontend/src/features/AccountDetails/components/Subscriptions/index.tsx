@@ -27,6 +27,18 @@ export function Subscriptions() {
         return [page * subscriptionsPerPage, page * subscriptionsPerPage + subscriptionsPerPage];
     }, [page]);
 
+    /**
+     * Need to include this - the subscriptions state is stored in the Root component's UserContext,
+     * and its 'awaiting' field is initially set to false, meaning before the 'attempt' function is
+     * called in the hook below, and subsequently the 'awaiting' field is set to true in
+     * UserContext, the default subscriptions data is shown briefly on the first couple of render
+     * cycles. This check prevents that from happening.
+     */
+    const hasAttempted = useRef<boolean>(false);
+    useEffect(() => {
+        if (awaiting) hasAttempted.current = true;
+    }, [awaiting]);
+
     useEffect(() => {
         setParams([{ params: { start, end } }]);
         attempt();
@@ -69,18 +81,20 @@ export function Subscriptions() {
 
     /* v8 ignore stop */
 
-    const data =
-        subscriptionsData ||
-        (defaultData.subscriptions as NonNullable<
-            IUserContext["subscriptions"]["response"]["data"]
-        >);
+    const awaitingOverride = awaiting || !hasAttempted.current;
 
-    return (data && data.length > 0) || awaiting ? (
+    const data = !awaitingOverride
+        ? subscriptionsData
+        : (defaultData.subscriptions as NonNullable<
+              IUserContext["subscriptions"]["response"]["data"]
+          >);
+
+    return (data && data.length > 0) || awaitingOverride ? (
         <div className={styles["subscriptions-container"]} ref={targetRef}>
-            <Skeleton visible={awaiting}>
+            <Skeleton visible={awaitingOverride}>
                 <p
                     className={styles["subscription-count"]}
-                    style={{ visibility: awaiting ? "hidden" : "initial" }}
+                    style={{ visibility: awaitingOverride ? "hidden" : "initial" }}
                 >
                     {subscriptionIds.length} active subscriptions
                 </p>
@@ -89,11 +103,18 @@ export function Subscriptions() {
             <Divider className={styles["divider"]} />
 
             <ul className={styles["subscriptions"]}>
-                {data.slice(0, subscriptionsPerPage).map((subscription) => {
-                    const { id } = subscription;
+                {data &&
+                    data.slice(0, subscriptionsPerPage).map((subscription) => {
+                        const { id } = subscription;
 
-                    return <SubscriptionSummary data={subscription} key={id} />;
-                })}
+                        return (
+                            <SubscriptionSummary
+                                data={subscription}
+                                awaiting={awaitingOverride}
+                                key={id}
+                            />
+                        );
+                    })}
             </ul>
 
             <div className={styles["pagination-container"]}>
@@ -109,7 +130,7 @@ export function Subscriptions() {
                         setPage(newPageNo - 1);
                         setQueueScroll(true);
                     }}
-                    disabled={awaiting}
+                    disabled={awaitingOverride}
                     classNames={{ control: styles["pagination-control"] }}
                 />
             </div>

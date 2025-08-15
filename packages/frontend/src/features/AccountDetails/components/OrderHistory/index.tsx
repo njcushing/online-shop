@@ -39,6 +39,18 @@ export function OrderHistory() {
         return [page * ordersPerPage, page * ordersPerPage + ordersPerPage];
     }, [page]);
 
+    /**
+     * Need to include this - the orders state is stored in the Root component's UserContext, and
+     * its 'awaiting' field is initially set to false, meaning before the 'attempt' function is
+     * called in the hook below, and subsequently the 'awaiting' field is set to true in
+     * UserContext, the default orders data is shown briefly on the first couple of render cycles.
+     * This check prevents that from happening.
+     */
+    const hasAttempted = useRef<boolean>(false);
+    useEffect(() => {
+        if (awaiting) hasAttempted.current = true;
+    }, [awaiting]);
+
     useEffect(() => {
         setParams([{ params: { filter, start, end } }]);
         attempt();
@@ -81,16 +93,18 @@ export function OrderHistory() {
 
     /* v8 ignore stop */
 
-    const data =
-        ordersData ||
-        (defaultData.orders as NonNullable<IUserContext["orders"]["response"]["data"]>);
+    const awaitingOverride = awaiting || !hasAttempted.current;
 
-    return (data && data.length > 0) || awaiting ? (
+    const data = !awaitingOverride
+        ? ordersData
+        : (defaultData.orders as NonNullable<IUserContext["orders"]["response"]["data"]>);
+
+    return (data && data.length > 0) || awaitingOverride ? (
         <div className={styles["order-history-container"]} ref={targetRef}>
-            <Skeleton visible={awaiting}>
+            <Skeleton visible={awaitingOverride}>
                 <p
                     className={styles["order-count"]}
-                    style={{ visibility: awaiting ? "hidden" : "initial" }}
+                    style={{ visibility: awaitingOverride ? "hidden" : "initial" }}
                 >
                     {orderIds.length} orders
                 </p>
@@ -112,7 +126,7 @@ export function OrderHistory() {
                             setPage(0);
                             setQueueScroll(true);
                         }}
-                        disabled={awaiting}
+                        disabled={awaitingOverride}
                         key="sort-options"
                     >
                         {Object.entries(filterOptions).map((entry) => {
@@ -134,17 +148,18 @@ export function OrderHistory() {
             </div>
 
             <ul className={styles["order-history"]}>
-                {data.slice(0, ordersPerPage).map((order) => {
-                    const { id } = order;
+                {data &&
+                    data.slice(0, ordersPerPage).map((order) => {
+                        const { id } = order;
 
-                    return <OrderSummary data={order} key={id} />;
-                })}
+                        return <OrderSummary data={order} awaiting={awaitingOverride} key={id} />;
+                    })}
             </ul>
 
-            <Skeleton visible={awaiting}>
+            <Skeleton visible={awaitingOverride}>
                 <div
                     className={styles["pagination-container"]}
-                    style={{ visibility: awaiting ? "hidden" : "initial" }}
+                    style={{ visibility: awaitingOverride ? "hidden" : "initial" }}
                 >
                     <Pagination
                         // Adding data-testid attribute to test onChange logic; Pagination component
@@ -158,7 +173,7 @@ export function OrderHistory() {
                             setPage(newPageNo - 1);
                             setQueueScroll(true);
                         }}
-                        disabled={awaiting}
+                        disabled={awaitingOverride}
                         classNames={{ control: styles["pagination-control"] }}
                     />
                 </div>

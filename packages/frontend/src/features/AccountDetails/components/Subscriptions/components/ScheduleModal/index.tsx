@@ -1,5 +1,4 @@
-import { useContext, useState, useMemo, useEffect } from "react";
-import { UserContext } from "@/pages/Root";
+import { useState, useMemo, useEffect } from "react";
 import { Button, Modal } from "@mantine/core";
 import {
     frequencies,
@@ -15,12 +14,10 @@ export type TScheduleModal = {
     opened: boolean;
     onClose: () => unknown;
     onChange?: (newValues: { count: number; frequency: SubscriptionFrequency }) => unknown;
+    awaiting: boolean;
 };
 
-export function ScheduleModal({ data, opened, onClose, onChange }: TScheduleModal) {
-    const { subscriptions } = useContext(UserContext);
-    const { awaiting } = subscriptions;
-
+export function ScheduleModal({ data, opened, onClose, onChange, awaiting }: TScheduleModal) {
     const { count, frequency, nextDate, product, variant } = data;
     const { allowance } = product;
     const { allowanceOverride } = variant;

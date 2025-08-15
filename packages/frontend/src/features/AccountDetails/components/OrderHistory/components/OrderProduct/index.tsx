@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { UserContext } from "@/pages/Root";
 import { Skeleton, Image } from "@mantine/core";
 import { variantOptions } from "@/utils/products/product";
 import { PopulatedOrderData } from "@/utils/products/orders";
@@ -9,12 +7,10 @@ import styles from "./index.module.css";
 
 export type TOrderProduct = {
     data: PopulatedOrderData["products"][number];
+    awaiting: boolean;
 };
 
-export function OrderProduct({ data }: TOrderProduct) {
-    const { orders } = useContext(UserContext);
-    const { awaiting } = orders;
-
+export function OrderProduct({ data, awaiting }: TOrderProduct) {
     const { product, variant, quantity, cost } = data;
     const { unit } = cost;
 

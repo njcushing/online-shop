@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { UserContext } from "@/pages/Root";
 import { Button, Modal } from "@mantine/core";
 import { PopulatedSubscriptionData } from "@/utils/products/subscriptions";
 import dayjs from "dayjs";
@@ -10,12 +8,10 @@ export type TCancellationModal = {
     data: PopulatedSubscriptionData;
     opened: boolean;
     onClose: () => unknown;
+    awaiting: boolean;
 };
 
-export function CancellationModal({ data, opened, onClose }: TCancellationModal) {
-    const { subscriptions } = useContext(UserContext);
-    const { awaiting } = subscriptions;
-
+export function CancellationModal({ data, opened, onClose, awaiting }: TCancellationModal) {
     const { count, nextDate } = data;
 
     return (
@@ -34,7 +30,7 @@ export function CancellationModal({ data, opened, onClose }: TCancellationModal)
                 close: styles["modal-close"],
             }}
         >
-            <SubscriptionProduct data={data} />
+            <SubscriptionProduct data={data} awaiting={awaiting} />
 
             <p className={styles["frequency-message"]}>
                 Your next delivery of {count} {`unit${count !== 1 ? "s" : ""}`} is set to be

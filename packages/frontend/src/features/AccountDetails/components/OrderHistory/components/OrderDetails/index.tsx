@@ -1,17 +1,13 @@
-import { useContext } from "react";
-import { UserContext } from "@/pages/Root";
 import { Accordion } from "@mantine/core";
 import { PopulatedOrderData } from "@/utils/products/orders";
 import styles from "./index.module.css";
 
 export type TOrderDetails = {
     data: PopulatedOrderData;
+    awaiting: boolean;
 };
 
-export function OrderDetails({ data }: TOrderDetails) {
-    const { orders } = useContext(UserContext);
-    const { awaiting } = orders;
-
+export function OrderDetails({ data, awaiting }: TOrderDetails) {
     const { cost, deliveryAddress, billingAddress } = data;
 
     const { total, products: productsSubtotal, postage } = cost;

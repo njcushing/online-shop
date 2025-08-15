@@ -1,5 +1,4 @@
-import { Fragment, useContext } from "react";
-import { UserContext } from "@/pages/Root";
+import { Fragment } from "react";
 import { useMatches, Divider, Skeleton } from "@mantine/core";
 import { OrderStatus, PopulatedOrderData } from "@/utils/products/orders";
 import dayjs from "dayjs";
@@ -75,12 +74,10 @@ const statusMessage = (
 
 export type TOrderSummary = {
     data: PopulatedOrderData;
+    awaiting: boolean;
 };
 
-export function OrderSummary({ data }: TOrderSummary) {
-    const { orders } = useContext(UserContext);
-    const { awaiting } = orders;
-
+export function OrderSummary({ data, awaiting }: TOrderSummary) {
     const { orderNo, status, cost, products, orderDate, deliveryInfo } = data;
 
     const { total } = cost;
@@ -172,7 +169,7 @@ export function OrderSummary({ data }: TOrderSummary) {
                     {products.map((product, i) => {
                         return (
                             <Fragment key={uuid()}>
-                                <OrderProduct data={product} />
+                                <OrderProduct data={product} awaiting={awaiting} />
                                 {i < products.length - 1 && (
                                     <Divider
                                         size="sm"
@@ -185,7 +182,7 @@ export function OrderSummary({ data }: TOrderSummary) {
                 </ul>
             </div>
 
-            <OrderDetails data={data} />
+            <OrderDetails data={data} awaiting={awaiting} />
         </li>
     );
 }

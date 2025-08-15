@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { UserContext } from "@/pages/Root";
 import { Link } from "react-router-dom";
 import { Skeleton, Image } from "@mantine/core";
 import { variantOptions } from "@/utils/products/product";
@@ -9,12 +7,10 @@ import styles from "./index.module.css";
 
 export type TSubscriptionProduct = {
     data: PopulatedSubscriptionData;
+    awaiting: boolean;
 };
 
-export function SubscriptionProduct({ data }: TSubscriptionProduct) {
-    const { subscriptions } = useContext(UserContext);
-    const { awaiting } = subscriptions;
-
+export function SubscriptionProduct({ data, awaiting }: TSubscriptionProduct) {
     const { product, variant } = data;
 
     const { id: productId, slug, name, images } = product;
