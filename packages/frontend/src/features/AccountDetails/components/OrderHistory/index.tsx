@@ -101,17 +101,6 @@ export function OrderHistory() {
 
     return (data && data.length > 0) || awaitingOverride ? (
         <div className={styles["order-history-container"]} ref={targetRef}>
-            <Skeleton visible={awaitingOverride}>
-                <p
-                    className={styles["order-count"]}
-                    style={{ visibility: awaitingOverride ? "hidden" : "initial" }}
-                >
-                    {orderIds.length} orders
-                </p>
-            </Skeleton>
-
-            <Divider className={styles["divider"]} />
-
             <div className={styles["filter-container"]}>
                 <label htmlFor="filter-orders" className={styles["label"]}>
                     Display orders placed within
