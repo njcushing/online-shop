@@ -14,7 +14,7 @@ const getProps = (component: HTMLElement) => {
 // Mock contexts are only using fields relevant to component being tested
 
 const mockUser: RecursivePartial<IUserContext["user"]["response"]["data"]> = {
-    subscriptions: [],
+    subscriptions: ["1", "2", "3"],
 };
 
 const mockSubscriptions: RecursivePartial<IUserContext["subscriptions"]["response"]["data"]> = [
@@ -104,6 +104,42 @@ vi.mock(
 );
 
 describe("The Subscriptions component...", () => {
+    describe("Should render a text element with textContent equal to 'X active subscriptions'...", () => {
+        test("Where 'X' is equal to the length of the UserContext's 'user.response.data.subscriptions' array", async () => {
+            const { rerenderFunc } = await renderFunc({
+                UserContextOverride: { subscriptions: { awaiting: true } } as IUserContext,
+            });
+            rerenderFunc({
+                UserContextOverride: { subscriptions: { awaiting: false } } as IUserContext,
+            });
+
+            const { subscriptions: subscriptionIds } = mockUserContext!.user!.response!.data!;
+
+            const subscriptionQuantity = screen.getByText(
+                `${subscriptionIds.length} active subscriptions`,
+            );
+            expect(subscriptionQuantity).toBeInTheDocument();
+        });
+
+        test("Where 'X' is equal to 0 if the UserContext's 'user.response.data' field is falsy", async () => {
+            const { rerenderFunc } = await renderFunc({
+                UserContextOverride: {
+                    user: { response: { data: null } },
+                    subscriptions: { awaiting: true },
+                } as IUserContext,
+            });
+            rerenderFunc({
+                UserContextOverride: {
+                    user: { response: { data: null } },
+                    subscriptions: { awaiting: false },
+                } as IUserContext,
+            });
+
+            const subscriptionQuantity = screen.getByText("0 active subscriptions");
+            expect(subscriptionQuantity).toBeInTheDocument();
+        });
+    });
+
     describe("Should render a <ul> element...", () => {
         test("If the UserContext's 'subscriptions.response.data' array field contains at least one entry", () => {
             renderFunc();

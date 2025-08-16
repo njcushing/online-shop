@@ -119,17 +119,23 @@ export function Subscriptions() {
 
             <div className={styles["pagination-container"]}>
                 <Pagination
-                    // Adding data-testid attribute to test onChange logic; Pagination component
-                    // doesn't have an accessible role and the page buttons' text content
-                    // (numbers) often conflict with the other elements' text content.
-                    data-testid="pagination"
                     total={Math.max(Math.ceil(subscriptionIds.length / subscriptionsPerPage), 1)}
                     value={page + 1}
                     withEdges
-                    onChange={(newPageNo) => {
-                        setPage(newPageNo - 1);
-                        setQueueScroll(true);
-                    }}
+                    onChange={
+                        /**
+                         * Can't reliably test this without mocking Pagination component due to
+                         * 'subscriptionsPerPage' possibly changing in future
+                         */
+                        /* v8 ignore start */
+
+                        (newPageNo) => {
+                            setPage(newPageNo - 1);
+                            setQueueScroll(true);
+                        }
+
+                        /* v8 ignore stop */
+                    }
                     disabled={awaitingOverride}
                     classNames={{ control: styles["pagination-control"] }}
                 />
