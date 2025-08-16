@@ -1,5 +1,5 @@
 import { vi } from "vitest";
-import { screen, render, within } from "@test-utils";
+import { screen, render, within, fireEvent } from "@test-utils";
 import _ from "lodash";
 import { act } from "react";
 import { RecursivePartial } from "@/utils/types";
@@ -123,6 +123,84 @@ describe("The OrderHistory component...", () => {
 
             const ulElement = screen.queryByRole("list");
             expect(ulElement).not.toBeInTheDocument();
+        });
+
+        describe("That should contain a <select> element for filtering orders...", () => {
+            test("Wrapped in a <label> element with textContent equal to 'Display orders placed within'", () => {
+                renderFunc();
+
+                const filterSelectLabel = screen.getByText("Display orders placed within");
+                expect(filterSelectLabel).toBeInTheDocument();
+                expect(filterSelectLabel.tagName).toBe("LABEL");
+
+                const filterSelect = within(filterSelectLabel).getByRole("combobox");
+                expect(filterSelect).toBeInTheDocument();
+            });
+
+            test("That should, onChange, cause the 'setParams' function to be invoked with the selected filter", async () => {
+                const setParamsSpy = vi.fn();
+                await renderFunc({
+                    UserContextOverride: {
+                        orders: { setParams: setParamsSpy } as unknown as IUserContext["orders"],
+                    } as IUserContext,
+                });
+
+                const filterSelectLabel = screen.getByText("Display orders placed within");
+                const filterSelect = within(filterSelectLabel).getByRole("combobox");
+
+                /**
+                 * Injecting a fake <option> element into the <select> for this test only allows me
+                 * to test onChange logic without updating test if the real options change in future
+                 */
+                const fakeOption = document.createElement("option");
+                fakeOption.value = "filter_value";
+                filterSelect.appendChild(fakeOption);
+
+                setParamsSpy.mockRestore();
+
+                await act(async () =>
+                    fireEvent.change(filterSelect, { target: { value: "filter_value" } }),
+                );
+
+                expect(setParamsSpy).toHaveBeenCalledTimes(1);
+                expect(setParamsSpy).toHaveBeenCalledWith(
+                    expect.arrayContaining([
+                        expect.objectContaining({
+                            params: expect.objectContaining({
+                                filter: "filter_value",
+                            }),
+                        }),
+                    ]),
+                );
+            });
+
+            test("That should, onChange, cause the 'attempt' function to be invoked", async () => {
+                const attemptSpy = vi.fn();
+                await renderFunc({
+                    UserContextOverride: {
+                        orders: { attempt: attemptSpy } as unknown as IUserContext["orders"],
+                    } as IUserContext,
+                });
+
+                const filterSelectLabel = screen.getByText("Display orders placed within");
+                const filterSelect = within(filterSelectLabel).getByRole("combobox");
+
+                /**
+                 * Injecting a fake <option> element into the <select> for this test only allows me
+                 * to test onChange logic without updating test if the real options change in future
+                 */
+                const fakeOption = document.createElement("option");
+                fakeOption.value = "filter_value";
+                filterSelect.appendChild(fakeOption);
+
+                attemptSpy.mockRestore();
+
+                await act(async () =>
+                    fireEvent.change(filterSelect, { target: { value: "filter_value" } }),
+                );
+
+                expect(attemptSpy).toHaveBeenCalledTimes(1);
+            });
         });
 
         describe("That renders an OrderSummary component...", () => {
