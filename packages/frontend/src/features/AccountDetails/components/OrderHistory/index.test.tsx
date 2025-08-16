@@ -17,11 +17,10 @@ const mockUser: RecursivePartial<IUserContext["user"]["response"]["data"]> = {
     orders: [],
 };
 
-const mockOrders: RecursivePartial<IUserContext["orders"]["response"]["data"]> = [
-    { id: "1" },
-    { id: "2" },
-    { id: "3" },
-];
+const mockOrders: RecursivePartial<IUserContext["orders"]["response"]["data"]> = {
+    quantity: 3,
+    orders: [{ id: "1" }, { id: "2" }, { id: "3" }],
+};
 
 const mockUserContext: RecursivePartial<IUserContext> = {
     user: {
@@ -214,7 +213,7 @@ describe("The OrderHistory component...", () => {
 
                 const ulElement = screen.getByRole("list");
 
-                mockOrders.forEach((order) => {
+                mockOrders.orders!.forEach((order) => {
                     const { id } = order!;
 
                     const OrderSummaryComponent = within(ulElement).getByText(
@@ -248,7 +247,7 @@ describe("The OrderHistory component...", () => {
 
                 const ulElement = screen.getByRole("list");
 
-                mockOrders.forEach((order, i) => {
+                mockOrders.orders!.forEach((order, i) => {
                     const { id } = order!;
 
                     const OrderSummaryComponent = within(ulElement).getByText(
@@ -256,7 +255,7 @@ describe("The OrderHistory component...", () => {
                     );
                     const props = getProps(OrderSummaryComponent);
                     expect(props).toStrictEqual({
-                        data: mockUserContext.orders!.response!.data![i],
+                        data: mockUserContext.orders!.response!.data!.orders[i],
                         awaiting: false,
                     });
                 });

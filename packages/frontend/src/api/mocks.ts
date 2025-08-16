@@ -163,7 +163,7 @@ export const mockGetOrders: HTTPMethodTypes.GET<
         start?: number;
         end?: number;
     },
-    PopulatedOrderData[]
+    { quantity: number; orders: PopulatedOrderData[] }
 > = async (data) => {
     const { params } = data;
     const { filter, start, end } = params || {};
@@ -217,13 +217,15 @@ export const mockGetOrders: HTTPMethodTypes.GET<
         default:
     }
 
+    const quantity = filteredOrders.length;
+
     let slicedOrders = filteredOrders;
     slicedOrders = slicedOrders.slice(start, end);
 
     return {
         status: 200,
         message: "Success",
-        data: slicedOrders,
+        data: { quantity, orders: slicedOrders },
     };
 };
 

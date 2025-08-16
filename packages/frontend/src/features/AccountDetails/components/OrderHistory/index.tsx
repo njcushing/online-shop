@@ -23,15 +23,9 @@ export function OrderHistory() {
     const { headerInfo } = useContext(RootContext);
     const { forceClose } = headerInfo;
 
-    const { user, orders, defaultData } = useContext(UserContext);
-
-    const { response: userResponse } = user;
-    const { response: ordersResponse, setParams, attempt, awaiting } = orders;
-
-    const { data: userData } = userResponse;
-    const { data: ordersData } = ordersResponse;
-
-    const { orders: orderIds = [] } = userData || {};
+    const { orders, defaultData } = useContext(UserContext);
+    const { response, setParams, attempt, awaiting } = orders;
+    const { data } = response;
 
     const [filter, setFilter] = useState<FilterOption>("1_month");
     const [page, setPage] = useState<number>(0);
@@ -95,11 +89,12 @@ export function OrderHistory() {
 
     const awaitingOverride = awaiting || !hasAttempted.current;
 
-    const data = !awaitingOverride
+    const { quantity, orders: ordersData } = data || { quantity: 0, orders: [] };
+    const orderData = !awaitingOverride
         ? ordersData
-        : (defaultData.orders as NonNullable<IUserContext["orders"]["response"]["data"]>);
+        : (defaultData.orders as NonNullable<IUserContext["orders"]["response"]["data"]>["orders"]);
 
-    return (data && data.length > 0) || awaitingOverride ? (
+    return (orderData && orderData.length > 0) || awaitingOverride ? (
         <div className={styles["order-history-container"]} ref={targetRef}>
             <div className={styles["filter-container"]}>
                 <label htmlFor="filter-orders" className={styles["label"]}>
@@ -137,17 +132,16 @@ export function OrderHistory() {
             </div>
 
             <ul className={styles["order-history"]}>
-                {data &&
-                    data.slice(0, ordersPerPage).map((order) => {
-                        const { id } = order;
+                {orderData.slice(0, ordersPerPage).map((order) => {
+                    const { id } = order;
 
-                        return <OrderSummary data={order} awaiting={awaitingOverride} key={id} />;
-                    })}
+                    return <OrderSummary data={order} awaiting={awaitingOverride} key={id} />;
+                })}
             </ul>
 
             <div className={styles["pagination-container"]}>
                 <Pagination
-                    total={Math.max(Math.ceil(orderIds.length / ordersPerPage), 1)}
+                    total={Math.max(Math.ceil(quantity / ordersPerPage), 1)}
                     value={page + 1}
                     withEdges
                     onChange={
