@@ -100,6 +100,22 @@ vi.mock("@/features/AccountDetails/components/OrderHistory/components/OrderSumma
 }));
 
 describe("The OrderHistory component...", () => {
+    describe("Should render a text element with textContent equal to 'X orders'...", () => {
+        test("Where 'X' is equal to the value of the UserContext's 'orders.response.data.quantity' field", async () => {
+            const { rerenderFunc } = await renderFunc({
+                UserContextOverride: { orders: { awaiting: true } } as IUserContext,
+            });
+            rerenderFunc({
+                UserContextOverride: { orders: { awaiting: false } } as IUserContext,
+            });
+
+            const { quantity } = mockUserContext!.orders!.response!.data!;
+
+            const orderQuantity = screen.getByText(`${quantity} orders`);
+            expect(orderQuantity).toBeInTheDocument();
+        });
+    });
+
     describe("Should render a <ul> element...", () => {
         test("If the UserContext's 'orders.response.data' array field contains at least one entry", () => {
             renderFunc();

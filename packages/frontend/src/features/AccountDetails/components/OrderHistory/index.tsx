@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect, useRef, useMemo } from "react";
 import { RootContext, IUserContext, UserContext } from "@/pages/Root";
 import { useScrollIntoView } from "@mantine/hooks";
-import { Pagination } from "@mantine/core";
+import { Skeleton, Divider, Pagination } from "@mantine/core";
 import { v4 as uuid } from "uuid";
 import { OrderSummary } from "./components/OrderSummary";
 import styles from "./index.module.css";
@@ -96,6 +96,17 @@ export function OrderHistory() {
 
     return (orderData && orderData.length > 0) || awaitingOverride ? (
         <div className={styles["order-history-container"]} ref={targetRef}>
+            <Skeleton visible={awaitingOverride}>
+                <p
+                    className={styles["order-count"]}
+                    style={{ visibility: awaitingOverride ? "hidden" : "initial" }}
+                >
+                    {quantity} orders
+                </p>
+            </Skeleton>
+
+            <Divider className={styles["divider"]} />
+
             <div className={styles["filter-container"]}>
                 <label htmlFor="filter-orders" className={styles["label"]}>
                     Display orders placed within

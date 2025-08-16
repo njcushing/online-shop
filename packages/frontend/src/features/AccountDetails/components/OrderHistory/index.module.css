@@ -4,6 +4,21 @@
     gap: 16px;
 }
 
+.order-count {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 1.6rem;
+    font-weight: 600;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.8rem;
+    }
+}
+
+.divider {
+    --divider-color: rgba(0, 0, 0, 0.6);
+}
+
 .filter-container {
     display: flex;
     flex-direction: column;
