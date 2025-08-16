@@ -123,7 +123,7 @@ export function Subscriptions() {
                     // doesn't have an accessible role and the page buttons' text content
                     // (numbers) often conflict with the other elements' text content.
                     data-testid="pagination"
-                    total={Math.ceil(subscriptionIds.length / subscriptionsPerPage)}
+                    total={Math.max(Math.ceil(subscriptionIds.length / subscriptionsPerPage), 1)}
                     value={page + 1}
                     withEdges
                     onChange={(newPageNo) => {

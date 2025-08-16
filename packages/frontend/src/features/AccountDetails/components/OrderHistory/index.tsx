@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect, useRef, useMemo } from "react";
 import { RootContext, IUserContext, UserContext } from "@/pages/Root";
 import { useScrollIntoView } from "@mantine/hooks";
-import { Skeleton, Divider, Pagination } from "@mantine/core";
+import { Skeleton, Pagination } from "@mantine/core";
 import { v4 as uuid } from "uuid";
 import { OrderSummary } from "./components/OrderSummary";
 import styles from "./index.module.css";
@@ -155,7 +155,7 @@ export function OrderHistory() {
                         // doesn't have an accessible role and the page buttons' text content
                         // (numbers) often conflict with the other elements' text content.
                         data-testid="pagination"
-                        total={Math.ceil(orderIds.length / ordersPerPage)}
+                        total={Math.max(Math.ceil(orderIds.length / ordersPerPage), 1)}
                         value={page + 1}
                         withEdges
                         onChange={(newPageNo) => {
