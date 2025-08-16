@@ -33,6 +33,7 @@ const mockOrder: RecursivePartial<NonNullable<IUserContext["orders"]["response"]
     };
 const mockProps: RecursivePartial<TOrderSummary> = {
     data: mockOrder as NonNullable<IUserContext["orders"]["response"]["data"]>[number],
+    awaiting: false,
 };
 
 const mockUserContext: RecursivePartial<IUserContext> = {
@@ -171,9 +172,9 @@ describe("The OrderSummary component...", () => {
                 expect(props).toEqual(expect.objectContaining({ base: total, current: total }));
             });
 
-            test("Unless the UserContext's 'orders.awaiting' field is 'true'", () => {
+            test("Unless the 'awaiting' prop is 'true'", async () => {
                 renderFunc({
-                    UserContextOverride: { orders: { awaiting: true } } as unknown as IUserContext,
+                    propsOverride: { awaiting: true } as TOrderSummary,
                 });
 
                 const liElement = screen.getByRole("listitem");
@@ -328,7 +329,10 @@ describe("The OrderSummary component...", () => {
                             `OrderProduct id: ${id}`,
                         );
                         const props = getProps(OrderProductComponent);
-                        expect(props).toStrictEqual({ data: orderProduct });
+                        expect(props).toStrictEqual({
+                            data: orderProduct,
+                            awaiting: mockProps.awaiting,
+                        });
                     });
                 });
             });

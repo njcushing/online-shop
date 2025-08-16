@@ -112,10 +112,15 @@ describe("The Subscriptions component...", () => {
             expect(ulElement).toBeInTheDocument();
         });
 
-        test("Unless the UserContext's 'subscriptions.data' and 'defaultData.subscriptions' array fields are falsy or empty", () => {
-            renderFunc({
+        test("Unless the UserContext's 'subscriptions.data' and 'defaultData.subscriptions' array fields are falsy or empty", async () => {
+            const { rerenderFunc } = await renderFunc({
                 UserContextOverride: {
-                    subscriptions: { response: { data: null } },
+                    subscriptions: { response: { data: null }, awaiting: true },
+                } as IUserContext,
+            });
+            rerenderFunc({
+                UserContextOverride: {
+                    subscriptions: { response: { data: null }, awaiting: false },
                 } as IUserContext,
             });
 
@@ -124,8 +129,13 @@ describe("The Subscriptions component...", () => {
         });
 
         describe("That renders an SubscriptionSummary component...", () => {
-            test("For each entry in the UserContext's 'subscriptions.data' array field", () => {
-                renderFunc();
+            test("For each entry in the UserContext's 'subscriptions.data' array field", async () => {
+                const { rerenderFunc } = await renderFunc({
+                    UserContextOverride: { subscriptions: { awaiting: true } } as IUserContext,
+                });
+                rerenderFunc({
+                    UserContextOverride: { subscriptions: { awaiting: false } } as IUserContext,
+                });
 
                 const ulElement = screen.getByRole("list");
 
@@ -155,8 +165,13 @@ describe("The Subscriptions component...", () => {
                 expect(SubscriptionSummaryComponent).toBeInTheDocument();
             });
 
-            test("Passing the correct props", () => {
-                renderFunc();
+            test("Passing the correct props", async () => {
+                const { rerenderFunc } = await renderFunc({
+                    UserContextOverride: { subscriptions: { awaiting: true } } as IUserContext,
+                });
+                rerenderFunc({
+                    UserContextOverride: { subscriptions: { awaiting: false } } as IUserContext,
+                });
 
                 const ulElement = screen.getByRole("list");
 
@@ -169,15 +184,23 @@ describe("The Subscriptions component...", () => {
                     const props = getProps(SubscriptionSummaryComponent);
                     expect(props).toStrictEqual({
                         data: mockUserContext.subscriptions!.response!.data![i],
+                        awaiting: false,
                     });
                 });
             });
         });
     });
 
-    test("Should render a relevant message if the UserContext's 'subscriptions.data' and 'defaultData.subscriptions' array fields are falsy or empty", () => {
-        renderFunc({
-            UserContextOverride: { subscriptions: { response: { data: null } } } as IUserContext,
+    test("Should render a relevant message if the UserContext's 'subscriptions.data' and 'defaultData.subscriptions' array fields are falsy or empty", async () => {
+        const { rerenderFunc } = await renderFunc({
+            UserContextOverride: {
+                subscriptions: { response: { data: null }, awaiting: true },
+            } as IUserContext,
+        });
+        rerenderFunc({
+            UserContextOverride: {
+                subscriptions: { response: { data: null }, awaiting: false },
+            } as IUserContext,
         });
 
         const messageElement = screen.getByText("Nothing to show!");

@@ -290,10 +290,12 @@ describe("The Root component...", () => {
 
             test("Which should be populated by the 'response' field in the return value of the 'useAsync' hook for the 'mockGetOrders' function", async () => {
                 const { getUserContextValue } = await renderFunc();
-                const UserContextValue = getUserContextValue();
 
-                const { orders } = UserContextValue;
-                const { response } = orders;
+                const { attempt } = getUserContextValue().orders;
+
+                await act(async () => attempt());
+
+                const { response } = getUserContextValue().orders;
 
                 expect(response).toEqual(expect.objectContaining(await mockMockGetOrders()));
             });
@@ -317,10 +319,12 @@ describe("The Root component...", () => {
 
             test("Which should be populated by the 'response' field in the return value of the 'useAsync' hook for the 'mockGetSubscriptions' function", async () => {
                 const { getUserContextValue } = await renderFunc();
-                const UserContextValue = getUserContextValue();
 
-                const { subscriptions } = UserContextValue;
-                const { response } = subscriptions;
+                const { attempt } = getUserContextValue().subscriptions;
+
+                await act(async () => attempt());
+
+                const { response } = getUserContextValue().subscriptions;
 
                 expect(response).toEqual(expect.objectContaining(await mockMockGetSubscriptions()));
             });

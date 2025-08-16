@@ -109,9 +109,16 @@ describe("The OrderHistory component...", () => {
             expect(ulElement).toBeInTheDocument();
         });
 
-        test("Unless the UserContext's 'orders.data' and 'defaultData.orders' array fields are falsy or empty", () => {
-            renderFunc({
-                UserContextOverride: { orders: { response: { data: null } } } as IUserContext,
+        test("Unless the UserContext's 'orders.data' and 'defaultData.orders' array fields are falsy or empty", async () => {
+            const { rerenderFunc } = await renderFunc({
+                UserContextOverride: {
+                    orders: { response: { data: null }, awaiting: true },
+                } as IUserContext,
+            });
+            rerenderFunc({
+                UserContextOverride: {
+                    orders: { response: { data: null }, awaiting: false },
+                } as IUserContext,
             });
 
             const ulElement = screen.queryByRole("list");
@@ -119,8 +126,13 @@ describe("The OrderHistory component...", () => {
         });
 
         describe("That renders an OrderSummary component...", () => {
-            test("For each entry in the UserContext's 'orders.data' array field", () => {
-                renderFunc();
+            test("For each entry in the UserContext's 'orders.data' array field", async () => {
+                const { rerenderFunc } = await renderFunc({
+                    UserContextOverride: { orders: { awaiting: true } } as IUserContext,
+                });
+                rerenderFunc({
+                    UserContextOverride: { orders: { awaiting: false } } as IUserContext,
+                });
 
                 const ulElement = screen.getByRole("list");
 
@@ -148,8 +160,13 @@ describe("The OrderHistory component...", () => {
                 expect(OrderSummaryComponent).toBeInTheDocument();
             });
 
-            test("Passing the correct props", () => {
-                renderFunc();
+            test("Passing the correct props", async () => {
+                const { rerenderFunc } = await renderFunc({
+                    UserContextOverride: { orders: { awaiting: true } } as IUserContext,
+                });
+                rerenderFunc({
+                    UserContextOverride: { orders: { awaiting: false } } as IUserContext,
+                });
 
                 const ulElement = screen.getByRole("list");
 
@@ -162,15 +179,23 @@ describe("The OrderHistory component...", () => {
                     const props = getProps(OrderSummaryComponent);
                     expect(props).toStrictEqual({
                         data: mockUserContext.orders!.response!.data![i],
+                        awaiting: false,
                     });
                 });
             });
         });
     });
 
-    test("Should render a relevant message if the UserContext's 'orders.data' and 'defaultData.orders' array fields are falsy or empty", () => {
-        renderFunc({
-            UserContextOverride: { orders: { response: { data: null } } } as IUserContext,
+    test("Should render a relevant message if the UserContext's 'orders.data' and 'defaultData.orders' array fields are falsy or empty", async () => {
+        const { rerenderFunc } = await renderFunc({
+            UserContextOverride: {
+                orders: { response: { data: null }, awaiting: true },
+            } as IUserContext,
+        });
+        rerenderFunc({
+            UserContextOverride: {
+                orders: { response: { data: null }, awaiting: false },
+            } as IUserContext,
         });
 
         const messageElement = screen.getByText("Nothing to show!");

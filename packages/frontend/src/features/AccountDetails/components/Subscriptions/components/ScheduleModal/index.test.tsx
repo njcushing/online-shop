@@ -30,6 +30,7 @@ const mockProps: RecursivePartial<TScheduleModal> = {
     opened: true,
     onClose: () => {},
     onChange: () => {},
+    awaiting: false,
 };
 
 const mockUserContext: RecursivePartial<IUserContext> = {
@@ -208,7 +209,7 @@ describe("The ScheduleModal component...", () => {
                         defaultValue: mockProps.data!.count,
                         min: 1,
                         max: mockProps.data!.variant!.allowanceOverride,
-                        disabled: mockUserContext.subscriptions!.awaiting,
+                        disabled: mockProps.awaiting,
                     }),
                 );
             });
@@ -233,7 +234,7 @@ describe("The ScheduleModal component...", () => {
                         defaultValue: mockProps.data!.count,
                         min: 1,
                         max: mockProps.data!.product!.allowance,
-                        disabled: mockUserContext.subscriptions!.awaiting,
+                        disabled: mockProps.awaiting,
                     }),
                 );
             });
@@ -337,9 +338,9 @@ describe("The ScheduleModal component...", () => {
             expect(saveChangesButton).not.toBeInTheDocument();
         });
 
-        test("Unless the UserContext's 'subscriptions.awaiting' field is 'true'", async () => {
-            await renderFunc({
-                UserContextOverride: { subscriptions: { awaiting: true } } as IUserContext,
+        test("Unless the 'awaiting' prop is 'true'", async () => {
+            renderFunc({
+                propsOverride: { awaiting: true } as TScheduleModal,
             });
 
             const selectElement = screen.getByRole("combobox");

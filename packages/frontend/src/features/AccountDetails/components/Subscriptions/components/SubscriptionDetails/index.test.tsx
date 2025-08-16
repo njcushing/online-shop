@@ -34,6 +34,7 @@ const mockProps: RecursivePartial<TSubscriptionDetails> = {
     data: mockSubscription as NonNullable<
         IUserContext["subscriptions"]["response"]["data"]
     >[number],
+    awaiting: false,
 };
 
 const mockUserContext: RecursivePartial<IUserContext> = {

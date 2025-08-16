@@ -23,6 +23,7 @@ const mockProps: RecursivePartial<TSubscriptionSummary> = {
     data: mockSubscription as NonNullable<
         IUserContext["subscriptions"]["response"]["data"]
     >[number],
+    awaiting: false,
 };
 
 const mockUserContext: RecursivePartial<IUserContext> = {
@@ -293,12 +294,12 @@ describe("The SubscriptionSummary component...", () => {
                 expect(frequencyMessageElement).toBeInTheDocument();
             });
 
-            test("Unless the UserContext's 'subscriptions.awaiting' field is 'true'", () => {
+            test("Unless the 'awaiting' prop is 'true'", () => {
                 renderFunc({
-                    UserContextOverride: {
-                        subscriptions: { awaiting: true },
-                    } as unknown as IUserContext,
-                    propsOverride: { data: { frequency: "one_week" } } as TSubscriptionSummary,
+                    propsOverride: {
+                        data: { frequency: "one_week" },
+                        awaiting: true,
+                    } as TSubscriptionSummary,
                 });
 
                 const liElement = screen.getByRole("listitem");
@@ -323,11 +324,9 @@ describe("The SubscriptionSummary component...", () => {
                 expect(nextDeliveryDateElement).toBeInTheDocument();
             });
 
-            test("Unless the UserContext's 'subscriptions.awaiting' field is 'true'", () => {
+            test("Unless the 'awaiting' prop is 'true'", () => {
                 renderFunc({
-                    UserContextOverride: {
-                        subscriptions: { awaiting: true },
-                    } as unknown as IUserContext,
+                    propsOverride: { awaiting: true } as TSubscriptionSummary,
                 });
 
                 const liElement = screen.getByRole("listitem");
@@ -366,7 +365,7 @@ describe("The SubscriptionSummary component...", () => {
                     `SubscriptionProduct id: ${id}`,
                 );
                 const props = getProps(SubscriptionProductComponent);
-                expect(props).toStrictEqual({ data });
+                expect(props).toStrictEqual({ data, awaiting: mockProps.awaiting });
             });
         });
 
@@ -400,11 +399,9 @@ describe("The SubscriptionSummary component...", () => {
                 expect(getProps(ScheduleModalComponent).opened).toBe(true);
             });
 
-            test("Unless the UserContext's 'subscriptions.awaiting' field is 'true'", () => {
+            test("Unless the 'awaiting' prop is 'true'", () => {
                 renderFunc({
-                    UserContextOverride: {
-                        subscriptions: { awaiting: true },
-                    } as unknown as IUserContext,
+                    propsOverride: { awaiting: true } as TSubscriptionSummary,
                 });
 
                 const liElement = screen.getByRole("listitem");
@@ -447,11 +444,9 @@ describe("The SubscriptionSummary component...", () => {
                 expect(getProps(CancellationModalComponent).opened).toBe(true);
             });
 
-            test("Unless the UserContext's 'subscriptions.awaiting' field is 'true'", () => {
+            test("Unless the 'awaiting' prop is 'true'", () => {
                 renderFunc({
-                    UserContextOverride: {
-                        subscriptions: { awaiting: true },
-                    } as unknown as IUserContext,
+                    propsOverride: { awaiting: true } as TSubscriptionSummary,
                 });
 
                 const liElement = screen.getByRole("listitem");

@@ -25,6 +25,7 @@ const mockProduct = {
 };
 const mockProps: RecursivePartial<TSubscriptionProduct> = {
     data: { product: mockProduct, variant: mockVariant },
+    awaiting: false,
 };
 
 // Mock contexts are only using fields relevant to component being tested
@@ -173,11 +174,9 @@ describe("The SubscriptionProduct component...", () => {
             expect(productImage.getAttribute("src")).toBe(src);
         });
 
-        test("Unless the UserContext's 'subscriptions.awaiting' field is 'true'", () => {
+        test("Unless the 'awaiting' prop is 'true'", () => {
             renderFunc({
-                UserContextOverride: {
-                    subscriptions: { awaiting: true },
-                } as unknown as IUserContext,
+                propsOverride: { awaiting: true } as TSubscriptionProduct,
             });
 
             const { alt } = mockVariant.image;
@@ -214,11 +213,9 @@ describe("The SubscriptionProduct component...", () => {
             expect(LinkComponent.getAttribute("href")).toBe(`/p/${id}/${slug}?${variantUrlParams}`);
         });
 
-        test("Unless the UserContext's 'subscriptions.awaiting' field is 'true'", () => {
+        test("Unless the 'awaiting' prop is 'true'", () => {
             renderFunc({
-                UserContextOverride: {
-                    subscriptions: { awaiting: true },
-                } as unknown as IUserContext,
+                propsOverride: { awaiting: true } as TSubscriptionProduct,
             });
 
             const LinkComponent = screen.queryByRole("link");
@@ -241,11 +238,9 @@ describe("The SubscriptionProduct component...", () => {
             expect(screen.getByText("option2Value")).toBeInTheDocument();
         });
 
-        test("Unless the UserContext's 'subscriptions.awaiting' field is 'true'", () => {
+        test("Unless the 'awaiting' prop is 'true'", () => {
             renderFunc({
-                UserContextOverride: {
-                    subscriptions: { awaiting: true },
-                } as unknown as IUserContext,
+                propsOverride: { awaiting: true } as TSubscriptionProduct,
             });
 
             // queryByText *does not* exclude hidden elements - must manually check visibility
@@ -277,11 +272,9 @@ describe("The SubscriptionProduct component...", () => {
             );
         });
 
-        test("Unless the UserContext's 'subscriptions.awaiting' field is 'true'", () => {
+        test("Unless the 'awaiting' prop is 'true'", () => {
             renderFunc({
-                UserContextOverride: {
-                    subscriptions: { awaiting: true },
-                } as unknown as IUserContext,
+                propsOverride: { awaiting: true } as TSubscriptionProduct,
             });
 
             // queryByLabelText *does not* exclude hidden elements - must manually check visibility
@@ -302,11 +295,9 @@ describe("The SubscriptionProduct component...", () => {
             expect(subscriptionDiscountMessageElement).toBeInTheDocument();
         });
 
-        test("Unless the UserContext's 'subscriptions.awaiting' field is 'true'", () => {
+        test("Unless the 'awaiting' prop is 'true'", () => {
             renderFunc({
-                UserContextOverride: {
-                    subscriptions: { awaiting: true },
-                } as unknown as IUserContext,
+                propsOverride: { awaiting: true } as TSubscriptionProduct,
             });
 
             const { subscriptionDiscountPercentage } = mockProps.data!.variant!.price!;

@@ -28,6 +28,7 @@ const mockProps: RecursivePartial<TCancellationModal> = {
     >[number],
     opened: true,
     onClose: () => {},
+    awaiting: false,
 };
 
 const mockUserContext: RecursivePartial<IUserContext> = {
@@ -156,7 +157,7 @@ describe("The CancellationModal component...", () => {
             );
             expect(SubscriptionProductComponent).toBeInTheDocument();
             const props = getProps(SubscriptionProductComponent);
-            expect(props).toStrictEqual({ data });
+            expect(props).toStrictEqual({ data, awaiting: mockProps.awaiting });
         });
     });
 
@@ -188,9 +189,9 @@ describe("The CancellationModal component...", () => {
             expect(saveChangesButton).toBeInTheDocument();
         });
 
-        test("Unless the UserContext's 'subscriptions.awaiting' field is 'true'", async () => {
-            await renderFunc({
-                UserContextOverride: { subscriptions: { awaiting: true } } as IUserContext,
+        test("Unless the 'awaiting' prop is 'true'", async () => {
+            renderFunc({
+                propsOverride: { awaiting: true } as TCancellationModal,
             });
 
             const saveChangesButton = screen.queryByRole("button", { name: "Yes, I'm sure" });

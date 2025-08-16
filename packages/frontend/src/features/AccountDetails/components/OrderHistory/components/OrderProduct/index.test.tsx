@@ -26,6 +26,7 @@ const mockProduct = {
 };
 const mockProps: RecursivePartial<TOrderProduct> = {
     data: { quantity: 10, cost: { unit: 1000 }, product: mockProduct, variant: mockVariant },
+    awaiting: false,
 };
 
 const mockUserContext: RecursivePartial<IUserContext> = {
@@ -185,9 +186,9 @@ describe("The OrderProduct component...", () => {
                 expect(productImage.getAttribute("src")).toBe(src);
             });
 
-            test("Unless the UserContext's 'orders.awaiting' field is 'true'", () => {
+            test("Unless the 'awaiting' prop is 'true'", async () => {
                 renderFunc({
-                    UserContextOverride: { orders: { awaiting: true } } as unknown as IUserContext,
+                    propsOverride: { awaiting: true } as TOrderProduct,
                 });
 
                 const liElement = screen.getByRole("listitem");
@@ -232,9 +233,9 @@ describe("The OrderProduct component...", () => {
                 );
             });
 
-            test("Unless the UserContext's 'orders.awaiting' field is 'true'", () => {
+            test("Unless the 'awaiting' prop is 'true'", async () => {
                 renderFunc({
-                    UserContextOverride: { orders: { awaiting: true } } as unknown as IUserContext,
+                    propsOverride: { awaiting: true } as TOrderProduct,
                 });
 
                 const liElement = screen.getByRole("listitem");
@@ -282,9 +283,9 @@ describe("The OrderProduct component...", () => {
                 expect(props).toEqual(expect.objectContaining({ base: unit, current: unit }));
             });
 
-            test("Unless the UserContext's 'orders.awaiting' field is 'true'", () => {
+            test("Unless the 'awaiting' prop is 'true'", async () => {
                 renderFunc({
-                    UserContextOverride: { orders: { awaiting: true } } as unknown as IUserContext,
+                    propsOverride: { awaiting: true } as TOrderProduct,
                 });
 
                 const liElement = screen.getByRole("listitem");
@@ -307,9 +308,9 @@ describe("The OrderProduct component...", () => {
                 expect(quantityElement).toBeInTheDocument();
             });
 
-            test("Unless the UserContext's 'orders.awaiting' field is 'true'", () => {
+            test("Unless the 'awaiting' prop is 'true'", async () => {
                 renderFunc({
-                    UserContextOverride: { orders: { awaiting: true } } as unknown as IUserContext,
+                    propsOverride: { awaiting: true } as TOrderProduct,
                 });
 
                 const liElement = screen.getByRole("listitem");

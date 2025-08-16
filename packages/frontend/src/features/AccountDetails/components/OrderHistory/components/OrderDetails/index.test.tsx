@@ -45,7 +45,8 @@ const mockOrder: RecursivePartial<NonNullable<IUserContext["orders"]["response"]
         },
     };
 const mockProps: RecursivePartial<TOrderDetails> = {
-    data: mockOrder as NonNullable<IUserContext["orders"]["data"]>[number],
+    data: mockOrder as NonNullable<IUserContext["orders"]["response"]["data"]>[number],
+    awaiting: false,
 };
 
 const mockUserContext: RecursivePartial<IUserContext> = {
