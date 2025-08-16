@@ -9,18 +9,18 @@ import { ProductHero } from ".";
 
 // Mock dependencies
 const mockUserContext: RecursivePartial<IUserContext> = {
-    cart: {
-        response: { data: [] } as IUserContext["cart"]["response"]["data"],
-        awaiting: false,
-    } as IUserContext["cart"],
-    watchlist: {
+    user: {
         response: {
-            data: [
-                { productId: "productId", variantId: "variantId" },
-            ] as IUserContext["watchlist"]["response"]["data"],
+            data: {
+                watchlist: ["variantId"],
+            } as IUserContext["user"]["response"]["data"],
         },
         awaiting: false,
-    } as IUserContext["watchlist"],
+    },
+    cart: {
+        response: { data: [] as IUserContext["cart"]["response"]["data"] },
+        awaiting: false,
+    } as IUserContext["cart"],
 };
 
 const mockVariant = {
