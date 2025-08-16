@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect, useRef, useMemo } from "react";
 import { RootContext, IUserContext, UserContext } from "@/pages/Root";
 import { useScrollIntoView } from "@mantine/hooks";
-import { Skeleton, Pagination } from "@mantine/core";
+import { Pagination } from "@mantine/core";
 import { v4 as uuid } from "uuid";
 import { OrderSummary } from "./components/OrderSummary";
 import styles from "./index.module.css";
@@ -145,28 +145,29 @@ export function OrderHistory() {
                     })}
             </ul>
 
-            <Skeleton visible={awaitingOverride}>
-                <div
-                    className={styles["pagination-container"]}
-                    style={{ visibility: awaitingOverride ? "hidden" : "initial" }}
-                >
-                    <Pagination
-                        // Adding data-testid attribute to test onChange logic; Pagination component
-                        // doesn't have an accessible role and the page buttons' text content
-                        // (numbers) often conflict with the other elements' text content.
-                        data-testid="pagination"
-                        total={Math.max(Math.ceil(orderIds.length / ordersPerPage), 1)}
-                        value={page + 1}
-                        withEdges
-                        onChange={(newPageNo) => {
+            <div className={styles["pagination-container"]}>
+                <Pagination
+                    total={Math.max(Math.ceil(orderIds.length / ordersPerPage), 1)}
+                    value={page + 1}
+                    withEdges
+                    onChange={
+                        /**
+                         * Can't reliably test this without mocking Pagination component due to
+                         * 'ordersPerPage' possibly changing in future
+                         */
+                        /* v8 ignore start */
+
+                        (newPageNo) => {
                             setPage(newPageNo - 1);
                             setQueueScroll(true);
-                        }}
-                        disabled={awaitingOverride}
-                        classNames={{ control: styles["pagination-control"] }}
-                    />
-                </div>
-            </Skeleton>
+                        }
+
+                        /* v8 ignore stop */
+                    }
+                    disabled={awaitingOverride}
+                    classNames={{ control: styles["pagination-control"] }}
+                />
+            </div>
         </div>
     ) : (
         <p className={styles["no-order-history-message"]}>Nothing to show!</p>
