@@ -102,14 +102,14 @@ vi.mock("@/features/AccountDetails/components/OrderHistory/components/OrderSumma
 
 describe("The OrderHistory component...", () => {
     describe("Should render a <ul> element...", () => {
-        test("If the UserContext's 'orders.data' array field contains at least one entry", () => {
+        test("If the UserContext's 'orders.response.data' array field contains at least one entry", () => {
             renderFunc();
 
             const ulElement = screen.getByRole("list");
             expect(ulElement).toBeInTheDocument();
         });
 
-        test("Unless the UserContext's 'orders.data' and 'defaultData.orders' array fields are falsy or empty", async () => {
+        test("Unless the UserContext's 'orders.response.data' and 'defaultData.orders' array fields are falsy or empty", async () => {
             const { rerenderFunc } = await renderFunc({
                 UserContextOverride: {
                     orders: { response: { data: null }, awaiting: true },
@@ -126,7 +126,7 @@ describe("The OrderHistory component...", () => {
         });
 
         describe("That renders an OrderSummary component...", () => {
-            test("For each entry in the UserContext's 'orders.data' array field", async () => {
+            test("For each entry in the UserContext's 'orders.response.data' array field", async () => {
                 const { rerenderFunc } = await renderFunc({
                     UserContextOverride: { orders: { awaiting: true } } as IUserContext,
                 });
@@ -146,7 +146,7 @@ describe("The OrderHistory component...", () => {
                 });
             });
 
-            test("For each entry in the UserContext's 'defaultData.orders' array field if the UserContext's 'orders.data' array field is falsy or empty", () => {
+            test("For each entry in the UserContext's 'defaultData.orders' array field if the UserContext's 'orders.response.data' array field is falsy or empty", () => {
                 renderFunc({
                     UserContextOverride: {
                         orders: { response: { data: null } },
@@ -186,7 +186,7 @@ describe("The OrderHistory component...", () => {
         });
     });
 
-    test("Should render a relevant message if the UserContext's 'orders.data' and 'defaultData.orders' array fields are falsy or empty", async () => {
+    test("Should render a relevant message if the UserContext's 'orders.response.data' and 'defaultData.orders' array fields are falsy or empty", async () => {
         const { rerenderFunc } = await renderFunc({
             UserContextOverride: {
                 orders: { response: { data: null }, awaiting: true },

@@ -271,7 +271,7 @@ describe("The Addresses component...", () => {
     });
 
     describe("Should still render without throwing...", () => {
-        test("If the UserContext's 'user.data' field is null/undefined", () => {
+        test("If the UserContext's 'user.response.data' field is null/undefined", () => {
             renderFunc({
                 UserContextOverride: {
                     user: { response: { data: null } },

@@ -526,7 +526,7 @@ describe("The ProductReviews component...", () => {
         });
     });
 
-    test("Should return null if the ProductContext's product data is not being awaited and the 'product.data' field is falsy", () => {
+    test("Should return null if the ProductContext's product data is not being awaited and the 'product.response.data' field is falsy", () => {
         renderFunc({
             ProductContextOverride: {
                 product: { response: { data: null }, awaiting: false },

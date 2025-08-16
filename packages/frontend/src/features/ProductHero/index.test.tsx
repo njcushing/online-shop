@@ -478,7 +478,7 @@ describe("The ProductHero component...", () => {
     });
 
     describe("Should return null...", () => {
-        test("If the ProductContext's product data is not being awaited and the 'product.data' field is falsy", () => {
+        test("If the ProductContext's product data is not being awaited and the 'product.response.data' field is falsy", () => {
             renderFunc({
                 ProductContextOverride: {
                     product: { response: { data: null }, awaiting: false },

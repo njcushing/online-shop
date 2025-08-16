@@ -105,14 +105,14 @@ vi.mock(
 
 describe("The Subscriptions component...", () => {
     describe("Should render a <ul> element...", () => {
-        test("If the UserContext's 'subscriptions.data' array field contains at least one entry", () => {
+        test("If the UserContext's 'subscriptions.response.data' array field contains at least one entry", () => {
             renderFunc();
 
             const ulElement = screen.getByRole("list");
             expect(ulElement).toBeInTheDocument();
         });
 
-        test("Unless the UserContext's 'subscriptions.data' and 'defaultData.subscriptions' array fields are falsy or empty", async () => {
+        test("Unless the UserContext's 'subscriptions.response.data' and 'defaultData.subscriptions' array fields are falsy or empty", async () => {
             const { rerenderFunc } = await renderFunc({
                 UserContextOverride: {
                     subscriptions: { response: { data: null }, awaiting: true },
@@ -129,7 +129,7 @@ describe("The Subscriptions component...", () => {
         });
 
         describe("That renders an SubscriptionSummary component...", () => {
-            test("For each entry in the UserContext's 'subscriptions.data' array field", async () => {
+            test("For each entry in the UserContext's 'subscriptions.response.data' array field", async () => {
                 const { rerenderFunc } = await renderFunc({
                     UserContextOverride: { subscriptions: { awaiting: true } } as IUserContext,
                 });
@@ -149,7 +149,7 @@ describe("The Subscriptions component...", () => {
                 });
             });
 
-            test("For each entry in the UserContext's 'defaultData.subscriptions' array field if the UserContext's 'subscriptions.data' array field is falsy or empty", () => {
+            test("For each entry in the UserContext's 'defaultData.subscriptions' array field if the UserContext's 'subscriptions.response.data' array field is falsy or empty", () => {
                 renderFunc({
                     UserContextOverride: {
                         subscriptions: { response: { data: null } },
@@ -191,7 +191,7 @@ describe("The Subscriptions component...", () => {
         });
     });
 
-    test("Should render a relevant message if the UserContext's 'subscriptions.data' and 'defaultData.subscriptions' array fields are falsy or empty", async () => {
+    test("Should render a relevant message if the UserContext's 'subscriptions.response.data' and 'defaultData.subscriptions' array fields are falsy or empty", async () => {
         const { rerenderFunc } = await renderFunc({
             UserContextOverride: {
                 subscriptions: { response: { data: null }, awaiting: true },
