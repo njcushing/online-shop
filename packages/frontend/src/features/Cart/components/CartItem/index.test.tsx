@@ -1,5 +1,7 @@
 import { vi } from "vitest";
 import { screen, render } from "@test-utils";
+import _ from "lodash";
+import { act } from "react";
 import { IUserContext, UserContext } from "@/pages/Root";
 import { RecursivePartial } from "@/utils/types";
 import { CartItem, TCartItem } from ".";
@@ -25,6 +27,16 @@ const mockProps: RecursivePartial<TCartItem> = {
         },
         quantity: 1,
     },
+    editableQuantity: true,
+    classNames: {
+        container: "",
+        content: "",
+        name: "",
+        variantOptionName: "",
+        variantOptionValue: "",
+        quantity: "",
+        price: {},
+    },
 };
 
 const mockUserContext: RecursivePartial<IUserContext> = {
@@ -34,34 +46,54 @@ const mockUserContext: RecursivePartial<IUserContext> = {
 type renderFuncArgs = {
     UserContextOverride?: IUserContext;
     propsOverride?: TCartItem;
+    initRender?: boolean;
 };
-const renderFunc = (args: renderFuncArgs = {}) => {
-    const { UserContextOverride, propsOverride } = args;
+const renderFunc = async (args: renderFuncArgs = {}) => {
+    const { UserContextOverride, propsOverride, initRender = false } = args;
 
     let UserContextValue!: IUserContext;
 
-    const component = (
-        <UserContext.Provider
-            value={UserContextOverride || (mockUserContext as unknown as IUserContext)}
-        >
-            <UserContext.Consumer>
-                {(value) => {
-                    UserContextValue = value;
-                    return null;
-                }}
-            </UserContext.Consumer>
-            <CartItem
-                data={propsOverride?.data || (mockProps.data as unknown as TCartItem["data"])}
-            />
-        </UserContext.Provider>
-    );
+    function Component({
+        context,
+        props,
+    }: {
+        context?: { User?: renderFuncArgs["UserContextOverride"] };
+        props?: renderFuncArgs["propsOverride"];
+    }) {
+        const mergedUserContext = _.merge(_.cloneDeep(mockUserContext), context?.User);
+        const mergedProps = _.merge(_.cloneDeep(mockProps), props);
 
-    const { rerender } = render(component);
+        return (
+            <UserContext.Provider value={mergedUserContext}>
+                <UserContext.Consumer>
+                    {(value) => {
+                        UserContextValue = value;
+                        return null;
+                    }}
+                </UserContext.Consumer>
+                <CartItem {...mergedProps} />
+            </UserContext.Provider>
+        );
+    }
+
+    // When using initRender, must wrap 'expect' in 'await waitFor'
+    const { rerender } = initRender
+        ? render(<Component context={{ User: UserContextOverride }} props={propsOverride} />)
+        : await act(() =>
+              render(<Component context={{ User: UserContextOverride }} props={propsOverride} />),
+          );
 
     return {
-        rerender,
-        UserContextValue,
-        component,
+        rerenderFunc: (newArgs: renderFuncArgs) => {
+            rerender(
+                <Component
+                    context={{ User: newArgs.UserContextOverride }}
+                    props={newArgs.propsOverride}
+                />,
+            );
+        },
+        getUserContextValue: () => UserContextValue,
+        component: <Component context={{ User: UserContextOverride }} props={propsOverride} />,
     };
 };
 
@@ -114,9 +146,9 @@ describe("The CartItem component...", () => {
         });
 
         test("With the product's thumb image as a backup if the variant has no image", () => {
-            const copiedMockProps = structuredClone(mockProps);
-            copiedMockProps.data!.variant!.image = undefined;
-            renderFunc({ propsOverride: copiedMockProps as unknown as TCartItem });
+            renderFunc({
+                propsOverride: { data: { variant: { image: null } } } as unknown as TCartItem,
+            });
 
             const img = screen.getByRole("img");
             expect(img).toBeInTheDocument();
@@ -125,9 +157,9 @@ describe("The CartItem component...", () => {
         });
 
         test("Unless the UserContext's cart data is still being awaited", () => {
-            const copiedMockUserContext = structuredClone(mockUserContext);
-            copiedMockUserContext.cart!.awaiting = true;
-            renderFunc({ UserContextOverride: copiedMockUserContext as unknown as IUserContext });
+            renderFunc({
+                UserContextOverride: { cart: { awaiting: true } } as IUserContext,
+            });
 
             // queryByRole *does* exclude hidden elements
             const img = screen.queryByRole("img");
@@ -144,9 +176,9 @@ describe("The CartItem component...", () => {
         });
 
         test("Unless the UserContext's cart data is still being awaited", () => {
-            const copiedMockUserContext = structuredClone(mockUserContext);
-            copiedMockUserContext.cart!.awaiting = true;
-            renderFunc({ UserContextOverride: copiedMockUserContext as unknown as IUserContext });
+            renderFunc({
+                UserContextOverride: { cart: { awaiting: true } } as IUserContext,
+            });
 
             // queryByText *does not* exclude hidden elements - must manually check visibility
             const fullName = screen.queryByText(mockProps.data!.product!.name!.full!);
@@ -179,9 +211,9 @@ describe("The CartItem component...", () => {
         });
 
         test("Unless the UserContext's cart data is still being awaited", () => {
-            const copiedMockUserContext = structuredClone(mockUserContext);
-            copiedMockUserContext.cart!.awaiting = true;
-            renderFunc({ UserContextOverride: copiedMockUserContext as unknown as IUserContext });
+            renderFunc({
+                UserContextOverride: { cart: { awaiting: true } } as IUserContext,
+            });
 
             const QuantityComponent = screen.getByLabelText("Quantity component");
             expect(QuantityComponent).toBeInTheDocument();
@@ -198,49 +230,79 @@ describe("The CartItem component...", () => {
         });
     });
 
-    describe("Should render the Quantity component...", () => {
-        test("Passing the correct props when the variant has a valid 'allowanceOverride' value", () => {
-            renderFunc();
+    describe("If the 'editableQuantity' prop is 'true'...", () => {
+        describe("Should render the Quantity component...", () => {
+            test("Passing the correct props when the variant has a valid 'allowanceOverride' value", () => {
+                renderFunc();
 
-            const QuantityComponent = screen.getByLabelText("Quantity component");
-            expect(QuantityComponent).toBeInTheDocument();
+                const QuantityComponent = screen.getByLabelText("Quantity component");
+                expect(QuantityComponent).toBeInTheDocument();
 
-            const props = QuantityComponent.getAttribute("data-props");
-            expect(JSON.parse(props!)).toEqual(
-                expect.objectContaining({
-                    min: 1,
-                    max: 5, // Minimum value between variant's stock and allowanceOverride
-                    disabled: false,
-                }),
-            );
+                const props = QuantityComponent.getAttribute("data-props");
+                expect(JSON.parse(props!)).toEqual(
+                    expect.objectContaining({
+                        min: 1,
+                        max: 5, // Minimum value between variant's stock and allowanceOverride
+                        disabled: false,
+                    }),
+                );
+            });
+
+            test("Passing the correct props when the variant doesn't have a valid 'allowanceOverride' value", () => {
+                renderFunc({
+                    propsOverride: {
+                        data: { variant: { allowanceOverride: null } },
+                    } as unknown as TCartItem,
+                });
+
+                const QuantityComponent = screen.getByLabelText("Quantity component");
+                expect(QuantityComponent).toBeInTheDocument();
+
+                const props = QuantityComponent.getAttribute("data-props");
+                expect(JSON.parse(props!)).toEqual(
+                    expect.objectContaining({
+                        min: 1,
+                        max: 10, // Minimum value between variant's stock and product's allowance
+                        disabled: false,
+                    }),
+                );
+            });
+
+            test("Unless the UserContext's cart data is still being awaited", () => {
+                renderFunc({
+                    UserContextOverride: { cart: { awaiting: true } } as IUserContext,
+                });
+
+                // queryByLabelText *does not* exclude hidden elements - must manually check visibility
+                const QuantityComponent = screen.queryByLabelText("Quantity component");
+                expect(QuantityComponent).not.toBeVisible();
+            });
         });
+    });
 
-        test("Passing the correct props when the variant doesn't have a valid 'allowanceOverride' value", () => {
-            const copiedMockProps = structuredClone(mockProps);
-            copiedMockProps.data!.variant!.allowanceOverride = undefined;
-            renderFunc({ propsOverride: copiedMockProps as unknown as TCartItem });
+    describe("If the 'editableQuantity' prop is 'false'...", () => {
+        test("Should render an element should be rendered with textContent equal to: 'X units', where 'X' is the quantity of the item", () => {
+            renderFunc({
+                propsOverride: { editableQuantity: false } as TCartItem,
+            });
 
-            const QuantityComponent = screen.getByLabelText("Quantity component");
-            expect(QuantityComponent).toBeInTheDocument();
-
-            const props = QuantityComponent.getAttribute("data-props");
-            expect(JSON.parse(props!)).toEqual(
-                expect.objectContaining({
-                    min: 1,
-                    max: 10, // Minimum value between variant's stock and product's allowance
-                    disabled: false,
-                }),
-            );
-        });
-
-        test("Unless the UserContext's cart data is still being awaited", () => {
-            const copiedMockUserContext = structuredClone(mockUserContext);
-            copiedMockUserContext.cart!.awaiting = true;
-            renderFunc({ UserContextOverride: copiedMockUserContext as unknown as IUserContext });
-
-            // queryByLabelText *does not* exclude hidden elements - must manually check visibility
             const QuantityComponent = screen.queryByLabelText("Quantity component");
-            expect(QuantityComponent).not.toBeVisible();
+            expect(QuantityComponent).not.toBeInTheDocument();
+
+            const quantityElement = screen.getByText(`${mockProps.data?.quantity} unit`);
+            expect(quantityElement).toBeInTheDocument();
+        });
+
+        test("With the word 'unit' or 'units' correctly dependant on whether the item's quantity is equal to or above 1, respectively", () => {
+            renderFunc({
+                propsOverride: { data: { quantity: 10 }, editableQuantity: false } as TCartItem,
+            });
+
+            const QuantityComponent = screen.queryByLabelText("Quantity component");
+            expect(QuantityComponent).not.toBeInTheDocument();
+
+            const quantityElement = screen.getByText("10 units");
+            expect(quantityElement).toBeInTheDocument();
         });
     });
 
@@ -262,9 +324,9 @@ describe("The CartItem component...", () => {
         });
 
         test("Unless the UserContext's cart data is still being awaited", () => {
-            const copiedMockUserContext = structuredClone(mockUserContext);
-            copiedMockUserContext.cart!.awaiting = true;
-            renderFunc({ UserContextOverride: copiedMockUserContext as unknown as IUserContext });
+            renderFunc({
+                UserContextOverride: { cart: { awaiting: true } } as IUserContext,
+            });
 
             // queryByLabelText *does not* exclude hidden elements - must manually check visibility
             const PriceComponent = screen.queryByLabelText("Price component");

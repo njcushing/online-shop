@@ -13,6 +13,8 @@
 .cart-item-thumbnail-image {
     align-self: center;
 
+    border: 1px solid #000;
+
     width: 100%;
     aspect-ratio: 1;
 }
@@ -71,5 +73,15 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+    }
+}
+
+.quantity {
+    font-family: var(--font-primary);
+    font-size: 0.96rem;
+    text-wrap: nowrap;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1rem;
     }
 }

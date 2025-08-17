@@ -4,11 +4,21 @@ import { Skeleton, Image } from "@mantine/core";
 import { Quantity } from "@/components/Inputs/Quantity";
 import { ProductVariant, Product, variantOptions } from "@/utils/products/product";
 import { PopulatedCartItemData } from "@/utils/products/cart";
-import { Price } from "@/features/Price";
+import { Price, TPrice } from "@/features/Price";
 import styles from "./index.module.css";
 
 export type TCartItem = {
     data: PopulatedCartItemData;
+    editableQuantity?: boolean;
+    classNames?: {
+        container?: string;
+        content?: string;
+        name?: string;
+        variantOptionName?: string;
+        variantOptionValue?: string;
+        quantity?: string;
+        price?: TPrice["classNames"];
+    };
 };
 
 const calculateMaximumAvailability = (
@@ -22,7 +32,7 @@ const calculateMaximumAvailability = (
     return Math.min(stock, allowance);
 };
 
-export function CartItem({ data }: TCartItem) {
+export function CartItem({ data, editableQuantity = true, classNames }: TCartItem) {
     const { cart } = useContext(UserContext);
     const { awaiting } = cart;
 
@@ -35,7 +45,7 @@ export function CartItem({ data }: TCartItem) {
     const { src, alt } = usedImage;
 
     return (
-        <li className={styles["cart-item"]}>
+        <li className={`${styles["cart-item"]} ${classNames?.container}`}>
             <Skeleton visible={awaiting}>
                 <Image
                     className={styles["cart-item-thumbnail-image"]}
@@ -45,10 +55,10 @@ export function CartItem({ data }: TCartItem) {
                 />
             </Skeleton>
 
-            <div className={styles["cart-item-content"]}>
+            <div className={`${styles["cart-item-content"]} ${classNames?.content}`}>
                 <Skeleton visible={awaiting}>
                     <p
-                        className={styles["cart-item-name"]}
+                        className={`${styles["cart-item-name"]} ${classNames?.name}`}
                         style={{ visibility: awaiting ? "hidden" : "initial" }}
                     >
                         {name.full}
@@ -73,10 +83,14 @@ export function CartItem({ data }: TCartItem) {
                                     key={key}
                                     style={{ visibility: awaiting ? "hidden" : "initial" }}
                                 >
-                                    <p className={styles["cart-item-variant-option-name"]}>
+                                    <p
+                                        className={`${styles["cart-item-variant-option-name"]} ${classNames?.variantOptionName}`}
+                                    >
                                         {variantOption?.name || key}:{" "}
                                     </p>
-                                    <p className={styles["cart-item-variant-option-value"]}>
+                                    <p
+                                        className={`${styles["cart-item-variant-option-value"]} ${classNames?.variantOptionValue}`}
+                                    >
                                         {variantOptionValue?.name || value}
                                     </p>
                                 </div>
@@ -88,23 +102,34 @@ export function CartItem({ data }: TCartItem) {
                 <div className={styles["cart-item-content-bottom"]}>
                     <Skeleton visible={awaiting} width="min-content">
                         <div style={{ visibility: awaiting ? "hidden" : "initial" }}>
-                            <Quantity
-                                defaultValue={quantity}
-                                min={1}
-                                max={calculateMaximumAvailability(
-                                    stock,
-                                    allowance,
-                                    allowanceOverride,
-                                )}
-                                disabled={awaiting}
-                                size="sm"
-                            />
+                            {editableQuantity ? (
+                                <Quantity
+                                    defaultValue={quantity}
+                                    min={1}
+                                    max={calculateMaximumAvailability(
+                                        stock,
+                                        allowance,
+                                        allowanceOverride,
+                                    )}
+                                    disabled={awaiting}
+                                    size="sm"
+                                />
+                            ) : (
+                                <p
+                                    className={`${styles["quantity"]} ${classNames?.quantity}`}
+                                >{`${quantity} unit${quantity !== 1 ? "s" : ""}`}</p>
+                            )}
                         </div>
                     </Skeleton>
 
                     <Skeleton visible={awaiting} width="min-content">
                         <div style={{ visibility: awaiting ? "hidden" : "initial" }}>
-                            <Price base={price.base} current={price.current} multiply={quantity} />
+                            <Price
+                                base={price.base}
+                                current={price.current}
+                                multiply={quantity}
+                                classNames={classNames?.price}
+                            />
                         </div>
                     </Skeleton>
                 </div>
