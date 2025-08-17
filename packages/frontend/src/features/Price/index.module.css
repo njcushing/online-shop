@@ -3,6 +3,7 @@
     flex-direction: row;
     gap: 8px;
 
+    font-family: var(--font-primary);
     font-size: 2rem;
 }
 
