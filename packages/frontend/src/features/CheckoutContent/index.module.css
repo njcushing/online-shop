@@ -1,0 +1,21 @@
+.checkout-content {
+    display: flex;
+    justify-content: center;
+
+    width: min(calc(var(--vw) * 100), 100%);
+    padding: 32px 0px;
+}
+
+.checkout-content-width-controller {
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 16px;
+
+    width: min(calc(var(--vw) * 100), 100%);
+    max-width: 1280px;
+    padding: 0px;
+    margin: auto;
+}
