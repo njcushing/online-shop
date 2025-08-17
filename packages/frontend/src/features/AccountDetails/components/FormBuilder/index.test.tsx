@@ -34,28 +34,30 @@ type MockFormData = {
         };
     };
 };
+/**
+ * Leaving some fields as empty strings/undefined to test that when empty string inputs are set to
+ * undefined and vice-versa, the form doesn't mark that input as a changed field
+ */
 const defaultValues = {
     examples: {
         text: {
             onTouched: "defaultTextOnTouched",
             onChange: "defaultTextOnChange",
-            // Leaving blank to test that when empty string inputs are set to 'undefined' and
-            // vice-versa, the form doesn't mark that input as a changed field
             onBlur: "",
-            onSubmit: "defaultTextOnSubmit",
+            onSubmit: undefined,
             all: "defaultTextAll",
         },
         number: {
             onTouched: 10,
             onChange: 20,
-            onBlur: 30,
+            onBlur: undefined,
             onSubmit: 40,
             all: 50,
         },
         password: {
             onTouched: "defaultPasswordOnTouched",
             onChange: "defaultPasswordOnChange",
-            onBlur: "defaultPasswordOnBlur",
+            onBlur: undefined,
             onSubmit: "defaultPasswordOnSubmit",
             all: "defaultPasswordAll",
         },

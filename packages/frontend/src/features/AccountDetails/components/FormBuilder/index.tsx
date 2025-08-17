@@ -213,6 +213,7 @@ export function FormBuilder<T extends FieldValues>({
                         <NumberInput
                             {...field}
                             {...inputProps}
+                            value={field.value ?? ""}
                             label={label}
                             hideControls
                             error={inputError}
@@ -231,6 +232,7 @@ export function FormBuilder<T extends FieldValues>({
                         <PasswordInput
                             {...field}
                             {...inputProps}
+                            value={field.value ?? ""}
                             label={label}
                             // Not sure why, but this component's <label> isn't accessible in unit
                             // tests by the 'label' prop value, so I'm setting the aria attribute
@@ -254,6 +256,7 @@ export function FormBuilder<T extends FieldValues>({
                         <TextInput
                             {...field}
                             {...inputProps}
+                            value={field.value ?? ""}
                             label={label}
                             error={inputError}
                             onBlur={onBlur}
