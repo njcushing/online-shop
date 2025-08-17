@@ -20,6 +20,7 @@ import { Product } from "../Product";
 import { Account, Routes as AccountRoutes } from "../Account";
 import { ErrorPage } from "../ErrorPage";
 import styles from "./index.module.css";
+import { Checkout } from "../Checkout";
 
 export const Routes = [
     {
@@ -35,6 +36,11 @@ export const Routes = [
     {
         path: "p/:productId/:productSlug",
         element: <Product />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: "checkout",
+        element: <Checkout />,
         errorElement: <ErrorPage />,
     },
     {
