@@ -59,12 +59,12 @@ export const mockGetProfile: HTTPMethodTypes.GET<undefined, Profile> = async () 
 
 export const mockPopulateCartItems = (cart: CartItemData[]): PopulatedCartItemData[] => {
     return cart.flatMap((cartItem) => {
-        const { productId, variantId, quantity } = cartItem;
+        const { productId, variantId } = cartItem;
         const matchedProduct = productData.find((product) => product.id === productId);
         if (!matchedProduct) return [];
         const matchedVariant = matchedProduct.variants.find((variant) => variant.id === variantId);
         if (!matchedVariant) return [];
-        return { product: matchedProduct, variant: matchedVariant, quantity };
+        return { ...cartItem, product: matchedProduct, variant: matchedVariant };
     });
 };
 
