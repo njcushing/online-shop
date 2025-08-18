@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { IUserContext, UserContext } from "@/pages/Root";
 import { Link } from "react-router-dom";
 import { Skeleton, Button, Divider, Drawer } from "@mantine/core";
-import { calculateSubtotal } from "@/utils/products/cart";
+import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
 import { CartItem } from "../CartItem";
 import styles from "./index.module.css";
@@ -55,7 +55,7 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
                             className={styles["subtotal-value"]}
                             style={{ visibility: awaiting ? "hidden" : "initial" }}
                         >
-                            £{(calculateSubtotal(data) / 100).toFixed(2)}
+                            £{(calculateCartSubtotal(data).cost.total / 100).toFixed(2)}
                         </span>
                     </Skeleton>
                 </div>

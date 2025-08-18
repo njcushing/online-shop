@@ -82,12 +82,12 @@ const renderFunc = (args: renderFuncArgs = {}) => {
 
 vi.mock("@settings", () => ({ settings: { freeDeliveryThreshold: 1 } }));
 
-const mockCalculateSubtotal = vi.fn(() => 0);
-vi.mock("@/utils/products/cart", async (importOriginal) => {
+const mockCalculateCartSubtotal = vi.fn(() => ({ cost: { total: 0 } }));
+vi.mock("@/utils/products/utils/calculateCartSubtotal", async (importOriginal) => {
     const actual = await importOriginal();
     return {
         ...(actual || {}),
-        calculateSubtotal: () => mockCalculateSubtotal(),
+        calculateCartSubtotal: () => mockCalculateCartSubtotal(),
     };
 });
 
@@ -203,8 +203,8 @@ describe("The CartDrawer component...", () => {
     });
 
     describe("Should render the subtotal of cart items' values...", () => {
-        test("With the return value of the 'calculateSubtotal' function, in pence, in the format: £XX.XX", () => {
-            mockCalculateSubtotal.mockReturnValueOnce(1000);
+        test("With the return value of the 'calculateCartSubtotal' function, in pence, in the format: £XX.XX", () => {
+            mockCalculateCartSubtotal.mockReturnValueOnce({ cost: { total: 1000 } });
 
             renderFunc();
 
@@ -213,7 +213,7 @@ describe("The CartDrawer component...", () => {
         });
 
         test("Unless the UserContext's cart data is still being awaited", () => {
-            mockCalculateSubtotal.mockReturnValueOnce(1000);
+            mockCalculateCartSubtotal.mockReturnValueOnce({ cost: { total: 1000 } });
 
             renderFunc({
                 UserContextOverride: { cart: { awaiting: true } } as unknown as IUserContext,
