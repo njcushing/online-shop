@@ -90,3 +90,18 @@
 .price-discount-percentage {
     font-size: 1.06rem;
 }
+
+.cost-breakdown-line {
+    display: flex;
+    justify-content: space-between;
+    gap: 1ch;
+
+    font-family: var(--font-primary);
+    font-size: 1.06rem;
+}
+
+.cost-breakdown-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
