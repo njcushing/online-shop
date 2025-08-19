@@ -1,7 +1,7 @@
 import { useContext, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { Progress } from "@mantine/core";
-import { calculateSubtotal } from "@/utils/products/cart";
+import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import { settings } from "@settings";
 import { Truck } from "@phosphor-icons/react";
 import styles from "./index.module.css";
@@ -10,7 +10,10 @@ export function DeliveryProgress() {
     const { cart } = useContext(UserContext);
     const { response } = cart;
 
-    const subtotal = useMemo(() => calculateSubtotal(response.data || []), [response]);
+    const subtotal = useMemo(
+        () => calculateCartSubtotal(response.data || []).cost.total,
+        [response],
+    );
     const meetsThreshold = useMemo(() => subtotal >= settings.freeDeliveryThreshold, [subtotal]);
 
     return (
