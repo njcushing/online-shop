@@ -99,12 +99,12 @@ const renderFunc = async (args: renderFuncArgs = {}) => {
 
 vi.mock("@settings", () => ({ settings: { freeDeliveryThreshold: 1 } }));
 
-const mockCalculateSubtotal = vi.fn(() => 0);
-vi.mock("@/utils/products/cart", async (importOriginal) => {
+const mockCalculateUnitPrice = vi.fn(() => 0);
+vi.mock("@/utils/products/utils/calculateUnitPrice", async (importOriginal) => {
     const actual = await importOriginal();
     return {
         ...(actual || {}),
-        calculateSubtotal: () => mockCalculateSubtotal(),
+        calculateUnitPrice: () => mockCalculateUnitPrice(),
     };
 });
 
@@ -308,6 +308,8 @@ describe("The CartItem component...", () => {
 
     describe("Should render the Price component...", () => {
         test("Passing the correct props", () => {
+            mockCalculateUnitPrice.mockReturnValueOnce(mockProps.data!.variant!.price!.current!);
+
             renderFunc();
 
             const PriceComponent = screen.getByLabelText("Price component");
@@ -321,6 +323,8 @@ describe("The CartItem component...", () => {
                     multiply: mockProps.data!.quantity,
                 }),
             );
+
+            mockCalculateUnitPrice.mockRestore();
         });
 
         test("Unless the UserContext's cart data is still being awaited", () => {

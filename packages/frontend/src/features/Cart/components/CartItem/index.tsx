@@ -4,6 +4,7 @@ import { Skeleton, Image } from "@mantine/core";
 import { Quantity } from "@/components/Inputs/Quantity";
 import { ProductVariant, Product, variantOptions } from "@/utils/products/product";
 import { PopulatedCartItemData } from "@/utils/products/cart";
+import { calculateUnitPrice } from "@/utils/products/utils/calculateUnitPrice";
 import { Price, TPrice } from "@/features/Price";
 import styles from "./index.module.css";
 
@@ -126,7 +127,7 @@ export function CartItem({ data, editableQuantity = true, classNames }: TCartIte
                         <div style={{ visibility: awaiting ? "hidden" : "initial" }}>
                             <Price
                                 base={price.base}
-                                current={price.current}
+                                current={calculateUnitPrice(data)}
                                 multiply={quantity}
                                 classNames={classNames?.price}
                             />
