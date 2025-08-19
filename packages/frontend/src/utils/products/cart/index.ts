@@ -24,6 +24,15 @@ export type PopulatedCartItemData = CartItemDataBase & {
     variant: ProductVariant;
 };
 
+export type CartBase<T> = {
+    items: T[];
+    promotions: [];
+};
+
+export type Cart = CartBase<CartItemData>;
+
+export type PopulatedCart = CartBase<PopulatedCartItemData>;
+
 export const mockCart: CartItemData[] = [
     { productId: "1", variantId: "1-1", quantity: 10 },
     { productId: "1", variantId: "1-2", quantity: 5 },
