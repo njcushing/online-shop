@@ -42,10 +42,6 @@ export const mockCart: CartItemData[] = [
     },
 ];
 
-export const calculateSubtotal = (cart: PopulatedCartItemData[]): number => {
-    return cart.reduce((acc, item) => acc + item.variant.price.current * item.quantity, 0);
-};
-
 export const generateSkeletonCart = (
     length: number = 5,
 ): RecursivePartial<PopulatedCartItemData>[] => {
