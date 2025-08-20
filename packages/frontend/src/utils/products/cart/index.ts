@@ -25,7 +25,7 @@ export type CartPromotion = {
     threshold: number;
     discount: {
         value: number;
-        type: "additive" | "multiplicative";
+        type: "fixed" | "percentage";
     };
 };
 
@@ -66,7 +66,13 @@ export const mockCart: Cart = {
             code: "SUMMER",
             description: "Summer sale: 10% off orders over £50!",
             threshold: 5000,
-            discount: { value: 90, type: "multiplicative" },
+            discount: { value: 10, type: "percentage" },
+        },
+        {
+            code: "SPEND100",
+            description: "Spend £100 and get £10 off your order!",
+            threshold: 10000,
+            discount: { value: 1000, type: "fixed" },
         },
     ],
 };
