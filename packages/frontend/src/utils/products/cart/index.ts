@@ -19,6 +19,16 @@ export type CartItemData = CartItemDataBase & {
     variantId: Product["variants"][number]["id"];
 };
 
+export type CartPromotion = {
+    code: string;
+    description: string;
+    threshold: number;
+    discount: {
+        value: number;
+        type: "additive" | "multiplicative";
+    };
+};
+
 export type PopulatedCartItemData = CartItemDataBase & {
     product: Product;
     variant: ProductVariant;
@@ -26,7 +36,7 @@ export type PopulatedCartItemData = CartItemDataBase & {
 
 export type CartBase<T> = {
     items: T[];
-    promotions: [];
+    promotions: CartPromotion[];
 };
 
 export type Cart = CartBase<CartItemData>;
