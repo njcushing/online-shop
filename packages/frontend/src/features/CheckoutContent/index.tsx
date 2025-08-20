@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { IUserContext, UserContext } from "@/pages/Root";
-import { Divider } from "@mantine/core";
+import { Divider, Button } from "@mantine/core";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import { CartItem } from "../Cart/components/CartItem";
 import styles from "./index.module.css";
@@ -108,6 +108,15 @@ export function CheckoutContent() {
                             <span>£{(cost.total / 100).toFixed(2)}</span>
                         </div>
                     </div>
+
+                    <Button
+                        color="blue"
+                        variant="filled"
+                        className={styles["button"]}
+                        disabled={awaiting}
+                    >
+                        Pay now
+                    </Button>
                 </div>
             </div>
         </section>
