@@ -61,7 +61,14 @@ export const mockCart: Cart = {
             info: { subscription: { frequency: "one_week" } },
         },
     ],
-    promotions: [],
+    promotions: [
+        {
+            code: "SUMMER",
+            description: "Summer sale: 10% off orders over £50!",
+            threshold: 5000,
+            discount: { value: 90, type: "multiplicative" },
+        },
+    ],
 };
 
 export const generateSkeletonCart = (length: number = 5): RecursivePartial<PopulatedCart> => {
