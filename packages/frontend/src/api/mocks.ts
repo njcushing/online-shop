@@ -1,5 +1,5 @@
 import { ProductReview, Product, reviews, products as productData } from "@/utils/products/product";
-import { CartItemData, PopulatedCartItemData, mockCart } from "@/utils/products/cart";
+import { CartItemData, Cart, PopulatedCart, mockCart } from "@/utils/products/cart";
 import { OrderData, PopulatedOrderData, mockOrders } from "@/utils/products/orders";
 import {
     SubscriptionData,
@@ -57,8 +57,8 @@ export const mockGetProfile: HTTPMethodTypes.GET<undefined, Profile> = async () 
     };
 };
 
-export const mockPopulateCartItems = (cart: CartItemData[]): PopulatedCartItemData[] => {
-    return cart.flatMap((cartItem) => {
+export const mockPopulateCartItems = (cart: Cart): PopulatedCart => {
+    const populatedItems = cart.items.flatMap((cartItem) => {
         const { productId, variantId } = cartItem;
         const matchedProduct = productData.find((product) => product.id === productId);
         if (!matchedProduct) return [];
@@ -66,9 +66,11 @@ export const mockPopulateCartItems = (cart: CartItemData[]): PopulatedCartItemDa
         if (!matchedVariant) return [];
         return { ...cartItem, product: matchedProduct, variant: matchedVariant };
     });
+
+    return { ...cart, items: populatedItems };
 };
 
-export const mockGetCart: HTTPMethodTypes.GET<undefined, PopulatedCartItemData[]> = async () => {
+export const mockGetCart: HTTPMethodTypes.GET<undefined, PopulatedCart> = async () => {
     await new Promise((resolve) => {
         setTimeout(resolve, 1000);
     });
@@ -93,7 +95,7 @@ export const mockGetCart: HTTPMethodTypes.GET<undefined, PopulatedCartItemData[]
 export const mockUpdateCart: HTTPMethodTypes.PUT<
     undefined,
     { products: CartItemData[] },
-    PopulatedCartItemData[]
+    PopulatedCart
 > = async (data) => {
     const token = localStorage.getItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION);
     if (!token) return { status: 400, message: "No token provided for query", data: null };
@@ -112,14 +114,14 @@ export const mockUpdateCart: HTTPMethodTypes.PUT<
     products.forEach(async (productToUpdate) => {
         const { productId, variantId, quantity } = productToUpdate;
 
-        const existingEntryIndex = updatedCart.findIndex((cartItem) => {
+        const existingEntryIndex = updatedCart.items.findIndex((cartItem) => {
             return cartItem.productId === productId && cartItem.variantId === variantId;
         });
         if (existingEntryIndex >= 0) {
-            if (updatedCart[existingEntryIndex].quantity + quantity <= 0) {
-                updatedCart.splice(existingEntryIndex, 1);
+            if (updatedCart.items[existingEntryIndex].quantity + quantity <= 0) {
+                updatedCart.items.splice(existingEntryIndex, 1);
             } else {
-                updatedCart[existingEntryIndex].quantity += quantity;
+                updatedCart.items[existingEntryIndex].quantity += quantity;
             }
         } else {
             const foundProduct = await mockGetProduct({ params: { productId } });
@@ -129,7 +131,7 @@ export const mockUpdateCart: HTTPMethodTypes.PUT<
             );
             if (!variant) return;
 
-            updatedCart.push(productToUpdate);
+            updatedCart.items.push(productToUpdate);
         }
     });
 

@@ -17,23 +17,29 @@ const mockUserContext: RecursivePartial<IUserContext> = {
     cart: {
         // Only using fields relevant to the CartDrawer component
         response: {
-            data: [
-                { product: {}, variant: { id: "variant1Id" }, quantity: 1 },
-                { product: {}, variant: { id: "variant2Id" }, quantity: 1 },
-                { product: {}, variant: { id: "variant3Id" }, quantity: 1 },
-            ] as unknown as IUserContext["cart"]["response"]["data"],
+            data: {
+                items: [
+                    { product: {}, variant: { id: "variant1Id" }, quantity: 1 },
+                    { product: {}, variant: { id: "variant2Id" }, quantity: 1 },
+                    { product: {}, variant: { id: "variant3Id" }, quantity: 1 },
+                ],
+                promotions: [],
+            } as unknown as IUserContext["cart"]["response"]["data"],
         },
         awaiting: false,
     },
     defaultData: {
         // Only using fields relevant to the CartDrawer component
-        cart: [
-            { product: {}, variant: { id: "variant4Id" }, quantity: 1 },
-            { product: {}, variant: { id: "variant5Id" }, quantity: 1 },
-            { product: {}, variant: { id: "variant6Id" }, quantity: 1 },
-            { product: {}, variant: { id: "variant7Id" }, quantity: 1 },
-            { product: {}, variant: { id: "variant8Id" }, quantity: 1 },
-        ] as unknown as IUserContext["defaultData"]["cart"],
+        cart: {
+            items: [
+                { product: {}, variant: { id: "variant4Id" }, quantity: 1 },
+                { product: {}, variant: { id: "variant5Id" }, quantity: 1 },
+                { product: {}, variant: { id: "variant6Id" }, quantity: 1 },
+                { product: {}, variant: { id: "variant7Id" }, quantity: 1 },
+                { product: {}, variant: { id: "variant8Id" }, quantity: 1 },
+            ],
+            promotions: [],
+        } as unknown as IUserContext["defaultData"]["cart"],
     },
 };
 
@@ -159,7 +165,9 @@ describe("The CartDrawer component...", () => {
             renderFunc();
 
             const CartItemComponents = screen.getAllByLabelText("CartItem component");
-            expect(CartItemComponents).toHaveLength(mockUserContext.cart!.response!.data!.length);
+            expect(CartItemComponents).toHaveLength(
+                mockUserContext.cart!.response!.data!.items!.length,
+            );
         });
 
         test("Passing the correct props", () => {
@@ -169,7 +177,7 @@ describe("The CartDrawer component...", () => {
             CartItemComponents.forEach((CartItemComponent, i) => {
                 const props = CartItemComponent.getAttribute("data-props");
                 expect(JSON.parse(props!)).toStrictEqual({
-                    data: mockUserContext.cart!.response!.data![i],
+                    data: mockUserContext.cart!.response!.data!.items![i],
                 });
             });
         });
@@ -182,7 +190,9 @@ describe("The CartDrawer component...", () => {
             });
 
             const CartItemComponents = screen.getAllByLabelText("CartItem component");
-            expect(CartItemComponents).toHaveLength(mockUserContext.defaultData!.cart!.length);
+            expect(CartItemComponents).toHaveLength(
+                mockUserContext.defaultData!.cart!.items!.length,
+            );
         });
 
         test("Passing the correct props", () => {
@@ -196,7 +206,7 @@ describe("The CartDrawer component...", () => {
             CartItemComponents.forEach((CartItemComponent, i) => {
                 const props = CartItemComponent.getAttribute("data-props");
                 expect(JSON.parse(props!)).toStrictEqual({
-                    data: mockUserContext.defaultData!.cart![i],
+                    data: mockUserContext.defaultData!.cart!.items![i],
                 });
             });
         });

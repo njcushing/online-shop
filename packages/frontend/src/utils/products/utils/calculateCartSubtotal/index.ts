@@ -1,18 +1,20 @@
 import { settings } from "@settings";
-import { PopulatedCartItemData } from "../../cart";
+import { PopulatedCart } from "../../cart";
 
 const { freeDeliveryThreshold, expressDeliveryCost } = settings;
 
 export const calculateCartSubtotal = (
-    cart: PopulatedCartItemData[],
+    cart: PopulatedCart,
 ): {
     cost: { products: number; postage: number; total: number };
     discount: { products: number; subscriptions: number; promotions: number };
 } => {
+    const { items } = cart;
+
     const cost = { products: 0, postage: 0, total: 0 };
     const discount = { products: 0, subscriptions: 0, promotions: 0 };
 
-    cart.forEach((item) => {
+    items.forEach((item) => {
         const { variant, quantity, info } = item;
         const { price } = variant;
         const { current, base, subscriptionDiscountPercentage } = price;

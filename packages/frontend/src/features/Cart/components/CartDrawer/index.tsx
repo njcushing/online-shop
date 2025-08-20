@@ -15,10 +15,12 @@ export type TCartDrawer = {
 export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
     const { cart, defaultData } = useContext(UserContext);
     const { response, awaiting } = cart;
+    const { data } = response;
 
-    const data =
-        response.data ||
-        (defaultData.cart as NonNullable<IUserContext["cart"]["response"]["data"]>);
+    let cartData = defaultData.cart as NonNullable<IUserContext["cart"]["response"]["data"]>;
+    if (data) cartData = data;
+
+    const { items } = cartData;
 
     return (
         <Drawer
@@ -35,8 +37,8 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
             }}
         >
             <ul className={styles["cart-drawer-items"]}>
-                {data &&
-                    data.map((item) => {
+                {items &&
+                    items.map((item) => {
                         return <CartItem data={item} key={item.variant.id} />;
                     })}
             </ul>
@@ -55,7 +57,7 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
                             className={styles["subtotal-value"]}
                             style={{ visibility: awaiting ? "hidden" : "initial" }}
                         >
-                            £{(calculateCartSubtotal(data).cost.total / 100).toFixed(2)}
+                            £{(calculateCartSubtotal(cartData).cost.total / 100).toFixed(2)}
                         </span>
                     </Skeleton>
                 </div>

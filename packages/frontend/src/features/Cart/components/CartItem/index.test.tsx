@@ -40,7 +40,7 @@ const mockProps: RecursivePartial<TCartItem> = {
 };
 
 const mockUserContext: RecursivePartial<IUserContext> = {
-    cart: { response: { data: [] }, awaiting: false },
+    cart: { response: { data: { items: [], promotions: [] } }, awaiting: false },
 };
 
 type renderFuncArgs = {

@@ -10,13 +10,14 @@ export function CheckoutContent() {
     const { response, awaiting } = cart;
     const { data } = response;
 
-    const cartItems = !awaiting
-        ? data
-        : (defaultData.cart as NonNullable<IUserContext["cart"]["response"]["data"]>);
+    let cartData = defaultData.cart as NonNullable<IUserContext["cart"]["response"]["data"]>;
+    if (data) cartData = data;
 
-    const { cost, discount } = calculateCartSubtotal(cartItems || []);
+    const { items } = cartData;
 
-    return cartItems ? (
+    const { cost, discount } = calculateCartSubtotal(cartData);
+
+    return items ? (
         <section className={styles["checkout-content"]}>
             <div className={styles["checkout-content-width-controller"]}>
                 <div className={styles["checkout-content-left"]}>
@@ -35,7 +36,7 @@ export function CheckoutContent() {
                         <Divider className={styles["divider"]} />
 
                         <ul className={styles["cart-items"]}>
-                            {cartItems.map((item) => {
+                            {items.map((item) => {
                                 return (
                                     <CartItem
                                         data={item}

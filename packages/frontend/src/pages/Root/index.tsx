@@ -2,7 +2,7 @@ import { createContext, useState, useEffect, useMemo } from "react";
 import { Outlet } from "react-router-dom";
 import { Header } from "@/features/Header";
 import { Footer } from "@/features/Footer";
-import { generateSkeletonCart, PopulatedCartItemData } from "@/utils/products/cart";
+import { generateSkeletonCart, PopulatedCart } from "@/utils/products/cart";
 import { mockGetUser, mockGetCart, mockGetOrders, mockGetSubscriptions } from "@/api/mocks";
 import { RecursivePartial } from "@/utils/types";
 import * as useAsync from "@/hooks/useAsync";
@@ -72,7 +72,7 @@ export interface IUserContext {
 
     defaultData: {
         user: DeepRequired<User>;
-        cart: RecursivePartial<PopulatedCartItemData>[];
+        cart: RecursivePartial<PopulatedCart>;
         orders: RecursivePartial<PopulatedOrderData>[];
         subscriptions: RecursivePartial<PopulatedSubscriptionData>[];
     };
