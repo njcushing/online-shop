@@ -157,7 +157,7 @@ export function CheckoutContent() {
                         color="var(--site-colour-tertiary, rgb(250, 223, 198))"
                         variant="filled"
                         className={styles["pay-now-button"]}
-                        disabled={awaiting}
+                        disabled={awaiting || items.length === 0}
                     >
                         Pay now
                     </Button>
