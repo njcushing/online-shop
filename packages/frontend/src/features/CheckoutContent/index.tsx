@@ -86,7 +86,7 @@ export function CheckoutContent() {
                             )}
                         </div>
 
-                        <Divider className={styles["divider"]} />
+                        {items && items.length > 0 && <Divider className={styles["divider"]} />}
 
                         {discount.promotions.total !== 0 && (
                             <>
@@ -138,19 +138,23 @@ export function CheckoutContent() {
                             </>
                         )}
 
-                        <div className={styles["cost-breakdown-line"]}>
-                            <span>Postage:</span>
-                            <span>
-                                {`${cost.postage !== 0 ? `£${(cost.postage / 100).toFixed(2)}` : "FREE"}`}
-                            </span>
-                        </div>
+                        {items && items.length > 0 && (
+                            <>
+                                <div className={styles["cost-breakdown-line"]}>
+                                    <span>Postage:</span>
+                                    <span>
+                                        {`${cost.postage !== 0 ? `£${(cost.postage / 100).toFixed(2)}` : "FREE"}`}
+                                    </span>
+                                </div>
 
-                        <Divider className={styles["divider"]} />
+                                <Divider className={styles["divider"]} />
 
-                        <div className={styles["cost-breakdown-line"]}>
-                            <span>Total:</span>
-                            <span>£{(cost.total / 100).toFixed(2)}</span>
-                        </div>
+                                <div className={styles["cost-breakdown-line"]}>
+                                    <span>Total:</span>
+                                    <span>£{(cost.total / 100).toFixed(2)}</span>
+                                </div>
+                            </>
+                        )}
                     </div>
 
                     <Button
