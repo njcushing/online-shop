@@ -6,7 +6,7 @@ import { DeliveryProgress } from ".";
 
 // Mock dependencies
 const mockUserContextValue: RecursivePartial<IUserContext> = {
-    cart: { response: { data: [] } },
+    cart: { response: { data: { items: [], promotions: [] } } },
 };
 
 type renderFuncArgs = {
@@ -42,7 +42,7 @@ const renderFunc = (args: renderFuncArgs = {}) => {
 
 vi.mock("@settings", () => ({ settings: { freeDeliveryThreshold: 1 } }));
 
-const mockCalculateCartSubtotal = vi.fn(() => ({ cost: { total: 0 } }));
+const mockCalculateCartSubtotal = vi.fn(() => ({ cost: { total: 0, postage: 0 } }));
 vi.mock("@/utils/products/utils/calculateCartSubtotal", async (importOriginal) => {
     const actual = await importOriginal();
     return {
@@ -63,7 +63,7 @@ describe("The DeliveryProgress component...", () => {
 
     describe("If the subtotal of cart items' values is greater than or equal to the freeDeliveryThreshold...", () => {
         test("Should render text to convey this information to the user", () => {
-            mockCalculateCartSubtotal.mockReturnValueOnce({ cost: { total: 1 } });
+            mockCalculateCartSubtotal.mockReturnValueOnce({ cost: { total: 1, postage: 0 } });
 
             renderFunc();
 

@@ -9,12 +9,18 @@ import styles from "./index.module.css";
 export function DeliveryProgress() {
     const { cart } = useContext(UserContext);
     const { response } = cart;
+    const { data } = response;
 
-    const subtotal = useMemo(
-        () => calculateCartSubtotal(response.data || []).cost.total,
-        [response],
+    const cartSubtotalInformation = useMemo(
+        () => calculateCartSubtotal(data || { items: [], promotions: [] }),
+        [data],
     );
-    const meetsThreshold = useMemo(() => subtotal >= settings.freeDeliveryThreshold, [subtotal]);
+    const subtotal = cartSubtotalInformation.cost.total;
+    const subtotalLessPostage = subtotal - cartSubtotalInformation.cost.postage;
+    const meetsThreshold = useMemo(
+        () => subtotalLessPostage >= settings.freeDeliveryThreshold,
+        [subtotalLessPostage],
+    );
 
     return (
         <div className={styles["delivery-progress"]} data-meets-threshold={meetsThreshold}>
@@ -30,12 +36,15 @@ export function DeliveryProgress() {
                         over £{+parseFloat(`${settings.freeDeliveryThreshold / 100}`).toFixed(2)}!
                         Add another{" "}
                         <b style={{ fontWeight: "bold" }}>
-                            £{((settings.freeDeliveryThreshold - subtotal) / 100).toFixed(2)}
+                            £
+                            {((settings.freeDeliveryThreshold - subtotalLessPostage) / 100).toFixed(
+                                2,
+                            )}
                         </b>{" "}
                         to your order to qualify.
                     </span>
                     <Progress
-                        value={(subtotal / settings.freeDeliveryThreshold) * 100}
+                        value={(subtotalLessPostage / settings.freeDeliveryThreshold) * 100}
                         className={styles["delivery-progress-bar"]}
                     />
                 </>
