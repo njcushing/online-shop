@@ -130,18 +130,41 @@ describe("The 'calculateCartSubtotal' function...", () => {
         );
     });
 
-    test("Should return the correct promotion discount total", () => {
-        const result = calculateCartSubtotal(
-            ...(mockArgs as Parameters<typeof calculateCartSubtotal>),
-        );
+    describe("Should return the correct information for the promotion(s)...", () => {
+        test("Including the total promotion discount value", () => {
+            const result = calculateCartSubtotal(
+                ...(mockArgs as Parameters<typeof calculateCartSubtotal>),
+            );
 
-        expect(result).toEqual(
-            expect.objectContaining({
-                discount: expect.objectContaining({
-                    promotions: 2215,
+            expect(result).toEqual(
+                expect.objectContaining({
+                    discount: expect.objectContaining({
+                        promotions: expect.objectContaining({
+                            total: 2215,
+                        }),
+                    }),
                 }),
-            }),
-        );
+            );
+        });
+
+        test("Including the discount amounts for each promotion individually", () => {
+            const result = calculateCartSubtotal(
+                ...(mockArgs as Parameters<typeof calculateCartSubtotal>),
+            );
+
+            expect(result).toEqual(
+                expect.objectContaining({
+                    discount: expect.objectContaining({
+                        promotions: expect.objectContaining({
+                            individual: [
+                                { code: "TESTF", value: 1000 },
+                                { code: "TESTP", value: 1215 },
+                            ],
+                        }),
+                    }),
+                }),
+            );
+        });
     });
 
     test("Should return the correct cart subtotal", () => {

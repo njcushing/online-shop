@@ -16,16 +16,27 @@ const { freeDeliveryThreshold, expressDeliveryCost } = settings;
  * 4. Using the current subtotal of the cart, apply postage cost if applicable.
  */
 
-export const calculateCartSubtotal = (
-    cart: PopulatedCart,
-): {
+type ReturnType = {
     cost: { products: number; postage: number; total: number };
-    discount: { products: number; subscriptions: number; promotions: number };
-} => {
+    discount: {
+        products: number;
+        subscriptions: number;
+        promotions: {
+            total: number;
+            individual: { code: PopulatedCart["promotions"][number]["code"]; value: number }[];
+        };
+    };
+};
+
+export const calculateCartSubtotal = (cart: PopulatedCart): ReturnType => {
     const { items, promotions } = cart;
 
-    const cost = { products: 0, postage: 0, total: 0 };
-    const discount = { products: 0, subscriptions: 0, promotions: 0 };
+    const cost: ReturnType["cost"] = { products: 0, postage: 0, total: 0 };
+    const discount: ReturnType["discount"] = {
+        products: 0,
+        subscriptions: 0,
+        promotions: { total: 0, individual: [] },
+    };
 
     items.forEach((item) => {
         const { variant, quantity, info } = item;
@@ -50,7 +61,7 @@ export const calculateCartSubtotal = (
             return -1;
         })
         .forEach((promotion) => {
-            const { threshold, discount: promotionDiscount } = promotion;
+            const { code, threshold, discount: promotionDiscount } = promotion;
             const { value, type } = promotionDiscount;
 
             if (totalBeforePromotions >= threshold) {
@@ -58,14 +69,16 @@ export const calculateCartSubtotal = (
                     const amountToSubtract = value;
 
                     cost.total -= amountToSubtract;
-                    discount.promotions += amountToSubtract;
+                    discount.promotions.total += amountToSubtract;
+                    discount.promotions.individual.push({ code, value: amountToSubtract });
                 }
 
                 if (type === "percentage") {
                     const amountToSubtract = totalBeforePromotions * (value / 100);
 
                     cost.total -= amountToSubtract;
-                    discount.promotions += amountToSubtract;
+                    discount.promotions.total += amountToSubtract;
+                    discount.promotions.individual.push({ code, value: amountToSubtract });
                 }
             }
         });
