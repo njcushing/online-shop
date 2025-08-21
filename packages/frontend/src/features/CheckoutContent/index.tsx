@@ -17,7 +17,7 @@ export function CheckoutContent() {
 
     const { cost, discount } = calculateCartSubtotal(cartData);
 
-    return items ? (
+    return (
         <section className={styles["checkout-content"]}>
             <div className={styles["checkout-content-width-controller"]}>
                 <div className={styles["checkout-content-left"]}>
@@ -27,40 +27,41 @@ export function CheckoutContent() {
                 </div>
 
                 <div className={styles["checkout-content-right"]}>
-                    <div
-                        className={styles["cart-summary"]}
-                        style={{ visibility: awaiting ? "hidden" : "initial" }}
-                    >
+                    <div className={styles["cart-summary"]}>
                         <h3 className={styles["cart-summary-header"]}>Cart summary</h3>
 
                         <Divider className={styles["divider"]} />
 
-                        <ul className={styles["cart-items"]}>
-                            {items.map((item) => {
-                                return (
-                                    <CartItem
-                                        data={item}
-                                        editableQuantity={false}
-                                        classNames={{
-                                            name: styles["cart-item-name"],
-                                            content: styles["cart-item-content"],
-                                            variantOptionName:
-                                                styles["cart-item-variant-option-name"],
-                                            variantOptionValue:
-                                                styles["cart-item-variant-option-value"],
-                                            quantity: styles["cart-item-quantity"],
-                                            price: {
-                                                current: styles["price-current"],
-                                                base: styles["price-base"],
-                                                discountPercentage:
-                                                    styles["price-discount-percentage"],
-                                            },
-                                        }}
-                                        key={item.variant.id}
-                                    />
-                                );
-                            })}
-                        </ul>
+                        {items && items.length > 0 ? (
+                            <ul className={styles["cart-items"]}>
+                                {items.map((item) => {
+                                    return (
+                                        <CartItem
+                                            data={item}
+                                            editableQuantity={false}
+                                            classNames={{
+                                                name: styles["cart-item-name"],
+                                                content: styles["cart-item-content"],
+                                                variantOptionName:
+                                                    styles["cart-item-variant-option-name"],
+                                                variantOptionValue:
+                                                    styles["cart-item-variant-option-value"],
+                                                quantity: styles["cart-item-quantity"],
+                                                price: {
+                                                    current: styles["price-current"],
+                                                    base: styles["price-base"],
+                                                    discountPercentage:
+                                                        styles["price-discount-percentage"],
+                                                },
+                                            }}
+                                            key={item.variant.id}
+                                        />
+                                    );
+                                })}
+                            </ul>
+                        ) : (
+                            <p className={styles["empty-cart-message"]}>Your cart is empty.</p>
+                        )}
 
                         <Divider className={styles["divider"]} />
 
@@ -163,5 +164,5 @@ export function CheckoutContent() {
                 </div>
             </div>
         </section>
-    ) : null;
+    );
 }
