@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { IUserContext, UserContext } from "@/pages/Root";
-import { Divider, Button } from "@mantine/core";
+import { Divider, Button, CloseButton } from "@mantine/core";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import { CartItem } from "../Cart/components/CartItem";
 import styles from "./index.module.css";
@@ -13,7 +13,7 @@ export function CheckoutContent() {
     let cartData = defaultData.cart as NonNullable<IUserContext["cart"]["response"]["data"]>;
     if (data) cartData = data;
 
-    const { items } = cartData;
+    const { items, promotions } = cartData;
 
     const { cost, discount } = calculateCartSubtotal(cartData);
 
@@ -83,16 +83,59 @@ export function CheckoutContent() {
                                     <span>-£{(discount.subscriptions / 100).toFixed(2)}</span>
                                 </div>
                             )}
-
-                            {discount.promotions !== 0 && (
-                                <div className={styles["cost-breakdown-line"]}>
-                                    <span>Promotions</span>
-                                    <span>-£{(discount.promotions / 100).toFixed(2)}</span>
-                                </div>
-                            )}
                         </div>
 
                         <Divider className={styles["divider"]} />
+
+                        {discount.promotions.total !== 0 && (
+                            <>
+                                <div className={styles["promotions"]}>
+                                    <div className={styles["cost-breakdown-line"]}>
+                                        <span>Promotions</span>
+                                        <span>
+                                            -£{(discount.promotions.total / 100).toFixed(2)}
+                                        </span>
+                                    </div>
+
+                                    <div className={styles["promotion-options-container"]}>
+                                        {promotions.map((promotion) => {
+                                            const { code, description } = promotion;
+                                            const info = discount.promotions.individual.find(
+                                                (p) => p.code === code,
+                                            );
+                                            const value = info?.value || 0;
+
+                                            return (
+                                                <span className={styles["promotion"]} key={code}>
+                                                    <CloseButton
+                                                        size="sm"
+                                                        className={
+                                                            styles["delete-promotion-button"]
+                                                        }
+                                                    />
+                                                    <p className={styles["promotion-code"]}>
+                                                        {code}
+                                                    </p>
+                                                    -
+                                                    <p className={styles["promotion-description"]}>
+                                                        {description}
+                                                    </p>
+                                                    <p
+                                                        className={
+                                                            styles["promotion-discount-value"]
+                                                        }
+                                                    >
+                                                        £{(value / 100).toFixed(2)}
+                                                    </p>
+                                                </span>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+
+                                <Divider className={styles["divider"]} />
+                            </>
+                        )}
 
                         <div className={styles["cost-breakdown-line"]}>
                             <span>Postage:</span>

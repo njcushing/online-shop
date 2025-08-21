@@ -10,7 +10,7 @@
     box-sizing: border-box;
 
     display: grid;
-    grid-template-columns: 1fr 480px;
+    grid-template-columns: 1fr 40%;
     align-items: start;
     gap: 16px;
 
@@ -95,6 +95,12 @@
     font-size: 1.06rem;
 }
 
+.cost-breakdown-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
 .cost-breakdown-line {
     display: flex;
     justify-content: space-between;
@@ -104,10 +110,56 @@
     font-size: 1.06rem;
 }
 
-.cost-breakdown-group {
+.promotions {
     display: flex;
     flex-direction: column;
     gap: 8px;
+}
+
+.promotion-options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.promotion {
+    display: grid;
+    grid-template-columns: repeat(3, auto) 1fr auto;
+    align-items: center;
+    gap: 0.5ch;
+
+    font-family: var(--font-primary);
+    font-size: 0.96rem;
+}
+
+.delete-promotion-button {
+    color: black;
+
+    margin-right: 4px;
+}
+
+@media (hover: hover) {
+    .delete-promotion-button:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}
+
+.delete-promotion-button:focus-visible,
+.delete-promotion-button:active {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.promotion-code {
+    font-weight: 600;
+}
+
+.promotion-description {
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+.promotion-discount-value {
+    margin-left: 4px;
 }
 
 .button {
