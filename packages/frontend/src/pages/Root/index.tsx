@@ -13,7 +13,6 @@ import {
     PopulatedSubscriptionData,
 } from "@/utils/products/subscriptions";
 import { User, defaultUser } from "@/utils/schemas/user";
-import { DeepRequired } from "react-hook-form";
 import { Home } from "../Home";
 import { Category } from "../Category";
 import { Product } from "../Product";
@@ -71,7 +70,7 @@ export interface IUserContext {
     subscriptions: useAsync.InferUseAsyncReturnTypeFromFunction<typeof mockGetSubscriptions>;
 
     defaultData: {
-        user: DeepRequired<User>;
+        user: User;
         cart: RecursivePartial<PopulatedCart>;
         orders: RecursivePartial<PopulatedOrderData>[];
         subscriptions: RecursivePartial<PopulatedSubscriptionData>[];
