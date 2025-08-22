@@ -44,8 +44,10 @@ export function ProductHero() {
     const [, /* quantity */ setQuantity] = useState<number | null>(1);
 
     const maximumVariantQuantity = useMemo(() => {
-        if (!cartData || awaitingCart || !productData || awaitingProduct || !variant) return 0;
-        return calculateMaxAddableVariantStock(cartData, productData, variant);
+        if (!cartData?.items || awaitingCart || !productData || awaitingProduct || !variant) {
+            return 0;
+        }
+        return calculateMaxAddableVariantStock(cartData.items, productData, variant);
     }, [cartData, awaitingCart, productData, awaitingProduct, variant]);
 
     if (!awaitingProduct && (!productData || !variant)) return null;

@@ -18,7 +18,9 @@ const mockUserContext: RecursivePartial<IUserContext> = {
         awaiting: false,
     },
     cart: {
-        response: { data: [] as IUserContext["cart"]["response"]["data"] },
+        response: {
+            data: { items: [], promotions: [] } as IUserContext["cart"]["response"]["data"],
+        },
         awaiting: false,
     } as IUserContext["cart"],
 };

@@ -29,8 +29,8 @@ export function VariantAlerts({ awaiting = false }: TVariantAlerts) {
     const { data: cartData } = response;
 
     const cartItemData = useMemo<PopulatedCartItemData | undefined>(() => {
-        if (!cartData) return undefined;
-        return cartData.find((cartItem) => cartItem.variant.id === variant?.id);
+        if (!cartData?.items) return undefined;
+        return cartData.items.find((cartItem) => cartItem.variant.id === variant?.id);
     }, [variant?.id, cartData]);
 
     const [lastValidStockCount, setLastValidStockCount] = useState<number>(0);
