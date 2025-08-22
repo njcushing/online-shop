@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { IUserContext, UserContext } from "@/pages/Root";
-import { Divider, Button, CloseButton } from "@mantine/core";
+import { Skeleton, Divider, Button, CloseButton } from "@mantine/core";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import { CartItem } from "../Cart/components/CartItem";
 import styles from "./index.module.css";
@@ -67,8 +67,16 @@ export function CheckoutContent() {
 
                         <div className={styles["cost-breakdown-group"]}>
                             <div className={styles["cost-breakdown-line"]}>
-                                <span>Item(s) Subtotal:</span>
-                                <span>£{(cost.products / 100).toFixed(2)}</span>
+                                <Skeleton visible={awaiting} width="min-content">
+                                    <span style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                                        Item(s) Subtotal:
+                                    </span>
+                                </Skeleton>
+                                <Skeleton visible={awaiting} width="min-content">
+                                    <span style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                                        £{(cost.products / 100).toFixed(2)}
+                                    </span>
+                                </Skeleton>
                             </div>
 
                             {discount.products !== 0 && (
@@ -141,17 +149,41 @@ export function CheckoutContent() {
                         {items && items.length > 0 && (
                             <>
                                 <div className={styles["cost-breakdown-line"]}>
-                                    <span>Postage:</span>
-                                    <span>
-                                        {`${cost.postage !== 0 ? `£${(cost.postage / 100).toFixed(2)}` : "FREE"}`}
-                                    </span>
+                                    <Skeleton visible={awaiting} width="min-content">
+                                        <span
+                                            style={{ visibility: awaiting ? "hidden" : "initial" }}
+                                        >
+                                            Postage:
+                                        </span>
+                                    </Skeleton>
+                                    <Skeleton visible={awaiting} width="min-content">
+                                        <span
+                                            style={{
+                                                visibility: awaiting ? "hidden" : "initial",
+                                            }}
+                                        >
+                                            {`${cost.postage !== 0 ? `£${(cost.postage / 100).toFixed(2)}` : "FREE"}`}
+                                        </span>
+                                    </Skeleton>
                                 </div>
 
                                 <Divider className={styles["divider"]} />
 
                                 <div className={styles["cost-breakdown-line"]}>
-                                    <span>Total:</span>
-                                    <span>£{(cost.total / 100).toFixed(2)}</span>
+                                    <Skeleton visible={awaiting} width="min-content">
+                                        <span
+                                            style={{ visibility: awaiting ? "hidden" : "initial" }}
+                                        >
+                                            Total:
+                                        </span>
+                                    </Skeleton>
+                                    <Skeleton visible={awaiting} width="min-content">
+                                        <span
+                                            style={{ visibility: awaiting ? "hidden" : "initial" }}
+                                        >
+                                            £{(cost.total / 100).toFixed(2)}
+                                        </span>
+                                    </Skeleton>
                                 </div>
                             </>
                         )}
