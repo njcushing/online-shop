@@ -36,6 +36,7 @@ export function NavDrawer({ opened = false, onClose }: TNavDrawer) {
                         rightSection={<CaretRight size={24} />}
                         onClick={() => onClose && onClose()}
                         classNames={{
+                            root: styles["nav-link-root"],
                             label: styles["nav-link-label"],
                         }}
                         style={{ flexShrink: 0 }}
