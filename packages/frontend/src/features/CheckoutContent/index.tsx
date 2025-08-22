@@ -1,6 +1,12 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { IUserContext, UserContext } from "@/pages/Root";
-import { Skeleton, Divider, Button, CloseButton } from "@mantine/core";
+import { Skeleton, Divider, Collapse, Button, CloseButton } from "@mantine/core";
+import {
+    NumberCircleOne,
+    NumberCircleTwo,
+    NumberCircleThree,
+    NumberCircleFour,
+} from "@phosphor-icons/react";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import { CartItem } from "../Cart/components/CartItem";
 import styles from "./index.module.css";
@@ -17,6 +23,8 @@ export function CheckoutContent() {
 
     const { cost, discount } = calculateCartSubtotal(cartData);
 
+    const [stage] = useState<"personal" | "billing" | "shipping" | "payment">("personal");
+
     return (
         <section className={styles["checkout-content"]}>
             <div className={styles["checkout-content-width-controller"]}>
@@ -24,6 +32,52 @@ export function CheckoutContent() {
                     <h2 className={styles["checkout-header"]}>Checkout</h2>
 
                     <Divider className={styles["divider"]} />
+
+                    <div className={styles["checkout-details-section"]}>
+                        <div className={styles["panel"]}>
+                            <NumberCircleOne weight="fill" size="2rem" />
+                            <span className={styles["panel-title"]}>Personal</span>
+                        </div>
+                        <Collapse in={stage === "personal"}>
+                            <div className={styles["checkout-details-section-content"]}></div>
+                        </Collapse>
+                    </div>
+
+                    <Divider className={styles["divider-light"]} />
+
+                    <div className={styles["checkout-details-section"]}>
+                        <div className={styles["panel"]}>
+                            <NumberCircleTwo weight="fill" size="2rem" />
+                            <span className={styles["panel-title"]}>Shipping</span>
+                        </div>
+                        <Collapse in={stage === "shipping"} className={styles["collapse"]}>
+                            <div className={styles["checkout-details-section-content"]}></div>
+                        </Collapse>
+                    </div>
+
+                    <Divider className={styles["divider-light"]} />
+
+                    <div className={styles["checkout-details-section"]}>
+                        <div className={styles["panel"]}>
+                            <NumberCircleThree weight="fill" size="2rem" />
+                            <span className={styles["panel-title"]}>Billing</span>
+                        </div>
+                        <Collapse in={stage === "billing"} className={styles["collapse"]}>
+                            <div className={styles["checkout-details-section-content"]}></div>
+                        </Collapse>
+                    </div>
+
+                    <Divider className={styles["divider-light"]} />
+
+                    <div className={styles["checkout-details-section"]}>
+                        <div className={styles["panel"]}>
+                            <NumberCircleFour weight="fill" size="2rem" />
+                            <span className={styles["panel-title"]}>Payment</span>
+                        </div>
+                        <Collapse in={stage === "payment"} className={styles["collapse"]}>
+                            <div className={styles["checkout-details-section-content"]}></div>
+                        </Collapse>
+                    </div>
                 </div>
 
                 <div className={styles["checkout-content-right"]}>

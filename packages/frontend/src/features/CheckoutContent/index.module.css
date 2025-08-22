@@ -39,6 +39,32 @@
     --divider-color: rgba(0, 0, 0, 0.6);
 }
 
+.panel {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 12px;
+}
+
+.panel-title {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 1.44rem;
+    font-weight: 500;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.6rem;
+    }
+}
+
+.divider-light {
+    --divider-color: rgba(0, 0, 0, 0.3);
+}
+
+.checkout-details-section-content {
+    padding: 12px 0px;
+}
+
 .checkout-content-right {
     grid-area: 1 / 2 / -1 / -1;
 
