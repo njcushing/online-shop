@@ -37,10 +37,12 @@ export function CartItem({ data, editableQuantity = true, classNames }: TCartIte
     const { cart } = useContext(UserContext);
     const { awaiting } = cart;
 
-    const { product, variant, quantity } = data;
+    const { product, variant, quantity, info } = data;
+    const { subscription } = info || {};
 
     const { name, images, allowance } = product;
     const { price, stock, options, allowanceOverride, image } = variant;
+    const { subscriptionDiscountPercentage } = price;
 
     const usedImage = image || images.thumb;
     const { src, alt } = usedImage;
@@ -99,6 +101,14 @@ export function CartItem({ data, editableQuantity = true, classNames }: TCartIte
                         );
                     })}
                 </div>
+
+                {!awaiting && subscription && subscriptionDiscountPercentage > 0 && (
+                    <p className={styles["discount-percentage-message"]}>
+                        The price below includes a{" "}
+                        <strong>{subscriptionDiscountPercentage}%</strong> discount for
+                        subscriptions to this product.
+                    </p>
+                )}
 
                 <div className={styles["cart-item-content-bottom"]}>
                     <Skeleton visible={awaiting} width="min-content">

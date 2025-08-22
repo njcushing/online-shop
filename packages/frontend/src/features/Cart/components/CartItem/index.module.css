@@ -21,7 +21,7 @@
 
 .cart-item-content {
     display: grid;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto 1fr repeat(2, auto);
     gap: 12px;
 }
 
@@ -63,7 +63,27 @@
     font-family: var(--font-primary);
 }
 
+.discount-percentage-message {
+    font-family: var(--font-primary);
+    font-size: 0.84rem;
+    font-weight: 400;
+    font-style: italic;
+
+    width: 100%;
+
+    strong {
+        font-weight: 600;
+        text-wrap: nowrap;
+    }
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
+}
+
 .cart-item-content-bottom {
+    grid-area: -2 / 1 / -1 / 1;
+
     display: flex;
     flex-direction: column-reverse;
     align-items: start;

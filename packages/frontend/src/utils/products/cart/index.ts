@@ -46,12 +46,16 @@ export type PopulatedCart = CartBase<PopulatedCartItemData>;
 export const mockCart: Cart = {
     items: [
         { productId: "1", variantId: "1-1", quantity: 10 },
-        { productId: "1", variantId: "1-2", quantity: 5 },
+        {
+            productId: "1",
+            variantId: "1-2",
+            quantity: 5,
+            info: { subscription: { frequency: "one_month" } },
+        },
         {
             productId: "2",
             variantId: "2-2",
             quantity: 15,
-            info: { subscription: { frequency: "one_month" } },
         },
         { productId: "3", variantId: "3-1", quantity: 6 },
         {
