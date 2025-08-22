@@ -13,17 +13,19 @@ const getProps = (component: HTMLElement) => {
 };
 
 // Mock dependencies
+// Mock contexts are only using fields relevant to component being tested
+
 const mockProps: TNavigation = {
     opened: true,
 };
 
-// Mock contexts are only using fields relevant to component being tested
-const mockCart: RecursivePartial<IUserContext["cart"]["response"]["data"]> = [
-    // Only using relevant fields
-    { product: {}, variant: { id: "variant1Id" }, quantity: 1 },
-    { product: {}, variant: { id: "variant2Id" }, quantity: 1 },
-    { product: {}, variant: { id: "variant3Id" }, quantity: 1 },
-];
+const mockCart: RecursivePartial<IUserContext["cart"]["response"]["data"]> = {
+    items: [
+        { product: {}, variant: { id: "variant1Id" }, quantity: 1 },
+        { product: {}, variant: { id: "variant2Id" }, quantity: 1 },
+        { product: {}, variant: { id: "variant3Id" }, quantity: 1 },
+    ],
+};
 
 const mockUserContext: RecursivePartial<IUserContext> = {
     cart: {
@@ -35,7 +37,7 @@ const mockUserContext: RecursivePartial<IUserContext> = {
         awaiting: false,
     },
 
-    defaultData: { cart: [] },
+    defaultData: { cart: { items: [] } },
 };
 
 type renderFuncArgs = {
@@ -271,7 +273,7 @@ describe("The Navigation component...", () => {
         test("Should render an element that displays the quantity of items in the user's cart", async () => {
             await renderFunc();
 
-            const cartQuantity = screen.getByText(mockCart.length);
+            const cartQuantity = screen.getByText(mockCart.items!.length);
             expect(cartQuantity).toBeInTheDocument();
         });
 

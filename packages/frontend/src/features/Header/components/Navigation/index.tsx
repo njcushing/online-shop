@@ -124,8 +124,10 @@ export function Navigation({ opened = false }: TNavigation) {
                         >
                             <ShoppingCartSimple size={iconSize} color="black" />
                         </ActionIcon>
-                        {cartData && cartData.length > 0 && (
-                            <span className={styles["cart-items-quantity"]}>{cartData.length}</span>
+                        {cartData?.items && cartData.items.length > 0 && (
+                            <span className={styles["cart-items-quantity"]}>
+                                {cartData.items.length}
+                            </span>
                         )}
                     </div>
                 </div>
