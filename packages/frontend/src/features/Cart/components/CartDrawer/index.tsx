@@ -34,6 +34,7 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
                 header: styles["drawer-header"],
                 title: styles["drawer-title"],
                 body: styles["drawer-body"],
+                close: styles["drawer-close"],
             }}
         >
             <ul className={styles["cart-drawer-items"]}>

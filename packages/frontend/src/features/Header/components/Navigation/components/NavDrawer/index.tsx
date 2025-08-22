@@ -22,6 +22,7 @@ export function NavDrawer({ opened = false, onClose }: TNavDrawer) {
                 content: styles["drawer-content"],
                 header: styles["drawer-header"],
                 body: styles["drawer-body"],
+                close: styles["drawer-close"],
             }}
         >
             {categories.map((category) => {

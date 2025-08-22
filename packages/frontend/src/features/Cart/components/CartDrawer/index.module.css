@@ -39,6 +39,17 @@
     padding: 0px;
 }
 
+@media (hover: hover) {
+    .drawer-close:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}
+
+.drawer-close:focus-visible,
+.drawer-close:active {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
 .cart-drawer-items {
     display: flex;
     flex-direction: column;
