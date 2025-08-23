@@ -55,6 +55,7 @@ export type Field<T extends FieldValues> = {
     name: ValidPath<T>;
     label: string;
     description?: string;
+    required?: boolean;
     mode: UseFormProps<T>["mode"];
     validateOther?: string[];
     sharedValidation?: string[];
@@ -200,6 +201,7 @@ export function FormBuilder<T extends FieldValues>({
                 name,
                 label,
                 description,
+                required,
                 mode,
                 validateOther,
                 sharedValidation,
@@ -234,6 +236,7 @@ export function FormBuilder<T extends FieldValues>({
                             value={field.value ?? ""}
                             label={label}
                             description={description}
+                            required={required}
                             hideControls
                             error={inputError}
                             onBlur={onBlur}
@@ -255,6 +258,7 @@ export function FormBuilder<T extends FieldValues>({
                             value={field.value ?? ""}
                             label={label}
                             description={description}
+                            required={required}
                             // Not sure why, but this component's <label> isn't accessible in unit
                             // tests by the 'label' prop value, so I'm setting the aria attribute
                             // too
@@ -281,6 +285,7 @@ export function FormBuilder<T extends FieldValues>({
                             value={field.value ?? ""}
                             label={label}
                             description={description}
+                            required={required}
                             error={inputError}
                             onBlur={onBlur}
                             onChange={(v) => {
