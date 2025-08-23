@@ -32,11 +32,15 @@ const inputProps = {
     },
 };
 
+type FieldType = "text" | "numeric" | "password";
+type FieldTypeComponentProps = {
+    text: TextInputProps;
+    numeric: NumberInputProps;
+    password: PasswordInputProps;
+};
+
 // 'name' must resolve to a type in the schema that is a valid 'value' in the input
-type ValidPathValueTypes =
-    | TextInputProps["value"]
-    | NumberInputProps["value"]
-    | PasswordInputProps["value"];
+type ValidPathValueTypes = FieldTypeComponentProps[keyof FieldTypeComponentProps]["value"];
 type ValidPath<T extends FieldValues> =
     FieldPath<T> extends infer P
         ? P extends FieldPath<T>
@@ -47,13 +51,16 @@ type ValidPath<T extends FieldValues> =
         : never;
 
 export type Field<T extends FieldValues> = {
-    type: "text" | "numeric" | "password";
+    type: FieldType;
     name: ValidPath<T>;
     label: string;
+    description?: string;
     mode: UseFormProps<T>["mode"];
     validateOther?: string[];
     sharedValidation?: string[];
-};
+} & {
+    [K in FieldType]: { type: K; classNames?: FieldTypeComponentProps[K]["classNames"] };
+}[FieldType];
 
 export type Fieldset<T extends FieldValues> = {
     legend: string;
@@ -188,7 +195,16 @@ export function FormBuilder<T extends FieldValues>({
 
     const createInput = useCallback(
         (fieldData: Field<T>, field: ControllerRenderProps<T, ValidPath<T>>): JSX.Element => {
-            const { type, name, label, mode, validateOther, sharedValidation } = fieldData;
+            const {
+                type,
+                name,
+                label,
+                description,
+                mode,
+                validateOther,
+                sharedValidation,
+                classNames: fieldClassNames,
+            } = fieldData;
 
             const fieldError = _.get(errors, `${name}.message`);
             const sharedFieldsHaveErrors = (sharedValidation || []).filter((fieldName) => {
@@ -217,6 +233,7 @@ export function FormBuilder<T extends FieldValues>({
                             {...inputProps}
                             value={field.value ?? ""}
                             label={label}
+                            description={description}
                             hideControls
                             error={inputError}
                             onBlur={onBlur}
@@ -227,6 +244,7 @@ export function FormBuilder<T extends FieldValues>({
                             aria-hidden={!open}
                             style={style}
                             disabled={disabled}
+                            classNames={{ ...fieldClassNames }}
                         />
                     );
                 case "password":
@@ -236,6 +254,7 @@ export function FormBuilder<T extends FieldValues>({
                             {...inputProps}
                             value={field.value ?? ""}
                             label={label}
+                            description={description}
                             // Not sure why, but this component's <label> isn't accessible in unit
                             // tests by the 'label' prop value, so I'm setting the aria attribute
                             // too
@@ -250,6 +269,7 @@ export function FormBuilder<T extends FieldValues>({
                             aria-hidden={!open}
                             style={style}
                             disabled={disabled}
+                            classNames={{ ...fieldClassNames }}
                         />
                     );
                 case "text":
@@ -260,6 +280,7 @@ export function FormBuilder<T extends FieldValues>({
                             {...inputProps}
                             value={field.value ?? ""}
                             label={label}
+                            description={description}
                             error={inputError}
                             onBlur={onBlur}
                             onChange={(v) => {
@@ -270,6 +291,7 @@ export function FormBuilder<T extends FieldValues>({
                             aria-hidden={!open}
                             style={style}
                             disabled={disabled}
+                            classNames={{ ...fieldClassNames }}
                         />
                     );
             }
