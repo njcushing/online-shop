@@ -2,7 +2,7 @@ import { useContext, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { Skeleton } from "@mantine/core";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormBuilder } from "@/features/AccountDetails/components/FormBuilder";
+import { FormBuilder } from "@/components/Forms/FormBuilder";
 import dayjs from "dayjs";
 import { NamesFormData, namesFormDataSchema } from "./schemas/namesSchema";
 import { PhoneNumberFormData, phoneNumberFormDataSchema } from "./schemas/phoneNumberSchema";

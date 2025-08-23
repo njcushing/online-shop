@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from "@/pages/Root";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormBuilder } from "@/features/AccountDetails/components/FormBuilder";
+import { FormBuilder } from "@/components/Forms/FormBuilder";
 import { PasswordsFormData, passwordsFormDataSchema } from "./schemas/passwordsSchema";
 import styles from "./index.module.css";
 

@@ -2,7 +2,7 @@ import { useCallback, useContext, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { Skeleton } from "@mantine/core";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormBuilder } from "@/features/AccountDetails/components/FormBuilder";
+import { FormBuilder } from "@/components/Forms/FormBuilder";
 import { AddressesFormData, addressesFormDataSchema } from "./schemas/addressSchema";
 import styles from "./index.module.css";
 
