@@ -75,6 +75,7 @@ export type TFormBuilder<T extends FieldValues> = {
     submitButtonText?: string;
     disabled?: boolean;
     additionalErrorPaths?: string[];
+    alwaysOpen?: boolean;
     classNames?: {
         form?: string;
         editButton?: string;
@@ -93,9 +94,10 @@ export function FormBuilder<T extends FieldValues>({
     submitButtonText = "Submit",
     disabled,
     additionalErrorPaths = [],
+    alwaysOpen,
     classNames,
 }: TFormBuilder<T>) {
-    const [open, setOpen] = useState<boolean>(false);
+    const [open, setOpen] = useState<boolean>(!!alwaysOpen);
 
     const {
         control,
@@ -300,16 +302,18 @@ export function FormBuilder<T extends FieldValues>({
             onSubmit={onSubmit && handleSubmit(onSubmit)}
             noValidate
         >
-            <Button
-                onClick={() => setOpen(!open)}
-                color="rgb(48, 48, 48)"
-                variant="filled"
-                radius={9999}
-                className={`${styles["edit-button"]} ${classNames?.editButton}`}
-                disabled={disabled}
-            >
-                {open ? "Cancel" : "Edit"}
-            </Button>
+            {!alwaysOpen && (
+                <Button
+                    onClick={() => setOpen(!open)}
+                    color="rgb(48, 48, 48)"
+                    variant="filled"
+                    radius={9999}
+                    className={`${styles["edit-button"]} ${classNames?.editButton}`}
+                    disabled={disabled}
+                >
+                    {open ? "Cancel" : "Edit"}
+                </Button>
+            )}
 
             <div className={`${styles["fieldsets-container"]} ${classNames?.fieldsetsContainer}`}>
                 {fieldsets.map((fieldset) => {
