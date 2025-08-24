@@ -16,11 +16,10 @@ const inputProps = {
 };
 
 export type TPersonalInformation = {
-    open?: boolean;
     onSubmit?: SubmitHandler<CheckoutPersonalFormData>;
 };
 
-export function PersonalInformationForm({ open, onSubmit }: TPersonalInformation) {
+export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
     const { user, cart } = useContext(UserContext);
 
     const { response, awaiting: userAwaiting } = user;
@@ -81,7 +80,6 @@ export function PersonalInformationForm({ open, onSubmit }: TPersonalInformation
                                         const { value } = v.target;
                                         field.onChange(value.length > 0 ? value : undefined);
                                     }}
-                                    aria-hidden={!open}
                                     disabled={userAwaiting || cartAwaiting}
                                 />
                             );
@@ -104,7 +102,6 @@ export function PersonalInformationForm({ open, onSubmit }: TPersonalInformation
                                         const { value } = v.target;
                                         field.onChange(value.length > 0 ? value : undefined);
                                     }}
-                                    aria-hidden={!open}
                                     disabled={userAwaiting || cartAwaiting}
                                 />
                             );
@@ -128,7 +125,6 @@ export function PersonalInformationForm({ open, onSubmit }: TPersonalInformation
                                     const { value } = v.target;
                                     field.onChange(value.length > 0 ? value : undefined);
                                 }}
-                                aria-hidden={!open}
                                 disabled={userAwaiting || cartAwaiting}
                             />
                         );
@@ -151,7 +147,6 @@ export function PersonalInformationForm({ open, onSubmit }: TPersonalInformation
                                     const { value } = v.target;
                                     field.onChange(value.length > 0 ? value : undefined);
                                 }}
-                                aria-hidden={!open}
                                 disabled={userAwaiting || cartAwaiting}
                             />
                         );
