@@ -62,51 +62,53 @@ export function PersonalInformationForm({ open }: TPersonalInformation) {
             noValidate
         >
             <div className={styles["fields-container"]}>
-                <Controller
-                    control={control}
-                    name="personal.firstName"
-                    render={({ field }) => {
-                        return (
-                            <TextInput
-                                {...field}
-                                {...inputProps}
-                                value={field.value ?? ""}
-                                label="First name"
-                                required
-                                error={getError("personal.firstName")}
-                                onChange={(v) => {
-                                    const { value } = v.target;
-                                    field.onChange(value.length > 0 ? value : undefined);
-                                }}
-                                aria-hidden={!open}
-                                disabled={userAwaiting || cartAwaiting}
-                            />
-                        );
-                    }}
-                />
+                <div className={styles["name-fields-container"]}>
+                    <Controller
+                        control={control}
+                        name="personal.firstName"
+                        render={({ field }) => {
+                            return (
+                                <TextInput
+                                    {...field}
+                                    {...inputProps}
+                                    value={field.value ?? ""}
+                                    label="First name"
+                                    required
+                                    error={getError("personal.firstName")}
+                                    onChange={(v) => {
+                                        const { value } = v.target;
+                                        field.onChange(value.length > 0 ? value : undefined);
+                                    }}
+                                    aria-hidden={!open}
+                                    disabled={userAwaiting || cartAwaiting}
+                                />
+                            );
+                        }}
+                    />
 
-                <Controller
-                    control={control}
-                    name="personal.lastName"
-                    render={({ field }) => {
-                        return (
-                            <TextInput
-                                {...field}
-                                {...inputProps}
-                                value={field.value ?? ""}
-                                label="Last name"
-                                required
-                                error={getError("personal.lastName")}
-                                onChange={(v) => {
-                                    const { value } = v.target;
-                                    field.onChange(value.length > 0 ? value : undefined);
-                                }}
-                                aria-hidden={!open}
-                                disabled={userAwaiting || cartAwaiting}
-                            />
-                        );
-                    }}
-                />
+                    <Controller
+                        control={control}
+                        name="personal.lastName"
+                        render={({ field }) => {
+                            return (
+                                <TextInput
+                                    {...field}
+                                    {...inputProps}
+                                    value={field.value ?? ""}
+                                    label="Last name"
+                                    required
+                                    error={getError("personal.lastName")}
+                                    onChange={(v) => {
+                                        const { value } = v.target;
+                                        field.onChange(value.length > 0 ? value : undefined);
+                                    }}
+                                    aria-hidden={!open}
+                                    disabled={userAwaiting || cartAwaiting}
+                                />
+                            );
+                        }}
+                    />
+                </div>
 
                 <Controller
                     control={control}
@@ -163,7 +165,7 @@ export function PersonalInformationForm({ open }: TPersonalInformation) {
                 disabled={userAwaiting || cartAwaiting}
                 className={styles["next-stage-button"]}
             >
-                Shipping
+                Continue to shipping
             </Button>
         </form>
     );
