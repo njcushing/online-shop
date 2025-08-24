@@ -8,19 +8,19 @@ import {
     NumberCircleFour,
 } from "@phosphor-icons/react";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
+import { PersonalInformationForm } from "./components/PersonalInformationForm";
 import { CartItem } from "../Cart/components/CartItem";
 import styles from "./index.module.css";
 
 export function CheckoutContent() {
     const { cart, defaultData } = useContext(UserContext);
+
     const { response, awaiting } = cart;
-    const { data } = response;
 
     let cartData = defaultData.cart as NonNullable<IUserContext["cart"]["response"]["data"]>;
-    if (data) cartData = data;
+    if (response.data) cartData = response.data;
 
     const { items, promotions } = cartData;
-
     const { cost, discount } = calculateCartSubtotal(cartData);
 
     const [stage] = useState<"personal" | "billing" | "shipping" | "payment">("personal");
@@ -39,7 +39,9 @@ export function CheckoutContent() {
                             <span className={styles["panel-title"]}>Personal</span>
                         </div>
                         <Collapse in={stage === "personal"}>
-                            <div className={styles["checkout-details-section-content"]}></div>
+                            <div className={styles["checkout-details-section-content"]}>
+                                <PersonalInformationForm />
+                            </div>
                         </Collapse>
                     </div>
 
@@ -205,7 +207,9 @@ export function CheckoutContent() {
                                 <div className={styles["cost-breakdown-line"]}>
                                     <Skeleton visible={awaiting} width="min-content">
                                         <span
-                                            style={{ visibility: awaiting ? "hidden" : "initial" }}
+                                            style={{
+                                                visibility: awaiting ? "hidden" : "initial",
+                                            }}
                                         >
                                             Postage:
                                         </span>
@@ -226,14 +230,18 @@ export function CheckoutContent() {
                                 <div className={styles["cost-breakdown-line"]}>
                                     <Skeleton visible={awaiting} width="min-content">
                                         <span
-                                            style={{ visibility: awaiting ? "hidden" : "initial" }}
+                                            style={{
+                                                visibility: awaiting ? "hidden" : "initial",
+                                            }}
                                         >
                                             Total:
                                         </span>
                                     </Skeleton>
                                     <Skeleton visible={awaiting} width="min-content">
                                         <span
-                                            style={{ visibility: awaiting ? "hidden" : "initial" }}
+                                            style={{
+                                                visibility: awaiting ? "hidden" : "initial",
+                                            }}
                                         >
                                             £{(cost.total / 100).toFixed(2)}
                                         </span>
