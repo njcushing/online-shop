@@ -2,7 +2,7 @@ import { useContext, useEffect, useCallback, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckoutPersonalFormData, checkoutPersonalFormDataSchema } from "@/utils/schemas/checkout";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { TextInput, Button } from "@mantine/core";
 import { createInputError } from "@/utils/createInputError";
 import _ from "lodash";
@@ -17,9 +17,10 @@ const inputProps = {
 
 export type TPersonalInformation = {
     open?: boolean;
+    onSubmit?: SubmitHandler<CheckoutPersonalFormData>;
 };
 
-export function PersonalInformationForm({ open }: TPersonalInformation) {
+export function PersonalInformationForm({ open, onSubmit }: TPersonalInformation) {
     const { user, cart } = useContext(UserContext);
 
     const { response, awaiting: userAwaiting } = user;
@@ -36,6 +37,7 @@ export function PersonalInformationForm({ open }: TPersonalInformation) {
 
     const {
         control,
+        handleSubmit,
         formState: { errors },
         reset,
     } = useForm<CheckoutPersonalFormData>({
@@ -58,7 +60,7 @@ export function PersonalInformationForm({ open }: TPersonalInformation) {
         <form
             className={styles["form"]}
             aria-label="checkout personal information"
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={onSubmit && handleSubmit(onSubmit)}
             noValidate
         >
             <div className={styles["fields-container"]}>

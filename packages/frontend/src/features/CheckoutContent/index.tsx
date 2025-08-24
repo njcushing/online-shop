@@ -23,7 +23,7 @@ export function CheckoutContent() {
     const { items, promotions } = cartData;
     const { cost, discount } = calculateCartSubtotal(cartData);
 
-    const [stage] = useState<"personal" | "billing" | "shipping" | "payment">("personal");
+    const [stage, setStage] = useState<"personal" | "shipping" | "billing" | "payment">("personal");
 
     return (
         <section className={styles["checkout-content"]}>
@@ -40,7 +40,7 @@ export function CheckoutContent() {
                         </div>
                         <Collapse in={stage === "personal"}>
                             <div className={styles["checkout-details-section-content"]}>
-                                <PersonalInformationForm />
+                                <PersonalInformationForm onSubmit={() => setStage("shipping")} />
                             </div>
                         </Collapse>
                     </div>
