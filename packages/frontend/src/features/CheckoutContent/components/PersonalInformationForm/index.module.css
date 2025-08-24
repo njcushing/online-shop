@@ -45,6 +45,11 @@
     }
 }
 
+.form-field-input:disabled {
+    border-color: grey;
+    background-color: var(--site-colour-secondary, rgb(255, 236, 218));
+}
+
 .next-stage-button {
     display: flex;
     align-self: end;
