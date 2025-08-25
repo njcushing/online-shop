@@ -74,6 +74,7 @@ export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
                                     {...inputProps}
                                     value={field.value ?? ""}
                                     label="First name"
+                                    autoComplete="given-name"
                                     required
                                     error={getError("personal.firstName")}
                                     onChange={(v) => {
@@ -96,6 +97,7 @@ export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
                                     {...inputProps}
                                     value={field.value ?? ""}
                                     label="Last name"
+                                    autoComplete="family-name"
                                     required
                                     error={getError("personal.lastName")}
                                     onChange={(v) => {
@@ -119,6 +121,7 @@ export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
                                 {...inputProps}
                                 value={field.value ?? ""}
                                 label="Email address"
+                                autoComplete="email"
                                 required
                                 error={getError("personal.email")}
                                 onChange={(v) => {
@@ -141,6 +144,7 @@ export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
                                 {...inputProps}
                                 value={field.value ?? ""}
                                 label="Phone number (optional)"
+                                autoComplete="tel"
                                 description="For contacting you with queries about your order"
                                 error={getError("personal.firstName")}
                                 onChange={(v) => {
