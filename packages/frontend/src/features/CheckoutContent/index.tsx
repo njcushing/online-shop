@@ -1,14 +1,10 @@
 import { useContext, useState } from "react";
 import { IUserContext, UserContext } from "@/pages/Root";
 import { Skeleton, Divider, Collapse, Button, CloseButton } from "@mantine/core";
-import {
-    NumberCircleOne,
-    NumberCircleTwo,
-    NumberCircleThree,
-    NumberCircleFour,
-} from "@phosphor-icons/react";
+import { NumberCircleOne, NumberCircleTwo, NumberCircleThree } from "@phosphor-icons/react";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import { PersonalInformationForm } from "./components/PersonalInformationForm";
+import { ShippingForm } from "./components/ShippingForm";
 import { CartItem } from "../Cart/components/CartItem";
 import styles from "./index.module.css";
 
@@ -38,7 +34,11 @@ export function CheckoutContent() {
                             <NumberCircleOne weight="fill" size="2rem" />
                             <span className={styles["panel-title"]}>Personal</span>
                         </div>
-                        <Collapse in={stage === "personal"}>
+                        <Collapse
+                            in={stage === "personal"}
+                            animateOpacity={false}
+                            className={styles["collapse"]}
+                        >
                             <div className={styles["checkout-details-section-content"]}>
                                 <PersonalInformationForm onSubmit={() => setStage("shipping")} />
                             </div>
@@ -52,8 +52,17 @@ export function CheckoutContent() {
                             <NumberCircleTwo weight="fill" size="2rem" />
                             <span className={styles["panel-title"]}>Shipping</span>
                         </div>
-                        <Collapse in={stage === "shipping"} className={styles["collapse"]}>
-                            <div className={styles["checkout-details-section-content"]}></div>
+                        <Collapse
+                            in={stage === "shipping"}
+                            animateOpacity={false}
+                            className={styles["collapse"]}
+                        >
+                            <div className={styles["checkout-details-section-content"]}>
+                                <ShippingForm
+                                    onReturn={() => setStage("personal")}
+                                    onSubmit={() => setStage("payment")}
+                                />
+                            </div>
                         </Collapse>
                     </div>
 
@@ -62,21 +71,13 @@ export function CheckoutContent() {
                     <div className={styles["checkout-details-section"]}>
                         <div className={styles["panel"]}>
                             <NumberCircleThree weight="fill" size="2rem" />
-                            <span className={styles["panel-title"]}>Billing</span>
-                        </div>
-                        <Collapse in={stage === "billing"} className={styles["collapse"]}>
-                            <div className={styles["checkout-details-section-content"]}></div>
-                        </Collapse>
-                    </div>
-
-                    <Divider className={styles["divider-light"]} />
-
-                    <div className={styles["checkout-details-section"]}>
-                        <div className={styles["panel"]}>
-                            <NumberCircleFour weight="fill" size="2rem" />
                             <span className={styles["panel-title"]}>Payment</span>
                         </div>
-                        <Collapse in={stage === "payment"} className={styles["collapse"]}>
+                        <Collapse
+                            in={stage === "payment"}
+                            animateOpacity={false}
+                            className={styles["collapse"]}
+                        >
                             <div className={styles["checkout-details-section-content"]}></div>
                         </Collapse>
                     </div>
