@@ -1,0 +1,96 @@
+.form {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    width: 100%;
+}
+
+.legend {
+    font-family: var(--font-primary);
+    font-size: 1.14rem;
+    font-weight: 500;
+
+    padding-top: 8px;
+    margin-bottom: 16px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.25rem;
+    }
+}
+
+.fields-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-field-label {
+    font-family: var(--font-primary);
+    font-size: 0.92rem;
+
+    background-color: transparent;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1rem;
+    }
+}
+
+.form-field-input {
+    font-family: var(--font-primary);
+    font-size: 0.92rem;
+    font-weight: 400;
+
+    border: 2px solid black;
+    border-radius: 0px;
+    background-color: transparent;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1rem;
+    }
+}
+
+.form-field-input:disabled {
+    border-color: grey;
+    background-color: var(--site-colour-secondary, rgb(255, 236, 218));
+}
+
+.checkbox-input {
+    border: 2px solid black;
+    border-radius: 0px;
+    background-color: transparent;
+}
+
+.checkbox-label {
+    font-family: var(--font-primary);
+    font-size: 0.92rem;
+    font-weight: 400;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1rem;
+    }
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.previous-stage-button,
+.next-stage-button {
+    display: flex;
+
+    font-family: var(--font-primary);
+    font-size: 0.86rem;
+
+    border-radius: 4px;
+
+    width: min-content;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
+}
