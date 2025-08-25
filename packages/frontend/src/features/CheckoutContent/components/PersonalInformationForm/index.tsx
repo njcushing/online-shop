@@ -77,10 +77,6 @@ export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
                                     autoComplete="given-name"
                                     required
                                     error={getError("personal.firstName")}
-                                    onChange={(v) => {
-                                        const { value } = v.target;
-                                        field.onChange(value.length > 0 ? value : undefined);
-                                    }}
                                     disabled={userAwaiting || cartAwaiting}
                                 />
                             );
@@ -100,10 +96,6 @@ export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
                                     autoComplete="family-name"
                                     required
                                     error={getError("personal.lastName")}
-                                    onChange={(v) => {
-                                        const { value } = v.target;
-                                        field.onChange(value.length > 0 ? value : undefined);
-                                    }}
                                     disabled={userAwaiting || cartAwaiting}
                                 />
                             );
@@ -124,10 +116,6 @@ export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
                                 autoComplete="email"
                                 required
                                 error={getError("personal.email")}
-                                onChange={(v) => {
-                                    const { value } = v.target;
-                                    field.onChange(value.length > 0 ? value : undefined);
-                                }}
                                 disabled={userAwaiting || cartAwaiting}
                             />
                         );
@@ -147,10 +135,6 @@ export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
                                 autoComplete="tel"
                                 description="For contacting you with queries about your order"
                                 error={getError("personal.firstName")}
-                                onChange={(v) => {
-                                    const { value } = v.target;
-                                    field.onChange(value.length > 0 ? value : undefined);
-                                }}
                                 disabled={userAwaiting || cartAwaiting}
                             />
                         );
