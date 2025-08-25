@@ -7,7 +7,7 @@ export const createInputError = (message: unknown): JSX.Element | null => {
 
     return message.length > 0 ? (
         <span className={styles["input-error-container"]}>
-            <Icons.ExclamationMark />
+            <Icons.ExclamationMark style={{ stroke: "white" }} />
             <Input.Error component="span" role="alert" className={styles["input-error"]}>
                 {message}
             </Input.Error>

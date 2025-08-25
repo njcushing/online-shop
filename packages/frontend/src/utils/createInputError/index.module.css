@@ -5,11 +5,12 @@
     align-items: center;
     gap: 8px;
 
-    background-color: rgb(247, 217, 222);
+    background-color: rgb(218, 46, 23);
     padding: 8px;
 }
 
 .input-error {
+    color: white;
     font-size: 0.9rem;
     font-weight: 500;
 }
