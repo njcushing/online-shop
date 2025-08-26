@@ -31,7 +31,7 @@ export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
     const { awaiting: cartAwaiting } = cart;
 
     const defaultValues = useMemo(() => {
-        return { personal: { firstName, lastName, phone, email } };
+        return { firstName, lastName, phone, email };
     }, [firstName, lastName, phone, email]);
 
     const {
@@ -66,7 +66,7 @@ export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
                 <div className={styles["name-fields-container"]}>
                     <Controller
                         control={control}
-                        name="personal.firstName"
+                        name="firstName"
                         render={({ field }) => {
                             return (
                                 <TextInput
@@ -76,7 +76,7 @@ export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
                                     label="First name"
                                     autoComplete="given-name"
                                     required
-                                    error={getError("personal.firstName")}
+                                    error={getError("firstName")}
                                     disabled={userAwaiting || cartAwaiting}
                                 />
                             );
@@ -85,7 +85,7 @@ export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
 
                     <Controller
                         control={control}
-                        name="personal.lastName"
+                        name="lastName"
                         render={({ field }) => {
                             return (
                                 <TextInput
@@ -95,7 +95,7 @@ export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
                                     label="Last name"
                                     autoComplete="family-name"
                                     required
-                                    error={getError("personal.lastName")}
+                                    error={getError("lastName")}
                                     disabled={userAwaiting || cartAwaiting}
                                 />
                             );
@@ -105,7 +105,7 @@ export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
 
                 <Controller
                     control={control}
-                    name="personal.email"
+                    name="email"
                     render={({ field }) => {
                         return (
                             <TextInput
@@ -115,7 +115,7 @@ export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
                                 label="Email address"
                                 autoComplete="email"
                                 required
-                                error={getError("personal.email")}
+                                error={getError("email")}
                                 disabled={userAwaiting || cartAwaiting}
                             />
                         );
@@ -124,7 +124,7 @@ export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
 
                 <Controller
                     control={control}
-                    name="personal.phone"
+                    name="phone"
                     render={({ field }) => {
                         return (
                             <TextInput
@@ -134,7 +134,7 @@ export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
                                 label="Phone number (optional)"
                                 autoComplete="tel"
                                 description="For contacting you with queries about your order"
-                                error={getError("personal.firstName")}
+                                error={getError("firstName")}
                                 disabled={userAwaiting || cartAwaiting}
                             />
                         );
