@@ -11,16 +11,20 @@ export type CheckoutPersonalFormData = DeepPick<
     "personal.firstName" | "personal.lastName" | "personal.email" | "personal.phone"
 >;
 
-export type CheckoutAddressFormData = {
+export const shippingOptions = ["standard", "express"] as const;
+export type CheckoutShippingOption = (typeof shippingOptions)[number];
+
+export type CheckoutShippingFormData = {
     address: {
         delivery: Address;
         billing: Address;
     };
+    type: CheckoutShippingOption;
 };
 
 export type CheckoutFormData = {
     personal: CheckoutPersonalFormData;
-    address: CheckoutAddressFormData;
+    shipping: CheckoutShippingFormData;
 };
 
 export const checkoutPersonalFormDataSchema: z.ZodType<CheckoutPersonalFormData> = z.object({
@@ -32,9 +36,10 @@ export const checkoutPersonalFormDataSchema: z.ZodType<CheckoutPersonalFormData>
     }),
 });
 
-export const checkoutAddressFormDataSchema: z.ZodType<CheckoutAddressFormData> = z.object({
+export const checkoutShippingFormDataSchema: z.ZodType<CheckoutShippingFormData> = z.object({
     address: z.object({
         delivery: address,
         billing: address,
     }),
+    type: z.enum(shippingOptions),
 });

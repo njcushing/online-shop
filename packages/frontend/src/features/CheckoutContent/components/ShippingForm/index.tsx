@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CheckoutAddressFormData, checkoutAddressFormDataSchema } from "@/utils/schemas/checkout";
+import { CheckoutShippingFormData, checkoutShippingFormDataSchema } from "@/utils/schemas/checkout";
 import { useForm, useWatch, Controller, SubmitHandler } from "react-hook-form";
 import { TextInput, Button, Checkbox, Collapse } from "@mantine/core";
 import { createInputError } from "@/utils/createInputError";
@@ -17,10 +17,10 @@ const inputProps = {
 
 export type TShipping = {
     onReturn?: () => void;
-    onSubmit?: SubmitHandler<CheckoutAddressFormData>;
+    onSubmit?: SubmitHandler<CheckoutShippingFormData>;
 };
 
-const emptyBillingFields: CheckoutAddressFormData["address"]["billing"] = {
+const emptyBillingFields: CheckoutShippingFormData["address"]["billing"] = {
     line1: "",
     line2: "",
     townCity: "",
@@ -68,10 +68,10 @@ export function ShippingForm({ onReturn, onSubmit }: TShipping) {
         reset,
         getValues,
         setValue,
-    } = useForm<CheckoutAddressFormData>({
+    } = useForm<CheckoutShippingFormData>({
         defaultValues,
         mode: "onTouched",
-        resolver: zodResolver(checkoutAddressFormDataSchema),
+        resolver: zodResolver(checkoutShippingFormDataSchema),
     });
 
     useEffect(() => reset(defaultValues), [defaultValues, reset]);
@@ -86,7 +86,8 @@ export function ShippingForm({ onReturn, onSubmit }: TShipping) {
 
     const [billingIsDelivery, setBillingIsDelivery] = useState<boolean>(true);
     const currentDeliveryValues = useWatch({ control, name: "address.delivery" });
-    const cachedBilling = useRef<CheckoutAddressFormData["address"]["billing"]>(emptyBillingFields);
+    const cachedBilling =
+        useRef<CheckoutShippingFormData["address"]["billing"]>(emptyBillingFields);
     useEffect(() => {
         if (billingIsDelivery) {
             cachedBilling.current = getValues("address.billing");
