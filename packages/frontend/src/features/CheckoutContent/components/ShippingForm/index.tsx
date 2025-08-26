@@ -103,7 +103,7 @@ export function ShippingForm({ onReturn, onSubmit }: TShipping) {
             onSubmit={onSubmit && handleSubmit(onSubmit)}
             noValidate
         >
-            <fieldset>
+            <fieldset className={styles["fieldset"]}>
                 <legend className={styles["legend"]}>Delivery address</legend>
 
                 <div className={styles["fields-container"]}>
@@ -205,11 +205,12 @@ export function ShippingForm({ onReturn, onSubmit }: TShipping) {
                 label="My billing address is the same as my delivery address"
                 checked={billingIsDelivery}
                 onChange={() => setBillingIsDelivery(!billingIsDelivery)}
+                className={styles["checkbox"]}
                 classNames={{ input: styles["checkbox-input"], label: styles["checkbox-label"] }}
             />
 
             <Collapse in={!billingIsDelivery} animateOpacity={false}>
-                <fieldset>
+                <fieldset className={styles["fieldset"]}>
                     <legend className={styles["legend"]}>Billing address</legend>
 
                     <div className={styles["fields-container"]}>

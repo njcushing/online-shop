@@ -3,9 +3,17 @@
 
     display: flex;
     flex-direction: column;
-    gap: 16px;
 
     width: 100%;
+}
+
+/**
+ * Using this instead of 'gap: 16px' on .form element to prevent layout shift when closing Collapse
+ * component
+ */
+.fieldset,
+.checkbox {
+    padding-bottom: 16px;
 }
 
 .legend {
