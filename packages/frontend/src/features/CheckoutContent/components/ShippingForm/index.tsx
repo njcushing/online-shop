@@ -1,9 +1,13 @@
 import { useContext, useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CheckoutShippingFormData, checkoutShippingFormDataSchema } from "@/utils/schemas/checkout";
+import {
+    CheckoutShippingOption,
+    CheckoutShippingFormData,
+    checkoutShippingFormDataSchema,
+} from "@/utils/schemas/checkout";
 import { useForm, useWatch, Controller, SubmitHandler } from "react-hook-form";
-import { TextInput, Button, Checkbox, Collapse } from "@mantine/core";
+import { TextInput, Collapse, Divider, Checkbox, Radio, RadioProps, Button } from "@mantine/core";
 import { createInputError } from "@/utils/createInputError";
 import _ from "lodash";
 import styles from "./index.module.css";
@@ -13,6 +17,11 @@ const inputProps = {
         input: styles["form-field-input"],
         label: styles["form-field-label"],
     },
+};
+
+const radioClassNames: RadioProps["classNames"] = {
+    radio: styles["radio"],
+    label: styles["radio-label"],
 };
 
 export type TShipping = {
@@ -58,6 +67,7 @@ export function ShippingForm({ onReturn, onSubmit }: TShipping) {
                 },
                 billing: emptyBillingFields,
             },
+            type: "express" as CheckoutShippingOption,
         };
     }, [dLine1, dLine2, dTownCity, dCounty, dPostcode]);
 
@@ -206,8 +216,11 @@ export function ShippingForm({ onReturn, onSubmit }: TShipping) {
                 label="My billing address is the same as my delivery address"
                 checked={billingIsDelivery}
                 onChange={() => setBillingIsDelivery(!billingIsDelivery)}
-                className={styles["checkbox"]}
-                classNames={{ input: styles["checkbox-input"], label: styles["checkbox-label"] }}
+                classNames={{
+                    root: styles["checkbox-root"],
+                    input: styles["checkbox-input"],
+                    label: styles["checkbox-label"],
+                }}
             />
 
             <Collapse in={!billingIsDelivery} animateOpacity={false}>
@@ -309,6 +322,38 @@ export function ShippingForm({ onReturn, onSubmit }: TShipping) {
                     </div>
                 </fieldset>
             </Collapse>
+
+            <Divider className={styles["divider-light"]} />
+
+            <Controller
+                control={control}
+                name="type"
+                render={({ field }) => (
+                    <Radio.Group
+                        {...field}
+                        value={field.value ?? ""}
+                        onChange={field.onChange}
+                        label="Select a shipping option"
+                        classNames={{
+                            root: styles["radio-group-root"],
+                            label: styles["radio-group-label"],
+                        }}
+                    >
+                        <div className={styles["radio-options-container"]}>
+                            <Radio
+                                value="standard"
+                                label="Standard delivery"
+                                classNames={radioClassNames}
+                            />
+                            <Radio
+                                value="express"
+                                label="Express delivery"
+                                classNames={radioClassNames}
+                            />
+                        </div>
+                    </Radio.Group>
+                )}
+            />
 
             <div className={styles["button-container"]}>
                 <Button

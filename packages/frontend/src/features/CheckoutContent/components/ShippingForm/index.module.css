@@ -12,7 +12,9 @@
  * component
  */
 .fieldset,
-.checkbox {
+.checkbox-root,
+.divider-light,
+.radio-group-root {
     padding-bottom: 16px;
 }
 
@@ -75,6 +77,46 @@
     font-family: var(--font-primary);
     font-size: 0.92rem;
     font-weight: 400;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1rem;
+    }
+}
+
+.divider-light {
+    --divider-color: rgba(0, 0, 0, 0.3);
+}
+
+.radio-group-root {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.radio-group-label {
+    font-family: var(--font-primary);
+    font-size: 1.14rem;
+    font-weight: 500;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.25rem;
+    }
+}
+
+.radio-options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.radio {
+    border: 2px solid black;
+    background-color: transparent;
+}
+
+.radio-label {
+    font-family: var(--font-primary);
+    font-size: 0.92rem;
 
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 1rem;
