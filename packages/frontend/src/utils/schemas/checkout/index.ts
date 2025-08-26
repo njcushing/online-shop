@@ -41,3 +41,8 @@ export const checkoutShippingFormDataSchema: z.ZodType<CheckoutShippingFormData>
     }),
     type: z.enum(shippingOptions),
 });
+
+export const checkoutFormDataSchema: z.ZodType<CheckoutFormData> = z.object({
+    personal: checkoutPersonalFormDataSchema,
+    shipping: checkoutShippingFormDataSchema,
+});
