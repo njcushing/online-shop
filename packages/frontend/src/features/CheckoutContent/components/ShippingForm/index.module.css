@@ -118,6 +118,13 @@
     gap: 12px;
 }
 
+.radio-root {
+    border: 1px solid grey;
+    border-radius: 4px;
+
+    padding: 8px;
+}
+
 .radio-body {
     display: flex;
     flex-direction: row;
@@ -143,12 +150,28 @@
 }
 
 .radio-description {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.radio-description-main {
     color: black;
     font-family: var(--font-primary);
     font-size: 0.86rem;
 
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 0.92rem;
+    }
+}
+
+.radio-description-expected-date {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 0.92rem;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1rem;
     }
 }
 

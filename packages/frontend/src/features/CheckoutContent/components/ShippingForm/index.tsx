@@ -11,6 +11,7 @@ import { TextInput, Collapse, Divider, Checkbox, Radio, RadioProps, Button } fro
 import { createInputError } from "@/utils/createInputError";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import _ from "lodash";
+import dayjs from "dayjs";
 import { settings } from "@settings";
 import styles from "./index.module.css";
 
@@ -22,6 +23,7 @@ const inputProps = {
 };
 
 const radioClassNames: RadioProps["classNames"] = {
+    root: styles["radio-root"],
     radio: styles["radio"],
     body: styles["radio-body"],
     label: styles["radio-label"],
@@ -114,6 +116,33 @@ export function ShippingForm({ onReturn, onSubmit }: TShipping) {
 
     const cartSubtotal = cartData ? calculateCartSubtotal(cartData) : null;
     const postageCost = cartSubtotal ? cartSubtotal.cost.postage : settings.expressDeliveryCost;
+
+    const fivePmTimeout = useRef<NodeJS.Timeout | null>(null);
+    const [isPastFivePm, setIsPastFivePm] = useState<boolean>(false);
+    useEffect(() => {
+        const currentDate = new Date();
+        const fivePm = new Date();
+        fivePm.setHours(17, 0, 0, 0);
+
+        const timeUntilFivePm = fivePm.getTime() - currentDate.getTime();
+
+        if (timeUntilFivePm > 0) {
+            fivePmTimeout.current = setTimeout(() => setIsPastFivePm(true), timeUntilFivePm);
+        } else {
+            setIsPastFivePm(true);
+        }
+
+        return () => {
+            if (fivePmTimeout.current) clearTimeout(fivePmTimeout.current);
+        };
+    }, []);
+
+    const expectedDeliveryDate = useMemo(() => {
+        return {
+            standard: new Date().setDate(new Date().getDate() + (isPastFivePm ? 3 : 2)),
+            express: new Date().setDate(new Date().getDate() + (isPastFivePm ? 2 : 1)),
+        };
+    }, [isPastFivePm]);
 
     return (
         <form
@@ -355,7 +384,21 @@ export function ShippingForm({ onReturn, onSubmit }: TShipping) {
                                         Standard delivery <strong>(FREE)</strong>
                                     </span>
                                 }
-                                description="We aim to ship all orders within 48h of time of purchase; this is guaranteed if the order is placed before 5pm."
+                                description={
+                                    <span className={styles["radio-description"]}>
+                                        <span className={styles["radio-description-main"]}>
+                                            We aim to ship all orders within 48h of time of
+                                            purchase; this is guaranteed if the order is placed
+                                            before 5pm.
+                                        </span>
+                                        <span className={styles["radio-description-expected-date"]}>
+                                            Expected delivery date:{" "}
+                                            {dayjs(expectedDeliveryDate.standard).format(
+                                                "MMMM D, YYYY",
+                                            )}
+                                        </span>
+                                    </span>
+                                }
                                 disabled={userAwaiting || cartAwaiting}
                                 classNames={radioClassNames}
                             />
@@ -376,7 +419,20 @@ export function ShippingForm({ onReturn, onSubmit }: TShipping) {
                                         )}
                                     </span>
                                 }
-                                description="Guaranteed next-day delivery on all orders if placed before 5pm."
+                                description={
+                                    <span className={styles["radio-description"]}>
+                                        <span className={styles["radio-description-main"]}>
+                                            Guaranteed next-day delivery on all orders if placed
+                                            before 5pm.
+                                        </span>
+                                        <span className={styles["radio-description-expected-date"]}>
+                                            Expected delivery date:{" "}
+                                            {dayjs(expectedDeliveryDate.express).format(
+                                                "MMMM D, YYYY",
+                                            )}
+                                        </span>
+                                    </span>
+                                }
                                 disabled={userAwaiting || cartAwaiting}
                                 classNames={radioClassNames}
                             />
