@@ -115,7 +115,13 @@
 .radio-options-container {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
+}
+
+.radio-body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .radio {
@@ -129,6 +135,20 @@
 
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 1rem;
+    }
+
+    strong {
+        font-weight: 600;
+    }
+}
+
+.radio-description {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 0.86rem;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
     }
 }
 

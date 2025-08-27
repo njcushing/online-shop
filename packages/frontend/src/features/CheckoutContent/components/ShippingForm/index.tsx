@@ -9,7 +9,9 @@ import {
 import { useForm, useWatch, Controller, SubmitHandler } from "react-hook-form";
 import { TextInput, Collapse, Divider, Checkbox, Radio, RadioProps, Button } from "@mantine/core";
 import { createInputError } from "@/utils/createInputError";
+import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import _ from "lodash";
+import { settings } from "@settings";
 import styles from "./index.module.css";
 
 const inputProps = {
@@ -21,7 +23,9 @@ const inputProps = {
 
 const radioClassNames: RadioProps["classNames"] = {
     radio: styles["radio"],
+    body: styles["radio-body"],
     label: styles["radio-label"],
+    description: styles["radio-description"],
 };
 
 export type TShipping = {
@@ -40,9 +44,9 @@ const emptyBillingFields: CheckoutShippingFormData["address"]["billing"] = {
 export function ShippingForm({ onReturn, onSubmit }: TShipping) {
     const { user, cart } = useContext(UserContext);
 
-    const { response, awaiting: userAwaiting } = user;
-    const { data } = response;
-    const { profile } = data || {};
+    const { response: userResponse, awaiting: userAwaiting } = user;
+    const { data: userData } = userResponse;
+    const { profile } = userData || {};
     const { addresses } = profile || {};
     const { delivery } = addresses || {};
     const {
@@ -53,7 +57,8 @@ export function ShippingForm({ onReturn, onSubmit }: TShipping) {
         postcode: dPostcode,
     } = delivery || {};
 
-    const { awaiting: cartAwaiting } = cart;
+    const { response: cartResponse, awaiting: cartAwaiting } = cart;
+    const { data: cartData } = cartResponse;
 
     const defaultValues = useMemo(() => {
         return {
@@ -106,6 +111,9 @@ export function ShippingForm({ onReturn, onSubmit }: TShipping) {
             setValue("address.billing", cachedBilling.current);
         }
     }, [getValues, setValue, billingIsDelivery, currentDeliveryValues]);
+
+    const cartSubtotal = cartData ? calculateCartSubtotal(cartData) : null;
+    const postageCost = cartSubtotal ? cartSubtotal.cost.postage : settings.expressDeliveryCost;
 
     return (
         <form
@@ -342,12 +350,34 @@ export function ShippingForm({ onReturn, onSubmit }: TShipping) {
                         <div className={styles["radio-options-container"]}>
                             <Radio
                                 value="standard"
-                                label="Standard delivery"
+                                label={
+                                    <span>
+                                        Standard delivery <strong>(FREE)</strong>
+                                    </span>
+                                }
+                                description="We aim to ship all orders within 48h of time of purchase; this is guaranteed if the order is placed before 5pm."
+                                disabled={userAwaiting || cartAwaiting}
                                 classNames={radioClassNames}
                             />
                             <Radio
                                 value="express"
-                                label="Express delivery"
+                                label={
+                                    <span>
+                                        Express delivery{" "}
+                                        {postageCost > 0 ? (
+                                            <>
+                                                {"- "}
+                                                <strong>
+                                                    {`£${(postageCost / 100).toFixed(2)}`}
+                                                </strong>
+                                            </>
+                                        ) : (
+                                            <strong>(FREE)</strong>
+                                        )}
+                                    </span>
+                                }
+                                description="Guaranteed next-day delivery on all orders if placed before 5pm."
+                                disabled={userAwaiting || cartAwaiting}
                                 classNames={radioClassNames}
                             />
                         </div>
