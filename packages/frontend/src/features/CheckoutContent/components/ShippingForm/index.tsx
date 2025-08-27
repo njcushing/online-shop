@@ -224,7 +224,7 @@ export function ShippingForm({ onReturn, onSubmit }: TShipping) {
             />
 
             <Collapse in={!billingIsDelivery} animateOpacity={false}>
-                <fieldset className={styles["fieldset"]}>
+                <fieldset className={styles["fieldset"]} data-matches-delivery={billingIsDelivery}>
                     <legend className={styles["legend"]}>Billing address</legend>
 
                     <div className={styles["fields-container"]}>

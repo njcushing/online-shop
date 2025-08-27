@@ -67,6 +67,15 @@
     background-color: var(--site-colour-secondary, rgb(255, 236, 218));
 }
 
+.fieldset[data-matches-delivery="true"] {
+    .form-field-input {
+        color: transparent;
+
+        border-color: black;
+        background-color: transparent;
+    }
+}
+
 .checkbox-input {
     border: 2px solid black;
     border-radius: 0px;
