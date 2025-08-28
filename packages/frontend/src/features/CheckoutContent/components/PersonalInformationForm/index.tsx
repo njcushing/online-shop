@@ -16,10 +16,11 @@ const inputProps = {
 };
 
 export type TPersonalInformation = {
+    isOpen?: boolean;
     onSubmit?: SubmitHandler<CheckoutPersonalFormData>;
 };
 
-export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
+export function PersonalInformationForm({ isOpen, onSubmit }: TPersonalInformation) {
     const { user, cart } = useContext(UserContext);
 
     const { response, awaiting: userAwaiting } = user;
@@ -55,6 +56,8 @@ export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
         [errors],
     );
 
+    const disableInputs = userAwaiting || cartAwaiting || !isOpen;
+
     return (
         <form
             className={styles["form"]}
@@ -77,7 +80,7 @@ export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
                                     autoComplete="given-name"
                                     required
                                     error={getError("firstName")}
-                                    disabled={userAwaiting || cartAwaiting}
+                                    disabled={disableInputs}
                                 />
                             );
                         }}
@@ -96,7 +99,7 @@ export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
                                     autoComplete="family-name"
                                     required
                                     error={getError("lastName")}
-                                    disabled={userAwaiting || cartAwaiting}
+                                    disabled={disableInputs}
                                 />
                             );
                         }}
@@ -116,7 +119,7 @@ export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
                                 autoComplete="email"
                                 required
                                 error={getError("email")}
-                                disabled={userAwaiting || cartAwaiting}
+                                disabled={disableInputs}
                             />
                         );
                     }}
@@ -135,7 +138,7 @@ export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
                                 autoComplete="tel"
                                 description="For contacting you with queries about your order"
                                 error={getError("firstName")}
-                                disabled={userAwaiting || cartAwaiting}
+                                disabled={disableInputs}
                             />
                         );
                     }}
@@ -147,7 +150,7 @@ export function PersonalInformationForm({ onSubmit }: TPersonalInformation) {
                 color="rgb(48, 48, 48)"
                 variant="filled"
                 radius={9999}
-                disabled={userAwaiting || cartAwaiting}
+                disabled={disableInputs}
                 className={styles["next-stage-button"]}
             >
                 Continue to shipping

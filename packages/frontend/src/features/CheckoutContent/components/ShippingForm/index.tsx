@@ -31,6 +31,7 @@ const radioClassNames: RadioProps["classNames"] = {
 };
 
 export type TShipping = {
+    isOpen?: boolean;
     onReturn?: () => void;
     onSubmit?: SubmitHandler<CheckoutShippingFormData>;
 };
@@ -43,7 +44,7 @@ const emptyBillingFields: CheckoutShippingFormData["address"]["billing"] = {
     postcode: "",
 };
 
-export function ShippingForm({ onReturn, onSubmit }: TShipping) {
+export function ShippingForm({ isOpen, onReturn, onSubmit }: TShipping) {
     const { user, cart } = useContext(UserContext);
 
     const { response: userResponse, awaiting: userAwaiting } = user;
@@ -144,6 +145,8 @@ export function ShippingForm({ onReturn, onSubmit }: TShipping) {
         };
     }, [isPastFivePm]);
 
+    const disableInputs = userAwaiting || cartAwaiting || !isOpen;
+
     return (
         <form
             className={styles["form"]}
@@ -168,7 +171,7 @@ export function ShippingForm({ onReturn, onSubmit }: TShipping) {
                                     autoComplete="delivery address-line1"
                                     required
                                     error={getError("address.delivery.line1")}
-                                    disabled={userAwaiting || cartAwaiting}
+                                    disabled={disableInputs}
                                 />
                             );
                         }}
@@ -186,7 +189,7 @@ export function ShippingForm({ onReturn, onSubmit }: TShipping) {
                                     label="Line 2"
                                     autoComplete="delivery address-line2"
                                     error={getError("address.delivery.line2")}
-                                    disabled={userAwaiting || cartAwaiting}
+                                    disabled={disableInputs}
                                 />
                             );
                         }}
@@ -205,7 +208,7 @@ export function ShippingForm({ onReturn, onSubmit }: TShipping) {
                                     autoComplete="delivery address-level2"
                                     required
                                     error={getError("address.delivery.townCity")}
-                                    disabled={userAwaiting || cartAwaiting}
+                                    disabled={disableInputs}
                                 />
                             );
                         }}
@@ -222,7 +225,7 @@ export function ShippingForm({ onReturn, onSubmit }: TShipping) {
                                     value={field.value ?? ""}
                                     label="County"
                                     error={getError("address.delivery.county")}
-                                    disabled={userAwaiting || cartAwaiting}
+                                    disabled={disableInputs}
                                 />
                             );
                         }}
@@ -241,7 +244,7 @@ export function ShippingForm({ onReturn, onSubmit }: TShipping) {
                                     autoComplete="delivery postal-code"
                                     required
                                     error={getError("address.delivery.postcode")}
-                                    disabled={userAwaiting || cartAwaiting}
+                                    disabled={disableInputs}
                                 />
                             );
                         }}
@@ -399,7 +402,7 @@ export function ShippingForm({ onReturn, onSubmit }: TShipping) {
                                         </span>
                                     </span>
                                 }
-                                disabled={userAwaiting || cartAwaiting}
+                                disabled={disableInputs}
                                 classNames={radioClassNames}
                             />
                             <Radio
@@ -433,7 +436,7 @@ export function ShippingForm({ onReturn, onSubmit }: TShipping) {
                                         </span>
                                     </span>
                                 }
-                                disabled={userAwaiting || cartAwaiting}
+                                disabled={disableInputs}
                                 classNames={radioClassNames}
                             />
                         </div>
@@ -448,7 +451,7 @@ export function ShippingForm({ onReturn, onSubmit }: TShipping) {
                     variant="filled"
                     radius={9999}
                     onClick={() => onReturn && onReturn()}
-                    disabled={userAwaiting || cartAwaiting}
+                    disabled={disableInputs}
                     className={styles["previous-stage-button"]}
                 >
                     Return to personal
@@ -459,7 +462,7 @@ export function ShippingForm({ onReturn, onSubmit }: TShipping) {
                     color="rgb(48, 48, 48)"
                     variant="filled"
                     radius={9999}
-                    disabled={userAwaiting || cartAwaiting}
+                    disabled={disableInputs}
                     className={styles["next-stage-button"]}
                 >
                     Continue to payment

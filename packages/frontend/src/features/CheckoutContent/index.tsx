@@ -19,7 +19,7 @@ export function CheckoutContent() {
     const { items, promotions } = cartData;
     const { cost, discount } = calculateCartSubtotal(cartData);
 
-    const [stage, setStage] = useState<"personal" | "shipping" | "billing" | "payment">("personal");
+    const [stage, setStage] = useState<"personal" | "shipping" | "payment">("personal");
 
     return (
         <section className={styles["checkout-content"]}>
@@ -40,7 +40,10 @@ export function CheckoutContent() {
                             className={styles["collapse"]}
                         >
                             <div className={styles["checkout-details-section-content"]}>
-                                <PersonalInformationForm onSubmit={() => setStage("shipping")} />
+                                <PersonalInformationForm
+                                    isOpen={stage === "personal"}
+                                    onSubmit={() => setStage("shipping")}
+                                />
                             </div>
                         </Collapse>
                     </div>
@@ -57,8 +60,12 @@ export function CheckoutContent() {
                             animateOpacity={false}
                             className={styles["collapse"]}
                         >
-                            <div className={styles["checkout-details-section-content"]}>
+                            <div
+                                className={styles["checkout-details-section-content"]}
+                                {...{ inert: stage !== "shipping" ? "" : undefined }}
+                            >
                                 <ShippingForm
+                                    isOpen={stage === "shipping"}
                                     onReturn={() => setStage("personal")}
                                     onSubmit={() => setStage("payment")}
                                 />
@@ -78,7 +85,10 @@ export function CheckoutContent() {
                             animateOpacity={false}
                             className={styles["collapse"]}
                         >
-                            <div className={styles["checkout-details-section-content"]}></div>
+                            <div
+                                className={styles["checkout-details-section-content"]}
+                                {...{ inert: stage !== "payment" ? "" : undefined }}
+                            ></div>
                         </Collapse>
                     </div>
                 </div>
