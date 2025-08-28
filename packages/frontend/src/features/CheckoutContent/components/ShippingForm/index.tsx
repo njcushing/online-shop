@@ -405,6 +405,8 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShipping) 
                                 value={field.value ?? ""}
                                 onChange={field.onChange}
                                 label="Select a shipping option"
+                                required
+                                error={getError("type")}
                                 classNames={{
                                     root: styles["radio-group-root"],
                                     label: styles["radio-group-label"],
