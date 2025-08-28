@@ -145,7 +145,7 @@ export function PersonalInformationForm({ isOpen = false, onSubmit }: TPersonalI
                                         label="Phone number (optional)"
                                         autoComplete="tel"
                                         description="For contacting you with queries about your order"
-                                        error={getError("firstName")}
+                                        error={getError("phone")}
                                         disabled={disableInputs}
                                     />
                                 );
