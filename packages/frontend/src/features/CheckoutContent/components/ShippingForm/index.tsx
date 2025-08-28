@@ -147,8 +147,13 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShipping) 
 
     const disableInputs = userAwaiting || cartAwaiting || !isOpen;
 
+    const firstInputRef = useRef<HTMLInputElement>(null);
+    const focusFirstInput = useCallback(() => {
+        if (isOpen && firstInputRef.current) firstInputRef.current.focus();
+    }, [isOpen]);
+
     return (
-        <Collapse in={isOpen} animateOpacity={false}>
+        <Collapse in={isOpen} animateOpacity={false} onTransitionEnd={() => focusFirstInput()}>
             <div className={styles["checkout-details-section-content"]}>
                 <form
                     className={styles["form"]}
@@ -174,6 +179,7 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShipping) 
                                             required
                                             error={getError("address.delivery.line1")}
                                             disabled={disableInputs}
+                                            ref={firstInputRef}
                                         />
                                     );
                                 }}

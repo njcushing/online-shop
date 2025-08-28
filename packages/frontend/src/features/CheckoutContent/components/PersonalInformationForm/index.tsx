@@ -1,4 +1,4 @@
-import { useContext, useEffect, useCallback, useMemo } from "react";
+import { useContext, useEffect, useCallback, useRef, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckoutPersonalFormData, checkoutPersonalFormDataSchema } from "@/utils/schemas/checkout";
@@ -58,8 +58,13 @@ export function PersonalInformationForm({ isOpen = false, onSubmit }: TPersonalI
 
     const disableInputs = userAwaiting || cartAwaiting || !isOpen;
 
+    const firstInputRef = useRef<HTMLInputElement>(null);
+    const focusFirstInput = useCallback(() => {
+        if (isOpen && firstInputRef.current) firstInputRef.current.focus();
+    }, [isOpen]);
+
     return (
-        <Collapse in={isOpen} animateOpacity={false}>
+        <Collapse in={isOpen} animateOpacity={false} onTransitionEnd={() => focusFirstInput()}>
             <div className={styles["checkout-details-section-content"]}>
                 <form
                     className={styles["form"]}
@@ -83,6 +88,7 @@ export function PersonalInformationForm({ isOpen = false, onSubmit }: TPersonalI
                                             required
                                             error={getError("firstName")}
                                             disabled={disableInputs}
+                                            ref={firstInputRef}
                                         />
                                     );
                                 }}
