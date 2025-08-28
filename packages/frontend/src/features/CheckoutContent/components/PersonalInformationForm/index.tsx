@@ -3,7 +3,7 @@ import { UserContext } from "@/pages/Root";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckoutPersonalFormData, checkoutPersonalFormDataSchema } from "@/utils/schemas/checkout";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { TextInput, Button } from "@mantine/core";
+import { Collapse, TextInput, Button } from "@mantine/core";
 import { createInputError } from "@/utils/createInputError";
 import _ from "lodash";
 import styles from "./index.module.css";
@@ -16,11 +16,11 @@ const inputProps = {
 };
 
 export type TPersonalInformation = {
-    isOpen?: boolean;
+    isOpen: boolean;
     onSubmit?: SubmitHandler<CheckoutPersonalFormData>;
 };
 
-export function PersonalInformationForm({ isOpen, onSubmit }: TPersonalInformation) {
+export function PersonalInformationForm({ isOpen = false, onSubmit }: TPersonalInformation) {
     const { user, cart } = useContext(UserContext);
 
     const { response, awaiting: userAwaiting } = user;
@@ -59,102 +59,106 @@ export function PersonalInformationForm({ isOpen, onSubmit }: TPersonalInformati
     const disableInputs = userAwaiting || cartAwaiting || !isOpen;
 
     return (
-        <form
-            className={styles["form"]}
-            aria-label="checkout personal information"
-            onSubmit={onSubmit && handleSubmit(onSubmit)}
-            noValidate
-        >
-            <div className={styles["fields-container"]}>
-                <div className={styles["name-fields-container"]}>
-                    <Controller
-                        control={control}
-                        name="firstName"
-                        render={({ field }) => {
-                            return (
-                                <TextInput
-                                    {...field}
-                                    {...inputProps}
-                                    value={field.value ?? ""}
-                                    label="First name"
-                                    autoComplete="given-name"
-                                    required
-                                    error={getError("firstName")}
-                                    disabled={disableInputs}
-                                />
-                            );
-                        }}
-                    />
-
-                    <Controller
-                        control={control}
-                        name="lastName"
-                        render={({ field }) => {
-                            return (
-                                <TextInput
-                                    {...field}
-                                    {...inputProps}
-                                    value={field.value ?? ""}
-                                    label="Last name"
-                                    autoComplete="family-name"
-                                    required
-                                    error={getError("lastName")}
-                                    disabled={disableInputs}
-                                />
-                            );
-                        }}
-                    />
-                </div>
-
-                <Controller
-                    control={control}
-                    name="email"
-                    render={({ field }) => {
-                        return (
-                            <TextInput
-                                {...field}
-                                {...inputProps}
-                                value={field.value ?? ""}
-                                label="Email address"
-                                autoComplete="email"
-                                required
-                                error={getError("email")}
-                                disabled={disableInputs}
+        <Collapse in={isOpen} animateOpacity={false}>
+            <div className={styles["checkout-details-section-content"]}>
+                <form
+                    className={styles["form"]}
+                    aria-label="checkout personal information"
+                    onSubmit={onSubmit && handleSubmit(onSubmit)}
+                    noValidate
+                >
+                    <div className={styles["fields-container"]}>
+                        <div className={styles["name-fields-container"]}>
+                            <Controller
+                                control={control}
+                                name="firstName"
+                                render={({ field }) => {
+                                    return (
+                                        <TextInput
+                                            {...field}
+                                            {...inputProps}
+                                            value={field.value ?? ""}
+                                            label="First name"
+                                            autoComplete="given-name"
+                                            required
+                                            error={getError("firstName")}
+                                            disabled={disableInputs}
+                                        />
+                                    );
+                                }}
                             />
-                        );
-                    }}
-                />
 
-                <Controller
-                    control={control}
-                    name="phone"
-                    render={({ field }) => {
-                        return (
-                            <TextInput
-                                {...field}
-                                {...inputProps}
-                                value={field.value ?? ""}
-                                label="Phone number (optional)"
-                                autoComplete="tel"
-                                description="For contacting you with queries about your order"
-                                error={getError("firstName")}
-                                disabled={disableInputs}
+                            <Controller
+                                control={control}
+                                name="lastName"
+                                render={({ field }) => {
+                                    return (
+                                        <TextInput
+                                            {...field}
+                                            {...inputProps}
+                                            value={field.value ?? ""}
+                                            label="Last name"
+                                            autoComplete="family-name"
+                                            required
+                                            error={getError("lastName")}
+                                            disabled={disableInputs}
+                                        />
+                                    );
+                                }}
                             />
-                        );
-                    }}
-                />
+                        </div>
+
+                        <Controller
+                            control={control}
+                            name="email"
+                            render={({ field }) => {
+                                return (
+                                    <TextInput
+                                        {...field}
+                                        {...inputProps}
+                                        value={field.value ?? ""}
+                                        label="Email address"
+                                        autoComplete="email"
+                                        required
+                                        error={getError("email")}
+                                        disabled={disableInputs}
+                                    />
+                                );
+                            }}
+                        />
+
+                        <Controller
+                            control={control}
+                            name="phone"
+                            render={({ field }) => {
+                                return (
+                                    <TextInput
+                                        {...field}
+                                        {...inputProps}
+                                        value={field.value ?? ""}
+                                        label="Phone number (optional)"
+                                        autoComplete="tel"
+                                        description="For contacting you with queries about your order"
+                                        error={getError("firstName")}
+                                        disabled={disableInputs}
+                                    />
+                                );
+                            }}
+                        />
+                    </div>
+
+                    <Button
+                        type="submit"
+                        color="rgb(48, 48, 48)"
+                        variant="filled"
+                        radius={9999}
+                        disabled={disableInputs}
+                        className={styles["next-stage-button"]}
+                    >
+                        Continue to shipping
+                    </Button>
+                </form>
             </div>
-
-            <Button
-                type="submit"
-                color="rgb(48, 48, 48)"
-                variant="filled"
-                radius={9999}
-                disabled={disableInputs}
-                className={styles["next-stage-button"]}
-            >
-                Continue to shipping
-            </Button>
-        </form>
+        </Collapse>
     );
 }

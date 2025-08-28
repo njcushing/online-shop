@@ -61,10 +61,6 @@
     --divider-color: rgba(0, 0, 0, 0.3);
 }
 
-.checkout-details-section-content {
-    padding: 12px 0px;
-}
-
 .checkout-content-right {
     grid-area: 1 / 2 / -1 / -1;
 

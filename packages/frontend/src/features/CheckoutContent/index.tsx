@@ -34,18 +34,10 @@ export function CheckoutContent() {
                             <NumberCircleOne weight="fill" size="2rem" />
                             <span className={styles["panel-title"]}>Personal</span>
                         </div>
-                        <Collapse
-                            in={stage === "personal"}
-                            animateOpacity={false}
-                            className={styles["collapse"]}
-                        >
-                            <div className={styles["checkout-details-section-content"]}>
-                                <PersonalInformationForm
-                                    isOpen={stage === "personal"}
-                                    onSubmit={() => setStage("shipping")}
-                                />
-                            </div>
-                        </Collapse>
+                        <PersonalInformationForm
+                            isOpen={stage === "personal"}
+                            onSubmit={() => setStage("shipping")}
+                        />
                     </div>
 
                     <Divider className={styles["divider-light"]} />
@@ -55,22 +47,11 @@ export function CheckoutContent() {
                             <NumberCircleTwo weight="fill" size="2rem" />
                             <span className={styles["panel-title"]}>Shipping</span>
                         </div>
-                        <Collapse
-                            in={stage === "shipping"}
-                            animateOpacity={false}
-                            className={styles["collapse"]}
-                        >
-                            <div
-                                className={styles["checkout-details-section-content"]}
-                                {...{ inert: stage !== "shipping" ? "" : undefined }}
-                            >
-                                <ShippingForm
-                                    isOpen={stage === "shipping"}
-                                    onReturn={() => setStage("personal")}
-                                    onSubmit={() => setStage("payment")}
-                                />
-                            </div>
-                        </Collapse>
+                        <ShippingForm
+                            isOpen={stage === "shipping"}
+                            onReturn={() => setStage("personal")}
+                            onSubmit={() => setStage("payment")}
+                        />
                     </div>
 
                     <Divider className={styles["divider-light"]} />

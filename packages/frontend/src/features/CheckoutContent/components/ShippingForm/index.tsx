@@ -7,7 +7,7 @@ import {
     checkoutShippingFormDataSchema,
 } from "@/utils/schemas/checkout";
 import { useForm, useWatch, Controller, SubmitHandler } from "react-hook-form";
-import { TextInput, Collapse, Divider, Checkbox, Radio, RadioProps, Button } from "@mantine/core";
+import { Collapse, TextInput, Divider, Checkbox, Radio, RadioProps, Button } from "@mantine/core";
 import { createInputError } from "@/utils/createInputError";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import _ from "lodash";
@@ -31,7 +31,7 @@ const radioClassNames: RadioProps["classNames"] = {
 };
 
 export type TShipping = {
-    isOpen?: boolean;
+    isOpen: boolean;
     onReturn?: () => void;
     onSubmit?: SubmitHandler<CheckoutShippingFormData>;
 };
@@ -44,7 +44,7 @@ const emptyBillingFields: CheckoutShippingFormData["address"]["billing"] = {
     postcode: "",
 };
 
-export function ShippingForm({ isOpen, onReturn, onSubmit }: TShipping) {
+export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShipping) {
     const { user, cart } = useContext(UserContext);
 
     const { response: userResponse, awaiting: userAwaiting } = user;
@@ -148,326 +148,361 @@ export function ShippingForm({ isOpen, onReturn, onSubmit }: TShipping) {
     const disableInputs = userAwaiting || cartAwaiting || !isOpen;
 
     return (
-        <form
-            className={styles["form"]}
-            aria-label="checkout shipping"
-            onSubmit={onSubmit && handleSubmit(onSubmit)}
-            noValidate
-        >
-            <fieldset className={styles["fieldset"]}>
-                <legend className={styles["legend"]}>Delivery address</legend>
+        <Collapse in={isOpen} animateOpacity={false}>
+            <div className={styles["checkout-details-section-content"]}>
+                <form
+                    className={styles["form"]}
+                    aria-label="checkout shipping"
+                    onSubmit={onSubmit && handleSubmit(onSubmit)}
+                    noValidate
+                >
+                    <fieldset className={styles["fieldset"]}>
+                        <legend className={styles["legend"]}>Delivery address</legend>
 
-                <div className={styles["fields-container"]}>
-                    <Controller
-                        control={control}
-                        name="address.delivery.line1"
-                        render={({ field }) => {
-                            return (
-                                <TextInput
-                                    {...field}
-                                    {...inputProps}
-                                    value={field.value ?? ""}
-                                    label="Line 1"
-                                    autoComplete="delivery address-line1"
-                                    required
-                                    error={getError("address.delivery.line1")}
-                                    disabled={disableInputs}
-                                />
-                            );
-                        }}
-                    />
-
-                    <Controller
-                        control={control}
-                        name="address.delivery.line2"
-                        render={({ field }) => {
-                            return (
-                                <TextInput
-                                    {...field}
-                                    {...inputProps}
-                                    value={field.value ?? ""}
-                                    label="Line 2"
-                                    autoComplete="delivery address-line2"
-                                    error={getError("address.delivery.line2")}
-                                    disabled={disableInputs}
-                                />
-                            );
-                        }}
-                    />
-
-                    <Controller
-                        control={control}
-                        name="address.delivery.townCity"
-                        render={({ field }) => {
-                            return (
-                                <TextInput
-                                    {...field}
-                                    {...inputProps}
-                                    value={field.value ?? ""}
-                                    label="Town/City"
-                                    autoComplete="delivery address-level2"
-                                    required
-                                    error={getError("address.delivery.townCity")}
-                                    disabled={disableInputs}
-                                />
-                            );
-                        }}
-                    />
-
-                    <Controller
-                        control={control}
-                        name="address.delivery.county"
-                        render={({ field }) => {
-                            return (
-                                <TextInput
-                                    {...field}
-                                    {...inputProps}
-                                    value={field.value ?? ""}
-                                    label="County"
-                                    error={getError("address.delivery.county")}
-                                    disabled={disableInputs}
-                                />
-                            );
-                        }}
-                    />
-
-                    <Controller
-                        control={control}
-                        name="address.delivery.postcode"
-                        render={({ field }) => {
-                            return (
-                                <TextInput
-                                    {...field}
-                                    {...inputProps}
-                                    value={field.value ?? ""}
-                                    label="Postcode"
-                                    autoComplete="delivery postal-code"
-                                    required
-                                    error={getError("address.delivery.postcode")}
-                                    disabled={disableInputs}
-                                />
-                            );
-                        }}
-                    />
-                </div>
-            </fieldset>
-
-            <Checkbox
-                label="My billing address is the same as my delivery address"
-                checked={billingIsDelivery}
-                onChange={() => setBillingIsDelivery(!billingIsDelivery)}
-                classNames={{
-                    root: styles["checkbox-root"],
-                    input: styles["checkbox-input"],
-                    label: styles["checkbox-label"],
-                }}
-            />
-
-            <Collapse in={!billingIsDelivery} animateOpacity={false}>
-                <fieldset className={styles["fieldset"]} data-matches-delivery={billingIsDelivery}>
-                    <legend className={styles["legend"]}>Billing address</legend>
-
-                    <div className={styles["fields-container"]}>
-                        <Controller
-                            control={control}
-                            name="address.billing.line1"
-                            render={({ field }) => {
-                                return (
-                                    <TextInput
-                                        {...field}
-                                        {...inputProps}
-                                        value={field.value ?? ""}
-                                        label="Line 1"
-                                        autoComplete="billing address-line1"
-                                        required
-                                        error={getError("address.billing.line1")}
-                                        disabled={userAwaiting || cartAwaiting || billingIsDelivery}
-                                    />
-                                );
-                            }}
-                        />
-
-                        <Controller
-                            control={control}
-                            name="address.billing.line2"
-                            render={({ field }) => {
-                                return (
-                                    <TextInput
-                                        {...field}
-                                        {...inputProps}
-                                        value={field.value ?? ""}
-                                        label="Line 2"
-                                        autoComplete="billing address-line2"
-                                        error={getError("address.billing.line2")}
-                                        disabled={userAwaiting || cartAwaiting || billingIsDelivery}
-                                    />
-                                );
-                            }}
-                        />
-
-                        <Controller
-                            control={control}
-                            name="address.billing.townCity"
-                            render={({ field }) => {
-                                return (
-                                    <TextInput
-                                        {...field}
-                                        {...inputProps}
-                                        value={field.value ?? ""}
-                                        label="Town/City"
-                                        autoComplete="billing address-level2"
-                                        required
-                                        error={getError("address.billing.townCity")}
-                                        disabled={userAwaiting || cartAwaiting || billingIsDelivery}
-                                    />
-                                );
-                            }}
-                        />
-
-                        <Controller
-                            control={control}
-                            name="address.billing.county"
-                            render={({ field }) => {
-                                return (
-                                    <TextInput
-                                        {...field}
-                                        {...inputProps}
-                                        value={field.value ?? ""}
-                                        label="County"
-                                        error={getError("address.billing.county")}
-                                        disabled={userAwaiting || cartAwaiting || billingIsDelivery}
-                                    />
-                                );
-                            }}
-                        />
-
-                        <Controller
-                            control={control}
-                            name="address.billing.postcode"
-                            render={({ field }) => {
-                                return (
-                                    <TextInput
-                                        {...field}
-                                        {...inputProps}
-                                        value={field.value ?? ""}
-                                        label="Postcode"
-                                        autoComplete="billing postal-code"
-                                        required
-                                        error={getError("address.billing.postcode")}
-                                        disabled={userAwaiting || cartAwaiting || billingIsDelivery}
-                                    />
-                                );
-                            }}
-                        />
-                    </div>
-                </fieldset>
-            </Collapse>
-
-            <Divider className={styles["divider-light"]} />
-
-            <Controller
-                control={control}
-                name="type"
-                render={({ field }) => (
-                    <Radio.Group
-                        {...field}
-                        value={field.value ?? ""}
-                        onChange={field.onChange}
-                        label="Select a shipping option"
-                        classNames={{
-                            root: styles["radio-group-root"],
-                            label: styles["radio-group-label"],
-                        }}
-                    >
-                        <div className={styles["radio-options-container"]}>
-                            <Radio
-                                value="standard"
-                                label={
-                                    <span>
-                                        Standard delivery <strong>(FREE)</strong>
-                                    </span>
-                                }
-                                description={
-                                    <span className={styles["radio-description"]}>
-                                        <span className={styles["radio-description-main"]}>
-                                            We aim to ship all orders within 48h of time of
-                                            purchase; this is guaranteed if the order is placed
-                                            before 5pm.
-                                        </span>
-                                        <span className={styles["radio-description-expected-date"]}>
-                                            Expected delivery date:{" "}
-                                            {dayjs(expectedDeliveryDate.standard).format(
-                                                "MMMM D, YYYY",
-                                            )}
-                                        </span>
-                                    </span>
-                                }
-                                disabled={disableInputs}
-                                classNames={radioClassNames}
+                        <div className={styles["fields-container"]}>
+                            <Controller
+                                control={control}
+                                name="address.delivery.line1"
+                                render={({ field }) => {
+                                    return (
+                                        <TextInput
+                                            {...field}
+                                            {...inputProps}
+                                            value={field.value ?? ""}
+                                            label="Line 1"
+                                            autoComplete="delivery address-line1"
+                                            required
+                                            error={getError("address.delivery.line1")}
+                                            disabled={disableInputs}
+                                        />
+                                    );
+                                }}
                             />
-                            <Radio
-                                value="express"
-                                label={
-                                    <span>
-                                        Express delivery{" "}
-                                        {postageCost > 0 ? (
-                                            <>
-                                                {"- "}
-                                                <strong>
-                                                    {`£${(postageCost / 100).toFixed(2)}`}
-                                                </strong>
-                                            </>
-                                        ) : (
-                                            <strong>(FREE)</strong>
-                                        )}
-                                    </span>
-                                }
-                                description={
-                                    <span className={styles["radio-description"]}>
-                                        <span className={styles["radio-description-main"]}>
-                                            Guaranteed next-day delivery on all orders if placed
-                                            before 5pm.
-                                        </span>
-                                        <span className={styles["radio-description-expected-date"]}>
-                                            Expected delivery date:{" "}
-                                            {dayjs(expectedDeliveryDate.express).format(
-                                                "MMMM D, YYYY",
-                                            )}
-                                        </span>
-                                    </span>
-                                }
-                                disabled={disableInputs}
-                                classNames={radioClassNames}
+
+                            <Controller
+                                control={control}
+                                name="address.delivery.line2"
+                                render={({ field }) => {
+                                    return (
+                                        <TextInput
+                                            {...field}
+                                            {...inputProps}
+                                            value={field.value ?? ""}
+                                            label="Line 2"
+                                            autoComplete="delivery address-line2"
+                                            error={getError("address.delivery.line2")}
+                                            disabled={disableInputs}
+                                        />
+                                    );
+                                }}
+                            />
+
+                            <Controller
+                                control={control}
+                                name="address.delivery.townCity"
+                                render={({ field }) => {
+                                    return (
+                                        <TextInput
+                                            {...field}
+                                            {...inputProps}
+                                            value={field.value ?? ""}
+                                            label="Town/City"
+                                            autoComplete="delivery address-level2"
+                                            required
+                                            error={getError("address.delivery.townCity")}
+                                            disabled={disableInputs}
+                                        />
+                                    );
+                                }}
+                            />
+
+                            <Controller
+                                control={control}
+                                name="address.delivery.county"
+                                render={({ field }) => {
+                                    return (
+                                        <TextInput
+                                            {...field}
+                                            {...inputProps}
+                                            value={field.value ?? ""}
+                                            label="County"
+                                            error={getError("address.delivery.county")}
+                                            disabled={disableInputs}
+                                        />
+                                    );
+                                }}
+                            />
+
+                            <Controller
+                                control={control}
+                                name="address.delivery.postcode"
+                                render={({ field }) => {
+                                    return (
+                                        <TextInput
+                                            {...field}
+                                            {...inputProps}
+                                            value={field.value ?? ""}
+                                            label="Postcode"
+                                            autoComplete="delivery postal-code"
+                                            required
+                                            error={getError("address.delivery.postcode")}
+                                            disabled={disableInputs}
+                                        />
+                                    );
+                                }}
                             />
                         </div>
-                    </Radio.Group>
-                )}
-            />
+                    </fieldset>
 
-            <div className={styles["button-container"]}>
-                <Button
-                    type="button"
-                    color="rgb(48, 48, 48)"
-                    variant="filled"
-                    radius={9999}
-                    onClick={() => onReturn && onReturn()}
-                    disabled={disableInputs}
-                    className={styles["previous-stage-button"]}
-                >
-                    Return to personal
-                </Button>
+                    <Checkbox
+                        label="My billing address is the same as my delivery address"
+                        checked={billingIsDelivery}
+                        onChange={() => setBillingIsDelivery(!billingIsDelivery)}
+                        classNames={{
+                            root: styles["checkbox-root"],
+                            input: styles["checkbox-input"],
+                            label: styles["checkbox-label"],
+                        }}
+                    />
 
-                <Button
-                    type="submit"
-                    color="rgb(48, 48, 48)"
-                    variant="filled"
-                    radius={9999}
-                    disabled={disableInputs}
-                    className={styles["next-stage-button"]}
-                >
-                    Continue to payment
-                </Button>
+                    <Collapse in={!billingIsDelivery} animateOpacity={false}>
+                        <fieldset
+                            className={styles["fieldset"]}
+                            data-matches-delivery={billingIsDelivery}
+                        >
+                            <legend className={styles["legend"]}>Billing address</legend>
+
+                            <div className={styles["fields-container"]}>
+                                <Controller
+                                    control={control}
+                                    name="address.billing.line1"
+                                    render={({ field }) => {
+                                        return (
+                                            <TextInput
+                                                {...field}
+                                                {...inputProps}
+                                                value={field.value ?? ""}
+                                                label="Line 1"
+                                                autoComplete="billing address-line1"
+                                                required
+                                                error={getError("address.billing.line1")}
+                                                disabled={
+                                                    userAwaiting ||
+                                                    cartAwaiting ||
+                                                    billingIsDelivery
+                                                }
+                                            />
+                                        );
+                                    }}
+                                />
+
+                                <Controller
+                                    control={control}
+                                    name="address.billing.line2"
+                                    render={({ field }) => {
+                                        return (
+                                            <TextInput
+                                                {...field}
+                                                {...inputProps}
+                                                value={field.value ?? ""}
+                                                label="Line 2"
+                                                autoComplete="billing address-line2"
+                                                error={getError("address.billing.line2")}
+                                                disabled={
+                                                    userAwaiting ||
+                                                    cartAwaiting ||
+                                                    billingIsDelivery
+                                                }
+                                            />
+                                        );
+                                    }}
+                                />
+
+                                <Controller
+                                    control={control}
+                                    name="address.billing.townCity"
+                                    render={({ field }) => {
+                                        return (
+                                            <TextInput
+                                                {...field}
+                                                {...inputProps}
+                                                value={field.value ?? ""}
+                                                label="Town/City"
+                                                autoComplete="billing address-level2"
+                                                required
+                                                error={getError("address.billing.townCity")}
+                                                disabled={
+                                                    userAwaiting ||
+                                                    cartAwaiting ||
+                                                    billingIsDelivery
+                                                }
+                                            />
+                                        );
+                                    }}
+                                />
+
+                                <Controller
+                                    control={control}
+                                    name="address.billing.county"
+                                    render={({ field }) => {
+                                        return (
+                                            <TextInput
+                                                {...field}
+                                                {...inputProps}
+                                                value={field.value ?? ""}
+                                                label="County"
+                                                error={getError("address.billing.county")}
+                                                disabled={
+                                                    userAwaiting ||
+                                                    cartAwaiting ||
+                                                    billingIsDelivery
+                                                }
+                                            />
+                                        );
+                                    }}
+                                />
+
+                                <Controller
+                                    control={control}
+                                    name="address.billing.postcode"
+                                    render={({ field }) => {
+                                        return (
+                                            <TextInput
+                                                {...field}
+                                                {...inputProps}
+                                                value={field.value ?? ""}
+                                                label="Postcode"
+                                                autoComplete="billing postal-code"
+                                                required
+                                                error={getError("address.billing.postcode")}
+                                                disabled={
+                                                    userAwaiting ||
+                                                    cartAwaiting ||
+                                                    billingIsDelivery
+                                                }
+                                            />
+                                        );
+                                    }}
+                                />
+                            </div>
+                        </fieldset>
+                    </Collapse>
+
+                    <Divider className={styles["divider-light"]} />
+
+                    <Controller
+                        control={control}
+                        name="type"
+                        render={({ field }) => (
+                            <Radio.Group
+                                {...field}
+                                value={field.value ?? ""}
+                                onChange={field.onChange}
+                                label="Select a shipping option"
+                                classNames={{
+                                    root: styles["radio-group-root"],
+                                    label: styles["radio-group-label"],
+                                }}
+                            >
+                                <div className={styles["radio-options-container"]}>
+                                    <Radio
+                                        value="standard"
+                                        label={
+                                            <span>
+                                                Standard delivery <strong>(FREE)</strong>
+                                            </span>
+                                        }
+                                        description={
+                                            <span className={styles["radio-description"]}>
+                                                <span className={styles["radio-description-main"]}>
+                                                    We aim to ship all orders within 48h of time of
+                                                    purchase; this is guaranteed if the order is
+                                                    placed before 5pm.
+                                                </span>
+                                                <span
+                                                    className={
+                                                        styles["radio-description-expected-date"]
+                                                    }
+                                                >
+                                                    Expected delivery date:{" "}
+                                                    {dayjs(expectedDeliveryDate.standard).format(
+                                                        "MMMM D, YYYY",
+                                                    )}
+                                                </span>
+                                            </span>
+                                        }
+                                        disabled={disableInputs}
+                                        classNames={radioClassNames}
+                                    />
+                                    <Radio
+                                        value="express"
+                                        label={
+                                            <span>
+                                                Express delivery{" "}
+                                                {postageCost > 0 ? (
+                                                    <>
+                                                        {"- "}
+                                                        <strong>
+                                                            {`£${(postageCost / 100).toFixed(2)}`}
+                                                        </strong>
+                                                    </>
+                                                ) : (
+                                                    <strong>(FREE)</strong>
+                                                )}
+                                            </span>
+                                        }
+                                        description={
+                                            <span className={styles["radio-description"]}>
+                                                <span className={styles["radio-description-main"]}>
+                                                    Guaranteed next-day delivery on all orders if
+                                                    placed before 5pm.
+                                                </span>
+                                                <span
+                                                    className={
+                                                        styles["radio-description-expected-date"]
+                                                    }
+                                                >
+                                                    Expected delivery date:{" "}
+                                                    {dayjs(expectedDeliveryDate.express).format(
+                                                        "MMMM D, YYYY",
+                                                    )}
+                                                </span>
+                                            </span>
+                                        }
+                                        disabled={disableInputs}
+                                        classNames={radioClassNames}
+                                    />
+                                </div>
+                            </Radio.Group>
+                        )}
+                    />
+
+                    <div className={styles["button-container"]}>
+                        <Button
+                            type="button"
+                            color="rgb(48, 48, 48)"
+                            variant="filled"
+                            radius={9999}
+                            onClick={() => onReturn && onReturn()}
+                            disabled={disableInputs}
+                            className={styles["previous-stage-button"]}
+                        >
+                            Return to personal
+                        </Button>
+
+                        <Button
+                            type="submit"
+                            color="rgb(48, 48, 48)"
+                            variant="filled"
+                            radius={9999}
+                            disabled={disableInputs}
+                            className={styles["next-stage-button"]}
+                        >
+                            Continue to payment
+                        </Button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </Collapse>
     );
 }
