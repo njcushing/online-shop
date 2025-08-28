@@ -11,18 +11,8 @@ import { z } from "zod";
 export const UKPostcodeRegex =
     /^([Gg][Ii][Rr]0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z]))))\s?[0-9][A-Za-z]{2})$/;
 
-export type Postcode = string;
-export const postcode: z.ZodType<Postcode> = z
-    .string()
-    .regex(UKPostcodeRegex, { message: "Enter a valid UK postcode" });
-
-export type Address = {
-    line1: string;
-    line2?: string;
-    townCity: string;
-    county?: string;
-    postcode: Postcode;
-};
+export const postcode = z.string().regex(UKPostcodeRegex, { message: "Enter a valid UK postcode" });
+export type Postcode = z.infer<typeof postcode>;
 
 const optionalString = z
     .string()
@@ -30,7 +20,7 @@ const optionalString = z
     .transform((s) => (s === "" ? undefined : s))
     .optional();
 
-export const address: z.ZodType<Address> = z.object({
+export const address = z.object({
     line1: z.string().trim().min(1, {
         message: "Please enter address line 1, usually the building and street",
     }),
@@ -39,3 +29,4 @@ export const address: z.ZodType<Address> = z.object({
     county: optionalString,
     postcode,
 });
+export type Address = z.infer<typeof address>;

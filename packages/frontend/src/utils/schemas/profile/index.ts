@@ -1,25 +1,11 @@
 /* v8 ignore start */
 
 import { z } from "zod";
-import { Name, name, Email, email, Phone, phone, DOB, dob } from "@/utils/schemas/personal";
-import { Address, address } from "@/utils/schemas/address";
+import { name, email, phone, dob } from "@/utils/schemas/personal";
+import { address } from "@/utils/schemas/address";
 import { DeepRequired } from "react-hook-form";
 
-export type Profile = {
-    personal?: {
-        firstName?: Name;
-        lastName?: Name;
-        phone?: Phone;
-        dob?: DOB;
-        email?: Email;
-    };
-    addresses?: {
-        delivery?: Address;
-        billing?: Address;
-    };
-};
-
-export const profileSchema: z.ZodType<Profile> = z.object({
+export const profileSchema = z.object({
     personal: z
         .object({
             firstName: name.optional(),
@@ -36,6 +22,7 @@ export const profileSchema: z.ZodType<Profile> = z.object({
         })
         .optional(),
 });
+export type Profile = z.infer<typeof profileSchema>;
 
 export const defaultProfile: DeepRequired<Profile> = {
     personal: {

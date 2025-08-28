@@ -1,40 +1,20 @@
 /* v8 ignore start */
 
 import { z } from "zod";
-import { Profile } from "@/utils/schemas/profile";
 import { address } from "@/utils/schemas/address";
 import { name, email, phone } from "@/utils/schemas/personal";
-import { DeepPick } from "ts-deep-pick";
-
-export type CheckoutPersonalFormData = DeepPick<
-    NonNullable<Profile["personal"]>,
-    "firstName" | "lastName" | "email" | "phone"
->;
 
 export const shippingOptions = ["standard", "express"] as const;
 export type CheckoutShippingOption = (typeof shippingOptions)[number];
 
-export type CheckoutShippingFormData = {
-    address: {
-        delivery: NonNullable<Profile["addresses"]>["delivery"];
-        billing: NonNullable<Profile["addresses"]>["billing"];
-    };
-    type: CheckoutShippingOption;
-};
-
-export type CheckoutFormData = {
-    personal: CheckoutPersonalFormData;
-    shipping: CheckoutShippingFormData;
-};
-
-export const checkoutPersonalFormDataSchema: z.ZodType<CheckoutPersonalFormData> = z.object({
-    firstName: name,
-    lastName: name,
+export const checkoutPersonalFormDataSchema = z.object({
+    firstName: name.min(1, { message: "Please enter your first name" }),
+    lastName: name.min(1, { message: "Please enter your surname" }),
     email,
     phone: phone.optional(),
 });
 
-export const checkoutShippingFormDataSchema: z.ZodType<CheckoutShippingFormData> = z.object({
+export const checkoutShippingFormDataSchema = z.object({
     address: z.object({
         delivery: address,
         billing: address,
@@ -42,7 +22,11 @@ export const checkoutShippingFormDataSchema: z.ZodType<CheckoutShippingFormData>
     type: z.enum(shippingOptions),
 });
 
-export const checkoutFormDataSchema: z.ZodType<CheckoutFormData> = z.object({
+export const checkoutFormDataSchema = z.object({
     personal: checkoutPersonalFormDataSchema,
     shipping: checkoutShippingFormDataSchema,
 });
+
+export type CheckoutPersonalFormData = z.infer<typeof checkoutPersonalFormDataSchema>;
+export type CheckoutShippingFormData = z.infer<typeof checkoutShippingFormDataSchema>;
+export type CheckoutFormData = z.infer<typeof checkoutFormDataSchema>;

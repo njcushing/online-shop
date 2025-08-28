@@ -2,26 +2,25 @@ import { z } from "zod";
 import dayjs from "dayjs";
 import parsePhoneNumberFromString from "libphonenumber-js";
 
-export type Email = string;
-export const email: z.ZodType<Email> = z
+export const email = z
     .string()
     .email("Invalid email format. Please use the following format: example@email.com");
+export type Email = z.infer<typeof email>;
 
 /*
  * Password requirement of 8+ characters in length in line with NIST guidelines
  * https://pages.nist.gov/800-63-3/sp800-63b.html
  */
 
-export type Password = string;
-export const password: z.ZodType<Password> = z
+export const password = z
     .string()
     .min(8, { message: "Please enter a password at least 8 characters in length" });
+export type Password = z.infer<typeof password>;
 
-export type Name = string;
-export const name: z.ZodType<Name> = z.string();
+export const name = z.string();
+export type Name = z.infer<typeof name>;
 
-export type Phone = string;
-export const phone: z.ZodType<Phone> = z.string().refine(
+export const phone = z.string().refine(
     (data) => {
         const parsedPhone = parsePhoneNumberFromString(data, "GB");
         return parsedPhone?.isValid() ?? false;
@@ -31,14 +30,14 @@ export const phone: z.ZodType<Phone> = z.string().refine(
             "Invalid UK phone number, please write it in E.164 format (+44 7123 456789 or 07123 456789)",
     },
 );
+export type Phone = z.infer<typeof phone>;
 
 /*
  * Minimum age requirement of 13 in line with UK GDPR & ICO guidance on minimum age for data consent
  * https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/childrens-information/children-and-the-uk-gdpr/what-are-the-rules-about-an-iss-and-consent
  */
 
-export type DOB = { day?: number; month?: number; year?: number };
-export const dob: z.ZodType<DOB> = z
+export const dob = z
     .object({
         day: z.coerce
             .number()
@@ -99,3 +98,4 @@ export const dob: z.ZodType<DOB> = z
             });
         }
     });
+export type DOB = z.infer<typeof dob>;
