@@ -32,7 +32,12 @@ export function PersonalInformationForm({ isOpen = false, onSubmit }: TPersonalI
     const { awaiting: cartAwaiting } = cart;
 
     const defaultValues = useMemo(() => {
-        return { firstName, lastName, phone, email };
+        return {
+            firstName: firstName || "",
+            lastName: lastName || "",
+            phone: phone || "",
+            email: email || "",
+        };
     }, [firstName, lastName, phone, email]);
 
     const {

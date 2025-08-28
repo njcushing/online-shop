@@ -67,11 +67,11 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShipping) 
         return {
             address: {
                 delivery: {
-                    line1: dLine1,
-                    line2: dLine2,
-                    townCity: dTownCity,
-                    county: dCounty,
-                    postcode: dPostcode,
+                    line1: dLine1 || "",
+                    line2: dLine2 || "",
+                    townCity: dTownCity || "",
+                    county: dCounty || "",
+                    postcode: dPostcode || "",
                 },
                 billing: emptyBillingFields,
             },
