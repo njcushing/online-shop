@@ -3,7 +3,7 @@ import { UserContext } from "@/pages/Root";
 import { useMatches, ActionIcon, Burger, BurgerProps } from "@mantine/core";
 import { useClickOutside } from "@mantine/hooks";
 import { MagnifyingGlass, User, ShoppingCartSimple, IconProps } from "@phosphor-icons/react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { categories } from "@/utils/products/categories";
 import { Logo } from "@/features/Logo";
 import { CartDrawer } from "@/features/Cart/components/CartDrawer";
@@ -22,6 +22,9 @@ export type TNavigation = {
 };
 
 export function Navigation({ opened = false }: TNavigation) {
+    const location = useLocation();
+    const inCheckout = location.pathname === "/checkout";
+
     const { cart } = useContext(UserContext);
     const { response } = cart;
     const { data: cartData } = response;
@@ -76,82 +79,92 @@ export function Navigation({ opened = false }: TNavigation) {
 
     return (
         <>
-            <nav className={styles["navigation"]}>
-                <Burger
-                    lineSize={2}
-                    size={burgerSize}
-                    opened={navDrawerOpen}
-                    onClick={() => {
-                        if (opened) setNavDrawerOpen(!navDrawerOpen);
-                    }}
-                    aria-label="Toggle navigation"
-                    hiddenFrom="lg"
-                    className={styles["burger"]}
-                ></Burger>
+            <nav className={styles["navigation"]} data-in-checkout={inCheckout}>
+                {!inCheckout && (
+                    <Burger
+                        lineSize={2}
+                        size={burgerSize}
+                        opened={navDrawerOpen}
+                        onClick={() => {
+                            if (opened) setNavDrawerOpen(!navDrawerOpen);
+                        }}
+                        aria-label="Toggle navigation"
+                        hiddenFrom="lg"
+                        className={styles["burger"]}
+                    ></Burger>
+                )}
 
                 <div className={styles["logo-container"]}>
                     <Logo />
                 </div>
 
-                <div className={styles["other-links"]}>
-                    <ActionIcon
-                        variant="transparent"
-                        color="gray"
-                        aria-label="Search"
-                        onClick={() => {
-                            if (opened) setSearchBarOpen(!searchBarOpen);
-                        }}
-                        ref={setSearchBarButtonRef}
-                    >
-                        <MagnifyingGlass size={iconSize} color="black" />
-                    </ActionIcon>
-                    <ActionIcon
-                        variant="transparent"
-                        color="gray"
-                        aria-label="User"
-                        onClick={() => navigate("/account")}
-                    >
-                        <User size={iconSize} color="black" />
-                    </ActionIcon>
-                    <div className={styles["cart-button-container"]}>
-                        <ActionIcon
-                            variant="transparent"
-                            color="gray"
-                            aria-label="Cart"
-                            onClick={() => {
-                                if (opened) setCartDrawerOpen(!cartDrawerOpen);
-                            }}
-                        >
-                            <ShoppingCartSimple size={iconSize} color="black" />
-                        </ActionIcon>
-                        {cartData?.items && cartData.items.length > 0 && (
-                            <span className={styles["cart-items-quantity"]}>
-                                {cartData.items.length}
-                            </span>
-                        )}
-                    </div>
-                </div>
-
-                <div className={`${styles["categories"]} mantine-visible-from-lg`}>
-                    {categories.map((category) => {
-                        const { name, slug } = category;
-                        return (
-                            <Link
-                                to={`/c/${slug}`}
-                                className={styles["option"]}
-                                key={`navbar-category-${name}`}
+                {!inCheckout && (
+                    <>
+                        <div className={styles["other-links"]}>
+                            <ActionIcon
+                                variant="transparent"
+                                color="gray"
+                                aria-label="Search"
+                                onClick={() => {
+                                    if (opened) setSearchBarOpen(!searchBarOpen);
+                                }}
+                                ref={setSearchBarButtonRef}
                             >
-                                {name}
-                                <div className={styles["underscore"]}></div>
-                            </Link>
-                        );
-                    })}
-                </div>
+                                <MagnifyingGlass size={iconSize} color="black" />
+                            </ActionIcon>
+                            <ActionIcon
+                                variant="transparent"
+                                color="gray"
+                                aria-label="User"
+                                onClick={() => navigate("/account")}
+                            >
+                                <User size={iconSize} color="black" />
+                            </ActionIcon>
+                            <div className={styles["cart-button-container"]}>
+                                <ActionIcon
+                                    variant="transparent"
+                                    color="gray"
+                                    aria-label="Cart"
+                                    onClick={() => {
+                                        if (opened) setCartDrawerOpen(!cartDrawerOpen);
+                                    }}
+                                >
+                                    <ShoppingCartSimple size={iconSize} color="black" />
+                                </ActionIcon>
+                                {cartData?.items && cartData.items.length > 0 && (
+                                    <span className={styles["cart-items-quantity"]}>
+                                        {cartData.items.length}
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className={`${styles["categories"]} mantine-visible-from-lg`}>
+                            {categories.map((category) => {
+                                const { name, slug } = category;
+                                return (
+                                    <Link
+                                        to={`/c/${slug}`}
+                                        className={styles["option"]}
+                                        key={`navbar-category-${name}`}
+                                    >
+                                        {name}
+                                        <div className={styles["underscore"]}></div>
+                                    </Link>
+                                );
+                            })}
+                        </div>
+                    </>
+                )}
             </nav>
 
-            <NavDrawer opened={navDrawerOpen} onClose={() => setNavDrawerOpen(false)} />
-            <CartDrawer opened={cartDrawerOpen} onClose={() => setCartDrawerOpen(false)} />
-            <SearchBar opened={searchBarOpen} ref={setSearchBarRef} />
+            {!inCheckout && (
+                <>
+                    <NavDrawer opened={navDrawerOpen} onClose={() => setNavDrawerOpen(false)} />
+                    <CartDrawer opened={cartDrawerOpen} onClose={() => setCartDrawerOpen(false)} />
+                    <SearchBar opened={searchBarOpen} ref={setSearchBarRef} />
+                </>
+            )}
         </>
     );
 }
