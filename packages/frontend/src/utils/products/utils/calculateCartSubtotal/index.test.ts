@@ -1,4 +1,3 @@
-import { vi } from "vitest";
 import { RecursivePartial } from "@/utils/types";
 import { calculateCartSubtotal } from ".";
 
@@ -55,10 +54,6 @@ const mockArgs: RecursivePartial<Parameters<typeof calculateCartSubtotal>> = [
     },
 ];
 
-vi.mock("@settings", () => ({
-    settings: { freeDeliveryThreshold: 5000, expressDeliveryCost: 599 },
-}));
-
 describe("The 'calculateCartSubtotal' function...", () => {
     test("Should return the correct total base cost of the products before any price reductions", () => {
         const result = calculateCartSubtotal(
@@ -72,34 +67,6 @@ describe("The 'calculateCartSubtotal' function...", () => {
                 }),
             }),
         );
-    });
-
-    describe("Should return the correct postage cost...", () => {
-        test("If the cart subtotal exceeds the free delivery threshold", () => {
-            const result = calculateCartSubtotal(
-                ...(mockArgs as Parameters<typeof calculateCartSubtotal>),
-            );
-
-            expect(result).toEqual(
-                expect.objectContaining({
-                    cost: expect.objectContaining({
-                        postage: 0,
-                    }),
-                }),
-            );
-        });
-
-        test("If the cart subtotal does not exceed the free delivery threshold", () => {
-            const result = calculateCartSubtotal({ items: [], promotions: [] });
-
-            expect(result).toEqual(
-                expect.objectContaining({
-                    cost: expect.objectContaining({
-                        postage: 599,
-                    }),
-                }),
-            );
-        });
     });
 
     test("Should return the correct product discount total", () => {

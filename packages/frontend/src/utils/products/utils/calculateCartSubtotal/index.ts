@@ -1,7 +1,4 @@
-import { settings } from "@settings";
 import { PopulatedCart } from "../../cart";
-
-const { freeDeliveryThreshold, expressDeliveryCost } = settings;
 
 /**
  * Order of operations for cart subtotal calculation:
@@ -17,7 +14,7 @@ const { freeDeliveryThreshold, expressDeliveryCost } = settings;
  */
 
 type ReturnType = {
-    cost: { products: number; postage: number; total: number };
+    cost: { products: number; total: number };
     discount: {
         products: number;
         subscriptions: number;
@@ -31,7 +28,7 @@ type ReturnType = {
 export const calculateCartSubtotal = (cart: PopulatedCart): ReturnType => {
     const { items, promotions } = cart;
 
-    const cost: ReturnType["cost"] = { products: 0, postage: 0, total: 0 };
+    const cost: ReturnType["cost"] = { products: 0, total: 0 };
     const discount: ReturnType["discount"] = {
         products: 0,
         subscriptions: 0,
@@ -82,9 +79,6 @@ export const calculateCartSubtotal = (cart: PopulatedCart): ReturnType => {
                 }
             }
         });
-
-    cost.postage = cost.products >= freeDeliveryThreshold ? 0 : expressDeliveryCost;
-    cost.total += cost.postage;
 
     return { cost, discount };
 };
