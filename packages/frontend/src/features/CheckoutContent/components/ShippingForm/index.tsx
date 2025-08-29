@@ -117,8 +117,13 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShipping) 
         }
     }, [getValues, setValue, billingIsDelivery, currentDeliveryValues]);
 
+    const { freeDeliveryThreshold, expressDeliveryCost } = settings;
     const cartSubtotal = cartData ? calculateCartSubtotal(cartData) : null;
-    const postageCost = cartSubtotal ? cartSubtotal.cost.postage : settings.expressDeliveryCost;
+    let postageCost = 0;
+    if (cartSubtotal) {
+        const { total } = cartSubtotal.cost;
+        postageCost = total >= freeDeliveryThreshold ? 0 : expressDeliveryCost;
+    }
 
     const fivePmTimeout = useRef<NodeJS.Timeout | null>(null);
     const [isPastFivePm, setIsPastFivePm] = useState<boolean>(false);

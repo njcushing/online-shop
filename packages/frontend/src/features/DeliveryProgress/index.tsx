@@ -15,12 +15,8 @@ export function DeliveryProgress() {
         () => calculateCartSubtotal(data || { items: [], promotions: [] }),
         [data],
     );
-    const subtotal = cartSubtotalInformation.cost.total;
-    const subtotalLessPostage = subtotal - cartSubtotalInformation.cost.postage;
-    const meetsThreshold = useMemo(
-        () => subtotalLessPostage >= settings.freeDeliveryThreshold,
-        [subtotalLessPostage],
-    );
+    const { total } = cartSubtotalInformation.cost;
+    const meetsThreshold = useMemo(() => total >= settings.freeDeliveryThreshold, [total]);
 
     return (
         <div className={styles["delivery-progress"]} data-meets-threshold={meetsThreshold}>
@@ -36,15 +32,12 @@ export function DeliveryProgress() {
                         over £{+parseFloat(`${settings.freeDeliveryThreshold / 100}`).toFixed(2)}!
                         Add another{" "}
                         <b style={{ fontWeight: "bold" }}>
-                            £
-                            {((settings.freeDeliveryThreshold - subtotalLessPostage) / 100).toFixed(
-                                2,
-                            )}
+                            £{((settings.freeDeliveryThreshold - total) / 100).toFixed(2)}
                         </b>{" "}
                         to your order to qualify.
                     </span>
                     <Progress
-                        value={(subtotalLessPostage / settings.freeDeliveryThreshold) * 100}
+                        value={(total / settings.freeDeliveryThreshold) * 100}
                         className={styles["delivery-progress-bar"]}
                     />
                 </>

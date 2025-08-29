@@ -3,6 +3,7 @@ import { IUserContext, UserContext } from "@/pages/Root";
 import { Skeleton, Divider, Button, CloseButton } from "@mantine/core";
 import { NumberCircleOne, NumberCircleTwo, NumberCircleThree } from "@phosphor-icons/react";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
+import { settings } from "@settings";
 import { PersonalInformationForm } from "./components/PersonalInformationForm";
 import { ShippingForm } from "./components/ShippingForm";
 import { PaymentForm } from "./components/PaymentForm";
@@ -10,7 +11,7 @@ import { CartItem } from "../Cart/components/CartItem";
 import styles from "./index.module.css";
 
 export function CheckoutContent() {
-    const { cart, defaultData } = useContext(UserContext);
+    const { cart, shipping, defaultData } = useContext(UserContext);
 
     const { response, awaiting } = cart;
 
@@ -19,6 +20,13 @@ export function CheckoutContent() {
 
     const { items, promotions } = cartData;
     const { cost, discount } = calculateCartSubtotal(cartData);
+    const { total } = cost;
+    const { freeDeliveryThreshold, expressDeliveryCost } = settings;
+    const { value: selectedShipping } = shipping;
+    let postageCost = 0;
+    const meetsThreshold = total >= freeDeliveryThreshold;
+    if (selectedShipping === "express") postageCost = meetsThreshold ? 0 : expressDeliveryCost;
+    const subtotal = total + postageCost;
 
     const [stage, setStage] = useState<"personal" | "shipping" | "payment">("personal");
 
@@ -208,7 +216,7 @@ export function CheckoutContent() {
                                                 visibility: awaiting ? "hidden" : "initial",
                                             }}
                                         >
-                                            {`${cost.postage !== 0 ? `£${(cost.postage / 100).toFixed(2)}` : "FREE"}`}
+                                            {`${postageCost !== 0 ? `£${(postageCost / 100).toFixed(2)}` : "FREE"}`}
                                         </span>
                                     </Skeleton>
                                 </div>
@@ -231,7 +239,7 @@ export function CheckoutContent() {
                                                 visibility: awaiting ? "hidden" : "initial",
                                             }}
                                         >
-                                            £{(cost.total / 100).toFixed(2)}
+                                            £{(subtotal / 100).toFixed(2)}
                                         </span>
                                     </Skeleton>
                                 </div>

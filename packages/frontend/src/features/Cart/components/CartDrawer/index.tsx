@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Skeleton, Button, Divider, Drawer } from "@mantine/core";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
+import { settings } from "@settings";
 import { CartItem } from "../CartItem";
 import styles from "./index.module.css";
 
@@ -13,7 +14,7 @@ export type TCartDrawer = {
 };
 
 export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
-    const { cart, defaultData } = useContext(UserContext);
+    const { cart, shipping, defaultData } = useContext(UserContext);
     const { response, awaiting } = cart;
     const { data } = response;
 
@@ -21,6 +22,14 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
     if (data) cartData = data;
 
     const { items } = cartData;
+
+    const { total } = calculateCartSubtotal(cartData).cost;
+    const { freeDeliveryThreshold, expressDeliveryCost } = settings;
+    const { value: selectedShipping } = shipping;
+    let postageCost = 0;
+    const meetsThreshold = total >= freeDeliveryThreshold;
+    if (selectedShipping === "express") postageCost = meetsThreshold ? 0 : expressDeliveryCost;
+    const subtotal = total + postageCost;
 
     return (
         <Drawer
@@ -58,7 +67,7 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
                             className={styles["subtotal-value"]}
                             style={{ visibility: awaiting ? "hidden" : "initial" }}
                         >
-                            £{(calculateCartSubtotal(cartData).cost.total / 100).toFixed(2)}
+                            £{(subtotal / 100).toFixed(2)}
                         </span>
                     </Skeleton>
                 </div>
