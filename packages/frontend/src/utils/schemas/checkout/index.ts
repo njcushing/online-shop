@@ -22,6 +22,8 @@ export const checkoutShippingFormDataSchema = z.object({
     type: z.enum(shippingOptions),
 });
 
+export const checkoutPaymentFormDataSchema = z.object({});
+
 export const checkoutFormDataSchema = z.object({
     personal: checkoutPersonalFormDataSchema,
     shipping: checkoutShippingFormDataSchema,
@@ -29,4 +31,5 @@ export const checkoutFormDataSchema = z.object({
 
 export type CheckoutPersonalFormData = z.infer<typeof checkoutPersonalFormDataSchema>;
 export type CheckoutShippingFormData = z.infer<typeof checkoutShippingFormDataSchema>;
+export type CheckoutPaymentFormData = z.infer<typeof checkoutPaymentFormDataSchema>;
 export type CheckoutFormData = z.infer<typeof checkoutFormDataSchema>;
