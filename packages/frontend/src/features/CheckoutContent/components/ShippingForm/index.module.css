@@ -130,10 +130,17 @@
 }
 
 .radio-root {
-    border: 1px solid grey;
+    border: 2px solid black;
     border-radius: 4px;
+    background-color: var(--site-colour-tertiary, rgb(250, 223, 198));
 
     padding: 8px;
+
+    transition: 0.25s ease-in-out background-color;
+}
+
+.radio-root[data-checked="true"] {
+    background-color: var(--site-colour-secondary, rgb(255, 236, 218));
 }
 
 .radio-body {
