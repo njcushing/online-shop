@@ -13,6 +13,7 @@ import {
     PopulatedSubscriptionData,
 } from "@/utils/products/subscriptions";
 import { User, defaultUser } from "@/utils/schemas/user";
+import { CheckoutShippingOption } from "@/utils/schemas/checkout";
 import { Home } from "../Home";
 import { Category } from "../Category";
 import { Product } from "../Product";
@@ -68,6 +69,10 @@ export interface IUserContext {
     cart: useAsync.InferUseAsyncReturnTypeFromFunction<typeof mockGetCart>;
     orders: useAsync.InferUseAsyncReturnTypeFromFunction<typeof mockGetOrders>;
     subscriptions: useAsync.InferUseAsyncReturnTypeFromFunction<typeof mockGetSubscriptions>;
+    shipping: {
+        value: CheckoutShippingOption;
+        setter: React.Dispatch<React.SetStateAction<CheckoutShippingOption>>;
+    };
 
     defaultData: {
         user: User;
@@ -82,6 +87,7 @@ const defaultUserContext: IUserContext = {
     cart: createQueryContextObject({ awaiting: true }),
     orders: createQueryContextObject(),
     subscriptions: createQueryContextObject(),
+    shipping: { value: "express", setter: () => {} },
 
     defaultData: {
         user: defaultUser,
@@ -132,6 +138,10 @@ export function Root({ children }: TRoot) {
     const subscriptionsReturn = useAsync.GET(mockGetSubscriptions, [{}], { attemptOnMount: false });
     useEffect(() => setSubscriptions(subscriptionsReturn), [subscriptionsReturn]);
 
+    const [shipping, setShipping] = useState<CheckoutShippingOption>(
+        defaultUserContext.shipping.value,
+    );
+
     return (
         <RootContext.Provider value={useMemo(() => ({ headerInfo }), [headerInfo])}>
             <UserContext.Provider
@@ -141,10 +151,11 @@ export function Root({ children }: TRoot) {
                         cart,
                         orders,
                         subscriptions,
+                        shipping: { value: shipping, setter: setShipping },
 
                         defaultData: defaultUserContext.defaultData,
                     }),
-                    [user, cart, orders, subscriptions],
+                    [user, cart, orders, subscriptions, shipping],
                 )}
             >
                 <div className={styles["page"]}>

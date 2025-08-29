@@ -1,11 +1,7 @@
 import { useContext, useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-    CheckoutShippingOption,
-    CheckoutShippingFormData,
-    checkoutShippingFormDataSchema,
-} from "@/utils/schemas/checkout";
+import { CheckoutShippingFormData, checkoutShippingFormDataSchema } from "@/utils/schemas/checkout";
 import { useForm, useWatch, Controller, SubmitHandler } from "react-hook-form";
 import { Collapse, TextInput, Divider, Checkbox, Radio, RadioProps, Button } from "@mantine/core";
 import { createInputError } from "@/utils/createInputError";
@@ -45,7 +41,7 @@ const emptyBillingFields: CheckoutShippingFormData["address"]["billing"] = {
 };
 
 export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShipping) {
-    const { user, cart } = useContext(UserContext);
+    const { user, cart, shipping } = useContext(UserContext);
 
     const { response: userResponse, awaiting: userAwaiting } = user;
     const { data: userData } = userResponse;
@@ -63,6 +59,8 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShipping) 
     const { response: cartResponse, awaiting: cartAwaiting } = cart;
     const { data: cartData } = cartResponse;
 
+    const { value: selectedShipping } = shipping;
+
     const defaultValues = useMemo(() => {
         return {
             address: {
@@ -75,9 +73,9 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShipping) 
                 },
                 billing: emptyBillingFields,
             },
-            type: "express" as CheckoutShippingOption,
+            type: selectedShipping,
         };
-    }, [dLine1, dLine2, dTownCity, dCounty, dPostcode]);
+    }, [dLine1, dLine2, dTownCity, dCounty, dPostcode, selectedShipping]);
 
     const {
         control,
