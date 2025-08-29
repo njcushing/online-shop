@@ -5,6 +5,7 @@ import { NumberCircleOne, NumberCircleTwo, NumberCircleThree } from "@phosphor-i
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import { PersonalInformationForm } from "./components/PersonalInformationForm";
 import { ShippingForm } from "./components/ShippingForm";
+import { PaymentForm } from "./components/PaymentForm";
 import { CartItem } from "../Cart/components/CartItem";
 import styles from "./index.module.css";
 
@@ -61,16 +62,11 @@ export function CheckoutContent() {
                             <NumberCircleThree weight="fill" size="2rem" />
                             <span className={styles["panel-title"]}>Payment</span>
                         </div>
-                        <Collapse
-                            in={stage === "payment"}
-                            animateOpacity={false}
-                            className={styles["collapse"]}
-                        >
-                            <div
-                                className={styles["checkout-details-section-content"]}
-                                {...{ inert: stage !== "payment" ? "" : undefined }}
-                            ></div>
-                        </Collapse>
+                        <PaymentForm
+                            isOpen={stage === "payment"}
+                            onReturn={() => setStage("shipping")}
+                            onSubmit={() => {}}
+                        />
                     </div>
                 </div>
 
