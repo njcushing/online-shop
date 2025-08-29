@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { IUserContext, UserContext } from "@/pages/Root";
-import { Skeleton, Divider, Collapse, Button, CloseButton } from "@mantine/core";
+import { Skeleton, Divider, Button, CloseButton } from "@mantine/core";
 import { NumberCircleOne, NumberCircleTwo, NumberCircleThree } from "@phosphor-icons/react";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import { PersonalInformationForm } from "./components/PersonalInformationForm";

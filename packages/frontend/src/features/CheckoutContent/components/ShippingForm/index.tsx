@@ -1,7 +1,11 @@
 import { useContext, useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CheckoutShippingFormData, checkoutShippingFormDataSchema } from "@/utils/schemas/checkout";
+import {
+    CheckoutShippingOption,
+    CheckoutShippingFormData,
+    checkoutShippingFormDataSchema,
+} from "@/utils/schemas/checkout";
 import { useForm, useWatch, Controller, SubmitHandler } from "react-hook-form";
 import { Collapse, TextInput, Divider, Checkbox, Radio, RadioProps, Button } from "@mantine/core";
 import { createInputError } from "@/utils/createInputError";
@@ -59,7 +63,7 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShipping) 
     const { response: cartResponse, awaiting: cartAwaiting } = cart;
     const { data: cartData } = cartResponse;
 
-    const { value: selectedShipping } = shipping;
+    const { value: selectedShipping, setter: setShipping } = shipping;
 
     const defaultValues = useMemo(() => {
         return {
@@ -401,7 +405,10 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShipping) 
                             <Radio.Group
                                 {...field}
                                 value={field.value ?? ""}
-                                onChange={field.onChange}
+                                onChange={(value) => {
+                                    field.onChange(value);
+                                    setShipping(value as CheckoutShippingOption);
+                                }}
                                 label="Select a shipping option"
                                 required
                                 error={getError("type")}
