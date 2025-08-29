@@ -63,7 +63,7 @@ const renderFunc = async (args: renderFuncArgs = {}) => {
     };
 };
 
-vi.mock("@/features/AccountDetails/components/FormBuilder", () => ({
+vi.mock("@/components/Forms/FormBuilder", () => ({
     FormBuilder: vi.fn(
         (props: unknown & { fieldsets: { legend: string; fullElement?: JSX.Element }[] }) => {
             const { fieldsets } = props;

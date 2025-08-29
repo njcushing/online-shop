@@ -287,7 +287,7 @@ describe("The SetPersonalInformationForm component...", () => {
                                 role: "textbox",
                                 name: "Phone number",
                                 invalidValue: "Invalid",
-                                error: "Invalid UK phone number",
+                                error: "Invalid UK phone number, please write it in E.164 format (+44 7123 456789 or 07123 456789)",
                             },
                             {
                                 role: "textbox",
@@ -311,7 +311,7 @@ describe("The SetPersonalInformationForm component...", () => {
                                 role: "textbox",
                                 name: "Postcode",
                                 invalidValue: "Invalid",
-                                error: "Invalid UK postcode",
+                                error: "Enter a valid UK postcode",
                             },
                         ];
 

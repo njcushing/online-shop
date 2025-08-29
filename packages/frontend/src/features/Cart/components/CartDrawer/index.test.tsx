@@ -28,6 +28,7 @@ const mockUserContext: RecursivePartial<IUserContext> = {
         },
         awaiting: false,
     },
+    shipping: { value: "express" },
     defaultData: {
         // Only using fields relevant to the CartDrawer component
         cart: {
