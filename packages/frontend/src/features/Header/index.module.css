@@ -21,10 +21,6 @@
 .header-width-controller {
     width: min(calc(var(--vw) * 100), 100%);
     max-width: 1280px;
-    padding: 16px;
-    margin: auto;
 
-    @media (min-width: $mantine-breakpoint-lg) {
-        padding: 16px 16px 4px;
-    }
+    margin: auto;
 }

@@ -8,9 +8,12 @@
 
     width: 100%;
     height: min-content;
+    padding: 16px;
 
     @media (min-width: $mantine-breakpoint-lg) {
         grid-template-columns: auto 1fr;
+
+        padding-bottom: 4px;
     }
 
     @media (min-width: $mantine-breakpoint-xs) {
@@ -21,6 +24,8 @@
 .navigation[data-in-checkout="true"] {
     display: flex;
     justify-content: start;
+
+    padding: 16px;
 }
 
 .burger {
