@@ -1,11 +1,7 @@
 import { useContext, useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-    CheckoutShippingOption,
-    CheckoutShippingFormData,
-    checkoutShippingFormDataSchema,
-} from "@/utils/schemas/checkout";
+import { CheckoutShippingFormData, checkoutShippingFormDataSchema } from "@/utils/schemas/checkout";
 import { useForm, useWatch, Controller, SubmitHandler } from "react-hook-form";
 import { Collapse, TextInput, Divider, Checkbox, Radio, RadioProps, Button } from "@mantine/core";
 import { createInputError } from "@/utils/createInputError";
@@ -410,10 +406,7 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShipping) 
                             <Radio.Group
                                 {...field}
                                 value={field.value ?? ""}
-                                onChange={(value) => {
-                                    field.onChange(value);
-                                    setShipping(value as CheckoutShippingOption);
-                                }}
+                                onChange={(value) => field.onChange(value)}
                                 label="Select a shipping option"
                                 required
                                 error={getError("type")}
@@ -424,6 +417,16 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShipping) 
                             >
                                 <div className={styles["radio-options-container"]}>
                                     <Radio
+                                        wrapperProps={{
+                                            component: "button",
+                                            onClick: (
+                                                e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+                                            ) => {
+                                                e.preventDefault();
+                                                setValue("type", "standard");
+                                                setShipping("standard");
+                                            },
+                                        }}
                                         value="standard"
                                         label={
                                             <span>
@@ -453,6 +456,16 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShipping) 
                                         classNames={radioClassNames}
                                     />
                                     <Radio
+                                        wrapperProps={{
+                                            component: "button",
+                                            onClick: (
+                                                e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+                                            ) => {
+                                                e.preventDefault();
+                                                setValue("type", "express");
+                                                setShipping("express");
+                                            },
+                                        }}
                                         value="express"
                                         label={
                                             <span>

@@ -88,7 +88,7 @@
 
 @media (hover: hover) {
     .checkbox-input:hover,
-    .radio:hover {
+    .radio-root:hover {
         cursor: pointer;
     }
 }
@@ -131,12 +131,15 @@
 
 .radio-root {
     border: 2px solid black;
-    border-radius: 4px;
     background-color: var(--site-colour-tertiary, rgb(250, 223, 198));
 
     padding: 8px;
 
     transition: 0.25s ease-in-out background-color;
+
+    * {
+        cursor: inherit;
+    }
 }
 
 .radio-root[data-checked="true"] {
@@ -147,6 +150,8 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+
+    text-align: start;
 }
 
 .radio {
