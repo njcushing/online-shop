@@ -9,8 +9,8 @@
 .checkout-content-width-controller {
     box-sizing: border-box;
 
-    display: grid;
-    grid-template-columns: 1fr 40%;
+    display: flex;
+    flex-direction: column;
     align-items: start;
     gap: 16px;
 
@@ -20,19 +20,28 @@
     margin: auto;
 }
 
-.checkout-content-left {
-    grid-area: 1 / 1 / -1 / 2;
+.checkout-content-width-controller[data-wide="true"] {
+    display: grid;
+    grid-template-columns: 1fr 480px;
+}
 
+.checkout-content-left {
     display: flex;
     flex-direction: column;
     gap: 16px;
+
+    width: 100%;
 }
 
 .checkout-header {
     color: black;
     font-family: var(--font-primary);
-    font-size: 2.4rem;
+    font-size: 2.1rem;
     font-weight: 500;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 2.4rem;
+    }
 }
 
 .divider {
@@ -62,132 +71,9 @@
 }
 
 .checkout-content-right {
-    grid-area: 1 / 2 / -1 / -1;
-
     display: flex;
     flex-direction: column;
     gap: 16px;
-}
-
-.cart-summary {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-
-    background-color: var(--site-colour-secondary, rgb(255, 236, 218));
-
-    padding: 16px;
-}
-
-.cart-summary-header {
-    color: black;
-    font-family: var(--font-primary);
-    font-size: 1.4rem;
-    font-weight: 500;
-}
-
-.cart-items {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.cart-item-content {
-    gap: 8px;
-}
-
-.cart-item-name {
-    font-size: 1.06rem;
-    font-weight: 400;
-}
-
-.cart-item-variant-option-name,
-.cart-item-variant-option-value {
-    font-size: 0.96rem;
-}
-
-.cart-item-quantity {
-    font-size: 1.06rem;
-}
-
-.price-current,
-.price-base,
-.price-discount-percentage {
-    font-size: 1.06rem;
-}
-
-.empty-cart-message {
-    color: black;
-    font-family: var(--font-primary);
-    font-size: 1.2rem;
-}
-
-.cost-breakdown-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.cost-breakdown-line {
-    display: flex;
-    justify-content: space-between;
-    gap: 1ch;
-
-    font-family: var(--font-primary);
-    font-size: 1.06rem;
-    text-wrap: nowrap;
-}
-
-.promotions {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.promotion-options-container {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.promotion {
-    display: grid;
-    grid-template-columns: repeat(3, auto) 1fr auto;
-    align-items: center;
-    gap: 0.5ch;
-
-    font-family: var(--font-primary);
-    font-size: 0.96rem;
-}
-
-.delete-promotion-button {
-    color: black;
-
-    margin-right: 4px;
-}
-
-@media (hover: hover) {
-    .delete-promotion-button:hover {
-        background-color: rgba(0, 0, 0, 0.1);
-    }
-}
-
-.delete-promotion-button:focus-visible,
-.delete-promotion-button:active {
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-.promotion-code {
-    font-weight: 600;
-}
-
-.promotion-description {
-    font-size: 0.9rem;
-    font-style: italic;
-}
-
-.promotion-discount-value {
-    margin-left: 4px;
 }
 
 .pay-now-button {

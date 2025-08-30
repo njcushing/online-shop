@@ -56,7 +56,7 @@
 
 .next-stage-button {
     display: flex;
-    align-self: end;
+    align-self: start;
 
     font-family: var(--font-primary);
     font-size: 0.86rem;
@@ -66,6 +66,8 @@
     width: min-content;
 
     @media (min-width: $mantine-breakpoint-xs) {
+        align-self: end;
+
         font-size: 0.92rem;
     }
 }

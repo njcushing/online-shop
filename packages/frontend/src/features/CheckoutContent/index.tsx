@@ -1,40 +1,40 @@
 import { useContext, useState } from "react";
 import { IUserContext, UserContext } from "@/pages/Root";
-import { Skeleton, Divider, Button, CloseButton } from "@mantine/core";
+import { useMatches, Divider, Button } from "@mantine/core";
 import { NumberCircleOne, NumberCircleTwo, NumberCircleThree } from "@phosphor-icons/react";
-import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
-import { settings } from "@settings";
 import { PersonalInformationForm } from "./components/PersonalInformationForm";
 import { ShippingForm } from "./components/ShippingForm";
 import { PaymentForm } from "./components/PaymentForm";
-import { CartItem } from "../Cart/components/CartItem";
 import styles from "./index.module.css";
+import { CartSummary } from "./components/CartSummary";
 
 export function CheckoutContent() {
-    const { cart, shipping, defaultData } = useContext(UserContext);
+    const { cart, defaultData } = useContext(UserContext);
 
     const { response, awaiting } = cart;
 
     let cartData = defaultData.cart as NonNullable<IUserContext["cart"]["response"]["data"]>;
     if (response.data) cartData = response.data;
 
-    const { items, promotions } = cartData;
-    const { cost, discount } = calculateCartSubtotal(cartData);
-    const { total } = cost;
-    const { freeDeliveryThreshold, expressDeliveryCost } = settings;
-    const { value: selectedShipping } = shipping;
-    let postageCost = 0;
-    const meetsThreshold = total >= freeDeliveryThreshold;
-    if (selectedShipping === "express") postageCost = meetsThreshold ? 0 : expressDeliveryCost;
-    const subtotal = total + postageCost;
+    const { items } = cartData;
 
     const [stage, setStage] = useState<"personal" | "shipping" | "payment">("personal");
 
+    const wide = useMatches({ base: false, lg: true });
+
     return (
         <section className={styles["checkout-content"]}>
-            <div className={styles["checkout-content-width-controller"]}>
+            <div className={styles["checkout-content-width-controller"]} data-wide={wide}>
                 <div className={styles["checkout-content-left"]}>
                     <h2 className={styles["checkout-header"]}>Checkout</h2>
+
+                    {!wide && (
+                        <>
+                            <Divider className={styles["divider"]} />
+
+                            <CartSummary layout="thin" />
+                        </>
+                    )}
 
                     <Divider className={styles["divider"]} />
 
@@ -78,184 +78,20 @@ export function CheckoutContent() {
                     </div>
                 </div>
 
-                <div className={styles["checkout-content-right"]}>
-                    <div className={styles["cart-summary"]}>
-                        <h3 className={styles["cart-summary-header"]}>Cart summary</h3>
+                {wide && (
+                    <div className={styles["checkout-content-right"]}>
+                        <CartSummary layout="wide" />
 
-                        <Divider className={styles["divider"]} />
-
-                        {items && items.length > 0 ? (
-                            <ul className={styles["cart-items"]}>
-                                {items.map((item) => {
-                                    return (
-                                        <CartItem
-                                            data={item}
-                                            editableQuantity={false}
-                                            classNames={{
-                                                name: styles["cart-item-name"],
-                                                content: styles["cart-item-content"],
-                                                variantOptionName:
-                                                    styles["cart-item-variant-option-name"],
-                                                variantOptionValue:
-                                                    styles["cart-item-variant-option-value"],
-                                                quantity: styles["cart-item-quantity"],
-                                                price: {
-                                                    current: styles["price-current"],
-                                                    base: styles["price-base"],
-                                                    discountPercentage:
-                                                        styles["price-discount-percentage"],
-                                                },
-                                            }}
-                                            key={item.variant.id}
-                                        />
-                                    );
-                                })}
-                            </ul>
-                        ) : (
-                            <p className={styles["empty-cart-message"]}>Your cart is empty.</p>
-                        )}
-
-                        <Divider className={styles["divider"]} />
-
-                        <div className={styles["cost-breakdown-group"]}>
-                            <div className={styles["cost-breakdown-line"]}>
-                                <Skeleton visible={awaiting} width="min-content">
-                                    <span style={{ visibility: awaiting ? "hidden" : "initial" }}>
-                                        Item(s) Subtotal:
-                                    </span>
-                                </Skeleton>
-                                <Skeleton visible={awaiting} width="min-content">
-                                    <span style={{ visibility: awaiting ? "hidden" : "initial" }}>
-                                        £{(cost.products / 100).toFixed(2)}
-                                    </span>
-                                </Skeleton>
-                            </div>
-
-                            {discount.products !== 0 && (
-                                <div className={styles["cost-breakdown-line"]}>
-                                    <span>Item Discounts:</span>
-                                    <span>-£{(discount.products / 100).toFixed(2)}</span>
-                                </div>
-                            )}
-
-                            {discount.subscriptions !== 0 && (
-                                <div className={styles["cost-breakdown-line"]}>
-                                    <span>Subscriptions:</span>
-                                    <span>-£{(discount.subscriptions / 100).toFixed(2)}</span>
-                                </div>
-                            )}
-                        </div>
-
-                        {items && items.length > 0 && <Divider className={styles["divider"]} />}
-
-                        {discount.promotions.total !== 0 && (
-                            <>
-                                <div className={styles["promotions"]}>
-                                    <div className={styles["cost-breakdown-line"]}>
-                                        <span>Promotions</span>
-                                        <span>
-                                            -£{(discount.promotions.total / 100).toFixed(2)}
-                                        </span>
-                                    </div>
-
-                                    <div className={styles["promotion-options-container"]}>
-                                        {promotions.map((promotion) => {
-                                            const { code, description } = promotion;
-                                            const info = discount.promotions.individual.find(
-                                                (p) => p.code === code,
-                                            );
-                                            const value = info?.value || 0;
-
-                                            return (
-                                                <span className={styles["promotion"]} key={code}>
-                                                    <CloseButton
-                                                        size="sm"
-                                                        className={
-                                                            styles["delete-promotion-button"]
-                                                        }
-                                                    />
-                                                    <p className={styles["promotion-code"]}>
-                                                        {code}
-                                                    </p>
-                                                    -
-                                                    <p className={styles["promotion-description"]}>
-                                                        {description}
-                                                    </p>
-                                                    <p
-                                                        className={
-                                                            styles["promotion-discount-value"]
-                                                        }
-                                                    >
-                                                        £{(value / 100).toFixed(2)}
-                                                    </p>
-                                                </span>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-
-                                <Divider className={styles["divider"]} />
-                            </>
-                        )}
-
-                        {items && items.length > 0 && (
-                            <>
-                                <div className={styles["cost-breakdown-line"]}>
-                                    <Skeleton visible={awaiting} width="min-content">
-                                        <span
-                                            style={{
-                                                visibility: awaiting ? "hidden" : "initial",
-                                            }}
-                                        >
-                                            Postage:
-                                        </span>
-                                    </Skeleton>
-                                    <Skeleton visible={awaiting} width="min-content">
-                                        <span
-                                            style={{
-                                                visibility: awaiting ? "hidden" : "initial",
-                                            }}
-                                        >
-                                            {`${postageCost !== 0 ? `£${(postageCost / 100).toFixed(2)}` : "FREE"}`}
-                                        </span>
-                                    </Skeleton>
-                                </div>
-
-                                <Divider className={styles["divider"]} />
-
-                                <div className={styles["cost-breakdown-line"]}>
-                                    <Skeleton visible={awaiting} width="min-content">
-                                        <span
-                                            style={{
-                                                visibility: awaiting ? "hidden" : "initial",
-                                            }}
-                                        >
-                                            Total:
-                                        </span>
-                                    </Skeleton>
-                                    <Skeleton visible={awaiting} width="min-content">
-                                        <span
-                                            style={{
-                                                visibility: awaiting ? "hidden" : "initial",
-                                            }}
-                                        >
-                                            £{(subtotal / 100).toFixed(2)}
-                                        </span>
-                                    </Skeleton>
-                                </div>
-                            </>
-                        )}
+                        <Button
+                            color="var(--site-colour-tertiary, rgb(250, 223, 198))"
+                            variant="filled"
+                            className={styles["pay-now-button"]}
+                            disabled={awaiting || items.length === 0}
+                        >
+                            Pay now
+                        </Button>
                     </div>
-
-                    <Button
-                        color="var(--site-colour-tertiary, rgb(250, 223, 198))"
-                        variant="filled"
-                        className={styles["pay-now-button"]}
-                        disabled={awaiting || items.length === 0}
-                    >
-                        Pay now
-                    </Button>
-                </div>
+                )}
             </div>
         </section>
     );
