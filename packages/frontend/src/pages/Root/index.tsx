@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, useMemo } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { Header } from "@/features/Header";
 import { Footer } from "@/features/Footer";
 import { generateSkeletonCart, PopulatedCart } from "@/utils/products/cart";
@@ -116,6 +116,9 @@ export type TRoot = {
 };
 
 export function Root({ children }: TRoot) {
+    const location = useLocation();
+    const inCheckout = location.pathname === "/checkout";
+
     const [headerInfo, setHeaderInfo] = useState<IRootContext["headerInfo"]>(
         defaultRootContext.headerInfo,
     );
@@ -162,7 +165,7 @@ export function Root({ children }: TRoot) {
                     <HeaderContext.Provider
                         value={useMemo(() => ({ setHeaderInfo }), [setHeaderInfo])}
                     >
-                        <Header />
+                        <Header disableActivity={inCheckout} />
                         {children}
                     </HeaderContext.Provider>
                     <Outlet />
