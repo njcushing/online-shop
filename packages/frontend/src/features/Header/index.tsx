@@ -4,7 +4,11 @@ import { HeaderContext } from "@/pages/Root";
 import { Navigation } from "./components/Navigation";
 import styles from "./index.module.css";
 
-export function Header() {
+export type THeader = {
+    disableActivity?: boolean;
+};
+
+export function Header({ disableActivity }: THeader) {
     const { setHeaderInfo } = useContext(HeaderContext);
 
     const [headerRef, headerRect] = useResizeObserver();
@@ -37,12 +41,18 @@ export function Header() {
             }
         };
 
-        window.addEventListener("scroll", scrollDirectionCheck);
+        if (disableActivity) {
+            setActive(false);
+            setOpen(false);
+            window.removeEventListener("scroll", scrollDirectionCheck);
+        } else {
+            window.addEventListener("scroll", scrollDirectionCheck);
+        }
 
         return () => {
             window.removeEventListener("scroll", scrollDirectionCheck);
         };
-    }, [headerRef, headerHeight]);
+    }, [headerRef, headerHeight, disableActivity]);
 
     /* v8 ignore stop */
 
@@ -68,6 +78,7 @@ export function Header() {
                 data-active={active}
                 data-open={open}
                 className={styles["header"]}
+                style={{ position: disableActivity ? "relative" : "sticky" }}
                 ref={headerRef}
             >
                 <div className={styles["header-width-controller"]}>
