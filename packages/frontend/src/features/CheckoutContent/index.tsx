@@ -23,18 +23,12 @@ export function CheckoutContent() {
     const wide = useMatches({ base: false, lg: true });
 
     return (
-        <section className={styles["checkout-content"]}>
-            <div className={styles["checkout-content-width-controller"]} data-wide={wide}>
+        <section className={styles["checkout-content"]} data-wide={wide}>
+            {!wide && <CartSummary layout="thin" />}
+
+            <div className={styles["checkout-content-width-controller"]}>
                 <div className={styles["checkout-content-left"]}>
                     <h2 className={styles["checkout-header"]}>Checkout</h2>
-
-                    {!wide && (
-                        <>
-                            <Divider className={styles["divider"]} />
-
-                            <CartSummary layout="thin" />
-                        </>
-                    )}
 
                     <Divider className={styles["divider"]} />
 

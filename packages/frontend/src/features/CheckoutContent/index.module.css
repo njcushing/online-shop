@@ -1,8 +1,13 @@
 .checkout-content {
     display: flex;
+    flex-direction: column;
     justify-content: center;
 
     width: min(calc(var(--vw) * 100), 100%);
+    padding: 0px;
+}
+
+.checkout-content[data-wide="true"] {
     padding: 32px 0px;
 }
 
@@ -16,13 +21,15 @@
 
     width: min(calc(var(--vw) * 100), 100%);
     max-width: 1280px;
-    padding: 0px 16px;
+    padding: 16px;
     margin: auto;
 }
 
-.checkout-content-width-controller[data-wide="true"] {
+.checkout-content[data-wide="true"] .checkout-content-width-controller {
     display: grid;
     grid-template-columns: 1fr 480px;
+
+    padding: 0px 16px;
 }
 
 .checkout-content-left {
