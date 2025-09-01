@@ -260,7 +260,12 @@ export function CartSummary({ layout = "wide" }: TCartSummary) {
                     {open ? <CaretUp /> : <CaretDown />}
                 </Button>
 
-                <Collapse in={open} animateOpacity={false} className={styles["collapse"]}>
+                <Collapse
+                    in={open}
+                    animateOpacity={false}
+                    transitionDuration={0}
+                    className={styles["collapse"]}
+                >
                     <div className={styles["collapse-content-top"]}>
                         {items && items.length > 0 ? (
                             <ul className={styles["cart-items"]}>{cartItems}</ul>
