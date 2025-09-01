@@ -204,80 +204,68 @@
     margin-left: 4px;
 }
 
-.accordion-root {
-    height: 100%;
-}
-
-.accordion-control {
-    max-height: inherit;
-    padding: 20px 16px;
-}
-
-.accordion-item {
-    --item-border-color: transparent;
-
+.collapse-container {
     display: grid;
     grid-template-rows: auto 1fr;
+}
 
+.collapse-button-root {
+    border-radius: 0px;
     background-color: var(--site-colour-tertiary, rgb(250, 223, 198));
 
-    max-height: inherit;
-}
-
-@media (hover: hover) {
-    .accordion-control:hover {
-        /* Overriding default Mantine component hover styles */
-        background-color: var(--site-colour-tertiary, rgb(250, 223, 198));
-    }
-}
-.accordion-control:focus {
-    /* Overriding default Mantine component focus styles */
-    background-color: var(--site-colour-tertiary, rgb(250, 223, 198));
-}
-
-.accordion-label {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 8px;
-
-    font-family: var(--font-primary);
-    font-size: 1.1rem;
-
-    padding: 0px;
-    margin-right: 8px;
+    width: 100%;
+    height: min-content;
+    padding: 16px;
 
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 1.2rem;
     }
 }
 
-.accordion-panel {
-    display: flex;
+.collapse-button-label {
+    display: grid;
+    grid-template-columns: 1fr repeat(2, auto);
+    gap: 8px;
 
-    min-height: 0;
-    padding: 0px;
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 1.1rem;
+
+    width: 100%;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.2rem;
+    }
 }
 
-.accordion-content {
+@media (hover: hover) {
+    .collapse-button-root:hover {
+        /* Overriding default Mantine component hover styles */
+        background-color: var(--site-colour-tertiary, rgb(250, 223, 198));
+    }
+}
+.collapse-button-root:focus {
+    /* Overriding default Mantine component focus styles */
+    background-color: var(--site-colour-tertiary, rgb(250, 223, 198));
+}
+
+.collapse {
     display: grid;
     grid-template-rows: 1fr auto;
 
-    width: 100%;
     min-height: 0;
-    padding: 0px;
 }
 
-.accordion-content-top {
+.collapse-content-top {
     overflow-y: auto;
 
     background-color: var(--site-colour-secondary, rgb(255, 236, 218));
 
-    height: 100%;
+    max-height: min-content;
     padding: 16px;
 }
 
-.accordion-content-bottom {
+.collapse-content-bottom {
     display: flex;
     flex-direction: column;
     gap: 16px;

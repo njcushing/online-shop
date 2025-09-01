@@ -1,6 +1,7 @@
-import { useContext, useMemo } from "react";
+import { useContext, useState, useMemo } from "react";
 import { RootContext, IUserContext, UserContext } from "@/pages/Root";
-import { useMatches, Skeleton, Divider, CloseButton, Accordion } from "@mantine/core";
+import { useMatches, Skeleton, Divider, CloseButton, Collapse, Button } from "@mantine/core";
+import { CaretUp, CaretDown } from "@phosphor-icons/react";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import { settings } from "@settings";
 import { CartItem } from "@/features/Cart/components/CartItem";
@@ -30,6 +31,7 @@ export function CartSummary({ layout = "wide" }: TCartSummary) {
     const subtotal = total + postageCost;
 
     const wide = useMatches({ base: false, xs: true });
+    const [open, setOpen] = useState<boolean>(false);
 
     const title = layout === "wide" ? "Cart summary" : "Review your items";
 
@@ -222,64 +224,54 @@ export function CartSummary({ layout = "wide" }: TCartSummary) {
 
     return (
         <div className={styles["cart-summary"]} data-layout={layout}>
-            <Accordion
-                classNames={{
-                    root: styles["accordion-root"],
-                    item: styles["accordion-item"],
-                    control: styles["accordion-control"],
-                    content: styles["accordion-content"],
-                }}
+            <div
+                className={styles["collapse-container"]}
                 style={{ maxHeight: `calc(var(--vh, 1vh) * 100 - ${headerInfo.height}px)` }}
             >
-                <Accordion.Item value="Order Details">
-                    <Accordion.Control
-                        classNames={{ label: styles["accordion-label"] }}
-                        disabled={awaiting}
-                    >
-                        <Skeleton visible={awaiting} width="min-content">
-                            <span
-                                style={{
-                                    visibility: awaiting ? "hidden" : "initial",
-                                    textWrap: "nowrap",
-                                }}
-                            >
-                                Order Details
-                            </span>
-                        </Skeleton>
-                        <Skeleton visible={awaiting} width="min-content">
-                            <span
-                                style={{
-                                    visibility: awaiting ? "hidden" : "initial",
-                                    textWrap: "nowrap",
-                                }}
-                            >
-                                £{(subtotal / 100).toFixed(2)}
-                            </span>
-                        </Skeleton>
-                    </Accordion.Control>
+                <Button
+                    onClick={() => setOpen(!open)}
+                    classNames={{
+                        root: styles["collapse-button-root"],
+                        label: styles["collapse-button-label"],
+                    }}
+                >
+                    <Skeleton visible={awaiting} width="min-content">
+                        <span
+                            style={{
+                                visibility: awaiting ? "hidden" : "initial",
+                                textWrap: "nowrap",
+                            }}
+                        >
+                            Order Details
+                        </span>
+                    </Skeleton>
 
-                    <Accordion.Panel
-                        className={styles["accordion-panel"]}
-                        style={{ opacity: 1 }} // Override default opacity transition
-                    >
-                        <>
-                            <div className={styles["accordion-content-top"]}>
-                                {items && items.length > 0 ? (
-                                    <ul className={styles["cart-items"]}>{cartItems}</ul>
-                                ) : (
-                                    <p className={styles["empty-cart-message"]}>
-                                        Your cart is empty.
-                                    </p>
-                                )}
-                            </div>
+                    <Skeleton visible={awaiting} width="min-content">
+                        <span
+                            style={{
+                                visibility: awaiting ? "hidden" : "initial",
+                                textWrap: "nowrap",
+                            }}
+                        >
+                            £{(subtotal / 100).toFixed(2)}
+                        </span>
+                    </Skeleton>
 
-                            <div className={styles["accordion-content-bottom"]}>
-                                {costBreakdown}
-                            </div>
-                        </>
-                    </Accordion.Panel>
-                </Accordion.Item>
-            </Accordion>
+                    {open ? <CaretUp /> : <CaretDown />}
+                </Button>
+
+                <Collapse in={open} animateOpacity={false} className={styles["collapse"]}>
+                    <div className={styles["collapse-content-top"]}>
+                        {items && items.length > 0 ? (
+                            <ul className={styles["cart-items"]}>{cartItems}</ul>
+                        ) : (
+                            <p className={styles["empty-cart-message"]}>Your cart is empty.</p>
+                        )}
+                    </div>
+
+                    <div className={styles["collapse-content-bottom"]}>{costBreakdown}</div>
+                </Collapse>
+            </div>
         </div>
     );
 }
