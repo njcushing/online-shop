@@ -1,4 +1,4 @@
-import { useContext, useState, useMemo } from "react";
+import { useContext, useState, useEffect, useMemo } from "react";
 import { RootContext, IUserContext, UserContext } from "@/pages/Root";
 import {
     useMatches,
@@ -40,6 +40,9 @@ export function CartSummary({ layout = "wide" }: TCartSummary) {
 
     const wide = useMatches({ base: false, xs: true });
     const [open, setOpen] = useState<boolean>(false);
+    useEffect(() => {
+        if (layout === "thin" && open) window.scrollTo(0, 0);
+    }, [layout, open]);
 
     const title = layout === "wide" ? "Cart summary" : "Review your items";
 
