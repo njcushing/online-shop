@@ -75,10 +75,7 @@ input, select, textarea, button {
 /* Container Setup (heirarchy is :root --> body --> #root) */
 
 :root {
-    /* Prevent horizontal scrollbar (viewport overflow) when vertical scrollbar is present */
     position: absolute;
-
-    overflow-x: hidden;
 
     color: var(--text-primary);
     font-family: Inter, system-ui, sans-serif;
