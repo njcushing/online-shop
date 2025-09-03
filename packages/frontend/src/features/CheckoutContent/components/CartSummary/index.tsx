@@ -13,6 +13,7 @@ import { CaretUp, CaretDown } from "@phosphor-icons/react";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import { settings } from "@settings";
 import { CartItem } from "@/features/Cart/components/CartItem";
+import { RemoveScroll } from "react-remove-scroll";
 import styles from "./index.module.css";
 
 export type TCartSummary = {
@@ -236,59 +237,63 @@ export function CartSummary({ layout = "wide" }: TCartSummary) {
     return (
         <FocusTrap active={open}>
             <div className={styles["cart-summary"]} data-layout={layout} data-active={open}>
-                <div
-                    className={styles["collapse-container"]}
-                    style={{ maxHeight: `calc(var(--vh, 1vh) * 100 - ${headerInfo.height}px)` }}
-                >
-                    <Button
-                        onClick={() => setOpen(!open)}
-                        classNames={{
-                            root: styles["collapse-button-root"],
-                            label: styles["collapse-button-label"],
-                        }}
+                <RemoveScroll inert removeScrollBar enabled={open}>
+                    <div
+                        className={styles["collapse-container"]}
+                        style={{ maxHeight: `calc(var(--vh, 1vh) * 100 - ${headerInfo.height}px)` }}
                     >
-                        <Skeleton visible={awaiting} width="min-content">
-                            <span
-                                style={{
-                                    visibility: awaiting ? "hidden" : "initial",
-                                    textWrap: "nowrap",
-                                }}
-                            >
-                                Order Details
-                            </span>
-                        </Skeleton>
+                        <Button
+                            onClick={() => setOpen(!open)}
+                            classNames={{
+                                root: styles["collapse-button-root"],
+                                label: styles["collapse-button-label"],
+                            }}
+                        >
+                            <Skeleton visible={awaiting} width="min-content">
+                                <span
+                                    style={{
+                                        visibility: awaiting ? "hidden" : "initial",
+                                        textWrap: "nowrap",
+                                    }}
+                                >
+                                    Order Details
+                                </span>
+                            </Skeleton>
 
-                        <Skeleton visible={awaiting} width="min-content">
-                            <span
-                                style={{
-                                    visibility: awaiting ? "hidden" : "initial",
-                                    textWrap: "nowrap",
-                                }}
-                            >
-                                £{(subtotal / 100).toFixed(2)}
-                            </span>
-                        </Skeleton>
+                            <Skeleton visible={awaiting} width="min-content">
+                                <span
+                                    style={{
+                                        visibility: awaiting ? "hidden" : "initial",
+                                        textWrap: "nowrap",
+                                    }}
+                                >
+                                    £{(subtotal / 100).toFixed(2)}
+                                </span>
+                            </Skeleton>
 
-                        {open ? <CaretUp /> : <CaretDown />}
-                    </Button>
+                            {open ? <CaretUp /> : <CaretDown />}
+                        </Button>
 
-                    <Collapse
-                        in={open}
-                        animateOpacity={false}
-                        transitionDuration={0}
-                        className={styles["collapse"]}
-                    >
-                        <div className={styles["collapse-content-top"]} tabIndex={-1}>
-                            {items && items.length > 0 ? (
-                                <ul className={styles["cart-items"]}>{cartItems}</ul>
-                            ) : (
-                                <p className={styles["empty-cart-message"]}>Your cart is empty.</p>
-                            )}
-                        </div>
+                        <Collapse
+                            in={open}
+                            animateOpacity={false}
+                            transitionDuration={0}
+                            className={styles["collapse"]}
+                        >
+                            <div className={styles["collapse-content-top"]} tabIndex={-1}>
+                                {items && items.length > 0 ? (
+                                    <ul className={styles["cart-items"]}>{cartItems}</ul>
+                                ) : (
+                                    <p className={styles["empty-cart-message"]}>
+                                        Your cart is empty.
+                                    </p>
+                                )}
+                            </div>
 
-                        <div className={styles["collapse-content-bottom"]}>{costBreakdown}</div>
-                    </Collapse>
-                </div>
+                            <div className={styles["collapse-content-bottom"]}>{costBreakdown}</div>
+                        </Collapse>
+                    </div>
+                </RemoveScroll>
             </div>
         </FocusTrap>
     );
