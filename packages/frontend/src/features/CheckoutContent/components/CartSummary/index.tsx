@@ -295,6 +295,8 @@ export function CartSummary({ layout = "wide" }: TCartSummary) {
                     </div>
                 </RemoveScroll>
             </div>
+
+            {open && <div className={styles["overlay"]}></div>}
         </FocusTrap>
     );
 }
