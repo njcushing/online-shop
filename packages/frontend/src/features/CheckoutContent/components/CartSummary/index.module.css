@@ -239,6 +239,11 @@
     }
 }
 
+.collapse-button-root:active {
+    /* Overriding default Mantine component active styles */
+    transform: none;
+}
+
 .collapse-button-label {
     display: grid;
     grid-template-columns: 1fr repeat(2, auto);
