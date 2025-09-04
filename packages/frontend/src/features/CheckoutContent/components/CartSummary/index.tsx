@@ -9,6 +9,7 @@ import {
     Collapse,
     Button,
 } from "@mantine/core";
+import { useResizeObserver } from "@mantine/hooks";
 import { CaretUp, CaretDown } from "@phosphor-icons/react";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import { settings } from "@settings";
@@ -44,6 +45,10 @@ export function CartSummary({ layout = "wide" }: TCartSummary) {
     useEffect(() => {
         if (layout === "thin" && open) window.scrollTo(0, 0);
     }, [layout, open]);
+
+    const [buttonRef, buttonRect] = useResizeObserver();
+    const [buttonHeight, setButtonHeight] = useState<number>(0);
+    useEffect(() => setButtonHeight(buttonRect.height), [buttonRect]);
 
     const title = layout === "wide" ? "Cart summary" : "Review your items";
 
@@ -238,41 +243,45 @@ export function CartSummary({ layout = "wide" }: TCartSummary) {
         <FocusTrap active={open}>
             <div className={styles["cart-summary"]} data-layout={layout} data-active={open}>
                 <RemoveScroll inert removeScrollBar enabled={open}>
+                    {open && <div style={{ minHeight: `${buttonHeight}px` }}></div>}
+
                     <div
                         className={styles["collapse-container"]}
                         style={{ maxHeight: `calc(var(--vh, 1vh) * 100 - ${headerInfo.height}px)` }}
                     >
-                        <Button
-                            onClick={() => setOpen(!open)}
-                            classNames={{
-                                root: styles["collapse-button-root"],
-                                label: styles["collapse-button-label"],
-                            }}
-                        >
-                            <Skeleton visible={awaiting} width="min-content">
-                                <span
-                                    style={{
-                                        visibility: awaiting ? "hidden" : "initial",
-                                        textWrap: "nowrap",
-                                    }}
-                                >
-                                    Order Details
-                                </span>
-                            </Skeleton>
+                        <div ref={buttonRef}>
+                            <Button
+                                onClick={() => setOpen(!open)}
+                                classNames={{
+                                    root: styles["collapse-button-root"],
+                                    label: styles["collapse-button-label"],
+                                }}
+                            >
+                                <Skeleton visible={awaiting} width="min-content">
+                                    <span
+                                        style={{
+                                            visibility: awaiting ? "hidden" : "initial",
+                                            textWrap: "nowrap",
+                                        }}
+                                    >
+                                        Order Details
+                                    </span>
+                                </Skeleton>
 
-                            <Skeleton visible={awaiting} width="min-content">
-                                <span
-                                    style={{
-                                        visibility: awaiting ? "hidden" : "initial",
-                                        textWrap: "nowrap",
-                                    }}
-                                >
-                                    £{(subtotal / 100).toFixed(2)}
-                                </span>
-                            </Skeleton>
+                                <Skeleton visible={awaiting} width="min-content">
+                                    <span
+                                        style={{
+                                            visibility: awaiting ? "hidden" : "initial",
+                                            textWrap: "nowrap",
+                                        }}
+                                    >
+                                        £{(subtotal / 100).toFixed(2)}
+                                    </span>
+                                </Skeleton>
 
-                            {open ? <CaretUp /> : <CaretDown />}
-                        </Button>
+                                {open ? <CaretUp /> : <CaretDown />}
+                            </Button>
+                        </div>
 
                         <Collapse
                             in={open}
