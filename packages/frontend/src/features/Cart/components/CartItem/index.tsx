@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import { UserContext } from "@/pages/Root";
 import { Skeleton, Image } from "@mantine/core";
 import { Quantity } from "@/components/Inputs/Quantity";
@@ -11,6 +12,7 @@ import styles from "./index.module.css";
 export type TCartItem = {
     data: PopulatedCartItemData;
     editableQuantity?: boolean;
+    disableLink?: boolean;
     classNames?: {
         container?: string;
         content?: string;
@@ -33,11 +35,12 @@ const calculateMaximumAvailability = (
     return Math.min(stock, allowance);
 };
 
-export function CartItem({ data, editableQuantity = true, classNames }: TCartItem) {
+export function CartItem({ data, editableQuantity = true, disableLink, classNames }: TCartItem) {
     const { cart } = useContext(UserContext);
     const { awaiting } = cart;
 
     const { product, variant, quantity, info } = data;
+    const { id, slug } = product;
     const { subscription } = info || {};
 
     const { name, images, allowance } = product;
@@ -46,6 +49,9 @@ export function CartItem({ data, editableQuantity = true, classNames }: TCartIte
 
     const usedImage = image || images.thumb;
     const { src, alt } = usedImage;
+
+    const variantUrlParams = new URLSearchParams();
+    Object.entries(options).forEach(([key, value]) => variantUrlParams.append(key, `${value}`));
 
     return (
         <li className={`${styles["cart-item"]} ${classNames?.container}`}>
@@ -60,12 +66,24 @@ export function CartItem({ data, editableQuantity = true, classNames }: TCartIte
 
             <div className={`${styles["cart-item-content"]} ${classNames?.content}`}>
                 <Skeleton visible={awaiting}>
-                    <p
-                        className={`${styles["cart-item-name"]} ${classNames?.name}`}
-                        style={{ visibility: awaiting ? "hidden" : "initial" }}
-                    >
-                        {name.full}
-                    </p>
+                    {!disableLink ? (
+                        <div>
+                            <Link
+                                to={`/p/${id}/${slug}?${variantUrlParams}`}
+                                className={`${styles["cart-item-name"]} ${classNames?.name}`}
+                                style={{ visibility: awaiting ? "hidden" : "initial" }}
+                            >
+                                {name.full}
+                            </Link>
+                        </div>
+                    ) : (
+                        <p
+                            className={`${styles["cart-item-name"]} ${classNames?.name}`}
+                            style={{ visibility: awaiting ? "hidden" : "initial" }}
+                        >
+                            {name.full}
+                        </p>
+                    )}
                 </Skeleton>
 
                 <div className={styles["cart-item-content-middle"]}>

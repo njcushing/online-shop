@@ -26,13 +26,31 @@
 }
 
 .cart-item-name {
+    display: inline;
+    white-space: normal;
+
+    color: black;
     font-family: var(--font-primary);
     font-size: 1.1rem;
-    font-weight: 500;
+    font-weight: 400;
+    text-decoration: none;
 
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 1.2rem;
     }
+}
+
+@media (hover: hover) {
+    .cart-item-name:hover {
+        text-decoration: underline;
+    }
+}
+
+.cart-item-name:focus-visible,
+.cart-item-name:active {
+    outline: 2px solid #000;
+    outline-offset: 0px 2px;
+    border-radius: 0px;
 }
 
 .cart-item-content-middle {
