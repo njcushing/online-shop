@@ -169,6 +169,9 @@
 
 .delete-promotion-button:focus-visible,
 .delete-promotion-button:active {
+    outline: 2px solid #000;
+    outline-offset: -2px;
+    border-radius: 0px;
     background-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -240,6 +243,12 @@
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 1.2rem;
     }
+}
+
+.collapse-button-root:focus-visible {
+    outline: 2px solid #000;
+    outline-offset: -2px;
+    border-radius: 0px;
 }
 
 .collapse-button-root:active {
