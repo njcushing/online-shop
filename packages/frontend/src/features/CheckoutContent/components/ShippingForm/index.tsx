@@ -1,9 +1,13 @@
 import { useContext, useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CheckoutShippingFormData, checkoutShippingFormDataSchema } from "@/utils/schemas/checkout";
+import {
+    CheckoutShippingOption,
+    CheckoutShippingFormData,
+    checkoutShippingFormDataSchema,
+} from "@/utils/schemas/checkout";
 import { useForm, useWatch, Controller, SubmitHandler } from "react-hook-form";
-import { Collapse, TextInput, Divider, Checkbox, Radio, RadioProps, Button } from "@mantine/core";
+import { Collapse, TextInput, Divider, Checkbox, Radio, Button } from "@mantine/core";
 import { createInputError } from "@/utils/createInputError";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import _ from "lodash";
@@ -16,14 +20,6 @@ const inputProps = {
         input: styles["form-field-input"],
         label: styles["form-field-label"],
     },
-};
-
-const radioClassNames: RadioProps["classNames"] = {
-    root: styles["radio-root"],
-    radio: styles["radio"],
-    body: styles["radio-body"],
-    label: styles["radio-label"],
-    description: styles["radio-description"],
 };
 
 export type TShipping = {
@@ -406,7 +402,10 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShipping) 
                             <Radio.Group
                                 {...field}
                                 value={field.value ?? ""}
-                                onChange={(value) => field.onChange(value)}
+                                onChange={(value) => {
+                                    field.onChange(value);
+                                    setShipping(value as CheckoutShippingOption);
+                                }}
                                 label="Select a shipping option"
                                 required
                                 error={getError("type")}
@@ -416,24 +415,15 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShipping) 
                                 }}
                             >
                                 <div className={styles["radio-options-container"]}>
-                                    <Radio
-                                        wrapperProps={{
-                                            component: "button",
-                                            onClick: (
-                                                e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-                                            ) => {
-                                                e.preventDefault();
-                                                setValue("type", "standard");
-                                                setShipping("standard");
-                                            },
-                                        }}
-                                        value="standard"
-                                        label={
-                                            <span>
+                                    <Radio.Card value="standard" className={styles["radio-card"]}>
+                                        <Radio.Indicator
+                                            disabled={disableInputs}
+                                            className={styles["radio-indicator"]}
+                                        />
+                                        <div className={styles["radio-card-right"]}>
+                                            <span className={styles["radio-label"]}>
                                                 Standard delivery <strong>(FREE)</strong>
                                             </span>
-                                        }
-                                        description={
                                             <span className={styles["radio-description"]}>
                                                 <span className={styles["radio-description-main"]}>
                                                     We aim to ship all orders within 48h of time of
@@ -451,24 +441,15 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShipping) 
                                                     )}
                                                 </span>
                                             </span>
-                                        }
-                                        disabled={disableInputs}
-                                        classNames={radioClassNames}
-                                    />
-                                    <Radio
-                                        wrapperProps={{
-                                            component: "button",
-                                            onClick: (
-                                                e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-                                            ) => {
-                                                e.preventDefault();
-                                                setValue("type", "express");
-                                                setShipping("express");
-                                            },
-                                        }}
-                                        value="express"
-                                        label={
-                                            <span>
+                                        </div>
+                                    </Radio.Card>
+                                    <Radio.Card value="express" className={styles["radio-card"]}>
+                                        <Radio.Indicator
+                                            disabled={disableInputs}
+                                            className={styles["radio-indicator"]}
+                                        />
+                                        <div className={styles["radio-card-right"]}>
+                                            <span className={styles["radio-label"]}>
                                                 Express delivery{" "}
                                                 {postageCost > 0 ? (
                                                     <>
@@ -481,11 +462,10 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShipping) 
                                                     <strong>(FREE)</strong>
                                                 )}
                                             </span>
-                                        }
-                                        description={
                                             <span className={styles["radio-description"]}>
                                                 <span className={styles["radio-description-main"]}>
-                                                    Guaranteed next-day delivery on all orders if
+                                                    We aim to ship all orders within 48h of time of
+                                                    purchase; this is guaranteed if the order is
                                                     placed before 5pm.
                                                 </span>
                                                 <span
@@ -494,15 +474,13 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShipping) 
                                                     }
                                                 >
                                                     Expected delivery date:{" "}
-                                                    {dayjs(expectedDeliveryDate.express).format(
+                                                    {dayjs(expectedDeliveryDate.standard).format(
                                                         "MMMM D, YYYY",
                                                     )}
                                                 </span>
                                             </span>
-                                        }
-                                        disabled={disableInputs}
-                                        classNames={radioClassNames}
-                                    />
+                                        </div>
+                                    </Radio.Card>
                                 </div>
                             </Radio.Group>
                         )}
