@@ -1,5 +1,6 @@
+import { useCallback, useRef } from "react";
 import { useMatches } from "@mantine/core";
-import { Carousel } from "@mantine/carousel";
+import { Carousel, Embla } from "@mantine/carousel";
 import { products } from "@/utils/products/product";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 import { ProductCard } from "../ProductCard";
@@ -8,6 +9,8 @@ import styles from "./index.module.css";
 const slideGapPx = 16;
 
 export function RecommendedProducts() {
+    const emblaRef = useRef<Embla | null>(null);
+
     /*
      * I have to do this using useMatches instead of just setting slidesToScroll="auto" directly on
      * the component and breakpoints on the slideSize prop because the number of indicators doesn't
@@ -33,6 +36,15 @@ export function RecommendedProducts() {
         },
     });
 
+    const handleFocus = useCallback(
+        (i: number) => {
+            if (emblaRef.current) {
+                emblaRef.current.scrollTo(Math.floor(i) / carouselProps.slidesToScroll);
+            }
+        },
+        [carouselProps.slidesToScroll],
+    );
+
     return (
         <section className={styles["recommended-products"]}>
             <div className={styles["recommended-products-width-controller"]}>
@@ -48,9 +60,13 @@ export function RecommendedProducts() {
                     nextControlIcon={<ArrowRight />}
                     withControls={false}
                     withIndicators
+                    getEmblaApi={(api) => {
+                        emblaRef.current = api;
+                    }}
                     classNames={{
                         root: styles["carousel-root"],
                         container: styles["carousel-container"],
+                        viewport: styles["carousel-viewport"],
                         indicator: styles["carousel-indicator"],
                         indicators: styles["carousel-indicators"],
                     }}
@@ -59,6 +75,7 @@ export function RecommendedProducts() {
                         return (
                             <Carousel.Slide
                                 data-last={i === products.length - 1}
+                                onFocus={() => handleFocus(i)}
                                 className={styles["carousel-slide"]}
                                 key={product.id}
                                 style={{

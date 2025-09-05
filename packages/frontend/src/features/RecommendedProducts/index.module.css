@@ -53,6 +53,10 @@
     align-self: start;
 }
 
+.carousel-viewport {
+    padding: 4px;
+}
+
 .carousel-indicators {
     align-self: center;
 
