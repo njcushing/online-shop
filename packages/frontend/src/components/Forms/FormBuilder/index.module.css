@@ -94,3 +94,9 @@
         font-size: 0.92rem;
     }
 }
+
+.edit-button:focus-visible,
+.submit-button:focus-visible {
+    outline: 2px solid #000;
+    border-radius: 0px;
+}

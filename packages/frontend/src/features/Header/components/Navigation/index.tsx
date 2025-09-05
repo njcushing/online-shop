@@ -108,6 +108,7 @@ export function Navigation({ opened = false }: TNavigation) {
                                 onClick={() => {
                                     if (opened) setSearchBarOpen(!searchBarOpen);
                                 }}
+                                classNames={{ root: styles["action-icon-root"] }}
                                 ref={setSearchBarButtonRef}
                             >
                                 <MagnifyingGlass size={iconSize} color="black" />
@@ -117,6 +118,7 @@ export function Navigation({ opened = false }: TNavigation) {
                                 color="gray"
                                 aria-label="User"
                                 onClick={() => navigate("/account")}
+                                classNames={{ root: styles["action-icon-root"] }}
                             >
                                 <User size={iconSize} color="black" />
                             </ActionIcon>
@@ -128,6 +130,7 @@ export function Navigation({ opened = false }: TNavigation) {
                                     onClick={() => {
                                         if (opened) setCartDrawerOpen(!cartDrawerOpen);
                                     }}
+                                    classNames={{ root: styles["action-icon-root"] }}
                                 >
                                     <ShoppingCartSimple size={iconSize} color="black" />
                                 </ActionIcon>

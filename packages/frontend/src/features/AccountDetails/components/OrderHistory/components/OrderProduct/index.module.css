@@ -13,6 +13,8 @@
     @media (min-width: $mantine-breakpoint-xs) {
         width: 160px;
     }
+
+    border: 1px solid #000;
 }
 
 .product-information {
@@ -22,17 +24,14 @@
 }
 
 .product-full-name {
-    display: block;
-
-    position: relative;
+    display: inline;
+    white-space: normal;
 
     color: black;
     font-family: var(--font-primary);
-    text-decoration: none;
     font-size: 1.1rem;
     font-weight: 400;
-
-    width: 100%;
+    text-decoration: none;
 
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 1.2rem;
@@ -43,6 +42,11 @@
     .product-full-name:hover {
         text-decoration: underline;
     }
+}
+
+.product-full-name:focus-visible {
+    outline: 2px solid #000;
+    border-radius: 0px;
 }
 
 .product-variant-options {

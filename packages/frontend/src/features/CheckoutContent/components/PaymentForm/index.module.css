@@ -31,3 +31,8 @@
         font-size: 0.92rem;
     }
 }
+
+.previous-stage-button:focus-visible {
+    outline: 2px solid #000;
+    border-radius: 0px;
+}

@@ -89,3 +89,21 @@
         font-size: 0.92rem;
     }
 }
+
+@media (hover: hover) {
+    .button:hover {
+        /* Overriding default Mantine component hover styles */
+        color: black;
+        background-color: rgb(230, 180, 133);
+    }
+}
+
+.button:focus-visible {
+    outline: 2px solid #000;
+    border-radius: 0px;
+}
+
+.button:active {
+    color: black;
+    background-color: rgb(230, 180, 133);
+}

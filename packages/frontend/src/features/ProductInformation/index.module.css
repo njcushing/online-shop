@@ -20,14 +20,24 @@
     padding: 0px;
 }
 
-.accordion-item {
-    --item-border-color: rgba(0, 0, 0, 0.6);
-}
-
 @media (hover: hover) {
     .accordion-control:hover {
-        background-color: transparent; /* Overriding default Mantine component hover styles */
+        /* Overriding default Mantine component hover styles */
+        background-color: rgba(0, 0, 0, 0.1);
     }
+}
+
+.accordion-control:focus-visible {
+    outline: 2px solid #000;
+    border-radius: 0px;
+}
+
+.accordion-control:active {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.accordion-item {
+    --item-border-color: rgba(0, 0, 0, 0.6);
 }
 
 .accordion-content {

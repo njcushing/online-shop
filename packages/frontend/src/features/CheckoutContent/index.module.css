@@ -104,9 +104,11 @@
     }
 }
 
-.pay-now-button:focus-visible,
-.pay-now-button:active {
+.pay-now-button:focus-visible {
     color: black;
+
+    outline: 2px solid #000;
+    border-radius: 0px;
 }
 
 .pay-now-button:disabled {

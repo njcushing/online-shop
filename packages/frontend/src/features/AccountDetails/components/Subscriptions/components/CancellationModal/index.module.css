@@ -78,6 +78,12 @@
     background-color: rgba(0, 0, 0, 0.1);
 }
 
+.cancel-button:focus-visible,
+.modal-close:focus-visible {
+    outline: 2px solid black;
+    border-radius: 0;
+}
+
 .button {
     color: black;
     font-family: var(--font-primary);

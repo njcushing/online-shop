@@ -93,6 +93,11 @@
     }
 }
 
+.checkbox-input:focus-visible {
+    outline: 2px solid #000;
+    border-radius: 0px;
+}
+
 .checkbox-label {
     font-family: var(--font-primary);
     font-size: 0.92rem;
@@ -159,6 +164,12 @@
     background-color: transparent;
 }
 
+.radio-root:focus-visible {
+    outline: 2px solid #000;
+    outline-offset: 2px;
+    border-radius: 0px;
+}
+
 .radio-label {
     font-family: var(--font-primary);
     font-size: 0.92rem;
@@ -220,4 +231,10 @@
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 0.92rem;
     }
+}
+
+.previous-stage-button:focus-visible,
+.next-stage-button:focus-visible {
+    outline: 2px solid #000;
+    border-radius: 0px;
 }

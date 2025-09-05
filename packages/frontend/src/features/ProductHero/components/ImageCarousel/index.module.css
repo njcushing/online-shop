@@ -64,10 +64,10 @@
     padding: 0px;
 }
 
-.carousel-slide:focus {
+.carousel-slide:focus-visible {
     outline: var(--outline-width, 2px) solid #000;
     outline-offset: var(--outline-offset, 2px);
-    border-radius: 4px;
+    border-radius: 0px;
 }
 
 .carousel-image-main,

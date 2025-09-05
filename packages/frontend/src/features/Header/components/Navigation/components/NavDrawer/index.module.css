@@ -27,16 +27,26 @@
     }
 }
 
+.drawer-close {
+    border-radius: 0px;
+}
+
 @media (hover: hover) {
     .nav-link-root:hover,
     .drawer-close:hover {
+        /* Overriding default Mantine component hover styles */
         background-color: rgba(0, 0, 0, 0.1);
     }
 }
 
 .nav-link-root:focus-visible,
+.drawer-close:focus-visible {
+    outline: 2px solid #000;
+    outline-offset: -2px;
+    border-radius: 0px;
+}
+
 .nav-link-root:active,
-.drawer-close:focus-visible,
 .drawer-close:active {
     background-color: rgba(0, 0, 0, 0.1);
 }
