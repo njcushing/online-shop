@@ -18,10 +18,10 @@ import { RemoveScroll } from "react-remove-scroll";
 import styles from "./index.module.css";
 
 export type TCartSummary = {
-    layout?: "wide" | "thin";
+    layout?: "dropdown" | "visible";
 };
 
-export function CartSummary({ layout = "wide" }: TCartSummary) {
+export function CartSummary({ layout = "visible" }: TCartSummary) {
     const { headerInfo } = useContext(RootContext);
     const { cart, shipping, defaultData } = useContext(UserContext);
 
@@ -43,14 +43,14 @@ export function CartSummary({ layout = "wide" }: TCartSummary) {
     const wide = useMatches({ base: false, xs: true });
     const [open, setOpen] = useState<boolean>(false);
     useEffect(() => {
-        if (layout === "thin" && open) window.scrollTo(0, 0);
+        if (layout === "dropdown" && open) window.scrollTo(0, 0);
     }, [layout, open]);
 
     const [buttonRef, buttonRect] = useResizeObserver();
     const [buttonHeight, setButtonHeight] = useState<number>(0);
     useEffect(() => setButtonHeight(buttonRect.height), [buttonRect]);
 
-    const title = layout === "wide" ? "Cart summary" : "Review your items";
+    const title = layout === "visible" ? "Cart summary" : "Review your items";
 
     const cartItems = useMemo(() => {
         return items.map((item) => {
@@ -219,7 +219,7 @@ export function CartSummary({ layout = "wide" }: TCartSummary) {
         wide,
     ]);
 
-    if (layout === "wide") {
+    if (layout === "visible") {
         return (
             <div className={styles["cart-summary"]} data-layout={layout}>
                 <h3 className={styles["cart-summary-header"]}>{title}</h3>
