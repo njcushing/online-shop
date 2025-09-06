@@ -17,10 +17,11 @@ import { CheckoutShippingOption } from "@/utils/schemas/checkout";
 import { Home } from "../Home";
 import { Category } from "../Category";
 import { Product } from "../Product";
+import { Cart } from "../Cart";
+import { Checkout } from "../Checkout";
 import { Account, Routes as AccountRoutes } from "../Account";
 import { ErrorPage } from "../ErrorPage";
 import styles from "./index.module.css";
-import { Checkout } from "../Checkout";
 
 export const Routes = [
     {
@@ -36,6 +37,11 @@ export const Routes = [
     {
         path: "p/:productId/:productSlug",
         element: <Product />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: "cart",
+        element: <Cart />,
         errorElement: <ErrorPage />,
     },
     {
@@ -117,7 +123,8 @@ export type TRoot = {
 
 export function Root({ children }: TRoot) {
     const location = useLocation();
-    const inCheckout = location.pathname === "/checkout";
+    const { pathname } = location;
+    const HeaderDisableActivity = pathname === "/cart" || pathname === "/checkout";
 
     const [headerInfo, setHeaderInfo] = useState<IRootContext["headerInfo"]>(
         defaultRootContext.headerInfo,
@@ -165,7 +172,7 @@ export function Root({ children }: TRoot) {
                     <HeaderContext.Provider
                         value={useMemo(() => ({ setHeaderInfo }), [setHeaderInfo])}
                     >
-                        <Header disableActivity={inCheckout} />
+                        <Header disableActivity={HeaderDisableActivity} />
                         {children}
                     </HeaderContext.Provider>
                     <Outlet />

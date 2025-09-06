@@ -23,7 +23,7 @@ export type TNavigation = {
 
 export function Navigation({ opened = false }: TNavigation) {
     const location = useLocation();
-    const inCheckout = location.pathname === "/checkout";
+    const reduced = location.pathname === "/cart" || location.pathname === "/checkout";
 
     const { cart } = useContext(UserContext);
     const { response } = cart;
@@ -79,8 +79,8 @@ export function Navigation({ opened = false }: TNavigation) {
 
     return (
         <>
-            <nav className={styles["navigation"]} data-in-checkout={inCheckout}>
-                {!inCheckout && (
+            <nav className={styles["navigation"]} data-reduced={reduced}>
+                {!reduced && (
                     <Burger
                         lineSize={2}
                         size={burgerSize}
@@ -98,7 +98,7 @@ export function Navigation({ opened = false }: TNavigation) {
                     <Logo />
                 </div>
 
-                {!inCheckout && (
+                {!reduced && (
                     <>
                         <div className={styles["other-links"]}>
                             <ActionIcon
@@ -161,7 +161,7 @@ export function Navigation({ opened = false }: TNavigation) {
                 )}
             </nav>
 
-            {!inCheckout && (
+            {!reduced && (
                 <>
                     <NavDrawer opened={navDrawerOpen} onClose={() => setNavDrawerOpen(false)} />
                     <CartDrawer opened={cartDrawerOpen} onClose={() => setCartDrawerOpen(false)} />

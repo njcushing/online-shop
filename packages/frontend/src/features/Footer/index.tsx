@@ -5,10 +5,10 @@ import styles from "./index.module.css";
 
 export function Footer() {
     const location = useLocation();
-    const inCheckout = location.pathname === "/checkout";
+    const reduced = location.pathname === "/cart" || location.pathname === "/checkout";
 
     let layout = "normal";
-    if (inCheckout) layout = "reduced";
+    if (reduced) layout = "reduced";
 
     if (layout === "normal") {
         return (
