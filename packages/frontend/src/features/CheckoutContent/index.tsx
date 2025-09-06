@@ -24,7 +24,12 @@ export function CheckoutContent() {
 
     return (
         <section className={styles["checkout-content"]} data-wide={wide}>
-            {!wide && <CartSummary layout="dropdown" />}
+            {!wide && (
+                <CartSummary
+                    layout="dropdown"
+                    classNames={{ header: styles["CartSummary-header"] }}
+                />
+            )}
 
             <div className={styles["checkout-content-width-controller"]}>
                 <div className={styles["checkout-content-left"]}>
@@ -74,7 +79,10 @@ export function CheckoutContent() {
 
                 {wide && (
                     <div className={styles["checkout-content-right"]}>
-                        <CartSummary layout="visible" />
+                        <CartSummary
+                            layout="visible"
+                            classNames={{ header: styles["CartSummary-header"] }}
+                        />
 
                         <Button
                             color="var(--site-colour-tertiary, rgb(250, 223, 198))"

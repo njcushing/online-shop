@@ -32,6 +32,22 @@
     padding: 0px 16px;
 }
 
+.checkout-content[data-wide="true"] .CartSummary-header {
+    font-size: 1.28rem;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.4rem;
+    }
+}
+
+.checkout-content[data-wide="false"] .CartSummary-header {
+    font-size: 1.44rem;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.6rem;
+    }
+}
+
 .checkout-content-left {
     display: flex;
     flex-direction: column;

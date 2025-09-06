@@ -22,19 +22,8 @@
 .cart-summary-header {
     color: black;
     font-family: var(--font-primary);
-    font-weight: 500;
-}
-
-.cart-summary[data-layout="visible"] .cart-summary-header {
-    font-size: 1.28rem;
-
-    @media (min-width: $mantine-breakpoint-xs) {
-        font-size: 1.4rem;
-    }
-}
-
-.cart-summary[data-layout="dropdown"] .cart-summary-header {
     font-size: 1.44rem;
+    font-weight: 500;
 
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 1.6rem;

@@ -12,10 +12,71 @@
 
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 32px;
 
     width: min(calc(var(--vw) * 100), 100%);
     max-width: 1280px;
     padding: 0px 16px;
     margin: auto;
+}
+
+.CartSummary-root {
+    background-color: transparent;
+
+    padding: 0px;
+}
+
+.CartSummary-header {
+    font-size: 1.6rem;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.8rem;
+    }
+}
+
+.proceed-to-checkout-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: flex-end;
+
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
+
+    border-radius: 4px;
+    background-color: var(--site-colour-tertiary, rgb(250, 223, 198));
+
+    min-height: 2.7rem;
+    padding: 0px 18px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.2rem;
+    }
+}
+
+@media (hover: hover) {
+    .proceed-to-checkout-link:hover {
+        color: black;
+
+        background-color: rgb(230, 180, 133);
+    }
+}
+
+.proceed-to-checkout-link:focus-visible {
+    color: black;
+
+    outline: 2px solid #000;
+    border-radius: 0px;
+}
+
+.proceed-to-checkout-link[data-disabled="true"] {
+    pointer-events: none;
+    cursor: default;
+
+    color: rgba(0, 0, 0, 0.3);
+
+    background-color: rgba(0, 0, 0, 0.1);
 }
