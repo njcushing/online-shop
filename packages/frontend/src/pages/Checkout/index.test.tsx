@@ -6,7 +6,7 @@ vi.mock("@/features/CheckoutContent", () => ({
     CheckoutContent: () => <div aria-label="CheckoutContent component"></div>,
 }));
 
-describe("The PrivacyPolicy component...", () => {
+describe("The Checkout component...", () => {
     test("Should render the CheckoutContent component", () => {
         render(<Checkout />);
 
