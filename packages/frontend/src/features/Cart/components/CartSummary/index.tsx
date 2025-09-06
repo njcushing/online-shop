@@ -5,6 +5,7 @@ import {
     Skeleton,
     Divider,
     CloseButton,
+    Input,
     FocusTrap,
     Collapse,
     Button,
@@ -174,9 +175,9 @@ export function CartSummary({
 
                 {items && items.length > 0 && <Divider className={styles["divider"]} />}
 
-                {discount.promotions.total !== 0 && (
-                    <>
-                        <div className={concatenatedClassNames.promotions.container}>
+                <div className={concatenatedClassNames.promotions.container}>
+                    {discount.promotions.total !== 0 && (
+                        <>
                             <div className={concatenatedClassNames.costBreakdown.line}>
                                 <span>Promotions</span>
                                 <span>-£{(discount.promotions.total / 100).toFixed(2)}</span>
@@ -231,11 +232,35 @@ export function CartSummary({
                                     );
                                 })}
                             </div>
-                        </div>
+                        </>
+                    )}
 
-                        <Divider className={styles["divider"]} />
-                    </>
-                )}
+                    <Input.Wrapper>
+                        <Input.Label className={styles["input-label"]}>
+                            Enter a promotional code
+                        </Input.Label>
+                        <div className={styles["promo-code-input-and-button-wrapper"]}>
+                            <Input
+                                error={null}
+                                disabled={awaiting}
+                                classNames={{ input: styles["input"] }}
+                            />
+                            <Button
+                                type="button"
+                                color="rgb(48, 48, 48)"
+                                variant="filled"
+                                radius={9999}
+                                onClick={() => {}}
+                                disabled={awaiting}
+                                className={styles["apply-promo-code-button"]}
+                            >
+                                Apply
+                            </Button>
+                        </div>
+                    </Input.Wrapper>
+                </div>
+
+                <Divider className={styles["divider"]} />
 
                 {items && items.length > 0 && (
                     <>
