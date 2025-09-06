@@ -13,15 +13,78 @@ import { useResizeObserver } from "@mantine/hooks";
 import { CaretUp, CaretDown } from "@phosphor-icons/react";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import { settings } from "@settings";
-import { CartItem } from "@/features/Cart/components/CartItem";
+import { CartItem, TCartItem } from "@/features/Cart/components/CartItem";
 import { RemoveScroll } from "react-remove-scroll";
+import { DeepRequired } from "react-hook-form";
+import { RecursivePartial } from "@/utils/types";
+import _ from "lodash";
 import styles from "./index.module.css";
 
 export type TCartSummary = {
     layout?: "dropdown" | "visible";
+    headerText?: string;
+    CartItemProps?: RecursivePartial<TCartItem>;
+    classNames?: {
+        root?: string;
+        header?: string;
+        itemsContainer?: string;
+        emptyCartMessage?: string;
+        costBreakdown?: {
+            group?: string;
+            line?: string;
+        };
+        promotions?: {
+            container?: string;
+            group?: string;
+            code?: string;
+            description?: string;
+            discountValue?: string;
+            deleteButton?: string;
+        };
+        collapse?: {
+            root?: string;
+            top?: string;
+            bottom?: string;
+        };
+    };
 };
 
-export function CartSummary({ layout = "visible" }: TCartSummary) {
+const getConcatenatedClassNames = (
+    classNames: TCartSummary["classNames"],
+): NonNullable<DeepRequired<TCartSummary["classNames"]>> => {
+    return {
+        root: `${styles["cart-summary"]} ${classNames?.root}`,
+        header: `${styles["cart-summary-header"]} ${classNames?.header}`,
+        itemsContainer: `${styles["cart-items"]} ${classNames?.itemsContainer}`,
+        emptyCartMessage: `${styles["empty-cart-message"]} ${classNames?.emptyCartMessage}`,
+        costBreakdown: {
+            group: `${styles["cost-breakdown-group"]} ${classNames?.costBreakdown?.group}`,
+            line: `${styles["cost-breakdown-line"]} ${classNames?.costBreakdown?.line}`,
+        },
+        promotions: {
+            container: `${styles["promotions"]} ${classNames?.promotions?.container}`,
+            group: `${styles["promotion-options-container"]} ${classNames?.promotions?.group}`,
+            code: `${styles["promotion-code"]} ${classNames?.promotions?.code}`,
+            description: `${styles["promotion-description"]} ${classNames?.promotions?.description}`,
+            discountValue: `${styles["promotion-discount-value"]} ${classNames?.promotions?.discountValue}`,
+            deleteButton: `${styles["delete-promotion-button"]} ${classNames?.promotions?.deleteButton}`,
+        },
+        collapse: {
+            root: `${styles["collapse"]} ${classNames?.collapse?.root}`,
+            top: `${styles["collapse-content-top"]} ${classNames?.collapse?.top}`,
+            bottom: `${styles["collapse-content-bottom"]} ${classNames?.collapse?.bottom}`,
+        },
+    };
+};
+
+export function CartSummary({
+    layout = "visible",
+    headerText = "",
+    CartItemProps,
+    classNames,
+}: TCartSummary) {
+    const concatenatedClassNames = getConcatenatedClassNames(classNames);
+
     const { headerInfo } = useContext(RootContext);
     const { cart, shipping, defaultData } = useContext(UserContext);
 
@@ -50,15 +113,15 @@ export function CartSummary({ layout = "visible" }: TCartSummary) {
     const [buttonHeight, setButtonHeight] = useState<number>(0);
     useEffect(() => setButtonHeight(buttonRect.height), [buttonRect]);
 
-    const title = layout === "visible" ? "Cart summary" : "Review your items";
+    const defaultHeaderText = layout === "visible" ? "Cart summary" : "Review your items";
 
     const cartItems = useMemo(() => {
         return items.map((item) => {
-            return (
-                <CartItem
-                    data={item}
-                    editableQuantity={false}
-                    classNames={{
+            const props = _.merge(
+                {
+                    data: item,
+                    editableQuantity: false,
+                    classNames: {
                         name: styles["cart-item-name"],
                         content: styles["cart-item-content"],
                         variantOptionName: styles["cart-item-variant-option-name"],
@@ -69,18 +132,19 @@ export function CartSummary({ layout = "visible" }: TCartSummary) {
                             base: styles["price-base"],
                             discountPercentage: styles["price-discount-percentage"],
                         },
-                    }}
-                    key={item.variant.id}
-                />
+                    },
+                },
+                _.cloneDeep(CartItemProps),
             );
+            return <CartItem {...props} key={item.variant.id} />;
         });
-    }, [items]);
+    }, [CartItemProps, items]);
 
     const costBreakdown = useMemo(() => {
         return (
             <>
-                <div className={styles["cost-breakdown-group"]}>
-                    <div className={styles["cost-breakdown-line"]}>
+                <div className={concatenatedClassNames.costBreakdown.group}>
+                    <div className={concatenatedClassNames.costBreakdown.line}>
                         <Skeleton visible={awaiting} width="min-content">
                             <span style={{ visibility: awaiting ? "hidden" : "initial" }}>
                                 Item(s) Subtotal:
@@ -94,14 +158,14 @@ export function CartSummary({ layout = "visible" }: TCartSummary) {
                     </div>
 
                     {discount.products !== 0 && (
-                        <div className={styles["cost-breakdown-line"]}>
+                        <div className={concatenatedClassNames.costBreakdown.line}>
                             <span>Item Discounts:</span>
                             <span>-£{(discount.products / 100).toFixed(2)}</span>
                         </div>
                     )}
 
                     {discount.subscriptions !== 0 && (
-                        <div className={styles["cost-breakdown-line"]}>
+                        <div className={concatenatedClassNames.costBreakdown.line}>
                             <span>Subscriptions:</span>
                             <span>-£{(discount.subscriptions / 100).toFixed(2)}</span>
                         </div>
@@ -112,13 +176,13 @@ export function CartSummary({ layout = "visible" }: TCartSummary) {
 
                 {discount.promotions.total !== 0 && (
                     <>
-                        <div className={styles["promotions"]}>
-                            <div className={styles["cost-breakdown-line"]}>
+                        <div className={concatenatedClassNames.promotions.container}>
+                            <div className={concatenatedClassNames.costBreakdown.line}>
                                 <span>Promotions</span>
                                 <span>-£{(discount.promotions.total / 100).toFixed(2)}</span>
                             </div>
 
-                            <div className={styles["promotion-options-container"]}>
+                            <div className={concatenatedClassNames.promotions.group}>
                                 {promotions.map((promotion) => {
                                     const { code, description } = promotion;
                                     const info = discount.promotions.individual.find(
@@ -130,20 +194,37 @@ export function CartSummary({ layout = "visible" }: TCartSummary) {
                                         <span className={styles["promotion"]} key={code}>
                                             <CloseButton
                                                 size="sm"
-                                                className={styles["delete-promotion-button"]}
+                                                className={
+                                                    concatenatedClassNames.promotions.deleteButton
+                                                }
                                             />
                                             <div
                                                 className={
                                                     styles["promotion-code-description-container"]
                                                 }
                                             >
-                                                <p className={styles["promotion-code"]}>{code}</p>
+                                                <p
+                                                    className={
+                                                        concatenatedClassNames.promotions.code
+                                                    }
+                                                >
+                                                    {code}
+                                                </p>
                                                 {wide && "-"}
-                                                <p className={styles["promotion-description"]}>
+                                                <p
+                                                    className={
+                                                        concatenatedClassNames.promotions
+                                                            .description
+                                                    }
+                                                >
                                                     {description}
                                                 </p>
                                             </div>
-                                            <p className={styles["promotion-discount-value"]}>
+                                            <p
+                                                className={
+                                                    concatenatedClassNames.promotions.discountValue
+                                                }
+                                            >
                                                 £{(value / 100).toFixed(2)}
                                             </p>
                                         </span>
@@ -158,7 +239,7 @@ export function CartSummary({ layout = "visible" }: TCartSummary) {
 
                 {items && items.length > 0 && (
                     <>
-                        <div className={styles["cost-breakdown-line"]}>
+                        <div className={concatenatedClassNames.costBreakdown.line}>
                             <Skeleton visible={awaiting} width="min-content">
                                 <span
                                     style={{
@@ -181,7 +262,7 @@ export function CartSummary({ layout = "visible" }: TCartSummary) {
 
                         <Divider className={styles["divider"]} />
 
-                        <div className={styles["cost-breakdown-line"]}>
+                        <div className={concatenatedClassNames.costBreakdown.line}>
                             <Skeleton visible={awaiting} width="min-content">
                                 <span
                                     style={{
@@ -206,6 +287,7 @@ export function CartSummary({ layout = "visible" }: TCartSummary) {
             </>
         );
     }, [
+        concatenatedClassNames,
         awaiting,
         cost.products,
         discount.products,
@@ -221,15 +303,15 @@ export function CartSummary({ layout = "visible" }: TCartSummary) {
 
     if (layout === "visible") {
         return (
-            <div className={styles["cart-summary"]} data-layout={layout}>
-                <h3 className={styles["cart-summary-header"]}>{title}</h3>
+            <div className={concatenatedClassNames.root} data-layout={layout}>
+                <h3 className={concatenatedClassNames.header}>{headerText || defaultHeaderText}</h3>
 
                 <Divider className={styles["divider"]} />
 
                 {items && items.length > 0 ? (
-                    <ul className={styles["cart-items"]}>{cartItems}</ul>
+                    <ul className={concatenatedClassNames.itemsContainer}>{cartItems}</ul>
                 ) : (
-                    <p className={styles["empty-cart-message"]}>Your cart is empty.</p>
+                    <p className={concatenatedClassNames.emptyCartMessage}>Your cart is empty.</p>
                 )}
 
                 <Divider className={styles["divider"]} />
@@ -241,7 +323,7 @@ export function CartSummary({ layout = "visible" }: TCartSummary) {
 
     return (
         <>
-            <div className={styles["cart-summary"]} data-layout={layout} data-active={open}>
+            <div className={concatenatedClassNames.root} data-layout={layout} data-active={open}>
                 <FocusTrap active={open}>
                     <RemoveScroll inert removeScrollBar enabled={open}>
                         {open && <div style={{ minHeight: `${buttonHeight}px` }}></div>}
@@ -290,19 +372,21 @@ export function CartSummary({ layout = "visible" }: TCartSummary) {
                                 in={open}
                                 animateOpacity={false}
                                 transitionDuration={0}
-                                className={styles["collapse"]}
+                                className={concatenatedClassNames.collapse.root}
                             >
-                                <div className={styles["collapse-content-top"]} tabIndex={-1}>
+                                <div className={concatenatedClassNames.collapse.top} tabIndex={-1}>
                                     {items && items.length > 0 ? (
-                                        <ul className={styles["cart-items"]}>{cartItems}</ul>
+                                        <ul className={concatenatedClassNames.itemsContainer}>
+                                            {cartItems}
+                                        </ul>
                                     ) : (
-                                        <p className={styles["empty-cart-message"]}>
+                                        <p className={concatenatedClassNames.emptyCartMessage}>
                                             Your cart is empty.
                                         </p>
                                     )}
                                 </div>
 
-                                <div className={styles["collapse-content-bottom"]}>
+                                <div className={concatenatedClassNames.collapse.bottom}>
                                     {costBreakdown}
                                 </div>
                             </Collapse>
