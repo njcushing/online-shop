@@ -1,0 +1,21 @@
+.cart-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    width: min(calc(var(--vw) * 100), 100%);
+    padding: 32px 0px;
+}
+
+.cart-content-width-controller {
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    width: min(calc(var(--vw) * 100), 100%);
+    max-width: 1280px;
+    padding: 0px 16px;
+    margin: auto;
+}

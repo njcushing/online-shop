@@ -2,11 +2,11 @@ import { useContext, useState } from "react";
 import { IUserContext, UserContext } from "@/pages/Root";
 import { useMatches, Divider, Button } from "@mantine/core";
 import { NumberCircleOne, NumberCircleTwo, NumberCircleThree } from "@phosphor-icons/react";
+import { CartSummary } from "@/features/Cart/components/CartSummary";
 import { PersonalInformationForm } from "./components/PersonalInformationForm";
 import { ShippingForm } from "./components/ShippingForm";
 import { PaymentForm } from "./components/PaymentForm";
 import styles from "./index.module.css";
-import { CartSummary } from "./components/CartSummary";
 
 export function CheckoutContent() {
     const { cart, defaultData } = useContext(UserContext);
