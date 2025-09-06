@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "@/pages/Root";
 import { Skeleton, Image } from "@mantine/core";
-import { Quantity } from "@/components/Inputs/Quantity";
+import { Quantity, TQuantity } from "@/components/Inputs/Quantity";
 import { ProductVariant, Product, variantOptions } from "@/utils/products/product";
 import { PopulatedCartItemData } from "@/utils/products/cart";
 import { calculateUnitPrice } from "@/utils/products/utils/calculateUnitPrice";
@@ -13,6 +13,7 @@ export type TCartItem = {
     data: PopulatedCartItemData;
     editableQuantity?: boolean;
     disableLink?: boolean;
+    QuantitySize?: TQuantity["size"];
     classNames?: {
         container?: string;
         content?: string;
@@ -35,7 +36,13 @@ const calculateMaximumAvailability = (
     return Math.min(stock, allowance);
 };
 
-export function CartItem({ data, editableQuantity = true, disableLink, classNames }: TCartItem) {
+export function CartItem({
+    data,
+    editableQuantity = true,
+    disableLink,
+    QuantitySize = "sm",
+    classNames,
+}: TCartItem) {
     const { cart } = useContext(UserContext);
     const { awaiting } = cart;
 
@@ -141,7 +148,7 @@ export function CartItem({ data, editableQuantity = true, disableLink, className
                                         allowanceOverride,
                                     )}
                                     disabled={awaiting}
-                                    size="sm"
+                                    size={QuantitySize}
                                 />
                             ) : (
                                 <p

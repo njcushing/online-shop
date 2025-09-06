@@ -20,7 +20,7 @@ export function CartContent() {
                 <CartSummary
                     layout="visible"
                     headerText="Your Cart"
-                    CartItemProps={{ editableQuantity: true }}
+                    CartItemProps={{ editableQuantity: true, QuantitySize: "md" }}
                     classNames={{
                         root: styles["CartSummary-root"],
                         header: styles["CartSummary-header"],
