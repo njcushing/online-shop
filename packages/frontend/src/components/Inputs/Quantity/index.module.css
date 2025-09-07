@@ -25,6 +25,7 @@
 }
 
 .quantity-input {
+    font-family: var(--font-primary);
     text-align: center;
 
     border: none;

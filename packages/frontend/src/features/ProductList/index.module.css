@@ -53,6 +53,7 @@
 
 .subcategory-description {
     color: black;
+    font-family: var(--font-primary);
     font-size: 0.86rem;
     font-weight: 300;
 
@@ -64,6 +65,7 @@
 .shop-all-button {
     flex-shrink: 0;
 
+    font-family: var(--font-primary);
     font-size: 0.86rem;
 
     width: calc(100% + 8px);

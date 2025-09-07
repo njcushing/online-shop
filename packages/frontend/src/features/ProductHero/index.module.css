@@ -90,6 +90,7 @@
 .product-rating-value,
 .product-rating-quantity {
     color: black;
+    font-family: var(--font-primary);
     font-size: 0.86rem;
 
     @media (min-width: $mantine-breakpoint-xs) {

@@ -13,6 +13,7 @@
     position: absolute;
     right: 0px;
 
+    font-family: var(--font-primary);
     font-size: 0.86rem;
 
     border-radius: 4px;

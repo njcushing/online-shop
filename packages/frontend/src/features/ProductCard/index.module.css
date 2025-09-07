@@ -48,6 +48,7 @@
     right: 8px;
 
     color: black;
+    font-family: var(--font-primary);
     font-size: 0.86rem;
 
     background-color: pink;
@@ -64,8 +65,9 @@
 
 .product-name {
     color: black;
+    font-family: var(--font-primary);
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 500;
 
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 1.08rem;
@@ -81,6 +83,7 @@
 .product-rating-value,
 .product-rating-quantity {
     color: black;
+    font-family: var(--font-primary);
     font-size: 0.8rem;
 
     @media (min-width: $mantine-breakpoint-xs) {

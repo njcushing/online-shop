@@ -38,6 +38,7 @@
 
 .group-breadcrumb {
     color: black;
+    font-family: var(--font-primary);
     font-size: 0.86rem;
     text-decoration: none;
 
