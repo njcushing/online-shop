@@ -1,7 +1,9 @@
 /* Default (Light) */
 :root {
     /* Text */
-    --font-primary: "Radio Canada Big";
+    --font-primary:
+        "Radio Canada Big", "Segoe UI", "San Francisco", "Helvetica Neue", Helvetica, Arial,
+        "Noto Sans", sans-serif;
     --text-primary: rgb(0, 0, 0);
     --text-primary-dec: 0, 0, 0;
     --text-primary-hover: rgb(255, 255, 255);

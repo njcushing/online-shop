@@ -1,6 +1,26 @@
 /* Fonts */
 
-@import url("https://fonts.googleapis.com/css2?family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&display=swap");
+@font-face {
+    font-family: "Radio Canada Big";
+    src:
+        url("/fonts/RadioCanadaBig/RadioCanadaBig-VariableFont_wght.woff2") format("woff2"),
+        url("/fonts/RadioCanadaBig/RadioCanadaBig-VariableFont_wght.woff") format("woff"),
+        url("/fonts/RadioCanadaBig/RadioCanadaBig-VariableFont_wght.ttf") format("truetype");
+    font-weight: 400 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Radio Canada Big";
+    src:
+        url("/fonts/RadioCanadaBig/RadioCanadaBig-Italic-VariableFont_wght.woff2") format("woff2"),
+        url("/fonts/RadioCanadaBig/RadioCanadaBig-Italic-VariableFont_wght.woff") format("woff"),
+        url("/fonts/RadioCanadaBig/RadioCanadaBig-Italic-VariableFont_wght.ttf") format("truetype");
+    font-weight: 400 700;
+    font-style: italic;
+    font-display: swap;
+}
 
 /* CSS Reset */
 /* http://meyerweb.com/eric/tools/css/reset/ v2.0 | 20110126 */
@@ -67,8 +87,8 @@ input, select, textarea, button {
     position: absolute;
 
     color: var(--text-primary);
-    font-family: Inter, system-ui, sans-serif;
-    --font-family: var(--font-family, Inter, system-ui, sans-serif);
+    font-family:
+        "Segoe UI", "San Francisco", "Helvetica Neue", Helvetica, Arial, "Noto Sans", sans-serif;
     line-height: 1.5;
     font-weight: 400;
 
