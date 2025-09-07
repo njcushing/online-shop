@@ -2,7 +2,7 @@ import { useContext, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { ProductContext } from "@/pages/Product";
 import { Button } from "@mantine/core";
-import { Bell } from "@phosphor-icons/react";
+import { Bell, CheckFat } from "@phosphor-icons/react";
 import { ProductVariant } from "@/utils/products/product";
 import { User } from "@/utils/schemas/user";
 import styles from "./index.module.css";
@@ -45,10 +45,10 @@ export function WatchlistButton() {
             </Button>
             {isWatching && (
                 <span
-                    className={`${styles["is-on-watchlist-icon"]} material-symbols-sharp`}
+                    className={styles["is-on-watchlist-icon"]}
                     style={{ fontSize: "12px", fontWeight: "bold" }}
                 >
-                    Check
+                    <CheckFat size={8} weight="fill" />
                 </span>
             )}
         </div>
