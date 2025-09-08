@@ -1,7 +1,8 @@
 import { createTheme, Anchor } from "@mantine/core";
 
 export const theme = createTheme({
-    fontFamily: "var(--font-family, Inter, system-ui, sans-serif)",
+    fontFamily:
+        "var(--font-family, 'Segoe UI', 'San Francisco', 'Helvetica Neue', Helvetica, Arial, 'Noto Sans', sans-serif)",
     breakpoints: {
         xl: "1280px",
         lg: "1024px",
