@@ -47,6 +47,14 @@ export function Navigation({ opened = false }: TNavigation) {
     });
 
     useEffect(() => {
+        if (reduced) {
+            setNavDrawerOpen(false);
+            setSearchBarOpen(false);
+            setCartDrawerOpen(false);
+        }
+    }, [reduced]);
+
+    useEffect(() => {
         if (navDrawerOpen) {
             setSearchBarOpen(false);
             setCartDrawerOpen(false);
