@@ -1,4 +1,5 @@
 import { useContext, useState, useEffect, useMemo } from "react";
+import { Link } from "react-router-dom";
 import { RootContext, IUserContext, UserContext } from "@/pages/Root";
 import {
     useMatches,
@@ -24,10 +25,12 @@ import styles from "./index.module.css";
 export type TCartSummary = {
     layout?: "dropdown" | "visible";
     headerText?: string;
+    hideEditLink?: boolean;
     CartItemProps?: RecursivePartial<TCartItem>;
     classNames?: {
         root?: string;
         header?: string;
+        editLink?: string;
         itemsContainer?: string;
         emptyCartMessage?: string;
         costBreakdown?: {
@@ -56,6 +59,7 @@ const getConcatenatedClassNames = (
     return {
         root: `${styles["cart-summary"]} ${classNames?.root}`,
         header: `${styles["cart-summary-header"]} ${classNames?.header}`,
+        editLink: `${styles["edit-cart-link"]} ${classNames?.editLink}`,
         itemsContainer: `${styles["cart-items"]} ${classNames?.itemsContainer}`,
         emptyCartMessage: `${styles["empty-cart-message"]} ${classNames?.emptyCartMessage}`,
         costBreakdown: {
@@ -81,6 +85,7 @@ const getConcatenatedClassNames = (
 export function CartSummary({
     layout = "visible",
     headerText = "",
+    hideEditLink,
     CartItemProps,
     classNames,
 }: TCartSummary) {
@@ -114,7 +119,16 @@ export function CartSummary({
     const [buttonHeight, setButtonHeight] = useState<number>(0);
     useEffect(() => setButtonHeight(buttonRect.height), [buttonRect]);
 
-    const defaultHeaderText = layout === "visible" ? "Cart summary" : "Review your items";
+    const defaultHeaderText = layout === "visible" ? "Cart summary" : "Order Details";
+
+    const editLink = useMemo(() => {
+        if (hideEditLink || items.length === 0) return null;
+        return (
+            <Link to="/cart" className={concatenatedClassNames.editLink} data-disabled={awaiting}>
+                Edit
+            </Link>
+        );
+    }, [hideEditLink, concatenatedClassNames, awaiting, items.length]);
 
     const cartItems = useMemo(() => {
         return items.map((item) => {
@@ -329,7 +343,13 @@ export function CartSummary({
     if (layout === "visible") {
         return (
             <div className={concatenatedClassNames.root} data-layout={layout}>
-                <h3 className={concatenatedClassNames.header}>{headerText || defaultHeaderText}</h3>
+                <div className={styles["cart-summary-top"]}>
+                    <h3 className={concatenatedClassNames.header}>
+                        {headerText || defaultHeaderText}
+                    </h3>
+
+                    {editLink}
+                </div>
 
                 <Divider className={styles["divider"]} />
 
@@ -374,22 +394,34 @@ export function CartSummary({
                                                 textWrap: "nowrap",
                                             }}
                                         >
-                                            Order Details
+                                            {headerText || defaultHeaderText}
                                         </span>
                                     </Skeleton>
 
-                                    <Skeleton visible={awaiting} width="min-content">
-                                        <span
-                                            style={{
-                                                visibility: awaiting ? "hidden" : "initial",
-                                                textWrap: "nowrap",
-                                            }}
-                                        >
-                                            £{(subtotal / 100).toFixed(2)}
-                                        </span>
-                                    </Skeleton>
+                                    <span className={styles["collapse-button-right"]}>
+                                        <Skeleton visible={awaiting} width="min-content">
+                                            <span
+                                                style={{
+                                                    visibility: awaiting ? "hidden" : "initial",
+                                                    textWrap: "nowrap",
+                                                }}
+                                            >
+                                                £{(subtotal / 100).toFixed(2)}
+                                            </span>
+                                        </Skeleton>
 
-                                    {open ? <CaretUp /> : <CaretDown />}
+                                        {open && editLink && (
+                                            <div
+                                                className={
+                                                    styles["edit-cart-link-container-dropdown"]
+                                                }
+                                            >
+                                                {editLink}
+                                            </div>
+                                        )}
+
+                                        {open ? <CaretUp /> : <CaretDown />}
+                                    </span>
                                 </Button>
                             </div>
 

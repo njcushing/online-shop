@@ -20,6 +20,7 @@ export function CartContent() {
                 <CartSummary
                     layout="visible"
                     headerText="Your Cart"
+                    hideEditLink
                     CartItemProps={{ editableQuantity: true, QuantitySize: "md" }}
                     classNames={{
                         root: styles["CartSummary-root"],
