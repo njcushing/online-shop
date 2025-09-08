@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { IUserContext, UserContext } from "@/pages/Root";
-import { useMatches, Divider, Button } from "@mantine/core";
+import { Divider, Button, Box } from "@mantine/core";
 import { NumberCircleOne, NumberCircleTwo, NumberCircleThree } from "@phosphor-icons/react";
 import { CartSummary } from "@/features/Cart/components/CartSummary";
 import { PersonalInformationForm } from "./components/PersonalInformationForm";
@@ -20,16 +20,14 @@ export function CheckoutContent() {
 
     const [stage, setStage] = useState<"personal" | "shipping" | "payment">("personal");
 
-    const wide = useMatches({ base: false, lg: true });
-
     return (
-        <section className={styles["checkout-content"]} data-wide={wide}>
-            {!wide && (
+        <section className={styles["checkout-content"]}>
+            <Box hiddenFrom="lg">
                 <CartSummary
                     layout="dropdown"
                     classNames={{ header: styles["CartSummary-header"] }}
                 />
-            )}
+            </Box>
 
             <div className={styles["checkout-content-width-controller"]}>
                 <div className={styles["checkout-content-left"]}>
@@ -77,7 +75,7 @@ export function CheckoutContent() {
                     </div>
                 </div>
 
-                {wide && (
+                <Box visibleFrom="lg">
                     <div className={styles["checkout-content-right"]}>
                         <CartSummary
                             layout="visible"
@@ -93,7 +91,7 @@ export function CheckoutContent() {
                             Pay now
                         </Button>
                     </div>
-                )}
+                </Box>
             </div>
         </section>
     );
