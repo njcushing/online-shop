@@ -27,32 +27,31 @@ export function Header({ disableActivity }: THeader) {
     const [active, setActive] = useState<boolean>(false);
     const [open, setOpen] = useState<boolean>(document.body.getBoundingClientRect().top === 0);
     const forceClosedIds = useRef<Set<string>>(new Set());
-    useEffect(() => {
-        const scrollDirectionCheck = () => {
-            const newScrollPos = document.body.getBoundingClientRect().top;
-            setOpen(forceClosedIds.current.size === 0 && newScrollPos > lastScrollPos.current);
-            lastScrollPos.current = newScrollPos;
-
-            if (headerRef.current && baseRef.current) {
-                const { y } = baseRef.current.getBoundingClientRect();
-                setActive(-y >= headerHeight);
-            } else {
-                setActive(false);
-            }
-        };
-
+    const scrollDirectionCheck = useCallback(() => {
         if (disableActivity) {
             setActive(false);
-            setOpen(false);
-            window.removeEventListener("scroll", scrollDirectionCheck);
-        } else {
-            window.addEventListener("scroll", scrollDirectionCheck);
+            setOpen(true);
+            return;
         }
+
+        const newScrollPos = document.body.getBoundingClientRect().top;
+        setOpen(forceClosedIds.current.size === 0 && newScrollPos > lastScrollPos.current);
+        lastScrollPos.current = newScrollPos;
+
+        if (headerRef.current && baseRef.current) {
+            const { y } = baseRef.current.getBoundingClientRect();
+            setActive(-y >= headerHeight);
+        } else {
+            setActive(false);
+        }
+    }, [disableActivity, headerRef, headerHeight]);
+    useEffect(() => {
+        window.addEventListener("scroll", scrollDirectionCheck);
 
         return () => {
             window.removeEventListener("scroll", scrollDirectionCheck);
         };
-    }, [headerRef, headerHeight, disableActivity]);
+    }, [scrollDirectionCheck, disableActivity]);
 
     /* v8 ignore stop */
 
