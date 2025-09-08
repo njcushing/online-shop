@@ -35,6 +35,10 @@
     }
 }
 
+.form-field-description {
+    font-family: var(--font-primary);
+}
+
 .form-field-input {
     font-family: var(--font-primary);
     font-size: 0.92rem;

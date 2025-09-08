@@ -12,6 +12,7 @@ const inputProps = {
     classNames: {
         input: styles["form-field-input"],
         label: styles["form-field-label"],
+        description: styles["form-field-description"],
     },
 };
 
