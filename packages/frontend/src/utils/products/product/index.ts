@@ -22,6 +22,7 @@ export type ProductVariant = {
     id: string;
     name: string;
     sku: string;
+    canSubscribe: boolean;
     price: { current: number; base: number; subscriptionDiscountPercentage: number };
     stock: number;
     options: Record<string, string>;
@@ -162,6 +163,7 @@ export const products: Product[] = [
                 id: "1-1",
                 name: "Variant 1",
                 sku: "COF-WB-250G-LT",
+                canSubscribe: true,
                 price: {
                     current: 550,
                     base: 700,
@@ -183,6 +185,7 @@ export const products: Product[] = [
                 id: "1-2",
                 name: "Variant 2",
                 sku: "COF-WB-250G-MD",
+                canSubscribe: true,
                 price: {
                     current: 700,
                     base: 700,
@@ -204,6 +207,7 @@ export const products: Product[] = [
                 id: "1-3",
                 name: "Variant 3",
                 sku: "COF-WB-250G-DK",
+                canSubscribe: true,
                 price: {
                     current: 700,
                     base: 700,
@@ -256,6 +260,7 @@ export const products: Product[] = [
                 id: "2-1",
                 name: "Variant 1",
                 sku: "COF-WB-500G-LT",
+                canSubscribe: false,
                 price: {
                     current: 1250,
                     base: 1250,
@@ -277,6 +282,7 @@ export const products: Product[] = [
                 id: "2-2",
                 name: "Variant 2",
                 sku: "COF-WB-500G-MD",
+                canSubscribe: true,
                 price: {
                     current: 1100,
                     base: 1250,
@@ -298,6 +304,7 @@ export const products: Product[] = [
                 id: "2-3",
                 name: "Variant 3",
                 sku: "COF-WB-500G-DK",
+                canSubscribe: true,
                 price: {
                     current: 1100,
                     base: 1250,
@@ -350,6 +357,7 @@ export const products: Product[] = [
                 id: "3-1",
                 name: "Variant 1",
                 sku: "COF-WB-1KG-LT",
+                canSubscribe: false,
                 price: {
                     current: 1900,
                     base: 2250,
@@ -371,6 +379,7 @@ export const products: Product[] = [
                 id: "3-2",
                 name: "Variant 2",
                 sku: "COF-WB-1KG-MD",
+                canSubscribe: true,
                 price: {
                     current: 2250,
                     base: 2250,
@@ -392,6 +401,7 @@ export const products: Product[] = [
                 id: "3-3",
                 name: "Variant 3",
                 sku: "COF-WB-1KG-DK",
+                canSubscribe: true,
                 price: {
                     current: 1900,
                     base: 2250,
@@ -594,6 +604,7 @@ export const generateSkeletonProductVariant = (): RecursivePartial<ProductVarian
     id: uuid(),
     name: uuid(),
     sku: uuid(),
+    canSubscribe: Math.random() < 0.5,
     price: { base: 1000, current: 1000, subscriptionDiscountPercentage: 0 },
     stock: 1000,
     options: { option: "value" },
