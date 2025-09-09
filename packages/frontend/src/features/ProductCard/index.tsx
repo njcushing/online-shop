@@ -85,7 +85,7 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
                 <Price
                     base={lowestPriceVariant.price.base}
                     current={lowestPriceVariant.price.current}
-                    size="sm"
+                    size="md"
                 />
                 <div className={styles["product-card-rating-container"]}>
                     <Rating

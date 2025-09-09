@@ -84,10 +84,10 @@
 .product-rating-quantity {
     color: black;
     font-family: var(--font-primary);
-    font-size: 0.8rem;
+    font-size: 0.86rem;
 
     @media (min-width: $mantine-breakpoint-xs) {
-        font-size: 0.85rem;
+        font-size: 0.92rem;
     }
 }
 
