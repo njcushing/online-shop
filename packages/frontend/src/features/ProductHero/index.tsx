@@ -60,6 +60,10 @@ export function ProductHero() {
     const { price, options } = !awaitingProduct
         ? variant!
         : (defaultVariantData as NonNullable<IProductContext["variant"]>);
+    const { subscriptionDiscountPercentage } = price;
+
+    let unitPrice = price.current;
+    if (subscriptionChecked) unitPrice *= 1 - subscriptionDiscountPercentage / 100;
 
     return (
         <section className={styles["product-hero"]}>
@@ -157,7 +161,7 @@ export function ProductHero() {
 
                     <Skeleton visible={awaitingProduct} className={styles["margin"]}>
                         <div style={{ visibility: awaitingProduct ? "hidden" : "initial" }}>
-                            <Price base={price.base} current={price.current} size="lg" />
+                            <Price base={price.base} current={unitPrice} size="lg" />
                         </div>
                     </Skeleton>
 
