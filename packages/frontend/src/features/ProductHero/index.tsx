@@ -10,6 +10,7 @@ import { calculateMaxAddableVariantStock } from "@/utils/products/utils/calculat
 import { ImageCarousel } from "./components/ImageCarousel";
 import { CollectionStep } from "./components/CollectionStep";
 import { VariantStep } from "./components/VariantStep";
+import { SubscriptionToggle } from "./components/SubscriptionToggle";
 import { VariantAlerts } from "./components/VariantAlerts";
 import { WatchlistButton } from "./components/WatchlistButton";
 import styles from "./index.module.css";
@@ -41,6 +42,7 @@ export function ProductHero() {
         return findCollections(productData?.id || "");
     }, [productData, defaultCollectionStepsData, awaitingProduct]);
 
+    const [subscriptionChecked, setSubscriptionChecked] = useState<boolean>(false);
     const [, /* quantity */ setQuantity] = useState<number | null>(1);
 
     const maximumVariantQuantity = useMemo(() => {
@@ -158,6 +160,11 @@ export function ProductHero() {
                             <Price base={price.base} current={price.current} size="lg" />
                         </div>
                     </Skeleton>
+
+                    <SubscriptionToggle
+                        checked={subscriptionChecked}
+                        onToggle={() => setSubscriptionChecked((c) => !c)}
+                    />
 
                     <VariantAlerts awaiting={awaitingProduct} />
 
