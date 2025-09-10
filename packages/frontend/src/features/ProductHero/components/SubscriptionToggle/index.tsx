@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, useMemo } from "react";
+import { useContext, useState, useEffect } from "react";
 import { UserContext } from "@/pages/Root";
 import { Collapse, Skeleton, Radio } from "@mantine/core";
 import { IProductContext, ProductContext } from "@/pages/Product";
@@ -31,17 +31,20 @@ export function SubscriptionToggle({ checked, onToggle }: TSubscriptionProduct) 
         setLastValidDiscount(subscriptionDiscountPercentage);
     }, [canSubscribe, subscriptionDiscountPercentage]);
 
-    const labelText = useMemo(() => {
+    const [labelText, setLabelText] = useState<React.ReactNode>(null);
+    useEffect(() => {
+        if (!canSubscribe) return;
         if (subscriptionDiscountPercentage === 0) {
-            return <>Schedule repeat deliveries for this product.</>;
+            setLabelText(<>Schedule repeat deliveries for this product.</>);
+            return;
         }
-        return (
+        setLabelText(
             <>
                 Save <strong>{lastValidDiscount}%</strong> when you schedule repeat deliveries for
                 this product.
-            </>
+            </>,
         );
-    }, [subscriptionDiscountPercentage, lastValidDiscount]);
+    }, [canSubscribe, subscriptionDiscountPercentage, lastValidDiscount]);
 
     return (
         <Collapse
