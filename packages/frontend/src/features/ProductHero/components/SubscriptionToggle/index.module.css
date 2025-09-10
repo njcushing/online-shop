@@ -1,8 +1,6 @@
 .radio-card {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 12px;
+    flex-direction: column;
 
     border: none;
     border-radius: 4px;
@@ -16,6 +14,13 @@
     outline: 2px solid #000;
     outline-offset: 2px;
     border-radius: 0px;
+}
+
+.radio-card-top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
 }
 
 .radio-indicator {
@@ -39,4 +44,55 @@
     strong {
         font-weight: 600;
     }
+}
+
+.radio-card-middle {
+    margin-top: 16px;
+}
+
+.update-delivery-frequency-label {
+    position: relative;
+    left: 1px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    color: black;
+    font-size: 0.86rem;
+    font-family: var(--font-primary);
+    font-weight: 500;
+    text-transform: capitalize;
+
+    width: calc(100% - 2px);
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
+}
+
+.select {
+    align-self: center;
+
+    color: black;
+    font-size: 0.86rem;
+    font-family: var(--font-primary);
+    font-weight: 400;
+    text-transform: capitalize;
+
+    border: none;
+    outline: 1px solid #000;
+
+    width: 100%;
+    height: min-content;
+    padding: 6px 2px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
+}
+
+.select:focus-visible {
+    outline: 2px solid black;
+    border-radius: 0px;
 }

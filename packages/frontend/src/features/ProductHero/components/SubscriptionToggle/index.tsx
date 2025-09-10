@@ -1,7 +1,8 @@
 import { useContext, useState, useEffect, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
-import { IProductContext, ProductContext } from "@/pages/Product";
 import { Collapse, Skeleton, Radio } from "@mantine/core";
+import { IProductContext, ProductContext } from "@/pages/Product";
+import { frequencies, SubscriptionFrequency } from "@/utils/products/subscriptions";
 import styles from "./index.module.css";
 
 export type TSubscriptionProduct = {
@@ -21,6 +22,8 @@ export function SubscriptionToggle({ checked, onToggle }: TSubscriptionProduct) 
         ? variant!
         : (defaultVariantData as NonNullable<IProductContext["variant"]>);
     const { subscriptionDiscountPercentage } = price;
+
+    const [selectedFrequency, setSelectedFrequency] = useState<SubscriptionFrequency>("one_week");
 
     const [lastValidDiscount, setLastValidDiscount] = useState<number>(0);
     useEffect(() => {
@@ -53,11 +56,51 @@ export function SubscriptionToggle({ checked, onToggle }: TSubscriptionProduct) 
                         onClick={() => onToggle()}
                         className={styles["radio-card"]}
                     >
-                        <Radio.Indicator
-                            disabled={awaitingCart || awaitingProduct}
-                            className={styles["radio-indicator"]}
-                        />
-                        <span className={styles["radio-label"]}>{labelText}</span>
+                        <div className={styles["radio-card-top"]}>
+                            <Radio.Indicator
+                                disabled={awaitingCart || awaitingProduct}
+                                className={styles["radio-indicator"]}
+                            />
+                            <span className={styles["radio-label"]}>{labelText}</span>
+                        </div>
+                        <Collapse in={checked} animateOpacity={false} transitionDuration={250}>
+                            <div className={styles["radio-card-middle"]}>
+                                <label
+                                    htmlFor="update-delivery-frequency"
+                                    className={styles["update-delivery-frequency-label"]}
+                                >
+                                    <p>Select a delivery frequency</p>
+                                    <select
+                                        className={styles["select"]}
+                                        id="update-delivery-frequency"
+                                        name="frequency"
+                                        value={selectedFrequency}
+                                        onClick={(e) => e.stopPropagation()}
+                                        onChange={(e) => {
+                                            const { value } = e.target;
+                                            setSelectedFrequency(value as SubscriptionFrequency);
+                                        }}
+                                        disabled={awaitingCart || awaitingProduct}
+                                    >
+                                        {Object.entries(frequencies).map((entry) => {
+                                            const [key, value] = entry;
+                                            const { optionName } = value;
+
+                                            return (
+                                                <option
+                                                    className={styles["frequency-option"]}
+                                                    value={key}
+                                                    onClick={(e) => e.stopPropagation()}
+                                                    key={`frequency-option-${key}`}
+                                                >
+                                                    {optionName}
+                                                </option>
+                                            );
+                                        })}
+                                    </select>
+                                </label>
+                            </div>
+                        </Collapse>
                     </Radio.Card>
                 </div>
             </Skeleton>
