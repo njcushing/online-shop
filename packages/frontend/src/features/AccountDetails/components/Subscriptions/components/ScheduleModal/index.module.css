@@ -120,7 +120,8 @@
     font-family: var(--font-primary);
     text-transform: capitalize;
 
-    border: 1px solid #000;
+    border: none;
+    outline: 1px solid #000;
 
     width: 100%;
     height: min-content;
@@ -129,6 +130,11 @@
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 1rem;
     }
+}
+
+.select:focus-visible {
+    outline: 2px solid black;
+    border-radius: 0px;
 }
 
 @media (hover: hover) {
