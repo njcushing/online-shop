@@ -7,6 +7,7 @@ import { Quantity } from "@/components/Inputs/Quantity";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
 import { Price } from "@/features/Price";
 import { calculateMaxAddableVariantStock } from "@/utils/products/utils/calculateMaxAddableVariantStock";
+import { SubscriptionFrequency } from "@/utils/products/subscriptions";
 import { ImageCarousel } from "./components/ImageCarousel";
 import { CollectionStep } from "./components/CollectionStep";
 import { VariantStep } from "./components/VariantStep";
@@ -43,6 +44,7 @@ export function ProductHero() {
     }, [productData, defaultCollectionStepsData, awaitingProduct]);
 
     const [subscriptionChecked, setSubscriptionChecked] = useState<boolean>(false);
+    const [frequency, setFrequency] = useState<SubscriptionFrequency>("one_week");
     const [, /* quantity */ setQuantity] = useState<number | null>(1);
 
     const maximumVariantQuantity = useMemo(() => {
@@ -167,7 +169,9 @@ export function ProductHero() {
 
                     <SubscriptionToggle
                         checked={subscriptionChecked}
+                        selectedFrequency={frequency}
                         onToggle={() => setSubscriptionChecked((c) => !c)}
+                        onFrequencyChange={(f) => setFrequency(f)}
                     />
 
                     <VariantAlerts awaiting={awaitingProduct} />

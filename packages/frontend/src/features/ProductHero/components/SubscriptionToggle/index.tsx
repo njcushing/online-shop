@@ -7,10 +7,17 @@ import styles from "./index.module.css";
 
 export type TSubscriptionProduct = {
     checked: boolean;
+    selectedFrequency: SubscriptionFrequency;
     onToggle: () => void;
+    onFrequencyChange: (frequency: SubscriptionFrequency) => void;
 };
 
-export function SubscriptionToggle({ checked, onToggle }: TSubscriptionProduct) {
+export function SubscriptionToggle({
+    checked,
+    selectedFrequency,
+    onToggle,
+    onFrequencyChange,
+}: TSubscriptionProduct) {
     const { cart } = useContext(UserContext);
     const { product, variant, defaultData } = useContext(ProductContext);
     const { variant: defaultVariantData } = defaultData;
@@ -22,8 +29,6 @@ export function SubscriptionToggle({ checked, onToggle }: TSubscriptionProduct) 
         ? variant!
         : (defaultVariantData as NonNullable<IProductContext["variant"]>);
     const { subscriptionDiscountPercentage } = price;
-
-    const [selectedFrequency, setSelectedFrequency] = useState<SubscriptionFrequency>("one_week");
 
     const [lastValidDiscount, setLastValidDiscount] = useState<number>(0);
     useEffect(() => {
@@ -81,7 +86,7 @@ export function SubscriptionToggle({ checked, onToggle }: TSubscriptionProduct) 
                                         onClick={(e) => e.stopPropagation()}
                                         onChange={(e) => {
                                             const { value } = e.target;
-                                            setSelectedFrequency(value as SubscriptionFrequency);
+                                            onFrequencyChange(value as SubscriptionFrequency);
                                         }}
                                         disabled={awaitingCart || awaitingProduct}
                                     >
