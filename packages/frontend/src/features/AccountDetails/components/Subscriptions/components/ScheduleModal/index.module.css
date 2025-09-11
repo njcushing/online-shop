@@ -94,6 +94,14 @@
     align-items: center;
     flex-wrap: nowrap;
     gap: 1ch;
+
+    color: black;
+    font-size: 0.92rem;
+    font-family: var(--font-primary);
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1rem;
+    }
 }
 
 .label {
