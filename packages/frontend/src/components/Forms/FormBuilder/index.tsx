@@ -25,13 +25,6 @@ import { createInputError } from "@/utils/createInputError";
 import _ from "lodash";
 import styles from "./index.module.css";
 
-const inputProps = {
-    classNames: {
-        input: styles["form-field-input"],
-        label: styles["form-field-label"],
-    },
-};
-
 type FieldType = "text" | "numeric" | "password";
 type FieldTypeComponentProps = {
     text: TextInputProps;
@@ -60,7 +53,13 @@ export type Field<T extends FieldValues> = {
     validateOther?: string[];
     sharedValidation?: string[];
 } & {
-    [K in FieldType]: { type: K; classNames?: FieldTypeComponentProps[K]["classNames"] };
+    [K in FieldType]: {
+        type: K;
+        classNames?: Extract<
+            FieldTypeComponentProps[K]["classNames"],
+            Partial<Record<string, string>>
+        >;
+    };
 }[FieldType];
 
 export type Fieldset<T extends FieldValues> = {
@@ -227,12 +226,17 @@ export function FormBuilder<T extends FieldValues>({
                 display: open ? "initial" : "none",
             };
 
+            const concatenatedFieldClassNames = {
+                ...fieldClassNames,
+                input: `${styles["form-field-input"]} ${fieldClassNames?.input ?? ""}`,
+                label: `${styles["form-field-label"]} ${fieldClassNames?.label ?? ""}`,
+            };
+
             switch (type) {
                 case "numeric":
                     return (
                         <NumberInput
                             {...field}
-                            {...inputProps}
                             value={field.value ?? ""}
                             label={label}
                             description={description}
@@ -247,14 +251,13 @@ export function FormBuilder<T extends FieldValues>({
                             aria-hidden={!open}
                             style={style}
                             disabled={disabled}
-                            classNames={{ ...fieldClassNames }}
+                            classNames={concatenatedFieldClassNames}
                         />
                     );
                 case "password":
                     return (
                         <PasswordInput
                             {...field}
-                            {...inputProps}
                             value={field.value ?? ""}
                             label={label}
                             description={description}
@@ -273,7 +276,7 @@ export function FormBuilder<T extends FieldValues>({
                             aria-hidden={!open}
                             style={style}
                             disabled={disabled}
-                            classNames={{ ...fieldClassNames }}
+                            classNames={concatenatedFieldClassNames}
                         />
                     );
                 case "text":
@@ -281,7 +284,6 @@ export function FormBuilder<T extends FieldValues>({
                     return (
                         <TextInput
                             {...field}
-                            {...inputProps}
                             value={field.value ?? ""}
                             label={label}
                             description={description}
@@ -296,7 +298,7 @@ export function FormBuilder<T extends FieldValues>({
                             aria-hidden={!open}
                             style={style}
                             disabled={disabled}
-                            classNames={{ ...fieldClassNames }}
+                            classNames={concatenatedFieldClassNames}
                         />
                     );
             }
