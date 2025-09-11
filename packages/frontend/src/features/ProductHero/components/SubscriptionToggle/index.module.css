@@ -1,13 +1,17 @@
+.subscription-toggle {
+    overflow: hidden;
+
+    border-radius: 4px;
+
+    margin-bottom: 12px;
+}
+
 .radio-card {
     display: flex;
     flex-direction: column;
 
     border: none;
-    border-radius: 4px;
-    background-color: var(--site-colour-tertiary, rgb(250, 223, 198));
-
-    padding: 12px;
-    margin-bottom: 12px;
+    border-radius: 0px;
 }
 
 .radio-card:focus-visible {
@@ -21,6 +25,10 @@
     flex-direction: row;
     align-items: center;
     gap: 12px;
+
+    background-color: var(--site-colour-tertiary, rgb(250, 223, 198));
+
+    padding: 12px;
 }
 
 .radio-indicator {
@@ -51,7 +59,9 @@
     flex-direction: column;
     gap: 16px;
 
-    margin-top: 16px;
+    background-color: var(--site-colour-secondary, rgb(255, 236, 218));
+
+    padding: 12px;
 }
 
 .update-delivery-frequency-label {
@@ -76,8 +86,6 @@
 }
 
 .select {
-    align-self: center;
-
     color: black;
     font-size: 0.86rem;
     font-family: var(--font-primary);
@@ -88,6 +96,7 @@
     outline: 1px solid #000;
 
     width: 100%;
+    max-width: 320px;
     height: min-content;
     padding: 6px 2px;
 

@@ -58,7 +58,10 @@ export function SubscriptionToggle({
             transitionDuration={500}
         >
             <Skeleton visible={awaitingProduct}>
-                <div style={{ visibility: awaitingProduct ? "hidden" : "initial" }}>
+                <div
+                    className={styles["subscription-toggle"]}
+                    style={{ visibility: awaitingProduct ? "hidden" : "initial" }}
+                >
                     <Radio.Card
                         checked={checked}
                         onClick={() => onToggle()}
@@ -72,67 +75,65 @@ export function SubscriptionToggle({
 
                             <span className={styles["radio-label"]}>{labelText}</span>
                         </div>
-
-                        <Collapse in={checked} animateOpacity={false} transitionDuration={250}>
-                            <div className={styles["radio-card-middle"]}>
-                                <label
-                                    htmlFor="update-delivery-frequency"
-                                    className={styles["update-delivery-frequency-label"]}
-                                >
-                                    <p>Select a delivery frequency</p>
-
-                                    <select
-                                        className={styles["select"]}
-                                        id="update-delivery-frequency"
-                                        name="frequency"
-                                        value={selectedFrequency}
-                                        onClick={(e) => e.stopPropagation()}
-                                        onChange={(e) => {
-                                            const { value } = e.target;
-                                            onFrequencyChange(value as SubscriptionFrequency);
-                                        }}
-                                        disabled={awaitingCart || awaitingProduct}
-                                    >
-                                        {Object.entries(frequencies).map((entry) => {
-                                            const [key, value] = entry;
-                                            const { optionName } = value;
-
-                                            return (
-                                                <option
-                                                    className={styles["frequency-option"]}
-                                                    value={key}
-                                                    onClick={(e) => e.stopPropagation()}
-                                                    key={`frequency-option-${key}`}
-                                                >
-                                                    {optionName}
-                                                </option>
-                                            );
-                                        })}
-                                    </select>
-                                </label>
-
-                                <ul className={styles["repeat-delivery-info-container"]}>
-                                    <li>
-                                        <strong>No fees:</strong> we will continue shipping this
-                                        product to you at your specified delivery frequency
-                                    </li>
-                                    <li>
-                                        <strong>Easy cancellation:</strong> cancel your subscription
-                                        at any time
-                                    </li>
-                                    <li>
-                                        <strong>Flexible:</strong> change the frequency of your
-                                        active subscriptions in your account details
-                                    </li>
-                                    <li>
-                                        <strong>Be aware:</strong> ensure you check your active
-                                        subscriptions regularly to stay informed about any changes
-                                        to the price and subscription discount for those products
-                                    </li>
-                                </ul>
-                            </div>
-                        </Collapse>
                     </Radio.Card>
+
+                    <Collapse in={checked} animateOpacity={false} transitionDuration={250}>
+                        <div className={styles["radio-card-middle"]}>
+                            <label
+                                htmlFor="update-delivery-frequency"
+                                className={styles["update-delivery-frequency-label"]}
+                            >
+                                <p>Select a delivery frequency</p>
+
+                                <select
+                                    className={styles["select"]}
+                                    id="update-delivery-frequency"
+                                    name="frequency"
+                                    value={selectedFrequency}
+                                    onChange={(e) => {
+                                        const { value } = e.target;
+                                        onFrequencyChange(value as SubscriptionFrequency);
+                                    }}
+                                    disabled={awaitingCart || awaitingProduct}
+                                >
+                                    {Object.entries(frequencies).map((entry) => {
+                                        const [key, value] = entry;
+                                        const { optionName } = value;
+
+                                        return (
+                                            <option
+                                                className={styles["frequency-option"]}
+                                                value={key}
+                                                key={`frequency-option-${key}`}
+                                            >
+                                                {optionName}
+                                            </option>
+                                        );
+                                    })}
+                                </select>
+                            </label>
+
+                            <ul className={styles["repeat-delivery-info-container"]}>
+                                <li>
+                                    <strong>No fees:</strong> we will continue shipping this product
+                                    to you at your specified delivery frequency
+                                </li>
+                                <li>
+                                    <strong>Easy cancellation:</strong> cancel your subscription at
+                                    any time
+                                </li>
+                                <li>
+                                    <strong>Flexible:</strong> change the frequency of your active
+                                    subscriptions in your account details
+                                </li>
+                                <li>
+                                    <strong>Be aware:</strong> ensure you check your active
+                                    subscriptions regularly to stay informed about any changes to
+                                    the price and subscription discount for those products
+                                </li>
+                            </ul>
+                        </div>
+                    </Collapse>
                 </div>
             </Skeleton>
         </Collapse>
