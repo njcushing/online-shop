@@ -1,4 +1,4 @@
-import { useContext, useState, useMemo } from "react";
+import { useContext, useState, useEffect, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { IProductContext, ProductContext } from "@/pages/Product";
 import { Skeleton, Button, Divider, Rating } from "@mantine/core";
@@ -45,6 +45,10 @@ export function ProductHero() {
 
     const [subscriptionChecked, setSubscriptionChecked] = useState<boolean>(false);
     const [frequency, setFrequency] = useState<SubscriptionFrequency>("one_week");
+    useEffect(() => {
+        setSubscriptionChecked(false);
+    }, [product, variant]);
+
     const [, /* quantity */ setQuantity] = useState<number | null>(1);
 
     const maximumVariantQuantity = useMemo(() => {
