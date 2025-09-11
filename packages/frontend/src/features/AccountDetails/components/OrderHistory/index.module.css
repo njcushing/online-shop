@@ -41,7 +41,8 @@
     font-family: var(--font-primary);
     text-wrap: nowrap;
 
-    min-width: 200px;
+    width: 100%;
+    max-width: 480px;
 
     @media (min-width: $mantine-breakpoint-xs) {
         flex-direction: row;
@@ -53,8 +54,6 @@
 }
 
 .select {
-    align-self: center;
-
     color: black;
     font-size: 1rem;
     font-family: var(--font-primary);
@@ -69,8 +68,6 @@
 
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 1.06rem;
-
-        width: 200px;
     }
 }
 
