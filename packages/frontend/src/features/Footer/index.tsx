@@ -1,12 +1,13 @@
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Box, Divider } from "@mantine/core";
 import { Logo } from "../Logo";
 import styles from "./index.module.css";
 
-export function Footer() {
-    const location = useLocation();
-    const reduced = location.pathname === "/cart" || location.pathname === "/checkout";
+export type TFooter = {
+    reduced?: boolean;
+};
 
+export function Footer({ reduced }: TFooter) {
     let layout = "normal";
     if (reduced) layout = "reduced";
 

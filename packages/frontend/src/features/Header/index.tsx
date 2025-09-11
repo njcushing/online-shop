@@ -6,9 +6,10 @@ import styles from "./index.module.css";
 
 export type THeader = {
     disableActivity?: boolean;
+    reduced?: boolean;
 };
 
-export function Header({ disableActivity }: THeader) {
+export function Header({ disableActivity, reduced }: THeader) {
     const { setHeaderInfo } = useContext(HeaderContext);
 
     const [headerRef, headerRect] = useResizeObserver();
@@ -81,7 +82,7 @@ export function Header({ disableActivity }: THeader) {
                 ref={headerRef}
             >
                 <div className={styles["header-width-controller"]}>
-                    <Navigation opened={open} />
+                    <Navigation opened={open} reduced={reduced} />
                 </div>
             </header>
         </>

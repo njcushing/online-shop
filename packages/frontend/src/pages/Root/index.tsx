@@ -125,6 +125,7 @@ export function Root({ children }: TRoot) {
     const location = useLocation();
     const { pathname } = location;
     const HeaderDisableActivity = pathname === "/cart" || pathname === "/checkout";
+    const HeaderReduced = pathname === "/cart" || pathname === "/checkout";
 
     const [headerInfo, setHeaderInfo] = useState<IRootContext["headerInfo"]>(
         defaultRootContext.headerInfo,
@@ -172,7 +173,7 @@ export function Root({ children }: TRoot) {
                     <HeaderContext.Provider
                         value={useMemo(() => ({ setHeaderInfo }), [setHeaderInfo])}
                     >
-                        <Header disableActivity={HeaderDisableActivity} />
+                        <Header disableActivity={HeaderDisableActivity} reduced={HeaderReduced} />
                         {children}
                     </HeaderContext.Provider>
                     <Outlet />

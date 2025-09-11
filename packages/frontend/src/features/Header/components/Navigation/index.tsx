@@ -3,7 +3,7 @@ import { UserContext } from "@/pages/Root";
 import { useMatches, ActionIcon, Burger, BurgerProps } from "@mantine/core";
 import { useClickOutside } from "@mantine/hooks";
 import { MagnifyingGlass, User, ShoppingCartSimple, IconProps } from "@phosphor-icons/react";
-import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { categories } from "@/utils/products/categories";
 import { Logo } from "@/features/Logo";
 import { CartDrawer } from "@/features/Cart/components/CartDrawer";
@@ -19,12 +19,10 @@ export type Category = {
 
 export type TNavigation = {
     opened?: boolean;
+    reduced?: boolean;
 };
 
-export function Navigation({ opened = false }: TNavigation) {
-    const location = useLocation();
-    const reduced = location.pathname === "/cart" || location.pathname === "/checkout";
-
+export function Navigation({ opened = false, reduced }: TNavigation) {
     const { cart } = useContext(UserContext);
     const { response } = cart;
     const { data: cartData } = response;
