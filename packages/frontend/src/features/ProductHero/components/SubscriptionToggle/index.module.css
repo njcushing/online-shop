@@ -76,7 +76,6 @@
     font-size: 0.86rem;
     font-family: var(--font-primary);
     font-weight: 500;
-    text-transform: capitalize;
 
     width: calc(100% - 2px);
 
