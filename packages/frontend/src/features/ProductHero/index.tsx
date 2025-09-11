@@ -48,6 +48,9 @@ export function ProductHero() {
     useEffect(() => {
         setSubscriptionChecked(false);
     }, [product, variant]);
+    useEffect(() => {
+        if (subscriptionChecked) setFrequency("one_week");
+    }, [subscriptionChecked]);
 
     const [, /* quantity */ setQuantity] = useState<number | null>(1);
 
