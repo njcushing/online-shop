@@ -114,6 +114,14 @@ export function SubscriptionToggle({
                             </label>
 
                             <ul className={styles["repeat-delivery-info-container"]}>
+                                {canSubscribe && subscriptionDiscountPercentage > 0 && (
+                                    <li>
+                                        <strong>Discount:</strong> receive a discounted price when
+                                        subscribing to this product. The discount is calculated on
+                                        the current price of the product, after any other price
+                                        reductions have been applied
+                                    </li>
+                                )}
                                 <li>
                                     <strong>No fees:</strong> we will continue shipping this product
                                     to you at your specified delivery frequency
