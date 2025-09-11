@@ -47,6 +47,10 @@
 }
 
 .radio-card-middle {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
     margin-top: 16px;
 }
 
@@ -95,4 +99,26 @@
 .select:focus-visible {
     outline: 2px solid black;
     border-radius: 0px;
+}
+
+.repeat-delivery-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    color: black;
+    font-size: 0.86rem;
+    font-family: var(--font-primary);
+
+    list-style: disc outside;
+
+    padding-left: 20px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
+
+    strong {
+        font-weight: 600;
+    }
 }

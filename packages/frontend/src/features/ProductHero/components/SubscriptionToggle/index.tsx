@@ -69,8 +69,10 @@ export function SubscriptionToggle({
                                 disabled={awaitingCart || awaitingProduct}
                                 className={styles["radio-indicator"]}
                             />
+
                             <span className={styles["radio-label"]}>{labelText}</span>
                         </div>
+
                         <Collapse in={checked} animateOpacity={false} transitionDuration={250}>
                             <div className={styles["radio-card-middle"]}>
                                 <label
@@ -78,6 +80,7 @@ export function SubscriptionToggle({
                                     className={styles["update-delivery-frequency-label"]}
                                 >
                                     <p>Select a delivery frequency</p>
+
                                     <select
                                         className={styles["select"]}
                                         id="update-delivery-frequency"
@@ -107,6 +110,26 @@ export function SubscriptionToggle({
                                         })}
                                     </select>
                                 </label>
+
+                                <ul className={styles["repeat-delivery-info-container"]}>
+                                    <li>
+                                        <strong>No fees:</strong> we will continue shipping this
+                                        product to you at your specified delivery frequency
+                                    </li>
+                                    <li>
+                                        <strong>Easy cancellation:</strong> cancel your subscription
+                                        at any time
+                                    </li>
+                                    <li>
+                                        <strong>Flexible:</strong> change the frequency of your
+                                        active subscriptions in your account details
+                                    </li>
+                                    <li>
+                                        <strong>Be aware:</strong> ensure you check your active
+                                        subscriptions regularly to stay informed about any changes
+                                        to the price and subscription discount for those products
+                                    </li>
+                                </ul>
                             </div>
                         </Collapse>
                     </Radio.Card>
