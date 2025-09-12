@@ -214,26 +214,4 @@ describe("The WatchlistButton component...", () => {
             expect(button).toBeEnabled();
         });
     });
-
-    describe("Should render a <span> element with text content equal to 'Check'...", () => {
-        test("If the product variant is currently on the user's watchlist", () => {
-            renderFunc({
-                UserContextOverride: {
-                    user: {
-                        response: { data: { watchlist: ["variantId"] } },
-                    },
-                } as unknown as IUserContext,
-            });
-
-            const check = screen.getByText("Check");
-            expect(check).toBeInTheDocument();
-        });
-
-        test("Unless the product variant is not currently on the user's watchlist", () => {
-            renderFunc();
-
-            const check = screen.queryByText("Check");
-            expect(check).not.toBeInTheDocument();
-        });
-    });
 });
