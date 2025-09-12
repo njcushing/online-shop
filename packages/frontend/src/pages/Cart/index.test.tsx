@@ -2,8 +2,8 @@ import { vi } from "vitest";
 import { screen, render } from "@test-utils";
 import { Cart } from ".";
 
-vi.mock("@/features/CartContent", () => ({
-    CartContent: () => <div aria-label="CartContent component"></div>,
+vi.mock("@/features/Cart/components/CartContent", () => ({
+    CartContent: vi.fn(() => <div aria-label="CartContent component"></div>),
 }));
 
 describe("The Cart component...", () => {
