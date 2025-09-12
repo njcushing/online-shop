@@ -109,8 +109,7 @@ export function OrderHistory() {
 
             <div className={styles["filter-container"]}>
                 <label htmlFor="filter-orders" className={styles["label"]}>
-                    <p>Display orders placed within</p>
-
+                    Display orders placed within
                     <select
                         className={styles["select"]}
                         id="filter-orders"
