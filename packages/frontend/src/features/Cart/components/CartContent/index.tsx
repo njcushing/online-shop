@@ -1,10 +1,14 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { useMatches } from "@mantine/core";
 import { IUserContext, UserContext } from "@/pages/Root";
 import { CartSummary } from "@/features/Cart/components/CartSummary";
 import styles from "./index.module.css";
+import { TCartItem } from "../CartItem";
 
 export function CartContent() {
+    const CartItemQuantitySize = useMatches<TCartItem["QuantitySize"]>({ base: "sm", xs: "md" });
+
     const { cart, defaultData } = useContext(UserContext);
 
     const { response, awaiting } = cart;
@@ -21,7 +25,7 @@ export function CartContent() {
                     layout="visible"
                     headerText="Your Cart"
                     hideEditLink
-                    CartItemProps={{ editableQuantity: true, QuantitySize: "md" }}
+                    CartItemProps={{ editableQuantity: true, QuantitySize: CartItemQuantitySize }}
                     classNames={{
                         root: styles["CartSummary-root"],
                         header: styles["CartSummary-header"],
