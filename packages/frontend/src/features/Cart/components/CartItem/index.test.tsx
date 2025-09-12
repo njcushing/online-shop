@@ -4,6 +4,7 @@ import _ from "lodash";
 import { act } from "react";
 import { IUserContext, UserContext } from "@/pages/Root";
 import { RecursivePartial } from "@/utils/types";
+import { BrowserRouter } from "react-router-dom";
 import { CartItem, TCartItem } from ".";
 
 // Mock dependencies
@@ -76,24 +77,56 @@ const renderFunc = async (args: renderFuncArgs = {}) => {
         );
     }
 
+    function BrowserRouterWrapper({
+        context,
+        props,
+    }: {
+        context?: { User?: renderFuncArgs["UserContextOverride"] };
+        props?: renderFuncArgs["propsOverride"];
+    }) {
+        return (
+            // Using BrowserRouter for Link component(s)
+            <BrowserRouter
+                future={{
+                    v7_startTransition: true,
+                    v7_relativeSplatPath: true,
+                }}
+            >
+                <Component context={context} props={props} />
+            </BrowserRouter>
+        );
+    }
+
     // When using initRender, must wrap 'expect' in 'await waitFor'
     const { rerender } = initRender
-        ? render(<Component context={{ User: UserContextOverride }} props={propsOverride} />)
+        ? render(
+              <BrowserRouterWrapper
+                  context={{ User: UserContextOverride }}
+                  props={propsOverride}
+              />,
+          )
         : await act(() =>
-              render(<Component context={{ User: UserContextOverride }} props={propsOverride} />),
+              render(
+                  <BrowserRouterWrapper
+                      context={{ User: UserContextOverride }}
+                      props={propsOverride}
+                  />,
+              ),
           );
 
     return {
         rerenderFunc: (newArgs: renderFuncArgs) => {
             rerender(
-                <Component
+                <BrowserRouterWrapper
                     context={{ User: newArgs.UserContextOverride }}
                     props={newArgs.propsOverride}
                 />,
             );
         },
         getUserContextValue: () => UserContextValue,
-        component: <Component context={{ User: UserContextOverride }} props={propsOverride} />,
+        component: (
+            <BrowserRouterWrapper context={{ User: UserContextOverride }} props={propsOverride} />
+        ),
     };
 };
 
