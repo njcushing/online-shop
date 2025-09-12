@@ -1,7 +1,7 @@
-import { AccountDetails, Routes as AccountSettingsRoutes } from "@/features/AccountDetails";
+import { AccountDetails } from "@/features/AccountDetails";
 import styles from "./index.module.css";
 
-export const Routes = [...AccountSettingsRoutes];
+export { Routes } from "@/features/AccountDetails/routes";
 
 export function Account() {
     return (

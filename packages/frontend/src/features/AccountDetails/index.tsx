@@ -1,46 +1,7 @@
 import { useLocation, Outlet, Link } from "react-router-dom";
 import { useMatches, Breadcrumbs, NavLink, NavLinkProps } from "@mantine/core";
 import { CaretRight } from "@phosphor-icons/react";
-import { ErrorPage } from "@/pages/ErrorPage";
-import { PersonalInformation } from "./components/PersonalInformation";
-import { Addresses } from "./components/Addresses";
-import { Security } from "./components/Security";
-import { OrderHistory } from "./components/OrderHistory";
-import { Subscriptions } from "./components/Subscriptions";
 import styles from "./index.module.css";
-
-export const Routes = [
-    {
-        path: "personal-information",
-        element: <PersonalInformation />,
-        errorElement: <ErrorPage />,
-    },
-    {
-        path: "addresses",
-        element: <Addresses />,
-        errorElement: <ErrorPage />,
-    },
-    {
-        path: "security",
-        element: <Security />,
-        errorElement: <ErrorPage />,
-    },
-    {
-        path: "payment-information",
-        element: <div></div>,
-        errorElement: <ErrorPage />,
-    },
-    {
-        path: "order-history",
-        element: <OrderHistory />,
-        errorElement: <ErrorPage />,
-    },
-    {
-        path: "subscriptions",
-        element: <Subscriptions />,
-        errorElement: <ErrorPage />,
-    },
-];
 
 const NavLinkClassNames: NavLinkProps["classNames"] = {
     root: styles["NavLink-root"],
