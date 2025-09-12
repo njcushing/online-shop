@@ -8,12 +8,9 @@ export type TFooter = {
 };
 
 export function Footer({ reduced }: TFooter) {
-    let layout = "normal";
-    if (reduced) layout = "reduced";
-
-    if (layout === "normal") {
+    if (!reduced) {
         return (
-            <footer className={styles["footer"]} data-layout={layout}>
+            <footer className={styles["footer"]} data-layout="normal">
                 <div className={styles["footer-width-controller"]}>
                     <div className={styles["column-1"]}>
                         <Logo size="lg" />
@@ -87,7 +84,7 @@ export function Footer({ reduced }: TFooter) {
     }
 
     return (
-        <footer className={styles["footer"]} data-layout={layout}>
+        <footer className={styles["footer"]} data-layout="reduced">
             <div className={styles["footer-width-controller"]}>
                 <div className={styles["logo-container"]}>
                     <Logo size="md" />
