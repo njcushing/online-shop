@@ -2,7 +2,8 @@ import { vi } from "vitest";
 import { screen, render } from "@test-utils";
 import { act } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { AccountDetails, Routes } from ".";
+import { AccountDetails } from ".";
+import { Routes } from "./routes";
 
 // Mock dependencies
 // Mock props and contexts are only using fields relevant to component being tested
@@ -45,39 +46,39 @@ const renderFunc = async (args: renderFuncArgs = {}) => {
     };
 };
 
-vi.mock("@/features/AccountDetails/components/PersonalInformation", () => ({
-    PersonalInformation: vi.fn((props: unknown) => {
-        return (
-            <div
-                aria-label="PersonalInformation component"
-                data-props={JSON.stringify(props)}
-            ></div>
-        );
-    }),
-}));
-
-vi.mock("@/features/AccountDetails/components/Addresses", () => ({
-    Addresses: vi.fn((props: unknown) => {
-        return <div aria-label="Addresses component" data-props={JSON.stringify(props)}></div>;
-    }),
-}));
-
-vi.mock("@/features/AccountDetails/components/Security", () => ({
-    Security: vi.fn((props: unknown) => {
-        return <div aria-label="Security component" data-props={JSON.stringify(props)}></div>;
-    }),
-}));
-
-vi.mock("@/features/AccountDetails/components/OrderHistory", () => ({
-    OrderHistory: vi.fn((props: unknown) => {
-        return <div aria-label="OrderHistory component" data-props={JSON.stringify(props)}></div>;
-    }),
-}));
-
-vi.mock("@/features/AccountDetails/components/Subscriptions", () => ({
-    Subscriptions: vi.fn((props: unknown) => {
-        return <div aria-label="Subscriptions component" data-props={JSON.stringify(props)}></div>;
-    }),
+vi.mock("./routes", () => ({
+    Routes: [
+        {
+            path: "personal-information",
+            element: <div aria-label="PersonalInformation component"></div>,
+            errorElement: <div aria-label="ErrorPage component"></div>,
+        },
+        {
+            path: "addresses",
+            element: <div aria-label="Addresses component"></div>,
+            errorElement: <div aria-label="ErrorPage component"></div>,
+        },
+        {
+            path: "security",
+            element: <div aria-label="Security component"></div>,
+            errorElement: <div aria-label="ErrorPage component"></div>,
+        },
+        {
+            path: "payment-information",
+            element: <div></div>,
+            errorElement: <div aria-label="ErrorPage component"></div>,
+        },
+        {
+            path: "order-history",
+            element: <div aria-label="OrderHistory component"></div>,
+            errorElement: <div aria-label="ErrorPage component"></div>,
+        },
+        {
+            path: "subscriptions",
+            element: <div aria-label="Subscriptions component"></div>,
+            errorElement: <div aria-label="ErrorPage component"></div>,
+        },
+    ],
 }));
 
 describe("The AccountDetails component...", () => {
