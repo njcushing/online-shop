@@ -1,3 +1,4 @@
+import { vi } from "vitest";
 import { screen, render, userEvent } from "@test-utils";
 import { BrowserRouter } from "react-router-dom";
 import { act } from "react";
@@ -20,6 +21,14 @@ const renderFunc = async () => {
 
     return { rerender, component };
 };
+
+vi.mock("@/features/Header", () => ({
+    Header: vi.fn(() => <div aria-label="Header component"></div>),
+}));
+
+vi.mock("@/features/Footer", () => ({
+    Footer: vi.fn(() => <div aria-label="Footer component"></div>),
+}));
 
 describe("The ErrorPage component...", () => {
     test("Should render a heading element explaining to the user that they are on an error page", async () => {
