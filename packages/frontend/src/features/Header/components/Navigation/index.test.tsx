@@ -17,6 +17,7 @@ const getProps = (component: HTMLElement) => {
 
 const mockProps: TNavigation = {
     opened: true,
+    reduced: false,
 };
 
 const mockCart: RecursivePartial<IUserContext["cart"]["response"]["data"]> = {
@@ -196,6 +197,7 @@ describe("The Navigation component...", () => {
                 renderFunc();
 
                 const navElement = screen.getByRole("navigation");
+
                 const BurgerComponent = within(navElement).getByRole("button", {
                     name: "Toggle navigation",
                 });
@@ -219,6 +221,17 @@ describe("The Navigation component...", () => {
                 await act(async () => userEvent.click(BurgerComponent));
 
                 expect(getProps(NavDrawerComponent).opened).toBe(!initialOpenedPropValue);
+            });
+
+            test("Unless the 'reduced' prop is 'true'", async () => {
+                await renderFunc({ propsOverride: { reduced: true } });
+
+                const navElement = screen.getByRole("navigation");
+
+                const BurgerComponent = within(navElement).queryByRole("button", {
+                    name: "Toggle navigation",
+                });
+                expect(BurgerComponent).not.toBeInTheDocument();
             });
         });
 
@@ -248,6 +261,37 @@ describe("The Navigation component...", () => {
 
                 expect(getProps(SearchBarComponent).opened).toBe(!initialOpenedPropValue);
             });
+
+            test("That, when opened, should close when a click is registered outside of it", async () => {
+                await renderFunc();
+
+                const navElement = screen.getByRole("navigation");
+
+                const SearchButton = within(navElement).getByRole("button", { name: "Search" });
+                expect(SearchButton).toBeInTheDocument();
+
+                const SearchBarComponent = screen.getByLabelText("SearchBar component");
+                expect(SearchBarComponent).toBeInTheDocument();
+
+                const initialOpenedPropValue = getProps(SearchBarComponent).opened;
+
+                await act(async () => userEvent.click(SearchButton));
+
+                expect(getProps(SearchBarComponent).opened).toBe(!initialOpenedPropValue);
+
+                await act(async () => userEvent.click(document.body));
+
+                expect(getProps(SearchBarComponent).opened).toBe(initialOpenedPropValue);
+            });
+
+            test("Unless the 'reduced' prop is 'true'", async () => {
+                await renderFunc({ propsOverride: { reduced: true } });
+
+                const navElement = screen.getByRole("navigation");
+
+                const SearchButton = within(navElement).queryByRole("button", { name: "Search" });
+                expect(SearchButton).not.toBeInTheDocument();
+            });
         });
 
         describe("Which should contain a 'Cart' button...", async () => {
@@ -268,6 +312,43 @@ describe("The Navigation component...", () => {
 
                 expect(getProps(CartDrawerComponent).opened).toBe(!initialOpenedPropValue);
             });
+
+            test("Unless the 'reduced' prop is 'true'", async () => {
+                await renderFunc({ propsOverride: { reduced: true } });
+
+                const navElement = screen.getByRole("navigation");
+
+                const CartButton = within(navElement).queryByRole("button", { name: "Cart" });
+                expect(CartButton).not.toBeInTheDocument();
+            });
+        });
+
+        describe("Which should contain a 'User' button...", async () => {
+            test("That, on click, should navigate the user to the /account URL path", async () => {
+                window.history.pushState({}, "", "/");
+
+                await renderFunc();
+
+                const navElement = screen.getByRole("navigation");
+
+                const UserButton = within(navElement).getByRole("button", { name: "User" });
+                expect(UserButton).toBeInTheDocument();
+
+                await act(async () => userEvent.click(UserButton));
+
+                expect(window.location.pathname).toBe("/account");
+
+                window.history.pushState({}, "", "/");
+            });
+
+            test("Unless the 'reduced' prop is 'true'", async () => {
+                await renderFunc({ propsOverride: { reduced: true } });
+
+                const navElement = screen.getByRole("navigation");
+
+                const UserButton = within(navElement).queryByRole("button", { name: "User" });
+                expect(UserButton).not.toBeInTheDocument();
+            });
         });
 
         test("Should render an element that displays the quantity of items in the user's cart", async () => {
@@ -277,15 +358,32 @@ describe("The Navigation component...", () => {
             expect(cartQuantity).toBeInTheDocument();
         });
 
-        test("Which should contain links to each product category", async () => {
-            await renderFunc();
+        describe("Which should contain links to each product category...", async () => {
+            test("With the correct text content and href for each", async () => {
+                await renderFunc();
 
-            const navElement = screen.getByRole("navigation");
+                const navElement = screen.getByRole("navigation");
 
-            mockCategories.forEach((category) => {
-                const categoryLink = within(navElement).getByRole("link", { name: category.name });
-                expect(categoryLink).toBeInTheDocument();
-                expect(categoryLink.getAttribute("href")).toBe(`/c/${category.slug}`);
+                mockCategories.forEach((category) => {
+                    const categoryLink = within(navElement).getByRole("link", {
+                        name: category.name,
+                    });
+                    expect(categoryLink).toBeInTheDocument();
+                    expect(categoryLink.getAttribute("href")).toBe(`/c/${category.slug}`);
+                });
+            });
+
+            test("Unless the 'reduced' prop is 'true'", async () => {
+                await renderFunc({ propsOverride: { reduced: true } });
+
+                const navElement = screen.getByRole("navigation");
+
+                mockCategories.forEach((category) => {
+                    const categoryLink = within(navElement).queryByRole("link", {
+                        name: category.name,
+                    });
+                    expect(categoryLink).not.toBeInTheDocument();
+                });
             });
         });
     });
@@ -314,6 +412,13 @@ describe("The Navigation component...", () => {
 
             expect(getProps(NavDrawerComponent).opened).toBe(false);
         });
+
+        test("Unless the 'reduced' prop is 'true'", async () => {
+            await renderFunc({ propsOverride: { reduced: true } });
+
+            const NavDrawerComponent = screen.queryByLabelText("NavDrawer component");
+            expect(NavDrawerComponent).not.toBeInTheDocument();
+        });
     });
 
     describe("Should render the CartDrawer component...", async () => {
@@ -338,13 +443,29 @@ describe("The Navigation component...", () => {
 
             expect(getProps(CartDrawerComponent).opened).toBe(false);
         });
+
+        test("Unless the 'reduced' prop is 'true'", async () => {
+            await renderFunc({ propsOverride: { reduced: true } });
+
+            const CartDrawerComponent = screen.queryByLabelText("CartDrawer component");
+            expect(CartDrawerComponent).not.toBeInTheDocument();
+        });
     });
 
-    test("Should render the SearchBar component", async () => {
-        await renderFunc();
+    describe("Should render the SearchBar component...", async () => {
+        test("As expected", async () => {
+            await renderFunc();
 
-        const SearchBarComponent = screen.getByLabelText("SearchBar component");
-        expect(SearchBarComponent).toBeInTheDocument();
+            const SearchBarComponent = screen.getByLabelText("SearchBar component");
+            expect(SearchBarComponent).toBeInTheDocument();
+        });
+
+        test("Unless the 'reduced' prop is 'true'", async () => {
+            await renderFunc({ propsOverride: { reduced: true } });
+
+            const SearchBarComponent = screen.queryByLabelText("SearchBar component");
+            expect(SearchBarComponent).not.toBeInTheDocument();
+        });
     });
 
     test("Should, when one of the NavDrawer, CartDrawer or SearchBar components' 'opened' props are 'true', force the others' to be 'false'", async () => {
