@@ -5,21 +5,27 @@ import { IHeaderContext, HeaderContext } from "@/pages/Root";
 import { RecursivePartial } from "@/utils/types";
 import { BrowserRouter } from "react-router-dom";
 import { act } from "react";
-import { Header } from ".";
+import { Header, THeader } from ".";
 
 // Mock dependencies
+const mockProps: RecursivePartial<THeader> = {
+    disableActivity: false,
+};
+
 const mockHeaderContext: RecursivePartial<IHeaderContext> = {
     setHeaderInfo: () => {},
 };
 
 type renderFuncArgs = {
+    propsOverride?: THeader;
     HeaderContextOverride?: IHeaderContext;
 };
 const renderFunc = (args: renderFuncArgs = {}) => {
-    const { HeaderContextOverride } = args;
+    const { propsOverride, HeaderContextOverride } = args;
 
     let HeaderContextValue!: IHeaderContext;
 
+    const mergedProps = _.merge(_.cloneDeep(mockProps), propsOverride);
     const mergedUserContext = _.merge(_.cloneDeep(mockHeaderContext), HeaderContextOverride);
 
     const component = (
@@ -36,7 +42,7 @@ const renderFunc = (args: renderFuncArgs = {}) => {
                         return null;
                     }}
                 </HeaderContext.Consumer>
-                <Header />
+                <Header {...mergedProps} />
             </HeaderContext.Provider>
         </BrowserRouter>
     );
@@ -67,14 +73,35 @@ describe("The Header component...", () => {
         window.history.pushState({}, "", "/");
     });
 
-    test("Should render the Navigation component within a <header> element", () => {
-        renderFunc();
+    describe("Should render a <header> element", () => {
+        describe("That should have a 'position' style rule...", () => {
+            test("Set to 'sticky' by default", () => {
+                renderFunc();
 
-        const headerElement = screen.getByRole("banner");
-        expect(headerElement).toBeInTheDocument();
+                const headerElement = screen.getByRole("banner");
+                expect(headerElement).toBeInTheDocument();
+                expect(headerElement.style.position).toBe("sticky");
+            });
 
-        const NavigationComponent = within(headerElement).getByLabelText("Navigation component");
-        expect(NavigationComponent).toBeInTheDocument();
+            test("Set to 'relative' if the 'disableActivity' prop is 'true'", () => {
+                renderFunc({ propsOverride: { disableActivity: true } });
+
+                const headerElement = screen.getByRole("banner");
+                expect(headerElement).toBeInTheDocument();
+                expect(headerElement.style.position).toBe("relative");
+            });
+        });
+
+        test("That should contain the Navigation component", () => {
+            renderFunc();
+
+            const headerElement = screen.getByRole("banner");
+            expect(headerElement).toBeInTheDocument();
+
+            const NavigationComponent =
+                within(headerElement).getByLabelText("Navigation component");
+            expect(NavigationComponent).toBeInTheDocument();
+        });
     });
 
     // Some of the following tests aren't very comprehensive as they don't test the internal logic
