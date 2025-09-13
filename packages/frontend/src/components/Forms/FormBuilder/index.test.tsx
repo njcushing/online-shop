@@ -73,6 +73,7 @@ const mockProps: RecursivePartial<TFormBuilder<MockFormData>> = {
                     name: "examples.text.onTouched",
                     label: "Text onTouched",
                     mode: "onTouched",
+                    classNames: { input: "", label: "" },
                 },
                 {
                     type: "text",
