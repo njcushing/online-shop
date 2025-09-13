@@ -48,7 +48,6 @@ export function CartItem({
 
     const { product, variant, quantity, info } = data;
     const { id, slug } = product;
-    const { subscription } = info || {};
 
     const { name, images, allowance } = product;
     const { price, stock, options, allowanceOverride, image } = variant;
@@ -127,7 +126,7 @@ export function CartItem({
                     })}
                 </div>
 
-                {!awaiting && subscription && subscriptionDiscountPercentage > 0 && (
+                {!awaiting && info?.subscription && subscriptionDiscountPercentage > 0 && (
                     <p className={styles["discount-percentage-message"]}>
                         The price below includes a{" "}
                         <strong>{subscriptionDiscountPercentage}%</strong> discount for

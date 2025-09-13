@@ -16,7 +16,7 @@ const mockProps: RecursivePartial<TCartItem> = {
             allowance: 100,
         },
         variant: {
-            price: { base: 100, current: 100 },
+            price: { base: 100, current: 100, subscriptionDiscountPercentage: 10 },
             stock: 10,
             options: {
                 option1Name: "option1Value",
@@ -27,8 +27,12 @@ const mockProps: RecursivePartial<TCartItem> = {
             allowanceOverride: 5,
         },
         quantity: 1,
+        info: {
+            subscription: { frequency: "one_week" },
+        },
     },
     editableQuantity: true,
+    disableLink: false,
     classNames: {
         container: "",
         content: "",
@@ -201,15 +205,48 @@ describe("The CartItem component...", () => {
     });
 
     describe("Should render the product's full name...", () => {
-        test("From the cart item's data passed to the component in the 'data' prop", () => {
-            renderFunc();
+        describe("If the 'disableLink' prop is 'false'", () => {
+            test("As a react-router-dom Link component", () => {
+                renderFunc();
 
-            const fullName = screen.getByText(mockProps.data!.product!.name!.full!);
-            expect(fullName).toBeInTheDocument();
+                const fullName = screen.getByRole("link", {
+                    name: mockProps.data!.product!.name!.full!,
+                });
+                expect(fullName).toBeInTheDocument();
+            });
+
+            test("With an 'href' attribute equal to the product page and its specific variant", () => {
+                renderFunc();
+
+                const { data } = mockProps;
+                const { product, variant } = data!;
+                const { id, slug, name } = product!;
+                const { full } = name!;
+                const { options } = variant!;
+
+                const variantUrlParams = new URLSearchParams();
+                Object.entries(options!).forEach(([key, value]) =>
+                    variantUrlParams.append(key, `${value}`),
+                );
+
+                const fullName = screen.getByRole("link", { name: full });
+                expect(fullName.getAttribute("href")).toBe(`/p/${id}/${slug}?${variantUrlParams}`);
+            });
+        });
+
+        describe("If the 'disableLink' prop is 'true'", () => {
+            test("As a <p> element", () => {
+                renderFunc({ propsOverride: { disableLink: true } as TCartItem });
+
+                const fullName = screen.getByText(mockProps.data!.product!.name!.full!);
+                expect(fullName).toBeInTheDocument();
+                expect(fullName.tagName).toBe("P");
+            });
         });
 
         test("Unless the UserContext's cart data is still being awaited", () => {
             renderFunc({
+                propsOverride: { disableLink: true } as TCartItem,
                 UserContextOverride: { cart: { awaiting: true } } as IUserContext,
             });
 
@@ -313,8 +350,24 @@ describe("The CartItem component...", () => {
         });
     });
 
+    describe("If the cart item is a subscription and the product variant's 'subscriptionDiscountPercentage' is greater than 0...", () => {
+        test("Should render an element with textContent explaining the subscription discount", () => {
+            renderFunc({
+                propsOverride: { editableQuantity: false } as TCartItem,
+            });
+
+            const { data } = mockProps;
+            const { variant } = data!;
+            const { price } = variant!;
+            const { subscriptionDiscountPercentage } = price!;
+
+            const subscriptionDiscount = screen.getByText(`${subscriptionDiscountPercentage}%`);
+            expect(subscriptionDiscount).toBeInTheDocument();
+        });
+    });
+
     describe("If the 'editableQuantity' prop is 'false'...", () => {
-        test("Should render an element should be rendered with textContent equal to: 'X units', where 'X' is the quantity of the item", () => {
+        test("Should render an element with textContent equal to: 'X units', where 'X' is the quantity of the item", () => {
             renderFunc({
                 propsOverride: { editableQuantity: false } as TCartItem,
             });
