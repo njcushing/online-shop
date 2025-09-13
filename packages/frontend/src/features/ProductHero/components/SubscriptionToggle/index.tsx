@@ -83,8 +83,7 @@ export function SubscriptionToggle({
                                 htmlFor="update-delivery-frequency"
                                 className={styles["update-delivery-frequency-label"]}
                             >
-                                <p>Select a delivery frequency</p>
-
+                                Select a delivery frequency
                                 <select
                                     className={styles["select"]}
                                     id="update-delivery-frequency"
