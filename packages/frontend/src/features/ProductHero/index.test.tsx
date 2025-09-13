@@ -1,5 +1,5 @@
 import { vi } from "vitest";
-import { screen, render } from "@test-utils";
+import { screen, render, userEvent, fireEvent } from "@test-utils";
 import _ from "lodash";
 import { IUserContext, UserContext } from "@/pages/Root";
 import { IProductContext, ProductContext } from "@/pages/Product";
@@ -198,6 +198,27 @@ vi.mock("@/features/ProductHero/components/VariantStep", () => ({
     }),
 }));
 
+vi.mock("@/features/ProductHero/components/SubscriptionToggle", () => ({
+    SubscriptionToggle: vi.fn(
+        (
+            props: unknown & {
+                onToggle: () => void;
+                onFrequencyChange: (newFrequency: string) => void;
+            },
+        ) => {
+            return (
+                <button
+                    type="button"
+                    aria-label="SubscriptionToggle component"
+                    onClick={() => props.onToggle()}
+                    onBlur={() => props.onFrequencyChange("two_weeks")}
+                    data-props={JSON.stringify(props)}
+                ></button>
+            );
+        },
+    ),
+}));
+
 vi.mock("@/features/ProductHero/components/VariantAlerts", () => ({
     VariantAlerts: vi.fn((props: unknown) => {
         return <div aria-label="VariantAlerts component" data-props={JSON.stringify(props)}></div>;
@@ -315,6 +336,112 @@ describe("The ProductHero component...", () => {
             VariantStepComponents.forEach((VariantStepComponent) => {
                 expect(VariantStepComponent).not.toBeVisible();
             });
+        });
+    });
+
+    describe("Should render the SubscriptionToggle component...", () => {
+        describe("Passing the correct props...", () => {
+            test("Including the 'checked' prop equal to 'false' by default", () => {
+                renderFunc();
+
+                const SubscriptionToggleComponent = screen.getByLabelText(
+                    "SubscriptionToggle component",
+                );
+                expect(SubscriptionToggleComponent).toBeInTheDocument();
+
+                const props = SubscriptionToggleComponent.getAttribute("data-props");
+                expect(JSON.parse(props!)).toStrictEqual(
+                    expect.objectContaining({
+                        checked: false,
+                    }),
+                );
+            });
+
+            test("Including the 'selectedFrequency' prop equal to 'one_week' by default", () => {
+                renderFunc();
+
+                const SubscriptionToggleComponent = screen.getByLabelText(
+                    "SubscriptionToggle component",
+                );
+                expect(SubscriptionToggleComponent).toBeInTheDocument();
+
+                const props = SubscriptionToggleComponent.getAttribute("data-props");
+                expect(JSON.parse(props!)).toStrictEqual(
+                    expect.objectContaining({
+                        selectedFrequency: "one_week",
+                    }),
+                );
+            });
+
+            test("Including the 'onToggle' prop which should, when invoked, toggle the internal state value passed to the 'checked' prop", async () => {
+                renderFunc();
+
+                const SubscriptionToggleComponent = screen.getByLabelText(
+                    "SubscriptionToggle component",
+                );
+                expect(SubscriptionToggleComponent).toBeInTheDocument();
+
+                expect(
+                    JSON.parse(SubscriptionToggleComponent.getAttribute("data-props")!),
+                ).toStrictEqual(
+                    expect.objectContaining({
+                        checked: false,
+                    }),
+                );
+
+                await act(async () => userEvent.click(SubscriptionToggleComponent));
+
+                expect(
+                    JSON.parse(SubscriptionToggleComponent.getAttribute("data-props")!),
+                ).toStrictEqual(
+                    expect.objectContaining({
+                        checked: true,
+                    }),
+                );
+            });
+
+            test("Including the 'updateFrequency' prop which should, when invoked, update the internal state value passed to the 'selectedFrequency' prop", async () => {
+                renderFunc();
+
+                const SubscriptionToggleComponent = screen.getByLabelText(
+                    "SubscriptionToggle component",
+                );
+                expect(SubscriptionToggleComponent).toBeInTheDocument();
+
+                expect(
+                    JSON.parse(SubscriptionToggleComponent.getAttribute("data-props")!),
+                ).toStrictEqual(
+                    expect.objectContaining({
+                        selectedFrequency: "one_week",
+                    }),
+                );
+
+                await act(async () => fireEvent.blur(SubscriptionToggleComponent));
+
+                expect(
+                    JSON.parse(SubscriptionToggleComponent.getAttribute("data-props")!),
+                ).toStrictEqual(
+                    expect.objectContaining({
+                        selectedFrequency: "two_weeks",
+                    }),
+                );
+            });
+        });
+    });
+
+    describe("Should render the VariantAlerts component...", () => {
+        test("Passing the correct props", () => {
+            renderFunc();
+
+            const VariantAlertsComponent = screen.getByLabelText("VariantAlerts component");
+            expect(VariantAlertsComponent).toBeInTheDocument();
+
+            const props = VariantAlertsComponent.getAttribute("data-props");
+            expect(JSON.parse(props!)).toStrictEqual(
+                expect.objectContaining({
+                    awaiting: mockProductContext.product?.awaiting,
+                }),
+            );
         });
     });
 
