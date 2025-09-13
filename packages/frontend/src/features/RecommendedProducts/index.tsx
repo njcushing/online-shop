@@ -36,6 +36,12 @@ export function RecommendedProducts() {
         },
     });
 
+    /**
+     * Don't test logic dependent on window dimensions - window width is 0px in unit tests using
+     * jsdom as an environment
+     */
+    /* v8 ignore start */
+
     const handleFocus = useCallback(
         (i: number) => {
             if (emblaRef.current) {
@@ -44,6 +50,8 @@ export function RecommendedProducts() {
         },
         [carouselProps.slidesToScroll],
     );
+
+    /* v8 ignore stop */
 
     return (
         <section className={styles["recommended-products"]}>
@@ -75,7 +83,13 @@ export function RecommendedProducts() {
                         return (
                             <Carousel.Slide
                                 data-last={i === products.length - 1}
-                                onFocus={() => handleFocus(i)}
+                                onFocus={
+                                    /* v8 ignore start */
+
+                                    () => handleFocus(i)
+
+                                    /* v8 ignore stop */
+                                }
                                 className={styles["carousel-slide"]}
                                 key={product.id}
                                 style={{
