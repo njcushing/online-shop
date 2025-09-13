@@ -5,7 +5,7 @@ import { IProductContext, ProductContext } from "@/pages/Product";
 import { frequencies, SubscriptionFrequency } from "@/utils/products/subscriptions";
 import styles from "./index.module.css";
 
-export type TSubscriptionProduct = {
+export type TSubscriptionToggle = {
     checked: boolean;
     selectedFrequency: SubscriptionFrequency;
     onToggle: () => void;
@@ -17,7 +17,7 @@ export function SubscriptionToggle({
     selectedFrequency,
     onToggle,
     onFrequencyChange,
-}: TSubscriptionProduct) {
+}: TSubscriptionToggle) {
     const { cart } = useContext(UserContext);
     const { product, variant, defaultData } = useContext(ProductContext);
     const { variant: defaultVariantData } = defaultData;
