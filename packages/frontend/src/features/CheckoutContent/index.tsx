@@ -20,10 +20,19 @@ export function CheckoutContent() {
 
     const [stage, setStage] = useState<"personal" | "shipping" | "payment">("personal");
 
+    /**
+     * Using 'data-testid' attribute on the CartSummary components because both are accessible in
+     * the DOM using JSDOM environment for my test suite (Mantine's 'hiddenFrom' and 'visibleFrom'
+     * component props don't hide the components that don't match the media queries in my tests),
+     * meaning I can't easily access just one of them in my unit tests. I think this is okay though
+     * because only one should be visible and accessible at any point at runtime.
+     */
+
     return (
         <section className={styles["checkout-content"]}>
             <Box hiddenFrom="lg">
                 <CartSummary
+                    data-testid="CartSummary-narrow"
                     layout="dropdown"
                     classNames={{ header: styles["CartSummary-header"] }}
                 />
@@ -70,7 +79,6 @@ export function CheckoutContent() {
                         <PaymentForm
                             isOpen={stage === "payment"}
                             onReturn={() => setStage("shipping")}
-                            onSubmit={() => {}}
                         />
                     </div>
                 </div>
@@ -78,6 +86,7 @@ export function CheckoutContent() {
                 <Box visibleFrom="lg">
                     <div className={styles["checkout-content-right"]}>
                         <CartSummary
+                            data-testid="CartSummary-wide"
                             layout="visible"
                             classNames={{ header: styles["CartSummary-header"] }}
                         />
