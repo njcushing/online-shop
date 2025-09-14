@@ -11,6 +11,7 @@
 
 .input-error {
     color: white;
+    font-family: var(--font-primary);
     font-size: 0.9rem;
     font-weight: 500;
 }
