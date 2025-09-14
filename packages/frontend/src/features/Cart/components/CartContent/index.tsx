@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { useMatches } from "@mantine/core";
 import { IUserContext, UserContext } from "@/pages/Root";
 import { CartSummary } from "@/features/Cart/components/CartSummary";
-import styles from "./index.module.css";
 import { TCartItem } from "../CartItem";
+import styles from "./index.module.css";
 
 export function CartContent() {
     const CartItemQuantitySize = useMatches<TCartItem["QuantitySize"]>({ base: "sm", xs: "md" });
