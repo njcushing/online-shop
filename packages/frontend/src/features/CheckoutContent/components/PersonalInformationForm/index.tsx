@@ -16,30 +16,27 @@ const inputProps = {
     },
 };
 
-export type TPersonalInformation = {
+export type TPersonalInformationForm = {
     isOpen: boolean;
     onSubmit?: SubmitHandler<CheckoutPersonalFormData>;
 };
 
-export function PersonalInformationForm({ isOpen = false, onSubmit }: TPersonalInformation) {
+export function PersonalInformationForm({ isOpen = false, onSubmit }: TPersonalInformationForm) {
     const { user, cart } = useContext(UserContext);
 
     const { response, awaiting: userAwaiting } = user;
-    const { data } = response;
-    const { profile } = data || {};
-    const { personal } = profile || {};
-    const { firstName, lastName, phone, email } = personal || {};
+    const personal = response?.data?.profile?.personal;
 
     const { awaiting: cartAwaiting } = cart;
 
     const defaultValues = useMemo(() => {
         return {
-            firstName: firstName || "",
-            lastName: lastName || "",
-            phone: phone || "",
-            email: email || "",
+            firstName: personal?.firstName || "",
+            lastName: personal?.lastName || "",
+            phone: personal?.phone || "",
+            email: personal?.email || "",
         };
-    }, [firstName, lastName, phone, email]);
+    }, [personal]);
 
     const {
         control,
@@ -64,13 +61,21 @@ export function PersonalInformationForm({ isOpen = false, onSubmit }: TPersonalI
 
     const disableInputs = userAwaiting || cartAwaiting || !isOpen;
 
+    /**
+     * Can't invoke callback passed to Mantine Collapse component's 'onTransitionEnd' prop without
+     * mocking component (as far as I'm aware)
+     */
+    /* v8 ignore start */
+
     const firstInputRef = useRef<HTMLInputElement>(null);
     const focusFirstInput = useCallback(() => {
         if (isOpen && firstInputRef.current) firstInputRef.current.focus();
     }, [isOpen]);
 
+    /* v8 ignore stop */
+
     return (
-        <Collapse in={isOpen} animateOpacity={false} onTransitionEnd={() => focusFirstInput()}>
+        <Collapse in={isOpen} animateOpacity={false} onTransitionEnd={focusFirstInput}>
             <div className={styles["checkout-details-section-content"]}>
                 <form
                     className={styles["form"]}
@@ -88,7 +93,7 @@ export function PersonalInformationForm({ isOpen = false, onSubmit }: TPersonalI
                                         <TextInput
                                             {...field}
                                             {...inputProps}
-                                            value={field.value ?? ""}
+                                            value={field.value}
                                             label="First name"
                                             autoComplete="given-name"
                                             required
@@ -108,7 +113,7 @@ export function PersonalInformationForm({ isOpen = false, onSubmit }: TPersonalI
                                         <TextInput
                                             {...field}
                                             {...inputProps}
-                                            value={field.value ?? ""}
+                                            value={field.value}
                                             label="Last name"
                                             autoComplete="family-name"
                                             required
@@ -128,7 +133,7 @@ export function PersonalInformationForm({ isOpen = false, onSubmit }: TPersonalI
                                     <TextInput
                                         {...field}
                                         {...inputProps}
-                                        value={field.value ?? ""}
+                                        value={field.value}
                                         label="Email address"
                                         autoComplete="email"
                                         required
@@ -147,7 +152,7 @@ export function PersonalInformationForm({ isOpen = false, onSubmit }: TPersonalI
                                     <TextInput
                                         {...field}
                                         {...inputProps}
-                                        value={field.value ?? ""}
+                                        value={field.value}
                                         label="Phone number (optional)"
                                         autoComplete="tel"
                                         description="For contacting you with queries about your order"
