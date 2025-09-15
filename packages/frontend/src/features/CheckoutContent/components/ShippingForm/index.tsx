@@ -22,7 +22,7 @@ const inputProps = {
     },
 };
 
-export type TShipping = {
+export type TShippingForm = {
     isOpen: boolean;
     onReturn?: () => void;
     onSubmit?: SubmitHandler<CheckoutShippingFormData>;
@@ -36,7 +36,7 @@ const emptyBillingFields: CheckoutShippingFormData["address"]["billing"] = {
     postcode: "",
 };
 
-export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShipping) {
+export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingForm) {
     const { user, cart, shipping } = useContext(UserContext);
 
     const { response: userResponse, awaiting: userAwaiting } = user;
