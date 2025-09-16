@@ -28,14 +28,6 @@ export type TShippingForm = {
     onSubmit?: SubmitHandler<CheckoutShippingFormData>;
 };
 
-const emptyBillingFields: CheckoutShippingFormData["address"]["billing"] = {
-    line1: "",
-    line2: "",
-    townCity: "",
-    county: "",
-    postcode: "",
-};
-
 export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingForm) {
     const { user, cart, shipping } = useContext(UserContext);
 
@@ -96,8 +88,9 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
 
     const [billingIsDelivery, setBillingIsDelivery] = useState<boolean>(true);
     const currentDeliveryValues = useWatch({ control, name: "address.delivery" });
-    const cachedBilling =
-        useRef<CheckoutShippingFormData["address"]["billing"]>(emptyBillingFields);
+    const cachedBilling = useRef<CheckoutShippingFormData["address"]["billing"]>(
+        defaultValues.address.billing,
+    );
     useEffect(() => {
         if (billingIsDelivery) {
             cachedBilling.current = getValues("address.billing");
@@ -144,10 +137,18 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
 
     const disableInputs = userAwaiting || cartAwaiting || !isOpen;
 
+    /**
+     * Can't invoke callback passed to Mantine Collapse component's 'onTransitionEnd' prop without
+     * mocking component (as far as I'm aware)
+     */
+    /* v8 ignore start */
+
     const firstInputRef = useRef<HTMLInputElement>(null);
     const focusFirstInput = useCallback(() => {
         if (isOpen && firstInputRef.current) firstInputRef.current.focus();
     }, [isOpen]);
+
+    /* v8 ignore stop */
 
     return (
         <Collapse in={isOpen} animateOpacity={false} onTransitionEnd={() => focusFirstInput()}>
@@ -170,7 +171,7 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
                                         <TextInput
                                             {...field}
                                             {...inputProps}
-                                            value={field.value ?? ""}
+                                            value={field.value}
                                             label="Line 1"
                                             autoComplete="delivery address-line1"
                                             required
@@ -190,7 +191,7 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
                                         <TextInput
                                             {...field}
                                             {...inputProps}
-                                            value={field.value ?? ""}
+                                            value={field.value}
                                             label="Line 2"
                                             autoComplete="delivery address-line2"
                                             error={getError("address.delivery.line2")}
@@ -208,7 +209,7 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
                                         <TextInput
                                             {...field}
                                             {...inputProps}
-                                            value={field.value ?? ""}
+                                            value={field.value}
                                             label="Town/City"
                                             autoComplete="delivery address-level2"
                                             required
@@ -227,7 +228,7 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
                                         <TextInput
                                             {...field}
                                             {...inputProps}
-                                            value={field.value ?? ""}
+                                            value={field.value}
                                             label="County"
                                             error={getError("address.delivery.county")}
                                             disabled={disableInputs}
@@ -244,7 +245,7 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
                                         <TextInput
                                             {...field}
                                             {...inputProps}
-                                            value={field.value ?? ""}
+                                            value={field.value}
                                             label="Postcode"
                                             autoComplete="delivery postal-code"
                                             required
@@ -284,7 +285,7 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
                                             <TextInput
                                                 {...field}
                                                 {...inputProps}
-                                                value={field.value ?? ""}
+                                                value={field.value}
                                                 label="Line 1"
                                                 autoComplete="billing address-line1"
                                                 required
@@ -307,7 +308,7 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
                                             <TextInput
                                                 {...field}
                                                 {...inputProps}
-                                                value={field.value ?? ""}
+                                                value={field.value}
                                                 label="Line 2"
                                                 autoComplete="billing address-line2"
                                                 error={getError("address.billing.line2")}
@@ -329,7 +330,7 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
                                             <TextInput
                                                 {...field}
                                                 {...inputProps}
-                                                value={field.value ?? ""}
+                                                value={field.value}
                                                 label="Town/City"
                                                 autoComplete="billing address-level2"
                                                 required
@@ -352,7 +353,7 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
                                             <TextInput
                                                 {...field}
                                                 {...inputProps}
-                                                value={field.value ?? ""}
+                                                value={field.value}
                                                 label="County"
                                                 error={getError("address.billing.county")}
                                                 disabled={
@@ -373,7 +374,7 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
                                             <TextInput
                                                 {...field}
                                                 {...inputProps}
-                                                value={field.value ?? ""}
+                                                value={field.value}
                                                 label="Postcode"
                                                 autoComplete="billing postal-code"
                                                 required
@@ -399,7 +400,7 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
                         render={({ field }) => (
                             <Radio.Group
                                 {...field}
-                                value={field.value ?? ""}
+                                value={field.value}
                                 onChange={(value) => {
                                     field.onChange(value);
                                     setShipping(value as CheckoutShippingOption);
