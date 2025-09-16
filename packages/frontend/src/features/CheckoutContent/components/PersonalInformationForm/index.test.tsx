@@ -327,6 +327,35 @@ describe("The PersonalInformationForm component...", () => {
                     expect(onSubmitSpy).toHaveBeenCalledTimes(1);
                 });
 
+                test("With the form data as an argument", async () => {
+                    const onSubmitSpy = vi.fn();
+
+                    await renderFunc({
+                        propsOverride: {
+                            onSubmit: onSubmitSpy,
+                        } as unknown as TPersonalInformationForm,
+                    });
+
+                    const form = screen.getByRole("form");
+
+                    const submitButton = within(form).getByRole("button", {
+                        name: "Continue to shipping",
+                    });
+
+                    expect(onSubmitSpy).toHaveBeenCalledTimes(0);
+
+                    await act(async () => userEvent.click(submitButton));
+
+                    const args = onSubmitSpy.mock.calls[0];
+                    const [formData] = args;
+
+                    expect(formData).toStrictEqual(
+                        expect.objectContaining(
+                            mockUserContext.user!.response!.data!.profile!.personal,
+                        ),
+                    );
+                });
+
                 test("Unless any of the form fields are invalid", async () => {
                     const onSubmitSpy = vi.fn();
 
