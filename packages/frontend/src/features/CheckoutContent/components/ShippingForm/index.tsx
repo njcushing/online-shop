@@ -41,16 +41,8 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
 
     const { response: userResponse, awaiting: userAwaiting } = user;
     const { data: userData } = userResponse;
-    const { profile } = userData || {};
-    const { addresses } = profile || {};
-    const { delivery } = addresses || {};
-    const {
-        line1: dLine1,
-        line2: dLine2,
-        townCity: dTownCity,
-        county: dCounty,
-        postcode: dPostcode,
-    } = delivery || {};
+    const delivery = userData?.profile?.addresses?.delivery;
+    const billing = userData?.profile?.addresses?.billing;
 
     const { response: cartResponse, awaiting: cartAwaiting } = cart;
     const { data: cartData } = cartResponse;
@@ -61,17 +53,23 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
         return {
             address: {
                 delivery: {
-                    line1: dLine1 || "",
-                    line2: dLine2 || "",
-                    townCity: dTownCity || "",
-                    county: dCounty || "",
-                    postcode: dPostcode || "",
+                    line1: delivery?.line1 || "",
+                    line2: delivery?.line2 || "",
+                    townCity: delivery?.townCity || "",
+                    county: delivery?.county || "",
+                    postcode: delivery?.postcode || "",
                 },
-                billing: emptyBillingFields,
+                billing: {
+                    line1: billing?.line1 || "",
+                    line2: billing?.line2 || "",
+                    townCity: billing?.townCity || "",
+                    county: billing?.county || "",
+                    postcode: billing?.postcode || "",
+                },
             },
             type: selectedShipping,
         };
-    }, [dLine1, dLine2, dTownCity, dCounty, dPostcode, selectedShipping]);
+    }, [delivery, billing, selectedShipping]);
 
     const {
         control,
