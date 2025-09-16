@@ -472,7 +472,7 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
                                                     }
                                                 >
                                                     Expected delivery date:{" "}
-                                                    {dayjs(expectedDeliveryDate.standard).format(
+                                                    {dayjs(expectedDeliveryDate.express).format(
                                                         "MMMM D, YYYY",
                                                     )}
                                                 </span>
