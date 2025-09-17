@@ -1,23 +1,32 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useMemo } from "react";
 import { IUserContext, UserContext } from "@/pages/Root";
 import { Link } from "react-router-dom";
 import { Divider, Button, Box } from "@mantine/core";
 import { NumberCircleOne, NumberCircleTwo, NumberCircleThree } from "@phosphor-icons/react";
 import { CartSummary } from "@/features/Cart/components/CartSummary";
+import { createError } from "@/utils/createError";
 import { PersonalInformationForm } from "./components/PersonalInformationForm";
 import { ShippingForm } from "./components/ShippingForm";
 import { PaymentForm } from "./components/PaymentForm";
 import styles from "./index.module.css";
 
 export function CheckoutContent() {
-    const { cart, defaultData } = useContext(UserContext);
+    const { user, cart, defaultData } = useContext(UserContext);
 
-    const { response, attempt, awaiting } = cart;
-    const { data } = response;
+    const { response: userResponse, awaiting: userAwaiting } = user;
+    const { response: cartResponse, attempt: cartAttempt, awaiting: cartAwaiting } = cart;
+
+    const { data } = cartResponse;
 
     const [stage, setStage] = useState<"personal" | "shipping" | "payment">("personal");
+    const userDataError = useMemo(() => {
+        if (!userAwaiting && !userResponse.data) {
+            return createError("Could not load user data");
+        }
+        return null;
+    }, [userAwaiting, userResponse]);
 
-    if (!awaiting && !data) {
+    if (!cartAwaiting && !data) {
         return (
             <section
                 className={styles["checkout-content-error"]}
@@ -38,7 +47,7 @@ export function CheckoutContent() {
                     </div>
 
                     <Button
-                        onClick={() => attempt()}
+                        onClick={() => cartAttempt()}
                         color="var(--site-colour-tertiary, rgb(250, 223, 198))"
                         variant="filled"
                         className={styles["error-try-again-button"]}
@@ -76,6 +85,8 @@ export function CheckoutContent() {
             <div className={styles["checkout-content-width-controller"]}>
                 <div className={styles["checkout-content-left"]}>
                     <h2 className={styles["checkout-header"]}>Checkout</h2>
+
+                    {userDataError}
 
                     <Divider className={styles["divider"]} />
 
@@ -130,7 +141,7 @@ export function CheckoutContent() {
                             color="var(--site-colour-tertiary, rgb(250, 223, 198))"
                             variant="filled"
                             className={styles["pay-now-button"]}
-                            disabled={awaiting || items.length === 0}
+                            disabled={cartAwaiting || items.length === 0}
                         >
                             Pay now
                         </Button>
