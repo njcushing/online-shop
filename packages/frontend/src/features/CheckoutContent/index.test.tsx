@@ -1,5 +1,5 @@
 import { vi } from "vitest";
-import { screen, render, userEvent, fireEvent } from "@test-utils";
+import { screen, render, within, userEvent, fireEvent } from "@test-utils";
 import _ from "lodash";
 import { act } from "react";
 import { IUserContext, UserContext } from "@/pages/Root";
@@ -432,6 +432,56 @@ describe("The CheckoutContent component...", () => {
                     expect(payNowButton).toBeEnabled();
                 });
             });
+        });
+    });
+
+    describe("Should display an error section...", () => {
+        test("If the UserContext's 'cart.awaiting' field is false and 'cart.response.data' field is falsy", () => {
+            renderFunc({
+                UserContextOverride: {
+                    cart: { response: { data: null }, awaiting: false },
+                } as unknown as IUserContext,
+            });
+
+            const errorSection = screen.getByRole("alert");
+            expect(errorSection).toBeInTheDocument();
+        });
+
+        test("That should contain a link to the homepage", () => {
+            renderFunc({
+                UserContextOverride: {
+                    cart: { response: { data: null }, awaiting: false },
+                } as unknown as IUserContext,
+            });
+
+            const errorSection = screen.getByRole("alert");
+            expect(errorSection).toBeInTheDocument();
+
+            const homepageLink = within(errorSection).getByRole("link", { name: "click here" });
+            expect(homepageLink).toBeInTheDocument();
+            expect(homepageLink).toHaveAttribute("href", "/");
+        });
+
+        test("That should contain a button that, on click, should invoke the UserContext's 'cart.attempt' function", async () => {
+            const attemptSpy = vi.fn();
+
+            renderFunc({
+                UserContextOverride: {
+                    cart: { response: { data: null }, attempt: attemptSpy, awaiting: false },
+                } as unknown as IUserContext,
+            });
+
+            const errorSection = screen.getByRole("alert");
+            expect(errorSection).toBeInTheDocument();
+
+            const attemptButton = within(errorSection).getByRole("button", { name: "Try again" });
+            expect(attemptButton).toBeInTheDocument();
+
+            expect(attemptSpy).not.toHaveBeenCalled();
+
+            await act(async () => userEvent.click(attemptButton));
+
+            expect(attemptSpy).toHaveBeenCalled();
         });
     });
 });
