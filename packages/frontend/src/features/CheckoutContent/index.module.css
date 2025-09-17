@@ -132,3 +132,77 @@
 .pay-now-button:disabled {
     color: rgba(0, 0, 0, 0.3);
 }
+
+.checkout-content-error {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    width: min(calc(var(--vw) * 100), 100%);
+    padding: 32px 0px;
+}
+
+.checkout-content-error-width-controller {
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+
+    width: min(calc(var(--vw) * 100), 100%);
+    max-width: 1280px;
+    padding: 16px;
+    margin: auto;
+}
+
+.error-header {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 1.4rem;
+    text-align: center;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.6rem;
+    }
+}
+
+.error-link-container {
+    font-family: var(--font-primary);
+    font-size: 1.1rem;
+    text-align: center;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.25rem;
+    }
+}
+
+.error-link {
+    text-decoration: none;
+
+    outline: none;
+    border: none;
+    background-color: transparent;
+
+    padding: 0px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.25rem;
+    }
+}
+
+.error-try-again-button {
+    display: flex;
+
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 1rem;
+
+    border-radius: 4px;
+
+    width: min-content;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.1rem;
+    }
+}

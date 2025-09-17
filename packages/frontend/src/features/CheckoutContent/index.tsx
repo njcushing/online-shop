@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { IUserContext, UserContext } from "@/pages/Root";
+import { Link } from "react-router-dom";
 import { Divider, Button, Box } from "@mantine/core";
 import { NumberCircleOne, NumberCircleTwo, NumberCircleThree } from "@phosphor-icons/react";
 import { CartSummary } from "@/features/Cart/components/CartSummary";
@@ -11,14 +12,48 @@ import styles from "./index.module.css";
 export function CheckoutContent() {
     const { cart, defaultData } = useContext(UserContext);
 
-    const { response, awaiting } = cart;
-
-    let cartData = defaultData.cart as NonNullable<IUserContext["cart"]["response"]["data"]>;
-    if (response.data) cartData = response.data;
-
-    const { items } = cartData;
+    const { response, attempt, awaiting } = cart;
+    const { data } = response;
 
     const [stage, setStage] = useState<"personal" | "shipping" | "payment">("personal");
+
+    if (!awaiting && !data) {
+        return (
+            <section
+                className={styles["checkout-content-error"]}
+                role="alert"
+                aria-live="assertive"
+            >
+                <div className={styles["checkout-content-error-width-controller"]}>
+                    <h1 className={styles["error-header"]}>
+                        Sorry! Something went wrong on our end. Your cart could not be loaded.
+                    </h1>
+
+                    <div className={styles["error-link-container"]}>
+                        Click the button below to try again, or{" "}
+                        <Link to="/" className={styles["error-link"]}>
+                            click here
+                        </Link>{" "}
+                        to return to home.
+                    </div>
+
+                    <Button
+                        onClick={() => attempt()}
+                        color="var(--site-colour-tertiary, rgb(250, 223, 198))"
+                        variant="filled"
+                        className={styles["error-try-again-button"]}
+                    >
+                        Try again
+                    </Button>
+                </div>
+            </section>
+        );
+    }
+
+    let cartData = defaultData.cart as NonNullable<IUserContext["cart"]["response"]["data"]>;
+    if (data) cartData = data;
+
+    const { items } = cartData;
 
     /**
      * Using 'data-testid' attribute on the CartSummary components because both are accessible in
