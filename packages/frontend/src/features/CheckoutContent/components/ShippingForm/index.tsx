@@ -8,7 +8,7 @@ import {
 } from "@/utils/schemas/checkout";
 import { useForm, useWatch, Controller, SubmitHandler } from "react-hook-form";
 import { Collapse, TextInput, Divider, Checkbox, Radio, Button } from "@mantine/core";
-import { createInputError } from "@/utils/createInputError";
+import { createError } from "@/utils/createError";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import _ from "lodash";
 import dayjs from "dayjs";
@@ -81,7 +81,7 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
     const getError = useCallback(
         (name: string) => {
             const fieldError = _.get(errors, `${name}.message`);
-            return createInputError(typeof fieldError === "string" ? fieldError : undefined);
+            return createError(typeof fieldError === "string" ? fieldError : undefined);
         },
         [errors],
     );

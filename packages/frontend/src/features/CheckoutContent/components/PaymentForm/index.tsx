@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckoutPaymentFormData, checkoutPaymentFormDataSchema } from "@/utils/schemas/checkout";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Collapse, Button } from "@mantine/core";
-import { createInputError } from "@/utils/createInputError";
+import { createError } from "@/utils/createError";
 import _ from "lodash";
 import styles from "./index.module.css";
 
@@ -42,7 +42,7 @@ export function PaymentForm({ isOpen = false, onReturn, onSubmit }: TPayment) {
     const getError = useCallback(
         (name: string) => {
             const fieldError = _.get(errors, `${name}.message`);
-            return createInputError(typeof fieldError === "string" ? fieldError : undefined);
+            return createError(typeof fieldError === "string" ? fieldError : undefined);
         },
         [errors],
     );

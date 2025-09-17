@@ -21,7 +21,7 @@ import {
     FieldPathValue,
     FieldValues,
 } from "react-hook-form";
-import { createInputError } from "@/utils/createInputError";
+import { createError } from "@/utils/createError";
 import _ from "lodash";
 import styles from "./index.module.css";
 
@@ -213,7 +213,7 @@ export function FormBuilder<T extends FieldValues>({
             });
 
             const inputError =
-                createInputError(typeof fieldError === "string" ? fieldError : undefined) ||
+                createError(typeof fieldError === "string" ? fieldError : undefined) ||
                 sharedFieldsHaveErrors.length > 0;
 
             const onBlur = () => {
@@ -310,7 +310,7 @@ export function FormBuilder<T extends FieldValues>({
         const errorElements = additionalErrorPaths.flatMap((pathName) => {
             const fieldError = _.get(errors, `${pathName}.message`);
             if (!fieldError) return [];
-            return <Fragment key={pathName}>{createInputError(fieldError)}</Fragment>;
+            return <Fragment key={pathName}>{createError(fieldError)}</Fragment>;
         });
 
         return errorElements.length > 0 ? (
