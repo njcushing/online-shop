@@ -1,3 +1,25 @@
+.checkout-details-section {
+    scroll-margin: 16px;
+}
+
+.panel {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 12px;
+}
+
+.panel-title {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 1.44rem;
+    font-weight: 500;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.6rem;
+    }
+}
+
 .checkout-details-section-content {
     padding: 12px 0px;
 }
@@ -40,8 +62,6 @@
 }
 
 .form-field-input {
-    scroll-margin: 86px;
-
     color: black;
     font-family: var(--font-primary);
     font-size: 0.92rem;

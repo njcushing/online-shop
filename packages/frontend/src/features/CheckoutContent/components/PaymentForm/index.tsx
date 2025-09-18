@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckoutPaymentFormData, checkoutPaymentFormDataSchema } from "@/utils/schemas/checkout";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Collapse, Button } from "@mantine/core";
+import { NumberCircleThree } from "@phosphor-icons/react";
 import { Error } from "@/components/UI/Error";
 import _ from "lodash";
 import styles from "./index.module.css";
@@ -49,38 +50,46 @@ export function PaymentForm({ isOpen = false, onReturn, onSubmit }: TPayment) {
 
     const disableInputs = userAwaiting || cartAwaiting || !isOpen;
 
+    const containerRef = useRef<HTMLDivElement>(null);
     const firstInputRef = useRef<HTMLInputElement>(null);
     const focusFirstInput = useCallback(() => {
-        if (isOpen && firstInputRef.current) {
-            firstInputRef.current.focus({ preventScroll: true });
-            firstInputRef.current.scrollIntoView({ behavior: "smooth" });
+        if (isOpen) {
+            const preventScroll = !!containerRef.current;
+            if (firstInputRef.current) firstInputRef.current.focus({ preventScroll });
+            if (containerRef.current) containerRef.current.scrollIntoView({ behavior: "smooth" });
         }
     }, [isOpen]);
 
     return (
-        <Collapse in={isOpen} animateOpacity={false} onTransitionEnd={() => focusFirstInput()}>
-            <div className={styles["checkout-details-section-content"]}>
-                <form
-                    className={styles["form"]}
-                    aria-label="checkout shipping"
-                    onSubmit={onSubmit && handleSubmit(onSubmit)}
-                    noValidate
-                >
-                    <div className={styles["button-container"]}>
-                        <Button
-                            type="button"
-                            color="rgb(48, 48, 48)"
-                            variant="filled"
-                            radius={9999}
-                            onClick={() => onReturn && onReturn()}
-                            disabled={disableInputs}
-                            className={styles["previous-stage-button"]}
-                        >
-                            Return to shipping
-                        </Button>
-                    </div>
-                </form>
+        <div className={styles["checkout-details-section"]} ref={containerRef}>
+            <div className={styles["panel"]}>
+                <NumberCircleThree weight="fill" size="2rem" />
+                <span className={styles["panel-title"]}>Payment</span>
             </div>
-        </Collapse>
+            <Collapse in={isOpen} animateOpacity={false} onTransitionEnd={() => focusFirstInput()}>
+                <div className={styles["checkout-details-section-content"]}>
+                    <form
+                        className={styles["form"]}
+                        aria-label="checkout shipping"
+                        onSubmit={onSubmit && handleSubmit(onSubmit)}
+                        noValidate
+                    >
+                        <div className={styles["button-container"]}>
+                            <Button
+                                type="button"
+                                color="rgb(48, 48, 48)"
+                                variant="filled"
+                                radius={9999}
+                                onClick={() => onReturn && onReturn()}
+                                disabled={disableInputs}
+                                className={styles["previous-stage-button"]}
+                            >
+                                Return to shipping
+                            </Button>
+                        </div>
+                    </form>
+                </div>
+            </Collapse>
+        </div>
     );
 }

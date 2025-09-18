@@ -2,7 +2,6 @@ import { useContext, useState, useEffect } from "react";
 import { IUserContext, UserContext } from "@/pages/Root";
 import { Link } from "react-router-dom";
 import { Divider, Button, Box } from "@mantine/core";
-import { NumberCircleOne, NumberCircleTwo, NumberCircleThree } from "@phosphor-icons/react";
 import { CartSummary } from "@/features/Cart/components/CartSummary";
 import { Error } from "@/components/UI/Error";
 import { PersonalInformationForm } from "./components/PersonalInformationForm";
@@ -19,6 +18,7 @@ export function CheckoutContent() {
     const { data } = cartResponse;
 
     const [stage, setStage] = useState<"personal" | "shipping" | "payment">("personal");
+
     const [userDataError, setUserDataError] = useState<JSX.Element | null>(null);
     useEffect(() => {
         if (!userAwaiting && !userResponse.data) {
@@ -120,43 +120,25 @@ export function CheckoutContent() {
 
                     <Divider className={styles["divider"]} />
 
-                    <div className={styles["checkout-details-section"]}>
-                        <div className={styles["panel"]}>
-                            <NumberCircleOne weight="fill" size="2rem" />
-                            <span className={styles["panel-title"]}>Personal</span>
-                        </div>
-                        <PersonalInformationForm
-                            isOpen={stage === "personal"}
-                            onSubmit={() => setStage("shipping")}
-                        />
-                    </div>
+                    <PersonalInformationForm
+                        isOpen={stage === "personal"}
+                        onSubmit={() => setStage("shipping")}
+                    />
 
                     <Divider className={styles["divider-light"]} />
 
-                    <div className={styles["checkout-details-section"]}>
-                        <div className={styles["panel"]}>
-                            <NumberCircleTwo weight="fill" size="2rem" />
-                            <span className={styles["panel-title"]}>Shipping</span>
-                        </div>
-                        <ShippingForm
-                            isOpen={stage === "shipping"}
-                            onReturn={() => setStage("personal")}
-                            onSubmit={() => setStage("payment")}
-                        />
-                    </div>
+                    <ShippingForm
+                        isOpen={stage === "shipping"}
+                        onReturn={() => setStage("personal")}
+                        onSubmit={() => setStage("payment")}
+                    />
 
                     <Divider className={styles["divider-light"]} />
 
-                    <div className={styles["checkout-details-section"]}>
-                        <div className={styles["panel"]}>
-                            <NumberCircleThree weight="fill" size="2rem" />
-                            <span className={styles["panel-title"]}>Payment</span>
-                        </div>
-                        <PaymentForm
-                            isOpen={stage === "payment"}
-                            onReturn={() => setStage("shipping")}
-                        />
-                    </div>
+                    <PaymentForm
+                        isOpen={stage === "payment"}
+                        onReturn={() => setStage("shipping")}
+                    />
                 </div>
 
                 <Box visibleFrom="lg">

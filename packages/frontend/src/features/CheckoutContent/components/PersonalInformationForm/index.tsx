@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckoutPersonalFormData, checkoutPersonalFormDataSchema } from "@/utils/schemas/checkout";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { Collapse, TextInput, Button } from "@mantine/core";
+import { NumberCircleOne } from "@phosphor-icons/react";
 import { Error } from "@/components/UI/Error";
 import _ from "lodash";
 import styles from "./index.module.css";
@@ -67,42 +68,88 @@ export function PersonalInformationForm({ isOpen = false, onSubmit }: TPersonalI
      */
     /* v8 ignore start */
 
+    const containerRef = useRef<HTMLDivElement>(null);
     const firstInputRef = useRef<HTMLInputElement>(null);
     const focusFirstInput = useCallback(() => {
-        if (isOpen && firstInputRef.current) {
-            firstInputRef.current.focus({ preventScroll: true });
-            firstInputRef.current.scrollIntoView({ behavior: "smooth" });
+        if (isOpen) {
+            const preventScroll = !!containerRef.current;
+            if (firstInputRef.current) firstInputRef.current.focus({ preventScroll });
+            if (containerRef.current) containerRef.current.scrollIntoView({ behavior: "smooth" });
         }
     }, [isOpen]);
 
     /* v8 ignore stop */
 
     return (
-        <Collapse in={isOpen} animateOpacity={false} onTransitionEnd={focusFirstInput}>
-            <div className={styles["checkout-details-section-content"]}>
-                <form
-                    className={styles["form"]}
-                    aria-label="checkout personal information"
-                    onSubmit={onSubmit && handleSubmit(onSubmit)}
-                    noValidate
-                >
-                    <div className={styles["fields-container"]}>
-                        <div className={styles["name-fields-container"]}>
+        <div className={styles["checkout-details-section"]} ref={containerRef}>
+            <div className={styles["panel"]}>
+                <NumberCircleOne weight="fill" size="2rem" />
+                <span className={styles["panel-title"]}>Personal</span>
+            </div>
+            <Collapse in={isOpen} animateOpacity={false} onTransitionEnd={focusFirstInput}>
+                <div className={styles["checkout-details-section-content"]}>
+                    <form
+                        className={styles["form"]}
+                        aria-label="checkout personal information"
+                        onSubmit={onSubmit && handleSubmit(onSubmit)}
+                        noValidate
+                    >
+                        <div className={styles["fields-container"]}>
+                            <div className={styles["name-fields-container"]}>
+                                <Controller
+                                    control={control}
+                                    name="firstName"
+                                    render={({ field }) => {
+                                        return (
+                                            <TextInput
+                                                {...field}
+                                                {...inputProps}
+                                                value={field.value}
+                                                label="First name"
+                                                autoComplete="given-name"
+                                                required
+                                                error={getError("firstName")}
+                                                disabled={disableInputs}
+                                                ref={firstInputRef}
+                                            />
+                                        );
+                                    }}
+                                />
+
+                                <Controller
+                                    control={control}
+                                    name="lastName"
+                                    render={({ field }) => {
+                                        return (
+                                            <TextInput
+                                                {...field}
+                                                {...inputProps}
+                                                value={field.value}
+                                                label="Last name"
+                                                autoComplete="family-name"
+                                                required
+                                                error={getError("lastName")}
+                                                disabled={disableInputs}
+                                            />
+                                        );
+                                    }}
+                                />
+                            </div>
+
                             <Controller
                                 control={control}
-                                name="firstName"
+                                name="email"
                                 render={({ field }) => {
                                     return (
                                         <TextInput
                                             {...field}
                                             {...inputProps}
                                             value={field.value}
-                                            label="First name"
-                                            autoComplete="given-name"
+                                            label="Email address"
+                                            autoComplete="email"
                                             required
-                                            error={getError("firstName")}
+                                            error={getError("email")}
                                             disabled={disableInputs}
-                                            ref={firstInputRef}
                                         />
                                     );
                                 }}
@@ -110,17 +157,17 @@ export function PersonalInformationForm({ isOpen = false, onSubmit }: TPersonalI
 
                             <Controller
                                 control={control}
-                                name="lastName"
+                                name="phone"
                                 render={({ field }) => {
                                     return (
                                         <TextInput
                                             {...field}
                                             {...inputProps}
                                             value={field.value}
-                                            label="Last name"
-                                            autoComplete="family-name"
-                                            required
-                                            error={getError("lastName")}
+                                            label="Phone number (optional)"
+                                            autoComplete="tel"
+                                            description="For contacting you with queries about your order"
+                                            error={getError("phone")}
                                             disabled={disableInputs}
                                         />
                                     );
@@ -128,57 +175,19 @@ export function PersonalInformationForm({ isOpen = false, onSubmit }: TPersonalI
                             />
                         </div>
 
-                        <Controller
-                            control={control}
-                            name="email"
-                            render={({ field }) => {
-                                return (
-                                    <TextInput
-                                        {...field}
-                                        {...inputProps}
-                                        value={field.value}
-                                        label="Email address"
-                                        autoComplete="email"
-                                        required
-                                        error={getError("email")}
-                                        disabled={disableInputs}
-                                    />
-                                );
-                            }}
-                        />
-
-                        <Controller
-                            control={control}
-                            name="phone"
-                            render={({ field }) => {
-                                return (
-                                    <TextInput
-                                        {...field}
-                                        {...inputProps}
-                                        value={field.value}
-                                        label="Phone number (optional)"
-                                        autoComplete="tel"
-                                        description="For contacting you with queries about your order"
-                                        error={getError("phone")}
-                                        disabled={disableInputs}
-                                    />
-                                );
-                            }}
-                        />
-                    </div>
-
-                    <Button
-                        type="submit"
-                        color="rgb(48, 48, 48)"
-                        variant="filled"
-                        radius={9999}
-                        disabled={disableInputs}
-                        className={styles["next-stage-button"]}
-                    >
-                        Continue to shipping
-                    </Button>
-                </form>
-            </div>
-        </Collapse>
+                        <Button
+                            type="submit"
+                            color="rgb(48, 48, 48)"
+                            variant="filled"
+                            radius={9999}
+                            disabled={disableInputs}
+                            className={styles["next-stage-button"]}
+                        >
+                            Continue to shipping
+                        </Button>
+                    </form>
+                </div>
+            </Collapse>
+        </div>
     );
 }
