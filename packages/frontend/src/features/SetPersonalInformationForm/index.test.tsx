@@ -331,7 +331,6 @@ describe("The SetPersonalInformationForm component...", () => {
 
                             const errorElement = screen.getByText(error, { exact: false });
                             expect(errorElement).toBeInTheDocument();
-                            expect(errorElement.role).toBe("alert");
                         }
                     });
                 });

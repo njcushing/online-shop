@@ -5,7 +5,7 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Icons } from "@/components/Icons";
 import { CaretLeft } from "@phosphor-icons/react";
-import { createError } from "@/utils/createError";
+import { Error } from "@/components/UI/Error";
 import { PersonalInformationFormData, personalInformationFormDataSchema } from "./utils/zodSchema";
 import styles from "./index.module.css";
 
@@ -82,7 +82,7 @@ export function SetPersonalInformationForm({ onSuccess }: TSetPersonalInformatio
                     {...register("phone", { setValueAs: (v) => v || undefined })}
                     {...inputProps}
                     label="Phone number"
-                    error={createError(errors.phone?.message)}
+                    error={<Error message={errors.phone?.message || ""} />}
                     onFocus={() => setCurrentStage(stage)}
                     tabIndex={tabIndex}
                 />
@@ -101,7 +101,7 @@ export function SetPersonalInformationForm({ onSuccess }: TSetPersonalInformatio
                                 {...inputProps}
                                 label="Day"
                                 hideControls
-                                error={createError(errors.dob?.day?.message)}
+                                error={<Error message={errors.dob?.day?.message || ""} />}
                                 onChange={(v) => field.onChange(v)}
                                 onFocus={() => setCurrentStage(stage)}
                                 tabIndex={tabIndex}
@@ -118,7 +118,7 @@ export function SetPersonalInformationForm({ onSuccess }: TSetPersonalInformatio
                                 {...inputProps}
                                 label="Month"
                                 hideControls
-                                error={createError(errors.dob?.month?.message)}
+                                error={<Error message={errors.dob?.month?.message || ""} />}
                                 onChange={(v) => field.onChange(v)}
                                 onFocus={() => setCurrentStage(stage)}
                                 tabIndex={tabIndex}
@@ -135,7 +135,7 @@ export function SetPersonalInformationForm({ onSuccess }: TSetPersonalInformatio
                                 {...inputProps}
                                 label="Year"
                                 hideControls
-                                error={createError(errors.dob?.year?.message)}
+                                error={<Error message={errors.dob?.year?.message || ""} />}
                                 onChange={(v) => field.onChange(v)}
                                 onFocus={() => setCurrentStage(stage)}
                                 tabIndex={tabIndex}
@@ -144,7 +144,7 @@ export function SetPersonalInformationForm({ onSuccess }: TSetPersonalInformatio
                     />
                 </fieldset>
 
-                {createError(errors.dob?.root?.message)}
+                <Error message={errors.dob?.root?.message || ""} />
             </div>
         );
     }, [currentStage, control, formState, register]);
@@ -195,7 +195,7 @@ export function SetPersonalInformationForm({ onSuccess }: TSetPersonalInformatio
                     {...register("address.postcode", { setValueAs: (v) => v || undefined })}
                     {...inputProps}
                     label="Postcode"
-                    error={createError(errors.address?.postcode?.message)}
+                    error={<Error message={errors.address?.postcode?.message || ""} />}
                     onFocus={() => setCurrentStage(stage)}
                     tabIndex={tabIndex}
                 />

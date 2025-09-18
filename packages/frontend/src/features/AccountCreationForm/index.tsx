@@ -4,7 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { google, facebook, x, github } from "@/utils/svgs/logos";
-import { createError } from "@/utils/createError";
+import { Error } from "@/components/UI/Error";
 import { AccountCreationFormData, accountCreationFormDataSchema } from "./utils/zodSchema";
 import styles from "./index.module.css";
 
@@ -76,7 +76,7 @@ export function AccountCreationForm({ onSuccess }: TAccountCreationForm) {
                             {...inputProps}
                             label="Email address"
                             required
-                            error={createError(errors.email?.message)}
+                            error={<Error message={errors.email?.message || ""} />}
                         />
 
                         <PasswordInput
@@ -88,7 +88,7 @@ export function AccountCreationForm({ onSuccess }: TAccountCreationForm) {
                             // too
                             aria-label="Password"
                             required
-                            error={createError(errors.password?.message)}
+                            error={<Error message={errors.password?.message || ""} />}
                         />
                         <Progress
                             value={(100 / 8) * Math.min(8, watch("password")?.length || 0)}
@@ -102,7 +102,7 @@ export function AccountCreationForm({ onSuccess }: TAccountCreationForm) {
                             // Using aria-label here for the same reason as the above PasswordInput
                             aria-label="Confirm password"
                             required
-                            error={createError(errors.confirmPassword?.message)}
+                            error={<Error message={errors.confirmPassword?.message || ""} />}
                         />
                     </div>
 

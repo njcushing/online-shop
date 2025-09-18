@@ -4,7 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { google, facebook, x, github } from "@/utils/svgs/logos";
-import { createError } from "@/utils/createError";
+import { Error } from "@/components/UI/Error";
 import { LoginFormData, loginFormDataSchema } from "./utils/zodSchema";
 import styles from "./index.module.css";
 
@@ -70,7 +70,7 @@ export function LoginForm({ onSuccess }: TLoginForm) {
                             label="Email address"
                             required
                             styles={{ required: { display: "none" } }} // Hiding asterisk
-                            error={createError(errors.email?.message)}
+                            error={<Error message={errors.email?.message || ""} />}
                         />
 
                         <PasswordInput
@@ -83,7 +83,7 @@ export function LoginForm({ onSuccess }: TLoginForm) {
                             aria-label="Password"
                             required
                             styles={{ required: { display: "none" } }} // Hiding asterisk
-                            error={createError(errors.password?.message)}
+                            error={<Error message={errors.password?.message || ""} />}
                         />
                     </div>
 

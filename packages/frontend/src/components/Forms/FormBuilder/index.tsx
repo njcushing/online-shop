@@ -21,7 +21,7 @@ import {
     FieldPathValue,
     FieldValues,
 } from "react-hook-form";
-import { createError } from "@/utils/createError";
+import { Error } from "@/components/UI/Error";
 import _ from "lodash";
 import styles from "./index.module.css";
 
@@ -212,9 +212,7 @@ export function FormBuilder<T extends FieldValues>({
                 return _.get(errors, fieldName);
             });
 
-            const inputError =
-                createError(typeof fieldError === "string" ? fieldError : undefined) ||
-                sharedFieldsHaveErrors.length > 0;
+            const inputError = <Error message={typeof fieldError === "string" ? fieldError : ""} />;
 
             const onBlur = () => {
                 field.onBlur();
@@ -242,7 +240,7 @@ export function FormBuilder<T extends FieldValues>({
                             description={description}
                             required={required}
                             hideControls
-                            error={inputError}
+                            error={inputError || sharedFieldsHaveErrors.length > 0}
                             onBlur={onBlur}
                             onChange={(v) => {
                                 field.onChange(typeof v === "number" ? v : undefined);
@@ -310,7 +308,12 @@ export function FormBuilder<T extends FieldValues>({
         const errorElements = additionalErrorPaths.flatMap((pathName) => {
             const fieldError = _.get(errors, `${pathName}.message`);
             if (!fieldError) return [];
-            return <Fragment key={pathName}>{createError(fieldError)}</Fragment>;
+
+            return (
+                <Fragment key={pathName}>
+                    <Error message={typeof fieldError === "string" ? fieldError : ""} />
+                </Fragment>
+            );
         });
 
         return errorElements.length > 0 ? (

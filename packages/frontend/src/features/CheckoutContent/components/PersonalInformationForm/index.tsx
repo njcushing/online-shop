@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckoutPersonalFormData, checkoutPersonalFormDataSchema } from "@/utils/schemas/checkout";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { Collapse, TextInput, Button } from "@mantine/core";
-import { createError } from "@/utils/createError";
+import { Error } from "@/components/UI/Error";
 import _ from "lodash";
 import styles from "./index.module.css";
 
@@ -54,7 +54,7 @@ export function PersonalInformationForm({ isOpen = false, onSubmit }: TPersonalI
     const getError = useCallback(
         (name: string) => {
             const fieldError = _.get(errors, `${name}.message`);
-            return createError(typeof fieldError === "string" ? fieldError : undefined);
+            return <Error message={typeof fieldError === "string" ? fieldError : ""} />;
         },
         [errors],
     );
