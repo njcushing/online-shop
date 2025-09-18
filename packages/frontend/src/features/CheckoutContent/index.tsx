@@ -1,10 +1,10 @@
-import { useContext, useState, useMemo } from "react";
+import { useContext, useState, useEffect } from "react";
 import { IUserContext, UserContext } from "@/pages/Root";
 import { Link } from "react-router-dom";
 import { Divider, Button, Box } from "@mantine/core";
 import { NumberCircleOne, NumberCircleTwo, NumberCircleThree } from "@phosphor-icons/react";
 import { CartSummary } from "@/features/Cart/components/CartSummary";
-import { createError } from "@/utils/createError";
+import { Error } from "@/components/UI/Error";
 import { PersonalInformationForm } from "./components/PersonalInformationForm";
 import { ShippingForm } from "./components/ShippingForm";
 import { PaymentForm } from "./components/PaymentForm";
@@ -13,18 +13,48 @@ import styles from "./index.module.css";
 export function CheckoutContent() {
     const { user, cart, defaultData } = useContext(UserContext);
 
-    const { response: userResponse, awaiting: userAwaiting } = user;
+    const { response: userResponse, attempt: userAttempt, awaiting: userAwaiting } = user;
     const { response: cartResponse, attempt: cartAttempt, awaiting: cartAwaiting } = cart;
 
     const { data } = cartResponse;
 
     const [stage, setStage] = useState<"personal" | "shipping" | "payment">("personal");
-    const userDataError = useMemo(() => {
+    const [userDataError, setUserDataError] = useState<JSX.Element | null>(null);
+    useEffect(() => {
         if (!userAwaiting && !userResponse.data) {
-            return createError("Could not load user data");
+            setUserDataError(
+                <Error
+                    message="Could not load user data"
+                    classNames={{ container: styles["user-data-error-container"] }}
+                >
+                    <div className={styles["user-data-error-buttons-container"]}>
+                        <Button
+                            onClick={() => {
+                                setUserDataError(null);
+                                userAttempt();
+                            }}
+                            color="white"
+                            variant="filled"
+                            className={styles["user-data-error-retry-button"]}
+                        >
+                            Retry
+                        </Button>
+
+                        <Button
+                            onClick={() => setUserDataError(null)}
+                            color="white"
+                            variant="filled"
+                            className={styles["user-data-error-dismiss-button"]}
+                        >
+                            Dismiss
+                        </Button>
+                    </div>
+                </Error>,
+            );
+        } else {
+            setUserDataError(null);
         }
-        return null;
-    }, [userAwaiting, userResponse]);
+    }, [userAwaiting, userResponse, userAttempt]);
 
     if (!cartAwaiting && !data) {
         return (

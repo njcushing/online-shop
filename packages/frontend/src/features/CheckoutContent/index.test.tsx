@@ -7,8 +7,19 @@ import { RecursivePartial } from "@/utils/types";
 import { BrowserRouter } from "react-router-dom";
 import { CheckoutContent } from ".";
 
+const getProps = (component: HTMLElement) => {
+    return JSON.parse(component.getAttribute("data-props")!);
+};
+
 // Mock dependencies
 const mockUserContext: RecursivePartial<IUserContext> = {
+    user: {
+        response: {
+            data: {} as unknown as IUserContext["user"]["response"]["data"],
+        },
+        attempt: () => {},
+        awaiting: false,
+    },
     cart: {
         // Only using fields relevant to the CheckoutContent component
         response: {
@@ -17,6 +28,7 @@ const mockUserContext: RecursivePartial<IUserContext> = {
                 promotions: [],
             } as unknown as IUserContext["cart"]["response"]["data"],
         },
+        attempt: () => {},
         awaiting: false,
     },
 
@@ -112,6 +124,17 @@ vi.mock("@/features/CheckoutContent/components/PaymentForm", () => ({
                 aria-label="PaymentForm component"
                 data-props={JSON.stringify(props)}
             ></button>
+        );
+    }),
+}));
+
+vi.mock("@/components/UI/Error", () => ({
+    Error: vi.fn((props: unknown & { message: string; children: React.ReactNode }) => {
+        return (
+            <div aria-label="Error component" data-props={JSON.stringify(props)}>
+                {props.message}
+                {props.children}
+            </div>
         );
     }),
 }));
@@ -435,6 +458,77 @@ describe("The CheckoutContent component...", () => {
         });
     });
 
+    describe("Should display an Error component...", () => {
+        test("If the UserContext's 'user.awaiting' field is false and 'user.response.data' field is falsy", () => {
+            renderFunc({
+                UserContextOverride: {
+                    user: { response: { data: null }, awaiting: false },
+                } as unknown as IUserContext,
+            });
+
+            const Error = screen.getByLabelText("Error component");
+            expect(Error).toBeInTheDocument();
+        });
+
+        test("Passing the correct props", () => {
+            renderFunc({
+                UserContextOverride: {
+                    user: { response: { data: null }, awaiting: false },
+                } as unknown as IUserContext,
+            });
+
+            const Error = screen.getByLabelText("Error component");
+            expect(Error).toBeInTheDocument();
+
+            const props = getProps(Error);
+            expect(props).toEqual(
+                expect.objectContaining({
+                    message: "Could not load user data",
+                }),
+            );
+        });
+
+        test("That should render a 'Retry' button that, on click, should invoke the UserContext's 'user.attempt' function", async () => {
+            const attemptSpy = vi.fn();
+
+            renderFunc({
+                UserContextOverride: {
+                    user: { response: { data: null }, attempt: attemptSpy, awaiting: false },
+                } as unknown as IUserContext,
+            });
+
+            const Error = screen.getByLabelText("Error component");
+            expect(Error).toBeInTheDocument();
+
+            const retryButton = within(Error).getByRole("button", { name: "Retry" });
+            expect(retryButton).toBeInTheDocument();
+
+            expect(attemptSpy).not.toHaveBeenCalled();
+
+            await act(async () => userEvent.click(retryButton));
+
+            expect(attemptSpy).toHaveBeenCalled();
+        });
+
+        test("That should render a 'Dismiss' button that, on click, should unmount the Error component", async () => {
+            renderFunc({
+                UserContextOverride: {
+                    user: { response: { data: null }, awaiting: false },
+                } as unknown as IUserContext,
+            });
+
+            const Error = screen.getByLabelText("Error component");
+            expect(Error).toBeInTheDocument();
+
+            const dismissButton = within(Error).getByRole("button", { name: "Dismiss" });
+            expect(dismissButton).toBeInTheDocument();
+
+            await act(async () => userEvent.click(dismissButton));
+
+            expect(screen.queryByLabelText("Error component")).not.toBeInTheDocument();
+        });
+    });
+
     describe("Should display an error section...", () => {
         test("If the UserContext's 'cart.awaiting' field is false and 'cart.response.data' field is falsy", () => {
             renderFunc({
@@ -474,12 +568,12 @@ describe("The CheckoutContent component...", () => {
             const errorSection = screen.getByRole("alert");
             expect(errorSection).toBeInTheDocument();
 
-            const attemptButton = within(errorSection).getByRole("button", { name: "Try again" });
-            expect(attemptButton).toBeInTheDocument();
+            const tryAgainButton = within(errorSection).getByRole("button", { name: "Try again" });
+            expect(tryAgainButton).toBeInTheDocument();
 
             expect(attemptSpy).not.toHaveBeenCalled();
 
-            await act(async () => userEvent.click(attemptButton));
+            await act(async () => userEvent.click(tryAgainButton));
 
             expect(attemptSpy).toHaveBeenCalled();
         });

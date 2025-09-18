@@ -133,6 +133,60 @@
     color: rgba(0, 0, 0, 0.3);
 }
 
+.user-data-error-container {
+    display: grid;
+    grid-template-columns: repeat(2, auto) 1fr;
+    gap: 8px;
+
+    width: 100%;
+}
+
+.user-data-error-buttons-container {
+    justify-self: end;
+
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.user-data-error-retry-button,
+.user-data-error-dismiss-button {
+    color: rgb(218, 46, 23);
+    font-family: var(--font-primary);
+    font-size: 0.82rem;
+    text-align: center;
+
+    width: min-content;
+    max-height: 1.6rem;
+    padding: 0px 12px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.86rem;
+    }
+
+    --button-fz: 0.5rem;
+}
+
+@media (hover: hover) {
+    .user-data-error-retry-button:hover,
+    .user-data-error-dismiss-button:hover {
+        color: white;
+        background-color: rgb(148, 16, 16);
+    }
+}
+
+.user-data-error-retry-button:focus-visible,
+.user-data-error-dismiss-button:focus-visible {
+    outline: 2px solid white;
+    border-radius: 0px;
+}
+
+.user-data-error-retry-button:active,
+.user-data-error-dismiss-button:active {
+    color: white;
+    background-color: rgb(148, 16, 16);
+}
+
 .checkout-content-error {
     display: flex;
     flex-direction: column;
