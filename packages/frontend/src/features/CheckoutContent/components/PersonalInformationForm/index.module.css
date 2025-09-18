@@ -40,6 +40,8 @@
 }
 
 .form-field-input {
+    scroll-margin: 86px;
+
     color: black;
     font-family: var(--font-primary);
     font-size: 0.92rem;

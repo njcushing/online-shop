@@ -69,7 +69,10 @@ export function PersonalInformationForm({ isOpen = false, onSubmit }: TPersonalI
 
     const firstInputRef = useRef<HTMLInputElement>(null);
     const focusFirstInput = useCallback(() => {
-        if (isOpen && firstInputRef.current) firstInputRef.current.focus();
+        if (isOpen && firstInputRef.current) {
+            firstInputRef.current.focus({ preventScroll: true });
+            firstInputRef.current.scrollIntoView({ behavior: "smooth" });
+        }
     }, [isOpen]);
 
     /* v8 ignore stop */

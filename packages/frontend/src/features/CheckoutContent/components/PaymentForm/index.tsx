@@ -51,7 +51,10 @@ export function PaymentForm({ isOpen = false, onReturn, onSubmit }: TPayment) {
 
     const firstInputRef = useRef<HTMLInputElement>(null);
     const focusFirstInput = useCallback(() => {
-        if (isOpen && firstInputRef.current) firstInputRef.current.focus();
+        if (isOpen && firstInputRef.current) {
+            firstInputRef.current.focus({ preventScroll: true });
+            firstInputRef.current.scrollIntoView({ behavior: "smooth" });
+        }
     }, [isOpen]);
 
     return (
