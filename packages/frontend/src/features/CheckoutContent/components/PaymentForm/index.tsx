@@ -9,13 +9,13 @@ import { Error } from "@/components/UI/Error";
 import _ from "lodash";
 import styles from "./index.module.css";
 
-export type TPayment = {
+export type TPaymentForm = {
     isOpen: boolean;
     onReturn?: () => void;
     onSubmit?: SubmitHandler<CheckoutPaymentFormData>;
 };
 
-export function PaymentForm({ isOpen = false, onReturn, onSubmit }: TPayment) {
+export function PaymentForm({ isOpen = false, onReturn, onSubmit }: TPaymentForm) {
     const { user, cart } = useContext(UserContext);
 
     const { awaiting: userAwaiting } = user;
@@ -70,7 +70,7 @@ export function PaymentForm({ isOpen = false, onReturn, onSubmit }: TPayment) {
                 <div className={styles["checkout-details-section-content"]}>
                     <form
                         className={styles["form"]}
-                        aria-label="checkout shipping"
+                        aria-label="checkout payment"
                         onSubmit={onSubmit && handleSubmit(onSubmit)}
                         noValidate
                     >
