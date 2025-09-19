@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { IUserContext, UserContext } from "@/pages/Root";
 import { Link } from "react-router-dom";
-import { Divider, Button, Box } from "@mantine/core";
+import { useMatches, Divider, Button, Box } from "@mantine/core";
 import { CartSummary } from "@/features/Cart/components/CartSummary";
 import { Error } from "@/components/UI/Error";
 import { PersonalInformationForm } from "./components/PersonalInformationForm";
@@ -10,6 +10,8 @@ import { PaymentForm } from "./components/PaymentForm";
 import styles from "./index.module.css";
 
 export function CheckoutContent() {
+    const narrow = useMatches({ base: true, lg: false });
+
     const { user, cart, defaultData } = useContext(UserContext);
 
     const { response: userResponse, attempt: userAttempt, awaiting: userAwaiting } = user;
@@ -104,13 +106,13 @@ export function CheckoutContent() {
 
     return (
         <section className={styles["checkout-content"]}>
-            <Box hiddenFrom="lg">
+            {narrow && (
                 <CartSummary
                     data-testid="CartSummary-narrow"
                     layout="dropdown"
                     classNames={{ header: styles["CartSummary-header"] }}
                 />
-            </Box>
+            )}
 
             <div className={styles["checkout-content-width-controller"]}>
                 <div className={styles["checkout-content-left"]}>
