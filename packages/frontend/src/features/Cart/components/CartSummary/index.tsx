@@ -47,6 +47,12 @@ export type TCartSummary = {
         };
         collapse?: {
             root?: string;
+            button?: {
+                root?: string;
+                label?: string;
+                right?: string;
+                editLinkContainer?: string;
+            };
             top?: string;
             bottom?: string;
         };
@@ -76,6 +82,12 @@ const getConcatenatedClassNames = (
         },
         collapse: {
             root: `${styles["collapse"]} ${classNames?.collapse?.root}`,
+            button: {
+                root: `${styles["collapse-button-root"]} ${classNames?.collapse?.button?.root}`,
+                label: `${styles["collapse-button-label"]} ${classNames?.collapse?.button?.label}`,
+                right: `${styles["collapse-button-right"]} ${classNames?.collapse?.button?.right}`,
+                editLinkContainer: `${styles["collapse-button-edit-link-container"]} ${classNames?.collapse?.button?.editLinkContainer}`,
+            },
             top: `${styles["collapse-content-top"]} ${classNames?.collapse?.top}`,
             bottom: `${styles["collapse-content-bottom"]} ${classNames?.collapse?.bottom}`,
         },
@@ -115,45 +127,51 @@ export function CartSummary({
         if (layout === "dropdown" && open) window.scrollTo(0, 0);
     }, [layout, open]);
 
-    const [buttonRef, buttonRect] = useResizeObserver();
-    const [buttonHeight, setButtonHeight] = useState<number>(0);
-    useEffect(() => setButtonHeight(buttonRect.height), [buttonRect]);
+    const [buttonContainerRef, buttonContainerRect] = useResizeObserver();
+    const [buttonContainerHeight, setButtonContainerHeight] = useState<number>(0);
+    useEffect(() => setButtonContainerHeight(buttonContainerRect.height), [buttonContainerRect]);
 
     const defaultHeaderText = layout === "visible" ? "Cart summary" : "Order Details";
 
     const editLink = useMemo(() => {
-        if (hideEditLink || items.length === 0) return null;
+        if (hideEditLink || !items || items.length === 0) return null;
         return (
             <Link to="/cart" className={concatenatedClassNames.editLink} data-disabled={awaiting}>
                 Edit
             </Link>
         );
-    }, [hideEditLink, concatenatedClassNames, awaiting, items.length]);
+    }, [hideEditLink, concatenatedClassNames, awaiting, items]);
 
     const cartItems = useMemo(() => {
-        return items.map((item) => {
-            const props = _.merge(
-                {
-                    data: item,
-                    editableQuantity: false,
-                    classNames: {
-                        name: styles["cart-item-name"],
-                        content: styles["cart-item-content"],
-                        variantOptionName: styles["cart-item-variant-option-name"],
-                        variantOptionValue: styles["cart-item-variant-option-value"],
-                        quantity: styles["cart-item-quantity"],
-                        price: {
-                            current: styles["price-current"],
-                            base: styles["price-base"],
-                            discountPercentage: styles["price-discount-percentage"],
+        return items && items.length > 0 ? (
+            <ul className={concatenatedClassNames.itemsContainer}>
+                {items.map((item) => {
+                    const props = _.merge(
+                        {
+                            data: item,
+                            editableQuantity: false,
+                            classNames: {
+                                name: styles["cart-item-name"],
+                                content: styles["cart-item-content"],
+                                variantOptionName: styles["cart-item-variant-option-name"],
+                                variantOptionValue: styles["cart-item-variant-option-value"],
+                                quantity: styles["cart-item-quantity"],
+                                price: {
+                                    current: styles["price-current"],
+                                    base: styles["price-base"],
+                                    discountPercentage: styles["price-discount-percentage"],
+                                },
+                            },
                         },
-                    },
-                },
-                _.cloneDeep(CartItemProps),
-            );
-            return <CartItem {...props} key={item.variant.id} />;
-        });
-    }, [CartItemProps, items]);
+                        _.cloneDeep(CartItemProps),
+                    );
+                    return <CartItem {...props} key={item.variant.id} />;
+                })}
+            </ul>
+        ) : (
+            <p className={concatenatedClassNames.emptyCartMessage}>Your cart is empty.</p>
+        );
+    }, [CartItemProps, concatenatedClassNames, items]);
 
     const costBreakdown = useMemo(() => {
         return (
@@ -225,7 +243,20 @@ export function CartSummary({
                                                 >
                                                     {code}
                                                 </p>
-                                                {wide && "-"}
+                                                {
+                                                    /**
+                                                     * Don't test logic dependent on window
+                                                     * dimensions - this code will never be
+                                                     * accessible by default in unit tests using
+                                                     * jsdom as an environment due to window width
+                                                     * being 0px
+                                                     */
+                                                    /* v8 ignore start */
+
+                                                    wide && "-"
+
+                                                    /* v8 ignore stop */
+                                                }
                                                 <p
                                                     className={
                                                         concatenatedClassNames.promotions
@@ -353,11 +384,7 @@ export function CartSummary({
 
                 <Divider className={styles["divider"]} />
 
-                {items && items.length > 0 ? (
-                    <ul className={concatenatedClassNames.itemsContainer}>{cartItems}</ul>
-                ) : (
-                    <p className={concatenatedClassNames.emptyCartMessage}>Your cart is empty.</p>
-                )}
+                {cartItems}
 
                 <Divider className={styles["divider"]} />
 
@@ -371,7 +398,7 @@ export function CartSummary({
             <div className={concatenatedClassNames.root} data-layout={layout} data-active={open}>
                 <FocusTrap active={open}>
                     <RemoveScroll inert removeScrollBar enabled={open}>
-                        {open && <div style={{ minHeight: `${buttonHeight}px` }}></div>}
+                        {open && <div style={{ minHeight: `${buttonContainerHeight}px` }}></div>}
 
                         <div
                             className={styles["collapse-container"]}
@@ -379,12 +406,12 @@ export function CartSummary({
                                 maxHeight: `calc(var(--vh, 1vh) * 100 - ${headerInfo.height}px)`,
                             }}
                         >
-                            <div ref={buttonRef}>
+                            <div ref={buttonContainerRef}>
                                 <Button
                                     onClick={() => setOpen(!open)}
                                     classNames={{
-                                        root: styles["collapse-button-root"],
-                                        label: styles["collapse-button-label"],
+                                        root: concatenatedClassNames.collapse.button.root,
+                                        label: concatenatedClassNames.collapse.button.label,
                                     }}
                                 >
                                     <Skeleton visible={awaiting} width="min-content">
@@ -398,7 +425,7 @@ export function CartSummary({
                                         </span>
                                     </Skeleton>
 
-                                    <span className={styles["collapse-button-right"]}>
+                                    <span className={concatenatedClassNames.collapse.button.right}>
                                         <Skeleton visible={awaiting} width="min-content">
                                             <span
                                                 style={{
@@ -413,7 +440,8 @@ export function CartSummary({
                                         {open && editLink && (
                                             <div
                                                 className={
-                                                    styles["edit-cart-link-container-dropdown"]
+                                                    concatenatedClassNames.collapse.button
+                                                        .editLinkContainer
                                                 }
                                             >
                                                 {editLink}
@@ -432,15 +460,7 @@ export function CartSummary({
                                 className={concatenatedClassNames.collapse.root}
                             >
                                 <div className={concatenatedClassNames.collapse.top} tabIndex={-1}>
-                                    {items && items.length > 0 ? (
-                                        <ul className={concatenatedClassNames.itemsContainer}>
-                                            {cartItems}
-                                        </ul>
-                                    ) : (
-                                        <p className={concatenatedClassNames.emptyCartMessage}>
-                                            Your cart is empty.
-                                        </p>
-                                    )}
+                                    {cartItems}
                                 </div>
 
                                 <div className={concatenatedClassNames.collapse.bottom}>

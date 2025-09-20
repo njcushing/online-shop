@@ -110,7 +110,11 @@ export function CheckoutContent() {
                 <CartSummary
                     data-testid="CartSummary-narrow"
                     layout="dropdown"
-                    classNames={{ header: styles["CartSummary-header"] }}
+                    classNames={{
+                        collapse: {
+                            button: { label: styles["CartSummary-collapse-button-label"] },
+                        },
+                    }}
                 />
             )}
 

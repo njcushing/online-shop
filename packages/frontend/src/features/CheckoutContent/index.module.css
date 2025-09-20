@@ -22,10 +22,18 @@
 }
 
 .CartSummary-header {
-    font-size: 1.44rem;
+    font-size: 1.28rem;
 
     @media (min-width: $mantine-breakpoint-xs) {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
+    }
+}
+
+.CartSummary-collapse-button-label {
+    font-size: 1.1rem;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.2rem;
     }
 }
 
@@ -39,14 +47,6 @@
         grid-template-columns: 1fr 480px;
 
         padding: 0px 16px;
-    }
-
-    .CartSummary-header {
-        font-size: 1.28rem;
-
-        @media (min-width: $mantine-breakpoint-xs) {
-            font-size: 1.4rem;
-        }
     }
 }
 
