@@ -46,3 +46,9 @@ Object.defineProperty(window, "IntersectionObserver", {
         unobserve: vi.fn(),
     })),
 });
+
+Object.defineProperty(window, "scrollTo", {
+    writable: true,
+    configurable: true,
+    value: vi.fn(),
+});
