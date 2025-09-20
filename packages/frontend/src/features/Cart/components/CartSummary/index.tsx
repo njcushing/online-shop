@@ -281,11 +281,12 @@ export function CartSummary({
                     )}
 
                     <Input.Wrapper>
-                        <Input.Label className={styles["input-label"]}>
+                        <Input.Label className={styles["input-label"]} id="promotion-code">
                             Enter a promotional code
                         </Input.Label>
                         <div className={styles["promo-code-input-and-button-wrapper"]}>
                             <Input
+                                aria-labelledby="promotion-code"
                                 error={null}
                                 disabled={awaiting}
                                 classNames={{ input: styles["input"] }}
@@ -295,7 +296,6 @@ export function CartSummary({
                                 color="rgb(48, 48, 48)"
                                 variant="filled"
                                 radius={9999}
-                                onClick={() => {}}
                                 disabled={awaiting}
                                 className={styles["apply-promo-code-button"]}
                             >
