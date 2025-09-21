@@ -1,5 +1,6 @@
+import { Modal } from "@mantine/core";
 import styles from "./index.module.css";
 
 export function ConsentBanner() {
-    return <div className={styles["consent-banner"]}></div>;
+    return <Modal opened onClose={() => {}} className={styles["consent-banner"]}></Modal>;
 }
