@@ -1,9 +1,11 @@
 import { createContext, useState, useEffect, useMemo } from "react";
 import { Outlet, useLocation } from "react-router-dom";
+import { ConsentBanner } from "@/features/ConsentBanner";
 import { Header } from "@/features/Header";
 import { Footer } from "@/features/Footer";
 import { generateSkeletonCart, PopulatedCart } from "@/utils/products/cart";
 import { mockGetUser, mockGetCart, mockGetOrders, mockGetSubscriptions } from "@/api/mocks";
+import { Consent } from "@/utils/schemas/consent";
 import { RecursivePartial } from "@/utils/types";
 import * as useAsync from "@/hooks/useAsync";
 import { createQueryContextObject } from "@/hooks/useAsync/utils/createQueryContextObject";
@@ -170,6 +172,7 @@ export function Root({ children }: TRoot) {
                 )}
             >
                 <div className={styles["page"]}>
+                    {!user.response.data?.consent.cookies && <ConsentBanner />}
                     <HeaderContext.Provider
                         value={useMemo(() => ({ setHeaderInfo }), [setHeaderInfo])}
                     >
