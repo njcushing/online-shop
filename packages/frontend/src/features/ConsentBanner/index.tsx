@@ -1,4 +1,4 @@
-import { Modal } from "@mantine/core";
+import { Modal, Button } from "@mantine/core";
 import styles from "./index.module.css";
 
 export function ConsentBanner() {
@@ -16,6 +16,25 @@ export function ConsentBanner() {
                 body: styles["modal-body"],
                 close: styles["modal-close"],
             }}
-        ></Modal>
+        >
+            <div className={styles["buttons-container"]}>
+                <Button
+                    onClick={() => {}}
+                    color="rgb(5, 145, 28)"
+                    variant="filled"
+                    className={styles["button"]}
+                >
+                    Accept cookies
+                </Button>
+                <Button
+                    onClick={() => {}}
+                    color="rgb(5, 145, 28)"
+                    variant="filled"
+                    className={styles["button"]}
+                >
+                    Reject cookies
+                </Button>
+            </div>
+        </Modal>
     );
 }

@@ -34,3 +34,33 @@
     outline: 2px solid black;
     border-radius: 0;
 }
+
+.buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    width: 100%;
+}
+
+.button {
+    display: flex;
+
+    font-family: var(--font-primary);
+    font-size: 0.86rem;
+
+    border-radius: 4px;
+
+    width: min-content;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
+}
+
+.button:focus-visible {
+    outline: 2px solid black;
+    border-radius: 0;
+}
