@@ -30,7 +30,7 @@ export function Router() {
                         errorElement: <Pages.ErrorPage />,
                     },
                     {
-                        path: "/privacy-policy",
+                        path: "/privacy",
                         element: <Pages.PrivacyPolicy />,
                         errorElement: <Pages.ErrorPage />,
                     },
