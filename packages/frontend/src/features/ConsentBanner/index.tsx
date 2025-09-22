@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Modal, Button } from "@mantine/core";
 import styles from "./index.module.css";
 
@@ -18,6 +19,12 @@ export function ConsentBanner() {
             }}
         >
             <h2 className={styles["header"]}>This site uses cookies</h2>
+
+            <p>
+                For more information, please read our{" "}
+                <Link to="/privacy">Privacy & Cookie Policy</Link>
+            </p>
+
             <div className={styles["buttons-container"]}>
                 <Button
                     onClick={() => {}}

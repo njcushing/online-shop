@@ -52,6 +52,38 @@
     }
 }
 
+.modal-body p {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 0.92rem;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1rem;
+    }
+}
+
+.modal-body a {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 0.92rem;
+    font-weight: 500;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1rem;
+    }
+}
+
+@media (hover: hover) {
+    .modal-body a:hover {
+        text-decoration: none;
+    }
+}
+
+.modal-body a:focus-visible {
+    outline: 2px solid black;
+    border-radius: 0;
+}
+
 .buttons-container {
     display: flex;
     flex-direction: row;
