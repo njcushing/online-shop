@@ -17,6 +17,7 @@ export function ConsentBanner() {
                 close: styles["modal-close"],
             }}
         >
+            <h2 className={styles["header"]}>This site uses cookies</h2>
             <div className={styles["buttons-container"]}>
                 <Button
                     onClick={() => {}}
