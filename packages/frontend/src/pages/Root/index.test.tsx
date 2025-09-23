@@ -15,20 +15,18 @@ import {
 } from ".";
 
 // Mock dependencies
-const mockCart: RecursivePartial<IUserContext["cart"]["response"]["data"]> = [
+const mockCart: RecursivePartial<NonNullable<IUserContext["cart"]["response"]["data"]>["items"]> = [
     // Only using relevant fields
     { product: {}, variant: { id: "variant1Id" }, quantity: 1 },
     { product: {}, variant: { id: "variant2Id" }, quantity: 1 },
     { product: {}, variant: { id: "variant3Id" }, quantity: 1 },
 ];
 
-const mockOrders: RecursivePartial<IUserContext["orders"]["response"]["data"]> = [
-    { id: "orderId1" },
-    { id: "orderId2" },
-    { id: "orderId3" },
-];
+const mockOrders: RecursivePartial<
+    NonNullable<IUserContext["orders"]["response"]["data"]>["orders"]
+> = [{ id: "orderId1" }, { id: "orderId2" }, { id: "orderId3" }];
 
-const mockSubscriptions: RecursivePartial<IUserContext["orders"]["response"]["data"]> = [
+const mockSubscriptions: RecursivePartial<IUserContext["subscriptions"]["response"]["data"]> = [
     { id: "subscriptionId1" },
     { id: "subscriptionId2" },
     { id: "subscriptionId3" },
@@ -50,7 +48,7 @@ const mockUserContext: RecursivePartial<IUserContext> = {
 
     defaultData: {
         user: {},
-        cart: [],
+        cart: { items: [], promotions: [] },
         orders: [],
         subscriptions: [],
     },

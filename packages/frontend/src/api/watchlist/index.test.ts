@@ -132,7 +132,6 @@ describe("The 'updateWatchlist' function...", () => {
     test("Should return an object with status: 400 if no variant is provided for the request body", async () => {
         const adjustedMockArgs = structuredClone(mockArgs);
         const { body } = adjustedMockArgs[0];
-        // @ts-expect-error - Disabling type checking for function parameters in unit test
         body!.variant = undefined;
 
         const result = await updateWatchlist(...adjustedMockArgs);

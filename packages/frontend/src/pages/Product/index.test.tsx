@@ -22,7 +22,7 @@ const mockProduct: RecursivePartial<IProductContext["product"]["response"]["data
 };
 
 const mockProductContext: RecursivePartial<IProductContext> = {
-    product: { response: { data: null }, status: 200, message: "Success", awaiting: true },
+    product: { response: { data: null, status: 200, message: "Success" }, awaiting: true },
     variant: null,
     selectedVariantOptions: {},
     setSelectedVariantOptions: () => {},

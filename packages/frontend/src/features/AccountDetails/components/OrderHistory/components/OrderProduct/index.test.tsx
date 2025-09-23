@@ -32,7 +32,7 @@ const mockProps: RecursivePartial<TOrderProduct> = {
 const mockUserContext: RecursivePartial<IUserContext> = {
     orders: {
         response: {
-            data: [],
+            data: { orders: [], quantity: 0 },
             status: 200,
             message: "Success",
         },
