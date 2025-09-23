@@ -25,6 +25,7 @@
     color: black;
     font-family: var(--font-primary);
     font-size: 1.25rem;
+    font-weight: 500;
 
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 1.4rem;
@@ -36,7 +37,66 @@
     font-family: var(--font-primary);
     font-size: 0.8rem;
 
+    strong {
+        font-weight: 600;
+    }
+
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 0.86rem;
     }
+}
+
+.divider {
+    width: 100%;
+    --divider-color: rgba(0, 0, 0, 0.4);
+}
+
+.accordion-root {
+    width: 100%;
+    max-width: 640px;
+    margin-top: 16px;
+}
+
+.accordion-control {
+    width: 100%;
+    padding: 12px 0px;
+}
+
+@media (hover: hover) {
+    .accordion-control:hover {
+        /* Overriding default Mantine component hover styles */
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}
+
+.accordion-control:focus-visible {
+    outline: 2px solid #000;
+    outline-offset: -2px;
+    border-radius: 0px;
+}
+
+.accordion-control:active {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.accordion-item {
+    --item-border-color: rgba(0, 0, 0, 0.4);
+    border-width: 1px;
+}
+
+.accordion-label {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 0.92rem;
+    font-weight: 500;
+
+    padding: 0px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1rem;
+    }
+}
+
+.accordion-panel {
+    padding: 0px;
 }
