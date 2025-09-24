@@ -59,7 +59,7 @@
 
 .accordion-control {
     width: 100%;
-    padding: 12px 0px;
+    padding: 8px 0px;
 }
 
 @media (hover: hover) {
@@ -90,7 +90,7 @@
     font-size: 1rem;
     font-weight: 500;
 
-    padding: 0px;
+    padding: 4px 0px;
 
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 1.1rem;
