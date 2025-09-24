@@ -18,6 +18,24 @@ date for its most recent version is displayed at the top of this
 page.
 `;
 
+const yourRights = `
+**CAFREE** stores limited personal data (e.g., user details, watchlist, order history, subscriptions and cart data) in an encrypted cookie on your own device. This cookie is transmitted to our server only for the purpose of decrypting and reading its contents when you use the site. The data is never persisted on the server or shared with any third parties.
+
+You have the following rights under applicable data protection laws (such as the UK GDPR and EU GDPR):
+
+- **Right of access** - You can view the data stored about you directly in your browser's cookie storage.
+- **Right to rectification** - You may update or change this information at any time through the site's forms, which will update the cookie contents.
+- **Right to erasure** - You can delete your data at any time using the 'clear data' option in the user settings page on this site or by clearing your browser's cookies.
+- **Right to withdraw consent** - If you previously consented to data being stored and wish to withdraw it, you can do so at any time, and the cookie will no longer be set.
+- **Right to object / restrict processing** - You can restrict processing by opting out in the consent banner or disabling cookies in your browser.
+- **Right to data portability** - You may export or delete the data stored in your browser's cookies using your browser tools. Since no personal data is stored on our servers or in any backend database, we cannot directly transmit your data to another controller.
+- **Complaints** - If you believe your rights are not being respected, you have the right to lodge a complaint with your local Data Protection Authority.
+
+Please note:
+- No automated decision-making or profiling takes place.
+- No personal data is stored by the site owner outside of the cookie on your device.
+`;
+
 const defaultAccordionPanelProps: AccordionPanelProps = {
     style: { opacity: 1 }, // Override default opacity transition
     className: styles["markdown"],
@@ -30,7 +48,7 @@ export function PrivacyPolicyContent() {
                 <h1 className={styles["header"]}>Privacy & Cookie Policy</h1>
 
                 <p className={styles["last-updated"]}>
-                    Last updated: <strong>23rd September 2025</strong>
+                    Last updated: <strong>24th September 2025</strong>
                 </p>
 
                 <Accordion
@@ -59,7 +77,9 @@ export function PrivacyPolicyContent() {
                     <Accordion.Item value="your-rights">
                         <Accordion.Control>Your Rights</Accordion.Control>
 
-                        <Accordion.Panel {...defaultAccordionPanelProps}></Accordion.Panel>
+                        <Accordion.Panel {...defaultAccordionPanelProps}>
+                            <ReactMarkdown remarkPlugins={[remarkGfm]}>{yourRights}</ReactMarkdown>
+                        </Accordion.Panel>
                     </Accordion.Item>
 
                     <Accordion.Item value="cookie-policy">

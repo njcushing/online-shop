@@ -134,4 +134,14 @@
     del {
         text-decoration: line-through;
     }
+
+    ul {
+        list-style: disc outside;
+
+        padding-left: 30px;
+    }
+
+    li {
+        margin-bottom: 8px;
+    }
 }

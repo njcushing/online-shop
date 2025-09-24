@@ -24,8 +24,8 @@ export function ConsentBanner() {
 
             <ul>
                 <li>
-                    Maintain your session (e.g., user details, watchlist, subscriptions, and cart)
-                    across page reloads.
+                    Maintain your session (e.g., user details, watchlist, order history,
+                    subscriptions and cart data) across page reloads.
                 </li>
                 <li>Auto-fill personal, shipping and payment information at checkout.</li>
             </ul>
