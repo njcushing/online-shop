@@ -87,16 +87,36 @@
 .accordion-label {
     color: black;
     font-family: var(--font-primary);
-    font-size: 0.92rem;
+    font-size: 1rem;
     font-weight: 500;
 
     padding: 0px;
 
     @media (min-width: $mantine-breakpoint-xs) {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
 }
 
 .accordion-panel {
     padding: 0px;
+}
+
+.accordion-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 0.86rem;
+
+    padding: 8px 0px 16px;
+
+    strong {
+        font-weight: 600;
+    }
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
 }

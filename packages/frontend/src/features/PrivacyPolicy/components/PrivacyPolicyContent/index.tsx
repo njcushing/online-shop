@@ -12,10 +12,11 @@ export function PrivacyPolicyContent() {
                 <h1 className={styles["header"]}>Privacy & Cookie Policy</h1>
 
                 <p className={styles["last-updated"]}>
-                    Last updated: <strong>September 2025</strong>
+                    Last updated: <strong>23rd September 2025</strong>
                 </p>
 
                 <Accordion
+                    multiple
                     classNames={{
                         root: styles["accordion-root"],
                         item: styles["accordion-item"],
@@ -30,7 +31,26 @@ export function PrivacyPolicyContent() {
                     <Accordion.Item value="introduction">
                         <Accordion.Control>Introduction</Accordion.Control>
 
-                        <Accordion.Panel {...defaultAccordionPanelProps}></Accordion.Panel>
+                        <Accordion.Panel {...defaultAccordionPanelProps}>
+                            <p>
+                                <strong>CAFREE</strong> is a <strong>mock e-commerce</strong> site
+                                created solely as a portfolio project. None of the products shown on
+                                this site are real and no real transactions take place on this site.
+                            </p>
+
+                            <p>
+                                This privacy policy explains how any personal data you choose to
+                                provide may be stored and used. While the site is for demonstration
+                                purposes only, it is still important to be transparent about data
+                                handling.
+                            </p>
+
+                            <p>
+                                This privacy policy is subject to change at any time; the publish
+                                date for its most recent version is displayed at the top of this
+                                page.
+                            </p>
+                        </Accordion.Panel>
                     </Accordion.Item>
 
                     <Accordion.Item value="your-rights">
