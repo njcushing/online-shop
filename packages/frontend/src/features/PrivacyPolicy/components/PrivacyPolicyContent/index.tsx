@@ -1,8 +1,26 @@
 import { Divider, Accordion, AccordionPanelProps } from "@mantine/core";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import styles from "./index.module.css";
+
+const introduction = `
+**CAFREE** is a **mock e-commerce** site
+created solely as a portfolio project. None of the products shown on
+this site are real and no real transactions take place on this site.
+
+This privacy policy explains how any personal data you choose to
+provide may be stored and used. While the site is for demonstration
+purposes only, it is still important to be transparent about data
+handling.
+
+This privacy policy is subject to change at any time; the publish
+date for its most recent version is displayed at the top of this
+page.
+`;
 
 const defaultAccordionPanelProps: AccordionPanelProps = {
     style: { opacity: 1 }, // Override default opacity transition
+    className: styles["markdown"],
 };
 
 export function PrivacyPolicyContent() {
@@ -32,24 +50,9 @@ export function PrivacyPolicyContent() {
                         <Accordion.Control>Introduction</Accordion.Control>
 
                         <Accordion.Panel {...defaultAccordionPanelProps}>
-                            <p>
-                                <strong>CAFREE</strong> is a <strong>mock e-commerce</strong> site
-                                created solely as a portfolio project. None of the products shown on
-                                this site are real and no real transactions take place on this site.
-                            </p>
-
-                            <p>
-                                This privacy policy explains how any personal data you choose to
-                                provide may be stored and used. While the site is for demonstration
-                                purposes only, it is still important to be transparent about data
-                                handling.
-                            </p>
-
-                            <p>
-                                This privacy policy is subject to change at any time; the publish
-                                date for its most recent version is displayed at the top of this
-                                page.
-                            </p>
+                            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                {introduction}
+                            </ReactMarkdown>
                         </Accordion.Panel>
                     </Accordion.Item>
 

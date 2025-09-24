@@ -102,21 +102,36 @@
 }
 
 .accordion-content {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-
-    color: black;
-    font-family: var(--font-primary);
-    font-size: 0.86rem;
-
     padding: 8px 0px 16px;
+}
+
+.markdown {
+    * {
+        color: black;
+        font-family: var(--font-primary);
+        font-size: 0.86rem;
+
+        @media (min-width: $mantine-breakpoint-xs) {
+            font-size: 0.92rem;
+        }
+    }
+
+    p {
+        margin-bottom: revert;
+    }
+    p:nth-last-child(-n + 1) {
+        margin-bottom: 0px;
+    }
 
     strong {
         font-weight: 600;
     }
 
-    @media (min-width: $mantine-breakpoint-xs) {
-        font-size: 0.92rem;
+    em {
+        font-style: italic;
+    }
+
+    del {
+        text-decoration: line-through;
     }
 }
