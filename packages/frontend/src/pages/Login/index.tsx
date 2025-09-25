@@ -7,9 +7,7 @@ export function Login() {
 
     return (
         <div className={styles["page"]}>
-            <div className={styles["page-content"]}>
-                <LoginForm onSuccess={() => navigate("/")} />
-            </div>
+            <LoginForm onSuccess={() => navigate("/")} />
         </div>
     );
 }

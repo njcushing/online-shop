@@ -1,22 +1,5 @@
 .page {
     display: flex;
-    justify-content: center;
-    align-items: center;
 
-    background: var(--background-primary, white);
-
-    width: 100%;
     min-height: calc(var(--vh, 1vh) * 100);
-    height: min-content;
-    padding: 16px;
-}
-
-.page-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 24px;
-
-    width: 360px;
 }

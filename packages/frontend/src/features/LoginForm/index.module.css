@@ -1,4 +1,28 @@
+.login-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    width: min(calc(var(--vw) * 100), 100%);
+    padding: 0px;
+}
+
+.login-form-width-controller {
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+
+    width: min(calc(var(--vw) * 100), 100%);
+    max-width: 410px;
+    padding: 16px;
+    margin: auto;
+}
+
 .page-heading {
+    color: black;
     font-family: var(--font-primary);
     font-size: 2.75rem;
     font-weight: 700;
@@ -38,26 +62,40 @@
     width: 100%;
 }
 
-.form-field-input {
-    color: black;
-    font-size: 0.9rem;
-    font-weight: 400;
+.form-field-label {
+    font-family: var(--font-primary);
+    font-size: 0.86rem;
 
     background-color: transparent;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
 }
 
-.form-field-error-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    gap: 4px;
+.form-field-input {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 0.86rem;
+    font-weight: 400;
+
+    border: 2px solid black;
+    border-radius: 0px;
+    background-color: transparent;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
 }
 
-.form-field-input-error {
-    font-size: 0.825rem;
+.form-field-input:disabled {
+    border-color: grey;
+    background-color: var(--site-colour-secondary, rgb(255, 236, 218));
 }
 
 .terms-message {
+    color: black;
+    font-family: var(--font-primary);
     font-size: 0.7rem;
     text-align: center;
 
@@ -65,10 +103,13 @@
 }
 
 .log-in-button {
+    font-family: var(--font-primary);
     font-size: 1rem;
 }
 
 .forgot-password-message {
+    color: black;
+    font-family: var(--font-primary);
     font-size: 0.92rem;
     font-weight: 500;
     text-align: center;
@@ -77,6 +118,8 @@
 }
 
 .create-account-message {
+    color: black;
+    font-family: var(--font-primary);
     font-size: 0.96rem;
     font-weight: 500;
     text-align: center;
