@@ -24,9 +24,5 @@ export function CreateAccount({ defaultStage = 0 }: TCreateAccount) {
         }
     }, [navigate, currentStage]);
 
-    return (
-        <div className={styles["page"]}>
-            <div className={styles["page-content"]}>{pageContent}</div>
-        </div>
-    );
+    return <div className={styles["page"]}>{pageContent}</div>;
 }
