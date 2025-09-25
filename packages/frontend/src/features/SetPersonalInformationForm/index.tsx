@@ -12,6 +12,7 @@ import styles from "./index.module.css";
 const inputProps = {
     classNames: {
         input: styles["form-field-input"],
+        label: styles["form-field-label"],
     },
 };
 
@@ -204,101 +205,107 @@ export function SetPersonalInformationForm({ onSuccess }: TSetPersonalInformatio
     }, [currentStage, formState, register]);
 
     return (
-        <>
-            <h1 className={styles["page-heading"]}>{headingText}</h1>
+        <div className={styles["set-personal-information-form-container"]}>
+            <div className={styles["set-personal-information-form-width-controller"]}>
+                <h1 className={styles["page-heading"]}>{headingText}</h1>
 
-            <div className={styles["set-personal-information"]}>
-                <div className={styles["progress-container"]}>
-                    <p className={styles["stage-message"]}>
-                        Stage {currentStage + 1} of {formStages}
-                    </p>
-                    <Progress
-                        value={(100 / Math.max(1, formStages - 1)) * currentStage}
-                        size="sm"
-                        transitionDuration={560}
-                    />
-                </div>
-
-                {currentStage > 0 && (
-                    <Button
-                        type="button"
-                        aria-label="Previous stage"
-                        variant="transparent"
-                        radius={9999}
-                        onClick={() => setCurrentStage(currentStage - 1)}
-                        className={styles["return-button"]}
-                    >
-                        <CaretLeft size={24} color="var(--mantine-color-text, black)" />
-                    </Button>
-                )}
-
-                <Divider />
-
-                <form
-                    className={styles["form"]}
-                    aria-label="Personal information"
-                    onSubmit={handleSubmit(onSubmit)}
-                    noValidate
-                >
-                    <div
-                        className={styles["form-fields-container"]}
-                        style={{
-                            translate: `${currentStage * (100 / formStages) * -1}%`,
-
-                            display: "grid",
-                            gridTemplateColumns: `repeat(${formStages}, 1fr)`,
-                            width: `${100 * formStages}%`,
-                        }}
-                    >
-                        {stage1Fields}
-                        {stage2Fields}
+                <div className={styles["set-personal-information"]}>
+                    <div className={styles["progress-container"]}>
+                        <p className={styles["stage-message"]}>
+                            Stage {currentStage + 1} of {formStages}
+                        </p>
+                        <Progress
+                            value={(100 / Math.max(1, formStages - 1)) * currentStage}
+                            size="sm"
+                            transitionDuration={560}
+                        />
                     </div>
 
-                    <Button
-                        type={currentStage < formStages - 1 ? "button" : "submit"}
-                        variant="filled"
-                        color="green"
-                        radius={9999}
-                        onClick={(e) => {
-                            if (currentStage < formStages - 1) {
-                                setCurrentStage(currentStage + 1);
-
-                                // Button was attempting to immediately submit after clicking 'next'
-                                // from penultimate stage
-                                e.preventDefault();
-                            } else if (!Object.keys(formState.errors).length) {
-                                handleSubmit(onSubmit);
-                            }
-                        }}
-                        className={styles["next-button"]}
-                    >
-                        {currentStage < formStages - 1 ? "Next" : "Submit"}
-                    </Button>
-                </form>
-
-                <Divider />
-
-                <HoverCard width={280} shadow="md" withArrow>
-                    <HoverCard.Target>
+                    {currentStage > 0 && (
                         <Button
                             type="button"
-                            variant="filled"
-                            color="orange"
+                            aria-label="Previous stage"
+                            variant="transparent"
                             radius={9999}
-                            onClick={() => navigate("/")}
-                            className={styles["skip-button"]}
+                            onClick={() => setCurrentStage(currentStage - 1)}
+                            className={styles["return-button"]}
                         >
-                            Skip for now
+                            <CaretLeft size={24} color="var(--mantine-color-text, black)" />
                         </Button>
-                    </HoverCard.Target>
-                    <HoverCard.Dropdown className={styles["skip-warning-hovercard"]}>
-                        <Icons.ExclamationMark width="18" height="18" style={{ stroke: "black" }} />
-                        <p className={styles["skip-warning-message"]}>
-                            Some of this information will be required later for shipping.
-                        </p>
-                    </HoverCard.Dropdown>
-                </HoverCard>
+                    )}
+
+                    <Divider />
+
+                    <form
+                        className={styles["form"]}
+                        aria-label="Personal information"
+                        onSubmit={handleSubmit(onSubmit)}
+                        noValidate
+                    >
+                        <div
+                            className={styles["form-fields-container"]}
+                            style={{
+                                translate: `${currentStage * (100 / formStages) * -1}%`,
+
+                                display: "grid",
+                                gridTemplateColumns: `repeat(${formStages}, 1fr)`,
+                                width: `${100 * formStages}%`,
+                            }}
+                        >
+                            {stage1Fields}
+                            {stage2Fields}
+                        </div>
+
+                        <Button
+                            type={currentStage < formStages - 1 ? "button" : "submit"}
+                            variant="filled"
+                            color="green"
+                            radius={9999}
+                            onClick={(e) => {
+                                if (currentStage < formStages - 1) {
+                                    setCurrentStage(currentStage + 1);
+
+                                    // Button was attempting to immediately submit after clicking 'next'
+                                    // from penultimate stage
+                                    e.preventDefault();
+                                } else if (!Object.keys(formState.errors).length) {
+                                    handleSubmit(onSubmit);
+                                }
+                            }}
+                            className={styles["next-button"]}
+                        >
+                            {currentStage < formStages - 1 ? "Next" : "Submit"}
+                        </Button>
+                    </form>
+
+                    <Divider />
+
+                    <HoverCard width={280} shadow="md" withArrow>
+                        <HoverCard.Target>
+                            <Button
+                                type="button"
+                                variant="filled"
+                                color="orange"
+                                radius={9999}
+                                onClick={() => navigate("/")}
+                                className={styles["skip-button"]}
+                            >
+                                Skip for now
+                            </Button>
+                        </HoverCard.Target>
+                        <HoverCard.Dropdown className={styles["skip-warning-hovercard"]}>
+                            <Icons.ExclamationMark
+                                width="18"
+                                height="18"
+                                style={{ stroke: "black" }}
+                            />
+                            <p className={styles["skip-warning-message"]}>
+                                Some of this information will be required later for shipping.
+                            </p>
+                        </HoverCard.Dropdown>
+                    </HoverCard>
+                </div>
             </div>
-        </>
+        </div>
     );
 }
