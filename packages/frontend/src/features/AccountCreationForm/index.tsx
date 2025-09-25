@@ -1,9 +1,9 @@
 import { TextInput, PasswordInput, Button, Divider, Progress } from "@mantine/core";
-import { MantineCoreExtended } from "@/components/MantineCoreExtended";
+import { OAuthButton } from "@/components/UI/OAuthButton";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { google, facebook, x, github } from "@/utils/svgs/logos";
+import { google, github } from "@/utils/svgs/logos";
 import { Error } from "@/components/UI/Error";
 import { AccountCreationFormData, accountCreationFormDataSchema } from "./utils/zodSchema";
 import styles from "./index.module.css";
@@ -42,18 +42,8 @@ export function AccountCreationForm({ onSuccess }: TAccountCreationForm) {
                 <Divider />
 
                 <div className={styles["oauth-options"]}>
-                    <MantineCoreExtended.OAuthButton leftSection={google}>
-                        Sign up with Google
-                    </MantineCoreExtended.OAuthButton>
-                    <MantineCoreExtended.OAuthButton leftSection={facebook}>
-                        Sign up with Facebook
-                    </MantineCoreExtended.OAuthButton>
-                    <MantineCoreExtended.OAuthButton leftSection={x}>
-                        Sign up with X
-                    </MantineCoreExtended.OAuthButton>
-                    <MantineCoreExtended.OAuthButton leftSection={github}>
-                        Sign up with GitHub
-                    </MantineCoreExtended.OAuthButton>
+                    <OAuthButton href="" icon={google} label="Sign in with Google" />
+                    <OAuthButton href="" icon={github} label="Sign in with GitHub" />
                 </div>
 
                 <div className={styles["or-container"]}>

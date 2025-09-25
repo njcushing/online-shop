@@ -1,0 +1,37 @@
+.oauth-link {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+
+    text-decoration: none;
+
+    border: 2px solid #000;
+    border-radius: 9999px;
+
+    padding: 8px;
+}
+
+@media (hover: hover) {
+    .oauth-link:hover {
+        text-decoration: underline;
+    }
+}
+
+.oauth-link:focus-visible {
+    outline: 2px solid #000;
+    border-radius: 0px;
+}
+
+.label-container {
+    display: flex;
+    justify-content: center;
+
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    font-weight: 600;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.1rem;
+    }
+}
