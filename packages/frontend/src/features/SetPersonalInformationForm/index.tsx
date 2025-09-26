@@ -66,6 +66,7 @@ export function SetPersonalInformationForm({ onSuccess }: TSetPersonalInformatio
                         {...register("firstName", { setValueAs: (v) => v || undefined })}
                         {...inputProps}
                         label="First name"
+                        autoComplete="given-name"
                         onFocus={() => setCurrentStage(stage)}
                         tabIndex={tabIndex}
                     />
@@ -74,6 +75,7 @@ export function SetPersonalInformationForm({ onSuccess }: TSetPersonalInformatio
                         {...register("lastName", { setValueAs: (v) => v || undefined })}
                         {...inputProps}
                         label="Last name"
+                        autoComplete="family-name"
                         onFocus={() => setCurrentStage(stage)}
                         tabIndex={tabIndex}
                     />
@@ -83,6 +85,7 @@ export function SetPersonalInformationForm({ onSuccess }: TSetPersonalInformatio
                     {...register("phone", { setValueAs: (v) => v || undefined })}
                     {...inputProps}
                     label="Phone number"
+                    autoComplete="tel"
                     error={<Error message={errors.phone?.message || ""} />}
                     onFocus={() => setCurrentStage(stage)}
                     tabIndex={tabIndex}
@@ -101,6 +104,7 @@ export function SetPersonalInformationForm({ onSuccess }: TSetPersonalInformatio
                                 {...field}
                                 {...inputProps}
                                 label="Day"
+                                autoComplete="bday-day"
                                 hideControls
                                 error={<Error message={errors.dob?.day?.message || ""} />}
                                 onChange={(v) => field.onChange(v)}
@@ -118,6 +122,7 @@ export function SetPersonalInformationForm({ onSuccess }: TSetPersonalInformatio
                                 {...field}
                                 {...inputProps}
                                 label="Month"
+                                autoComplete="bday-month"
                                 hideControls
                                 error={<Error message={errors.dob?.month?.message || ""} />}
                                 onChange={(v) => field.onChange(v)}
@@ -135,6 +140,7 @@ export function SetPersonalInformationForm({ onSuccess }: TSetPersonalInformatio
                                 {...field}
                                 {...inputProps}
                                 label="Year"
+                                autoComplete="bday-year"
                                 hideControls
                                 error={<Error message={errors.dob?.year?.message || ""} />}
                                 onChange={(v) => field.onChange(v)}
@@ -164,6 +170,7 @@ export function SetPersonalInformationForm({ onSuccess }: TSetPersonalInformatio
                     {...register("address.line1", { setValueAs: (v) => v || undefined })}
                     {...inputProps}
                     label="Line 1"
+                    autoComplete="delivery address-line1"
                     onFocus={() => setCurrentStage(stage)}
                     tabIndex={tabIndex}
                 />
@@ -172,6 +179,7 @@ export function SetPersonalInformationForm({ onSuccess }: TSetPersonalInformatio
                     {...register("address.line2", { setValueAs: (v) => v || undefined })}
                     {...inputProps}
                     label="Line 2"
+                    autoComplete="delivery address-line2"
                     onFocus={() => setCurrentStage(stage)}
                     tabIndex={tabIndex}
                 />
@@ -180,6 +188,7 @@ export function SetPersonalInformationForm({ onSuccess }: TSetPersonalInformatio
                     {...register("address.townCity", { setValueAs: (v) => v || undefined })}
                     {...inputProps}
                     label="Town or City"
+                    autoComplete="delivery address-level2"
                     onFocus={() => setCurrentStage(stage)}
                     tabIndex={tabIndex}
                 />
@@ -196,6 +205,7 @@ export function SetPersonalInformationForm({ onSuccess }: TSetPersonalInformatio
                     {...register("address.postcode", { setValueAs: (v) => v || undefined })}
                     {...inputProps}
                     label="Postcode"
+                    autoComplete="delivery postal-code"
                     error={<Error message={errors.address?.postcode?.message || ""} />}
                     onFocus={() => setCurrentStage(stage)}
                     tabIndex={tabIndex}
