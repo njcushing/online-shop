@@ -11,6 +11,7 @@ export function ConsentBanner() {
             closeOnClickOutside={false}
             onClose={() => {}}
             classNames={{
+                root: styles["modal-root"],
                 inner: styles["modal-inner"],
                 content: styles["modal-content"],
                 header: styles["modal-header"],
