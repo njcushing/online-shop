@@ -60,6 +60,7 @@ export function LoginForm({ onSuccess }: TLoginForm) {
                                 {...register("email", { required: true })}
                                 {...inputProps}
                                 label="Email address"
+                                autoComplete="username"
                                 required
                                 styles={{ required: { display: "none" } }} // Hiding asterisk
                                 error={<Error message={errors.email?.message || ""} />}
@@ -69,6 +70,7 @@ export function LoginForm({ onSuccess }: TLoginForm) {
                                 {...register("password", { required: true })}
                                 {...inputProps}
                                 label="Password"
+                                autoComplete="current-password"
                                 // Not sure why, but this component's <label> isn't accessible in unit
                                 // tests by the 'label' prop value, so I'm setting the aria attribute
                                 // too
