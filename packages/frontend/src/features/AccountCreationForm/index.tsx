@@ -67,6 +67,7 @@ export function AccountCreationForm({ onSuccess }: TAccountCreationForm) {
                                 {...register("email", { required: true })}
                                 {...inputProps}
                                 label="Email address"
+                                autoComplete="email"
                                 required
                                 error={<Error message={errors.email?.message || ""} />}
                             />
@@ -75,6 +76,7 @@ export function AccountCreationForm({ onSuccess }: TAccountCreationForm) {
                                 {...register("password", { required: true })}
                                 {...inputProps}
                                 label="Password"
+                                autoComplete="new-password"
                                 // Not sure why, but this component's <label> isn't accessible in unit
                                 // tests by the 'label' prop value, so I'm setting the aria attribute
                                 // too
@@ -91,6 +93,7 @@ export function AccountCreationForm({ onSuccess }: TAccountCreationForm) {
                                 {...register("confirmPassword", { required: true })}
                                 {...inputProps}
                                 label="Confirm password"
+                                autoComplete="new-password"
                                 // Using aria-label here for the same reason as the above PasswordInput
                                 aria-label="Confirm password"
                                 required
@@ -99,7 +102,7 @@ export function AccountCreationForm({ onSuccess }: TAccountCreationForm) {
                         </div>
 
                         <p className={styles["terms-message"]}>
-                            By clicking Sign up, you agree to the{" "}
+                            By clicking Sign Up, you agree to the{" "}
                             <Link to="/terms-and-conditions">Terms and Conditions</Link>.
                         </p>
 
