@@ -7,10 +7,18 @@
         "frontend"
     ],
     "scripts": {
-        "install": "cd ./packages/frontend && npm install",
-        "dev": "npm run start:front",
-        "start:front": "vite ./packages/frontend",
-        "watch:front": "vite build --watch ./packages/frontend",
+        "dev": "concurrently \"npm run dev:front\" \"npm run dev:back\"",
+        "dev:front": "vite ./packages/frontend",
+        "dev:back": "dotnet watch --project ./packages/backend",
+        "start": "npm run build && dotnet run --project ./packages/backend",
+        "build": "npm run build:front && npm run copy:front && npm run build:back",
+        "build:front": "vite build ./packages/frontend",
+        "build:back": "dotnet build ./packages/backend",
+        "copy:front": "rm -rf ./packages/backend/wwwroot && cp -r ./packages/frontend/dist ./packages/backend/wwwroot",
+        "test:front": "npx --prefix ./packages/frontend vitest --root ./packages/frontend",
         "coverage:front": "npx --prefix ./packages/frontend vitest --root ./packages/frontend --coverage"
+    },
+    "devDependencies": {
+        "concurrently": "^9.2.1"
     }
 }
