@@ -11,6 +11,16 @@ export default defineConfig({
     build: {
         outDir: resolve(__dirname, "./dist"),
         emptyOutDir: true,
+
+        /**
+         * Using 'cssCodeSplit: false' because, even though I import Mantine's styles before my own
+         * in App.jsx, the build process causes the split CSS files to be utilised in the wrong
+         * order in index.html. This GitHub thread mentions a discusses issue, but at the time of
+         * writing this, it hasn't been resolved:
+         * https://github.com/vitejs/vite/issues/4890
+         */
+        cssCodeSplit: false,
+
         rollupOptions: {
             output: {
                 manualChunks(id) {
