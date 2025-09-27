@@ -9,7 +9,7 @@ export default defineConfig({
     plugins: [react()],
     root: resolve(__dirname, "./src"),
     build: {
-        outDir: resolve(__dirname, "../../dist/frontend"),
+        outDir: resolve(__dirname, "./dist"),
         emptyOutDir: true,
         rollupOptions: {
             output: {
