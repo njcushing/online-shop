@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "packages", "packages", "{809F86A1-1C4C-B159-0CD4-DF9D33D876CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cafree.Api", "packages\backend\Cafree.Api.csproj", "{82E2DCAB-F706-1870-A237-9293AA94C856}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{82E2DCAB-F706-1870-A237-9293AA94C856}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82E2DCAB-F706-1870-A237-9293AA94C856}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82E2DCAB-F706-1870-A237-9293AA94C856}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82E2DCAB-F706-1870-A237-9293AA94C856}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{82E2DCAB-F706-1870-A237-9293AA94C856} = {809F86A1-1C4C-B159-0CD4-DF9D33D876CE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5F05B183-FE95-4A8B-A8D5-C0367A75CB40}
+	EndGlobalSection
+EndGlobal
