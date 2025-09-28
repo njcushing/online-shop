@@ -1,6 +1,9 @@
 # Dependency directories
 node_modules/
 
+# Mock database directories
+mockdb_data/
+
 # Distribution directories
 dist/
 
