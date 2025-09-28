@@ -1,0 +1,16 @@
+services:
+    db:
+        image: postgres
+        container_name: postgres
+        volumes:
+            - ./mockdb_data:/var/lib/postgresql/data
+        restart: always
+        environment:
+            POSTGRES_USER: mockdb_user
+            POSTGRES_PASSWORD: mockdb_password
+            POSTGRES_DB: mockdb
+        ports:
+            - "5432:5432"
+
+volumes:
+    mockdb_data:
