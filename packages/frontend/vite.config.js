@@ -8,6 +8,11 @@ dotenv.config();
 export default defineConfig({
     plugins: [react()],
     root: resolve(__dirname, "./src"),
+    server: {
+        proxy: {
+            "/api": "http://localhost:5194",
+        },
+    },
     build: {
         outDir: resolve(__dirname, "./dist"),
         emptyOutDir: true,
