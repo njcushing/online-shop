@@ -3,7 +3,7 @@ services:
         image: postgres
         container_name: postgres
         volumes:
-            - ./mockdb_data:/var/lib/postgresql/data
+            - mockdb_data:/var/lib/postgresql/data
         restart: always
         environment:
             POSTGRES_USER: mockdb_user
@@ -11,6 +11,18 @@ services:
             POSTGRES_DB: mockdb
         ports:
             - "5432:5432"
+
+    dbmate:
+        image: amacneil/dbmate:latest
+        container_name: dbmate
+        depends_on:
+            - db
+        environment:
+            DATABASE_URL: postgres://mockdb_user:mockdb_password@db:5432/mockdb?sslmode=disable
+        volumes:
+            - ./db:/db
+        working_dir: /db
+        entrypoint: ["dbmate"]
 
 volumes:
     mockdb_data:
