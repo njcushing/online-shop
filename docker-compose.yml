@@ -19,6 +19,7 @@ services:
             - db
         environment:
             DATABASE_URL: postgres://mockdb_user:mockdb_password@db:5432/mockdb?sslmode=disable
+            DBMATE_MIGRATIONS_DIR: /db/migrations
         volumes:
             - ./db:/db
         working_dir: /db
