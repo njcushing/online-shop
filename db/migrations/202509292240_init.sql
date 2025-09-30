@@ -1,3 +1,4 @@
+-- migrate:up
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE products (
@@ -9,3 +10,7 @@ CREATE TABLE products (
     tags TEXT[] DEFAULT '{}',
     release_date TIMESTAMPTZ
 );
+
+-- migrate:down
+DROP TABLE IF EXISTS products;
+DROP EXTENSION IF EXISTS "uuid-ossp";
