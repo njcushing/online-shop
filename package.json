@@ -16,7 +16,8 @@
         "build:back": "dotnet build ./packages/backend",
         "copy:front": "rm -rf ./packages/backend/wwwroot && cp -r ./packages/frontend/dist ./packages/backend/wwwroot",
         "test:front": "npx --prefix ./packages/frontend vitest --root ./packages/frontend",
-        "coverage:front": "npx --prefix ./packages/frontend vitest --root ./packages/frontend --coverage"
+        "coverage:front": "npx --prefix ./packages/frontend vitest --root ./packages/frontend --coverage",
+        "psql": "docker exec -it postgres psql -U mockdb_user -d mockdb"
     },
     "devDependencies": {
         "concurrently": "^9.2.1"
