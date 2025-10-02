@@ -1,8 +1,8 @@
 -- migrate:up
 CREATE TABLE collections (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    name TEXT NOT NULL,
-    description TEXT,
+    id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name text NOT NULL,
+    description text,
     UNIQUE (name)
 );
 

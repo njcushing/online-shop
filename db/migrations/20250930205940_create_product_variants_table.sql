@@ -1,16 +1,16 @@
 -- migrate:up
 CREATE TABLE product_variants (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    product_id UUID NOT NULL REFERENCES products(id) ON DELETE CASCADE,
-    name TEXT NOT NULL,
-    sku TEXT NOT NULL UNIQUE,
-    can_subscribe BOOLEAN DEFAULT false,
-    price_current NUMERIC(10,2) NOT NULL,
-    price_base NUMERIC(10,2) NOT NULL,
-    subscription_discount_percentage INT DEFAULT 0,
-    stock INT NOT NULL DEFAULT 0,
-    allowance_override INT NULL,
-    release_date TIMESTAMPTZ
+    id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+    product_id uuid NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+    name text NOT NULL,
+    sku text NOT NULL UNIQUE,
+    can_subscribe boolean DEFAULT false,
+    price_current numeric(10,2) NOT NULL,
+    price_base numeric(10,2) NOT NULL,
+    subscription_discount_percentage int DEFAULT 0,
+    stock int NOT NULL DEFAULT 0,
+    allowance_override int NULL,
+    release_date timestamptz
 );
 
 -- migrate:down

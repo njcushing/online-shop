@@ -1,10 +1,10 @@
 -- migrate:up
 CREATE TABLE categories (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    parent_id UUID REFERENCES categories(id) ON DELETE SET NULL,
-    name TEXT NOT NULL,
-    slug TEXT NOT NULL UNIQUE,
-    description TEXT,
+    id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+    parent_id uuid REFERENCES categories(id) ON DELETE SET NULL,
+    name text NOT NULL,
+    slug text NOT NULL UNIQUE,
+    description text,
     UNIQUE (parent_id, name)
 );
 

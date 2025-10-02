@@ -2,13 +2,13 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE products (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    name TEXT NOT NULL,
-    description TEXT,
-    slug TEXT NOT NULL UNIQUE,
-    allowance INT NOT NULL DEFAULT 0,
-    tags TEXT[] DEFAULT '{}',
-    release_date TIMESTAMPTZ
+    id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name text NOT NULL,
+    description text,
+    slug text NOT NULL UNIQUE,
+    allowance int NOT NULL DEFAULT 0,
+    tags text[] DEFAULT '{}',
+    release_date timestamptz
 );
 
 -- migrate:down

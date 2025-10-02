@@ -1,7 +1,7 @@
 -- migrate:up
 CREATE TABLE product_categories (
-    product_id UUID NOT NULL REFERENCES products(id) ON DELETE CASCADE,
-    category_id UUID NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
+    product_id uuid NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+    category_id uuid NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
     PRIMARY KEY (product_id, category_id)
 );
 
