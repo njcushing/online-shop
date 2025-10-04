@@ -10,7 +10,9 @@ CREATE TABLE product_variants (
     subscription_discount_percentage int DEFAULT 0,
     stock int NOT NULL DEFAULT 0,
     allowance_override int NULL,
-    release_date timestamptz
+    release_date timestamptz NOT NULL DEFAULT now(),
+    created_at timestamptz NOT NULL DEFAULT now(),
+    updated_at timestamptz
 );
 
 -- migrate:down

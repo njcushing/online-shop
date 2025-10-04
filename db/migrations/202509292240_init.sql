@@ -8,7 +8,9 @@ CREATE TABLE products (
     slug text NOT NULL UNIQUE,
     allowance int NOT NULL DEFAULT 0,
     tags text[] DEFAULT '{}',
-    release_date timestamptz
+    release_date timestamptz NOT NULL DEFAULT now(),
+    created_at timestamptz NOT NULL DEFAULT now(),
+    updated_at timestamptz
 );
 
 -- migrate:down

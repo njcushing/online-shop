@@ -2,6 +2,8 @@
 CREATE TABLE product_collections (
     collection_id uuid NOT NULL REFERENCES collections(id) ON DELETE CASCADE,
     product_id uuid NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+    created_at timestamptz NOT NULL DEFAULT now(),
+    updated_at timestamptz,
     PRIMARY KEY (collection_id, product_id)
 );
 

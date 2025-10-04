@@ -5,6 +5,8 @@ CREATE TABLE categories (
     name text NOT NULL,
     slug text NOT NULL UNIQUE,
     description text,
+    created_at timestamptz NOT NULL DEFAULT now(),
+    updated_at timestamptz,
     UNIQUE (parent_id, name)
 );
 
