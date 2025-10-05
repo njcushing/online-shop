@@ -6,7 +6,7 @@ CREATE TABLE order_items (
     unit_price_base numeric(10,2) NOT NULL,
     unit_price_paid numeric(10,2) NOT NULL,
     quantity int NOT NULL CHECK (quantity > 0),
-    subscription_frequency_id REFERENCES subscription_frequencies(id) ON DELETE RESTRICT,
+    subscription_frequency_id uuid REFERENCES subscription_frequencies(id) ON DELETE RESTRICT,
     subscription_discount numeric(10,2),
     created_at timestamptz NOT NULL DEFAULT now()
 );

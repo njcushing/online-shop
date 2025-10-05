@@ -1,9 +1,4 @@
-/**
- * Postcode RegEx from:
- * https://stackoverflow.com/questions/164979/regex-for-matching-uk-postcodes
- */
-
- -- migrate:up
+-- migrate:up
 CREATE TABLE user_addresses (
     id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
     user_id uuid NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
@@ -20,3 +15,7 @@ CREATE TABLE user_addresses (
 -- migrate:down
 DROP TABLE IF EXISTS user_addresses;
 
+/**
+ * Postcode RegEx from:
+ * https://stackoverflow.com/questions/164979/regex-for-matching-uk-postcodes
+ */
