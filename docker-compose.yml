@@ -4,6 +4,7 @@ services:
         container_name: postgres
         volumes:
             - mockdb_data:/var/lib/postgresql/data
+            - ./db:/db
         restart: always
         environment:
             POSTGRES_USER: mockdb_user
