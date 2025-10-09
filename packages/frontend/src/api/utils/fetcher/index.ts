@@ -1,22 +1,27 @@
 import { FuncResponseObject } from "@/api/types";
-import { saveTokenFromAPIResponse } from "../saveTokenFromAPIResponse";
 
 export async function fetcher<T>(path: string, init: RequestInit): Promise<FuncResponseObject<T>> {
     const result = await fetch(path, init)
         .then(async (response) => {
-            const responseJSON = await response.json();
-            saveTokenFromAPIResponse(responseJSON);
+            const { status, statusText } = response;
+
+            let data: T | null = null;
+            try {
+                data = await response.json();
+            } catch {
+                data = null;
+            }
 
             return {
-                status: responseJSON.status,
-                message: responseJSON.message,
-                data: responseJSON.data,
+                status,
+                message: statusText || (response.ok ? "OK" : "Request failed"),
+                data,
             };
         })
         .catch((error) => {
             return {
                 status: 500,
-                message: error.message,
+                message: error.message || "Network error",
                 data: null,
             };
         });
