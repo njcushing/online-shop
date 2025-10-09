@@ -1,9 +1,9 @@
 import { createContext, useState, useEffect, useMemo } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { ConsentBanner } from "@/features/ConsentBanner";
 import { Header } from "@/features/Header";
 import { Footer } from "@/features/Footer";
 import { generateSkeletonCart, PopulatedCart } from "@/utils/products/cart";
+import { getCategories } from "@/api/categories";
 import { mockGetUser, mockGetCart, mockGetOrders, mockGetSubscriptions } from "@/api/mocks";
 import { RecursivePartial } from "@/utils/types";
 import * as useAsync from "@/hooks/useAsync";
@@ -59,6 +59,7 @@ export const Routes = [
 ];
 
 export interface IRootContext {
+    categories: useAsync.InferUseAsyncReturnTypeFromFunction<typeof getCategories>;
     headerInfo: {
         active: boolean;
         open: boolean;
@@ -68,6 +69,7 @@ export interface IRootContext {
 }
 
 const defaultRootContext: IRootContext = {
+    categories: createQueryContextObject({ awaiting: true }),
     headerInfo: { active: false, open: true, height: 0, forceClose: () => {} },
 };
 
@@ -128,6 +130,12 @@ export function Root({ children }: TRoot) {
     const HeaderDisableActivity = pathname === "/cart" || pathname === "/checkout";
     const HeaderFooterReduced = pathname === "/cart" || pathname === "/checkout";
 
+    const [categories, setCategories] = useState<IRootContext["categories"]>(
+        defaultRootContext.categories,
+    );
+    const categoriesReturn = useAsync.GET(getCategories, [{}], { attemptOnMount: true });
+    useEffect(() => setCategories(categoriesReturn), [categoriesReturn]);
+
     const [headerInfo, setHeaderInfo] = useState<IRootContext["headerInfo"]>(
         defaultRootContext.headerInfo,
     );
@@ -155,7 +163,9 @@ export function Root({ children }: TRoot) {
     );
 
     return (
-        <RootContext.Provider value={useMemo(() => ({ headerInfo }), [headerInfo])}>
+        <RootContext.Provider
+            value={useMemo(() => ({ categories, headerInfo }), [categories, headerInfo])}
+        >
             <UserContext.Provider
                 value={useMemo(
                     () => ({
@@ -171,7 +181,6 @@ export function Root({ children }: TRoot) {
                 )}
             >
                 <div className={styles["page"]}>
-                    {!user.response.data?.consent.cookies && <ConsentBanner />}
                     <HeaderContext.Provider
                         value={useMemo(() => ({ setHeaderInfo }), [setHeaderInfo])}
                     >
