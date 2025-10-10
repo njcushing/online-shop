@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Cafree.Api.Data;
+using Cafree.Api.Dtos;
+using Cafree.Api.Mappers;
 
 namespace Cafree.Api.Controllers
 {
@@ -16,11 +18,11 @@ namespace Cafree.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCategories()
+        public async Task<ActionResult<IEnumerable<CategoryDto>>> GetCategories()
         {
-            var categories = await _context.Categories.Select(c => new { c.Name, c.Slug, c.Description }).ToListAsync();
+            var categories = await _context.Categories.ToListAsync();
 
-            return Ok(categories);
+            return Ok(categories.Select(CategoryMapper.ToDto));
         }
     }
 }
