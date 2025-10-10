@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Cafree.Api.Data;
 
-namespace Cafree.Api.Data.Controllers
+namespace Cafree.Api.Controllers
 {
     [ApiController]
     [Route("/api/categories")]

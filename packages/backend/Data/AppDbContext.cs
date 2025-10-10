@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cafree.Api.Data.Models;
+using Cafree.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cafree.Api.Data;
