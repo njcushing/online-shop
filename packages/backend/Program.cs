@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Cafree.Api.Services;
 using Cafree.Api.Data;
 
 var AllowSpecificOrigins = "";
@@ -6,7 +7,13 @@ var AllowSpecificOrigins = "";
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c => c.SupportNonNullableReferenceTypes());
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SchemaFilter<ImplicitRequiredSchemaFilter>();
+    c.SupportNonNullableReferenceTypes();
+    c.UseAllOfToExtendReferenceSchemas();
+    c.UseAllOfForInheritance();
+});
 builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
