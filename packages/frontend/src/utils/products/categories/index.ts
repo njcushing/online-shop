@@ -1,4 +1,5 @@
 import { GenericImage } from "@/utils/types";
+import { components } from "@/api/schema";
 
 export type Category = {
     slug: string;
@@ -160,3 +161,24 @@ export const categories: Category[] = [
         ],
     },
 ];
+
+type CategoryDto = components["schemas"]["CategoryDto"];
+export const buildCategoryTree = (
+    categoryData: CategoryDto[],
+): (CategoryDto & { subcategories: CategoryDto[] })[] => {
+    const categoryMap = new Map<string, CategoryDto & { subcategories: CategoryDto[] }>();
+    categoryData.forEach((c) => categoryMap.set(c.id, { ...c, subcategories: [] }));
+
+    const categoryTree: (CategoryDto & { subcategories: CategoryDto[] })[] = [];
+
+    categoryMap.forEach((c) => {
+        const parentCategory = c.parentId ? categoryMap.get(c.parentId) : null;
+        if (parentCategory) {
+            parentCategory.subcategories.push(c);
+        } else {
+            categoryTree.push(c);
+        }
+    });
+
+    return categoryTree;
+};
