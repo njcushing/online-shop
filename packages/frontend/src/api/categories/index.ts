@@ -1,14 +1,23 @@
 import * as HTTPMethodTypes from "../types";
+import { paths } from "../schema";
 import { fetcher } from "../utils/fetcher";
 
-export const getCategories: HTTPMethodTypes.GET<undefined, unknown> = async (data) => {
+const endpointShort = "/categories";
+const endpointFull = `/api${endpointShort}`;
+const method = "get";
+const code = 200;
+const contentType = "application/json";
+type Response =
+    paths[typeof endpointFull][typeof method]["responses"][typeof code]["content"][typeof contentType];
+
+export const getCategories: HTTPMethodTypes.GET<undefined, Response> = async (data) => {
     const apiUrl = import.meta.env.VITE_API_BASE_URL || "/api";
 
-    const result = await fetcher(`${apiUrl}/categories`, {
+    const result = await fetcher<Response>(`${apiUrl}${endpointShort}`, {
         signal: data.abortController ? data.abortController.signal : null,
-        method: "GET",
+        method: method.toUpperCase(),
         mode: "cors",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": contentType },
     });
 
     return result;
