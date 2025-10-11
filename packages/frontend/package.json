@@ -3,6 +3,9 @@
     "version": "0.1.0",
     "private": false,
     "type": "module",
+    "scripts": {
+        "gen:types": "openapi-typescript http://localhost:5194/swagger/v1/swagger.json -o ./src/api/schema.d.ts"
+    },
     "eslintConfig": {
         "extends": [
             "react-app",
