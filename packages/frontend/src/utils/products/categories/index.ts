@@ -163,13 +163,12 @@ export const categories: Category[] = [
 ];
 
 type CategoryDto = components["schemas"]["CategoryDto"];
-export const buildCategoryTree = (
-    categoryData: CategoryDto[],
-): (CategoryDto & { subcategories: CategoryDto[] })[] => {
-    const categoryMap = new Map<string, CategoryDto & { subcategories: CategoryDto[] }>();
+type CategoryDtoWithSubcategories = CategoryDto & { subcategories: CategoryDtoWithSubcategories[] };
+export const buildCategoryTree = (categoryData: CategoryDto[]): CategoryDtoWithSubcategories[] => {
+    const categoryMap = new Map<string, CategoryDtoWithSubcategories>();
     categoryData.forEach((c) => categoryMap.set(c.id, { ...c, subcategories: [] }));
 
-    const categoryTree: (CategoryDto & { subcategories: CategoryDto[] })[] = [];
+    const categoryTree: CategoryDtoWithSubcategories[] = [];
 
     categoryMap.forEach((c) => {
         const parentCategory = c.parentId ? categoryMap.get(c.parentId) : null;
