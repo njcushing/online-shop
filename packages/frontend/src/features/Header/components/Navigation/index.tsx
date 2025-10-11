@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "@/pages/Root";
+import { RootContext, UserContext } from "@/pages/Root";
 import { useMatches, ActionIcon, Burger, BurgerProps } from "@mantine/core";
 import { useClickOutside } from "@mantine/hooks";
 import { MagnifyingGlass, User, ShoppingCartSimple, IconProps } from "@phosphor-icons/react";
 import { useNavigate, Link } from "react-router-dom";
-import { categories } from "@/utils/products/categories";
+import { buildCategoryTree } from "@/utils/products/categories";
 import { Logo } from "@/features/Logo";
 import { CartDrawer } from "@/features/Cart/components/CartDrawer";
 import { SearchBar } from "../SearchBar";
@@ -23,11 +23,19 @@ export type TNavigation = {
 };
 
 export function Navigation({ opened = false, reduced }: TNavigation) {
+    const { categories } = useContext(RootContext);
     const { cart } = useContext(UserContext);
-    const { response } = cart;
-    const { data: cartData } = response;
+
+    const { response: categoriesResponse } = categories;
+    const { response: cartResponse } = cart;
+
+    const { data: categoriesData } = categoriesResponse;
+    const { data: cartData } = cartResponse;
 
     const navigate = useNavigate();
+
+    const [categoryTree, setCategoryTree] = useState<ReturnType<typeof buildCategoryTree>>([]);
+    useEffect(() => setCategoryTree(buildCategoryTree(categoriesData || [])), [categoriesData]);
 
     const [navDrawerOpen, setNavDrawerOpen] = useState<boolean>(false);
     const [searchBarOpen, setSearchBarOpen] = useState<boolean>(false);
@@ -149,7 +157,7 @@ export function Navigation({ opened = false, reduced }: TNavigation) {
                         </div>
 
                         <div className={`${styles["categories"]} mantine-visible-from-lg`}>
-                            {categories.map((category) => {
+                            {categoryTree.map((category) => {
                                 const { name, slug } = category;
                                 return (
                                     <Link
