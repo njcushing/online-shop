@@ -1,43 +1,47 @@
-import { createContext, useMemo } from "react";
+import { createContext, useContext, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { CategoryHero } from "@/features/CategoryHero";
 import { ProductList } from "@/features/ProductList";
-import { categories, Category as CategoryDataType } from "@/utils/products/categories";
+import { buildCategoryTree } from "@/utils/products/categories";
+import { RootContext } from "../Root";
 import styles from "./index.module.css";
 
 export interface ICategoryContext {
     urlPathFull: string;
     urlPathSplit: string[];
-    categoryData: CategoryDataType[];
+    categoryTree: ReturnType<typeof buildCategoryTree>;
+    categoryBranch: ReturnType<typeof buildCategoryTree>;
 }
 
 export const defaultCategoryContext: ICategoryContext = {
     urlPathFull: "",
     urlPathSplit: [],
-    categoryData: [],
+    categoryTree: [],
+    categoryBranch: [],
 };
 
 export const CategoryContext = createContext<ICategoryContext>(defaultCategoryContext);
 
-const validatePath = (
-    stage: number,
-    urlPathSplit: string[],
-    currentCategories: CategoryDataType[],
-    categoriesArray: CategoryDataType[],
-): CategoryDataType[] | null => {
-    if (urlPathSplit.length === 0) return null;
+const findCurrentBranch = (
+    urlPathSplit: ICategoryContext["urlPathSplit"],
+    currentBranch: ICategoryContext["categoryTree"],
+    nextBranch: ICategoryContext["categoryTree"][number]["subcategories"],
+): ICategoryContext["categoryBranch"] => {
+    if (urlPathSplit.length === 0) return [];
 
-    const slug = urlPathSplit[stage];
-    const categoryIndex = categoriesArray.findIndex((category) => category.slug === slug);
-    if (categoryIndex > -1) {
-        const foundCategory = categoriesArray[categoryIndex];
-        const newCategories = [...currentCategories, categoriesArray[categoryIndex]];
-        if (stage === urlPathSplit.length - 1) return newCategories;
-        if (!foundCategory.subcategories) return null;
-        return validatePath(stage + 1, urlPathSplit, newCategories, foundCategory.subcategories);
+    const slug = urlPathSplit[0];
+    const foundBranch = nextBranch.find((c) => c.slug === slug);
+    if (foundBranch) {
+        const newCurrentBranch = [...currentBranch, foundBranch];
+        if (urlPathSplit.length === 1) return newCurrentBranch;
+        return findCurrentBranch(
+            urlPathSplit.slice(1),
+            newCurrentBranch,
+            foundBranch.subcategories,
+        );
     }
 
-    return null;
+    return [];
 };
 
 export type TCategory = {
@@ -45,18 +49,26 @@ export type TCategory = {
 };
 
 export function Category({ children }: TCategory) {
+    const { categories } = useContext(RootContext);
+    const { response, awaiting } = categories;
+    const { data } = response;
+
     const { "*": urlPathFull } = useParams();
     const urlPathSplit = useMemo(() => (urlPathFull ? urlPathFull.split("/") : []), [urlPathFull]);
 
-    const categoryData = useMemo(() => {
-        return validatePath(0, urlPathSplit, [], categories) || [];
-    }, [urlPathSplit]);
+    const categoryTree = useMemo<ICategoryContext["categoryTree"]>(() => {
+        return buildCategoryTree(data || []);
+    }, [data]);
+
+    const categoryBranch = useMemo<ICategoryContext["categoryBranch"]>(() => {
+        return findCurrentBranch(urlPathSplit, [], categoryTree);
+    }, [urlPathSplit, categoryTree]);
 
     const contextValue = useMemo<ICategoryContext>(() => {
-        return { urlPathFull: urlPathFull || "", urlPathSplit, categoryData };
-    }, [urlPathFull, urlPathSplit, categoryData]);
+        return { urlPathFull: urlPathFull || "", urlPathSplit, categoryTree, categoryBranch };
+    }, [urlPathFull, urlPathSplit, categoryTree, categoryBranch]);
 
-    if (categoryData.length === 0) throw new Response("Category not found", { status: 404 });
+    if (!awaiting && !categoryBranch) throw new Response("Category not found", { status: 404 });
 
     return (
         <CategoryContext.Provider value={contextValue}>

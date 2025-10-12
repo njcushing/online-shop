@@ -26,8 +26,8 @@
     }
 }
 
-.category-breadcrumb {
-    color: black;
+.category-breadcrumb-button,
+.category-breadcrumb-current {
     font-family: var(--font-primary);
     font-size: 0.8rem;
     text-decoration: none;
@@ -37,12 +37,23 @@
     }
 }
 
+.category-breadcrumb-button {
+    color: black;
+
+    border: none;
+    background-color: transparent;
+
+    padding: 0px;
+}
+
 .category-breadcrumb-current {
     color: grey;
 }
 
 @media (hover: hover) {
-    .category-breadcrumb:hover:not(.category-breadcrumb-current) {
+    .category-breadcrumb-button:hover {
+        cursor: pointer;
+
         text-decoration: underline;
     }
 }
@@ -68,6 +79,9 @@
 }
 
 .subcategory-links {
+    position: relative;
+    left: -2px;
+
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: 120px;
@@ -92,7 +106,10 @@
     text-align: center;
     text-decoration: none;
 
-    padding-bottom: 4px;
+    border: none;
+    background-color: transparent;
+
+    padding: 0px 0px 4px;
 
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 0.92rem;
@@ -113,13 +130,15 @@
 }
 
 @media (hover: hover) {
-    .subcategory-link:hover:not(:disabled) > .subcategory-link-image {
+    .subcategory-link:hover:not(:disabled) .subcategory-link-image {
         outline-width: 2px;
         outline-offset: -1px;
         border-radius: 50%;
     }
 
     .subcategory-link:hover:not(:disabled) {
+        cursor: pointer;
+
         text-decoration: underline;
     }
 }

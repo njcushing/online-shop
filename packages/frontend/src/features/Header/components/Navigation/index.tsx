@@ -1,21 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { RootContext, UserContext } from "@/pages/Root";
-import { useMatches, ActionIcon, Burger, BurgerProps } from "@mantine/core";
+import { useMatches, ActionIcon, Burger, BurgerProps, Skeleton } from "@mantine/core";
 import { useClickOutside } from "@mantine/hooks";
 import { MagnifyingGlass, User, ShoppingCartSimple, IconProps } from "@phosphor-icons/react";
-import { useNavigate, Link } from "react-router-dom";
-import { buildCategoryTree } from "@/utils/products/categories";
+import { useNavigate } from "react-router-dom";
+import { buildCategoryTree, skeletonCategories } from "@/utils/products/categories";
 import { Logo } from "@/features/Logo";
 import { CartDrawer } from "@/features/Cart/components/CartDrawer";
 import { SearchBar } from "../SearchBar";
 import styles from "./index.module.css";
 import { NavDrawer } from "./components/NavDrawer";
-
-export type Category = {
-    name: string;
-    path: string;
-    icon: React.ReactNode;
-};
 
 export type TNavigation = {
     opened?: boolean;
@@ -26,10 +20,10 @@ export function Navigation({ opened = false, reduced }: TNavigation) {
     const { categories } = useContext(RootContext);
     const { cart } = useContext(UserContext);
 
-    const { response: categoriesResponse } = categories;
+    const { response: categoriesResponse, awaiting: categoriesAwaiting } = categories;
     const { response: cartResponse } = cart;
 
-    const { data: categoriesData } = categoriesResponse;
+    const categoriesData = !categoriesAwaiting ? categoriesResponse.data : skeletonCategories;
     const { data: cartData } = cartResponse;
 
     const navigate = useNavigate();
@@ -159,15 +153,27 @@ export function Navigation({ opened = false, reduced }: TNavigation) {
                         <div className={`${styles["categories"]} mantine-visible-from-lg`}>
                             {categoryTree.map((category) => {
                                 const { name, slug } = category;
+                                const path = `/c/${slug}`;
                                 return (
-                                    <Link
-                                        to={`/c/${slug}`}
-                                        className={styles["option"]}
+                                    <Skeleton
+                                        visible={categoriesAwaiting}
+                                        width="min-content"
                                         key={`navbar-category-${name}`}
                                     >
-                                        {name}
-                                        <div className={styles["underscore"]}></div>
-                                    </Link>
+                                        <button
+                                            type="button"
+                                            className={styles["option"]}
+                                            onClick={() => navigate(path)}
+                                            style={{
+                                                visibility: categoriesAwaiting
+                                                    ? "hidden"
+                                                    : "initial",
+                                            }}
+                                        >
+                                            {name}
+                                            <div className={styles["underscore"]}></div>
+                                        </button>
+                                    </Skeleton>
                                 );
                             })}
                         </div>

@@ -1,169 +1,78 @@
-import { GenericImage } from "@/utils/types";
+import { v4 as uuid } from "uuid";
 import { components } from "@/api/schema";
 
-export type Category = {
-    slug: string;
-    name: string;
-    description: string;
-    subcategories?: Category[];
-    products?: string[];
-    img?: GenericImage;
+export type CategoryDto = components["schemas"]["CategoryDto"];
+export type CategoryDtoWithSubcategories = CategoryDto & {
+    subcategories: CategoryDtoWithSubcategories[];
 };
 
-export const categories: Category[] = [
+export const skeletonCategories: CategoryDtoWithSubcategories[] = [
     {
-        slug: "coffee",
-        name: "Coffee",
-        description: "All coffee-related products.",
+        id: uuid(),
+        slug: "default-category-1",
+        name: "Default Cat 1",
+        description: "Default Category 1 description",
         subcategories: [
             {
-                slug: "beans",
-                name: "Beans",
-                description: "Whole coffee beans.",
-                products: ["1", "2", "3"],
+                id: uuid(),
+                slug: "default-category-6",
+                name: "Default Cat 6",
+                description: "Default Category 6 description",
+                subcategories: [],
             },
             {
-                slug: "ground",
-                name: "Ground",
-                description: "Pre-ground coffee for convenience.",
-                products: [],
+                id: uuid(),
+                slug: "default-category-7",
+                name: "Default Cat 7",
+                description: "Default Category 7 description",
+                subcategories: [],
             },
             {
-                slug: "instant-pods",
-                name: "Instant & Pods",
-                description: "Quick and easy coffee options.",
-                products: [],
+                id: uuid(),
+                slug: "default-category-8",
+                name: "Default Cat 8",
+                description: "Default Category 8 description",
+                subcategories: [],
             },
             {
-                slug: "cold-brew-ready",
-                name: "Cold Brew & Ready-to-Drink",
-                description: "Pre-made cold brews.",
-                products: [],
+                id: uuid(),
+                slug: "default-category-9",
+                name: "Default Cat 9",
+                description: "Default Category 9 description",
+                subcategories: [],
             },
         ],
     },
     {
-        slug: "tea",
-        name: "Tea",
-        description: "A variety of teas from around the world.",
-        subcategories: [
-            {
-                slug: "loose-leaf",
-                name: "Loose Leaf",
-                description: "High-quality loose tea leaves.",
-                products: [],
-            },
-            {
-                slug: "bags",
-                name: "Bags",
-                description: "Convenient tea bags.",
-                products: [],
-            },
-            {
-                slug: "specialty-and-powdered",
-                name: "Specialty & Powdered",
-                description: "Matcha and chai powders.",
-                products: [],
-            },
-            {
-                slug: "ready-to-drink",
-                name: "Ready-to-Drink",
-                description: "Pre-bottled teas.",
-                products: [],
-            },
-        ],
+        id: uuid(),
+        slug: "default-category-2",
+        name: "Default Cat 2",
+        description: "Default Category 2 description",
+        subcategories: [],
     },
     {
-        slug: "equipment",
-        name: "Equipment",
-        description: "Everything you need to brew coffee & tea.",
-        subcategories: [
-            {
-                slug: "brewing",
-                name: "Brewing",
-                description: "Manual brewing devices.",
-                products: [],
-            },
-            {
-                slug: "espresso-machines",
-                name: "Espresso Machines",
-                description: "Machines for making espresso.",
-                products: [],
-            },
-            {
-                slug: "grinders",
-                name: "Grinders",
-                description: "For freshly ground coffee.",
-                products: [],
-            },
-            {
-                slug: "scales-timers",
-                name: "Scales & Timers",
-                description: "Precision tools for brewing.",
-                products: [],
-            },
-            {
-                slug: "cold-brew-makers",
-                name: "Cold Brew Makers",
-                description: "Specialized cold brew tools.",
-                products: [],
-            },
-        ],
+        id: uuid(),
+        slug: "default-category-3",
+        name: "Default Cat 3",
+        description: "Default Category 3 description",
+        subcategories: [],
     },
     {
-        slug: "accessories",
-        name: "Accessories",
-        description: "Enhance your coffee and tea experience.",
-        subcategories: [
-            {
-                slug: "mugs-tumblers",
-                name: "Mugs & Tumblers",
-                description: "Drinkware for all beverages.",
-                products: [],
-            },
-            {
-                slug: "filters-maintenance",
-                name: "Filters & Maintenance",
-                description: "Reusable and disposable filters.",
-                products: [],
-            },
-            {
-                slug: "frothers-steamers",
-                name: "Frothers & Steamers",
-                description: "Tools for milk frothing.",
-                products: [],
-            },
-        ],
+        id: uuid(),
+        slug: "default-category-4",
+        name: "Default Cat 4",
+        description: "Default Category 4 description",
+        subcategories: [],
     },
     {
-        slug: "gifts-subscriptions",
-        name: "Gifts & Subscriptions",
-        description: "Great gifts for coffee and tea lovers.",
-        subcategories: [
-            {
-                slug: "gift-sets-packs",
-                name: "Gift Sets & Sampler Packs",
-                description: "Curated gift sets.",
-                products: [],
-            },
-            {
-                slug: "subscription-boxes",
-                name: "Coffee Subscription Boxes",
-                description: "Monthly coffee deliveries.",
-                products: [],
-            },
-            {
-                slug: "gift-cards",
-                name: "Gift Cards",
-                description: "Digital and physical gift cards.",
-                products: [],
-            },
-        ],
+        id: uuid(),
+        slug: "default-category-5",
+        name: "Default Cat 5",
+        description: "Default Category 5 description",
+        subcategories: [],
     },
 ];
 
-type CategoryDto = components["schemas"]["CategoryDto"];
-type CategoryDtoWithSubcategories = CategoryDto & { subcategories: CategoryDtoWithSubcategories[] };
 export const buildCategoryTree = (categoryData: CategoryDto[]): CategoryDtoWithSubcategories[] => {
     const categoryMap = new Map<string, CategoryDtoWithSubcategories>();
     categoryData.forEach((c) => categoryMap.set(c.id, { ...c, subcategories: [] }));
