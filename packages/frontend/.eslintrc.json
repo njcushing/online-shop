@@ -60,7 +60,7 @@
                     ["@settings", "./packages/frontend/settings"],
                     ["@test-utils", "./packages/frontend/test-utils"]
                 ],
-                "extensions": [".ts", ".tsx", ".js", ".jsx"]
+                "extensions": [".ts", ".d.ts", ".tsx", ".js", ".jsx"]
             }
         },
         "react": {
