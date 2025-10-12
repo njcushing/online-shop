@@ -4,8 +4,15 @@
     justify-content: center;
 
     width: min(calc(var(--vw) * 100), 100%);
-    min-height: calc(var(--vh, 1vh) * 100);
     padding: 0px;
+}
+
+.error-page[data-height="page"] {
+    min-height: calc(var(--vh, 1vh) * 100);
+}
+
+.error-page[data-height="fill"] {
+    height: 100%;
 }
 
 .error-page-width-controller {

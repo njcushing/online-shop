@@ -28,33 +28,33 @@ export const Routes = [
     {
         path: "",
         element: <Home />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorPage hideHeader hideFooter height="fill" />,
     },
     {
         path: "c/*",
         element: <Category />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorPage hideHeader hideFooter height="fill" />,
     },
     {
         path: "p/:productId/:productSlug",
         element: <Product />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorPage hideHeader hideFooter height="fill" />,
     },
     {
         path: "cart",
         element: <Cart />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorPage hideHeader hideFooter height="fill" />,
     },
     {
         path: "checkout",
         element: <Checkout />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorPage hideHeader hideFooter height="fill" />,
     },
     {
         path: "account",
         element: <Account />,
         children: AccountRoutes,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorPage hideHeader hideFooter height="fill" />,
     },
 ];
 

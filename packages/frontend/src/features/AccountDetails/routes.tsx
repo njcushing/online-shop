@@ -9,31 +9,31 @@ export const Routes = [
     {
         path: "personal-information",
         element: <PersonalInformation />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorPage hideHeader hideFooter height="fill" />,
     },
     {
         path: "addresses",
         element: <Addresses />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorPage hideHeader hideFooter height="fill" />,
     },
     {
         path: "security",
         element: <Security />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorPage hideHeader hideFooter height="fill" />,
     },
     {
         path: "payment-information",
         element: <div></div>,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorPage hideHeader hideFooter height="fill" />,
     },
     {
         path: "order-history",
         element: <OrderHistory />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorPage hideHeader hideFooter height="fill" />,
     },
     {
         path: "subscriptions",
         element: <Subscriptions />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorPage hideHeader hideFooter height="fill" />,
     },
 ];

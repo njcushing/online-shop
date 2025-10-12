@@ -3,11 +3,18 @@ import { Header } from "@/features/Header";
 import { Footer } from "@/features/Footer";
 import styles from "./index.module.css";
 
-/* Breaking normal naming convention to prevent clash with Error API */
-export function ErrorPage() {
+/* Breaking personal page naming convention to prevent clash with Error API */
+
+export type TErrorPage = {
+    hideHeader?: boolean;
+    hideFooter?: boolean;
+    height?: "page" | "fill";
+};
+
+export function ErrorPage({ hideHeader, hideFooter, height = "page" }: TErrorPage) {
     return (
-        <div className={styles["error-page"]}>
-            <Header disableActivity reduced />
+        <div className={styles["error-page"]} data-height={height}>
+            {!hideHeader && <Header disableActivity reduced />}
 
             <div className={styles["error-page-width-controller"]}>
                 <h1
@@ -19,7 +26,7 @@ export function ErrorPage() {
                 </Link>
             </div>
 
-            <Footer reduced />
+            {!hideFooter && <Footer reduced />}
         </div>
     );
 }
