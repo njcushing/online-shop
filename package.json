@@ -18,7 +18,11 @@
         "test:front": "npx --prefix ./packages/frontend vitest --root ./packages/frontend",
         "coverage:front": "npx --prefix ./packages/frontend vitest --root ./packages/frontend --coverage",
         "psql": "docker exec -it postgres psql -U mockdb_user -d mockdb",
-        "migrate": "docker compose run --rm dbmate up"
+        "db:reset": "npm run db:rebuild && docker compose run --rm dbmate wait && npm run db:refresh",
+        "db:rebuild": "docker compose down -v && docker compose up -d",
+        "db:refresh": "docker exec -i postgres psql -U mockdb_user -d mockdb -c 'DROP SCHEMA public CASCADE; CREATE SCHEMA public;' && npm run db:migrate && npm run db:seed",
+        "db:migrate": "docker compose run --rm dbmate up",
+        "db:seed": "for f in $(ls db/seeds/*.sql | sort); do docker exec -i postgres psql -U mockdb_user -d mockdb -f $f; done"
     },
     "devDependencies": {
         "concurrently": "^9.2.1"
