@@ -17,4 +17,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
   </ItemGroup>
 
+  <Target Name="DbScaffold">
+    <Exec Command='dotnet ef dbcontext scaffold "Host=localhost;Port=5432;Database=mockdb;Username=mockdb_user;Password=mockdb_password" Npgsql.EntityFrameworkCore.PostgreSQL --output-dir Models --context-dir Data --context AppDbContext --force --no-onconfiguring' />
+  </Target>
+
 </Project>
