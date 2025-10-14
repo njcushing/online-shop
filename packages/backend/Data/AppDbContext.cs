@@ -7,10 +7,6 @@ namespace Cafree.Api.Data;
 
 public partial class AppDbContext : DbContext
 {
-    public AppDbContext()
-    {
-    }
-
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
     {
@@ -51,6 +47,8 @@ public partial class AppDbContext : DbContext
     public virtual DbSet<PromotionType> PromotionTypes { get; set; }
 
     public virtual DbSet<SchemaMigration> SchemaMigrations { get; set; }
+
+    public virtual DbSet<Setting> Settings { get; set; }
 
     public virtual DbSet<Subscription> Subscriptions { get; set; }
 
@@ -561,6 +559,26 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Version)
                 .HasColumnType("character varying")
                 .HasColumnName("version");
+        });
+
+        modelBuilder.Entity<Setting>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("settings_pkey");
+
+            entity.ToTable("settings");
+
+            entity.Property(e => e.Id)
+                .HasDefaultValueSql("uuid_generate_v4()")
+                .HasColumnName("id");
+            entity.Property(e => e.BaseExpressDeliveryCost)
+                .HasPrecision(10, 2)
+                .HasColumnName("base_express_delivery_cost");
+            entity.Property(e => e.FreeExpressDeliveryThreshold)
+                .HasPrecision(10, 2)
+                .HasColumnName("free_express_delivery_threshold");
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("now()")
+                .HasColumnName("updated_at");
         });
 
         modelBuilder.Entity<Subscription>(entity =>
