@@ -3,6 +3,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import { Header } from "@/features/Header";
 import { Footer } from "@/features/Footer";
 import { generateSkeletonCart, PopulatedCart } from "@/utils/products/cart";
+import { getSettings } from "@/api/settings";
 import { getCategories } from "@/api/categories";
 import { mockGetUser, mockGetCart, mockGetOrders, mockGetSubscriptions } from "@/api/mocks";
 import { RecursivePartial } from "@/utils/types";
@@ -59,6 +60,7 @@ export const Routes = [
 ];
 
 export interface IRootContext {
+    settings: useAsync.InferUseAsyncReturnTypeFromFunction<typeof getSettings>;
     categories: useAsync.InferUseAsyncReturnTypeFromFunction<typeof getCategories>;
     headerInfo: {
         active: boolean;
@@ -69,6 +71,7 @@ export interface IRootContext {
 }
 
 const defaultRootContext: IRootContext = {
+    settings: createQueryContextObject({ awaiting: true }),
     categories: createQueryContextObject({ awaiting: true }),
     headerInfo: { active: false, open: true, height: 0, forceClose: () => {} },
 };
@@ -130,6 +133,10 @@ export function Root({ children }: TRoot) {
     const HeaderDisableActivity = pathname === "/cart" || pathname === "/checkout";
     const HeaderFooterReduced = pathname === "/cart" || pathname === "/checkout";
 
+    const [settings, setSettings] = useState<IRootContext["settings"]>(defaultRootContext.settings);
+    const settingsReturn = useAsync.GET(getSettings, [{}], { attemptOnMount: true });
+    useEffect(() => setSettings(settingsReturn), [settingsReturn]);
+
     const [categories, setCategories] = useState<IRootContext["categories"]>(
         defaultRootContext.categories,
     );
@@ -164,7 +171,10 @@ export function Root({ children }: TRoot) {
 
     return (
         <RootContext.Provider
-            value={useMemo(() => ({ categories, headerInfo }), [categories, headerInfo])}
+            value={useMemo(
+                () => ({ settings, categories, headerInfo }),
+                [settings, categories, headerInfo],
+            )}
         >
             <UserContext.Provider
                 value={useMemo(
