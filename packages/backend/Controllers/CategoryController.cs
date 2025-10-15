@@ -18,11 +18,19 @@ namespace Cafree.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CategoryDto>>> GetCategories()
+        [ProducesResponseType(typeof(List<CategoryDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetCategories()
         {
             var categories = await _context.Categories.ToListAsync();
 
-            return Ok(categories.Select(CategoryMapper.ToDto));
+            if (categories == null) return Problem(
+                statusCode: StatusCodes.Status404NotFound,
+                title: "Categories not found",
+                detail: "No category records could be located."
+            );
+
+            return NotFound(categories.Select(CategoryMapper.ToDto));
         }
     }
 }

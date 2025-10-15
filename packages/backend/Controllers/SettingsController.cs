@@ -18,9 +18,17 @@ namespace Cafree.Api.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(SettingsDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<SettingsDto>> GetSettings()
         {
             var settings = await _context.Settings.SingleAsync();
+
+            if (settings == null) return Problem(
+                statusCode: StatusCodes.Status404NotFound,
+                title: "Settings not found",
+                detail: "No application settings could be located."
+            );
 
             return Ok(SettingsMapper.ToDto(settings));
         }
