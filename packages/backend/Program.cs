@@ -14,6 +14,7 @@ builder.Services.AddSwaggerGen(c =>
     c.UseAllOfToExtendReferenceSchemas();
     c.UseAllOfForInheritance();
 });
+builder.Services.AddProblemDetails();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -38,6 +39,9 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseCors(AllowSpecificOrigins);
+
+app.UseExceptionHandler();
+app.UseStatusCodePages();
 
 app.MapControllers();
 app.MapFallbackToFile("index.html");
