@@ -31,6 +31,17 @@ export interface paths {
                         "text/json": components["schemas"]["CategoryDto"][];
                     };
                 };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
             };
         };
         put?: never;
@@ -68,6 +79,17 @@ export interface paths {
                         "text/json": components["schemas"]["SettingsDto"];
                     };
                 };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
             };
         };
         put?: never;
@@ -90,6 +112,24 @@ export interface components {
             name: string;
             slug: string;
             description?: string | null;
+        };
+        HttpValidationProblemDetails: components["schemas"]["ProblemDetails"] &
+            ({
+                errors?: {
+                    [key: string]: string[];
+                };
+            } & {
+                [key: string]: unknown;
+            });
+        ProblemDetails: {
+            type?: string | null;
+            title?: string | null;
+            /** Format: int32 */
+            status?: number | null;
+            detail?: string | null;
+            instance?: string | null;
+        } & {
+            [key: string]: unknown;
         };
         SettingsDto: {
             /** Format: double */
