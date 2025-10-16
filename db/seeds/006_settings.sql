@@ -1,6 +1,6 @@
 BEGIN;
 
-INSERT INTO settings (base_express_delivery_cost, free_express_delivery_threshold) VALUES
-    (5.99, 50.00);
+INSERT INTO settings (base_express_delivery_cost, free_express_delivery_threshold, low_stock_threshold) VALUES
+    (5.99, 50.00, 50);
 
 COMMIT;
