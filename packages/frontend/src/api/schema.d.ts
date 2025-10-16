@@ -113,14 +113,13 @@ export interface components {
             slug: string;
             description?: string | null;
         };
-        HttpValidationProblemDetails: components["schemas"]["ProblemDetails"] &
-            ({
-                errors?: {
-                    [key: string]: string[];
-                };
-            } & {
-                [key: string]: unknown;
-            });
+        HttpValidationProblemDetails: components["schemas"]["ProblemDetails"] & ({
+            errors?: {
+                [key: string]: string[];
+            };
+        } & {
+            [key: string]: unknown;
+        });
         ProblemDetails: {
             type?: string | null;
             title?: string | null;
@@ -136,6 +135,8 @@ export interface components {
             baseExpressDeliveryCost: number;
             /** Format: double */
             freeExpressDeliveryThreshold: number;
+            /** Format: int32 */
+            lowStockThreshold: number;
         };
     };
     responses: never;
