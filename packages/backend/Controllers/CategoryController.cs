@@ -30,7 +30,7 @@ namespace Cafree.Api.Controllers
                 detail: "No category records could be located."
             );
 
-            return NotFound(categories.Select(CategoryMapper.ToDto));
+            return Ok(categories.Select(CategoryMapper.ToDto));
         }
     }
 }
