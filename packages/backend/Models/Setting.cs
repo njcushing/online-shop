@@ -11,5 +11,7 @@ public partial class Setting
 
     public decimal FreeExpressDeliveryThreshold { get; set; }
 
+    public int LowStockThreshold { get; set; }
+
     public DateTime UpdatedAt { get; set; }
 }

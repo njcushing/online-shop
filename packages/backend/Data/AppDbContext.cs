@@ -576,6 +576,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.FreeExpressDeliveryThreshold)
                 .HasPrecision(10, 2)
                 .HasColumnName("free_express_delivery_threshold");
+            entity.Property(e => e.LowStockThreshold).HasColumnName("low_stock_threshold");
             entity.Property(e => e.UpdatedAt)
                 .HasDefaultValueSql("now()")
                 .HasColumnName("updated_at");

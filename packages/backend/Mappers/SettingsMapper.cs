@@ -11,6 +11,7 @@ namespace Cafree.Api.Mappers
             {
                 BaseExpressDeliveryCost = settings.BaseExpressDeliveryCost,
                 FreeExpressDeliveryThreshold = settings.FreeExpressDeliveryThreshold,
+                LowStockThreshold = settings.LowStockThreshold,
             };
         }
     }
