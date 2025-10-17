@@ -4,13 +4,13 @@ import _ from "lodash";
 import { createContext, useMemo, act } from "react";
 import { RecursivePartial } from "@/utils/types";
 import { BrowserRouter } from "react-router-dom";
-import { FuncResponseObject } from "@/api/types";
+import { ApiResponse } from "@/api/types";
 import * as HTTPMethodTypes from "@/api/types";
 import { UseAsyncOpts } from ".";
 import * as useAsync from ".";
 
 type ResponseType = string;
-const mockResponse: FuncResponseObject<ResponseType> = {
+const mockResponse: ApiResponse<ResponseType> = {
     status: 200,
     message: "Success",
     data: "value",

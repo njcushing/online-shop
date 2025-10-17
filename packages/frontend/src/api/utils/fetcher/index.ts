@@ -1,6 +1,6 @@
-import { FuncResponseObject } from "@/api/types";
+import { ApiResponse } from "@/api/types";
 
-export async function fetcher<T>(path: string, init: RequestInit): Promise<FuncResponseObject<T>> {
+export async function fetcher<T>(path: string, init: RequestInit): Promise<ApiResponse<T>> {
     const result = await fetch(path, init)
         .then(async (response) => {
             const { status, statusText } = response;

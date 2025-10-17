@@ -1,6 +1,6 @@
 import { vi } from "vitest";
 import fetchMock from "@fetch-mock/vitest";
-import { FuncResponseObject } from "@/api/types";
+import { ApiResponse } from "@/api/types";
 import { fetcher } from ".";
 import * as saveTokenFromAPIResponse from "../saveTokenFromAPIResponse";
 
@@ -14,7 +14,7 @@ const mockArgs: Parameters<typeof fetcher> = [
     },
 ];
 
-const mockResponse: FuncResponseObject<string> = {
+const mockResponse: ApiResponse<string> = {
     status: 200,
     message: "Success",
     data: "data",

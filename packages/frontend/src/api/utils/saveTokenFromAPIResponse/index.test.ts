@@ -1,8 +1,8 @@
 import { vi } from "vitest";
-import { FuncResponseObject } from "@/api/types";
+import { ApiResponse } from "@/api/types";
 import { saveTokenFromAPIResponse } from ".";
 
-const generateResponse = <T>(data: T | null): FuncResponseObject<T> => ({
+const generateResponse = <T>(data: T | null): ApiResponse<T> => ({
     status: 200,
     message: "Success",
     data,

@@ -1,10 +1,10 @@
 import { z } from "zod";
-import { FuncResponseObject } from "@/api/types";
+import { ApiResponse } from "@/api/types";
 
 const TokenDataSchema = z.object({ token: z.string() });
 
 export async function saveTokenFromAPIResponse(
-    response: FuncResponseObject<unknown>,
+    response: ApiResponse<unknown>,
 ): Promise<{ success: true } | { success: false; message: string }> {
     if (response.data == null) return { success: false, message: "DATA_NULL" };
 

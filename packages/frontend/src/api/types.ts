@@ -1,4 +1,4 @@
-export type FuncResponseObject<FuncResponse> = {
+export type ApiResponse<FuncResponse> = {
     status: number;
     message: string;
     data: FuncResponse | null;
@@ -10,7 +10,7 @@ export type GET<FuncParams = unknown, FuncResponse = unknown> = (
         abortController?: AbortController | null;
     },
     ...args: unknown[]
-) => Promise<FuncResponseObject<FuncResponse>>;
+) => Promise<ApiResponse<FuncResponse>>;
 
 export type DELETE<FuncParams, FuncResponse> = GET<FuncParams, FuncResponse>;
 
@@ -22,7 +22,7 @@ export type POST<FuncParams, FuncBody, FuncResponse> = {
             abortController?: AbortController | null;
         },
         ...args: unknown[]
-    ): Promise<FuncResponseObject<FuncResponse>>;
+    ): Promise<ApiResponse<FuncResponse>>;
 };
 
 export type PUT<FuncParams, FuncBody, FuncResponse> = POST<FuncParams, FuncBody, FuncResponse>;
