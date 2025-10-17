@@ -5,10 +5,10 @@ import { fetcher } from "../utils/fetcher";
 const endpointShort = "/categories";
 const endpointFull = `/api${endpointShort}`;
 const method = "get";
+const code = 200;
 const contentType = "application/json";
 type Responses = paths[typeof endpointFull][typeof method]["responses"];
-type ResponseStatusCodes = keyof paths[typeof endpointFull][typeof method]["responses"];
-type Response = Responses[ResponseStatusCodes]["content"][typeof contentType];
+type Response = Responses[typeof code]["content"][typeof contentType];
 
 export const getCategories: HTTPMethodTypes.GET<undefined, Response> = async (data) => {
     const apiUrl = import.meta.env.VITE_API_BASE_URL || "/api";
