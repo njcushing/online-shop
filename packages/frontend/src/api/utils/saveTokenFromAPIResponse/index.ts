@@ -6,6 +6,7 @@ const TokenDataSchema = z.object({ token: z.string() });
 export async function saveTokenFromAPIResponse(
     response: ApiResponse<unknown>,
 ): Promise<{ success: true } | { success: false; message: string }> {
+    if (!("data" in response)) return { success: false, message: "NO_DATA" };
     if (response.data == null) return { success: false, message: "DATA_NULL" };
 
     const parse = TokenDataSchema.safeParse(response.data);

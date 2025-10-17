@@ -11,6 +11,7 @@ import * as useAsync from ".";
 
 type ResponseType = string;
 const mockResponse: ApiResponse<ResponseType> = {
+    success: true,
     status: 200,
     message: "Success",
     data: "value",

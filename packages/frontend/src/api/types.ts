@@ -1,8 +1,21 @@
-export type ApiResponse<ResponseBody> = {
+import { components } from "./schema";
+
+export type ApiResponseBase = {
     status: number;
     message: string;
-    data: ResponseBody | null;
 };
+
+export type ApiResponseSuccess<ResponseBody> = ApiResponseBase & {
+    success: true;
+    data: ResponseBody;
+};
+
+export type ApiResponseError = ApiResponseBase & {
+    success: false;
+    error?: components["schemas"]["ProblemDetails"];
+};
+
+export type ApiResponse<ResponseBody> = ApiResponseSuccess<ResponseBody> | ApiResponseError;
 
 export type GET<RequestParams = unknown, ResponseBody = unknown> = (
     props: {

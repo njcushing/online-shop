@@ -26,13 +26,13 @@ const defaultUseAsyncOpts: Required<UseAsyncOpts> = {
 function initialResponseObject<RequestParams, RequestBody, ResponseBody>(): UnwrapPromise<
     ReturnType<MethodTypes<RequestParams, RequestBody, ResponseBody>>
 > {
-    return { status: 200, message: "Awaiting attempt", data: null };
+    return { success: false, status: 0, message: "No request made" };
 }
 
 function abortedResponseObject<RequestParams, RequestBody, ResponseBody>(): UnwrapPromise<
     ReturnType<MethodTypes<RequestParams, RequestBody, ResponseBody>>
 > {
-    return { status: 299, message: "Request aborted", data: null };
+    return { success: false, status: -1, message: "Request aborted" };
 }
 
 export type UseAsyncReturnType<RequestParams, RequestBody, ResponseBody> = {
@@ -92,9 +92,9 @@ export function useAsyncBase<
             >,
         );
 
-        const { status } = asyncResp;
-        if (onSuccess && status >= 200 && status <= 299) navigate(onSuccess);
-        if (onFail && (status < 200 || status > 299)) navigate(onFail);
+        const { success } = asyncResp;
+        if (onSuccess && success) navigate(onSuccess);
+        if (onFail && !success) navigate(onFail);
 
         abortController.current = null;
         setAttempting(false);

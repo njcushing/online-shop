@@ -2,7 +2,8 @@ import { vi } from "vitest";
 import { ApiResponse } from "@/api/types";
 import { saveTokenFromAPIResponse } from ".";
 
-const generateResponse = <T>(data: T | null): ApiResponse<T> => ({
+const generateResponse = <T>(data: T): ApiResponse<T> => ({
+    success: true,
     status: 200,
     message: "Success",
     data,

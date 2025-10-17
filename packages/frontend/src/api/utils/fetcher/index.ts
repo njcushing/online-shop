@@ -1,9 +1,9 @@
-import { ApiResponse } from "@/api/types";
+import { ApiResponse, ApiResponseSuccess, ApiResponseError } from "@/api/types";
 
 export async function fetcher<T>(path: string, init: RequestInit): Promise<ApiResponse<T>> {
     const result = await fetch(path, init)
         .then(async (response) => {
-            const { status, statusText } = response;
+            const { ok, status, statusText } = response;
 
             let data: T | null = null;
             try {
@@ -12,18 +12,29 @@ export async function fetcher<T>(path: string, init: RequestInit): Promise<ApiRe
                 data = null;
             }
 
+            if (ok) {
+                return {
+                    success: true,
+                    status,
+                    message: statusText || "OK",
+                    data,
+                } as ApiResponseSuccess<T>;
+            }
             return {
+                success: false,
                 status,
-                message: statusText || (response.ok ? "OK" : "Request failed"),
-                data,
-            };
+                message: statusText || "Request failed",
+                error: data,
+            } as ApiResponseError;
         })
-        .catch((error) => {
+        .catch((error: Error) => {
+            const { message } = error;
+
             return {
+                success: false,
                 status: 500,
-                message: error.message || "Network error",
-                data: null,
-            };
+                message: message || "Internal error",
+            } as ApiResponseError;
         });
 
     return result;

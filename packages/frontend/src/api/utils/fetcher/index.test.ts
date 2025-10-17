@@ -15,6 +15,7 @@ const mockArgs: Parameters<typeof fetcher> = [
 ];
 
 const mockResponse: ApiResponse<string> = {
+    success: true,
     status: 200,
     message: "Success",
     data: "data",
