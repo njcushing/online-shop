@@ -4,11 +4,11 @@ import _ from "lodash";
 import * as HTTPMethodTypes from "@/api/types";
 import { UnwrapPromise } from "@/utils/types";
 
-export type MethodTypes<FuncParams = unknown, FuncBody = unknown, FuncResponse = unknown> =
-    | HTTPMethodTypes.GET<FuncParams, FuncResponse>
-    | HTTPMethodTypes.DELETE<FuncParams, FuncResponse>
-    | HTTPMethodTypes.POST<FuncParams, FuncBody, FuncResponse>
-    | HTTPMethodTypes.PUT<FuncParams, FuncBody, FuncResponse>;
+export type MethodTypes<RequestParams = unknown, RequestBody = unknown, ResponseBody = unknown> =
+    | HTTPMethodTypes.GET<RequestParams, ResponseBody>
+    | HTTPMethodTypes.DELETE<RequestParams, ResponseBody>
+    | HTTPMethodTypes.POST<RequestParams, RequestBody, ResponseBody>
+    | HTTPMethodTypes.PUT<RequestParams, RequestBody, ResponseBody>;
 
 export type UseAsyncOpts = {
     attemptOnMount?: boolean;
@@ -23,23 +23,23 @@ const defaultUseAsyncOpts: Required<UseAsyncOpts> = {
     navigation: { onSuccess: undefined, onFail: undefined },
 };
 
-function initialResponseObject<FuncParams, FuncBody, FuncResponse>(): UnwrapPromise<
-    ReturnType<MethodTypes<FuncParams, FuncBody, FuncResponse>>
+function initialResponseObject<RequestParams, RequestBody, ResponseBody>(): UnwrapPromise<
+    ReturnType<MethodTypes<RequestParams, RequestBody, ResponseBody>>
 > {
     return { status: 200, message: "Awaiting attempt", data: null };
 }
 
-function abortedResponseObject<FuncParams, FuncBody, FuncResponse>(): UnwrapPromise<
-    ReturnType<MethodTypes<FuncParams, FuncBody, FuncResponse>>
+function abortedResponseObject<RequestParams, RequestBody, ResponseBody>(): UnwrapPromise<
+    ReturnType<MethodTypes<RequestParams, RequestBody, ResponseBody>>
 > {
     return { status: 299, message: "Request aborted", data: null };
 }
 
-export type UseAsyncReturnType<FuncParams, FuncBody, FuncResponse> = {
-    response: UnwrapPromise<ReturnType<MethodTypes<FuncParams, FuncBody, FuncResponse>>>;
+export type UseAsyncReturnType<RequestParams, RequestBody, ResponseBody> = {
+    response: UnwrapPromise<ReturnType<MethodTypes<RequestParams, RequestBody, ResponseBody>>>;
     setParams: React.Dispatch<
         React.SetStateAction<
-            Parameters<MethodTypes<FuncParams, FuncBody, FuncResponse>> | undefined
+            Parameters<MethodTypes<RequestParams, RequestBody, ResponseBody>> | undefined
         >
     >;
     attempt: () => void;
@@ -47,21 +47,25 @@ export type UseAsyncReturnType<FuncParams, FuncBody, FuncResponse> = {
     awaiting: boolean;
 };
 
-export function useAsyncBase<FuncParams = unknown, FuncBody = unknown, FuncResponse = unknown>(
-    func: MethodTypes<FuncParams, FuncBody, FuncResponse>,
-    parameters?: Parameters<MethodTypes<FuncParams, FuncBody, FuncResponse>>,
+export function useAsyncBase<
+    RequestParams = unknown,
+    RequestBody = unknown,
+    ResponseBody = unknown,
+>(
+    func: MethodTypes<RequestParams, RequestBody, ResponseBody>,
+    parameters?: Parameters<MethodTypes<RequestParams, RequestBody, ResponseBody>>,
     opts?: UseAsyncOpts,
-): UseAsyncReturnType<FuncParams, FuncBody, FuncResponse> {
+): UseAsyncReturnType<RequestParams, RequestBody, ResponseBody> {
     const { attemptOnMount, navigation } = _.merge(_.cloneDeep(defaultUseAsyncOpts), opts);
     const { onSuccess, onFail } = navigation;
 
     const navigate = useNavigate();
 
     const [params, setParams] = useState<
-        Parameters<MethodTypes<FuncParams, FuncBody, FuncResponse>> | undefined
+        Parameters<MethodTypes<RequestParams, RequestBody, ResponseBody>> | undefined
     >(parameters);
     const [response, setResponse] =
-        useState<UnwrapPromise<ReturnType<MethodTypes<FuncParams, FuncBody, FuncResponse>>>>(
+        useState<UnwrapPromise<ReturnType<MethodTypes<RequestParams, RequestBody, ResponseBody>>>>(
             initialResponseObject(),
         );
     const abortController = useRef<AbortController | null>(null);
@@ -83,7 +87,9 @@ export function useAsyncBase<FuncParams = unknown, FuncBody = unknown, FuncRespo
 
         const asyncResp = await func(data, args);
         setResponse(
-            asyncResp as UnwrapPromise<ReturnType<MethodTypes<FuncParams, FuncBody, FuncResponse>>>,
+            asyncResp as UnwrapPromise<
+                ReturnType<MethodTypes<RequestParams, RequestBody, ResponseBody>>
+            >,
         );
 
         const { status } = asyncResp;
@@ -120,45 +126,49 @@ export function useAsyncBase<FuncParams = unknown, FuncBody = unknown, FuncRespo
     );
 }
 
-export function GET<FuncParams = unknown, FuncResponse = unknown>(
-    func: HTTPMethodTypes.GET<FuncParams, FuncResponse>,
-    parameters?: Parameters<HTTPMethodTypes.GET<FuncParams, FuncResponse>>,
+export function GET<RequestParams = unknown, ResponseBody = unknown>(
+    func: HTTPMethodTypes.GET<RequestParams, ResponseBody>,
+    parameters?: Parameters<HTTPMethodTypes.GET<RequestParams, ResponseBody>>,
     opts?: UseAsyncOpts,
-): UseAsyncReturnType<FuncParams, undefined, FuncResponse> {
-    return useAsyncBase<FuncParams, undefined, FuncResponse>(func, parameters, opts);
+): UseAsyncReturnType<RequestParams, undefined, ResponseBody> {
+    return useAsyncBase<RequestParams, undefined, ResponseBody>(func, parameters, opts);
 }
 
-export function POST<FuncParams = unknown, FuncBody = unknown, FuncResponse = unknown>(
-    func: HTTPMethodTypes.POST<FuncParams, FuncBody, FuncResponse>,
-    parameters?: Parameters<HTTPMethodTypes.POST<FuncParams, FuncBody, FuncResponse>>,
+export function POST<RequestParams = unknown, RequestBody = unknown, ResponseBody = unknown>(
+    func: HTTPMethodTypes.POST<RequestParams, RequestBody, ResponseBody>,
+    parameters?: Parameters<HTTPMethodTypes.POST<RequestParams, RequestBody, ResponseBody>>,
     opts?: UseAsyncOpts,
-): UseAsyncReturnType<FuncParams, FuncBody, FuncResponse> {
-    return useAsyncBase<FuncParams, FuncBody, FuncResponse>(func, parameters, opts);
+): UseAsyncReturnType<RequestParams, RequestBody, ResponseBody> {
+    return useAsyncBase<RequestParams, RequestBody, ResponseBody>(func, parameters, opts);
 }
 
-export function PUT<FuncParams = unknown, FuncBody = unknown, FuncResponse = unknown>(
-    func: HTTPMethodTypes.PUT<FuncParams, FuncBody, FuncResponse>,
-    parameters?: Parameters<HTTPMethodTypes.PUT<FuncParams, FuncBody, FuncResponse>>,
+export function PUT<RequestParams = unknown, RequestBody = unknown, ResponseBody = unknown>(
+    func: HTTPMethodTypes.PUT<RequestParams, RequestBody, ResponseBody>,
+    parameters?: Parameters<HTTPMethodTypes.PUT<RequestParams, RequestBody, ResponseBody>>,
     opts?: UseAsyncOpts,
-): UseAsyncReturnType<FuncParams, FuncBody, FuncResponse> {
-    return useAsyncBase<FuncParams, FuncBody, FuncResponse>(func, parameters, opts);
+): UseAsyncReturnType<RequestParams, RequestBody, ResponseBody> {
+    return useAsyncBase<RequestParams, RequestBody, ResponseBody>(func, parameters, opts);
 }
 
-export function DELETE<FuncParams = unknown, FuncResponse = unknown>(
-    func: HTTPMethodTypes.DELETE<FuncParams, FuncResponse>,
-    parameters?: Parameters<HTTPMethodTypes.DELETE<FuncParams, FuncResponse>>,
+export function DELETE<RequestParams = unknown, ResponseBody = unknown>(
+    func: HTTPMethodTypes.DELETE<RequestParams, ResponseBody>,
+    parameters?: Parameters<HTTPMethodTypes.DELETE<RequestParams, ResponseBody>>,
     opts?: UseAsyncOpts,
-): UseAsyncReturnType<FuncParams, undefined, FuncResponse> {
-    return useAsyncBase<FuncParams, undefined, FuncResponse>(func, parameters, opts);
+): UseAsyncReturnType<RequestParams, undefined, ResponseBody> {
+    return useAsyncBase<RequestParams, undefined, ResponseBody>(func, parameters, opts);
 }
 
 export type InferUseAsyncReturnTypeFromFunction<T> =
-    T extends HTTPMethodTypes.GET<infer FuncParams, infer FuncResponse>
-        ? ReturnType<typeof GET<FuncParams, FuncResponse>>
-        : T extends HTTPMethodTypes.POST<infer FuncParams, infer FuncBody, infer FuncResponse>
-          ? ReturnType<typeof POST<FuncParams, FuncBody, FuncResponse>>
-          : T extends HTTPMethodTypes.PUT<infer FuncParams, infer FuncBody, infer FuncResponse>
-            ? ReturnType<typeof PUT<FuncParams, FuncBody, FuncResponse>>
-            : T extends HTTPMethodTypes.DELETE<infer FuncParams, infer FuncResponse>
-              ? ReturnType<typeof DELETE<FuncParams, FuncResponse>>
+    T extends HTTPMethodTypes.GET<infer RequestParams, infer ResponseBody>
+        ? ReturnType<typeof GET<RequestParams, ResponseBody>>
+        : T extends HTTPMethodTypes.POST<infer RequestParams, infer RequestBody, infer ResponseBody>
+          ? ReturnType<typeof POST<RequestParams, RequestBody, ResponseBody>>
+          : T extends HTTPMethodTypes.PUT<
+                  infer RequestParams,
+                  infer RequestBody,
+                  infer ResponseBody
+              >
+            ? ReturnType<typeof PUT<RequestParams, RequestBody, ResponseBody>>
+            : T extends HTTPMethodTypes.DELETE<infer RequestParams, infer ResponseBody>
+              ? ReturnType<typeof DELETE<RequestParams, ResponseBody>>
               : never;

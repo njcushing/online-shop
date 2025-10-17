@@ -1,28 +1,32 @@
-export type ApiResponse<FuncResponse> = {
+export type ApiResponse<ResponseBody> = {
     status: number;
     message: string;
-    data: FuncResponse | null;
+    data: ResponseBody | null;
 };
 
-export type GET<FuncParams = unknown, FuncResponse = unknown> = (
+export type GET<RequestParams = unknown, ResponseBody = unknown> = (
     props: {
-        params?: FuncParams;
+        params?: RequestParams;
         abortController?: AbortController | null;
     },
     ...args: unknown[]
-) => Promise<ApiResponse<FuncResponse>>;
+) => Promise<ApiResponse<ResponseBody>>;
 
-export type DELETE<FuncParams, FuncResponse> = GET<FuncParams, FuncResponse>;
+export type DELETE<RequestParams, ResponseBody> = GET<RequestParams, ResponseBody>;
 
-export type POST<FuncParams, FuncBody, FuncResponse> = {
+export type POST<RequestParams, RequestBody, ResponseBody> = {
     (
         props: {
-            params?: FuncParams;
-            body?: FuncBody;
+            params?: RequestParams;
+            body?: RequestBody;
             abortController?: AbortController | null;
         },
         ...args: unknown[]
-    ): Promise<ApiResponse<FuncResponse>>;
+    ): Promise<ApiResponse<ResponseBody>>;
 };
 
-export type PUT<FuncParams, FuncBody, FuncResponse> = POST<FuncParams, FuncBody, FuncResponse>;
+export type PUT<RequestParams, RequestBody, ResponseBody> = POST<
+    RequestParams,
+    RequestBody,
+    ResponseBody
+>;
