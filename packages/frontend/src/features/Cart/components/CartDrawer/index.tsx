@@ -1,10 +1,10 @@
 import { useContext } from "react";
-import { IUserContext, UserContext } from "@/pages/Root";
+import { RootContext, UserContext } from "@/pages/Root";
 import { Link } from "react-router-dom";
 import { Skeleton, Button, Divider, Drawer } from "@mantine/core";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
-import { settings } from "@settings";
+import { PopulatedCart } from "@/utils/products/cart";
 import { CartItem } from "../CartItem";
 import styles from "./index.module.css";
 
@@ -14,22 +14,46 @@ export type TCartDrawer = {
 };
 
 export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
+    const { settings } = useContext(RootContext);
     const { cart, shipping, defaultData } = useContext(UserContext);
-    const { response, awaiting } = cart;
-    const { data } = response;
 
-    let cartData = defaultData.cart as NonNullable<IUserContext["cart"]["response"]["data"]>;
-    if (data) cartData = data;
+    const { response: settingsResponse, awaiting: settingsAwaiting } = settings;
+    const { response: cartResponse, awaiting: cartAwaiting } = cart;
 
-    const { items } = cartData;
+    const { success: settingsSuccess } = settingsResponse;
+    const { success: cartSuccess } = cartResponse;
 
-    const { total } = calculateCartSubtotal(cartData).cost;
-    const { freeDeliveryThreshold, expressDeliveryCost } = settings;
-    const { value: selectedShipping } = shipping;
+    const awaiting = settingsAwaiting || cartAwaiting;
+
+    let workingCartData = defaultData.cart as PopulatedCart;
+    let freeExpressDeliveryThreshold = null;
+    let baseExpressDeliveryCost = null;
+    let { items } = workingCartData;
+    let selectedShipping = null;
     let postageCost = 0;
-    const meetsThreshold = total >= freeDeliveryThreshold;
-    if (selectedShipping === "express") postageCost = meetsThreshold ? 0 : expressDeliveryCost;
-    const subtotal = total + postageCost;
+    let subtotal = 0;
+
+    if (!awaiting) {
+        if (!settingsSuccess) throw new Error("Settings not found");
+        if (!cartSuccess) throw new Error("Cart data not found");
+
+        const { data: settingsData } = settingsResponse;
+        const { data: cartData } = cartResponse;
+
+        workingCartData = cartData;
+        freeExpressDeliveryThreshold = settingsData.freeExpressDeliveryThreshold;
+        baseExpressDeliveryCost = settingsData.baseExpressDeliveryCost;
+        items = workingCartData.items;
+
+        const { total } = calculateCartSubtotal(workingCartData).cost;
+        selectedShipping = shipping.value;
+        postageCost = 0;
+        const meetsThreshold = total >= freeExpressDeliveryThreshold;
+        if (selectedShipping === "express") {
+            postageCost = meetsThreshold ? 0 : baseExpressDeliveryCost;
+        }
+        subtotal = total + postageCost;
+    }
 
     return (
         <Drawer
