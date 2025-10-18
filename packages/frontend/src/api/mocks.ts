@@ -22,6 +22,7 @@ export const mockGetUser: HTTPMethodTypes.GET<undefined, User> = async () => {
 
     if (!foundUser) {
         return {
+            success: false,
             status: 404,
             message: "User not found",
             data: null,
@@ -29,6 +30,7 @@ export const mockGetUser: HTTPMethodTypes.GET<undefined, User> = async () => {
     }
 
     return {
+        success: true,
         status: 200,
         message: "Success",
         data: foundUser,
@@ -44,6 +46,7 @@ export const mockGetProfile: HTTPMethodTypes.GET<undefined, Profile> = async () 
 
     if (!foundProfile) {
         return {
+            success: false,
             status: 404,
             message: "Profile not found",
             data: null,
@@ -51,6 +54,7 @@ export const mockGetProfile: HTTPMethodTypes.GET<undefined, Profile> = async () 
     }
 
     return {
+        success: true,
         status: 200,
         message: "Success",
         data: foundProfile,
@@ -79,6 +83,7 @@ export const mockGetCart: HTTPMethodTypes.GET<undefined, PopulatedCart> = async 
 
     if (!foundCart) {
         return {
+            success: false,
             status: 404,
             message: "Cart not found",
             data: null,
@@ -86,6 +91,7 @@ export const mockGetCart: HTTPMethodTypes.GET<undefined, PopulatedCart> = async 
     }
 
     return {
+        success: true,
         status: 200,
         message: "Success",
         data: foundCart,
@@ -98,11 +104,23 @@ export const mockUpdateCart: HTTPMethodTypes.PUT<
     PopulatedCart
 > = async (data) => {
     const token = localStorage.getItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION);
-    if (!token) return { status: 400, message: "No token provided for query", data: null };
+    if (!token) {
+        return {
+            success: false,
+            status: 400,
+            message: "No token provided for query",
+            data: null,
+        };
+    }
 
     const { products } = data.body || { products: [] };
     if (products.length === 0) {
-        return { status: 400, message: "No products provided for query", data: null };
+        return {
+            success: false,
+            status: 400,
+            message: "No products provided for query",
+            data: null,
+        };
     }
 
     await new Promise((resolve) => {
@@ -125,7 +143,7 @@ export const mockUpdateCart: HTTPMethodTypes.PUT<
             }
         } else {
             const foundProduct = await mockGetProduct({ params: { productId } });
-            if (!foundProduct || !foundProduct.data) return;
+            if (!foundProduct || !foundProduct.success) return;
             const variant = foundProduct.data.variants.find(
                 (productVariant) => productVariant.id === variantId,
             );
@@ -136,6 +154,7 @@ export const mockUpdateCart: HTTPMethodTypes.PUT<
     });
 
     return {
+        success: true,
         status: 200,
         message: "Success",
         data: mockPopulateCartItems(updatedCart),
@@ -178,6 +197,7 @@ export const mockGetOrders: HTTPMethodTypes.GET<
 
     if (!foundOrders) {
         return {
+            success: false,
             status: 404,
             message: "Orders not found",
             data: null,
@@ -225,6 +245,7 @@ export const mockGetOrders: HTTPMethodTypes.GET<
     slicedOrders = slicedOrders.slice(start, end);
 
     return {
+        success: true,
         status: 200,
         message: "Success",
         data: { quantity, orders: slicedOrders },
@@ -267,6 +288,7 @@ export const mockGetSubscriptions: HTTPMethodTypes.GET<
 
     if (!foundSubscriptions) {
         return {
+            success: false,
             status: 404,
             message: "Subscriptions not found",
             data: null,
@@ -276,6 +298,7 @@ export const mockGetSubscriptions: HTTPMethodTypes.GET<
     const slicedSubscriptions = foundSubscriptions.slice(start, end);
 
     return {
+        success: true,
         status: 200,
         message: "Success",
         data: slicedSubscriptions,
@@ -294,6 +317,7 @@ export const mockGetProduct: HTTPMethodTypes.GET<{ productId?: string }, Product
 
     if (!productId) {
         return {
+            success: false,
             status: 400,
             message: "No product id provided for query",
             data: null,
@@ -304,6 +328,7 @@ export const mockGetProduct: HTTPMethodTypes.GET<{ productId?: string }, Product
 
     if (!foundProduct) {
         return {
+            success: false,
             status: 404,
             message: "Product not found",
             data: null,
@@ -311,6 +336,7 @@ export const mockGetProduct: HTTPMethodTypes.GET<{ productId?: string }, Product
     }
 
     return {
+        success: true,
         status: 200,
         message: "Success",
         data: foundProduct as Product,
@@ -329,6 +355,7 @@ export const mockGetReview: HTTPMethodTypes.GET<{ reviewId: string }, ProductRev
 
     if (!reviewId) {
         return {
+            success: false,
             status: 400,
             message: "No review id provided for query",
             data: null,
@@ -339,6 +366,7 @@ export const mockGetReview: HTTPMethodTypes.GET<{ reviewId: string }, ProductRev
 
     if (!foundReview) {
         return {
+            success: false,
             status: 404,
             message: "Review not found",
             data: null,
@@ -346,6 +374,7 @@ export const mockGetReview: HTTPMethodTypes.GET<{ reviewId: string }, ProductRev
     }
 
     return {
+        success: true,
         status: 200,
         message: "Success",
         data: foundReview,
@@ -371,6 +400,7 @@ export const mockGetReviews: HTTPMethodTypes.GET<
 
     if (!productId) {
         return {
+            success: false,
             status: 400,
             message: "No product id provided for query",
             data: [],
@@ -416,6 +446,7 @@ export const mockGetReviews: HTTPMethodTypes.GET<
     slicedReviews = slicedReviews.slice(start, end);
 
     return {
+        success: true,
         status: 200,
         message: "Success",
         data: slicedReviews,
