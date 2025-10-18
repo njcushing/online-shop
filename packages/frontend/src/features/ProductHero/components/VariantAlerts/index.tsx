@@ -1,9 +1,8 @@
 import { useContext, useState, useEffect, useMemo } from "react";
+import { RootContext, UserContext } from "@/pages/Root";
 import { ProductContext } from "@/pages/Product";
-import { UserContext } from "@/pages/Root";
 import { Skeleton, Collapse, Alert, AlertProps } from "@mantine/core";
 import { PopulatedCartItemData } from "@/utils/products/cart";
-import { settings } from "@settings";
 import { WarningCircle, Info } from "@phosphor-icons/react";
 import styles from "./index.module.css";
 
@@ -16,19 +15,37 @@ const AlertClassNames: AlertProps["classNames"] = {
     icon: styles["alert-icon"],
 };
 
-export type TVariantAlerts = {
-    awaiting?: boolean;
-};
-
-export function VariantAlerts({ awaiting = false }: TVariantAlerts) {
-    const { variant } = useContext(ProductContext);
-    const { stock } = variant || { stock: settings.lowStockThreshold + 1 };
-
+export function VariantAlerts() {
+    const { settings } = useContext(RootContext);
     const { cart } = useContext(UserContext);
-    const { response } = cart;
-    const { data: cartData } = response;
+    const { product, variant } = useContext(ProductContext);
+
+    const { response: settingsResponse, awaiting: settingsAwaiting } = settings;
+    const { response: cartResponse, awaiting: cartAwaiting } = cart;
+    const { awaiting: productAwaiting } = product;
+
+    const { success: settingsSuccess } = settingsResponse;
+    const { success: cartSuccess } = cartResponse;
+
+    const awaiting = settingsAwaiting || cartAwaiting || productAwaiting;
+
+    let stock = 0;
+    let settingsData = null;
+    let cartData = null;
+
+    if (!awaiting) {
+        if (!settingsSuccess) throw new Error("Settings not found");
+        if (!cartSuccess) throw new Error("Cart data not found");
+        if (!variant) throw new Error("No variant data could be loaded.");
+
+        settingsData = settingsResponse.data;
+        cartData = cartResponse.data;
+
+        stock = variant.stock;
+    }
 
     const cartItemData = useMemo<PopulatedCartItemData | undefined>(() => {
+        if (!cartData) return undefined;
         if (!cartData?.items) return undefined;
         return cartData.items.find((cartItem) => cartItem.variant.id === variant?.id);
     }, [variant?.id, cartData]);
@@ -36,10 +53,11 @@ export function VariantAlerts({ awaiting = false }: TVariantAlerts) {
     const [lastValidStockCount, setLastValidStockCount] = useState<number>(0);
     const [lastValidStockAlert, setLastValidStockAlert] = useState<"None" | "Low">("None");
     useEffect(() => {
-        if (!variant || variant.stock > settings.lowStockThreshold) return;
+        if (!settingsData) return;
+        if (!variant || variant.stock > settingsData.lowStockThreshold) return;
         setLastValidStockCount(variant.stock);
         setLastValidStockAlert(variant.stock === 0 ? "None" : "Low");
-    }, [variant]);
+    }, [variant, settingsData]);
 
     const [lastValidCartItemQuantity, setLastValidCartItemQuantity] = useState<number>(0);
     useEffect(() => {
@@ -95,7 +113,7 @@ export function VariantAlerts({ awaiting = false }: TVariantAlerts) {
     return (
         <div className={styles["variant-alerts-container"]}>
             <Collapse
-                in={!awaiting && stock <= settings.lowStockThreshold}
+                in={!awaiting && !!settingsData && stock <= settingsData.lowStockThreshold}
                 animateOpacity={false}
                 transitionDuration={500}
             >
