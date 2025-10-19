@@ -34,8 +34,8 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
     let subtotal = 0;
 
     if (!awaitingAny) {
-        if (!settingsSuccess) throw new Error("Settings not found");
-        if (!cartSuccess) throw new Error("Cart not found");
+        if (!settingsSuccess) throw new Error(settingsResponse.message);
+        if (!cartSuccess) throw new Error(cartResponse.message);
 
         const { data: settingsData } = settingsResponse;
         const { data: cartData } = cartResponse;

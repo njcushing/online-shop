@@ -21,8 +21,8 @@ export function DeliveryProgress() {
     let cartData = null;
 
     if (!awaitingAny) {
-        if (!settingsSuccess) throw new Error("Settings not found");
-        if (!cartSuccess) throw new Error("Cart not found");
+        if (!settingsSuccess) throw new Error(settingsResponse.message);
+        if (!cartSuccess) throw new Error(cartResponse.message);
 
         settingsData = settingsResponse.data;
         cartData = cartResponse.data;

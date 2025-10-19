@@ -34,8 +34,8 @@ export function VariantAlerts() {
     let stock = 0;
 
     if (!awaitingAny) {
-        if (!settingsSuccess) throw new Error("Settings not found");
-        if (!cartSuccess) throw new Error("Cart not found");
+        if (!settingsSuccess) throw new Error(settingsResponse.message);
+        if (!cartSuccess) throw new Error(cartResponse.message);
         if (!variant) throw new Error("Product variant not found");
 
         settingsData = settingsResponse.data;

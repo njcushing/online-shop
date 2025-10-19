@@ -29,7 +29,7 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
         let settingsData = null;
 
         if (!settingsAwaiting) {
-            if (!settingsSuccess) throw new Error("Settings not found");
+            if (!settingsSuccess) throw new Error(settingsResponse.message);
 
             settingsData = settingsResponse.data;
         }

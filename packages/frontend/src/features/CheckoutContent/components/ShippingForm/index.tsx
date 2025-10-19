@@ -47,9 +47,9 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
     let cartData = null;
 
     if (!awaitingAny) {
-        if (!settingsSuccess) throw new Error("Settings not found");
-        if (!userSuccess) throw new Error("User not found");
-        if (!cartSuccess) throw new Error("Cart not found");
+        if (!settingsSuccess) throw new Error(settingsResponse.message);
+        if (!userSuccess) throw new Error(userResponse.message);
+        if (!cartSuccess) throw new Error(cartResponse.message);
 
         settingsData = settingsResponse.data;
         userData = userResponse.data;

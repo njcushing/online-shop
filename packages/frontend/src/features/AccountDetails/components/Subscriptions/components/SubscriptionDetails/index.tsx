@@ -19,7 +19,7 @@ export function SubscriptionDetails({ data, awaiting }: TSubscriptionDetails) {
     let settingsData = { baseExpressDeliveryCost: 0, freeExpressDeliveryThreshold: 0 };
 
     if (!awaitingAny) {
-        if (!settingsSuccess) throw new Error("Settings not found");
+        if (!settingsSuccess) throw new Error(settingsResponse.message);
 
         settingsData = settingsResponse.data;
     }

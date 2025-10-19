@@ -37,8 +37,8 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
     let variantData = defaultData.variant as ProductVariant;
 
     if (!awaitingAny) {
-        if (!settingsSuccess) throw new Error("Settings not found");
-        if (!productSuccess) throw new Error("Product not found");
+        if (!settingsSuccess) throw new Error(settingsResponse.message);
+        if (!productSuccess) throw new Error(productResponse.message);
         if (!variant) throw new Error("Product variant not found");
 
         settingsData = settingsResponse.data;

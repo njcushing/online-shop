@@ -44,8 +44,8 @@ export function ProductHero() {
     let variantData = defaultVariantData as ProductVariant;
 
     if (!awaitingAny) {
-        if (!cartSuccess) throw new Error("Cart not found");
-        if (!productSuccess) throw new Error("Product not found");
+        if (!cartSuccess) throw new Error(cartResponse.message);
+        if (!productSuccess) throw new Error(productResponse.message);
         if (!variant) throw new Error("Product variant not found");
 
         cartData = cartResponse.data;
