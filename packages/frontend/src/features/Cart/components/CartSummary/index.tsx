@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { RootContext, IUserContext, UserContext } from "@/pages/Root";
+import { RootContext, UserContext } from "@/pages/Root";
 import {
     useMatches,
     Skeleton,
@@ -14,12 +14,12 @@ import {
 import { useResizeObserver } from "@mantine/hooks";
 import { CaretUp, CaretDown } from "@phosphor-icons/react";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
-import { settings } from "@settings";
 import { CartItem, TCartItem } from "@/features/Cart/components/CartItem";
 import { RemoveScroll } from "react-remove-scroll";
 import { DeepRequired } from "react-hook-form";
 import { RecursivePartial } from "@/utils/types";
 import _ from "lodash";
+import { PopulatedCart } from "@/utils/products/cart";
 import styles from "./index.module.css";
 
 export type TCartSummary = {
@@ -103,22 +103,36 @@ export function CartSummary({
 }: TCartSummary) {
     const concatenatedClassNames = getConcatenatedClassNames(classNames);
 
-    const { headerInfo } = useContext(RootContext);
+    const { settings, headerInfo } = useContext(RootContext);
     const { cart, shipping, defaultData } = useContext(UserContext);
 
-    const { response, awaiting } = cart;
+    const { response: settingsResponse, awaiting: settingsAwaiting } = settings;
+    const { response: cartResponse, awaiting: cartAwaiting } = cart;
 
-    let cartData = defaultData.cart as NonNullable<IUserContext["cart"]["response"]["data"]>;
-    if (response.data) cartData = response.data;
+    const { success: settingsSuccess } = settingsResponse;
+    const { success: cartSuccess } = cartResponse;
+
+    const awaitingAny = settingsAwaiting || cartAwaiting;
+
+    let settingsData = { freeExpressDeliveryThreshold: 0, baseExpressDeliveryCost: 0 };
+    let cartData = defaultData.cart as PopulatedCart;
+
+    if (!awaitingAny) {
+        if (!settingsSuccess) throw new Error(settingsResponse.message);
+        if (!cartSuccess) throw new Error(cartResponse.message);
+
+        settingsData = settingsResponse.data;
+        cartData = cartResponse.data;
+    }
 
     const { items, promotions } = cartData;
     const { cost, discount } = calculateCartSubtotal(cartData);
     const { total } = cost;
-    const { freeDeliveryThreshold, expressDeliveryCost } = settings;
+    const { freeExpressDeliveryThreshold, baseExpressDeliveryCost } = settingsData;
     const { value: selectedShipping } = shipping;
     let postageCost = 0;
-    const meetsThreshold = total >= freeDeliveryThreshold;
-    if (selectedShipping === "express") postageCost = meetsThreshold ? 0 : expressDeliveryCost;
+    const meetsThreshold = total >= freeExpressDeliveryThreshold;
+    if (selectedShipping === "express") postageCost = meetsThreshold ? 0 : baseExpressDeliveryCost;
     const subtotal = total + postageCost;
 
     const wide = useMatches({ base: false, xs: true });
@@ -136,11 +150,15 @@ export function CartSummary({
     const editLink = useMemo(() => {
         if (hideEditLink || !items || items.length === 0) return null;
         return (
-            <Link to="/cart" className={concatenatedClassNames.editLink} data-disabled={awaiting}>
+            <Link
+                to="/cart"
+                className={concatenatedClassNames.editLink}
+                data-disabled={awaitingAny}
+            >
                 Edit
             </Link>
         );
-    }, [hideEditLink, concatenatedClassNames, awaiting, items]);
+    }, [hideEditLink, concatenatedClassNames, awaitingAny, items]);
 
     const cartItems = useMemo(() => {
         return items && items.length > 0 ? (
@@ -178,13 +196,13 @@ export function CartSummary({
             <>
                 <div className={concatenatedClassNames.costBreakdown.group}>
                     <div className={concatenatedClassNames.costBreakdown.line}>
-                        <Skeleton visible={awaiting} width="min-content">
-                            <span style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                        <Skeleton visible={awaitingAny} width="min-content">
+                            <span style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
                                 Item(s) Subtotal:
                             </span>
                         </Skeleton>
-                        <Skeleton visible={awaiting} width="min-content">
-                            <span style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                        <Skeleton visible={awaitingAny} width="min-content">
+                            <span style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
                                 £{(cost.products / 100).toFixed(2)}
                             </span>
                         </Skeleton>
@@ -288,7 +306,7 @@ export function CartSummary({
                             <Input
                                 aria-labelledby="promotion-code"
                                 error={null}
-                                disabled={awaiting}
+                                disabled={awaitingAny}
                                 classNames={{ input: styles["input"] }}
                             />
                             <Button
@@ -296,7 +314,7 @@ export function CartSummary({
                                 color="rgb(48, 48, 48)"
                                 variant="filled"
                                 radius={9999}
-                                disabled={awaiting}
+                                disabled={awaitingAny}
                                 className={styles["apply-promo-code-button"]}
                             >
                                 Apply
@@ -310,19 +328,19 @@ export function CartSummary({
                 {items && items.length > 0 && (
                     <>
                         <div className={concatenatedClassNames.costBreakdown.line}>
-                            <Skeleton visible={awaiting} width="min-content">
+                            <Skeleton visible={awaitingAny} width="min-content">
                                 <span
                                     style={{
-                                        visibility: awaiting ? "hidden" : "initial",
+                                        visibility: awaitingAny ? "hidden" : "initial",
                                     }}
                                 >
                                     Postage:
                                 </span>
                             </Skeleton>
-                            <Skeleton visible={awaiting} width="min-content">
+                            <Skeleton visible={awaitingAny} width="min-content">
                                 <span
                                     style={{
-                                        visibility: awaiting ? "hidden" : "initial",
+                                        visibility: awaitingAny ? "hidden" : "initial",
                                     }}
                                 >
                                     {`${postageCost !== 0 ? `£${(postageCost / 100).toFixed(2)}` : "FREE"}`}
@@ -333,19 +351,19 @@ export function CartSummary({
                         <Divider className={styles["divider"]} />
 
                         <div className={concatenatedClassNames.costBreakdown.line}>
-                            <Skeleton visible={awaiting} width="min-content">
+                            <Skeleton visible={awaitingAny} width="min-content">
                                 <span
                                     style={{
-                                        visibility: awaiting ? "hidden" : "initial",
+                                        visibility: awaitingAny ? "hidden" : "initial",
                                     }}
                                 >
                                     Total:
                                 </span>
                             </Skeleton>
-                            <Skeleton visible={awaiting} width="min-content">
+                            <Skeleton visible={awaitingAny} width="min-content">
                                 <span
                                     style={{
-                                        visibility: awaiting ? "hidden" : "initial",
+                                        visibility: awaitingAny ? "hidden" : "initial",
                                     }}
                                 >
                                     £{(subtotal / 100).toFixed(2)}
@@ -358,7 +376,7 @@ export function CartSummary({
         );
     }, [
         concatenatedClassNames,
-        awaiting,
+        awaitingAny,
         cost.products,
         discount.products,
         discount.promotions.individual,
@@ -414,10 +432,10 @@ export function CartSummary({
                                         label: concatenatedClassNames.collapse.button.label,
                                     }}
                                 >
-                                    <Skeleton visible={awaiting} width="min-content">
+                                    <Skeleton visible={awaitingAny} width="min-content">
                                         <span
                                             style={{
-                                                visibility: awaiting ? "hidden" : "initial",
+                                                visibility: awaitingAny ? "hidden" : "initial",
                                                 textWrap: "nowrap",
                                             }}
                                         >
@@ -426,10 +444,10 @@ export function CartSummary({
                                     </Skeleton>
 
                                     <span className={concatenatedClassNames.collapse.button.right}>
-                                        <Skeleton visible={awaiting} width="min-content">
+                                        <Skeleton visible={awaitingAny} width="min-content">
                                             <span
                                                 style={{
-                                                    visibility: awaiting ? "hidden" : "initial",
+                                                    visibility: awaitingAny ? "hidden" : "initial",
                                                     textWrap: "nowrap",
                                                 }}
                                             >
