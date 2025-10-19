@@ -1,9 +1,17 @@
-import React, { forwardRef, useState, useCallback, useMemo, useRef, useEffect } from "react";
+import React, {
+    forwardRef,
+    useContext,
+    useState,
+    useCallback,
+    useMemo,
+    useRef,
+    useEffect,
+} from "react";
+import { RootContext } from "@/pages/Root";
 import { Link } from "react-router-dom";
 import { Image, Rating } from "@mantine/core";
 import { useIntersection, useMergedRef } from "@mantine/hooks";
 import { Product as ProductDataType, ProductVariant } from "@/utils/products/product";
-import { settings } from "@settings";
 import dayjs from "dayjs";
 import { Price } from "@/features/Price";
 import styles from "./index.module.css";
@@ -14,6 +22,18 @@ export type TProductCard = {
 
 export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
     ({ productData }: TProductCard, ref) => {
+        const { settings } = useContext(RootContext);
+        const { response: settingsResponse, awaiting: settingsAwaiting } = settings;
+        const { success: settingsSuccess } = settingsResponse;
+
+        let settingsData = null;
+
+        if (!settingsAwaiting) {
+            if (!settingsSuccess) throw new Error("Settings not found");
+
+            settingsData = settingsResponse.data;
+        }
+
         const containerRef = useRef<HTMLDivElement>(null);
         const { ref: productCardRef, entry: intersectionEntry } = useIntersection({
             root: containerRef.current,
@@ -41,7 +61,7 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
             }
 
             // Low stock
-            if (highestStockVariant <= settings.lowStockThreshold) {
+            if (settingsData && highestStockVariant <= settingsData.lowStockThreshold) {
                 return <div className={styles["product-information-banner"]}>Low stock</div>;
             }
 
@@ -54,7 +74,7 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
             }
 
             return null;
-        }, [productData]);
+        }, [productData, settingsData]);
 
         const lowestPriceVariant = useMemo<ProductVariant | undefined>(() => {
             return productData.variants.reduce(

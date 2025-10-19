@@ -23,7 +23,7 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
     const { success: settingsSuccess } = settingsResponse;
     const { success: cartSuccess } = cartResponse;
 
-    const awaiting = settingsAwaiting || cartAwaiting;
+    const awaitingAny = settingsAwaiting || cartAwaiting;
 
     let workingCartData = defaultData.cart as PopulatedCart;
     let freeExpressDeliveryThreshold = null;
@@ -33,9 +33,9 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
     let postageCost = 0;
     let subtotal = 0;
 
-    if (!awaiting) {
+    if (!awaitingAny) {
         if (!settingsSuccess) throw new Error("Settings not found");
-        if (!cartSuccess) throw new Error("Cart data not found");
+        if (!cartSuccess) throw new Error("Cart not found");
 
         const { data: settingsData } = settingsResponse;
         const { data: cartData } = cartResponse;
@@ -81,23 +81,23 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
 
             <div className={styles["cart-drawer-bottom"]}>
                 <div className={styles["subtotal"]}>
-                    <Skeleton visible={awaiting} width="min-content">
+                    <Skeleton visible={awaitingAny} width="min-content">
                         <span
-                            style={{ visibility: awaiting ? "hidden" : "initial" }}
+                            style={{ visibility: awaitingAny ? "hidden" : "initial" }}
                         >{`Subtotal: `}</span>
                     </Skeleton>
-                    <Skeleton visible={awaiting} width="min-content">
+                    <Skeleton visible={awaitingAny} width="min-content">
                         <span
                             className={styles["subtotal-value"]}
-                            style={{ visibility: awaiting ? "hidden" : "initial" }}
+                            style={{ visibility: awaitingAny ? "hidden" : "initial" }}
                         >
                             £{(subtotal / 100).toFixed(2)}
                         </span>
                     </Skeleton>
                 </div>
 
-                <Skeleton visible={awaiting}>
-                    <span style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                <Skeleton visible={awaitingAny}>
+                    <span style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
                         <DeliveryProgress />
                     </span>
                 </Skeleton>
@@ -112,8 +112,8 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
                     component={Link}
                     to="/checkout"
                     color="#242424"
-                    onClick={(e) => awaiting && e.preventDefault()}
-                    disabled={awaiting}
+                    onClick={(e) => awaitingAny && e.preventDefault()}
+                    disabled={awaitingAny}
                     classNames={{
                         root: styles["checkout-button-root"],
                         label: styles["checkout-button-label"],

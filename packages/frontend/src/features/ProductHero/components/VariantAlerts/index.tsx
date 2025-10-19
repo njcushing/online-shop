@@ -27,20 +27,19 @@ export function VariantAlerts() {
     const { success: settingsSuccess } = settingsResponse;
     const { success: cartSuccess } = cartResponse;
 
-    const awaiting = settingsAwaiting || cartAwaiting || productAwaiting;
+    const awaitingAny = settingsAwaiting || cartAwaiting || productAwaiting;
 
-    let stock = 0;
     let settingsData = null;
     let cartData = null;
+    let stock = 0;
 
-    if (!awaiting) {
+    if (!awaitingAny) {
         if (!settingsSuccess) throw new Error("Settings not found");
-        if (!cartSuccess) throw new Error("Cart data not found");
-        if (!variant) throw new Error("No variant data could be loaded.");
+        if (!cartSuccess) throw new Error("Cart not found");
+        if (!variant) throw new Error("Product variant not found");
 
         settingsData = settingsResponse.data;
         cartData = cartResponse.data;
-
         stock = variant.stock;
     }
 
@@ -113,22 +112,24 @@ export function VariantAlerts() {
     return (
         <div className={styles["variant-alerts-container"]}>
             <Collapse
-                in={!awaiting && !!settingsData && stock <= settingsData.lowStockThreshold}
+                in={!awaitingAny && !!settingsData && stock <= settingsData.lowStockThreshold}
                 animateOpacity={false}
                 transitionDuration={500}
             >
-                <Skeleton visible={awaiting}>
-                    <div style={{ visibility: awaiting ? "hidden" : "initial" }}>{stockAlert}</div>
+                <Skeleton visible={awaitingAny}>
+                    <div style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
+                        {stockAlert}
+                    </div>
                 </Skeleton>
             </Collapse>
 
             <Collapse
-                in={!awaiting && !!cartItemData && cartItemData.quantity > 0}
+                in={!awaitingAny && !!cartItemData && cartItemData.quantity > 0}
                 animateOpacity={false}
                 transitionDuration={500}
             >
-                <Skeleton visible={awaiting}>
-                    <div style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                <Skeleton visible={awaitingAny}>
+                    <div style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
                         {cartQuantityAlert}
                     </div>
                 </Skeleton>

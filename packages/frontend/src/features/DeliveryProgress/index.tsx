@@ -1,22 +1,42 @@
 import { useContext, useMemo } from "react";
-import { UserContext } from "@/pages/Root";
+import { RootContext, UserContext } from "@/pages/Root";
 import { Progress } from "@mantine/core";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
-import { settings } from "@settings";
 import { Truck } from "@phosphor-icons/react";
 import styles from "./index.module.css";
 
 export function DeliveryProgress() {
+    const { settings } = useContext(RootContext);
     const { cart } = useContext(UserContext);
-    const { response } = cart;
-    const { data } = response;
+
+    const { response: settingsResponse, awaiting: settingsAwaiting } = settings;
+    const { response: cartResponse, awaiting: cartAwaiting } = cart;
+
+    const { success: settingsSuccess } = settingsResponse;
+    const { success: cartSuccess } = cartResponse;
+
+    const awaitingAny = settingsAwaiting || cartAwaiting;
+
+    let settingsData = null;
+    let cartData = null;
+
+    if (!awaitingAny) {
+        if (!settingsSuccess) throw new Error("Settings not found");
+        if (!cartSuccess) throw new Error("Cart not found");
+
+        settingsData = settingsResponse.data;
+        cartData = cartResponse.data;
+    }
 
     const cartSubtotalInformation = useMemo(
-        () => calculateCartSubtotal(data || { items: [], promotions: [] }),
-        [data],
+        () => calculateCartSubtotal(cartData || { items: [], promotions: [] }),
+        [cartData],
     );
     const { total } = cartSubtotalInformation.cost;
-    const meetsThreshold = useMemo(() => total >= settings.freeDeliveryThreshold, [total]);
+    const meetsThreshold = useMemo(() => {
+        if (!settingsData) return false;
+        return total >= settingsData.freeExpressDeliveryThreshold;
+    }, [settingsData, total]);
 
     return (
         <div className={styles["delivery-progress"]} data-meets-threshold={meetsThreshold}>
@@ -29,15 +49,23 @@ export function DeliveryProgress() {
                 <>
                     <span className={styles["delivery-progress-status-message"]}>
                         <b style={{ fontWeight: "bold" }}>Free</b> standard delivery on all orders
-                        over £{+parseFloat(`${settings.freeDeliveryThreshold / 100}`).toFixed(2)}!
-                        Add another{" "}
+                        over £
+                        {
+                            +parseFloat(
+                                `${settingsData!.freeExpressDeliveryThreshold / 100}`,
+                            ).toFixed(2)
+                        }
+                        ! Add another{" "}
                         <b style={{ fontWeight: "bold" }}>
-                            £{((settings.freeDeliveryThreshold - total) / 100).toFixed(2)}
+                            £
+                            {((settingsData!.freeExpressDeliveryThreshold - total) / 100).toFixed(
+                                2,
+                            )}
                         </b>{" "}
                         to your order to qualify.
                     </span>
                     <Progress
-                        value={(total / settings.freeDeliveryThreshold) * 100}
+                        value={(total / settingsData!.freeExpressDeliveryThreshold) * 100}
                         className={styles["delivery-progress-bar"]}
                     />
                 </>

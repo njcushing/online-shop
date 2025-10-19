@@ -1,12 +1,13 @@
 import { useContext, useMemo, useState } from "react";
-import { IProductContext, ProductContext } from "@/pages/Product";
+import { RootContext } from "@/pages/Root";
+import { ProductContext } from "@/pages/Product";
 import { useMatches, Accordion, Table, Skeleton } from "@mantine/core";
 import { ProductReviews } from "@/features/ProductReviews";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import dayjs from "dayjs";
 import { v4 as uuid } from "uuid";
-import { settings } from "@settings";
+import { Product, ProductVariant } from "@/utils/products/product";
 import styles from "./index.module.css";
 
 export type TProductInformation = {
@@ -20,14 +21,30 @@ export type TProductInformation = {
 export function ProductInformation({ defaultOpenTab = "Description" }: TProductInformation) {
     const tableColumnCount = useMatches({ base: 1, lg: 2 });
 
+    const { settings } = useContext(RootContext);
     const { product, variant, defaultData } = useContext(ProductContext);
-    const { response, awaiting } = product;
-    const { data } = response;
-    const { description } =
-        data ||
-        (defaultData.product as NonNullable<IProductContext["product"]["response"]["data"]>);
-    const { sku, details, releaseDate } =
-        variant || (defaultData.variant as NonNullable<IProductContext["variant"]>);
+
+    const { response: settingsResponse, awaiting: settingsAwaiting } = settings;
+    const { response: productResponse, awaiting: productAwaiting } = product;
+
+    const { success: settingsSuccess } = settingsResponse;
+    const { success: productSuccess } = productResponse;
+
+    const awaitingAny = settingsAwaiting || productAwaiting;
+
+    let settingsData = null;
+    let productData = defaultData.product as Product;
+    let variantData = defaultData.variant as ProductVariant;
+
+    if (!awaitingAny) {
+        if (!settingsSuccess) throw new Error("Settings not found");
+        if (!productSuccess) throw new Error("Product not found");
+        if (!variant) throw new Error("Product variant not found");
+
+        settingsData = settingsResponse.data;
+        productData = productResponse.data;
+        variantData = variant;
+    }
 
     const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
 
@@ -36,7 +53,7 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
             {
                 value: "Description",
                 content: (() => {
-                    if (awaiting) {
+                    if (awaitingAny) {
                         return (
                             <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                                 {Array.from({ length: 5 }).map(() => {
@@ -46,7 +63,9 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
                         );
                     }
 
-                    if (!data) return null;
+                    if (!productSuccess) return null;
+
+                    const { description } = productData;
 
                     return (
                         <div className={styles["markdown-container"]}>
@@ -58,7 +77,9 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
             {
                 value: "Product Details",
                 content: (() => {
-                    if (!variant) return null;
+                    if (!awaitingAny && !productSuccess) return null;
+
+                    const { sku, details, releaseDate } = variantData;
 
                     const rows = [
                         { name: "SKU", value: sku },
@@ -81,7 +102,7 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
                     }
 
                     return (
-                        <Skeleton visible={awaiting}>
+                        <Skeleton visible={awaitingAny}>
                             <Table
                                 variant="vertical"
                                 layout="fixed"
@@ -99,7 +120,7 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
                                     alignItems: "start",
                                     gap: "8px",
 
-                                    visibility: awaiting ? "hidden" : "initial",
+                                    visibility: awaitingAny ? "hidden" : "initial",
                                 }}
                             >
                                 {columns.map((column) => {
@@ -127,43 +148,87 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
             },
             {
                 value: "Delivery Information",
-                content: (
-                    <div className={styles["delivery-information"]}>
-                        <div className={styles["delivery-information-segment"]}>
-                            <p className={styles["delivery-information-segment-title"]}>
-                                Standard Delivery
-                            </p>
-                            <div className={styles["delivery-information-segment-information"]}>
-                                <span>
-                                    Free delivery on all orders of at least £
-                                    <strong>
+                content: (() => {
+                    if (!awaitingAny && !settingsSuccess) return null;
+                    if (!settingsData) return null;
+
+                    return (
+                        <div className={styles["delivery-information"]}>
+                            <div className={styles["delivery-information-segment"]}>
+                                <Skeleton visible={awaitingAny}>
+                                    <p
+                                        className={styles["delivery-information-segment-title"]}
+                                        style={{
+                                            visibility: awaitingAny ? "hidden" : "initial",
+                                        }}
+                                    >
+                                        Standard Delivery
+                                    </p>
+                                </Skeleton>
+                                <div className={styles["delivery-information-segment-information"]}>
+                                    <Skeleton visible={awaitingAny}>
+                                        <span
+                                            style={{
+                                                visibility: awaitingAny ? "hidden" : "initial",
+                                            }}
+                                        >
+                                            Free delivery on all orders of at least £
+                                            <strong>
+                                                {
+                                                    +parseFloat(
+                                                        `${settingsData.freeExpressDeliveryThreshold / 100}`,
+                                                    ).toFixed(2)
+                                                }
+                                                .
+                                            </strong>
+                                        </span>
+                                    </Skeleton>
+                                    <Skeleton visible={awaitingAny}>
+                                        <span
+                                            style={{
+                                                visibility: awaitingAny ? "hidden" : "initial",
+                                            }}
+                                        >
+                                            We aim to ship all orders within 48h of time of
+                                            purchase; this is guaranteed if the order is placed
+                                            before 5pm.
+                                        </span>
+                                    </Skeleton>
+                                </div>
+                            </div>
+                            <div className={styles["delivery-information-segment"]}>
+                                <Skeleton visible={awaitingAny}>
+                                    <p
+                                        className={styles["delivery-information-segment-title"]}
+                                        style={{
+                                            visibility: awaitingAny ? "hidden" : "initial",
+                                        }}
+                                    >
+                                        Express Delivery (£
                                         {
                                             +parseFloat(
-                                                `${settings.freeDeliveryThreshold / 100}`,
+                                                `${settingsData.baseExpressDeliveryCost / 100}`,
                                             ).toFixed(2)
                                         }
-                                        .
-                                    </strong>
-                                </span>
-                                <span>
-                                    We aim to ship all orders within 48h of time of purchase; this
-                                    is guaranteed if the order is placed before 5pm.
-                                </span>
+                                        )
+                                    </p>
+                                </Skeleton>
+                                <div className={styles["delivery-information-segment-information"]}>
+                                    <Skeleton visible={awaitingAny}>
+                                        <span
+                                            style={{
+                                                visibility: awaitingAny ? "hidden" : "initial",
+                                            }}
+                                        >
+                                            Guaranteed next-day delivery on all orders if placed
+                                            before 5pm.
+                                        </span>
+                                    </Skeleton>
+                                </div>
                             </div>
                         </div>
-                        <div className={styles["delivery-information-segment"]}>
-                            <p className={styles["delivery-information-segment-title"]}>
-                                Express Delivery (£
-                                {+parseFloat(`${settings.expressDeliveryCost / 100}`).toFixed(2)})
-                            </p>
-                            <div className={styles["delivery-information-segment-information"]}>
-                                <span>
-                                    Guaranteed next-day delivery on all orders if placed before 5pm.
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                ),
+                    );
+                })(),
             },
             {
                 value: "Customer Reviews",
@@ -172,13 +237,12 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
         ];
     }, [
         tableColumnCount,
-        variant,
-        data,
-        awaiting,
-        description,
-        sku,
-        details,
-        releaseDate,
+        awaitingAny,
+        settingsSuccess,
+        settingsData,
+        productSuccess,
+        productData,
+        variantData,
         isTransitioning,
     ]);
 

@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect, useCallback, useRef, useMemo } from "react";
-import { UserContext } from "@/pages/Root";
+import { RootContext, UserContext } from "@/pages/Root";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
     CheckoutShippingOption,
@@ -7,13 +7,12 @@ import {
     checkoutShippingFormDataSchema,
 } from "@/utils/schemas/checkout";
 import { useForm, useWatch, Controller, SubmitHandler } from "react-hook-form";
-import { Collapse, TextInput, Divider, Checkbox, Radio, Button } from "@mantine/core";
+import { Collapse, TextInput, Divider, Checkbox, Radio, Button, Skeleton } from "@mantine/core";
 import { NumberCircleTwo } from "@phosphor-icons/react";
-import { Error } from "@/components/UI/Error";
+import { Error as InputError } from "@/components/UI/Error";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import _ from "lodash";
 import dayjs from "dayjs";
-import { settings } from "@settings";
 import styles from "./index.module.css";
 
 const inputProps = {
@@ -30,19 +29,39 @@ export type TShippingForm = {
 };
 
 export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingForm) {
+    const { settings } = useContext(RootContext);
     const { user, cart, shipping } = useContext(UserContext);
 
+    const { response: settingsResponse, awaiting: settingsAwaiting } = settings;
     const { response: userResponse, awaiting: userAwaiting } = user;
-    const { data: userData } = userResponse;
-    const delivery = userData?.profile?.addresses?.delivery;
-    const billing = userData?.profile?.addresses?.billing;
-
     const { response: cartResponse, awaiting: cartAwaiting } = cart;
-    const { data: cartData } = cartResponse;
+
+    const { success: settingsSuccess } = settingsResponse;
+    const { success: userSuccess } = userResponse;
+    const { success: cartSuccess } = cartResponse;
+
+    const awaitingAny = settingsAwaiting || userAwaiting || cartAwaiting;
+
+    let settingsData = null;
+    let userData = null;
+    let cartData = null;
+
+    if (!awaitingAny) {
+        if (!settingsSuccess) throw new Error("Settings not found");
+        if (!userSuccess) throw new Error("User not found");
+        if (!cartSuccess) throw new Error("Cart not found");
+
+        settingsData = settingsResponse.data;
+        userData = userResponse.data;
+        cartData = cartResponse.data;
+    }
 
     const { value: selectedShipping, setter: setShipping } = shipping;
 
     const defaultValues = useMemo(() => {
+        const delivery = userData?.profile?.addresses?.delivery;
+        const billing = userData?.profile?.addresses?.billing;
+
         return {
             address: {
                 delivery: {
@@ -62,7 +81,7 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
             },
             type: selectedShipping,
         };
-    }, [delivery, billing, selectedShipping]);
+    }, [userData, selectedShipping]);
 
     const {
         control,
@@ -82,7 +101,7 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
     const getError = useCallback(
         (name: string) => {
             const fieldError = _.get(errors, `${name}.message`);
-            return <Error message={typeof fieldError === "string" ? fieldError : ""} />;
+            return <InputError message={typeof fieldError === "string" ? fieldError : ""} />;
         },
         [errors],
     );
@@ -100,14 +119,6 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
             setValue("address.billing", cachedBilling.current);
         }
     }, [getValues, setValue, billingIsDelivery, currentDeliveryValues]);
-
-    const { freeDeliveryThreshold, expressDeliveryCost } = settings;
-    const cartSubtotal = cartData ? calculateCartSubtotal(cartData) : null;
-    let postageCost = 0;
-    if (cartSubtotal) {
-        const { total } = cartSubtotal.cost;
-        postageCost = total >= freeDeliveryThreshold ? 0 : expressDeliveryCost;
-    }
 
     const fivePmTimeout = useRef<NodeJS.Timeout | null>(null);
     const [isPastFivePm, setIsPastFivePm] = useState<boolean>(false);
@@ -136,7 +147,7 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
         };
     }, [isPastFivePm]);
 
-    const disableInputs = userAwaiting || cartAwaiting || !isOpen;
+    const disableInputs = awaitingAny || !isOpen;
 
     /**
      * Can't invoke callback passed to Mantine Collapse component's 'onTransitionEnd' prop without
@@ -156,6 +167,356 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
 
     /* v8 ignore stop */
 
+    const deliveryAddressFields = useMemo(() => {
+        return (
+            <div className={styles["fields-container"]}>
+                <Controller
+                    control={control}
+                    name="address.delivery.line1"
+                    render={({ field }) => {
+                        return (
+                            <TextInput
+                                {...field}
+                                {...inputProps}
+                                value={field.value}
+                                label="Line 1"
+                                autoComplete="delivery address-line1"
+                                required
+                                error={getError("address.delivery.line1")}
+                                disabled={disableInputs}
+                                ref={firstInputRef}
+                            />
+                        );
+                    }}
+                />
+
+                <Controller
+                    control={control}
+                    name="address.delivery.line2"
+                    render={({ field }) => {
+                        return (
+                            <TextInput
+                                {...field}
+                                {...inputProps}
+                                value={field.value}
+                                label="Line 2"
+                                autoComplete="delivery address-line2"
+                                error={getError("address.delivery.line2")}
+                                disabled={disableInputs}
+                            />
+                        );
+                    }}
+                />
+
+                <Controller
+                    control={control}
+                    name="address.delivery.townCity"
+                    render={({ field }) => {
+                        return (
+                            <TextInput
+                                {...field}
+                                {...inputProps}
+                                value={field.value}
+                                label="Town/City"
+                                autoComplete="delivery address-level2"
+                                required
+                                error={getError("address.delivery.townCity")}
+                                disabled={disableInputs}
+                            />
+                        );
+                    }}
+                />
+
+                <Controller
+                    control={control}
+                    name="address.delivery.county"
+                    render={({ field }) => {
+                        return (
+                            <TextInput
+                                {...field}
+                                {...inputProps}
+                                value={field.value}
+                                label="County"
+                                error={getError("address.delivery.county")}
+                                disabled={disableInputs}
+                            />
+                        );
+                    }}
+                />
+
+                <Controller
+                    control={control}
+                    name="address.delivery.postcode"
+                    render={({ field }) => {
+                        return (
+                            <TextInput
+                                {...field}
+                                {...inputProps}
+                                value={field.value}
+                                label="Postcode"
+                                autoComplete="delivery postal-code"
+                                required
+                                error={getError("address.delivery.postcode")}
+                                disabled={disableInputs}
+                            />
+                        );
+                    }}
+                />
+            </div>
+        );
+    }, [control, disableInputs, getError]);
+
+    const billingAddressFields = useMemo(() => {
+        return (
+            <div className={styles["fields-container"]}>
+                <Controller
+                    control={control}
+                    name="address.billing.line1"
+                    render={({ field }) => {
+                        return (
+                            <TextInput
+                                {...field}
+                                {...inputProps}
+                                value={field.value}
+                                label="Line 1"
+                                autoComplete="billing address-line1"
+                                required
+                                error={getError("address.billing.line1")}
+                                disabled={disableInputs || billingIsDelivery}
+                            />
+                        );
+                    }}
+                />
+
+                <Controller
+                    control={control}
+                    name="address.billing.line2"
+                    render={({ field }) => {
+                        return (
+                            <TextInput
+                                {...field}
+                                {...inputProps}
+                                value={field.value}
+                                label="Line 2"
+                                autoComplete="billing address-line2"
+                                error={getError("address.billing.line2")}
+                                disabled={disableInputs || billingIsDelivery}
+                            />
+                        );
+                    }}
+                />
+
+                <Controller
+                    control={control}
+                    name="address.billing.townCity"
+                    render={({ field }) => {
+                        return (
+                            <TextInput
+                                {...field}
+                                {...inputProps}
+                                value={field.value}
+                                label="Town/City"
+                                autoComplete="billing address-level2"
+                                required
+                                error={getError("address.billing.townCity")}
+                                disabled={disableInputs || billingIsDelivery}
+                            />
+                        );
+                    }}
+                />
+
+                <Controller
+                    control={control}
+                    name="address.billing.county"
+                    render={({ field }) => {
+                        return (
+                            <TextInput
+                                {...field}
+                                {...inputProps}
+                                value={field.value}
+                                label="County"
+                                error={getError("address.billing.county")}
+                                disabled={disableInputs || billingIsDelivery}
+                            />
+                        );
+                    }}
+                />
+
+                <Controller
+                    control={control}
+                    name="address.billing.postcode"
+                    render={({ field }) => {
+                        return (
+                            <TextInput
+                                {...field}
+                                {...inputProps}
+                                value={field.value}
+                                label="Postcode"
+                                autoComplete="billing postal-code"
+                                required
+                                error={getError("address.billing.postcode")}
+                                disabled={disableInputs || billingIsDelivery}
+                            />
+                        );
+                    }}
+                />
+            </div>
+        );
+    }, [control, disableInputs, getError, billingIsDelivery]);
+
+    const shippingOption = useMemo(() => {
+        const { baseExpressDeliveryCost, freeExpressDeliveryThreshold } = settingsData || {
+            baseExpressDeliveryCost: 0,
+            freeExpressDeliveryThreshold: 0,
+        };
+        const cartSubtotal = cartData ? calculateCartSubtotal(cartData) : null;
+        let postageCost = 0;
+        if (cartSubtotal) {
+            const { total } = cartSubtotal.cost;
+            postageCost = total >= freeExpressDeliveryThreshold ? 0 : baseExpressDeliveryCost;
+        }
+
+        return (
+            <Controller
+                control={control}
+                name="type"
+                render={({ field }) => (
+                    <Radio.Group
+                        {...field}
+                        value={field.value}
+                        onChange={(value) => {
+                            field.onChange(value);
+                            setShipping(value as CheckoutShippingOption);
+                        }}
+                        label="Select a shipping option"
+                        required
+                        error={getError("type")}
+                        classNames={{
+                            root: styles["radio-group-root"],
+                            label: styles["radio-group-label"],
+                        }}
+                    >
+                        <div className={styles["radio-options-container"]}>
+                            <Radio.Card value="standard" className={styles["radio-card"]}>
+                                <Radio.Indicator
+                                    disabled={disableInputs}
+                                    className={styles["radio-indicator"]}
+                                />
+                                <div className={styles["radio-card-right"]}>
+                                    <Skeleton visible={awaitingAny}>
+                                        <span
+                                            className={styles["radio-label"]}
+                                            style={{
+                                                visibility: awaitingAny ? "hidden" : "initial",
+                                            }}
+                                        >
+                                            Standard delivery <strong>(FREE)</strong>
+                                        </span>
+                                    </Skeleton>
+                                    <span className={styles["radio-description"]}>
+                                        <Skeleton visible={awaitingAny}>
+                                            <span
+                                                className={styles["radio-description-main"]}
+                                                style={{
+                                                    visibility: awaitingAny ? "hidden" : "initial",
+                                                }}
+                                            >
+                                                We aim to ship all orders within 48h of time of
+                                                purchase; this is guaranteed if the order is placed
+                                                before 5pm.
+                                            </span>
+                                        </Skeleton>
+                                        <Skeleton visible={awaitingAny}>
+                                            <span
+                                                className={
+                                                    styles["radio-description-expected-date"]
+                                                }
+                                                style={{
+                                                    visibility: awaitingAny ? "hidden" : "initial",
+                                                }}
+                                            >
+                                                Expected delivery date:{" "}
+                                                {dayjs(expectedDeliveryDate.standard).format(
+                                                    "MMMM D, YYYY",
+                                                )}
+                                            </span>
+                                        </Skeleton>
+                                    </span>
+                                </div>
+                            </Radio.Card>
+                            <Radio.Card value="express" className={styles["radio-card"]}>
+                                <Radio.Indicator
+                                    disabled={disableInputs}
+                                    className={styles["radio-indicator"]}
+                                />
+                                <div className={styles["radio-card-right"]}>
+                                    <Skeleton visible={awaitingAny}>
+                                        <span
+                                            className={styles["radio-label"]}
+                                            style={{
+                                                visibility: awaitingAny ? "hidden" : "initial",
+                                            }}
+                                        >
+                                            Express delivery{" "}
+                                            {postageCost > 0 ? (
+                                                <>
+                                                    {"- "}
+                                                    <strong>
+                                                        {`£${(postageCost / 100).toFixed(2)}`}
+                                                    </strong>
+                                                </>
+                                            ) : (
+                                                <strong>(FREE)</strong>
+                                            )}
+                                        </span>
+                                    </Skeleton>
+                                    <span className={styles["radio-description"]}>
+                                        <Skeleton visible={awaitingAny}>
+                                            <span
+                                                className={styles["radio-description-main"]}
+                                                style={{
+                                                    visibility: awaitingAny ? "hidden" : "initial",
+                                                }}
+                                            >
+                                                We aim to ship all orders within 48h of time of
+                                                purchase; this is guaranteed if the order is placed
+                                                before 5pm.
+                                            </span>
+                                        </Skeleton>
+                                        <Skeleton visible={awaitingAny}>
+                                            <span
+                                                className={
+                                                    styles["radio-description-expected-date"]
+                                                }
+                                                style={{
+                                                    visibility: awaitingAny ? "hidden" : "initial",
+                                                }}
+                                            >
+                                                Expected delivery date:{" "}
+                                                {dayjs(expectedDeliveryDate.express).format(
+                                                    "MMMM D, YYYY",
+                                                )}
+                                            </span>
+                                        </Skeleton>
+                                    </span>
+                                </div>
+                            </Radio.Card>
+                        </div>
+                    </Radio.Group>
+                )}
+            />
+        );
+    }, [
+        awaitingAny,
+        settingsData,
+        cartData,
+        control,
+        disableInputs,
+        expectedDeliveryDate,
+        getError,
+        setShipping,
+    ]);
+
     return (
         <div className={styles["checkout-details-section"]} ref={containerRef}>
             <div className={styles["panel"]}>
@@ -173,100 +534,7 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
                         <fieldset className={styles["fieldset"]}>
                             <legend className={styles["legend"]}>Delivery address</legend>
 
-                            <div className={styles["fields-container"]}>
-                                <Controller
-                                    control={control}
-                                    name="address.delivery.line1"
-                                    render={({ field }) => {
-                                        return (
-                                            <TextInput
-                                                {...field}
-                                                {...inputProps}
-                                                value={field.value}
-                                                label="Line 1"
-                                                autoComplete="delivery address-line1"
-                                                required
-                                                error={getError("address.delivery.line1")}
-                                                disabled={disableInputs}
-                                                ref={firstInputRef}
-                                            />
-                                        );
-                                    }}
-                                />
-
-                                <Controller
-                                    control={control}
-                                    name="address.delivery.line2"
-                                    render={({ field }) => {
-                                        return (
-                                            <TextInput
-                                                {...field}
-                                                {...inputProps}
-                                                value={field.value}
-                                                label="Line 2"
-                                                autoComplete="delivery address-line2"
-                                                error={getError("address.delivery.line2")}
-                                                disabled={disableInputs}
-                                            />
-                                        );
-                                    }}
-                                />
-
-                                <Controller
-                                    control={control}
-                                    name="address.delivery.townCity"
-                                    render={({ field }) => {
-                                        return (
-                                            <TextInput
-                                                {...field}
-                                                {...inputProps}
-                                                value={field.value}
-                                                label="Town/City"
-                                                autoComplete="delivery address-level2"
-                                                required
-                                                error={getError("address.delivery.townCity")}
-                                                disabled={disableInputs}
-                                            />
-                                        );
-                                    }}
-                                />
-
-                                <Controller
-                                    control={control}
-                                    name="address.delivery.county"
-                                    render={({ field }) => {
-                                        return (
-                                            <TextInput
-                                                {...field}
-                                                {...inputProps}
-                                                value={field.value}
-                                                label="County"
-                                                error={getError("address.delivery.county")}
-                                                disabled={disableInputs}
-                                            />
-                                        );
-                                    }}
-                                />
-
-                                <Controller
-                                    control={control}
-                                    name="address.delivery.postcode"
-                                    render={({ field }) => {
-                                        return (
-                                            <TextInput
-                                                {...field}
-                                                {...inputProps}
-                                                value={field.value}
-                                                label="Postcode"
-                                                autoComplete="delivery postal-code"
-                                                required
-                                                error={getError("address.delivery.postcode")}
-                                                disabled={disableInputs}
-                                            />
-                                        );
-                                    }}
-                                />
-                            </div>
+                            {deliveryAddressFields}
                         </fieldset>
 
                         <Checkbox
@@ -287,228 +555,13 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
                             >
                                 <legend className={styles["legend"]}>Billing address</legend>
 
-                                <div className={styles["fields-container"]}>
-                                    <Controller
-                                        control={control}
-                                        name="address.billing.line1"
-                                        render={({ field }) => {
-                                            return (
-                                                <TextInput
-                                                    {...field}
-                                                    {...inputProps}
-                                                    value={field.value}
-                                                    label="Line 1"
-                                                    autoComplete="billing address-line1"
-                                                    required
-                                                    error={getError("address.billing.line1")}
-                                                    disabled={
-                                                        userAwaiting ||
-                                                        cartAwaiting ||
-                                                        billingIsDelivery
-                                                    }
-                                                />
-                                            );
-                                        }}
-                                    />
-
-                                    <Controller
-                                        control={control}
-                                        name="address.billing.line2"
-                                        render={({ field }) => {
-                                            return (
-                                                <TextInput
-                                                    {...field}
-                                                    {...inputProps}
-                                                    value={field.value}
-                                                    label="Line 2"
-                                                    autoComplete="billing address-line2"
-                                                    error={getError("address.billing.line2")}
-                                                    disabled={
-                                                        userAwaiting ||
-                                                        cartAwaiting ||
-                                                        billingIsDelivery
-                                                    }
-                                                />
-                                            );
-                                        }}
-                                    />
-
-                                    <Controller
-                                        control={control}
-                                        name="address.billing.townCity"
-                                        render={({ field }) => {
-                                            return (
-                                                <TextInput
-                                                    {...field}
-                                                    {...inputProps}
-                                                    value={field.value}
-                                                    label="Town/City"
-                                                    autoComplete="billing address-level2"
-                                                    required
-                                                    error={getError("address.billing.townCity")}
-                                                    disabled={
-                                                        userAwaiting ||
-                                                        cartAwaiting ||
-                                                        billingIsDelivery
-                                                    }
-                                                />
-                                            );
-                                        }}
-                                    />
-
-                                    <Controller
-                                        control={control}
-                                        name="address.billing.county"
-                                        render={({ field }) => {
-                                            return (
-                                                <TextInput
-                                                    {...field}
-                                                    {...inputProps}
-                                                    value={field.value}
-                                                    label="County"
-                                                    error={getError("address.billing.county")}
-                                                    disabled={
-                                                        userAwaiting ||
-                                                        cartAwaiting ||
-                                                        billingIsDelivery
-                                                    }
-                                                />
-                                            );
-                                        }}
-                                    />
-
-                                    <Controller
-                                        control={control}
-                                        name="address.billing.postcode"
-                                        render={({ field }) => {
-                                            return (
-                                                <TextInput
-                                                    {...field}
-                                                    {...inputProps}
-                                                    value={field.value}
-                                                    label="Postcode"
-                                                    autoComplete="billing postal-code"
-                                                    required
-                                                    error={getError("address.billing.postcode")}
-                                                    disabled={
-                                                        userAwaiting ||
-                                                        cartAwaiting ||
-                                                        billingIsDelivery
-                                                    }
-                                                />
-                                            );
-                                        }}
-                                    />
-                                </div>
+                                {billingAddressFields}
                             </fieldset>
                         </Collapse>
 
                         <Divider className={styles["divider-light"]} />
 
-                        <Controller
-                            control={control}
-                            name="type"
-                            render={({ field }) => (
-                                <Radio.Group
-                                    {...field}
-                                    value={field.value}
-                                    onChange={(value) => {
-                                        field.onChange(value);
-                                        setShipping(value as CheckoutShippingOption);
-                                    }}
-                                    label="Select a shipping option"
-                                    required
-                                    error={getError("type")}
-                                    classNames={{
-                                        root: styles["radio-group-root"],
-                                        label: styles["radio-group-label"],
-                                    }}
-                                >
-                                    <div className={styles["radio-options-container"]}>
-                                        <Radio.Card
-                                            value="standard"
-                                            className={styles["radio-card"]}
-                                        >
-                                            <Radio.Indicator
-                                                disabled={disableInputs}
-                                                className={styles["radio-indicator"]}
-                                            />
-                                            <div className={styles["radio-card-right"]}>
-                                                <span className={styles["radio-label"]}>
-                                                    Standard delivery <strong>(FREE)</strong>
-                                                </span>
-                                                <span className={styles["radio-description"]}>
-                                                    <span
-                                                        className={styles["radio-description-main"]}
-                                                    >
-                                                        We aim to ship all orders within 48h of time
-                                                        of purchase; this is guaranteed if the order
-                                                        is placed before 5pm.
-                                                    </span>
-                                                    <span
-                                                        className={
-                                                            styles[
-                                                                "radio-description-expected-date"
-                                                            ]
-                                                        }
-                                                    >
-                                                        Expected delivery date:{" "}
-                                                        {dayjs(
-                                                            expectedDeliveryDate.standard,
-                                                        ).format("MMMM D, YYYY")}
-                                                    </span>
-                                                </span>
-                                            </div>
-                                        </Radio.Card>
-                                        <Radio.Card
-                                            value="express"
-                                            className={styles["radio-card"]}
-                                        >
-                                            <Radio.Indicator
-                                                disabled={disableInputs}
-                                                className={styles["radio-indicator"]}
-                                            />
-                                            <div className={styles["radio-card-right"]}>
-                                                <span className={styles["radio-label"]}>
-                                                    Express delivery{" "}
-                                                    {postageCost > 0 ? (
-                                                        <>
-                                                            {"- "}
-                                                            <strong>
-                                                                {`£${(postageCost / 100).toFixed(2)}`}
-                                                            </strong>
-                                                        </>
-                                                    ) : (
-                                                        <strong>(FREE)</strong>
-                                                    )}
-                                                </span>
-                                                <span className={styles["radio-description"]}>
-                                                    <span
-                                                        className={styles["radio-description-main"]}
-                                                    >
-                                                        We aim to ship all orders within 48h of time
-                                                        of purchase; this is guaranteed if the order
-                                                        is placed before 5pm.
-                                                    </span>
-                                                    <span
-                                                        className={
-                                                            styles[
-                                                                "radio-description-expected-date"
-                                                            ]
-                                                        }
-                                                    >
-                                                        Expected delivery date:{" "}
-                                                        {dayjs(expectedDeliveryDate.express).format(
-                                                            "MMMM D, YYYY",
-                                                        )}
-                                                    </span>
-                                                </span>
-                                            </div>
-                                        </Radio.Card>
-                                    </div>
-                                </Radio.Group>
-                            )}
-                        />
+                        {shippingOption}
 
                         <div className={styles["button-container"]}>
                             <Button

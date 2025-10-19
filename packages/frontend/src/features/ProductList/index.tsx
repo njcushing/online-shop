@@ -10,9 +10,9 @@ import styles from "./index.module.css";
 export function ProductList() {
     const productsToDisplay = useMatches({ base: 3, xs: 5, lg: 7 });
 
-    const { categoryData } = useContext(CategoryContext);
+    const { categoryBranch } = useContext(CategoryContext);
 
-    const currentCategory = useMemo(() => categoryData.at(-1), [categoryData]);
+    const currentCategory = useMemo(() => categoryBranch.at(-1), [categoryBranch]);
 
     const products = useMemo(() => currentCategory?.products || [], [currentCategory]);
     const subcategories = useMemo(() => currentCategory?.subcategories || [], [currentCategory]);

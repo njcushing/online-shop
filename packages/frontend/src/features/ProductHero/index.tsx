@@ -1,8 +1,13 @@
 import { useContext, useState, useEffect, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
-import { IProductContext, ProductContext } from "@/pages/Product";
+import { ProductContext } from "@/pages/Product";
 import { Skeleton, Button, Divider, Rating } from "@mantine/core";
-import { findCollections, filterVariantOptions } from "@/utils/products/product";
+import {
+    findCollections,
+    filterVariantOptions,
+    Product,
+    ProductVariant,
+} from "@/utils/products/product";
 import { Quantity } from "@/components/Inputs/Quantity";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
 import { Price } from "@/features/Price";
@@ -26,28 +31,44 @@ export function ProductHero() {
         collectionSteps: defaultCollectionStepsData,
     } = defaultData;
 
-    const { response: cartResponse, awaiting: awaitingCart } = cart;
-    const { response: productResponse, awaiting: awaitingProduct } = product;
+    const { response: cartResponse, awaiting: cartAwaiting } = cart;
+    const { response: productResponse, awaiting: productAwaiting } = product;
 
-    const { data: cartData } = cartResponse;
-    const { data: productData } = productResponse;
+    const { success: cartSuccess } = cartResponse;
+    const { success: productSuccess } = productResponse;
+
+    const awaitingAny = cartAwaiting || productAwaiting;
+
+    let cartData = null;
+    let productData = defaultProductData as Product;
+    let variantData = defaultVariantData as ProductVariant;
+
+    if (!awaitingAny) {
+        if (!cartSuccess) throw new Error("Cart not found");
+        if (!productSuccess) throw new Error("Product not found");
+        if (!variant) throw new Error("Product variant not found");
+
+        cartData = cartResponse.data;
+        productData = productResponse.data;
+        variantData = variant;
+    }
 
     const variantOptions = useMemo<ReturnType<typeof filterVariantOptions>>(() => {
-        if (awaitingProduct) return defaultVariantOptionsData;
-        if (!productData || !variant) return new Map();
-        return filterVariantOptions(productData, variant.options);
-    }, [productData, variant, defaultVariantOptionsData, awaitingProduct]);
+        if (awaitingAny) return defaultVariantOptionsData;
+        if (!productData || !variantData) return new Map();
+        return filterVariantOptions(productData, variantData.options);
+    }, [awaitingAny, productData, variantData, defaultVariantOptionsData]);
 
     const collectionsData = useMemo<ReturnType<typeof findCollections>>(() => {
-        if (awaitingProduct) return defaultCollectionStepsData;
+        if (awaitingAny) return defaultCollectionStepsData;
         return findCollections(productData?.id || "");
-    }, [productData, defaultCollectionStepsData, awaitingProduct]);
+    }, [awaitingAny, productData, defaultCollectionStepsData]);
 
     const [subscriptionChecked, setSubscriptionChecked] = useState<boolean>(false);
     const [frequency, setFrequency] = useState<SubscriptionFrequency>("one_week");
     useEffect(() => {
         setSubscriptionChecked(false);
-    }, [product, variant]);
+    }, [product, variantData]);
     useEffect(() => {
         if (subscriptionChecked) setFrequency("one_week");
     }, [subscriptionChecked]);
@@ -55,20 +76,14 @@ export function ProductHero() {
     const [, /* quantity */ setQuantity] = useState<number | null>(1);
 
     const maximumVariantQuantity = useMemo(() => {
-        if (!cartData?.items || awaitingCart || !productData || awaitingProduct || !variant) {
+        if (awaitingAny || !cartData?.items || !productData || !variantData) {
             return 0;
         }
-        return calculateMaxAddableVariantStock(cartData.items, productData, variant);
-    }, [cartData, awaitingCart, productData, awaitingProduct, variant]);
+        return calculateMaxAddableVariantStock(cartData.items, productData, variantData);
+    }, [awaitingAny, cartData, productData, variantData]);
 
-    if (!awaitingProduct && (!productData || !variant)) return null;
-
-    const { name, images, rating, variantOptionOrder } = !awaitingProduct
-        ? productData!
-        : (defaultProductData as NonNullable<IProductContext["product"]["response"]["data"]>);
-    const { price, options } = !awaitingProduct
-        ? variant!
-        : (defaultVariantData as NonNullable<IProductContext["variant"]>);
+    const { name, images, rating, variantOptionOrder } = productData;
+    const { price, options } = variantData;
     const { subscriptionDiscountPercentage } = price;
 
     let unitPrice = price.current;
@@ -78,23 +93,23 @@ export function ProductHero() {
         <section className={styles["product-hero"]}>
             <div className={styles["product-hero-width-controller"]}>
                 <div>
-                    <ImageCarousel images={images.dynamic} awaiting={awaitingProduct} />
+                    <ImageCarousel images={images.dynamic} awaiting={awaitingAny} />
                 </div>
 
                 <div className={styles["product-content"]}>
-                    <Skeleton visible={awaitingProduct} className={styles["margin"]}>
+                    <Skeleton visible={awaitingAny} className={styles["margin"]}>
                         <h1
                             className={styles["product-name"]}
-                            style={{ visibility: awaitingProduct ? "hidden" : "initial" }}
+                            style={{ visibility: awaitingAny ? "hidden" : "initial" }}
                         >
                             {name!.full}
                         </h1>
                     </Skeleton>
 
-                    <Skeleton visible={awaitingProduct} className={styles["margin"]}>
+                    <Skeleton visible={awaitingAny} className={styles["margin"]}>
                         <div
                             className={styles["product-hero-rating-container"]}
-                            style={{ visibility: awaitingProduct ? "hidden" : "initial" }}
+                            style={{ visibility: awaitingAny ? "hidden" : "initial" }}
                         >
                             <Rating
                                 className={styles["product-rating"]}
@@ -122,13 +137,10 @@ export function ProductHero() {
                         {collectionsData.map((collectionData, i) => {
                             const step = <CollectionStep collectionData={collectionData} />;
                             return (
-                                <Skeleton
-                                    visible={awaitingProduct}
-                                    key={collectionData.collection.id}
-                                >
+                                <Skeleton visible={awaitingAny} key={collectionData.collection.id}>
                                     <div
                                         style={{
-                                            visibility: awaitingProduct ? "hidden" : "initial",
+                                            visibility: awaitingAny ? "hidden" : "initial",
                                         }}
                                     >
                                         {step}
@@ -152,10 +164,10 @@ export function ProductHero() {
                                     />
                                 );
                                 return (
-                                    <Skeleton visible={awaitingProduct} key={optionId}>
+                                    <Skeleton visible={awaitingAny} key={optionId}>
                                         <div
                                             style={{
-                                                visibility: awaitingProduct ? "hidden" : "initial",
+                                                visibility: awaitingAny ? "hidden" : "initial",
                                             }}
                                         >
                                             {step}
@@ -168,8 +180,8 @@ export function ProductHero() {
                         {variantOptionOrder.length > 0 && <Divider />}
                     </div>
 
-                    <Skeleton visible={awaitingProduct} className={styles["margin"]}>
-                        <div style={{ visibility: awaitingProduct ? "hidden" : "initial" }}>
+                    <Skeleton visible={awaitingAny} className={styles["margin"]}>
+                        <div style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
                             <Price base={price.base} current={unitPrice} size="lg" />
                         </div>
                     </Skeleton>
@@ -181,7 +193,7 @@ export function ProductHero() {
                         onFrequencyChange={(f) => setFrequency(f)}
                     />
 
-                    <VariantAlerts awaiting={awaitingProduct} />
+                    <VariantAlerts />
 
                     <div
                         className={`${styles["product-hero-buttons-container"]} ${styles["margin"]}`}
@@ -190,18 +202,14 @@ export function ProductHero() {
                             defaultValue={1}
                             min={1}
                             max={Math.max(1, maximumVariantQuantity)}
-                            disabled={
-                                awaitingCart || awaitingProduct || maximumVariantQuantity === 0
-                            }
+                            disabled={awaitingAny || maximumVariantQuantity === 0}
                             onQuantityChange={(v) => setQuantity(v)}
                         />
 
                         <Button
                             color="#242424"
                             className={styles["add-to-cart-button"]}
-                            disabled={
-                                awaitingCart || awaitingProduct || maximumVariantQuantity === 0
-                            }
+                            disabled={awaitingAny || maximumVariantQuantity === 0}
                         >
                             Add to Cart
                         </Button>
@@ -209,8 +217,8 @@ export function ProductHero() {
                         <WatchlistButton />
                     </div>
 
-                    <Skeleton visible={awaitingProduct}>
-                        <div style={{ visibility: awaitingProduct ? "hidden" : "initial" }}>
+                    <Skeleton visible={awaitingAny}>
+                        <div style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
                             <DeliveryProgress />
                         </div>
                     </Skeleton>

@@ -1,6 +1,7 @@
-import { Accordion } from "@mantine/core";
+import { useContext } from "react";
+import { RootContext } from "@/pages/Root";
+import { Accordion, Skeleton } from "@mantine/core";
 import { PopulatedSubscriptionData } from "@/utils/products/subscriptions";
-import { settings } from "@settings";
 import styles from "./index.module.css";
 
 export type TSubscriptionDetails = {
@@ -9,17 +10,28 @@ export type TSubscriptionDetails = {
 };
 
 export function SubscriptionDetails({ data, awaiting }: TSubscriptionDetails) {
+    const { settings } = useContext(RootContext);
+    const { response: settingsResponse, awaiting: settingsAwaiting } = settings;
+    const { success: settingsSuccess } = settingsResponse;
+
+    const awaitingAny = awaiting || settingsAwaiting;
+
+    let settingsData = { baseExpressDeliveryCost: 0, freeExpressDeliveryThreshold: 0 };
+
+    if (!awaitingAny) {
+        if (!settingsSuccess) throw new Error("Settings not found");
+
+        settingsData = settingsResponse.data;
+    }
+
     const { deliveryAddress, billingAddress, count, variant } = data;
-
     const { price } = variant;
-
     const { current, subscriptionDiscountPercentage } = price;
 
-    const { freeDeliveryThreshold, expressDeliveryCost } = settings;
-
+    const { baseExpressDeliveryCost, freeExpressDeliveryThreshold } = settingsData;
     const estimatedUnitCost = current * (1 - subscriptionDiscountPercentage / 100) * count;
-    const meetsFreeDeliveryThreshold = estimatedUnitCost >= freeDeliveryThreshold;
-    const deliveryCost = meetsFreeDeliveryThreshold ? 0 : expressDeliveryCost;
+    const meetsFreeDeliveryThreshold = estimatedUnitCost >= freeExpressDeliveryThreshold;
+    const deliveryCost = meetsFreeDeliveryThreshold ? 0 : baseExpressDeliveryCost;
     const subtotal = estimatedUnitCost + deliveryCost;
 
     return (
@@ -33,7 +45,7 @@ export function SubscriptionDetails({ data, awaiting }: TSubscriptionDetails) {
             <Accordion.Item value="Subscription Details">
                 <Accordion.Control
                     classNames={{ label: styles["accordion-label"] }}
-                    disabled={awaiting}
+                    disabled={awaitingAny}
                 >
                     Subscription Details
                 </Accordion.Control>
@@ -44,60 +56,146 @@ export function SubscriptionDetails({ data, awaiting }: TSubscriptionDetails) {
                 >
                     <div className={styles["addresses"]}>
                         <div className={styles["address"]}>
-                            <p className={styles["details-title"]}>Delivery Address</p>
-                            <div className={styles["address-line"]}>
-                                <p>{deliveryAddress.line1}</p>
-                            </div>
-                            {deliveryAddress.line2 && deliveryAddress.line2.length > 0 && (
-                                <div className={styles["address-line"]}>
-                                    <p>{deliveryAddress.line2}</p>
+                            <Skeleton visible={awaitingAny}>
+                                <p
+                                    className={styles["details-title"]}
+                                    style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                                >
+                                    Delivery Address
+                                </p>
+                            </Skeleton>
+                            <Skeleton visible={awaitingAny}>
+                                <div
+                                    className={styles["address-line"]}
+                                    style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                                >
+                                    <p>{deliveryAddress.line1}</p>
                                 </div>
+                            </Skeleton>
+                            {deliveryAddress.line2 && deliveryAddress.line2.length > 0 && (
+                                <Skeleton visible={awaitingAny}>
+                                    <div
+                                        className={styles["address-line"]}
+                                        style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                                    >
+                                        <p>{deliveryAddress.line2}</p>
+                                    </div>
+                                </Skeleton>
                             )}
-                            <div className={styles["address-line"]}>
-                                <p>{deliveryAddress.townCity}</p>
-                            </div>
-                            <div className={styles["address-line"]}>
-                                <p>{deliveryAddress.county}</p>
-                            </div>
-                            <div className={styles["address-line"]}>
-                                <p>{deliveryAddress.postcode}</p>
-                            </div>
+                            <Skeleton visible={awaitingAny}>
+                                <div
+                                    className={styles["address-line"]}
+                                    style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                                >
+                                    <p>{deliveryAddress.townCity}</p>
+                                </div>
+                            </Skeleton>
+                            <Skeleton visible={awaitingAny}>
+                                <div
+                                    className={styles["address-line"]}
+                                    style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                                >
+                                    <p>{deliveryAddress.county}</p>
+                                </div>
+                            </Skeleton>
+                            <Skeleton visible={awaitingAny}>
+                                <div
+                                    className={styles["address-line"]}
+                                    style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                                >
+                                    <p>{deliveryAddress.postcode}</p>
+                                </div>
+                            </Skeleton>
                         </div>
 
                         <div className={styles["address"]}>
-                            <p className={styles["details-title"]}>Billing Address</p>
-                            <div className={styles["address-line"]}>
-                                <p>{billingAddress.line1}</p>
-                            </div>
-                            {billingAddress.line2 && billingAddress.line2.length > 0 && (
-                                <div className={styles["address-line"]}>
-                                    <p>{billingAddress.line2}</p>
+                            <Skeleton visible={awaitingAny}>
+                                <p
+                                    className={styles["details-title"]}
+                                    style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                                >
+                                    Billing Address
+                                </p>
+                            </Skeleton>
+                            <Skeleton visible={awaitingAny}>
+                                <div
+                                    className={styles["address-line"]}
+                                    style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                                >
+                                    <p>{billingAddress.line1}</p>
                                 </div>
+                            </Skeleton>
+                            {billingAddress.line2 && billingAddress.line2.length > 0 && (
+                                <Skeleton visible={awaitingAny}>
+                                    <div
+                                        className={styles["address-line"]}
+                                        style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                                    >
+                                        <p>{billingAddress.line2}</p>
+                                    </div>
+                                </Skeleton>
                             )}
-                            <div className={styles["address-line"]}>
-                                <p>{billingAddress.townCity}</p>
-                            </div>
-                            <div className={styles["address-line"]}>
-                                <p>{billingAddress.county}</p>
-                            </div>
-                            <div className={styles["address-line"]}>
-                                <p>{billingAddress.postcode}</p>
-                            </div>
+                            <Skeleton visible={awaitingAny}>
+                                <div
+                                    className={styles["address-line"]}
+                                    style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                                >
+                                    <p>{billingAddress.townCity}</p>
+                                </div>
+                            </Skeleton>
+                            <Skeleton visible={awaitingAny}>
+                                <div
+                                    className={styles["address-line"]}
+                                    style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                                >
+                                    <p>{billingAddress.county}</p>
+                                </div>
+                            </Skeleton>
+                            <Skeleton visible={awaitingAny}>
+                                <div
+                                    className={styles["address-line"]}
+                                    style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                                >
+                                    <p>{billingAddress.postcode}</p>
+                                </div>
+                            </Skeleton>
                         </div>
                     </div>
 
                     <div className={styles["cost-breakdown"]}>
-                        <p className={styles["details-title"]}>Estimated Cost Breakdown</p>
-                        <p className={styles["cost-breakdown-line"]}>
-                            Item(s) Subtotal: {`£${(estimatedUnitCost / 100).toFixed(2)}`}
-                        </p>
-                        <p className={styles["cost-breakdown-line"]}>
-                            Postage:{" "}
-                            {deliveryCost > 0 ? `£${(deliveryCost / 100).toFixed(2)}` : "FREE"}
-                        </p>
-                        <p className={styles["total-cost"]}>
-                            Total: {`£${(subtotal / 100).toFixed(2)}`}
-                        </p>
+                        <Skeleton visible={awaitingAny}>
+                            <p
+                                className={styles["details-title"]}
+                                style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                            >
+                                Estimated Cost Breakdown
+                            </p>
+                        </Skeleton>
+                        <Skeleton visible={awaitingAny}>
+                            <p
+                                className={styles["cost-breakdown-line"]}
+                                style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                            >
+                                Item(s) Subtotal: {`£${(estimatedUnitCost / 100).toFixed(2)}`}
+                            </p>
+                        </Skeleton>
+                        <Skeleton visible={awaitingAny}>
+                            <p
+                                className={styles["cost-breakdown-line"]}
+                                style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                            >
+                                Postage:{" "}
+                                {deliveryCost > 0 ? `£${(deliveryCost / 100).toFixed(2)}` : "FREE"}
+                            </p>
+                        </Skeleton>
+                        <Skeleton visible={awaitingAny}>
+                            <p
+                                className={styles["total-cost"]}
+                                style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                            >
+                                Total: {`£${(subtotal / 100).toFixed(2)}`}
+                            </p>
+                        </Skeleton>
                     </div>
                 </Accordion.Panel>
             </Accordion.Item>
