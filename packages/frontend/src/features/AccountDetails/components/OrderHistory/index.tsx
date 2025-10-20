@@ -1,8 +1,9 @@
 import { useContext, useState, useEffect, useRef, useMemo } from "react";
-import { RootContext, IUserContext, UserContext } from "@/pages/Root";
+import { RootContext, UserContext } from "@/pages/Root";
 import { useScrollIntoView } from "@mantine/hooks";
 import { Skeleton, Divider, Pagination } from "@mantine/core";
 import { v4 as uuid } from "uuid";
+import { PopulatedOrderData } from "@/utils/products/orders";
 import { OrderSummary } from "./components/OrderSummary";
 import styles from "./index.module.css";
 
@@ -24,14 +25,8 @@ export function OrderHistory() {
     const { forceClose } = headerInfo;
 
     const { orders, defaultData } = useContext(UserContext);
-    const { response, setParams, attempt, awaiting } = orders;
-    const { data } = response;
-
-    const [filter, setFilter] = useState<FilterOption>("1_month");
-    const [page, setPage] = useState<number>(0);
-    const [start, end] = useMemo(() => {
-        return [page * ordersPerPage, page * ordersPerPage + ordersPerPage];
-    }, [page]);
+    const { response: ordersResponse, setParams, attempt, awaiting: ordersAwaiting } = orders;
+    const { success: ordersSuccess } = ordersResponse;
 
     /**
      * Need to include this - the orders state is stored in the Root component's UserContext, and
@@ -42,8 +37,26 @@ export function OrderHistory() {
      */
     const hasAttempted = useRef<boolean>(false);
     useEffect(() => {
-        if (awaiting) hasAttempted.current = true;
-    }, [awaiting]);
+        if (ordersAwaiting) hasAttempted.current = true;
+    }, [ordersAwaiting]);
+
+    const awaitingOverride = ordersAwaiting || !hasAttempted.current;
+
+    let ordersData = { quantity: 0, orders: defaultData.orders as PopulatedOrderData[] };
+
+    if (!awaitingOverride) {
+        if (!ordersSuccess) throw new Error(ordersResponse.message);
+
+        ordersData = ordersResponse.data;
+    }
+
+    const { quantity, orders: orderList } = ordersData;
+
+    const [filter, setFilter] = useState<FilterOption>("1_month");
+    const [page, setPage] = useState<number>(0);
+    const [start, end] = useMemo(() => {
+        return [page * ordersPerPage, page * ordersPerPage + ordersPerPage];
+    }, [page]);
 
     useEffect(() => {
         setParams([{ params: { filter, start, end } }]);
@@ -87,14 +100,7 @@ export function OrderHistory() {
 
     /* v8 ignore stop */
 
-    const awaitingOverride = awaiting || !hasAttempted.current;
-
-    const { quantity, orders: ordersData } = data || { quantity: 0, orders: [] };
-    const orderData = !awaitingOverride
-        ? ordersData
-        : (defaultData.orders as NonNullable<IUserContext["orders"]["response"]["data"]>["orders"]);
-
-    return (orderData && orderData.length > 0) || awaitingOverride ? (
+    return (orderList && orderList.length > 0) || awaitingOverride ? (
         <div className={styles["order-history-container"]} ref={targetRef}>
             <Skeleton visible={awaitingOverride}>
                 <p
@@ -143,7 +149,7 @@ export function OrderHistory() {
             </div>
 
             <ul className={styles["order-history"]}>
-                {orderData.slice(0, ordersPerPage).map((order) => {
+                {orderList.slice(0, ordersPerPage).map((order) => {
                     const { id } = order;
 
                     return <OrderSummary data={order} awaiting={awaitingOverride} key={id} />;

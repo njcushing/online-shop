@@ -4,6 +4,7 @@ import { Skeleton } from "@mantine/core";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormBuilder } from "@/components/Forms/FormBuilder";
 import dayjs from "dayjs";
+import { User } from "@/utils/schemas/user";
 import { NamesFormData, namesFormDataSchema } from "./schemas/namesSchema";
 import { PhoneNumberFormData, phoneNumberFormDataSchema } from "./schemas/phoneNumberSchema";
 import { DateOfBirthFormData, dateOfBirthFormDataSchema } from "./schemas/dateOfBirthSchema";
@@ -12,43 +13,43 @@ import styles from "./index.module.css";
 
 export function PersonalInformation() {
     const { user, defaultData } = useContext(UserContext);
-    const { response, awaiting } = user;
-    const { data } = response;
+    const { response: userResponse, awaiting: userAwaiting } = user;
+    const { success: userSuccess } = userResponse;
 
-    const { profile } = data || {};
-    const { personal } = profile || {};
+    let userData = defaultData.user as User;
+
+    if (!userAwaiting) {
+        if (!userSuccess) throw new Error(userResponse.message);
+
+        userData = userResponse.data;
+    }
+
+    const { profile } = userData;
+    const { personal } = profile;
     const { firstName, lastName, phone, dob, email } = personal || {};
     const { day, month, year } = dob || {};
 
     const nameFullElement = useMemo(() => {
-        if (awaiting) {
-            return `${defaultData.user.profile.personal.firstName} ${defaultData.user.profile.personal.lastName}`;
+        if (userAwaiting) {
+            return `${userData.profile.personal!.firstName} ${userData.profile.personal!.lastName}`;
         }
         if (firstName && firstName.length > 0 && lastName && lastName.length > 0) {
             return `${firstName} ${lastName}`;
         }
         return "Provide a name";
-    }, [awaiting, defaultData, firstName, lastName]);
+    }, [userAwaiting, userData, firstName, lastName]);
 
     const phoneFullElement = useMemo(() => {
-        if (awaiting) {
-            return defaultData.user.profile.personal.phone;
-        }
-        if (phone && phone.length > 0) {
-            return phone;
-        }
+        if (userAwaiting) return userData.profile.personal!.phone;
+        if (phone && phone.length > 0) return phone;
         return "Provide a phone number";
-    }, [awaiting, defaultData, phone]);
+    }, [userAwaiting, userData, phone]);
 
     const emailFullElement = useMemo(() => {
-        if (awaiting) {
-            return defaultData.user.profile.personal.email;
-        }
-        if (email && email.length > 0) {
-            return email;
-        }
+        if (userAwaiting) return userData.profile.personal!.email;
+        if (email && email.length > 0) return email;
         return "Provide an email address";
-    }, [awaiting, defaultData, email]);
+    }, [userAwaiting, userData, email]);
 
     return (
         <div className={styles["account-settings-content"]}>
@@ -74,10 +75,10 @@ export function PersonalInformation() {
                                 },
                             ],
                             fullElement: (
-                                <Skeleton visible={awaiting} width="min-content">
+                                <Skeleton visible={userAwaiting} width="min-content">
                                     <div
                                         className={styles["full-name"]}
-                                        style={{ visibility: awaiting ? "hidden" : "initial" }}
+                                        style={{ visibility: userAwaiting ? "hidden" : "initial" }}
                                     >
                                         {nameFullElement}
                                     </div>
@@ -90,7 +91,7 @@ export function PersonalInformation() {
                         personal: { firstName: firstName || "", lastName: lastName || "" },
                     }}
                     resolver={zodResolver(namesFormDataSchema)}
-                    disabled={awaiting}
+                    disabled={userAwaiting}
                 />
 
                 <FormBuilder<PhoneNumberFormData>
@@ -106,10 +107,10 @@ export function PersonalInformation() {
                                 },
                             ],
                             fullElement: (
-                                <Skeleton visible={awaiting} width="min-content">
+                                <Skeleton visible={userAwaiting} width="min-content">
                                     <div
                                         className={styles["phone-number"]}
-                                        style={{ visibility: awaiting ? "hidden" : "initial" }}
+                                        style={{ visibility: userAwaiting ? "hidden" : "initial" }}
                                     >
                                         {phoneFullElement}
                                     </div>
@@ -120,7 +121,7 @@ export function PersonalInformation() {
                     ariaLabel="Phone number"
                     defaultValues={{ personal: { phone: phone || "" } }}
                     resolver={zodResolver(phoneNumberFormDataSchema)}
-                    disabled={awaiting}
+                    disabled={userAwaiting}
                 />
 
                 <FormBuilder<DateOfBirthFormData>
@@ -154,16 +155,16 @@ export function PersonalInformation() {
                                 },
                             ],
                             fullElement: (
-                                <Skeleton visible={awaiting} width="min-content">
+                                <Skeleton visible={userAwaiting} width="min-content">
                                     <div
                                         className={styles["date-of-birth"]}
-                                        style={{ visibility: awaiting ? "hidden" : "initial" }}
+                                        style={{ visibility: userAwaiting ? "hidden" : "initial" }}
                                     >
-                                        {awaiting
+                                        {userAwaiting
                                             ? `${dayjs(`
-                                                ${defaultData.user.profile.personal.dob.year},
-                                                ${defaultData.user.profile.personal.dob.month},
-                                                ${defaultData.user.profile.personal.dob.day}
+                                                ${userData.profile.personal!.dob!.year},
+                                                ${userData.profile.personal!.dob!.month},
+                                                ${userData.profile.personal!.dob!.day}
                                             `).format("MMMM D, YYYY")}`
                                             : `${dayjs(`${year}, ${month}, ${day}`).format("MMMM D, YYYY")}`}
                                     </div>
@@ -174,7 +175,7 @@ export function PersonalInformation() {
                     ariaLabel="Date of birth"
                     defaultValues={{ personal: { dob } }}
                     resolver={zodResolver(dateOfBirthFormDataSchema)}
-                    disabled={awaiting}
+                    disabled={userAwaiting}
                     additionalErrorPaths={["personal.dob.root"]}
                 />
 
@@ -191,10 +192,10 @@ export function PersonalInformation() {
                                 },
                             ],
                             fullElement: (
-                                <Skeleton visible={awaiting} width="min-content">
+                                <Skeleton visible={userAwaiting} width="min-content">
                                     <div
                                         className={styles["email-address"]}
-                                        style={{ visibility: awaiting ? "hidden" : "initial" }}
+                                        style={{ visibility: userAwaiting ? "hidden" : "initial" }}
                                     >
                                         {emailFullElement}
                                     </div>
@@ -205,7 +206,7 @@ export function PersonalInformation() {
                     ariaLabel="Email"
                     defaultValues={{ personal: { email: email || "" } }}
                     resolver={zodResolver(emailFormDataSchema)}
-                    disabled={awaiting}
+                    disabled={userAwaiting}
                 />
             </div>
         </div>

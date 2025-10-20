@@ -3,27 +3,35 @@ import { UserContext } from "@/pages/Root";
 import { Skeleton } from "@mantine/core";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormBuilder } from "@/components/Forms/FormBuilder";
+import { User } from "@/utils/schemas/user";
 import { AddressesFormData, addressesFormDataSchema } from "./schemas/addressSchema";
 import styles from "./index.module.css";
 
 export function Addresses() {
     const { user, defaultData } = useContext(UserContext);
-    const { response, awaiting } = user;
-    const { data } = response;
+    const { response: userResponse, awaiting: userAwaiting } = user;
+    const { success: userSuccess } = userResponse;
 
-    const { profile } = data || {};
-    const { addresses } = profile || {};
+    let userData = defaultData.user as User;
+
+    if (!userAwaiting) {
+        if (!userSuccess) throw new Error(userResponse.message);
+
+        userData = userResponse.data;
+    }
+
+    const { profile } = userData;
+    const { addresses } = profile;
     const { delivery, billing } = addresses || {};
 
-    const { user: defaultUser } = defaultData;
-    const { profile: defaultProfile } = defaultUser;
-    const { addresses: defaultAddresses } = defaultProfile;
-    const { delivery: defaultDelivery, billing: defaultBilling } = defaultAddresses;
-
-    const skeletonProps = useMemo(() => ({ visible: awaiting, width: "min-content" }), [awaiting]);
+    const skeletonProps = useMemo(
+        () => ({ visible: userAwaiting, width: "min-content" }),
+        [userAwaiting],
+    );
 
     const skeletonAddress = useCallback(
-        (fields: (typeof defaultAddresses)["delivery"] | (typeof defaultAddresses)["billing"]) => {
+        (fields: typeof delivery | typeof billing) => {
+            if (!userAwaiting || !fields) return null;
             return Object.entries(fields).map((field) => {
                 const [key, value] = field;
                 return (
@@ -35,12 +43,12 @@ export function Addresses() {
                 );
             });
         },
-        [skeletonProps],
+        [userAwaiting, skeletonProps],
     );
 
     const deliveryAddressFullElement = useMemo(() => {
-        if (awaiting)
-            return <div className={styles["address"]}>{skeletonAddress(defaultDelivery)}</div>;
+        if (userAwaiting)
+            return <div className={styles["address"]}>{skeletonAddress(delivery)}</div>;
         if (!delivery) return <div className={styles["address"]}>No address set</div>;
         return (
             <div className={styles["address"]}>
@@ -63,11 +71,11 @@ export function Addresses() {
                 </div>
             </div>
         );
-    }, [awaiting, delivery, defaultDelivery, skeletonAddress]);
+    }, [userAwaiting, delivery, skeletonAddress]);
 
     const billingAddressFullElement = useMemo(() => {
-        if (awaiting)
-            return <div className={styles["address"]}>{skeletonAddress(defaultBilling)}</div>;
+        if (userAwaiting)
+            return <div className={styles["address"]}>{skeletonAddress(billing)}</div>;
         if (!billing) return <div className={styles["no-address"]}>No address set</div>;
         return (
             <div className={styles["address"]}>
@@ -90,7 +98,7 @@ export function Addresses() {
                 </div>
             </div>
         );
-    }, [awaiting, billing, defaultBilling, skeletonAddress]);
+    }, [userAwaiting, billing, skeletonAddress]);
 
     return (
         <div className={styles["account-settings-content"]}>
@@ -149,7 +157,7 @@ export function Addresses() {
                         },
                     }}
                     resolver={zodResolver(addressesFormDataSchema)}
-                    disabled={awaiting}
+                    disabled={userAwaiting}
                 />
 
                 <FormBuilder<AddressesFormData>
@@ -204,7 +212,7 @@ export function Addresses() {
                         },
                     }}
                     resolver={zodResolver(addressesFormDataSchema)}
-                    disabled={awaiting}
+                    disabled={userAwaiting}
                 />
             </div>
         </div>
