@@ -50,15 +50,23 @@ export type TCategory = {
 
 export function Category({ children }: TCategory) {
     const { categories } = useContext(RootContext);
-    const { response, awaiting } = categories;
-    const { data } = response;
+    const { response: categoriesResponse, awaiting: categoriesAwaiting } = categories;
+    const { success: categoriesSuccess } = categoriesResponse;
+
+    let categoriesData = null;
+
+    if (!categoriesAwaiting) {
+        if (!categoriesSuccess) throw new Error(categoriesResponse.message);
+
+        categoriesData = categoriesResponse.data;
+    }
 
     const { "*": urlPathFull } = useParams();
     const urlPathSplit = useMemo(() => (urlPathFull ? urlPathFull.split("/") : []), [urlPathFull]);
 
     const categoryTree = useMemo<ICategoryContext["categoryTree"]>(() => {
-        return buildCategoryTree(data || []);
-    }, [data]);
+        return buildCategoryTree(categoriesData || []);
+    }, [categoriesData]);
 
     const categoryBranch = useMemo<ICategoryContext["categoryBranch"]>(() => {
         return findCurrentBranch(urlPathSplit, [], categoryTree);
@@ -68,7 +76,9 @@ export function Category({ children }: TCategory) {
         return { urlPathFull: urlPathFull || "", urlPathSplit, categoryTree, categoryBranch };
     }, [urlPathFull, urlPathSplit, categoryTree, categoryBranch]);
 
-    if (!awaiting && !categoryBranch) throw new Response("Category not found", { status: 404 });
+    if (!categoriesAwaiting && !categoryBranch) {
+        throw new Response("Category not found", { status: 404 });
+    }
 
     return (
         <CategoryContext.Provider value={contextValue}>
