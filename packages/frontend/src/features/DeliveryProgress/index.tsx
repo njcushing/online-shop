@@ -17,7 +17,7 @@ export function DeliveryProgress() {
 
     const awaitingAny = settingsAwaiting || cartAwaiting;
 
-    let settingsData = null;
+    let settingsData = { freeExpressDeliveryThreshold: 0 };
     let cartData = null;
 
     if (!awaitingAny) {
@@ -33,10 +33,7 @@ export function DeliveryProgress() {
         [cartData],
     );
     const { total } = cartSubtotalInformation.cost;
-    const meetsThreshold = useMemo(() => {
-        if (!settingsData) return false;
-        return total >= settingsData.freeExpressDeliveryThreshold;
-    }, [settingsData, total]);
+    const meetsThreshold = total >= settingsData.freeExpressDeliveryThreshold;
 
     return (
         <div className={styles["delivery-progress"]} data-meets-threshold={meetsThreshold}>
@@ -52,20 +49,22 @@ export function DeliveryProgress() {
                         over £
                         {
                             +parseFloat(
-                                `${settingsData!.freeExpressDeliveryThreshold / 100}`,
+                                `${settingsData.freeExpressDeliveryThreshold / 100}`,
                             ).toFixed(2)
                         }
                         ! Add another{" "}
                         <b style={{ fontWeight: "bold" }}>
                             £
-                            {((settingsData!.freeExpressDeliveryThreshold - total) / 100).toFixed(
-                                2,
-                            )}
+                            {((settingsData.freeExpressDeliveryThreshold - total) / 100).toFixed(2)}
                         </b>{" "}
                         to your order to qualify.
                     </span>
                     <Progress
-                        value={(total / settingsData!.freeExpressDeliveryThreshold) * 100}
+                        value={
+                            awaitingAny
+                                ? (total / settingsData.freeExpressDeliveryThreshold) * 100
+                                : 0
+                        }
                         className={styles["delivery-progress-bar"]}
                     />
                 </>
