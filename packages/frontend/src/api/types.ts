@@ -12,7 +12,7 @@ export type ApiResponseSuccess<ResponseBody> = ApiResponseBase & {
 
 export type ApiResponseError = ApiResponseBase & {
     success: false;
-    error?: components["schemas"]["ProblemDetails"];
+    error: components["schemas"]["ProblemDetails"] | undefined;
 };
 
 export type ApiResponse<ResponseBody> = ApiResponseSuccess<ResponseBody> | ApiResponseError;
