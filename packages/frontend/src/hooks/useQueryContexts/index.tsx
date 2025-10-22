@@ -26,11 +26,23 @@ type ExtractResponseError<T> = T extends { response: infer R }
     : undefined;
 
 type ReturnType<T extends readonly ContextParams[]> = {
-    data: { [K in T[number] as K["name"]]: ExtractResponseData<K["context"]> | undefined };
-    errors: { [K in T[number] as K["name"]]: ExtractResponseError<K["context"]> | undefined };
+    data: Partial<{ [K in T[number] as K["name"]]: ExtractResponseData<K["context"]> }>;
+    errors: Partial<{ [K in T[number] as K["name"]]: ExtractResponseError<K["context"]> | string }>;
     messages: { [K in T[number] as K["name"]]: string };
     awaitingAny: boolean;
 };
+
+const isSuccessfulResponse = (
+    params: ContextParams,
+): params is ContextParams & {
+    context: { response: { success: true; data: unknown } };
+} => params.context.response.success && params.context.response.data;
+
+const isUnsuccessfulResponse = (
+    params: ContextParams,
+): params is ContextParams & {
+    context: { response: { success: false; error: unknown } };
+} => !params.context.response.success;
 
 export function useQueryContexts<const T extends readonly ContextParams[]>({
     contexts,
@@ -39,14 +51,17 @@ export function useQueryContexts<const T extends readonly ContextParams[]>({
     const { data, errors, messages, awaitingAny } = useMemo<ReturnType<T>>(() => {
         return {
             data: Object.fromEntries(
-                contexts.map(({ name, context: c }) => {
-                    return [name, c.response.success ? c.response.data : undefined];
-                }),
+                contexts
+                    .filter((p) => isSuccessfulResponse(p))
+                    .map(({ name, context: c }) => [name, c.response.data]),
             ) as ReturnType<T>["data"],
             errors: Object.fromEntries(
-                contexts.map(({ name, context: c }) => {
-                    return [name, !c.response.success ? c.response.error : undefined];
-                }),
+                contexts
+                    .filter((p) => isUnsuccessfulResponse(p))
+                    .map(({ name, context: c }) => {
+                        if (!c.response.error) return [name, c.response.message];
+                        return [name, c.response.error];
+                    }),
             ) as ReturnType<T>["errors"],
             messages: Object.fromEntries(
                 contexts.map(({ name, context: c }) => {
