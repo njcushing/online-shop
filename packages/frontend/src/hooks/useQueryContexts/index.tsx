@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from "react";
+import { components } from "@/api/schema";
 import { UseAsyncReturnType } from "../useAsync";
 
 /**
@@ -6,8 +7,14 @@ import { UseAsyncReturnType } from "../useAsync";
  * derived from the OpenAPI schema) cannot be successfully inferred by the hook when using unknown
  * for the generics. Therefore, I believe it is appropriate to use 'any' here.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type ContextParams = { name: string; context: UseAsyncReturnType<any, any, any> };
+type ContextParams = {
+    name: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    context: UseAsyncReturnType<any, any, any>;
+    allowErrorBeforeAttempt?: boolean;
+    allowErrorWhileAwaiting?: boolean;
+    markUnattemptedAsAwaiting?: boolean;
+};
 
 export type TUseQueryContexts<T extends readonly ContextParams[]> = {
     contexts: T;
@@ -58,6 +65,8 @@ export function useQueryContexts<const T extends readonly ContextParams[]>({
             errors: Object.fromEntries(
                 contexts
                     .filter((p) => isUnsuccessfulResponse(p))
+                    .filter((p) => p.context.response.status === 0 && p.allowErrorBeforeAttempt)
+                    .filter((p) => p.context.awaiting && p.allowErrorWhileAwaiting)
                     .map(({ name, context: c }) => {
                         if (!c.response.error) return [name, c.response.message];
                         return [name, c.response.error];
@@ -68,15 +77,21 @@ export function useQueryContexts<const T extends readonly ContextParams[]>({
                     return [name, c.response.message];
                 }),
             ) as ReturnType<T>["messages"],
-            awaitingAny: contexts.some(({ context: c }) => c.awaiting),
+            awaitingAny: contexts.some(({ context: c, markUnattemptedAsAwaiting }) => {
+                if (c.response.status === 0 && markUnattemptedAsAwaiting) return true;
+                return c.awaiting;
+            }),
         };
     }, [contexts]);
 
     useEffect(() => {
-        const errorCount = Object.values(errors).flatMap((e) => e || []).length;
-        const messageStrings = Object.values(messages).flatMap((m) => m || []);
-        if (errorCount > 0 && throwOnFailure && messageStrings.length > 0) {
-            throw new Error(messageStrings.join(", "));
+        const errorCount = Object.keys(errors).length;
+        if (errorCount > 0 && throwOnFailure) {
+            const errorStrings = Object.values(errors).map((error) => {
+                if (typeof error === "string") return error;
+                return (error as components["schemas"]["ProblemDetails"]).title;
+            });
+            throw new Error(errorStrings.join(", "));
         }
     }, [throwOnFailure, errors, messages]);
 
