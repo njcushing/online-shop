@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { RootContext } from "@/pages/Root";
 import { Accordion, Skeleton } from "@mantine/core";
 import { PopulatedSubscriptionData } from "@/utils/products/subscriptions";
+import { useQueryContexts } from "@/hooks/useQueryContexts";
 import styles from "./index.module.css";
 
 export type TSubscriptionDetails = {
@@ -11,17 +12,17 @@ export type TSubscriptionDetails = {
 
 export function SubscriptionDetails({ data, awaiting }: TSubscriptionDetails) {
     const { settings } = useContext(RootContext);
-    const { response: settingsResponse, awaiting: settingsAwaiting } = settings;
-    const { success: settingsSuccess } = settingsResponse;
-
-    const awaitingAny = awaiting || settingsAwaiting;
 
     let settingsData = { baseExpressDeliveryCost: 0, freeExpressDeliveryThreshold: 0 };
 
-    if (!awaitingAny) {
-        if (!settingsSuccess) throw new Error(settingsResponse.message);
+    const { data: contextData, awaitingAny: contextAwaitingAny } = useQueryContexts({
+        contexts: [{ name: "settings", context: settings }] as const,
+    });
 
-        settingsData = settingsResponse.data;
+    const awaitingAny = contextAwaitingAny || awaiting;
+
+    if (!awaitingAny) {
+        if (contextData.settings) settingsData = contextData.settings;
     }
 
     const { deliveryAddress, billingAddress, count, variant } = data;

@@ -18,8 +18,9 @@ import { CartItem, TCartItem } from "@/features/Cart/components/CartItem";
 import { RemoveScroll } from "react-remove-scroll";
 import { DeepRequired } from "react-hook-form";
 import { RecursivePartial } from "@/utils/types";
-import _ from "lodash";
+import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { PopulatedCart } from "@/utils/products/cart";
+import _ from "lodash";
 import styles from "./index.module.css";
 
 export type TCartSummary = {
@@ -106,23 +107,19 @@ export function CartSummary({
     const { settings, headerInfo } = useContext(RootContext);
     const { cart, shipping, defaultData } = useContext(UserContext);
 
-    const { response: settingsResponse, awaiting: settingsAwaiting } = settings;
-    const { response: cartResponse, awaiting: cartAwaiting } = cart;
-
-    const { success: settingsSuccess } = settingsResponse;
-    const { success: cartSuccess } = cartResponse;
-
-    const awaitingAny = settingsAwaiting || cartAwaiting;
-
     let settingsData = { freeExpressDeliveryThreshold: 0, baseExpressDeliveryCost: 0 };
     let cartData = defaultData.cart as PopulatedCart;
 
-    if (!awaitingAny) {
-        if (!settingsSuccess) throw new Error(settingsResponse.message);
-        if (!cartSuccess) throw new Error(cartResponse.message);
+    const { data, awaitingAny } = useQueryContexts({
+        contexts: [
+            { name: "settings", context: settings },
+            { name: "cart", context: cart },
+        ],
+    });
 
-        settingsData = settingsResponse.data;
-        cartData = cartResponse.data;
+    if (!awaitingAny) {
+        if (data.settings) settingsData = data.settings;
+        if (data.cart) cartData = data.cart;
     }
 
     const { items, promotions } = cartData;

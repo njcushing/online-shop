@@ -13,6 +13,7 @@ import { DeliveryProgress } from "@/features/DeliveryProgress";
 import { Price } from "@/features/Price";
 import { calculateMaxAddableVariantStock } from "@/utils/products/utils/calculateMaxAddableVariantStock";
 import { SubscriptionFrequency } from "@/utils/products/subscriptions";
+import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { ImageCarousel } from "./components/ImageCarousel";
 import { CollectionStep } from "./components/CollectionStep";
 import { VariantStep } from "./components/VariantStep";
@@ -31,26 +32,21 @@ export function ProductHero() {
         collectionSteps: defaultCollectionStepsData,
     } = defaultData;
 
-    const { response: cartResponse, awaiting: cartAwaiting } = cart;
-    const { response: productResponse, awaiting: productAwaiting } = product;
-
-    const { success: cartSuccess } = cartResponse;
-    const { success: productSuccess } = productResponse;
-
-    const awaitingAny = cartAwaiting || productAwaiting;
-
     let cartData = null;
     let productData = defaultProductData as Product;
     let variantData = defaultVariantData as ProductVariant;
 
-    if (!awaitingAny) {
-        if (!cartSuccess) throw new Error(cartResponse.message);
-        if (!productSuccess) throw new Error(productResponse.message);
-        if (!variant) throw new Error("Product variant not found");
+    const { data, awaitingAny } = useQueryContexts({
+        contexts: [
+            { name: "cart", context: cart },
+            { name: "product", context: product },
+        ],
+    });
 
-        cartData = cartResponse.data;
-        productData = productResponse.data;
-        variantData = variant;
+    if (!awaitingAny) {
+        if (data.cart) cartData = data.cart;
+        if (data.product) productData = data.product;
+        if (variant) variantData = variant;
     }
 
     const variantOptions = useMemo<ReturnType<typeof filterVariantOptions>>(() => {

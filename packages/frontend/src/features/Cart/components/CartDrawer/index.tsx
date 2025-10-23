@@ -5,6 +5,7 @@ import { Skeleton, Button, Divider, Drawer } from "@mantine/core";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
 import { PopulatedCart } from "@/utils/products/cart";
+import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { CartItem } from "../CartItem";
 import styles from "./index.module.css";
 
@@ -17,35 +18,31 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
     const { settings } = useContext(RootContext);
     const { cart, shipping, defaultData } = useContext(UserContext);
 
-    const { response: settingsResponse, awaiting: settingsAwaiting } = settings;
-    const { response: cartResponse, awaiting: cartAwaiting } = cart;
-
-    const { success: settingsSuccess } = settingsResponse;
-    const { success: cartSuccess } = cartResponse;
-
-    const awaitingAny = settingsAwaiting || cartAwaiting;
-
-    let workingCartData = defaultData.cart as PopulatedCart;
+    let settingsData = { baseExpressDeliveryCost: 0, freeExpressDeliveryThreshold: 0 };
+    let cartData = defaultData.cart as PopulatedCart;
     let freeExpressDeliveryThreshold = null;
     let baseExpressDeliveryCost = null;
-    let { items } = workingCartData;
+    let { items } = cartData;
     let selectedShipping = null;
     let postageCost = 0;
     let subtotal = 0;
 
+    const { data, awaitingAny } = useQueryContexts({
+        contexts: [
+            { name: "settings", context: settings },
+            { name: "cart", context: cart },
+        ],
+    });
+
     if (!awaitingAny) {
-        if (!settingsSuccess) throw new Error(settingsResponse.message);
-        if (!cartSuccess) throw new Error(cartResponse.message);
+        if (data.settings) settingsData = data.settings;
+        if (data.cart) cartData = data.cart;
 
-        const { data: settingsData } = settingsResponse;
-        const { data: cartData } = cartResponse;
-
-        workingCartData = cartData;
         freeExpressDeliveryThreshold = settingsData.freeExpressDeliveryThreshold;
         baseExpressDeliveryCost = settingsData.baseExpressDeliveryCost;
-        items = workingCartData.items;
+        items = cartData.items;
 
-        const { total } = calculateCartSubtotal(workingCartData).cost;
+        const { total } = calculateCartSubtotal(cartData).cost;
         selectedShipping = shipping.value;
         postageCost = 0;
         const meetsThreshold = total >= freeExpressDeliveryThreshold;

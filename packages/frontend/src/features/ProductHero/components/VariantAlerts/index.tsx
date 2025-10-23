@@ -3,6 +3,7 @@ import { RootContext, UserContext } from "@/pages/Root";
 import { ProductContext } from "@/pages/Product";
 import { Skeleton, Collapse, Alert, AlertProps } from "@mantine/core";
 import { PopulatedCartItemData } from "@/utils/products/cart";
+import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { WarningCircle, Info } from "@phosphor-icons/react";
 import styles from "./index.module.css";
 
@@ -20,27 +21,22 @@ export function VariantAlerts() {
     const { cart } = useContext(UserContext);
     const { product, variant } = useContext(ProductContext);
 
-    const { response: settingsResponse, awaiting: settingsAwaiting } = settings;
-    const { response: cartResponse, awaiting: cartAwaiting } = cart;
-    const { awaiting: productAwaiting } = product;
-
-    const { success: settingsSuccess } = settingsResponse;
-    const { success: cartSuccess } = cartResponse;
-
-    const awaitingAny = settingsAwaiting || cartAwaiting || productAwaiting;
-
     let settingsData = null;
     let cartData = null;
     let stock = 0;
 
-    if (!awaitingAny) {
-        if (!settingsSuccess) throw new Error(settingsResponse.message);
-        if (!cartSuccess) throw new Error(cartResponse.message);
-        if (!variant) throw new Error("Product variant not found");
+    const { data, awaitingAny } = useQueryContexts({
+        contexts: [
+            { name: "settings", context: settings },
+            { name: "cart", context: cart },
+            { name: "product", context: product },
+        ],
+    });
 
-        settingsData = settingsResponse.data;
-        cartData = cartResponse.data;
-        stock = variant.stock;
+    if (!awaitingAny) {
+        if (data.settings) settingsData = data.settings;
+        if (data.cart) cartData = data.cart;
+        if (variant) stock = variant.stock;
     }
 
     const cartItemData = useMemo<PopulatedCartItemData | undefined>(() => {

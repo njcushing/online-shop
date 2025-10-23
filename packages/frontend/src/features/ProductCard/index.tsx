@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { Image, Rating } from "@mantine/core";
 import { useIntersection, useMergedRef } from "@mantine/hooks";
 import { Product as ProductDataType, ProductVariant } from "@/utils/products/product";
+import { useQueryContexts } from "@/hooks/useQueryContexts";
 import dayjs from "dayjs";
 import { Price } from "@/features/Price";
 import styles from "./index.module.css";
@@ -23,15 +24,15 @@ export type TProductCard = {
 export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
     ({ productData }: TProductCard, ref) => {
         const { settings } = useContext(RootContext);
-        const { response: settingsResponse, awaiting: settingsAwaiting } = settings;
-        const { success: settingsSuccess } = settingsResponse;
 
         let settingsData = null;
 
-        if (!settingsAwaiting) {
-            if (!settingsSuccess) throw new Error(settingsResponse.message);
+        const { data, awaitingAny } = useQueryContexts({
+            contexts: [{ name: "settings", context: settings }],
+        });
 
-            settingsData = settingsResponse.data;
+        if (!awaitingAny) {
+            if (data.settings) settingsData = data.settings;
         }
 
         const containerRef = useRef<HTMLDivElement>(null);

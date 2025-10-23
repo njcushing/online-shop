@@ -2,6 +2,7 @@ import { createContext, useContext, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { CategoryHero } from "@/features/CategoryHero";
 import { ProductList } from "@/features/ProductList";
+import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { buildCategoryTree } from "@/utils/products/categories";
 import { RootContext } from "../Root";
 import styles from "./index.module.css";
@@ -50,15 +51,15 @@ export type TCategory = {
 
 export function Category({ children }: TCategory) {
     const { categories } = useContext(RootContext);
-    const { response: categoriesResponse, awaiting: categoriesAwaiting } = categories;
-    const { success: categoriesSuccess } = categoriesResponse;
 
     let categoriesData = null;
 
-    if (!categoriesAwaiting) {
-        if (!categoriesSuccess) throw new Error(categoriesResponse.message);
+    const { data, awaitingAny } = useQueryContexts({
+        contexts: [{ name: "categories", context: categories }],
+    });
 
-        categoriesData = categoriesResponse.data;
+    if (!awaitingAny) {
+        if (data.categories) categoriesData = data.categories;
     }
 
     const { "*": urlPathFull } = useParams();
@@ -76,7 +77,7 @@ export function Category({ children }: TCategory) {
         return { urlPathFull: urlPathFull || "", urlPathSplit, categoryTree, categoryBranch };
     }, [urlPathFull, urlPathSplit, categoryTree, categoryBranch]);
 
-    if (!categoriesAwaiting && !categoryBranch) {
+    if (!awaitingAny && !categoryBranch) {
         throw new Response("Category not found", { status: 404 });
     }
 

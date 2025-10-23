@@ -2,6 +2,7 @@ import { useContext, useMemo, useState } from "react";
 import { RootContext } from "@/pages/Root";
 import { ProductContext } from "@/pages/Product";
 import { useMatches, Accordion, Table, Skeleton } from "@mantine/core";
+import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { ProductReviews } from "@/features/ProductReviews";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -24,26 +25,21 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
     const { settings } = useContext(RootContext);
     const { product, variant, defaultData } = useContext(ProductContext);
 
-    const { response: settingsResponse, awaiting: settingsAwaiting } = settings;
-    const { response: productResponse, awaiting: productAwaiting } = product;
-
-    const { success: settingsSuccess } = settingsResponse;
-    const { success: productSuccess } = productResponse;
-
-    const awaitingAny = settingsAwaiting || productAwaiting;
-
     let settingsData = null;
     let productData = defaultData.product as Product;
     let variantData = defaultData.variant as ProductVariant;
 
-    if (!awaitingAny) {
-        if (!settingsSuccess) throw new Error(settingsResponse.message);
-        if (!productSuccess) throw new Error(productResponse.message);
-        if (!variant) throw new Error("Product variant not found");
+    const { data, awaitingAny } = useQueryContexts({
+        contexts: [
+            { name: "settings", context: settings },
+            { name: "product", context: product },
+        ],
+    });
 
-        settingsData = settingsResponse.data;
-        productData = productResponse.data;
-        variantData = variant;
+    if (!awaitingAny) {
+        if (data.settings) settingsData = data.settings;
+        if (data.product) productData = data.product;
+        if (variant) variantData = variant;
     }
 
     const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
@@ -63,7 +59,7 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
                         );
                     }
 
-                    if (!productSuccess) return null;
+                    if (!product.response.success) return null;
 
                     const { description } = productData;
 
@@ -77,7 +73,7 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
             {
                 value: "Product Details",
                 content: (() => {
-                    if (!awaitingAny && !productSuccess) return null;
+                    if (!awaitingAny && !product.response.success) return null;
 
                     const { sku, details, releaseDate } = variantData;
 
@@ -149,7 +145,7 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
             {
                 value: "Delivery Information",
                 content: (() => {
-                    if (!awaitingAny && !settingsSuccess) return null;
+                    if (!awaitingAny && !settings.response.success) return null;
                     if (!settingsData) return null;
 
                     return (
@@ -238,9 +234,9 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
     }, [
         tableColumnCount,
         awaitingAny,
-        settingsSuccess,
+        settings.response.success,
         settingsData,
-        productSuccess,
+        product.response.success,
         productData,
         variantData,
         isTransitioning,

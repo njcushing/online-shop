@@ -1,6 +1,7 @@
 import { useContext, useMemo } from "react";
 import { RootContext, UserContext } from "@/pages/Root";
 import { Progress } from "@mantine/core";
+import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import { Truck } from "@phosphor-icons/react";
 import styles from "./index.module.css";
@@ -9,23 +10,19 @@ export function DeliveryProgress() {
     const { settings } = useContext(RootContext);
     const { cart } = useContext(UserContext);
 
-    const { response: settingsResponse, awaiting: settingsAwaiting } = settings;
-    const { response: cartResponse, awaiting: cartAwaiting } = cart;
-
-    const { success: settingsSuccess } = settingsResponse;
-    const { success: cartSuccess } = cartResponse;
-
-    const awaitingAny = settingsAwaiting || cartAwaiting;
-
     let settingsData = { freeExpressDeliveryThreshold: 0 };
     let cartData = null;
 
-    if (!awaitingAny) {
-        if (!settingsSuccess) throw new Error(settingsResponse.message);
-        if (!cartSuccess) throw new Error(cartResponse.message);
+    const { data, awaitingAny } = useQueryContexts({
+        contexts: [
+            { name: "settings", context: settings },
+            { name: "cart", context: cart },
+        ],
+    });
 
-        settingsData = settingsResponse.data;
-        cartData = cartResponse.data;
+    if (!awaitingAny) {
+        if (data.settings) settingsData = data.settings;
+        if (data.cart) cartData = data.cart;
     }
 
     const cartSubtotalInformation = useMemo(

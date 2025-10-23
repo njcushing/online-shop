@@ -10,6 +10,7 @@ import { useForm, useWatch, Controller, SubmitHandler } from "react-hook-form";
 import { Collapse, TextInput, Divider, Checkbox, Radio, Button, Skeleton } from "@mantine/core";
 import { NumberCircleTwo } from "@phosphor-icons/react";
 import { Error as InputError } from "@/components/UI/Error";
+import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import _ from "lodash";
 import dayjs from "dayjs";
@@ -32,28 +33,22 @@ export function ShippingForm({ isOpen = false, onReturn, onSubmit }: TShippingFo
     const { settings } = useContext(RootContext);
     const { user, cart, shipping } = useContext(UserContext);
 
-    const { response: settingsResponse, awaiting: settingsAwaiting } = settings;
-    const { response: userResponse, awaiting: userAwaiting } = user;
-    const { response: cartResponse, awaiting: cartAwaiting } = cart;
-
-    const { success: settingsSuccess } = settingsResponse;
-    const { success: userSuccess } = userResponse;
-    const { success: cartSuccess } = cartResponse;
-
-    const awaitingAny = settingsAwaiting || userAwaiting || cartAwaiting;
-
     let settingsData = null;
     let userData = null;
     let cartData = null;
 
-    if (!awaitingAny) {
-        if (!settingsSuccess) throw new Error(settingsResponse.message);
-        if (!userSuccess) throw new Error(userResponse.message);
-        if (!cartSuccess) throw new Error(cartResponse.message);
+    const { data, awaitingAny } = useQueryContexts({
+        contexts: [
+            { name: "settings", context: settings },
+            { name: "user", context: user },
+            { name: "cart", context: cart },
+        ],
+    });
 
-        settingsData = settingsResponse.data;
-        userData = userResponse.data;
-        cartData = cartResponse.data;
+    if (!awaitingAny) {
+        if (data.settings) settingsData = data.settings;
+        if (data.user) userData = data.user;
+        if (data.cart) cartData = data.cart;
     }
 
     const { value: selectedShipping, setter: setShipping } = shipping;

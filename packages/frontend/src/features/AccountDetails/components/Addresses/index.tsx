@@ -4,20 +4,21 @@ import { Skeleton } from "@mantine/core";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormBuilder } from "@/components/Forms/FormBuilder";
 import { User } from "@/utils/schemas/user";
+import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { AddressesFormData, addressesFormDataSchema } from "./schemas/addressSchema";
 import styles from "./index.module.css";
 
 export function Addresses() {
     const { user, defaultData } = useContext(UserContext);
-    const { response: userResponse, awaiting: userAwaiting } = user;
-    const { success: userSuccess } = userResponse;
 
     let userData = defaultData.user as User;
 
-    if (!userAwaiting) {
-        if (!userSuccess) throw new Error(userResponse.message);
+    const { data, awaitingAny } = useQueryContexts({
+        contexts: [{ name: "user", context: user }],
+    });
 
-        userData = userResponse.data;
+    if (!awaitingAny) {
+        if (data.user) userData = data.user;
     }
 
     const { profile } = userData;
@@ -25,13 +26,13 @@ export function Addresses() {
     const { delivery, billing } = addresses || {};
 
     const skeletonProps = useMemo(
-        () => ({ visible: userAwaiting, width: "min-content" }),
-        [userAwaiting],
+        () => ({ visible: awaitingAny, width: "min-content" }),
+        [awaitingAny],
     );
 
     const skeletonAddress = useCallback(
         (fields: typeof delivery | typeof billing) => {
-            if (!userAwaiting || !fields) return null;
+            if (!awaitingAny || !fields) return null;
             return Object.entries(fields).map((field) => {
                 const [key, value] = field;
                 return (
@@ -43,11 +44,11 @@ export function Addresses() {
                 );
             });
         },
-        [userAwaiting, skeletonProps],
+        [awaitingAny, skeletonProps],
     );
 
     const deliveryAddressFullElement = useMemo(() => {
-        if (userAwaiting)
+        if (awaitingAny)
             return <div className={styles["address"]}>{skeletonAddress(delivery)}</div>;
         if (!delivery) return <div className={styles["address"]}>No address set</div>;
         return (
@@ -71,11 +72,10 @@ export function Addresses() {
                 </div>
             </div>
         );
-    }, [userAwaiting, delivery, skeletonAddress]);
+    }, [awaitingAny, delivery, skeletonAddress]);
 
     const billingAddressFullElement = useMemo(() => {
-        if (userAwaiting)
-            return <div className={styles["address"]}>{skeletonAddress(billing)}</div>;
+        if (awaitingAny) return <div className={styles["address"]}>{skeletonAddress(billing)}</div>;
         if (!billing) return <div className={styles["no-address"]}>No address set</div>;
         return (
             <div className={styles["address"]}>
@@ -98,7 +98,7 @@ export function Addresses() {
                 </div>
             </div>
         );
-    }, [userAwaiting, billing, skeletonAddress]);
+    }, [awaitingAny, billing, skeletonAddress]);
 
     return (
         <div className={styles["account-settings-content"]}>
@@ -157,7 +157,7 @@ export function Addresses() {
                         },
                     }}
                     resolver={zodResolver(addressesFormDataSchema)}
-                    disabled={userAwaiting}
+                    disabled={awaitingAny}
                 />
 
                 <FormBuilder<AddressesFormData>
@@ -212,7 +212,7 @@ export function Addresses() {
                         },
                     }}
                     resolver={zodResolver(addressesFormDataSchema)}
-                    disabled={userAwaiting}
+                    disabled={awaitingAny}
                 />
             </div>
         </div>

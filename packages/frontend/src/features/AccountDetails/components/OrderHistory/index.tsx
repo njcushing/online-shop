@@ -4,6 +4,7 @@ import { useScrollIntoView } from "@mantine/hooks";
 import { Skeleton, Divider, Pagination } from "@mantine/core";
 import { v4 as uuid } from "uuid";
 import { PopulatedOrderData } from "@/utils/products/orders";
+import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { OrderSummary } from "./components/OrderSummary";
 import styles from "./index.module.css";
 
@@ -25,8 +26,17 @@ export function OrderHistory() {
     const { forceClose } = headerInfo;
 
     const { orders, defaultData } = useContext(UserContext);
-    const { response: ordersResponse, setParams, attempt, awaiting: ordersAwaiting } = orders;
-    const { success: ordersSuccess } = ordersResponse;
+    const { setParams, attempt } = orders;
+
+    let ordersData = { quantity: 0, orders: defaultData.orders as PopulatedOrderData[] };
+
+    const { data, awaitingAny: contextAwaitingAny } = useQueryContexts({
+        contexts: [{ name: "orders", context: orders, markUnattemptedAsAwaiting: true }],
+    });
+
+    if (!contextAwaitingAny) {
+        if (data.orders) ordersData = data.orders;
+    }
 
     /**
      * Need to include this - the orders state is stored in the Root component's UserContext, and
@@ -37,18 +47,10 @@ export function OrderHistory() {
      */
     const hasAttempted = useRef<boolean>(false);
     useEffect(() => {
-        if (ordersAwaiting) hasAttempted.current = true;
-    }, [ordersAwaiting]);
+        if (contextAwaitingAny) hasAttempted.current = true;
+    }, [contextAwaitingAny]);
 
-    const awaitingOverride = ordersAwaiting || !hasAttempted.current;
-
-    let ordersData = { quantity: 0, orders: defaultData.orders as PopulatedOrderData[] };
-
-    if (!awaitingOverride) {
-        if (!ordersSuccess) throw new Error(ordersResponse.message);
-
-        ordersData = ordersResponse.data;
-    }
+    const awaitingAny = contextAwaitingAny || !hasAttempted.current;
 
     const { quantity, orders: orderList } = ordersData;
 
@@ -100,12 +102,12 @@ export function OrderHistory() {
 
     /* v8 ignore stop */
 
-    return (orderList && orderList.length > 0) || awaitingOverride ? (
+    return (orderList && orderList.length > 0) || awaitingAny ? (
         <div className={styles["order-history-container"]} ref={targetRef}>
-            <Skeleton visible={awaitingOverride}>
+            <Skeleton visible={awaitingAny}>
                 <p
                     className={styles["order-count"]}
-                    style={{ visibility: awaitingOverride ? "hidden" : "initial" }}
+                    style={{ visibility: awaitingAny ? "hidden" : "initial" }}
                 >
                     {quantity} orders
                 </p>
@@ -127,7 +129,7 @@ export function OrderHistory() {
                             setPage(0);
                             setQueueScroll(true);
                         }}
-                        disabled={awaitingOverride}
+                        disabled={awaitingAny}
                         key="sort-options"
                     >
                         {Object.entries(filterOptions).map((entry) => {
@@ -152,7 +154,7 @@ export function OrderHistory() {
                 {orderList.slice(0, ordersPerPage).map((order) => {
                     const { id } = order;
 
-                    return <OrderSummary data={order} awaiting={awaitingOverride} key={id} />;
+                    return <OrderSummary data={order} awaiting={awaitingAny} key={id} />;
                 })}
             </ul>
 
@@ -175,7 +177,7 @@ export function OrderHistory() {
 
                         /* v8 ignore stop */
                     }
-                    disabled={awaitingOverride}
+                    disabled={awaitingAny}
                     classNames={{ control: styles["pagination-control"] }}
                 />
             </div>

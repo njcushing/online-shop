@@ -34,8 +34,8 @@ type ExtractResponseError<T> = T extends { response: infer R }
     : undefined;
 
 type ReturnType<T extends readonly ContextParams[]> = {
-    data: Partial<{ [K in T[number] as K["name"]]: ExtractResponseData<K["context"]> }>;
-    errors: Partial<{ [K in T[number] as K["name"]]: ExtractResponseError<K["context"]> | string }>;
+    data: { [K in T[number] as K["name"]]?: ExtractResponseData<K["context"]> };
+    errors: { [K in T[number] as K["name"]]?: ExtractResponseError<K["context"]> | string };
     messages: { [K in T[number] as K["name"]]: string };
     awaitingAny: boolean;
 };
