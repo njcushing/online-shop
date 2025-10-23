@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { components } from "@/api/schema";
+import { customStatusCodes } from "@/api/types";
 import { UseAsyncReturnType } from "../useAsync";
 
 /**
@@ -65,7 +66,12 @@ export function useQueryContexts<const T extends readonly ContextParams[]>({
             errors: Object.fromEntries(
                 contexts
                     .filter((p) => isUnsuccessfulResponse(p))
-                    .filter((p) => p.context.response.status === 0 && p.allowErrorBeforeAttempt)
+                    .filter((p) => {
+                        return (
+                            p.context.response.status === customStatusCodes.unattempted &&
+                            p.allowErrorBeforeAttempt
+                        );
+                    })
                     .filter((p) => p.context.awaiting && p.allowErrorWhileAwaiting)
                     .map(({ name, context: c }) => {
                         if (!c.response.error) return [name, c.response.message];

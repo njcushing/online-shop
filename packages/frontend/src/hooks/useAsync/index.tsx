@@ -26,13 +26,23 @@ const defaultUseAsyncOpts: Required<UseAsyncOpts> = {
 function initialResponseObject<RequestParams, RequestBody, ResponseBody>(): UnwrapPromise<
     ReturnType<MethodTypes<RequestParams, RequestBody, ResponseBody>>
 > {
-    return { success: false, status: 0, message: "No request made" };
+    return {
+        success: false,
+        status: HTTPMethodTypes.customStatusCodes.unattempted,
+        message: "No request made",
+        error: undefined,
+    };
 }
 
 function abortedResponseObject<RequestParams, RequestBody, ResponseBody>(): UnwrapPromise<
     ReturnType<MethodTypes<RequestParams, RequestBody, ResponseBody>>
 > {
-    return { success: false, status: -1, message: "Request aborted" };
+    return {
+        success: false,
+        status: HTTPMethodTypes.customStatusCodes.aborted,
+        message: "Request aborted",
+        error: undefined,
+    };
 }
 
 export type UseAsyncReturnType<RequestParams, RequestBody, ResponseBody> = {
