@@ -1,5 +1,5 @@
 -- migrate:up
-CREATE TABLE product_collections (
+CREATE TABLE collection_products (
     collection_id uuid NOT NULL REFERENCES collections(id) ON DELETE CASCADE,
     product_id uuid NOT NULL REFERENCES products(id) ON DELETE CASCADE,
     created_at timestamptz NOT NULL DEFAULT now(),
