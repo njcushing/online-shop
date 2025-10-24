@@ -2,6 +2,7 @@ import { useContext, useMemo } from "react";
 import { RootContext } from "@/pages/Root";
 import { Link } from "react-router-dom";
 import { Drawer, Skeleton, NavLink } from "@mantine/core";
+import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { Logo } from "@/features/Logo";
 import { CaretRight, Placeholder } from "@phosphor-icons/react";
 import { skeletonCategories, buildCategoryTree } from "@/utils/products/categories";
@@ -15,13 +16,21 @@ export type TNavDrawer = {
 
 export function NavDrawer({ opened = false, onClose }: TNavDrawer) {
     const { categories } = useContext(RootContext);
-    const { response, awaiting } = categories;
 
-    const data = !awaiting ? response.data : skeletonCategories;
+    let categoriesData = null;
+
+    const { data, awaitingAny } = useQueryContexts({
+        contexts: [{ name: "categories", context: categories }],
+    });
+
+    if (!awaitingAny) {
+        if (data.categories) categoriesData = data.categories;
+    }
 
     const categoryTree = useMemo<ReturnType<typeof buildCategoryTree>>(() => {
-        return buildCategoryTree(data || []);
-    }, [data]);
+        if (awaitingAny) return skeletonCategories;
+        return buildCategoryTree(categoriesData || []);
+    }, [awaitingAny, categoriesData]);
 
     return (
         <Drawer
@@ -43,24 +52,24 @@ export function NavDrawer({ opened = false, onClose }: TNavDrawer) {
                         component={Link}
                         to={`/c/${slug}`}
                         label={
-                            <Skeleton visible={awaiting} height="24px">
-                                <div style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                            <Skeleton visible={awaitingAny} height="24px">
+                                <div style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
                                     {name}
                                 </div>
                             </Skeleton>
                         }
                         leftSection={
-                            <Skeleton visible={awaiting} height="24px">
-                                <div style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                            <Skeleton visible={awaitingAny} height="24px">
+                                <div style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
                                     {getIcon(name) || <Placeholder weight="fill" size={24} />}
                                 </div>
                             </Skeleton>
                         }
                         rightSection={
-                            <CaretRight size={24} style={{ opacity: !awaiting ? 1 : 0.3 }} />
+                            <CaretRight size={24} style={{ opacity: !awaitingAny ? 1 : 0.3 }} />
                         }
                         onClick={() => onClose && onClose()}
-                        disabled={awaiting}
+                        disabled={awaitingAny}
                         classNames={{
                             root: styles["nav-link-root"],
                             label: styles["nav-link-label"],

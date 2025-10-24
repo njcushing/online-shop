@@ -1,10 +1,11 @@
 import { useContext, useState, useEffect, useRef, useMemo } from "react";
 import { RootContext } from "@/pages/Root";
-import { IProductContext, ProductContext } from "@/pages/Product";
+import { ProductContext } from "@/pages/Product";
 import { Divider, Pagination, Skeleton } from "@mantine/core";
 import { useScrollIntoView } from "@mantine/hooks";
 import { mockGetReviews } from "@/api/mocks";
-import { ProductReview } from "@/utils/products/product";
+import { Product, ProductReview } from "@/utils/products/product";
+import { useQueryContexts } from "@/hooks/useQueryContexts";
 import * as useAsync from "@/hooks/useAsync";
 import { v4 as uuid } from "uuid";
 import { ProductRatingBars } from "./components/ProductRatingBars";
@@ -25,14 +26,27 @@ export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
     const { forceClose } = headerInfo;
 
     const { product, defaultData } = useContext(ProductContext);
-    const { response: productResponse, awaiting: awaitingProductData } = product;
-    const { data: productData } = productResponse;
+
+    let productData = defaultData.product as Product;
+
+    const { data, awaitingAny } = useQueryContexts({
+        contexts: [{ name: "product", context: product }],
+    });
+
+    if (!awaitingAny) {
+        if (data.product) productData = data.product;
+    }
 
     const [filter, setFilter] = useState<(typeof filterOptions)[number]>("All");
     const [sort, setSort] = useState<(typeof sortOptions)[number]>("Most Recent");
     const [page, setPage] = useState<number>(0);
 
-    const { response, setParams, attempt, awaiting } = useAsync.GET(
+    const {
+        response: reviewsResponse,
+        setParams,
+        attempt,
+        awaiting,
+    } = useAsync.GET(
         mockGetReviews,
         [
             {
@@ -62,9 +76,9 @@ export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
     }, [productData, filter, sort, page, setParams, attempt]);
 
     const reviews = useMemo<ProductReview[]>(() => {
-        if (response && response.data) return response.data;
-        return [];
-    }, [response]);
+        if (!reviewsResponse || !reviewsResponse.success || !reviewsResponse.data) return [];
+        return reviewsResponse.data;
+    }, [reviewsResponse]);
 
     // Don't test auto-scroll logic
     /* v8 ignore start */
@@ -103,11 +117,9 @@ export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
 
     /* v8 ignore stop */
 
-    if (!awaitingProductData && !productData) return null;
+    if (!awaitingAny) return null;
 
-    const { rating, reviews: reviewIds } = !awaitingProductData
-        ? productData!
-        : (defaultData.product as NonNullable<IProductContext["product"]["response"]["data"]>);
+    const { rating, reviews: reviewIds } = productData;
 
     const reviewQuantity =
         filter === "All"
@@ -152,7 +164,7 @@ export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
                                 setPage(0);
                                 setQueueScroll(true);
                             }}
-                            disabled={awaitingProductData}
+                            disabled={awaitingAny}
                             key="sort-options"
                         >
                             {filterOptions.map((option) => {
@@ -181,7 +193,7 @@ export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
                                 setPage(0);
                                 setQueueScroll(true);
                             }}
-                            disabled={awaitingProductData}
+                            disabled={awaitingAny}
                             key="sort-options"
                         >
                             {sortOptions.map((option) => {
@@ -200,10 +212,10 @@ export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
                 </div>
             </div>
             <div className={styles["reviews"]} ref={targetRef}>
-                <Skeleton visible={awaitingProductData}>
+                <Skeleton visible={awaitingAny}>
                     <p
                         className={styles["review-count"]}
-                        style={{ visibility: awaitingProductData ? "hidden" : "initial" }}
+                        style={{ visibility: awaitingAny ? "hidden" : "initial" }}
                     >
                         {reviewQuantity} reviews
                     </p>

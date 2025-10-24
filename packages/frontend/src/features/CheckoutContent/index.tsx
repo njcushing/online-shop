@@ -1,9 +1,9 @@
-import { useContext, useState, useEffect } from "react";
-import { IUserContext, UserContext } from "@/pages/Root";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { UserContext } from "@/pages/Root";
 import { useMatches, Divider, Button, Box } from "@mantine/core";
+import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { CartSummary } from "@/features/Cart/components/CartSummary";
-import { Error } from "@/components/UI/Error";
+import { PopulatedCart } from "@/utils/products/cart";
 import { PersonalInformationForm } from "./components/PersonalInformationForm";
 import { ShippingForm } from "./components/ShippingForm";
 import { PaymentForm } from "./components/PaymentForm";
@@ -14,85 +14,20 @@ export function CheckoutContent() {
 
     const { user, cart, defaultData } = useContext(UserContext);
 
-    const { response: userResponse, attempt: userAttempt, awaiting: userAwaiting } = user;
-    const { response: cartResponse, attempt: cartAttempt, awaiting: cartAwaiting } = cart;
+    let cartData = defaultData.cart as PopulatedCart;
 
-    const { data } = cartResponse;
+    const { data, awaitingAny } = useQueryContexts({
+        contexts: [
+            { name: "user", context: user },
+            { name: "cart", context: cart },
+        ],
+    });
 
-    const [stage, setStage] = useState<"personal" | "shipping" | "payment">("personal");
-
-    const [userDataError, setUserDataError] = useState<JSX.Element | null>(null);
-    useEffect(() => {
-        if (!userAwaiting && !userResponse.data) {
-            setUserDataError(
-                <Error
-                    message="Could not load user data"
-                    classNames={{ container: styles["user-data-error-container"] }}
-                >
-                    <div className={styles["user-data-error-buttons-container"]}>
-                        <Button
-                            onClick={() => {
-                                setUserDataError(null);
-                                userAttempt();
-                            }}
-                            color="white"
-                            variant="filled"
-                            className={styles["user-data-error-retry-button"]}
-                        >
-                            Retry
-                        </Button>
-
-                        <Button
-                            onClick={() => setUserDataError(null)}
-                            color="white"
-                            variant="filled"
-                            className={styles["user-data-error-dismiss-button"]}
-                        >
-                            Dismiss
-                        </Button>
-                    </div>
-                </Error>,
-            );
-        } else {
-            setUserDataError(null);
-        }
-    }, [userAwaiting, userResponse, userAttempt]);
-
-    if (!cartAwaiting && !data) {
-        return (
-            <section
-                className={styles["checkout-content-error"]}
-                role="alert"
-                aria-live="assertive"
-            >
-                <div className={styles["checkout-content-error-width-controller"]}>
-                    <h1 className={styles["error-header"]}>
-                        Sorry! Something went wrong on our end. Your cart could not be loaded.
-                    </h1>
-
-                    <div className={styles["error-link-container"]}>
-                        Click the button below to try again, or{" "}
-                        <Link to="/" className={styles["error-link"]}>
-                            click here
-                        </Link>{" "}
-                        to return to home.
-                    </div>
-
-                    <Button
-                        onClick={() => cartAttempt()}
-                        color="var(--site-colour-tertiary, rgb(250, 223, 198))"
-                        variant="filled"
-                        className={styles["error-try-again-button"]}
-                    >
-                        Try again
-                    </Button>
-                </div>
-            </section>
-        );
+    if (!awaitingAny) {
+        if (data.cart) cartData = data.cart;
     }
 
-    let cartData = defaultData.cart as NonNullable<IUserContext["cart"]["response"]["data"]>;
-    if (data) cartData = data;
+    const [stage, setStage] = useState<"personal" | "shipping" | "payment">("personal");
 
     const { items } = cartData;
 
@@ -121,8 +56,6 @@ export function CheckoutContent() {
             <div className={styles["checkout-content-width-controller"]}>
                 <div className={styles["checkout-content-left"]}>
                     <h2 className={styles["checkout-header"]}>Checkout</h2>
-
-                    {userDataError}
 
                     <Divider className={styles["divider"]} />
 
@@ -159,7 +92,7 @@ export function CheckoutContent() {
                             color="var(--site-colour-tertiary, rgb(250, 223, 198))"
                             variant="filled"
                             className={styles["pay-now-button"]}
-                            disabled={cartAwaiting || items.length === 0}
+                            disabled={awaitingAny || items.length === 0}
                         >
                             Pay now
                         </Button>

@@ -1,8 +1,10 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useMatches } from "@mantine/core";
-import { IUserContext, UserContext } from "@/pages/Root";
+import { useQueryContexts } from "@/hooks/useQueryContexts";
+import { UserContext } from "@/pages/Root";
 import { CartSummary } from "@/features/Cart/components/CartSummary";
+import { PopulatedCart } from "@/utils/products/cart";
 import { TCartItem } from "../CartItem";
 import styles from "./index.module.css";
 
@@ -11,10 +13,15 @@ export function CartContent() {
 
     const { cart, defaultData } = useContext(UserContext);
 
-    const { response, awaiting } = cart;
+    let cartData = defaultData.cart as PopulatedCart;
 
-    let cartData = defaultData.cart as NonNullable<IUserContext["cart"]["response"]["data"]>;
-    if (response.data) cartData = response.data;
+    const { data, awaitingAny } = useQueryContexts({
+        contexts: [{ name: "cart", context: cart }],
+    });
+
+    if (!awaitingAny) {
+        if (data.cart) cartData = data.cart;
+    }
 
     const { items } = cartData;
 
@@ -35,7 +42,7 @@ export function CartContent() {
                 <Link
                     to="/checkout"
                     className={styles["proceed-to-checkout-link"]}
-                    data-disabled={awaiting || items.length === 0}
+                    data-disabled={awaitingAny || items.length === 0}
                 >
                     Proceed to checkout
                 </Link>

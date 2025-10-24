@@ -1,8 +1,10 @@
 import { useContext, useState, useEffect, useRef, useMemo } from "react";
-import { RootContext, IUserContext, UserContext } from "@/pages/Root";
+import { RootContext, UserContext } from "@/pages/Root";
 import { useScrollIntoView } from "@mantine/hooks";
 import { Skeleton, Divider, Pagination } from "@mantine/core";
+import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { v4 as uuid } from "uuid";
+import { PopulatedSubscriptionData } from "@/utils/products/subscriptions";
 import { SubscriptionSummary } from "./components/SubscriptionSummary";
 import styles from "./index.module.css";
 
@@ -13,31 +15,43 @@ export function Subscriptions() {
     const { forceClose } = headerInfo;
 
     const { user, subscriptions, defaultData } = useContext(UserContext);
+    const { setParams, attempt } = subscriptions;
 
-    const { response: userResponse } = user;
-    const { response: subscriptionsResponse, setParams, attempt, awaiting } = subscriptions;
+    let userData = defaultData.user;
+    let subscriptionsData = defaultData.subscriptions as PopulatedSubscriptionData[];
 
-    const { data: userData } = userResponse;
-    const { data: subscriptionsData } = subscriptionsResponse;
+    const { data, awaitingAny: contextAwaitingAny } = useQueryContexts({
+        contexts: [
+            { name: "user", context: user },
+            { name: "subscriptions", context: subscriptions },
+        ],
+    });
 
-    const { subscriptions: subscriptionIds = [] } = userData || {};
+    if (!contextAwaitingAny) {
+        if (data.user) userData = data.user;
+        if (data.subscriptions) subscriptionsData = data.subscriptions;
+    }
+
+    /**
+     * Need to include this - the orders state is stored in the Root component's UserContext, and
+     * its 'awaiting' field is initially set to false, meaning before the 'attempt' function is
+     * called in the hook below, and subsequently the 'awaiting' field is set to true in
+     * UserContext, the default orders data is shown briefly on the first couple of render cycles.
+     * This check prevents that from happening.
+     */
+    const hasAttempted = useRef<boolean>(false);
+    useEffect(() => {
+        if (contextAwaitingAny) hasAttempted.current = true;
+    }, [contextAwaitingAny]);
+
+    const awaitingAny = contextAwaitingAny || !hasAttempted.current;
+
+    const { subscriptions: subscriptionIds = [] } = userData;
 
     const [page, setPage] = useState<number>(0);
     const [start, end] = useMemo(() => {
         return [page * subscriptionsPerPage, page * subscriptionsPerPage + subscriptionsPerPage];
     }, [page]);
-
-    /**
-     * Need to include this - the subscriptions state is stored in the Root component's UserContext,
-     * and its 'awaiting' field is initially set to false, meaning before the 'attempt' function is
-     * called in the hook below, and subsequently the 'awaiting' field is set to true in
-     * UserContext, the default subscriptions data is shown briefly on the first couple of render
-     * cycles. This check prevents that from happening.
-     */
-    const hasAttempted = useRef<boolean>(false);
-    useEffect(() => {
-        if (awaiting) hasAttempted.current = true;
-    }, [awaiting]);
 
     useEffect(() => {
         setParams([{ params: { start, end } }]);
@@ -81,20 +95,12 @@ export function Subscriptions() {
 
     /* v8 ignore stop */
 
-    const awaitingOverride = awaiting || !hasAttempted.current;
-
-    const data = !awaitingOverride
-        ? subscriptionsData
-        : (defaultData.subscriptions as NonNullable<
-              IUserContext["subscriptions"]["response"]["data"]
-          >);
-
-    return (data && data.length > 0) || awaitingOverride ? (
+    return (subscriptionsData && subscriptionsData.length > 0) || awaitingAny ? (
         <div className={styles["subscriptions-container"]} ref={targetRef}>
-            <Skeleton visible={awaitingOverride}>
+            <Skeleton visible={awaitingAny}>
                 <p
                     className={styles["subscription-count"]}
-                    style={{ visibility: awaitingOverride ? "hidden" : "initial" }}
+                    style={{ visibility: awaitingAny ? "hidden" : "initial" }}
                 >
                     {subscriptionIds.length} active subscriptions
                 </p>
@@ -103,14 +109,14 @@ export function Subscriptions() {
             <Divider className={styles["divider"]} />
 
             <ul className={styles["subscriptions"]}>
-                {data &&
-                    data.slice(0, subscriptionsPerPage).map((subscription) => {
+                {subscriptionsData &&
+                    subscriptionsData.slice(0, subscriptionsPerPage).map((subscription) => {
                         const { id } = subscription;
 
                         return (
                             <SubscriptionSummary
                                 data={subscription}
-                                awaiting={awaitingOverride}
+                                awaiting={awaitingAny}
                                 key={id}
                             />
                         );
@@ -136,7 +142,7 @@ export function Subscriptions() {
 
                         /* v8 ignore stop */
                     }
-                    disabled={awaitingOverride}
+                    disabled={awaitingAny}
                     classNames={{ control: styles["pagination-control"] }}
                 />
             </div>

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { RootContext } from "@/pages/Root";
 import { CategoryContext } from "@/pages/Category";
 import { skeletonCategories } from "@/utils/products/categories";
+import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { Breadcrumbs, Skeleton, Image } from "@mantine/core";
 import styles from "./index.module.css";
 
@@ -10,11 +11,18 @@ export function CategoryHero() {
     const navigate = useNavigate();
 
     const { categories } = useContext(RootContext);
-    const { awaiting } = categories;
-
     const { urlPathSplit, categoryBranch } = useContext(CategoryContext);
 
-    const currentCategoryBranch = !awaiting ? categoryBranch : skeletonCategories;
+    let currentCategoryBranch = skeletonCategories;
+
+    const { data, awaitingAny } = useQueryContexts({
+        contexts: [{ name: "categories", context: categories }],
+    });
+
+    if (!awaitingAny) {
+        if (data.categories) currentCategoryBranch = categoryBranch;
+    }
+
     if (currentCategoryBranch.length === 0) throw new Error("Category not found at this location");
     const currentCategory = currentCategoryBranch.at(-1)!;
     const { name, description, subcategories } = currentCategory;
@@ -27,13 +35,13 @@ export function CategoryHero() {
                     separator="·"
                     classNames={{ separator: styles["category-breadcrumbs-separator"] }}
                 >
-                    <Skeleton visible={awaiting} width="min-content">
+                    <Skeleton visible={awaitingAny} width="min-content">
                         <button
                             type="button"
                             className={styles["category-breadcrumb-button"]}
                             onClick={() => navigate("/")}
-                            disabled={awaiting}
-                            style={{ visibility: awaiting ? "hidden" : "initial" }}
+                            disabled={awaitingAny}
+                            style={{ visibility: awaitingAny ? "hidden" : "initial" }}
                         >
                             Home
                         </button>
@@ -44,22 +52,22 @@ export function CategoryHero() {
                         const current = i === categoryBranch.length - 1;
                         const path = `/c/${[...urlPathSplit.slice(0, i + 1)].join("/")}`;
                         return !current ? (
-                            <Skeleton visible={awaiting} width="min-content" key={catName}>
+                            <Skeleton visible={awaitingAny} width="min-content" key={catName}>
                                 <button
                                     type="button"
                                     className={styles["category-breadcrumb-button"]}
                                     onClick={() => navigate(path)}
-                                    disabled={awaiting}
-                                    style={{ visibility: awaiting ? "hidden" : "initial" }}
+                                    disabled={awaitingAny}
+                                    style={{ visibility: awaitingAny ? "hidden" : "initial" }}
                                 >
                                     {catName}
                                 </button>
                             </Skeleton>
                         ) : (
-                            <Skeleton visible={awaiting} width="min-content" key={catName}>
+                            <Skeleton visible={awaitingAny} width="min-content" key={catName}>
                                 <span
                                     className={styles["category-breadcrumb-current"]}
-                                    style={{ visibility: awaiting ? "hidden" : "initial" }}
+                                    style={{ visibility: awaitingAny ? "hidden" : "initial" }}
                                 >
                                     {catName}
                                 </span>
@@ -68,24 +76,24 @@ export function CategoryHero() {
                     })}
                 </Breadcrumbs>
 
-                <Skeleton visible={awaiting} width={awaiting ? "min-content" : "100%"}>
+                <Skeleton visible={awaitingAny} width={awaitingAny ? "min-content" : "100%"}>
                     <h1
                         className={styles["category-header"]}
                         style={{
-                            visibility: awaiting ? "hidden" : "initial",
-                            textWrap: awaiting ? "nowrap" : "initial",
+                            visibility: awaitingAny ? "hidden" : "initial",
+                            textWrap: awaitingAny ? "nowrap" : "initial",
                         }}
                     >
                         {name}
                     </h1>
                 </Skeleton>
 
-                <Skeleton visible={awaiting} width={awaiting ? "min-content" : "100%"}>
+                <Skeleton visible={awaitingAny} width={awaitingAny ? "min-content" : "100%"}>
                     <p
                         className={styles["category-description"]}
                         style={{
-                            visibility: awaiting ? "hidden" : "initial",
-                            textWrap: awaiting ? "nowrap" : "initial",
+                            visibility: awaitingAny ? "hidden" : "initial",
+                            textWrap: awaitingAny ? "nowrap" : "initial",
                         }}
                     >
                         {description}
@@ -100,11 +108,11 @@ export function CategoryHero() {
                                 <button
                                     type="button"
                                     onClick={() => navigate(slug)}
-                                    disabled={awaiting}
+                                    disabled={awaitingAny}
                                     className={styles["subcategory-link"]}
                                     key={catName}
                                 >
-                                    <Skeleton visible={awaiting}>
+                                    <Skeleton visible={awaitingAny}>
                                         <Image
                                             radius="md"
                                             // src={img?.src}
@@ -112,12 +120,18 @@ export function CategoryHero() {
                                             w={120}
                                             h={120}
                                             className={styles["subcategory-link-image"]}
-                                            style={{ visibility: awaiting ? "hidden" : "initial" }}
+                                            style={{
+                                                visibility: awaitingAny ? "hidden" : "initial",
+                                            }}
                                         />
                                     </Skeleton>
 
-                                    <Skeleton visible={awaiting}>
-                                        <p style={{ visibility: awaiting ? "hidden" : "initial" }}>
+                                    <Skeleton visible={awaitingAny}>
+                                        <p
+                                            style={{
+                                                visibility: awaitingAny ? "hidden" : "initial",
+                                            }}
+                                        >
                                             {catName}
                                         </p>
                                     </Skeleton>

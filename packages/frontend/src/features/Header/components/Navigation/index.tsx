@@ -7,9 +7,11 @@ import { useNavigate } from "react-router-dom";
 import { buildCategoryTree, skeletonCategories } from "@/utils/products/categories";
 import { Logo } from "@/features/Logo";
 import { CartDrawer } from "@/features/Cart/components/CartDrawer";
+import { PopulatedCart } from "@/utils/products/cart";
+import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { SearchBar } from "../SearchBar";
-import styles from "./index.module.css";
 import { NavDrawer } from "./components/NavDrawer";
+import styles from "./index.module.css";
 
 export type TNavigation = {
     opened?: boolean;
@@ -18,18 +20,30 @@ export type TNavigation = {
 
 export function Navigation({ opened = false, reduced }: TNavigation) {
     const { categories } = useContext(RootContext);
-    const { cart } = useContext(UserContext);
+    const { cart, defaultData } = useContext(UserContext);
 
-    const { response: categoriesResponse, awaiting: categoriesAwaiting } = categories;
-    const { response: cartResponse } = cart;
+    let categoriesData = null;
+    let cartData = defaultData.cart as PopulatedCart;
 
-    const categoriesData = !categoriesAwaiting ? categoriesResponse.data : skeletonCategories;
-    const { data: cartData } = cartResponse;
+    const { data, awaitingAny } = useQueryContexts({
+        contexts: [
+            { name: "categories", context: categories },
+            { name: "cart", context: cart },
+        ],
+    });
+
+    if (!awaitingAny) {
+        if (data.categories) categoriesData = data.categories;
+        if (data.cart) cartData = data.cart;
+    }
 
     const navigate = useNavigate();
 
     const [categoryTree, setCategoryTree] = useState<ReturnType<typeof buildCategoryTree>>([]);
-    useEffect(() => setCategoryTree(buildCategoryTree(categoriesData || [])), [categoriesData]);
+    useEffect(() => {
+        if (awaitingAny) setCategoryTree(skeletonCategories);
+        else setCategoryTree(buildCategoryTree(categoriesData || []));
+    }, [awaitingAny, categoriesData]);
 
     const [navDrawerOpen, setNavDrawerOpen] = useState<boolean>(false);
     const [searchBarOpen, setSearchBarOpen] = useState<boolean>(false);
@@ -142,7 +156,7 @@ export function Navigation({ opened = false, reduced }: TNavigation) {
                                 >
                                     <ShoppingCartSimple size={iconSize} color="black" />
                                 </ActionIcon>
-                                {cartData?.items && cartData.items.length > 0 && (
+                                {!awaitingAny && cartData.items.length > 0 && (
                                     <span className={styles["cart-items-quantity"]}>
                                         {cartData.items.length}
                                     </span>
@@ -156,7 +170,7 @@ export function Navigation({ opened = false, reduced }: TNavigation) {
                                 const path = `/c/${slug}`;
                                 return (
                                     <Skeleton
-                                        visible={categoriesAwaiting}
+                                        visible={awaitingAny}
                                         width="min-content"
                                         key={`navbar-category-${name}`}
                                     >
@@ -165,9 +179,7 @@ export function Navigation({ opened = false, reduced }: TNavigation) {
                                             className={styles["option"]}
                                             onClick={() => navigate(path)}
                                             style={{
-                                                visibility: categoriesAwaiting
-                                                    ? "hidden"
-                                                    : "initial",
+                                                visibility: awaitingAny ? "hidden" : "initial",
                                             }}
                                         >
                                             {name}

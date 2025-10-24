@@ -1,8 +1,9 @@
 import { useContext, useState, useEffect } from "react";
-import { UserContext } from "@/pages/Root";
 import { Collapse, Skeleton, Radio } from "@mantine/core";
-import { IProductContext, ProductContext } from "@/pages/Product";
+import { ProductContext } from "@/pages/Product";
 import { frequencies, SubscriptionFrequency } from "@/utils/products/subscriptions";
+import { useQueryContexts } from "@/hooks/useQueryContexts";
+import { ProductVariant } from "@/utils/products/product";
 import styles from "./index.module.css";
 
 export type TSubscriptionToggle = {
@@ -18,16 +19,19 @@ export function SubscriptionToggle({
     onToggle,
     onFrequencyChange,
 }: TSubscriptionToggle) {
-    const { cart } = useContext(UserContext);
     const { product, variant, defaultData } = useContext(ProductContext);
-    const { variant: defaultVariantData } = defaultData;
 
-    const { awaiting: awaitingCart } = cart;
-    const { awaiting: awaitingProduct } = product;
+    let variantData = defaultData.variant as ProductVariant;
 
-    const { canSubscribe, price } = !awaitingProduct
-        ? variant!
-        : (defaultVariantData as NonNullable<IProductContext["variant"]>);
+    const { awaitingAny } = useQueryContexts({
+        contexts: [{ name: "product", context: product }],
+    });
+
+    if (!awaitingAny) {
+        if (variant) variantData = variant;
+    }
+
+    const { canSubscribe, price } = variantData;
     const { subscriptionDiscountPercentage } = price;
 
     const [lastValidDiscount, setLastValidDiscount] = useState<number>(0);
@@ -52,15 +56,11 @@ export function SubscriptionToggle({
     }, [canSubscribe, subscriptionDiscountPercentage, lastValidDiscount]);
 
     return (
-        <Collapse
-            in={!awaitingProduct && canSubscribe}
-            animateOpacity={false}
-            transitionDuration={500}
-        >
-            <Skeleton visible={awaitingProduct}>
+        <Collapse in={!awaitingAny && canSubscribe} animateOpacity={false} transitionDuration={500}>
+            <Skeleton visible={awaitingAny}>
                 <div
                     className={styles["subscription-toggle"]}
-                    style={{ visibility: awaitingProduct ? "hidden" : "initial" }}
+                    style={{ visibility: awaitingAny ? "hidden" : "initial" }}
                 >
                     <Radio.Card
                         checked={checked}
@@ -69,7 +69,7 @@ export function SubscriptionToggle({
                     >
                         <div className={styles["radio-card-top"]}>
                             <Radio.Indicator
-                                disabled={awaitingCart || awaitingProduct}
+                                disabled={awaitingAny}
                                 className={styles["radio-indicator"]}
                             />
 
@@ -93,7 +93,7 @@ export function SubscriptionToggle({
                                         const { value } = e.target;
                                         onFrequencyChange(value as SubscriptionFrequency);
                                     }}
-                                    disabled={awaitingCart || awaitingProduct}
+                                    disabled={awaitingAny}
                                 >
                                     {Object.entries(frequencies).map((entry) => {
                                         const [key, value] = entry;

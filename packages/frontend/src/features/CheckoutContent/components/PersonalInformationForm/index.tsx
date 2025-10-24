@@ -4,9 +4,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckoutPersonalFormData, checkoutPersonalFormDataSchema } from "@/utils/schemas/checkout";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { Collapse, TextInput, Button } from "@mantine/core";
+import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { NumberCircleOne } from "@phosphor-icons/react";
 import { Error } from "@/components/UI/Error";
 import _ from "lodash";
+import { User } from "@/utils/schemas/user";
 import styles from "./index.module.css";
 
 const inputProps = {
@@ -23,12 +25,22 @@ export type TPersonalInformationForm = {
 };
 
 export function PersonalInformationForm({ isOpen = false, onSubmit }: TPersonalInformationForm) {
-    const { user, cart } = useContext(UserContext);
+    const { user, cart, defaultData } = useContext(UserContext);
 
-    const { response, awaiting: userAwaiting } = user;
-    const personal = response?.data?.profile?.personal;
+    let userData = defaultData.user as User;
 
-    const { awaiting: cartAwaiting } = cart;
+    const { data, awaitingAny } = useQueryContexts({
+        contexts: [
+            { name: "user", context: user },
+            { name: "cart", context: cart },
+        ],
+    });
+
+    if (!awaitingAny) {
+        if (data.user) userData = data.user;
+    }
+
+    const personal = userData.profile?.personal;
 
     const defaultValues = useMemo(() => {
         return {
@@ -60,7 +72,7 @@ export function PersonalInformationForm({ isOpen = false, onSubmit }: TPersonalI
         [errors],
     );
 
-    const disableInputs = userAwaiting || cartAwaiting || !isOpen;
+    const disableInputs = awaitingAny || !isOpen;
 
     /**
      * Can't invoke callback passed to Mantine Collapse component's 'onTransitionEnd' prop without

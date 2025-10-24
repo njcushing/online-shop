@@ -5,6 +5,7 @@ import { Button } from "@mantine/core";
 import { Bell, CheckFat } from "@phosphor-icons/react";
 import { ProductVariant } from "@/utils/products/product";
 import { User } from "@/utils/schemas/user";
+import { useQueryContexts } from "@/hooks/useQueryContexts";
 import styles from "./index.module.css";
 
 const isVariantInWatchlist = (watchlist: User["watchlist"], variant: ProductVariant): boolean => {
@@ -15,22 +16,33 @@ export function WatchlistButton() {
     const { user } = useContext(UserContext);
     const { product, variant } = useContext(ProductContext);
 
-    const { response: userResponse, awaiting: awaitingUser } = user;
-    const { response: productResponse, awaiting: awaitingProduct } = product;
+    let userData = null;
+    let productData = null;
+    let variantData = null;
 
-    const { data: userData } = userResponse;
-    const { data: productData } = productResponse;
+    const { data, awaitingAny } = useQueryContexts({
+        contexts: [
+            { name: "user", context: user },
+            { name: "product", context: product },
+        ],
+    });
+
+    if (!awaitingAny) {
+        if (data.user) userData = data.user;
+        if (data.product) productData = data.product;
+        if (variant) variantData = variant;
+    }
 
     const { watchlist } = userData || {};
 
     const isDisabled = useMemo(() => {
-        return awaitingUser || !watchlist || awaitingProduct || !productData || !variant;
-    }, [awaitingUser, watchlist, awaitingProduct, productData, variant]);
+        return awaitingAny || !watchlist || !productData || !variantData;
+    }, [awaitingAny, watchlist, productData, variantData]);
 
     const isWatching = useMemo<boolean>(() => {
-        if (isDisabled || !watchlist || !variant) return false;
-        return isVariantInWatchlist(watchlist, variant);
-    }, [variant, watchlist, isDisabled]);
+        if (isDisabled || !watchlist || !variantData) return false;
+        return isVariantInWatchlist(watchlist, variantData);
+    }, [variantData, watchlist, isDisabled]);
 
     return (
         <div className={styles["watchlist-button-container"]}>
