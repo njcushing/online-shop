@@ -7,7 +7,7 @@ CREATE TABLE product_variants (
     can_subscribe boolean DEFAULT false,
     price_current numeric(10,2) NOT NULL,
     price_base numeric(10,2) NOT NULL,
-    subscription_discount_percentage int DEFAULT 0,
+    subscription_discount_percentage numeric(10,4) DEFAULT 0,
     stock int NOT NULL DEFAULT 0,
     allowance_override int NULL,
     active boolean NOT NULL,
