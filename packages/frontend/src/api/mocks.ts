@@ -25,7 +25,7 @@ export const mockGetUser: HTTPMethodTypes.GET<undefined, User> = async () => {
             success: false,
             status: 404,
             message: "User not found",
-            data: null,
+            error: undefined,
         };
     }
 
@@ -49,7 +49,7 @@ export const mockGetProfile: HTTPMethodTypes.GET<undefined, Profile> = async () 
             success: false,
             status: 404,
             message: "Profile not found",
-            data: null,
+            error: undefined,
         };
     }
 
@@ -86,7 +86,7 @@ export const mockGetCart: HTTPMethodTypes.GET<undefined, PopulatedCart> = async 
             success: false,
             status: 404,
             message: "Cart not found",
-            data: null,
+            error: undefined,
         };
     }
 
@@ -109,7 +109,7 @@ export const mockUpdateCart: HTTPMethodTypes.PUT<
             success: false,
             status: 400,
             message: "No token provided for query",
-            data: null,
+            error: undefined,
         };
     }
 
@@ -119,7 +119,7 @@ export const mockUpdateCart: HTTPMethodTypes.PUT<
             success: false,
             status: 400,
             message: "No products provided for query",
-            data: null,
+            error: undefined,
         };
     }
 
@@ -200,7 +200,7 @@ export const mockGetOrders: HTTPMethodTypes.GET<
             success: false,
             status: 404,
             message: "Orders not found",
-            data: null,
+            error: undefined,
         };
     }
 
@@ -291,7 +291,7 @@ export const mockGetSubscriptions: HTTPMethodTypes.GET<
             success: false,
             status: 404,
             message: "Subscriptions not found",
-            data: null,
+            error: undefined,
         };
     }
 
@@ -320,7 +320,7 @@ export const mockGetProduct: HTTPMethodTypes.GET<{ productId?: string }, Product
             success: false,
             status: 400,
             message: "No product id provided for query",
-            data: null,
+            error: undefined,
         };
     }
 
@@ -331,7 +331,7 @@ export const mockGetProduct: HTTPMethodTypes.GET<{ productId?: string }, Product
             success: false,
             status: 404,
             message: "Product not found",
-            data: null,
+            error: undefined,
         };
     }
 
@@ -358,7 +358,7 @@ export const mockGetReview: HTTPMethodTypes.GET<{ reviewId: string }, ProductRev
             success: false,
             status: 400,
             message: "No review id provided for query",
-            data: null,
+            error: undefined,
         };
     }
 
@@ -369,7 +369,7 @@ export const mockGetReview: HTTPMethodTypes.GET<{ reviewId: string }, ProductRev
             success: false,
             status: 404,
             message: "Review not found",
-            data: null,
+            error: undefined,
         };
     }
 
@@ -403,7 +403,7 @@ export const mockGetReviews: HTTPMethodTypes.GET<
             success: false,
             status: 400,
             message: "No product id provided for query",
-            data: [],
+            error: undefined,
         };
     }
 
