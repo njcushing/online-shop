@@ -24,6 +24,8 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Collection> Collections { get; set; }
 
+    public virtual DbSet<CollectionProduct> CollectionProducts { get; set; }
+
     public virtual DbSet<Order> Orders { get; set; }
 
     public virtual DbSet<OrderAddress> OrderAddresses { get; set; }
@@ -34,13 +36,23 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
+    public virtual DbSet<ProductAttribute> ProductAttributes { get; set; }
+
+    public virtual DbSet<ProductAttributeValue> ProductAttributeValues { get; set; }
+
     public virtual DbSet<ProductCategory> ProductCategories { get; set; }
 
-    public virtual DbSet<ProductCollection> ProductCollections { get; set; }
+    public virtual DbSet<ProductDetail> ProductDetails { get; set; }
+
+    public virtual DbSet<ProductImage> ProductImages { get; set; }
 
     public virtual DbSet<ProductReview> ProductReviews { get; set; }
 
     public virtual DbSet<ProductVariant> ProductVariants { get; set; }
+
+    public virtual DbSet<ProductVariantAttribute> ProductVariantAttributes { get; set; }
+
+    public virtual DbSet<ProductVariantDetail> ProductVariantDetails { get; set; }
 
     public virtual DbSet<Promotion> Promotions { get; set; }
 
@@ -197,7 +209,7 @@ public partial class AppDbContext : DbContext
 
             entity.ToTable("collections");
 
-            entity.HasIndex(e => e.Name, "collections_name_key").IsUnique();
+            entity.HasIndex(e => e.Slug, "collections_slug_key").IsUnique();
 
             entity.Property(e => e.Id)
                 .HasDefaultValueSql("uuid_generate_v4()")
@@ -207,7 +219,31 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("created_at");
             entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.Name).HasColumnName("name");
+            entity.Property(e => e.Slug).HasColumnName("slug");
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+        });
+
+        modelBuilder.Entity<CollectionProduct>(entity =>
+        {
+            entity.HasKey(e => new { e.CollectionId, e.ProductId }).HasName("collection_products_pkey");
+
+            entity.ToTable("collection_products");
+
+            entity.Property(e => e.CollectionId).HasColumnName("collection_id");
+            entity.Property(e => e.ProductId).HasColumnName("product_id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("now()")
+                .HasColumnName("created_at");
+            entity.Property(e => e.Name).HasColumnName("name");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+
+            entity.HasOne(d => d.Collection).WithMany(p => p.CollectionProducts)
+                .HasForeignKey(d => d.CollectionId)
+                .HasConstraintName("collection_products_collection_id_fkey");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.CollectionProducts)
+                .HasForeignKey(d => d.ProductId)
+                .HasConstraintName("collection_products_product_id_fkey");
         });
 
         modelBuilder.Entity<Order>(entity =>
@@ -361,6 +397,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Id)
                 .HasDefaultValueSql("uuid_generate_v4()")
                 .HasColumnName("id");
+            entity.Property(e => e.Active).HasColumnName("active");
             entity.Property(e => e.Allowance)
                 .HasDefaultValue(0)
                 .HasColumnName("allowance");
@@ -377,6 +414,44 @@ public partial class AppDbContext : DbContext
                 .HasDefaultValueSql("'{}'::text[]")
                 .HasColumnName("tags");
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+        });
+
+        modelBuilder.Entity<ProductAttribute>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("product_attributes_pkey");
+
+            entity.ToTable("product_attributes");
+
+            entity.HasIndex(e => e.Name, "product_attributes_name_key").IsUnique();
+
+            entity.Property(e => e.Id)
+                .HasDefaultValueSql("uuid_generate_v4()")
+                .HasColumnName("id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("now()")
+                .HasColumnName("created_at");
+            entity.Property(e => e.Name).HasColumnName("name");
+            entity.Property(e => e.Title).HasColumnName("title");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+        });
+
+        modelBuilder.Entity<ProductAttributeValue>(entity =>
+        {
+            entity.HasKey(e => new { e.ProductAttributeId, e.Code }).HasName("product_attribute_values_pkey");
+
+            entity.ToTable("product_attribute_values");
+
+            entity.Property(e => e.ProductAttributeId).HasColumnName("product_attribute_id");
+            entity.Property(e => e.Code).HasColumnName("code");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("now()")
+                .HasColumnName("created_at");
+            entity.Property(e => e.Name).HasColumnName("name");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+
+            entity.HasOne(d => d.ProductAttribute).WithMany(p => p.ProductAttributeValues)
+                .HasForeignKey(d => d.ProductAttributeId)
+                .HasConstraintName("product_attribute_values_product_attribute_id_fkey");
         });
 
         modelBuilder.Entity<ProductCategory>(entity =>
@@ -401,26 +476,53 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("product_categories_product_id_fkey");
         });
 
-        modelBuilder.Entity<ProductCollection>(entity =>
+        modelBuilder.Entity<ProductDetail>(entity =>
         {
-            entity.HasKey(e => new { e.CollectionId, e.ProductId }).HasName("product_collections_pkey");
+            entity.HasKey(e => e.Id).HasName("product_details_pkey");
 
-            entity.ToTable("product_collections");
+            entity.ToTable("product_details");
 
-            entity.Property(e => e.CollectionId).HasColumnName("collection_id");
-            entity.Property(e => e.ProductId).HasColumnName("product_id");
+            entity.HasIndex(e => new { e.ProductId, e.Name }, "product_details_product_id_name_key").IsUnique();
+
+            entity.Property(e => e.Id)
+                .HasDefaultValueSql("uuid_generate_v4()")
+                .HasColumnName("id");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("now()")
                 .HasColumnName("created_at");
+            entity.Property(e => e.Name).HasColumnName("name");
+            entity.Property(e => e.ProductId).HasColumnName("product_id");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+            entity.Property(e => e.Value).HasColumnName("value");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.ProductDetails)
+                .HasForeignKey(d => d.ProductId)
+                .HasConstraintName("product_details_product_id_fkey");
+        });
+
+        modelBuilder.Entity<ProductImage>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("product_images_pkey");
+
+            entity.ToTable("product_images");
+
+            entity.HasIndex(e => new { e.ProductId, e.Position }, "product_images_product_id_position_key").IsUnique();
+
+            entity.Property(e => e.Id)
+                .HasDefaultValueSql("uuid_generate_v4()")
+                .HasColumnName("id");
+            entity.Property(e => e.Alt).HasColumnName("alt");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("now()")
+                .HasColumnName("created_at");
+            entity.Property(e => e.Position).HasColumnName("position");
+            entity.Property(e => e.ProductId).HasColumnName("product_id");
+            entity.Property(e => e.Src).HasColumnName("src");
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
 
-            entity.HasOne(d => d.Collection).WithMany(p => p.ProductCollections)
-                .HasForeignKey(d => d.CollectionId)
-                .HasConstraintName("product_collections_collection_id_fkey");
-
-            entity.HasOne(d => d.Product).WithMany(p => p.ProductCollections)
+            entity.HasOne(d => d.Product).WithMany(p => p.ProductImages)
                 .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("product_collections_product_id_fkey");
+                .HasConstraintName("product_images_product_id_fkey");
         });
 
         modelBuilder.Entity<ProductReview>(entity =>
@@ -461,6 +563,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Id)
                 .HasDefaultValueSql("uuid_generate_v4()")
                 .HasColumnName("id");
+            entity.Property(e => e.Active).HasColumnName("active");
             entity.Property(e => e.AllowanceOverride).HasColumnName("allowance_override");
             entity.Property(e => e.CanSubscribe)
                 .HasDefaultValue(false)
@@ -484,13 +587,67 @@ public partial class AppDbContext : DbContext
                 .HasDefaultValue(0)
                 .HasColumnName("stock");
             entity.Property(e => e.SubscriptionDiscountPercentage)
-                .HasDefaultValue(0)
+                .HasPrecision(10, 4)
+                .HasDefaultValueSql("0")
                 .HasColumnName("subscription_discount_percentage");
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
 
             entity.HasOne(d => d.Product).WithMany(p => p.ProductVariants)
                 .HasForeignKey(d => d.ProductId)
                 .HasConstraintName("product_variants_product_id_fkey");
+        });
+
+        modelBuilder.Entity<ProductVariantAttribute>(entity =>
+        {
+            entity.HasKey(e => new { e.ProductVariantId, e.ProductAttributeId }).HasName("product_variant_attributes_pkey");
+
+            entity.ToTable("product_variant_attributes");
+
+            entity.Property(e => e.ProductVariantId).HasColumnName("product_variant_id");
+            entity.Property(e => e.ProductAttributeId).HasColumnName("product_attribute_id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("now()")
+                .HasColumnName("created_at");
+            entity.Property(e => e.ProductAttributeValueCode).HasColumnName("product_attribute_value_code");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+
+            entity.HasOne(d => d.ProductAttribute).WithMany(p => p.ProductVariantAttributes)
+                .HasForeignKey(d => d.ProductAttributeId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("product_variant_attributes_product_attribute_id_fkey");
+
+            entity.HasOne(d => d.ProductVariant).WithMany(p => p.ProductVariantAttributes)
+                .HasForeignKey(d => d.ProductVariantId)
+                .HasConstraintName("product_variant_attributes_product_variant_id_fkey");
+
+            entity.HasOne(d => d.ProductAttributeValue).WithMany(p => p.ProductVariantAttributes)
+                .HasForeignKey(d => new { d.ProductAttributeId, d.ProductAttributeValueCode })
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_attribute_value_matches_attribute");
+        });
+
+        modelBuilder.Entity<ProductVariantDetail>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("product_variant_details_pkey");
+
+            entity.ToTable("product_variant_details");
+
+            entity.HasIndex(e => new { e.ProductVariantId, e.Name }, "product_variant_details_product_variant_id_name_key").IsUnique();
+
+            entity.Property(e => e.Id)
+                .HasDefaultValueSql("uuid_generate_v4()")
+                .HasColumnName("id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("now()")
+                .HasColumnName("created_at");
+            entity.Property(e => e.Name).HasColumnName("name");
+            entity.Property(e => e.ProductVariantId).HasColumnName("product_variant_id");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+            entity.Property(e => e.Value).HasColumnName("value");
+
+            entity.HasOne(d => d.ProductVariant).WithMany(p => p.ProductVariantDetails)
+                .HasForeignKey(d => d.ProductVariantId)
+                .HasConstraintName("product_variant_details_product_variant_id_fkey");
         });
 
         modelBuilder.Entity<Promotion>(entity =>

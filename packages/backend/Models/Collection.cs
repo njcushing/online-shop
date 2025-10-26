@@ -11,9 +11,11 @@ public partial class Collection
 
     public string? Description { get; set; }
 
+    public string Slug { get; set; } = null!;
+
     public DateTime CreatedAt { get; set; }
 
     public DateTime? UpdatedAt { get; set; }
 
-    public virtual ICollection<ProductCollection> ProductCollections { get; set; } = new List<ProductCollection>();
+    public virtual ICollection<CollectionProduct> CollectionProducts { get; set; } = new List<CollectionProduct>();
 }

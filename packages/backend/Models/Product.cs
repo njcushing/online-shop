@@ -17,15 +17,21 @@ public partial class Product
 
     public List<string>? Tags { get; set; }
 
+    public bool Active { get; set; }
+
     public DateTime ReleaseDate { get; set; }
 
     public DateTime CreatedAt { get; set; }
 
     public DateTime? UpdatedAt { get; set; }
 
+    public virtual ICollection<CollectionProduct> CollectionProducts { get; set; } = new List<CollectionProduct>();
+
     public virtual ICollection<ProductCategory> ProductCategories { get; set; } = new List<ProductCategory>();
 
-    public virtual ICollection<ProductCollection> ProductCollections { get; set; } = new List<ProductCollection>();
+    public virtual ICollection<ProductDetail> ProductDetails { get; set; } = new List<ProductDetail>();
+
+    public virtual ICollection<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
 
     public virtual ICollection<ProductReview> ProductReviews { get; set; } = new List<ProductReview>();
 

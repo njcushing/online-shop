@@ -19,11 +19,13 @@ public partial class ProductVariant
 
     public decimal PriceBase { get; set; }
 
-    public int? SubscriptionDiscountPercentage { get; set; }
+    public decimal? SubscriptionDiscountPercentage { get; set; }
 
     public int Stock { get; set; }
 
     public int? AllowanceOverride { get; set; }
+
+    public bool Active { get; set; }
 
     public DateTime ReleaseDate { get; set; }
 
@@ -36,6 +38,10 @@ public partial class ProductVariant
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
     public virtual Product Product { get; set; } = null!;
+
+    public virtual ICollection<ProductVariantAttribute> ProductVariantAttributes { get; set; } = new List<ProductVariantAttribute>();
+
+    public virtual ICollection<ProductVariantDetail> ProductVariantDetails { get; set; } = new List<ProductVariantDetail>();
 
     public virtual ICollection<Subscription> Subscriptions { get; set; } = new List<Subscription>();
 }
