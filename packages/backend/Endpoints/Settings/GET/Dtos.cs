@@ -1,6 +1,6 @@
-namespace Cafree.Api.Dtos
+namespace Cafree.Api.Endpoints.Settings.GET
 {
-    public class SettingsDto
+    public class GetSettingsResponseDto
     {
         public decimal BaseExpressDeliveryCost { get; set; }
 

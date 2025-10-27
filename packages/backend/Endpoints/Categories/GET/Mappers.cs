@@ -1,13 +1,12 @@
 using Cafree.Api.Models;
-using Cafree.Api.Dtos;
 
-namespace Cafree.Api.Mappers
+namespace Cafree.Api.Endpoints.Categories.GET
 {
-    public static class CategoryMapper
+    public static class GetCategoriesResponseMapper
     {
-        public static CategoryDto ToDto(Category category)
+        public static GetCategoriesResponseDto ToDto(Category category)
         {
-            return new CategoryDto
+            return new GetCategoriesResponseDto
             {
                 Id = category.Id,
                 ParentId = category.ParentId,

@@ -1,13 +1,12 @@
 using Cafree.Api.Models;
-using Cafree.Api.Dtos;
 
-namespace Cafree.Api.Mappers
+namespace Cafree.Api.Endpoints.Settings.GET
 {
-    public static class SettingsMapper
+    public static class GetSettingsResponseMapper
     {
-        public static SettingsDto ToDto(Setting settings)
+        public static GetSettingsResponseDto ToDto(Setting settings)
         {
-            return new SettingsDto
+            return new GetSettingsResponseDto
             {
                 BaseExpressDeliveryCost = settings.BaseExpressDeliveryCost,
                 FreeExpressDeliveryThreshold = settings.FreeExpressDeliveryThreshold,

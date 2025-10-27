@@ -1,6 +1,6 @@
-namespace Cafree.Api.Dtos
+namespace Cafree.Api.Endpoints.Categories.GET
 {
-    public class CategoryDto
+    public class GetCategoriesResponseDto
     {
         public Guid Id { get; set; }
         public Guid? ParentId { get; set; }
