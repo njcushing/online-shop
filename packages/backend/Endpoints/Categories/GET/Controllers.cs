@@ -5,7 +5,7 @@ using Cafree.Api.Data;
 namespace Cafree.Api.Endpoints.Categories.GET
 {
     [ApiController]
-    [Route("/api/categories")]
+    [Route("api/categories")]
     public class GetCategoriesController : ControllerBase
     {
         private readonly AppDbContext _context;

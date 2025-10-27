@@ -5,7 +5,7 @@ using Cafree.Api.Data;
 namespace Cafree.Api.Endpoints.Settings.GET
 {
     [ApiController]
-    [Route("/api/settings")]
+    [Route("api/settings")]
     public class GetSettingsController : ControllerBase
     {
         private readonly AppDbContext _context;
