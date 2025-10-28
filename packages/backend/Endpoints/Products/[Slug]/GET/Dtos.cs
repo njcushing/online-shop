@@ -21,9 +21,9 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
 
                 public Guid? ParentId { get; set; }
 
-                public string Name { get; set; } = null!;
+                public required string Name { get; set; }
 
-                public string Slug { get; set; } = null!;
+                public required string Slug { get; set; }
 
                 public string? Description { get; set; }
             }
@@ -33,7 +33,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
 
             public Guid CategoryId { get; set; }
 
-            public virtual CategoryDto Category { get; set; } = new CategoryDto();
+            public required virtual CategoryDto Category { get; set; }
         }
 
         public class ProductDetailDto
@@ -43,9 +43,9 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             [JsonIgnore]
             public Guid ProductId { get; set; }
 
-            public string Name { get; set; } = null!;
+            public required string Name { get; set; }
 
-            public string Value { get; set; } = null!;
+            public required string Value { get; set; }
         }
 
         public class ProductImageDto
@@ -55,9 +55,9 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             [JsonIgnore]
             public Guid ProductId { get; set; }
 
-            public string Src { get; set; } = null!;
+            public required string Src { get; set; }
 
-            public string Alt { get; set; } = null!;
+            public required string Alt { get; set; }
 
             public int Position { get; set; }
         }
@@ -71,7 +71,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
 
             public string? Title { get; set; }
 
-            public string Description { get; set; } = null!;
+            public required string Description { get; set; }
 
             public short Rating { get; set; }
         }
@@ -83,9 +83,9 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             [JsonIgnore]
             public Guid ProductId { get; set; }
 
-            public string Name { get; set; } = null!;
+            public required string Name { get; set; }
 
-            public string Sku { get; set; } = null!;
+            public required string Sku { get; set; }
 
             public bool? CanSubscribe { get; set; }
 
@@ -106,11 +106,11 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
 
         public Guid Id { get; set; }
 
-        public string Name { get; set; } = null!;
+        public required string Name { get; set; }
 
         public string? Description { get; set; }
 
-        public string Slug { get; set; } = null!;
+        public required string Slug { get; set; }
 
         public int Allowance { get; set; }
 
