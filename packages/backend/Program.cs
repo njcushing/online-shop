@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen(c =>
     c.SupportNonNullableReferenceTypes();
     c.UseAllOfToExtendReferenceSchemas();
     c.UseAllOfForInheritance();
+    c.CustomSchemaIds(x => x.FullName!.Replace("Cafree.Api.Endpoints.", ""));
 });
 builder.Services.AddProblemDetails();
 builder.Services.AddControllers();
