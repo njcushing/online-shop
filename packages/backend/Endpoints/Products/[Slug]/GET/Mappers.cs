@@ -30,7 +30,6 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
         {
             return new GetProductBySlugResponseDto.ProductCategoryDto
             {
-                ProductId = productCategory.ProductId,
                 CategoryId = productCategory.CategoryId,
                 Category = ToCategoryDto(productCategory.Category),
             };
@@ -41,7 +40,6 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             return new GetProductBySlugResponseDto.ProductDetailDto
             {
                 Id = productDetail.Id,
-                ProductId = productDetail.ProductId,
                 Name = productDetail.Name,
                 Value = productDetail.Value,
             };
@@ -52,7 +50,6 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             return new GetProductBySlugResponseDto.ProductImageDto
             {
                 Id = productImage.Id,
-                ProductId = productImage.ProductId,
                 Src = productImage.Src,
                 Alt = productImage.Alt,
                 Position = productImage.Position,
@@ -64,7 +61,6 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             return new GetProductBySlugResponseDto.ProductReviewDto
             {
                 Id = productReview.Id,
-                ProductId = productReview.ProductId,
                 Title = productReview.Title,
                 Description = productReview.Description,
                 Rating = productReview.Rating,
@@ -76,7 +72,6 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             return new GetProductBySlugResponseDto.ProductVariantDto
             {
                 Id = productVariant.Id,
-                ProductId = productVariant.ProductId,
                 Name = productVariant.Name,
                 Sku = productVariant.Sku,
                 CanSubscribe = productVariant.CanSubscribe,

@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace Cafree.Api.Endpoints.Products._Slug.GET
 {
     public class GetProductBySlugResponseDto
@@ -26,6 +28,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                 public string? Description { get; set; }
             }
 
+            [JsonIgnore]
             public Guid ProductId { get; set; }
 
             public Guid CategoryId { get; set; }
@@ -37,6 +40,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
         {
             public Guid Id { get; set; }
 
+            [JsonIgnore]
             public Guid ProductId { get; set; }
 
             public string Name { get; set; } = null!;
@@ -48,6 +52,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
         {
             public Guid Id { get; set; }
 
+            [JsonIgnore]
             public Guid ProductId { get; set; }
 
             public string Src { get; set; } = null!;
@@ -61,6 +66,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
         {
             public Guid Id { get; set; }
 
+            [JsonIgnore]
             public Guid ProductId { get; set; }
 
             public string? Title { get; set; }
@@ -74,6 +80,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
         {
             public Guid Id { get; set; }
 
+            [JsonIgnore]
             public Guid ProductId { get; set; }
 
             public string Name { get; set; } = null!;
