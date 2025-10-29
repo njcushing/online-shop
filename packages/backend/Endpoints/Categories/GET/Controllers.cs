@@ -6,14 +6,9 @@ namespace Cafree.Api.Endpoints.Categories.GET
 {
     [ApiController]
     [Route("api/categories")]
-    public class GetCategoriesController : ControllerBase
+    public class GetCategoriesController(AppDbContext context) : ControllerBase
     {
-        private readonly AppDbContext _context;
-
-        public GetCategoriesController(AppDbContext context)
-        {
-            _context = context;
-        }
+        private readonly AppDbContext _context = context;
 
         [HttpGet]
         [ProducesResponseType(typeof(List<GetCategoriesResponseDto>), StatusCodes.Status200OK)]

@@ -6,14 +6,9 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
 {
     [ApiController]
     [Route("api/products/{slug}")]
-    public class GetProductBySlugController : ControllerBase
+    public class GetProductBySlugController(AppDbContext context) : ControllerBase
     {
-        private readonly AppDbContext _context;
-
-        public GetProductBySlugController(AppDbContext context)
-        {
-            _context = context;
-        }
+        private readonly AppDbContext _context = context;
 
         [HttpGet]
         [ProducesResponseType(typeof(GetProductBySlugResponseDto), StatusCodes.Status200OK)]

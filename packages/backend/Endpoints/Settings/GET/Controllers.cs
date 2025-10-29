@@ -6,14 +6,9 @@ namespace Cafree.Api.Endpoints.Settings.GET
 {
     [ApiController]
     [Route("api/settings")]
-    public class GetSettingsController : ControllerBase
+    public class GetSettingsController(AppDbContext context) : ControllerBase
     {
-        private readonly AppDbContext _context;
-
-        public GetSettingsController(AppDbContext context)
-        {
-            _context = context;
-        }
+        private readonly AppDbContext _context = context;
 
         [HttpGet]
         [ProducesResponseType(typeof(GetSettingsResponseDto), StatusCodes.Status200OK)]
