@@ -16,6 +16,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
         public async Task<IActionResult> GetProductBySlug(string slug)
         {
             var product = await _context.Products
+                .Include(p => p.CollectionProducts)
                 .Include(p => p.ProductVariants)
                 .Include(p => p.ProductImages)
                 .Include(p => p.ProductCategories)

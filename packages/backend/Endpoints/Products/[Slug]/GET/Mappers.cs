@@ -9,7 +9,6 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             return new GetProductBySlugResponseDto.CollectionProductDto
             {
                 CollectionId = collectionProduct.CollectionId,
-                ProductId = collectionProduct.ProductId,
                 Name = collectionProduct.Name,
             };
         }

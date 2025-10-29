@@ -8,6 +8,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
         {
             public Guid CollectionId { get; set; }
 
+            [JsonIgnore]
             public Guid ProductId { get; set; }
 
             public string? Name { get; set; }
