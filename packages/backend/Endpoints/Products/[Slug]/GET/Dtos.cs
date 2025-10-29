@@ -79,6 +79,18 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
 
         public class ProductVariantDto
         {
+            public class ProductVariantDetailDto
+            {
+                public Guid Id { get; set; }
+
+                [JsonIgnore]
+                public Guid ProductVariantId { get; set; }
+
+                public required string Name { get; set; }
+
+                public required string Value { get; set; }
+            }
+
             public Guid Id { get; set; }
 
             [JsonIgnore]
@@ -103,6 +115,8 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             public bool Active { get; set; }
 
             public DateTime ReleaseDate { get; set; }
+
+            public virtual ICollection<ProductVariantDetailDto> ProductVariantDetails { get; set; } = new List<ProductVariantDetailDto>();
         }
 
         public Guid Id { get; set; }

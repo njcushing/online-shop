@@ -66,6 +66,17 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             };
         }
 
+        private static GetProductBySlugResponseDto.ProductVariantDto.ProductVariantDetailDto ToProductVariantDetailDto(ProductVariantDetail productVariantDetail)
+        {
+            return new GetProductBySlugResponseDto.ProductVariantDto.ProductVariantDetailDto
+            {
+                Id = productVariantDetail.Id,
+                ProductVariantId = productVariantDetail.ProductVariantId,
+                Name = productVariantDetail.Name,
+                Value = productVariantDetail.Value,
+            };
+        }
+
         private static GetProductBySlugResponseDto.ProductVariantDto ToProductVariantDto(ProductVariant productVariant)
         {
             return new GetProductBySlugResponseDto.ProductVariantDto
@@ -81,6 +92,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                 AllowanceOverride = productVariant.AllowanceOverride,
                 Active = productVariant.Active,
                 ReleaseDate = productVariant.ReleaseDate,
+                ProductVariantDetails = productVariant.ProductVariantDetails.Select(ToProductVariantDetailDto).ToList(),
             };
         }
 
