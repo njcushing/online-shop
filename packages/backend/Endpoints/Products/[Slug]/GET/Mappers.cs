@@ -4,18 +4,32 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
 {
     public static class GetProductBySlugResponseMapper
     {
-        private static GetProductBySlugResponseDto.CollectionProductDto ToCollectionProductDto(CollectionProduct collectionProduct)
+        private static GetProductBySlugResponseDto.Collection.Product ToProduct(CollectionProduct collectionProduct)
         {
-            return new GetProductBySlugResponseDto.CollectionProductDto
+            return new GetProductBySlugResponseDto.Collection.Product
             {
-                CollectionId = collectionProduct.CollectionId,
-                Name = collectionProduct.Name,
+                Id = collectionProduct.Product.Id,
+                Name = collectionProduct.Name ?? collectionProduct.Product.Name,
+                Slug = collectionProduct.Product.Slug,
+                Images = collectionProduct.Product.ProductImages.Select(ToImage).ToList(),
             };
         }
 
-        private static GetProductBySlugResponseDto.ProductCategoryDto.CategoryDto ToCategoryDto(Category category)
+        private static GetProductBySlugResponseDto.Collection ToCollection(Collection collection)
         {
-            return new GetProductBySlugResponseDto.ProductCategoryDto.CategoryDto
+            return new GetProductBySlugResponseDto.Collection
+            {
+                Id = collection.Id,
+                Name = collection.Name,
+                Description = collection.Description,
+                Slug = collection.Slug,
+                Products = collection.CollectionProducts.Select(ToProduct).ToList(),
+            };
+        }
+
+        private static GetProductBySlugResponseDto.Category ToCategory(Category category)
+        {
+            return new GetProductBySlugResponseDto.Category
             {
                 Id = category.Id,
                 ParentId = category.ParentId,
@@ -25,18 +39,9 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             };
         }
 
-        private static GetProductBySlugResponseDto.ProductCategoryDto ToProductCategoryDto(ProductCategory productCategory)
+        private static GetProductBySlugResponseDto.Detail ToDetail(ProductDetail productDetail)
         {
-            return new GetProductBySlugResponseDto.ProductCategoryDto
-            {
-                CategoryId = productCategory.CategoryId,
-                Category = ToCategoryDto(productCategory.Category),
-            };
-        }
-
-        private static GetProductBySlugResponseDto.ProductDetailDto ToProductDetailDto(ProductDetail productDetail)
-        {
-            return new GetProductBySlugResponseDto.ProductDetailDto
+            return new GetProductBySlugResponseDto.Detail
             {
                 Id = productDetail.Id,
                 Name = productDetail.Name,
@@ -44,9 +49,9 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             };
         }
 
-        private static GetProductBySlugResponseDto.ProductImageDto ToProductImageDto(ProductImage productImage)
+        private static GetProductBySlugResponseDto.Image ToImage(ProductImage productImage)
         {
-            return new GetProductBySlugResponseDto.ProductImageDto
+            return new GetProductBySlugResponseDto.Image
             {
                 Id = productImage.Id,
                 Src = productImage.Src,
@@ -55,9 +60,9 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             };
         }
 
-        private static GetProductBySlugResponseDto.ProductReviewDto ToProductReviewDto(ProductReview productReview)
+        private static GetProductBySlugResponseDto.Review ToReview(ProductReview productReview)
         {
-            return new GetProductBySlugResponseDto.ProductReviewDto
+            return new GetProductBySlugResponseDto.Review
             {
                 Id = productReview.Id,
                 Title = productReview.Title,
@@ -66,9 +71,9 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             };
         }
 
-        private static GetProductBySlugResponseDto.ProductVariantDto.ProductVariantAttributeDto.ProductAttributeDto ToProductAttributeDto(ProductAttribute productAttribute)
+        private static GetProductBySlugResponseDto.Variant.Attribute.AttributeType ToType(ProductAttribute productAttribute)
         {
-            return new GetProductBySlugResponseDto.ProductVariantDto.ProductVariantAttributeDto.ProductAttributeDto
+            return new GetProductBySlugResponseDto.Variant.Attribute.AttributeType
             {
                 Id = productAttribute.Id,
                 Name = productAttribute.Name,
@@ -76,38 +81,37 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             };
         }
 
-        private static GetProductBySlugResponseDto.ProductVariantDto.ProductVariantAttributeDto.ProductAttributeValueDto ToProductAttributeValueDto(ProductAttributeValue productAttributeValue)
+        private static GetProductBySlugResponseDto.Variant.Attribute.AttributeValue ToValue(ProductAttributeValue productAttributeValue)
         {
-            return new GetProductBySlugResponseDto.ProductVariantDto.ProductVariantAttributeDto.ProductAttributeValueDto
+            return new GetProductBySlugResponseDto.Variant.Attribute.AttributeValue
             {
                 Code = productAttributeValue.Code,
                 Name = productAttributeValue.Name,
             };
         }
 
-        private static GetProductBySlugResponseDto.ProductVariantDto.ProductVariantAttributeDto ToProductVariantAttributeDto(ProductVariantAttribute productVariantAttribute)
+        private static GetProductBySlugResponseDto.Variant.Attribute ToAttribute(ProductVariantAttribute productVariantAttribute)
         {
-            return new GetProductBySlugResponseDto.ProductVariantDto.ProductVariantAttributeDto
+            return new GetProductBySlugResponseDto.Variant.Attribute
             {
-                ProductAttribute = ToProductAttributeDto(productVariantAttribute.ProductAttribute),
-                ProductAttributeValue = ToProductAttributeValueDto(productVariantAttribute.ProductAttributeValue),
+                Type = ToType(productVariantAttribute.ProductAttribute),
+                Value = ToValue(productVariantAttribute.ProductAttributeValue),
             };
         }
 
-        private static GetProductBySlugResponseDto.ProductVariantDto.ProductVariantDetailDto ToProductVariantDetailDto(ProductVariantDetail productVariantDetail)
+        private static GetProductBySlugResponseDto.Variant.Detail ToDetail(ProductVariantDetail productVariantDetail)
         {
-            return new GetProductBySlugResponseDto.ProductVariantDto.ProductVariantDetailDto
+            return new GetProductBySlugResponseDto.Variant.Detail
             {
                 Id = productVariantDetail.Id,
-                ProductVariantId = productVariantDetail.ProductVariantId,
                 Name = productVariantDetail.Name,
                 Value = productVariantDetail.Value,
             };
         }
 
-        private static GetProductBySlugResponseDto.ProductVariantDto ToProductVariantDto(ProductVariant productVariant)
+        private static GetProductBySlugResponseDto.Variant ToVariant(ProductVariant productVariant)
         {
-            return new GetProductBySlugResponseDto.ProductVariantDto
+            return new GetProductBySlugResponseDto.Variant
             {
                 Id = productVariant.Id,
                 Name = productVariant.Name,
@@ -120,8 +124,8 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                 AllowanceOverride = productVariant.AllowanceOverride,
                 Active = productVariant.Active,
                 ReleaseDate = productVariant.ReleaseDate,
-                ProductVariantAttributes = productVariant.ProductVariantAttributes.Select(ToProductVariantAttributeDto).ToList(),
-                ProductVariantDetails = productVariant.ProductVariantDetails.Select(ToProductVariantDetailDto).ToList(),
+                Attributes = productVariant.ProductVariantAttributes.Select(ToAttribute).ToList(),
+                Details = productVariant.ProductVariantDetails.Select(ToDetail).ToList(),
             };
         }
 
@@ -136,12 +140,12 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                 Allowance = product.Allowance,
                 Tags = product.Tags,
                 ReleaseDate = product.ReleaseDate,
-                CollectionProducts = product.CollectionProducts.Select(ToCollectionProductDto).ToList(),
-                ProductCategories = product.ProductCategories.Select(ToProductCategoryDto).ToList(),
-                ProductDetails = product.ProductDetails.Select(ToProductDetailDto).ToList(),
-                ProductImages = product.ProductImages.Select(ToProductImageDto).ToList(),
-                ProductReviews = product.ProductReviews.Select(ToProductReviewDto).ToList(),
-                ProductVariants = product.ProductVariants.Select(ToProductVariantDto).ToList(),
+                Collections = product.CollectionProducts.Select(cp => ToCollection(cp.Collection)).ToList(),
+                Categories = product.ProductCategories.Select(pc => ToCategory(pc.Category)).ToList(),
+                Details = product.ProductDetails.Select(ToDetail).ToList(),
+                Images = product.ProductImages.Select(ToImage).ToList(),
+                Reviews = product.ProductReviews.Select(ToReview).ToList(),
+                Variants = product.ProductVariants.Select(ToVariant).ToList(),
             };
         }
     }

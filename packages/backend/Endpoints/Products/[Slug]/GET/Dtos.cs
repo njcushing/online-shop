@@ -4,40 +4,50 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
 {
     public class GetProductBySlugResponseDto
     {
-        public class CollectionProductDto
+        public class Collection
         {
-            public Guid CollectionId { get; set; }
-
-            [JsonIgnore]
-            public Guid ProductId { get; set; }
-
-            public string? Name { get; set; }
-        }
-
-        public class ProductCategoryDto
-        {
-            public class CategoryDto
+            public class Product
             {
                 public Guid Id { get; set; }
 
-                public Guid? ParentId { get; set; }
-
-                public required string Name { get; set; }
+                public string? Name { get; set; }
 
                 public required string Slug { get; set; }
 
-                public string? Description { get; set; }
+                public virtual ICollection<Image> Images { get; set; } = new List<Image>();
             }
 
+            public Guid Id { get; set; }
+
+            public required string Name { get; set; }
+
+            public string? Description { get; set; }
+
+            public required string Slug { get; set; }
+
+            public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+        }
+
+        public class Category
+        {
             [JsonIgnore]
             public Guid ProductId { get; set; }
 
+            [JsonIgnore]
             public Guid CategoryId { get; set; }
 
-            public required virtual CategoryDto Category { get; set; }
+            public Guid Id { get; set; }
+
+            public Guid? ParentId { get; set; }
+
+            public required string Name { get; set; }
+
+            public required string Slug { get; set; }
+
+            public string? Description { get; set; }
         }
 
-        public class ProductDetailDto
+        public class Detail
         {
             public Guid Id { get; set; }
 
@@ -49,7 +59,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             public required string Value { get; set; }
         }
 
-        public class ProductImageDto
+        public class Image
         {
             public Guid Id { get; set; }
 
@@ -63,7 +73,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             public int Position { get; set; }
         }
 
-        public class ProductReviewDto
+        public class Review
         {
             public Guid Id { get; set; }
 
@@ -77,11 +87,11 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             public short Rating { get; set; }
         }
 
-        public class ProductVariantDto
+        public class Variant
         {
-            public class ProductVariantAttributeDto
+            public class Attribute
             {
-                public class ProductAttributeDto
+                public class AttributeType
                 {
                     public Guid Id { get; set; }
 
@@ -90,7 +100,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                     public required string Title { get; set; }
                 }
 
-                public class ProductAttributeValueDto
+                public class AttributeValue
                 {
                     [JsonIgnore]
                     public Guid ProductAttributeId { get; set; }
@@ -106,12 +116,12 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                 [JsonIgnore]
                 public Guid ProductAttributeId { get; set; }
 
-                public required virtual ProductAttributeDto ProductAttribute { get; set; }
+                public required virtual AttributeType Type { get; set; }
 
-                public required virtual ProductAttributeValueDto ProductAttributeValue { get; set; }
+                public required virtual AttributeValue Value { get; set; }
             }
 
-            public class ProductVariantDetailDto
+            public class Detail
             {
                 public Guid Id { get; set; }
 
@@ -148,9 +158,9 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
 
             public DateTime ReleaseDate { get; set; }
 
-            public virtual ICollection<ProductVariantAttributeDto> ProductVariantAttributes { get; set; } = new List<ProductVariantAttributeDto>();
+            public virtual ICollection<Attribute> Attributes { get; set; } = new List<Attribute>();
 
-            public virtual ICollection<ProductVariantDetailDto> ProductVariantDetails { get; set; } = new List<ProductVariantDetailDto>();
+            public virtual ICollection<Detail> Details { get; set; } = new List<Detail>();
         }
 
         public Guid Id { get; set; }
@@ -167,16 +177,16 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
 
         public DateTime ReleaseDate { get; set; }
 
-        public virtual ICollection<CollectionProductDto> CollectionProducts { get; set; } = new List<CollectionProductDto>();
+        public virtual ICollection<Collection> Collections { get; set; } = new List<Collection>();
 
-        public virtual ICollection<ProductCategoryDto> ProductCategories { get; set; } = new List<ProductCategoryDto>();
+        public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
 
-        public virtual ICollection<ProductDetailDto> ProductDetails { get; set; } = new List<ProductDetailDto>();
+        public virtual ICollection<Detail> Details { get; set; } = new List<Detail>();
 
-        public virtual ICollection<ProductImageDto> ProductImages { get; set; } = new List<ProductImageDto>();
+        public virtual ICollection<Image> Images { get; set; } = new List<Image>();
 
-        public virtual ICollection<ProductReviewDto> ProductReviews { get; set; } = new List<ProductReviewDto>();
+        public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
 
-        public virtual ICollection<ProductVariantDto> ProductVariants { get; set; } = new List<ProductVariantDto>();
+        public virtual ICollection<Variant> Variants { get; set; } = new List<Variant>();
     }
 }
