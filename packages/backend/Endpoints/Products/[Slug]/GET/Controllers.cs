@@ -18,6 +18,12 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             var product = await _context.Products
                 .Include(p => p.CollectionProducts)
                 .Include(p => p.ProductVariants)
+                    .ThenInclude(pv => pv.ProductVariantAttributes)
+                        .ThenInclude(pva => pva.ProductAttribute)
+                .Include(p => p.ProductVariants)
+                    .ThenInclude(pv => pv.ProductVariantAttributes)
+                        .ThenInclude(pva => pva.ProductAttributeValue)
+                .Include(p => p.ProductVariants)
                     .ThenInclude(pv => pv.ProductVariantDetails)
                 .Include(p => p.ProductImages)
                 .Include(p => p.ProductCategories)

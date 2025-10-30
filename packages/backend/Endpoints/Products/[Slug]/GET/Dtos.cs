@@ -79,6 +79,38 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
 
         public class ProductVariantDto
         {
+            public class ProductVariantAttributeDto
+            {
+                public class ProductAttributeDto
+                {
+                    public Guid Id { get; set; }
+
+                    public required string Name { get; set; }
+
+                    public required string Title { get; set; }
+                }
+
+                public class ProductAttributeValueDto
+                {
+                    [JsonIgnore]
+                    public Guid ProductAttributeId { get; set; }
+
+                    public required string Code { get; set; }
+
+                    public required string Name { get; set; }
+                }
+
+                [JsonIgnore]
+                public Guid ProductVariantId { get; set; }
+
+                [JsonIgnore]
+                public Guid ProductAttributeId { get; set; }
+
+                public required virtual ProductAttributeDto ProductAttribute { get; set; }
+
+                public required virtual ProductAttributeValueDto ProductAttributeValue { get; set; }
+            }
+
             public class ProductVariantDetailDto
             {
                 public Guid Id { get; set; }
@@ -115,6 +147,8 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             public bool Active { get; set; }
 
             public DateTime ReleaseDate { get; set; }
+
+            public virtual ICollection<ProductVariantAttributeDto> ProductVariantAttributes { get; set; } = new List<ProductVariantAttributeDto>();
 
             public virtual ICollection<ProductVariantDetailDto> ProductVariantDetails { get; set; } = new List<ProductVariantDetailDto>();
         }

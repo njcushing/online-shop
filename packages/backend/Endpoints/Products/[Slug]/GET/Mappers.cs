@@ -66,6 +66,34 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             };
         }
 
+        private static GetProductBySlugResponseDto.ProductVariantDto.ProductVariantAttributeDto.ProductAttributeDto ToProductAttributeDto(ProductAttribute productAttribute)
+        {
+            return new GetProductBySlugResponseDto.ProductVariantDto.ProductVariantAttributeDto.ProductAttributeDto
+            {
+                Id = productAttribute.Id,
+                Name = productAttribute.Name,
+                Title = productAttribute.Title,
+            };
+        }
+
+        private static GetProductBySlugResponseDto.ProductVariantDto.ProductVariantAttributeDto.ProductAttributeValueDto ToProductAttributeValueDto(ProductAttributeValue productAttributeValue)
+        {
+            return new GetProductBySlugResponseDto.ProductVariantDto.ProductVariantAttributeDto.ProductAttributeValueDto
+            {
+                Code = productAttributeValue.Code,
+                Name = productAttributeValue.Name,
+            };
+        }
+
+        private static GetProductBySlugResponseDto.ProductVariantDto.ProductVariantAttributeDto ToProductVariantAttributeDto(ProductVariantAttribute productVariantAttribute)
+        {
+            return new GetProductBySlugResponseDto.ProductVariantDto.ProductVariantAttributeDto
+            {
+                ProductAttribute = ToProductAttributeDto(productVariantAttribute.ProductAttribute),
+                ProductAttributeValue = ToProductAttributeValueDto(productVariantAttribute.ProductAttributeValue),
+            };
+        }
+
         private static GetProductBySlugResponseDto.ProductVariantDto.ProductVariantDetailDto ToProductVariantDetailDto(ProductVariantDetail productVariantDetail)
         {
             return new GetProductBySlugResponseDto.ProductVariantDto.ProductVariantDetailDto
@@ -92,13 +120,13 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                 AllowanceOverride = productVariant.AllowanceOverride,
                 Active = productVariant.Active,
                 ReleaseDate = productVariant.ReleaseDate,
+                ProductVariantAttributes = productVariant.ProductVariantAttributes.Select(ToProductVariantAttributeDto).ToList(),
                 ProductVariantDetails = productVariant.ProductVariantDetails.Select(ToProductVariantDetailDto).ToList(),
             };
         }
 
         public static GetProductBySlugResponseDto ToDto(Product product)
         {
-
             return new GetProductBySlugResponseDto
             {
                 Id = product.Id,
