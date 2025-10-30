@@ -26,9 +26,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["CategoryDto"][];
-                        "application/json": components["schemas"]["CategoryDto"][];
-                        "text/json": components["schemas"]["CategoryDto"][];
+                        "text/plain": components["schemas"]["Categories.GET.GetCategoriesResponseDto"][];
+                        "application/json": components["schemas"]["Categories.GET.GetCategoriesResponseDto"][];
+                        "text/json": components["schemas"]["Categories.GET.GetCategoriesResponseDto"][];
                     };
                 };
                 /** @description Not Found */
@@ -37,9 +37,59 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
+                        "text/plain": components["schemas"]["Microsoft.AspNetCore.Mvc.ProblemDetails"];
+                        "application/json": components["schemas"]["Microsoft.AspNetCore.Mvc.ProblemDetails"];
+                        "text/json": components["schemas"]["Microsoft.AspNetCore.Mvc.ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/products/{slug}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    slug: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto"];
+                        "application/json": components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto"];
+                        "text/json": components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Microsoft.AspNetCore.Mvc.ProblemDetails"];
+                        "application/json": components["schemas"]["Microsoft.AspNetCore.Mvc.ProblemDetails"];
+                        "text/json": components["schemas"]["Microsoft.AspNetCore.Mvc.ProblemDetails"];
                     };
                 };
             };
@@ -74,9 +124,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["SettingsDto"];
-                        "application/json": components["schemas"]["SettingsDto"];
-                        "text/json": components["schemas"]["SettingsDto"];
+                        "text/plain": components["schemas"]["Settings.GET.GetSettingsResponseDto"];
+                        "application/json": components["schemas"]["Settings.GET.GetSettingsResponseDto"];
+                        "text/json": components["schemas"]["Settings.GET.GetSettingsResponseDto"];
                     };
                 };
                 /** @description Not Found */
@@ -85,9 +135,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
+                        "text/plain": components["schemas"]["Microsoft.AspNetCore.Mvc.ProblemDetails"];
+                        "application/json": components["schemas"]["Microsoft.AspNetCore.Mvc.ProblemDetails"];
+                        "text/json": components["schemas"]["Microsoft.AspNetCore.Mvc.ProblemDetails"];
                     };
                 };
             };
@@ -104,7 +154,7 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        CategoryDto: {
+        "Categories.GET.GetCategoriesResponseDto": {
             /** Format: uuid */
             id: string;
             /** Format: uuid */
@@ -113,14 +163,15 @@ export interface components {
             slug: string;
             description?: string | null;
         };
-        HttpValidationProblemDetails: components["schemas"]["ProblemDetails"] & ({
-            errors?: {
-                [key: string]: string[];
-            };
-        } & {
-            [key: string]: unknown;
-        });
-        ProblemDetails: {
+        "Microsoft.AspNetCore.Http.HttpValidationProblemDetails": components["schemas"]["Microsoft.AspNetCore.Mvc.ProblemDetails"] &
+            ({
+                errors?: {
+                    [key: string]: string[];
+                };
+            } & {
+                [key: string]: unknown;
+            });
+        "Microsoft.AspNetCore.Mvc.ProblemDetails": {
             type?: string | null;
             title?: string | null;
             /** Format: int32 */
@@ -130,7 +181,113 @@ export interface components {
         } & {
             [key: string]: unknown;
         };
-        SettingsDto: {
+        "Products._Slug.GET.GetProductBySlugResponseDto": {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            description?: string | null;
+            slug: string;
+            /** Format: int32 */
+            allowance: number;
+            tags?: string[] | null;
+            /** Format: date-time */
+            releaseDate: string;
+            collections: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Collection"][];
+            categories: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Category"][];
+            details: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Detail"][];
+            images: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Image"][];
+            reviews: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Review"][];
+            variants: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Variant"][];
+        };
+        "Products._Slug.GET.GetProductBySlugResponseDto.Category": {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            parentId?: string | null;
+            name: string;
+            slug: string;
+            description?: string | null;
+        };
+        "Products._Slug.GET.GetProductBySlugResponseDto.Collection": {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            description?: string | null;
+            slug: string;
+            products: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Collection.Product"][];
+        };
+        "Products._Slug.GET.GetProductBySlugResponseDto.Collection.Product": {
+            /** Format: uuid */
+            id: string;
+            name?: string | null;
+            slug: string;
+            images: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Image"][];
+        };
+        "Products._Slug.GET.GetProductBySlugResponseDto.Detail": {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            value: string;
+        };
+        "Products._Slug.GET.GetProductBySlugResponseDto.Image": {
+            /** Format: uuid */
+            id: string;
+            src: string;
+            alt: string;
+            /** Format: int32 */
+            position: number;
+        };
+        "Products._Slug.GET.GetProductBySlugResponseDto.Review": {
+            /** Format: uuid */
+            id: string;
+            title?: string | null;
+            description: string;
+            /** Format: int32 */
+            rating: number;
+        };
+        "Products._Slug.GET.GetProductBySlugResponseDto.Variant": {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            sku: string;
+            canSubscribe?: boolean | null;
+            /** Format: double */
+            priceCurrent: number;
+            /** Format: double */
+            priceBase: number;
+            /** Format: double */
+            subscriptionDiscountPercentage?: number | null;
+            /** Format: int32 */
+            stock: number;
+            /** Format: int32 */
+            allowanceOverride?: number | null;
+            active: boolean;
+            /** Format: date-time */
+            releaseDate: string;
+            attributes: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Variant.Attribute"][];
+            details: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Variant.Detail"][];
+        };
+        "Products._Slug.GET.GetProductBySlugResponseDto.Variant.Attribute": {
+            type: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Variant.Attribute.AttributeType"];
+            value: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Variant.Attribute.AttributeValue"];
+        };
+        "Products._Slug.GET.GetProductBySlugResponseDto.Variant.Attribute.AttributeType": {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            title: string;
+        };
+        "Products._Slug.GET.GetProductBySlugResponseDto.Variant.Attribute.AttributeValue": {
+            code: string;
+            name: string;
+        };
+        "Products._Slug.GET.GetProductBySlugResponseDto.Variant.Detail": {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            value: string;
+        };
+        "Settings.GET.GetSettingsResponseDto": {
             /** Format: double */
             baseExpressDeliveryCost: number;
             /** Format: double */

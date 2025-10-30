@@ -95,7 +95,8 @@ export function useQueryContexts<const T extends readonly ContextParams[]>({
         if (errorCount > 0 && throwOnFailure) {
             const errorStrings = Object.values(errors).map((error) => {
                 if (typeof error === "string") return error;
-                return (error as components["schemas"]["ProblemDetails"]).title;
+                return (error as components["schemas"]["Microsoft.AspNetCore.Mvc.ProblemDetails"])
+                    .title;
             });
             throw new Error(errorStrings.join(", "));
         }

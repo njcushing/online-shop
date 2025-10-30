@@ -17,7 +17,7 @@ export type ApiResponseSuccess<ResponseBody> = ApiResponseBase & {
 
 export type ApiResponseError = ApiResponseBase & {
     success: false;
-    error: components["schemas"]["ProblemDetails"] | undefined;
+    error: components["schemas"]["Microsoft.AspNetCore.Mvc.ProblemDetails"] | undefined;
 };
 
 export type ApiResponse<ResponseBody> = ApiResponseSuccess<ResponseBody> | ApiResponseError;
