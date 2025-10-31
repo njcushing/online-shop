@@ -13,7 +13,8 @@ CREATE TABLE product_variants (
     active boolean NOT NULL,
     release_date timestamptz NOT NULL DEFAULT now(),
     created_at timestamptz NOT NULL DEFAULT now(),
-    updated_at timestamptz
+    updated_at timestamptz,
+    UNIQUE (id, product_id)
 );
 
 -- migrate:down
