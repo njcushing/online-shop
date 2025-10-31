@@ -9,6 +9,8 @@ public partial class ProductReview
 
     public Guid ProductId { get; set; }
 
+    public Guid? ProductVariantId { get; set; }
+
     public string? Title { get; set; }
 
     public string Description { get; set; } = null!;
@@ -20,4 +22,6 @@ public partial class ProductReview
     public DateTime? UpdatedAt { get; set; }
 
     public virtual Product Product { get; set; } = null!;
+
+    public virtual ProductVariant? ProductVariant { get; set; }
 }

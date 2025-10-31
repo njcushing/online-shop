@@ -65,6 +65,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             return new GetProductBySlugResponseDto.Review
             {
                 Id = productReview.Id,
+                VariantId = productReview.ProductVariantId,
                 Title = productReview.Title,
                 Description = productReview.Description,
                 Rating = productReview.Rating,

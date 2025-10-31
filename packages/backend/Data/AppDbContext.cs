@@ -541,6 +541,7 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("created_at");
             entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.ProductId).HasColumnName("product_id");
+            entity.Property(e => e.ProductVariantId).HasColumnName("product_variant_id");
             entity.Property(e => e.Rating).HasColumnName("rating");
             entity.Property(e => e.Title).HasColumnName("title");
             entity.Property(e => e.UpdatedAt)
@@ -550,6 +551,12 @@ public partial class AppDbContext : DbContext
             entity.HasOne(d => d.Product).WithMany(p => p.ProductReviews)
                 .HasForeignKey(d => d.ProductId)
                 .HasConstraintName("product_reviews_product_id_fkey");
+
+            entity.HasOne(d => d.ProductVariant).WithMany(p => p.ProductReviews)
+                .HasPrincipalKey(p => new { p.Id, p.ProductId })
+                .HasForeignKey(d => new { d.ProductVariantId, d.ProductId })
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("fk_product_variant_matches_product");
         });
 
         modelBuilder.Entity<ProductVariant>(entity =>
@@ -557,6 +564,8 @@ public partial class AppDbContext : DbContext
             entity.HasKey(e => e.Id).HasName("product_variants_pkey");
 
             entity.ToTable("product_variants");
+
+            entity.HasIndex(e => new { e.Id, e.ProductId }, "product_variants_id_product_id_key").IsUnique();
 
             entity.HasIndex(e => e.Sku, "product_variants_sku_key").IsUnique();
 
