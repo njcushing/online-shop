@@ -1,6 +1,9 @@
 BEGIN;
 
 INSERT INTO product_attribute_values (product_attribute_id, code, name, position) VALUES
+    ((SELECT id FROM product_attributes WHERE name='Size'), 'SM', 'Small', 0),
+    ((SELECT id FROM product_attributes WHERE name='Size'), 'MD', 'Medium', 1),
+    ((SELECT id FROM product_attributes WHERE name='Size'), 'LG', 'Large', 2),
     ((SELECT id FROM product_attributes WHERE name='Blend'), 'HO', 'House', 0),
     ((SELECT id FROM product_attributes WHERE name='Blend'), 'LT', 'Light', 1),
     ((SELECT id FROM product_attributes WHERE name='Blend'), 'MD', 'Medium', 2),
