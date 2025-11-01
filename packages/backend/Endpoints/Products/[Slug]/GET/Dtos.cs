@@ -4,6 +4,24 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
 {
     public class GetProductBySlugResponseDto
     {
+        public class ProductRating
+        {
+            public class RatingQuantities
+            {
+                [JsonPropertyName("5")] public int Five { get; set; }
+                [JsonPropertyName("4")] public int Four { get; set; }
+                [JsonPropertyName("3")] public int Three { get; set; }
+                [JsonPropertyName("2")] public int Two { get; set; }
+                [JsonPropertyName("1")] public int One { get; set; }
+            }
+
+            public double Average { get; set; }
+
+            public int Total { get; set; }
+
+            public RatingQuantities Quantities { get; set; } = new();
+        }
+
         public class Collection
         {
             public class Product
@@ -178,6 +196,8 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
         public List<string>? Tags { get; set; }
 
         public DateTime ReleaseDate { get; set; }
+
+        public required ProductRating Rating { get; set; }
 
         public virtual ICollection<Collection> Collections { get; set; } = new List<Collection>();
 

@@ -130,7 +130,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             };
         }
 
-        public static GetProductBySlugResponseDto ToDto(Product product)
+        public static GetProductBySlugResponseDto ToDto(Product product, GetProductBySlugResponseDto.ProductRating rating)
         {
             return new GetProductBySlugResponseDto
             {
@@ -141,6 +141,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                 Allowance = product.Allowance,
                 Tags = product.Tags,
                 ReleaseDate = product.ReleaseDate,
+                Rating = rating,
                 Collections = product.CollectionProducts.Select(cp => ToCollection(cp.Collection)).ToList(),
                 Categories = product.ProductCategories.Select(pc => ToCategory(pc.Category)).ToList(),
                 Details = product.ProductDetails.Select(ToDetail).ToList(),

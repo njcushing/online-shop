@@ -35,14 +35,27 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                 .Include(p => p.ProductDetails)
                 .FirstOrDefaultAsync(p => p.Active && p.Slug == slug);
 
-
             if (product == null) return Problem(
                 statusCode: StatusCodes.Status404NotFound,
                 title: "Product not found",
                 detail: $"No product with the specified slug '{slug}' could be located."
             );
 
-            return Ok(GetProductBySlugResponseMapper.ToDto(product));
+            var rating = new GetProductBySlugResponseDto.ProductRating
+            {
+                Average = product.ProductReviews.Average(r => r.Rating),
+                Total = product.ProductReviews.Count,
+                Quantities = new GetProductBySlugResponseDto.ProductRating.RatingQuantities
+                {
+                    Five = product.ProductReviews.Count(r => r.Rating == 5),
+                    Four = product.ProductReviews.Count(r => r.Rating == 4),
+                    Three = product.ProductReviews.Count(r => r.Rating == 3),
+                    Two = product.ProductReviews.Count(r => r.Rating == 2),
+                    One = product.ProductReviews.Count(r => r.Rating == 1),
+                }
+            };
+
+            return Ok(GetProductBySlugResponseMapper.ToDto(product, rating));
         }
     }
 }
