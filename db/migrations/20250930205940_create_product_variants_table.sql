@@ -12,9 +12,12 @@ CREATE TABLE product_variants (
     allowance_override int NULL,
     active boolean NOT NULL,
     release_date timestamptz NOT NULL DEFAULT now(),
+    attribute_hash text,
     created_at timestamptz NOT NULL DEFAULT now(),
     updated_at timestamptz,
-    UNIQUE (id, product_id)
+    UNIQUE (id, product_id),
+    CONSTRAINT unique_product_variant_attribute_combination_per_product
+        UNIQUE (product_id, attribute_hash)
 );
 
 -- migrate:down
