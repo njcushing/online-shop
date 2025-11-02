@@ -46,6 +46,21 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             public virtual ICollection<Product> Products { get; set; } = new List<Product>();
         }
 
+        public class AttributeOrder
+        {
+            [JsonIgnore]
+            public Guid ProductId { get; set; }
+
+            [JsonIgnore]
+            public Guid ProductAttributeId { get; set; }
+
+            public string Name { get; set; } = null!;
+
+            public string Title { get; set; } = null!;
+
+            public int Position { get; set; }
+        }
+
         public class Category
         {
             [JsonIgnore]
@@ -200,6 +215,8 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
         public required ProductRating Rating { get; set; }
 
         public virtual ICollection<Collection> Collections { get; set; } = new List<Collection>();
+
+        public virtual ICollection<AttributeOrder> Attributes { get; set; } = new List<AttributeOrder>();
 
         public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
 

@@ -27,6 +27,16 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             };
         }
 
+        private static GetProductBySlugResponseDto.AttributeOrder ToAttributeOrder(ProductAttributeOrder productAttributeOrder)
+        {
+            return new GetProductBySlugResponseDto.AttributeOrder
+            {
+                Position = productAttributeOrder.Position,
+                Name = productAttributeOrder.ProductAttribute.Name,
+                Title = productAttributeOrder.ProductAttribute.Title,
+            };
+        }
+
         private static GetProductBySlugResponseDto.Category ToCategory(Category category)
         {
             return new GetProductBySlugResponseDto.Category
@@ -143,6 +153,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                 ReleaseDate = product.ReleaseDate,
                 Rating = rating,
                 Collections = product.CollectionProducts.Select(cp => ToCollection(cp.Collection)).ToList(),
+                Attributes = product.ProductAttributeOrders.Select(ToAttributeOrder).ToList(),
                 Categories = product.ProductCategories.Select(pc => ToCategory(pc.Category)).ToList(),
                 Details = product.ProductDetails.Select(ToDetail).ToList(),
                 Images = product.ProductImages.Select(ToImage).ToList(),
