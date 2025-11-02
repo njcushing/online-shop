@@ -1,7 +1,7 @@
 -- migrate:up
 CREATE TABLE product_variant_attributes (
     product_id uuid NOT NULL REFERENCES products(id) ON DELETE CASCADE,
-    product_variant_id uuid NOT NULL REFERENCES product_variants(id) ON DELETE CASCADE,
+    product_variant_id uuid NOT NULL,
     product_attribute_id uuid NOT NULL REFERENCES product_attributes(id) ON DELETE RESTRICT,
     product_attribute_value_code text NOT NULL,
     created_at timestamptz NOT NULL DEFAULT now(),
