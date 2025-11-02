@@ -29,6 +29,8 @@ public partial class ProductVariant
 
     public DateTime ReleaseDate { get; set; }
 
+    public string? AttributeHash { get; set; }
+
     public DateTime CreatedAt { get; set; }
 
     public DateTime? UpdatedAt { get; set; }

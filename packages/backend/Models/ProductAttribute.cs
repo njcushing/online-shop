@@ -15,6 +15,8 @@ public partial class ProductAttribute
 
     public DateTime? UpdatedAt { get; set; }
 
+    public virtual ICollection<ProductAttributeOrder> ProductAttributeOrders { get; set; } = new List<ProductAttributeOrder>();
+
     public virtual ICollection<ProductAttributeValue> ProductAttributeValues { get; set; } = new List<ProductAttributeValue>();
 
     public virtual ICollection<ProductVariantAttribute> ProductVariantAttributes { get; set; } = new List<ProductVariantAttribute>();

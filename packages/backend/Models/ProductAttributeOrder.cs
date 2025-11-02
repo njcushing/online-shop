@@ -3,15 +3,13 @@ using System.Collections.Generic;
 
 namespace Cafree.Api.Models;
 
-public partial class ProductVariantAttribute
+public partial class ProductAttributeOrder
 {
     public Guid ProductId { get; set; }
 
-    public Guid ProductVariantId { get; set; }
-
     public Guid ProductAttributeId { get; set; }
 
-    public string ProductAttributeValueCode { get; set; } = null!;
+    public int Position { get; set; }
 
     public DateTime CreatedAt { get; set; }
 
@@ -21,9 +19,5 @@ public partial class ProductVariantAttribute
 
     public virtual ProductAttribute ProductAttribute { get; set; } = null!;
 
-    public virtual ProductAttributeOrder ProductAttributeOrder { get; set; } = null!;
-
-    public virtual ProductAttributeValue ProductAttributeValue { get; set; } = null!;
-
-    public virtual ProductVariant ProductVariant { get; set; } = null!;
+    public virtual ICollection<ProductVariantAttribute> ProductVariantAttributes { get; set; } = new List<ProductVariantAttribute>();
 }
