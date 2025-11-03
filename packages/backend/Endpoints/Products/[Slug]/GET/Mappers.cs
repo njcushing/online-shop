@@ -153,7 +153,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                 ReleaseDate = product.ReleaseDate,
                 Rating = rating,
                 Collections = product.CollectionProducts.Select(cp => ToCollection(cp.Collection)).ToList(),
-                Attributes = product.ProductAttributeOrders.Select(ToAttributeOrder).ToList(),
+                Attributes = product.ProductAttributeOrders.OrderBy(pao => pao.Position).Select(ToAttributeOrder).ToList(),
                 Categories = product.ProductCategories.Select(pc => ToCategory(pc.Category)).ToList(),
                 Details = product.ProductDetails.Select(ToDetail).ToList(),
                 Images = product.ProductImages.Select(ToImage).ToList(),
