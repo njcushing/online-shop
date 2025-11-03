@@ -11,7 +11,7 @@ const method = "get";
 const code = 200;
 const contentType = "application/json";
 type Responses = paths[typeof endpoint][typeof method]["responses"];
-type ResponseBody = Responses[typeof code]["content"][typeof contentType];
+export type ResponseBody = Responses[typeof code]["content"][typeof contentType];
 
 export const getProductBySlug: HTTPMethodTypes.GET<RequestParams, ResponseBody> = async (data) => {
     const { params } = data;
