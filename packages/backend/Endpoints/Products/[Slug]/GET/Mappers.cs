@@ -98,6 +98,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             {
                 Code = productAttributeValue.Code,
                 Name = productAttributeValue.Name,
+                Position = productAttributeValue.Position,
             };
         }
 

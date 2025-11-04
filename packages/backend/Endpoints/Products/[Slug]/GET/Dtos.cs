@@ -103,7 +103,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
 
             public required string Alt { get; set; }
 
-            public int Position { get; set; }
+            public required int Position { get; set; }
         }
 
         public class Review
@@ -143,6 +143,8 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                     public required string Code { get; set; }
 
                     public required string Name { get; set; }
+
+                    public required int Position { get; set; }
                 }
 
                 [JsonIgnore]
