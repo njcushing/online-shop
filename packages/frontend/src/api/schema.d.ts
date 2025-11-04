@@ -308,6 +308,8 @@ export interface components {
         "Products._Slug.GET.GetProductBySlugResponseDto.Variant.Attribute.AttributeValue": {
             code: string;
             name: string;
+            /** Format: int32 */
+            position: number;
         };
         "Products._Slug.GET.GetProductBySlugResponseDto.Variant.Detail": {
             /** Format: uuid */
