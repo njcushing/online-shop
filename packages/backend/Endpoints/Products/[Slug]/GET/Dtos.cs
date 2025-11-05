@@ -172,6 +172,20 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                 public required string Value { get; set; }
             }
 
+            public class Image
+            {
+                public Guid Id { get; set; }
+
+                [JsonIgnore]
+                public Guid ProductId { get; set; }
+
+                public required string Src { get; set; }
+
+                public required string Alt { get; set; }
+
+                public required int Position { get; set; }
+            }
+
             public Guid Id { get; set; }
 
             [JsonIgnore]
@@ -200,6 +214,8 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             public virtual ICollection<Attribute> Attributes { get; set; } = new List<Attribute>();
 
             public virtual ICollection<Detail> Details { get; set; } = new List<Detail>();
+
+            public virtual ICollection<Image> Images { get; set; } = new List<Image>();
         }
 
         public Guid Id { get; set; }

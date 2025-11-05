@@ -11,7 +11,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                 Id = collectionProduct.Product.Id,
                 Name = collectionProduct.Name ?? collectionProduct.Product.Name,
                 Slug = collectionProduct.Product.Slug,
-                Images = collectionProduct.Product.ProductImages.Select(ToImage).ToList(),
+                Images = collectionProduct.Product.ProductImages.Select(ToProductImage).ToList(),
             };
         }
 
@@ -59,7 +59,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             };
         }
 
-        private static GetProductBySlugResponseDto.Image ToImage(ProductImage productImage)
+        private static GetProductBySlugResponseDto.Image ToProductImage(ProductImage productImage)
         {
             return new GetProductBySlugResponseDto.Image
             {
@@ -122,6 +122,17 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             };
         }
 
+        private static GetProductBySlugResponseDto.Variant.Image ToProductVariantImage(ProductVariantImage productVariantImage)
+        {
+            return new GetProductBySlugResponseDto.Variant.Image
+            {
+                Id = productVariantImage.Id,
+                Src = productVariantImage.Src,
+                Alt = productVariantImage.Alt,
+                Position = productVariantImage.Position,
+            };
+        }
+
         private static GetProductBySlugResponseDto.Variant ToVariant(ProductVariant productVariant)
         {
             return new GetProductBySlugResponseDto.Variant
@@ -139,6 +150,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                 ReleaseDate = productVariant.ReleaseDate,
                 Attributes = productVariant.ProductVariantAttributes.Select(ToAttribute).ToList(),
                 Details = productVariant.ProductVariantDetails.Select(ToDetail).ToList(),
+                Images = productVariant.ProductVariantImages.Select(ToProductVariantImage).ToList(),
             };
         }
 
@@ -158,7 +170,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                 Attributes = product.ProductAttributeOrders.OrderBy(pao => pao.Position).Select(ToAttributeOrder).ToList(),
                 Categories = product.ProductCategories.Select(pc => ToCategory(pc.Category)).ToList(),
                 Details = product.ProductDetails.Select(ToDetail).ToList(),
-                Images = product.ProductImages.Select(ToImage).ToList(),
+                Images = product.ProductImages.Select(ToProductImage).ToList(),
                 Reviews = product.ProductReviews.Select(ToReview).ToList(),
                 Variants = product.ProductVariants.Select(ToVariant).ToList(),
             };
