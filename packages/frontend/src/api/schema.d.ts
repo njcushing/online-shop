@@ -272,6 +272,8 @@ export interface components {
             description: string;
             /** Format: int32 */
             rating: number;
+            /** Format: date-time */
+            createdAt: string;
         };
         "Products._Slug.GET.GetProductBySlugResponseDto.Variant": {
             /** Format: uuid */
@@ -294,6 +296,7 @@ export interface components {
             releaseDate: string;
             attributes: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Variant.Attribute"][];
             details: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Variant.Detail"][];
+            images: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Variant.Image"][];
         };
         "Products._Slug.GET.GetProductBySlugResponseDto.Variant.Attribute": {
             type: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Variant.Attribute.AttributeType"];
@@ -316,6 +319,14 @@ export interface components {
             id: string;
             name: string;
             value: string;
+        };
+        "Products._Slug.GET.GetProductBySlugResponseDto.Variant.Image": {
+            /** Format: uuid */
+            id: string;
+            src: string;
+            alt: string;
+            /** Format: int32 */
+            position: number;
         };
         "Settings.GET.GetSettingsResponseDto": {
             /** Format: double */
