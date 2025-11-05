@@ -47,5 +47,7 @@ public partial class ProductVariant
 
     public virtual ICollection<ProductVariantDetail> ProductVariantDetails { get; set; } = new List<ProductVariantDetail>();
 
+    public virtual ICollection<ProductVariantImage> ProductVariantImages { get; set; } = new List<ProductVariantImage>();
+
     public virtual ICollection<Subscription> Subscriptions { get; set; } = new List<Subscription>();
 }

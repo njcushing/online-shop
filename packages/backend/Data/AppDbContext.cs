@@ -56,6 +56,8 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<ProductVariantDetail> ProductVariantDetails { get; set; }
 
+    public virtual DbSet<ProductVariantImage> ProductVariantImages { get; set; }
+
     public virtual DbSet<Promotion> Promotions { get; set; }
 
     public virtual DbSet<PromotionType> PromotionTypes { get; set; }
@@ -702,6 +704,31 @@ public partial class AppDbContext : DbContext
             entity.HasOne(d => d.ProductVariant).WithMany(p => p.ProductVariantDetails)
                 .HasForeignKey(d => d.ProductVariantId)
                 .HasConstraintName("product_variant_details_product_variant_id_fkey");
+        });
+
+        modelBuilder.Entity<ProductVariantImage>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("product_variant_images_pkey");
+
+            entity.ToTable("product_variant_images");
+
+            entity.HasIndex(e => new { e.ProductVariantId, e.Position }, "product_variant_images_product_variant_id_position_key").IsUnique();
+
+            entity.Property(e => e.Id)
+                .HasDefaultValueSql("uuid_generate_v4()")
+                .HasColumnName("id");
+            entity.Property(e => e.Alt).HasColumnName("alt");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("now()")
+                .HasColumnName("created_at");
+            entity.Property(e => e.Position).HasColumnName("position");
+            entity.Property(e => e.ProductVariantId).HasColumnName("product_variant_id");
+            entity.Property(e => e.Src).HasColumnName("src");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+
+            entity.HasOne(d => d.ProductVariant).WithMany(p => p.ProductVariantImages)
+                .HasForeignKey(d => d.ProductVariantId)
+                .HasConstraintName("product_variant_images_product_variant_id_fkey");
         });
 
         modelBuilder.Entity<Promotion>(entity =>
