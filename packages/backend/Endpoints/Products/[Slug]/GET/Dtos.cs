@@ -119,7 +119,9 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
 
             public required string Description { get; set; }
 
-            public short Rating { get; set; }
+            public required short Rating { get; set; }
+
+            public required DateTime CreatedAt { get; set; }
         }
 
         public class Variant

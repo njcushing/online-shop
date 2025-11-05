@@ -79,6 +79,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                 Title = productReview.Title,
                 Description = productReview.Description,
                 Rating = productReview.Rating,
+                CreatedAt = productReview.CreatedAt,
             };
         }
 
