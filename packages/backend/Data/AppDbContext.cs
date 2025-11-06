@@ -48,6 +48,8 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<ProductImage> ProductImages { get; set; }
 
+    public virtual DbSet<ProductRating> ProductRatings { get; set; }
+
     public virtual DbSet<ProductReview> ProductReviews { get; set; }
 
     public virtual DbSet<ProductVariant> ProductVariants { get; set; }
@@ -556,6 +558,46 @@ public partial class AppDbContext : DbContext
             entity.HasOne(d => d.Product).WithMany(p => p.ProductImages)
                 .HasForeignKey(d => d.ProductId)
                 .HasConstraintName("product_images_product_id_fkey");
+        });
+
+        modelBuilder.Entity<ProductRating>(entity =>
+        {
+            entity.HasKey(e => e.ProductId).HasName("product_ratings_pkey");
+
+            entity.ToTable("product_ratings");
+
+            entity.Property(e => e.ProductId)
+                .ValueGeneratedNever()
+                .HasColumnName("product_id");
+            entity.Property(e => e.Average)
+                .HasPrecision(3, 2)
+                .HasColumnName("average");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("now()")
+                .HasColumnName("created_at");
+            entity.Property(e => e.Rating1)
+                .HasDefaultValue(0)
+                .HasColumnName("rating_1");
+            entity.Property(e => e.Rating2)
+                .HasDefaultValue(0)
+                .HasColumnName("rating_2");
+            entity.Property(e => e.Rating3)
+                .HasDefaultValue(0)
+                .HasColumnName("rating_3");
+            entity.Property(e => e.Rating4)
+                .HasDefaultValue(0)
+                .HasColumnName("rating_4");
+            entity.Property(e => e.Rating5)
+                .HasDefaultValue(0)
+                .HasColumnName("rating_5");
+            entity.Property(e => e.Total)
+                .HasDefaultValue(0)
+                .HasColumnName("total");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+
+            entity.HasOne(d => d.Product).WithOne(p => p.ProductRating)
+                .HasForeignKey<ProductRating>(d => d.ProductId)
+                .HasConstraintName("product_ratings_product_id_fkey");
         });
 
         modelBuilder.Entity<ProductReview>(entity =>
