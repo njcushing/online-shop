@@ -37,7 +37,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             };
         }
 
-        private static GetProductBySlugResponseDto.Category ToCategory(Category category)
+        private static GetProductBySlugResponseDto.Category ToCategory(Models.Category category)
         {
             return new GetProductBySlugResponseDto.Category
             {
@@ -67,6 +67,23 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                 Src = productImage.Src,
                 Alt = productImage.Alt,
                 Position = productImage.Position,
+            };
+        }
+
+        private static GetProductBySlugResponseDto.ProductRating ToProductRating(ProductRating productRating)
+        {
+            return new GetProductBySlugResponseDto.ProductRating
+            {
+                Average = productRating.Average,
+                Total = productRating.Total,
+                Quantities = new GetProductBySlugResponseDto.ProductRating.RatingQuantities
+                {
+                    Rating5 = productRating.Rating5,
+                    Rating4 = productRating.Rating4,
+                    Rating3 = productRating.Rating3,
+                    Rating2 = productRating.Rating2,
+                    Rating1 = productRating.Rating1,
+                }
             };
         }
 
@@ -154,7 +171,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             };
         }
 
-        public static GetProductBySlugResponseDto ToDto(Product product, GetProductBySlugResponseDto.ProductRating rating)
+        public static GetProductBySlugResponseDto ToDto(Product product)
         {
             return new GetProductBySlugResponseDto
             {
@@ -165,12 +182,12 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                 Allowance = product.Allowance,
                 Tags = product.Tags,
                 ReleaseDate = product.ReleaseDate,
-                Rating = rating,
                 Collections = product.CollectionProducts.Select(cp => ToCollection(cp.Collection)).ToList(),
                 Attributes = product.ProductAttributeOrders.OrderBy(pao => pao.Position).Select(ToAttributeOrder).ToList(),
-                Categories = product.ProductCategories.Select(pc => ToCategory(pc.Category)).ToList(),
+                Categories = product.CategoryProducts.Select(pc => ToCategory(pc.Category)).ToList(),
                 Details = product.ProductDetails.Select(ToDetail).ToList(),
                 Images = product.ProductImages.Select(ToProductImage).ToList(),
+                Rating = ToProductRating(product.ProductRating!),
                 Reviews = product.ProductReviews.Select(ToReview).ToList(),
                 Variants = product.ProductVariants.Select(ToVariant).ToList(),
             };

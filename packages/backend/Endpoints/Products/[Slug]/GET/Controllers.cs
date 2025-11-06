@@ -31,8 +31,9 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                 .Include(p => p.ProductVariants.Where(pv => pv.Active))
                     .ThenInclude(pv => pv.ProductVariantDetails)
                 .Include(p => p.ProductImages)
-                .Include(p => p.ProductCategories)
+                .Include(p => p.CategoryProducts)
                     .ThenInclude(pc => pc.Category)
+                .Include(p => p.ProductRating)
                 .Include(p => p.ProductReviews)
                 .Include(p => p.ProductDetails)
                 .FirstOrDefaultAsync(p => p.Active && p.Slug == slug);
@@ -43,21 +44,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                 detail: $"No product with the specified slug '{slug}' could be located."
             );
 
-            var rating = new GetProductBySlugResponseDto.ProductRating
-            {
-                Average = product.ProductReviews.Average(r => r.Rating),
-                Total = product.ProductReviews.Count,
-                Quantities = new GetProductBySlugResponseDto.ProductRating.RatingQuantities
-                {
-                    Five = product.ProductReviews.Count(r => r.Rating == 5),
-                    Four = product.ProductReviews.Count(r => r.Rating == 4),
-                    Three = product.ProductReviews.Count(r => r.Rating == 3),
-                    Two = product.ProductReviews.Count(r => r.Rating == 2),
-                    One = product.ProductReviews.Count(r => r.Rating == 1),
-                }
-            };
-
-            return Ok(GetProductBySlugResponseMapper.ToDto(product, rating));
+            return Ok(GetProductBySlugResponseMapper.ToDto(product));
         }
     }
 }

@@ -4,24 +4,6 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
 {
     public class GetProductBySlugResponseDto
     {
-        public class ProductRating
-        {
-            public class RatingQuantities
-            {
-                [JsonPropertyName("5")] public int Five { get; set; }
-                [JsonPropertyName("4")] public int Four { get; set; }
-                [JsonPropertyName("3")] public int Three { get; set; }
-                [JsonPropertyName("2")] public int Two { get; set; }
-                [JsonPropertyName("1")] public int One { get; set; }
-            }
-
-            public double Average { get; set; }
-
-            public int Total { get; set; }
-
-            public RatingQuantities Quantities { get; set; } = new();
-        }
-
         public class Collection
         {
             public class Product
@@ -104,6 +86,31 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             public required string Alt { get; set; }
 
             public required int Position { get; set; }
+        }
+
+        public class ProductRating
+        {
+            public class RatingQuantities
+            {
+                [JsonPropertyName("5")] public int Rating5 { get; set; }
+
+                [JsonPropertyName("4")] public int Rating4 { get; set; }
+
+                [JsonPropertyName("3")] public int Rating3 { get; set; }
+
+                [JsonPropertyName("2")] public int Rating2 { get; set; }
+
+                [JsonPropertyName("1")] public int Rating1 { get; set; }
+            }
+
+            [JsonIgnore]
+            public Guid ProductId { get; set; }
+
+            public decimal Average { get; set; }
+
+            public int Total { get; set; }
+
+            public RatingQuantities Quantities { get; set; } = new();
         }
 
         public class Review
@@ -232,8 +239,6 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
 
         public DateTime ReleaseDate { get; set; }
 
-        public required ProductRating Rating { get; set; }
-
         public virtual ICollection<Collection> Collections { get; set; } = new List<Collection>();
 
         public virtual ICollection<AttributeOrder> Attributes { get; set; } = new List<AttributeOrder>();
@@ -243,6 +248,8 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
         public virtual ICollection<Detail> Details { get; set; } = new List<Detail>();
 
         public virtual ICollection<Image> Images { get; set; } = new List<Image>();
+
+        public required virtual ProductRating Rating { get; set; }
 
         public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
 
