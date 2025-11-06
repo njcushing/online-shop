@@ -22,6 +22,8 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Category> Categories { get; set; }
 
+    public virtual DbSet<CategoryProduct> CategoryProducts { get; set; }
+
     public virtual DbSet<Collection> Collections { get; set; }
 
     public virtual DbSet<CollectionProduct> CollectionProducts { get; set; }
@@ -41,8 +43,6 @@ public partial class AppDbContext : DbContext
     public virtual DbSet<ProductAttributeOrder> ProductAttributeOrders { get; set; }
 
     public virtual DbSet<ProductAttributeValue> ProductAttributeValues { get; set; }
-
-    public virtual DbSet<ProductCategory> ProductCategories { get; set; }
 
     public virtual DbSet<ProductDetail> ProductDetails { get; set; }
 
@@ -205,6 +205,28 @@ public partial class AppDbContext : DbContext
                 .HasForeignKey(d => d.ParentId)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("categories_parent_id_fkey");
+        });
+
+        modelBuilder.Entity<CategoryProduct>(entity =>
+        {
+            entity.HasKey(e => new { e.CategoryId, e.ProductId }).HasName("category_products_pkey");
+
+            entity.ToTable("category_products");
+
+            entity.Property(e => e.CategoryId).HasColumnName("category_id");
+            entity.Property(e => e.ProductId).HasColumnName("product_id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("now()")
+                .HasColumnName("created_at");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+
+            entity.HasOne(d => d.Category).WithMany(p => p.CategoryProducts)
+                .HasForeignKey(d => d.CategoryId)
+                .HasConstraintName("category_products_category_id_fkey");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.CategoryProducts)
+                .HasForeignKey(d => d.ProductId)
+                .HasConstraintName("category_products_product_id_fkey");
         });
 
         modelBuilder.Entity<Collection>(entity =>
@@ -485,28 +507,6 @@ public partial class AppDbContext : DbContext
             entity.HasOne(d => d.ProductAttribute).WithMany(p => p.ProductAttributeValues)
                 .HasForeignKey(d => d.ProductAttributeId)
                 .HasConstraintName("product_attribute_values_product_attribute_id_fkey");
-        });
-
-        modelBuilder.Entity<ProductCategory>(entity =>
-        {
-            entity.HasKey(e => new { e.ProductId, e.CategoryId }).HasName("product_categories_pkey");
-
-            entity.ToTable("product_categories");
-
-            entity.Property(e => e.ProductId).HasColumnName("product_id");
-            entity.Property(e => e.CategoryId).HasColumnName("category_id");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("now()")
-                .HasColumnName("created_at");
-            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
-
-            entity.HasOne(d => d.Category).WithMany(p => p.ProductCategories)
-                .HasForeignKey(d => d.CategoryId)
-                .HasConstraintName("product_categories_category_id_fkey");
-
-            entity.HasOne(d => d.Product).WithMany(p => p.ProductCategories)
-                .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("product_categories_product_id_fkey");
         });
 
         modelBuilder.Entity<ProductDetail>(entity =>

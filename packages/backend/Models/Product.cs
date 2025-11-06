@@ -25,11 +25,11 @@ public partial class Product
 
     public DateTime? UpdatedAt { get; set; }
 
+    public virtual ICollection<CategoryProduct> CategoryProducts { get; set; } = new List<CategoryProduct>();
+
     public virtual ICollection<CollectionProduct> CollectionProducts { get; set; } = new List<CollectionProduct>();
 
     public virtual ICollection<ProductAttributeOrder> ProductAttributeOrders { get; set; } = new List<ProductAttributeOrder>();
-
-    public virtual ICollection<ProductCategory> ProductCategories { get; set; } = new List<ProductCategory>();
 
     public virtual ICollection<ProductDetail> ProductDetails { get; set; } = new List<ProductDetail>();
 

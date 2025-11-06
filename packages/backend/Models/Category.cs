@@ -19,9 +19,9 @@ public partial class Category
 
     public DateTime? UpdatedAt { get; set; }
 
+    public virtual ICollection<CategoryProduct> CategoryProducts { get; set; } = new List<CategoryProduct>();
+
     public virtual ICollection<Category> InverseParent { get; set; } = new List<Category>();
 
     public virtual Category? Parent { get; set; }
-
-    public virtual ICollection<ProductCategory> ProductCategories { get; set; } = new List<ProductCategory>();
 }

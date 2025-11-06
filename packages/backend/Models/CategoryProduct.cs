@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Cafree.Api.Models;
 
-public partial class ProductCategory
+public partial class CategoryProduct
 {
-    public Guid ProductId { get; set; }
-
     public Guid CategoryId { get; set; }
+
+    public Guid ProductId { get; set; }
 
     public DateTime CreatedAt { get; set; }
 
