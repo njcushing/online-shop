@@ -5,6 +5,7 @@ namespace Cafree.Api.Endpoints.Settings.GET
         public decimal BaseExpressDeliveryCost { get; set; }
 
         public decimal FreeExpressDeliveryThreshold { get; set; }
+
         public int LowStockThreshold { get; set; }
     }
 }

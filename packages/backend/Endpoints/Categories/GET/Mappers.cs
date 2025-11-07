@@ -4,7 +4,7 @@ namespace Cafree.Api.Endpoints.Categories.GET
 {
     public static class GetCategoriesResponseMapper
     {
-        public static GetCategoriesResponseDto ToDto(Category category)
+        public static GetCategoriesResponseDto ToDto(Models.Category category)
         {
             return new GetCategoriesResponseDto
             {
