@@ -11,7 +11,7 @@ namespace Cafree.Api.Endpoints.Categories._Name.GET
         private readonly AppDbContext _context = context;
 
         [HttpGet]
-        [ProducesResponseType(typeof(List<GetCategoryByNameResponseDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GetCategoryByNameResponseDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetCategoryByName(string name)
         {

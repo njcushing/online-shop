@@ -76,9 +76,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["Categories._Name.GET.GetCategoryByNameResponseDto"][];
-                        "application/json": components["schemas"]["Categories._Name.GET.GetCategoryByNameResponseDto"][];
-                        "text/json": components["schemas"]["Categories._Name.GET.GetCategoryByNameResponseDto"][];
+                        "text/plain": components["schemas"]["Categories._Name.GET.GetCategoryByNameResponseDto"];
+                        "application/json": components["schemas"]["Categories._Name.GET.GetCategoryByNameResponseDto"];
+                        "text/json": components["schemas"]["Categories._Name.GET.GetCategoryByNameResponseDto"];
                     };
                 };
                 /** @description Not Found */
