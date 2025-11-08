@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
 
-namespace Cafree.Api.Endpoints.Categories._Name.GET
+namespace Cafree.Api.Endpoints.Categories._Slug.GET
 {
-    public class GetCategoryByNameResponseDto
+    public class GetCategoryBySlugResponseDto
     {
         public class Product
         {

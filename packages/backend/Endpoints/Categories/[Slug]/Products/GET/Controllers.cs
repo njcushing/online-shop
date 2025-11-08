@@ -2,29 +2,29 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Cafree.Api.Data;
 
-namespace Cafree.Api.Endpoints.Categories._Name.GET
+namespace Cafree.Api.Endpoints.Categories._Slug.GET
 {
     [ApiController]
-    [Route("api/categories/{name}")]
-    public class GetCategoryByNameController(AppDbContext context) : ControllerBase
+    [Route("api/categories/{slug}")]
+    public class GetCategoryBySlugController(AppDbContext context) : ControllerBase
     {
         private readonly AppDbContext _context = context;
 
         [HttpGet]
-        [ProducesResponseType(typeof(GetCategoryByNameResponseDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GetCategoryBySlugResponseDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetCategoryByName(string name)
+        public async Task<IActionResult> GetCategoryBySlug(string slug)
         {
             var category = await _context.Categories
-                .Where(c => c.Name == name)
+                .Where(c => c.Slug == slug)
                 .AsNoTracking()
                 .AsSplitQuery()
-                .Select(c => new GetCategoryByNameResponseDto
+                .Select(c => new GetCategoryBySlugResponseDto
                 {
                     Name = c.Name,
                     Slug = c.Slug,
                     Description = c.Description,
-                    Products = c.CategoryProducts.Select(cp => new GetCategoryByNameResponseDto.Product
+                    Products = c.CategoryProducts.Select(cp => new GetCategoryBySlugResponseDto.Product
                     {
                         Id = cp.Product.Id,
                         Name = cp.Product.Name,
@@ -32,11 +32,11 @@ namespace Cafree.Api.Endpoints.Categories._Name.GET
                         Allowance = cp.Product.Allowance,
                         Tags = cp.Product.Tags,
                         ReleaseDate = cp.Product.ReleaseDate,
-                        Rating = new GetCategoryByNameResponseDto.Product.ProductRating
+                        Rating = new GetCategoryBySlugResponseDto.Product.ProductRating
                         {
                             Average = cp.Product.ProductRating!.Average,
                             Total = cp.Product.ProductRating.Total,
-                            Quantities = new GetCategoryByNameResponseDto.Product.ProductRating.RatingQuantities
+                            Quantities = new GetCategoryBySlugResponseDto.Product.ProductRating.RatingQuantities
                             {
                                 Rating5 = cp.Product.ProductRating.Rating5,
                                 Rating4 = cp.Product.ProductRating.Rating4,
@@ -45,20 +45,20 @@ namespace Cafree.Api.Endpoints.Categories._Name.GET
                                 Rating1 = cp.Product.ProductRating.Rating1,
                             }
                         },
-                        Attributes = cp.Product.ProductAttributeOrders.Select(pao => new GetCategoryByNameResponseDto.Product.AttributeOrder
+                        Attributes = cp.Product.ProductAttributeOrders.Select(pao => new GetCategoryBySlugResponseDto.Product.AttributeOrder
                         {
                             Position = pao.Position,
                             Name = pao.ProductAttribute.Name,
                             Title = pao.ProductAttribute.Title,
                         }).ToList(),
-                        Images = cp.Product.ProductImages.Select(pi => new GetCategoryByNameResponseDto.Product.Image
+                        Images = cp.Product.ProductImages.Select(pi => new GetCategoryBySlugResponseDto.Product.Image
                         {
                             Id = pi.Id,
                             Src = pi.Src,
                             Alt = pi.Alt,
                             Position = pi.Position,
                         }).ToList(),
-                        Variants = cp.Product.ProductVariants.Select(pv => new GetCategoryByNameResponseDto.Product.Variant
+                        Variants = cp.Product.ProductVariants.Select(pv => new GetCategoryBySlugResponseDto.Product.Variant
                         {
                             Id = pv.Id,
                             Name = pv.Name,
@@ -71,22 +71,22 @@ namespace Cafree.Api.Endpoints.Categories._Name.GET
                             AllowanceOverride = pv.AllowanceOverride,
                             Active = pv.Active,
                             ReleaseDate = pv.ReleaseDate,
-                            Attributes = pv.ProductVariantAttributes.Select(pva => new GetCategoryByNameResponseDto.Product.Variant.Attribute
+                            Attributes = pv.ProductVariantAttributes.Select(pva => new GetCategoryBySlugResponseDto.Product.Variant.Attribute
                             {
-                                Type = new GetCategoryByNameResponseDto.Product.Variant.Attribute.AttributeType
+                                Type = new GetCategoryBySlugResponseDto.Product.Variant.Attribute.AttributeType
                                 {
                                     Id = pva.ProductAttribute.Id,
                                     Name = pva.ProductAttribute.Name,
                                     Title = pva.ProductAttribute.Title,
                                 },
-                                Value = new GetCategoryByNameResponseDto.Product.Variant.Attribute.AttributeValue
+                                Value = new GetCategoryBySlugResponseDto.Product.Variant.Attribute.AttributeValue
                                 {
                                     Code = pva.ProductAttributeValue.Code,
                                     Name = pva.ProductAttributeValue.Name,
                                     Position = pva.ProductAttributeValue.Position,
                                 },
                             }).ToList(),
-                            Images = pv.ProductVariantImages.Select(pvi => new GetCategoryByNameResponseDto.Product.Variant.Image
+                            Images = pv.ProductVariantImages.Select(pvi => new GetCategoryBySlugResponseDto.Product.Variant.Image
                             {
                                 Id = pvi.Id,
                                 Src = pvi.Src,
@@ -95,7 +95,7 @@ namespace Cafree.Api.Endpoints.Categories._Name.GET
                             }).ToList(),
                         }).ToList(),
                     }).ToList(),
-                    Subcategories = c.InverseParent.Select(ip => new GetCategoryByNameResponseDto.Subcategory
+                    Subcategories = c.InverseParent.Select(ip => new GetCategoryBySlugResponseDto.Subcategory
                     {
                         Name = ip.Name,
                         Slug = ip.Slug,
@@ -107,7 +107,7 @@ namespace Cafree.Api.Endpoints.Categories._Name.GET
             if (category == null) return Problem(
                 statusCode: StatusCodes.Status404NotFound,
                 title: "Category not found",
-                detail: $"No category with the specified name '{name}' could be located."
+                detail: $"No category with the specified slug '{slug}' could be located."
             );
 
             return Ok(category);
