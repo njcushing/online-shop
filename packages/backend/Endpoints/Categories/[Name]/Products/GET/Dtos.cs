@@ -173,6 +173,18 @@ namespace Cafree.Api.Endpoints.Categories._Name.GET
             public virtual ICollection<Variant> Variants { get; set; } = new List<Variant>();
         }
 
+        public class Subcategory
+        {
+            [JsonIgnore]
+            public Guid Id { get; set; }
+
+            public string Name { get; set; } = null!;
+
+            public string Slug { get; set; } = null!;
+
+            public string? Description { get; set; }
+        }
+
         [JsonIgnore]
         public Guid Id { get; set; }
 
@@ -186,5 +198,7 @@ namespace Cafree.Api.Endpoints.Categories._Name.GET
         public string? Description { get; set; }
 
         public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+
+        public virtual ICollection<Subcategory> Subcategories { get; set; } = new List<Subcategory>();
     }
 }

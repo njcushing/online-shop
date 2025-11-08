@@ -95,6 +95,12 @@ namespace Cafree.Api.Endpoints.Categories._Name.GET
                             }).ToList(),
                         }).ToList(),
                     }).ToList(),
+                    Subcategories = c.InverseParent.Select(ip => new GetCategoryByNameResponseDto.Subcategory
+                    {
+                        Name = ip.Name,
+                        Slug = ip.Slug,
+                        Description = ip.Description,
+                    }).ToList(),
                 })
                 .FirstOrDefaultAsync();
 
