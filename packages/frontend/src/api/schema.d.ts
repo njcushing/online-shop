@@ -52,7 +52,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/categories/{name}": {
+    "/api/categories/{slug}": {
         parameters: {
             query?: never;
             header?: never;
@@ -64,7 +64,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    name: string;
+                    slug: string;
                 };
                 cookie?: never;
             };
@@ -76,9 +76,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["Categories._Name.GET.GetCategoryByNameResponseDto"];
-                        "application/json": components["schemas"]["Categories._Name.GET.GetCategoryByNameResponseDto"];
-                        "text/json": components["schemas"]["Categories._Name.GET.GetCategoryByNameResponseDto"];
+                        "text/plain": components["schemas"]["Categories._Slug.GET.GetCategoryBySlugResponseDto"];
+                        "application/json": components["schemas"]["Categories._Slug.GET.GetCategoryBySlugResponseDto"];
+                        "text/json": components["schemas"]["Categories._Slug.GET.GetCategoryBySlugResponseDto"];
                     };
                 };
                 /** @description Not Found */
@@ -213,13 +213,14 @@ export interface components {
             slug: string;
             description?: string | null;
         };
-        "Categories._Name.GET.GetCategoryByNameResponseDto": {
+        "Categories._Slug.GET.GetCategoryBySlugResponseDto": {
             name: string;
             slug: string;
             description?: string | null;
-            products: components["schemas"]["Categories._Name.GET.GetCategoryByNameResponseDto.Product"][];
+            products: components["schemas"]["Categories._Slug.GET.GetCategoryBySlugResponseDto.Product"][];
+            subcategories: components["schemas"]["Categories._Slug.GET.GetCategoryBySlugResponseDto.Subcategory"][];
         };
-        "Categories._Name.GET.GetCategoryByNameResponseDto.Product": {
+        "Categories._Slug.GET.GetCategoryBySlugResponseDto.Product": {
             /** Format: uuid */
             id: string;
             name: string;
@@ -229,18 +230,18 @@ export interface components {
             tags?: string[] | null;
             /** Format: date-time */
             releaseDate: string;
-            rating: components["schemas"]["Categories._Name.GET.GetCategoryByNameResponseDto.Product.ProductRating"];
-            attributes: components["schemas"]["Categories._Name.GET.GetCategoryByNameResponseDto.Product.AttributeOrder"][];
-            images: components["schemas"]["Categories._Name.GET.GetCategoryByNameResponseDto.Product.Image"][];
-            variants: components["schemas"]["Categories._Name.GET.GetCategoryByNameResponseDto.Product.Variant"][];
+            rating: components["schemas"]["Categories._Slug.GET.GetCategoryBySlugResponseDto.Product.ProductRating"];
+            attributes: components["schemas"]["Categories._Slug.GET.GetCategoryBySlugResponseDto.Product.AttributeOrder"][];
+            images: components["schemas"]["Categories._Slug.GET.GetCategoryBySlugResponseDto.Product.Image"][];
+            variants: components["schemas"]["Categories._Slug.GET.GetCategoryBySlugResponseDto.Product.Variant"][];
         };
-        "Categories._Name.GET.GetCategoryByNameResponseDto.Product.AttributeOrder": {
+        "Categories._Slug.GET.GetCategoryBySlugResponseDto.Product.AttributeOrder": {
             name: string;
             title: string;
             /** Format: int32 */
             position: number;
         };
-        "Categories._Name.GET.GetCategoryByNameResponseDto.Product.Image": {
+        "Categories._Slug.GET.GetCategoryBySlugResponseDto.Product.Image": {
             /** Format: uuid */
             id: string;
             src: string;
@@ -248,14 +249,14 @@ export interface components {
             /** Format: int32 */
             position: number;
         };
-        "Categories._Name.GET.GetCategoryByNameResponseDto.Product.ProductRating": {
+        "Categories._Slug.GET.GetCategoryBySlugResponseDto.Product.ProductRating": {
             /** Format: double */
             average: number;
             /** Format: int32 */
             total: number;
-            quantities: components["schemas"]["Categories._Name.GET.GetCategoryByNameResponseDto.Product.ProductRating.RatingQuantities"];
+            quantities: components["schemas"]["Categories._Slug.GET.GetCategoryBySlugResponseDto.Product.ProductRating.RatingQuantities"];
         };
-        "Categories._Name.GET.GetCategoryByNameResponseDto.Product.ProductRating.RatingQuantities": {
+        "Categories._Slug.GET.GetCategoryBySlugResponseDto.Product.ProductRating.RatingQuantities": {
             /** Format: int32 */
             1: number;
             /** Format: int32 */
@@ -267,7 +268,7 @@ export interface components {
             /** Format: int32 */
             5: number;
         };
-        "Categories._Name.GET.GetCategoryByNameResponseDto.Product.Variant": {
+        "Categories._Slug.GET.GetCategoryBySlugResponseDto.Product.Variant": {
             /** Format: uuid */
             id: string;
             name: string;
@@ -286,32 +287,37 @@ export interface components {
             active: boolean;
             /** Format: date-time */
             releaseDate: string;
-            attributes: components["schemas"]["Categories._Name.GET.GetCategoryByNameResponseDto.Product.Variant.Attribute"][];
-            images: components["schemas"]["Categories._Name.GET.GetCategoryByNameResponseDto.Product.Variant.Image"][];
+            attributes: components["schemas"]["Categories._Slug.GET.GetCategoryBySlugResponseDto.Product.Variant.Attribute"][];
+            images: components["schemas"]["Categories._Slug.GET.GetCategoryBySlugResponseDto.Product.Variant.Image"][];
         };
-        "Categories._Name.GET.GetCategoryByNameResponseDto.Product.Variant.Attribute": {
-            type: components["schemas"]["Categories._Name.GET.GetCategoryByNameResponseDto.Product.Variant.Attribute.AttributeType"];
-            value: components["schemas"]["Categories._Name.GET.GetCategoryByNameResponseDto.Product.Variant.Attribute.AttributeValue"];
+        "Categories._Slug.GET.GetCategoryBySlugResponseDto.Product.Variant.Attribute": {
+            type: components["schemas"]["Categories._Slug.GET.GetCategoryBySlugResponseDto.Product.Variant.Attribute.AttributeType"];
+            value: components["schemas"]["Categories._Slug.GET.GetCategoryBySlugResponseDto.Product.Variant.Attribute.AttributeValue"];
         };
-        "Categories._Name.GET.GetCategoryByNameResponseDto.Product.Variant.Attribute.AttributeType": {
+        "Categories._Slug.GET.GetCategoryBySlugResponseDto.Product.Variant.Attribute.AttributeType": {
             /** Format: uuid */
             id: string;
             name: string;
             title: string;
         };
-        "Categories._Name.GET.GetCategoryByNameResponseDto.Product.Variant.Attribute.AttributeValue": {
+        "Categories._Slug.GET.GetCategoryBySlugResponseDto.Product.Variant.Attribute.AttributeValue": {
             code: string;
             name: string;
             /** Format: int32 */
             position: number;
         };
-        "Categories._Name.GET.GetCategoryByNameResponseDto.Product.Variant.Image": {
+        "Categories._Slug.GET.GetCategoryBySlugResponseDto.Product.Variant.Image": {
             /** Format: uuid */
             id: string;
             src: string;
             alt: string;
             /** Format: int32 */
             position: number;
+        };
+        "Categories._Slug.GET.GetCategoryBySlugResponseDto.Subcategory": {
+            name: string;
+            slug: string;
+            description?: string | null;
         };
         "Microsoft.AspNetCore.Http.HttpValidationProblemDetails": components["schemas"]["Microsoft.AspNetCore.Mvc.ProblemDetails"] & ({
             errors?: {
