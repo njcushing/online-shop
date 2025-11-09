@@ -22,6 +22,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             {
                 Id = collection.Id,
                 Name = collection.Name,
+                Title = collection.Title,
                 Description = collection.Description,
                 Slug = collection.Slug,
                 Products = collection.CollectionProducts.OrderBy(cp => cp.Position).Select(ToProduct).ToList(),

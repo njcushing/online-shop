@@ -23,6 +23,8 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
 
             public required string Name { get; set; }
 
+            public required string Title { get; set; }
+
             public string? Description { get; set; }
 
             public required string Slug { get; set; }

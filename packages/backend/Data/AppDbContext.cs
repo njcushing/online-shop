@@ -248,6 +248,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.Name).HasColumnName("name");
             entity.Property(e => e.Slug).HasColumnName("slug");
+            entity.Property(e => e.Title).HasColumnName("title");
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
         });
 
