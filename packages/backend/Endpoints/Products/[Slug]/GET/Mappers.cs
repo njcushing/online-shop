@@ -24,7 +24,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                 Name = collection.Name,
                 Description = collection.Description,
                 Slug = collection.Slug,
-                Products = collection.CollectionProducts.Select(ToProduct).ToList(),
+                Products = collection.CollectionProducts.OrderBy(cp => cp.Position).Select(ToProduct).ToList(),
             };
         }
 
