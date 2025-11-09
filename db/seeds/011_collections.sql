@@ -1,6 +1,6 @@
 BEGIN;
 
-INSERT INTO collections (name, description, slug) VALUES
-    ('Coffee - Whole Bean', '', 'coffee-whole-bean');
+INSERT INTO collections (name, title, description, slug) VALUES
+    ('Coffee - Whole Bean', 'Select a quantity', '', 'coffee-whole-bean');
 
 COMMIT;
