@@ -263,6 +263,7 @@ public partial class AppDbContext : DbContext
                 .HasDefaultValueSql("now()")
                 .HasColumnName("created_at");
             entity.Property(e => e.Name).HasColumnName("name");
+            entity.Property(e => e.Position).HasColumnName("position");
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
 
             entity.HasOne(d => d.Collection).WithMany(p => p.CollectionProducts)

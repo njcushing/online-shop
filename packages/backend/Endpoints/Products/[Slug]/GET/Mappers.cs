@@ -11,6 +11,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                 Id = collectionProduct.Product.Id,
                 Name = collectionProduct.Name ?? collectionProduct.Product.Name,
                 Slug = collectionProduct.Product.Slug,
+                Position = collectionProduct.Position,
                 Images = collectionProduct.Product.ProductImages.Select(ToProductImage).ToList(),
             };
         }

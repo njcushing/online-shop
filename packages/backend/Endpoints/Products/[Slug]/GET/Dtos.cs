@@ -14,6 +14,8 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
 
                 public required string Slug { get; set; }
 
+                public required int Position { get; set; }
+
                 public virtual ICollection<Image> Images { get; set; } = new List<Image>();
             }
 
