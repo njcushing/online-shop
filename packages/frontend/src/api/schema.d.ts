@@ -152,6 +152,61 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/products/{slug}/reviews": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query: {
+                    page: number;
+                    pageSize?: number;
+                    sort?: string;
+                    filter?: string;
+                };
+                header?: never;
+                path: {
+                    slug: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto"][];
+                        "application/json": components["schemas"]["Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto"][];
+                        "text/json": components["schemas"]["Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto"][];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Microsoft.AspNetCore.Mvc.ProblemDetails"];
+                        "application/json": components["schemas"]["Microsoft.AspNetCore.Mvc.ProblemDetails"];
+                        "text/json": components["schemas"]["Microsoft.AspNetCore.Mvc.ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/settings": {
         parameters: {
             query?: never;
@@ -375,6 +430,7 @@ export interface components {
             /** Format: uuid */
             id: string;
             name: string;
+            title: string;
             description?: string | null;
             slug: string;
             products: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Collection.Product"][];
@@ -384,6 +440,8 @@ export interface components {
             id: string;
             name?: string | null;
             slug: string;
+            /** Format: int32 */
+            position: number;
             images: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Image"][];
         };
         "Products._Slug.GET.GetProductBySlugResponseDto.Detail": {
@@ -483,6 +541,21 @@ export interface components {
             alt: string;
             /** Format: int32 */
             position: number;
+        };
+        "Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto": {
+            title?: string | null;
+            description: string;
+            /** Format: int32 */
+            rating: number;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt?: string | null;
+            variant?: components["schemas"]["Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto.ProductVariant"] | null;
+        };
+        "Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto.ProductVariant": {
+            name: string;
+            sku: string;
         };
         "Settings.GET.GetSettingsResponseDto": {
             /** Format: double */
