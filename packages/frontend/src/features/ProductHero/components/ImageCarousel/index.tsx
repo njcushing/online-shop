@@ -22,6 +22,8 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
         if (smallEmbla) smallEmbla.scrollTo(currentSlide);
     }, [currentSlide, mainEmbla, smallEmbla]);
 
+    const usedImages = images.length > 0 ? images : [{ src: "", alt: "" }];
+
     return (
         <div className={styles["image-carousel"]}>
             <Skeleton visible={awaiting}>
@@ -35,7 +37,7 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                     }}
                     style={{ visibility: awaiting ? "hidden" : "initial" }}
                 >
-                    {images.map((image) => {
+                    {usedImages.map((image) => {
                         const { src, alt } = image;
                         return (
                             <Carousel.Slide className={styles["carousel-slide"]} key={src}>
@@ -86,12 +88,12 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                         viewport: styles["carousel-small-viewport"],
                     }}
                 >
-                    {images.map((image, i) => {
+                    {usedImages.map((image, i) => {
                         const { src, alt } = image;
                         return (
                             <Carousel.Slide
                                 role="button"
-                                aria-label={`View image ${i + 1} of ${images.length}`}
+                                aria-label={`View image ${i + 1} of ${usedImages.length}`}
                                 tabIndex={currentSlide === i ? -1 : 0}
                                 onClick={() => setCurrentSlide(i)}
                                 onKeyDown={(e) => {
@@ -101,12 +103,12 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                                     }
                                 }}
                                 data-selected={currentSlide === i}
-                                data-last={i === images.length - 1}
+                                data-last={i === usedImages.length - 1}
                                 className={styles["carousel-slide"]}
                                 key={`image-carousel-slide-${src}`}
                                 style={{
                                     marginRight:
-                                        i === images.length - 1 ? "0px" : `${slideGapPx}px`,
+                                        i === usedImages.length - 1 ? "0px" : `${slideGapPx}px`,
                                 }}
                             >
                                 <Skeleton
@@ -131,7 +133,7 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                         type="button"
                         aria-label="Next image"
                         onClick={() => setCurrentSlide((curr) => curr + 1)}
-                        disabled={currentSlide === images.length - 1}
+                        disabled={currentSlide === usedImages.length - 1}
                         className={styles["carousel-small-control"]}
                         style={{ visibility: awaiting ? "hidden" : "initial" }}
                     >
@@ -140,8 +142,15 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                 </Skeleton>
             </div>
 
-            <span className={styles["current-image-number"]}>
-                {currentSlide + 1} / {images.length}
+            <span style={{ display: "flex", justifyContent: "center" }}>
+                <Skeleton visible={awaiting} width="min-content">
+                    <span
+                        className={styles["current-image-number"]}
+                        style={{ visibility: awaiting ? "hidden" : "initial" }}
+                    >
+                        {currentSlide + 1} / {usedImages.length}
+                    </span>
+                </Skeleton>
             </span>
         </div>
     );
