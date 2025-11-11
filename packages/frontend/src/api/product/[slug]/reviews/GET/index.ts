@@ -42,7 +42,7 @@ export const getReviewsByProductSlug: HTTPMethodTypes.GET<RequestParams, Respons
         return {
             success: false as const,
             status: 400,
-            message: "Could not make request: no page number required for review pagination.",
+            message: "Could not make request: no page number provided for review pagination.",
             error: undefined,
         };
     }
