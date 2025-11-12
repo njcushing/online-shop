@@ -34,6 +34,17 @@ function initialResponseObject<RequestParams, RequestBody, ResponseBody>(): Unwr
     };
 }
 
+function awaitingResponseObject<RequestParams, RequestBody, ResponseBody>(): UnwrapPromise<
+    ReturnType<MethodTypes<RequestParams, RequestBody, ResponseBody>>
+> {
+    return {
+        success: false,
+        status: HTTPMethodTypes.customStatusCodes.awaiting,
+        message: "Awaiting response",
+        error: undefined,
+    };
+}
+
 function abortedResponseObject<RequestParams, RequestBody, ResponseBody>(): UnwrapPromise<
     ReturnType<MethodTypes<RequestParams, RequestBody, ResponseBody>>
 > {
@@ -81,7 +92,10 @@ export function useAsyncBase<
     const abortController = useRef<AbortController | null>(null);
     const [attempting, setAttempting] = useState<boolean>(attemptOnMount || false);
 
-    const attempt = useCallback(() => setAttempting(true), []);
+    const attempt = useCallback(() => {
+        setResponse(awaitingResponseObject());
+        setAttempting(true);
+    }, []);
     const abort = useCallback(() => {
         if (abortController.current) {
             abortController.current.abort();
