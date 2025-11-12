@@ -181,9 +181,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto"][];
-                        "application/json": components["schemas"]["Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto"][];
-                        "text/json": components["schemas"]["Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto"][];
+                        "text/plain": components["schemas"]["Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto"];
+                        "application/json": components["schemas"]["Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto"];
+                        "text/json": components["schemas"]["Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto"];
                     };
                 };
                 /** @description Not Found */
@@ -543,6 +543,13 @@ export interface components {
             position: number;
         };
         "Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto": {
+            /** Format: int32 */
+            total: number;
+            /** Format: int32 */
+            filteredCount: number;
+            reviews: components["schemas"]["Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto.Review"][];
+        };
+        "Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto.Review": {
             title?: string | null;
             description: string;
             /** Format: int32 */
@@ -551,9 +558,9 @@ export interface components {
             createdAt: string;
             /** Format: date-time */
             updatedAt?: string | null;
-            variant?: components["schemas"]["Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto.ProductVariant"] | null;
+            variant?: components["schemas"]["Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto.Review.ProductVariant"] | null;
         };
-        "Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto.ProductVariant": {
+        "Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto.Review.ProductVariant": {
             name: string;
             sku: string;
         };

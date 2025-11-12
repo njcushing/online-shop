@@ -20,38 +20,47 @@ namespace Cafree.Api.Endpoints.Products._Slug.Reviews.GET
 
     public class GetReviewsByProductSlugResponseDto
     {
-        public class ProductVariant
+        public class Review
         {
+            public class ProductVariant
+            {
+                [JsonIgnore]
+                public Guid Id { get; set; }
+
+                [JsonIgnore]
+                public Guid ProductId { get; set; }
+
+                public required string Name { get; set; }
+
+                public required string Sku { get; set; }
+            }
+
             [JsonIgnore]
             public Guid Id { get; set; }
 
             [JsonIgnore]
             public Guid ProductId { get; set; }
 
-            public required string Name { get; set; }
+            [JsonIgnore]
+            public Guid? ProductVariantId { get; set; }
 
-            public required string Sku { get; set; }
+            public string? Title { get; set; }
+
+            public required string Description { get; set; }
+
+            public short Rating { get; set; }
+
+            public DateTime CreatedAt { get; set; }
+
+            public DateTime? UpdatedAt { get; set; }
+
+            public virtual ProductVariant? Variant { get; set; }
         }
 
-        [JsonIgnore]
-        public Guid Id { get; set; }
+        public required int Total { get; set; }
 
-        [JsonIgnore]
-        public Guid ProductId { get; set; }
+        public required int FilteredCount { get; set; }
 
-        [JsonIgnore]
-        public Guid? ProductVariantId { get; set; }
-
-        public string? Title { get; set; }
-
-        public required string Description { get; set; }
-
-        public short Rating { get; set; }
-
-        public DateTime CreatedAt { get; set; }
-
-        public DateTime? UpdatedAt { get; set; }
-
-        public virtual ProductVariant? Variant { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
     }
 }

@@ -11,7 +11,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.Reviews.GET
         private readonly AppDbContext _context = context;
 
         [HttpGet]
-        [ProducesResponseType(typeof(List<GetReviewsByProductSlugResponseDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GetReviewsByProductSlugResponseDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetProductBySlugReviews(string slug, [FromQuery] GetReviewsByProductSlugRequestDto query)
         {
@@ -30,6 +30,8 @@ namespace Cafree.Api.Endpoints.Products._Slug.Reviews.GET
                 .Where(pr => pr.Product.Slug == slug)
                 .AsNoTracking();
 
+            var totalCount = await reviewQuery.CountAsync();
+
             reviewQuery = query.Filter switch
             {
                 "rating_5" => reviewQuery.Where(pr => pr.Rating == 5),
@@ -39,6 +41,8 @@ namespace Cafree.Api.Endpoints.Products._Slug.Reviews.GET
                 "rating_1" => reviewQuery.Where(pr => pr.Rating == 1),
                 _ => reviewQuery,
             };
+
+            var filteredCount = await reviewQuery.CountAsync();
 
             reviewQuery = query.Sort switch
             {
@@ -53,7 +57,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.Reviews.GET
             var reviews = await reviewQuery
                 .Skip((query.Page - 1) * pageSize)
                 .Take(pageSize)
-                .Select(pr => new GetReviewsByProductSlugResponseDto
+                .Select(pr => new GetReviewsByProductSlugResponseDto.Review
                 {
                     Title = pr.Title,
                     Description = pr.Description,
@@ -62,7 +66,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.Reviews.GET
                     UpdatedAt = pr.UpdatedAt,
                     Variant = pr.ProductVariant == null
                         ? null
-                        : new GetReviewsByProductSlugResponseDto.ProductVariant
+                        : new GetReviewsByProductSlugResponseDto.Review.ProductVariant
                         {
                             Name = pr.ProductVariant.Name,
                             Sku = pr.ProductVariant.Sku,
@@ -77,7 +81,14 @@ namespace Cafree.Api.Endpoints.Products._Slug.Reviews.GET
                 detail: $"No reviews for the product with the specified slug '{slug}' could be located."
             );
 
-            return Ok(reviews);
+            var response = new GetReviewsByProductSlugResponseDto
+            {
+                Total = totalCount,
+                FilteredCount = filteredCount,
+                Reviews = reviews,
+            };
+
+            return Ok(response);
         }
     }
 }
