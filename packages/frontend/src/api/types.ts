@@ -1,8 +1,9 @@
 import { components } from "./schema";
 
 export const customStatusCodes = {
-    aborted: -1,
     unattempted: 0,
+    awaiting: 202,
+    aborted: 499,
 };
 
 export type ApiResponseBase = {
