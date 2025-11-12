@@ -38,7 +38,7 @@ export const getReviewsByProductSlug: HTTPMethodTypes.GET<RequestParams, Respons
         };
     }
 
-    if (!page) {
+    if (!(typeof page === "number" && Number.isInteger(page) && page > 0)) {
         return {
             success: false as const,
             status: 400,
