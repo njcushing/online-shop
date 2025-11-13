@@ -1,21 +1,3 @@
-.product-list {
-    display: flex;
-    justify-content: center;
-
-    width: min(calc(var(--vw) * 100), 100%);
-}
-
-.product-list-width-controller {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-
-    width: min(calc(var(--vw) * 100), 100%);
-    max-width: 1280px;
-    padding: 16px;
-    margin: auto;
-}
-
 .product-list-category-group {
     display: grid;
     grid-template-columns: repeat(1, 1fr);

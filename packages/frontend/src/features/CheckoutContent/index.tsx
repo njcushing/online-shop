@@ -3,18 +3,18 @@ import { UserContext } from "@/pages/Root";
 import { useMatches, Divider, Button, Box } from "@mantine/core";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { CartSummary } from "@/features/Cart/components/CartSummary";
-import { PopulatedCart } from "@/utils/products/cart";
+import { Cart } from "@/utils/products/cart";
 import { PersonalInformationForm } from "./components/PersonalInformationForm";
 import { ShippingForm } from "./components/ShippingForm";
 import { PaymentForm } from "./components/PaymentForm";
 import styles from "./index.module.css";
 
 export function CheckoutContent() {
-    const narrow = useMatches({ base: true, lg: false });
+    const narrow = useMatches({ base: true, lg: false }, { getInitialValueInEffect: false });
 
     const { user, cart, defaultData } = useContext(UserContext);
 
-    let cartData = defaultData.cart as PopulatedCart;
+    let cartData = defaultData.cart as Cart;
 
     const { data, awaitingAny } = useQueryContexts({
         contexts: [

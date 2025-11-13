@@ -1,13 +1,8 @@
 import { useContext, useState, useEffect, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
-import { ProductContext } from "@/pages/Product";
+import { IProductContext, ProductContext } from "@/pages/Product";
 import { Skeleton, Button, Divider, Rating } from "@mantine/core";
-import {
-    findCollections,
-    filterVariantOptions,
-    Product,
-    ProductVariant,
-} from "@/utils/products/product";
+import { ResponseBody as GetProductBySlugDto } from "@/api/product/[slug]/GET";
 import { Quantity } from "@/components/Inputs/Quantity";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
 import { Price } from "@/features/Price";
@@ -24,17 +19,13 @@ import styles from "./index.module.css";
 
 export function ProductHero() {
     const { cart } = useContext(UserContext);
-    const { product, variant, defaultData } = useContext(ProductContext);
-    const {
-        product: defaultProductData,
-        variant: defaultVariantData,
-        variantOptions: defaultVariantOptionsData,
-        collectionSteps: defaultCollectionStepsData,
-    } = defaultData;
+    const { product, variant, relatedAttributes, defaultData } = useContext(ProductContext);
+    const { product: defaultProductData, variant: defaultVariantData } = defaultData;
 
     let cartData = null;
-    let productData = defaultProductData as Product;
-    let variantData = defaultVariantData as ProductVariant;
+    let productData = defaultProductData as GetProductBySlugDto;
+    let variantData = defaultVariantData as GetProductBySlugDto["variants"][number];
+    let relatedAttributesData: IProductContext["relatedAttributes"] = [];
 
     const { data, awaitingAny } = useQueryContexts({
         contexts: [
@@ -47,18 +38,8 @@ export function ProductHero() {
         if (data.cart) cartData = data.cart;
         if (data.product) productData = data.product;
         if (variant) variantData = variant;
+        if (data.product && variant) relatedAttributesData = relatedAttributes;
     }
-
-    const variantOptions = useMemo<ReturnType<typeof filterVariantOptions>>(() => {
-        if (awaitingAny) return defaultVariantOptionsData;
-        if (!productData || !variantData) return new Map();
-        return filterVariantOptions(productData, variantData.options);
-    }, [awaitingAny, productData, variantData, defaultVariantOptionsData]);
-
-    const collectionsData = useMemo<ReturnType<typeof findCollections>>(() => {
-        if (awaitingAny) return defaultCollectionStepsData;
-        return findCollections(productData?.id || "");
-    }, [awaitingAny, productData, defaultCollectionStepsData]);
 
     const [subscriptionChecked, setSubscriptionChecked] = useState<boolean>(false);
     const [frequency, setFrequency] = useState<SubscriptionFrequency>("one_week");
@@ -78,18 +59,17 @@ export function ProductHero() {
         return calculateMaxAddableVariantStock(cartData.items, productData, variantData);
     }, [awaitingAny, cartData, productData, variantData]);
 
-    const { name, images, rating, variantOptionOrder } = productData;
-    const { price, options } = variantData;
-    const { subscriptionDiscountPercentage } = price;
+    const { name, images, rating, collections } = productData;
+    const { priceBase, priceCurrent, subscriptionDiscountPercentage } = variantData;
 
-    let unitPrice = price.current;
-    if (subscriptionChecked) unitPrice *= 1 - subscriptionDiscountPercentage / 100;
+    let unitPrice = priceCurrent;
+    if (subscriptionChecked) unitPrice *= 1 - subscriptionDiscountPercentage! / 100;
 
     return (
         <section className={styles["product-hero"]}>
             <div className={styles["product-hero-width-controller"]}>
                 <div>
-                    <ImageCarousel images={images.dynamic} awaiting={awaitingAny} />
+                    <ImageCarousel images={images} awaiting={awaitingAny} />
                 </div>
 
                 <div className={styles["product-content"]}>
@@ -98,7 +78,7 @@ export function ProductHero() {
                             className={styles["product-name"]}
                             style={{ visibility: awaitingAny ? "hidden" : "initial" }}
                         >
-                            {name!.full}
+                            {name}
                         </h1>
                     </Skeleton>
 
@@ -112,16 +92,16 @@ export function ProductHero() {
                                 readOnly
                                 count={5}
                                 fractions={10}
-                                value={rating.meanValue}
+                                value={rating.average}
                                 color="gold"
                                 size="sm"
                             />
                             <div className={styles["product-rating-value"]}>
-                                {rating.meanValue.toFixed(2)}
+                                {rating.average.toFixed(2)}
                             </div>
                             <div
                                 className={styles["product-rating-quantity"]}
-                            >{`(${rating.totalQuantity})`}</div>
+                            >{`(${rating.total})`}</div>
                         </div>
                     </Skeleton>
 
@@ -130,55 +110,46 @@ export function ProductHero() {
                     <div
                         className={`${styles["product-hero-steps-container"]} ${styles["margin"]}`}
                     >
-                        {collectionsData.map((collectionData, i) => {
-                            const step = <CollectionStep collectionData={collectionData} />;
+                        {collections.map((collection, i) => {
                             return (
-                                <Skeleton visible={awaitingAny} key={collectionData.collection.id}>
+                                <Skeleton visible={awaitingAny} key={collection.id}>
                                     <div
                                         style={{
                                             visibility: awaitingAny ? "hidden" : "initial",
                                         }}
                                     >
-                                        {step}
-                                        {i < collectionsData.length - 1 && <Divider />}
+                                        <CollectionStep collectionData={collection} />
+                                        {i < collections.length - 1 && <Divider />}
                                     </div>
                                 </Skeleton>
                             );
                         })}
 
-                        {collectionsData.length > 0 && <Divider />}
+                        {collections.length > 0 && <Divider />}
 
-                        {variantOptions &&
-                            variantOptionOrder.map((optionId, i) => {
-                                const optionValues = variantOptions.get(optionId);
-                                if (!optionValues || optionValues.size === 0) return null;
-                                const step = (
-                                    <VariantStep
-                                        id={optionId}
-                                        values={optionValues}
-                                        selected={options[optionId]}
-                                    />
-                                );
-                                return (
-                                    <Skeleton visible={awaitingAny} key={optionId}>
-                                        <div
-                                            style={{
-                                                visibility: awaitingAny ? "hidden" : "initial",
-                                            }}
-                                        >
-                                            {step}
-                                            {i < variantOptions.size - 1 && <Divider />}
-                                        </div>
-                                    </Skeleton>
-                                );
-                            })}
+                        {relatedAttributesData.map((attribute, i) => {
+                            const { info, values } = attribute;
+                            if (values.length === 0) return null;
+                            return (
+                                <Skeleton visible={awaitingAny} key={info.name}>
+                                    <div
+                                        style={{
+                                            visibility: awaitingAny ? "hidden" : "initial",
+                                        }}
+                                    >
+                                        <VariantStep attribute={attribute} />
+                                        {i < relatedAttributesData.length - 1 && <Divider />}
+                                    </div>
+                                </Skeleton>
+                            );
+                        })}
 
-                        {variantOptionOrder.length > 0 && <Divider />}
+                        {relatedAttributesData.length > 0 && <Divider />}
                     </div>
 
                     <Skeleton visible={awaitingAny} className={styles["margin"]}>
                         <div style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
-                            <Price base={price.base} current={unitPrice} size="lg" />
+                            <Price base={priceBase} current={unitPrice} size="lg" />
                         </div>
                     </Skeleton>
 

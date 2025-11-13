@@ -1,9 +1,9 @@
 import { Accordion } from "@mantine/core";
-import { PopulatedOrderData } from "@/utils/products/orders";
+import { OrderData } from "@/utils/products/orders";
 import styles from "./index.module.css";
 
 export type TOrderDetails = {
-    data: PopulatedOrderData;
+    data: OrderData;
     awaiting: boolean;
 };
 

@@ -19,7 +19,7 @@ import { RemoveScroll } from "react-remove-scroll";
 import { DeepRequired } from "react-hook-form";
 import { RecursivePartial } from "@/utils/types";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
-import { PopulatedCart } from "@/utils/products/cart";
+import { Cart } from "@/utils/products/cart";
 import _ from "lodash";
 import styles from "./index.module.css";
 
@@ -108,7 +108,7 @@ export function CartSummary({
     const { cart, shipping, defaultData } = useContext(UserContext);
 
     let settingsData = { freeExpressDeliveryThreshold: 0, baseExpressDeliveryCost: 0 };
-    let cartData = defaultData.cart as PopulatedCart;
+    let cartData = defaultData.cart as Cart;
 
     const { data, awaitingAny } = useQueryContexts({
         contexts: [
@@ -132,7 +132,7 @@ export function CartSummary({
     if (selectedShipping === "express") postageCost = meetsThreshold ? 0 : baseExpressDeliveryCost;
     const subtotal = total + postageCost;
 
-    const wide = useMatches({ base: false, xs: true });
+    const wide = useMatches({ base: false, xs: true }, { getInitialValueInEffect: false });
     const [open, setOpen] = useState<boolean>(false);
     useEffect(() => {
         if (layout === "dropdown" && open) window.scrollTo(0, 0);

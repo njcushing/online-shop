@@ -1,10 +1,13 @@
-import { useContext, useState, useEffect, useRef, useMemo } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import { RootContext } from "@/pages/Root";
 import { ProductContext } from "@/pages/Product";
 import { Divider, Pagination, Skeleton } from "@mantine/core";
 import { useScrollIntoView } from "@mantine/hooks";
-import { mockGetReviews } from "@/api/mocks";
-import { Product, ProductReview } from "@/utils/products/product";
+import { ResponseBody as GetProductBySlugResponseDto } from "@/api/product/[slug]/GET";
+import {
+    ResponseBody as GetReviewsByProductSlugResponseDto,
+    getReviewsByProductSlug,
+} from "@/api/product/[slug]/reviews/GET";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import * as useAsync from "@/hooks/useAsync";
 import { v4 as uuid } from "uuid";
@@ -12,14 +15,28 @@ import { ProductRatingBars } from "./components/ProductRatingBars";
 import { Review } from "./components/Review";
 import styles from "./index.module.css";
 
-export const filterOptions = ["All", "5", "4", "3", "2", "1"] as const;
-export const sortOptions = ["Most Recent", "Highest Rating", "Lowest Rating"] as const;
+export const filterOptions: {
+    title: keyof GetProductBySlugResponseDto["rating"]["quantities"];
+    name: string;
+}[] = [
+    { title: 5, name: "rating_5" },
+    { title: 4, name: "rating_4" },
+    { title: 3, name: "rating_3" },
+    { title: 2, name: "rating_2" },
+    { title: 1, name: "rating_1" },
+] as const;
+export const sortOptions = [
+    { title: "Highest Rating", name: "rating_desc" },
+    { title: "Lowest Rating", name: "rating_asc" },
+    { title: "Oldest", name: "created_asc" },
+    { title: "Newest", name: "created_desc" },
+] as const;
 
 export type TProductReviews = {
     containerIsTransitioning?: boolean;
 };
 
-const reviewsPerPage = 10;
+const pageSize = 10;
 
 export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
     const { headerInfo } = useContext(RootContext);
@@ -27,58 +44,49 @@ export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
 
     const { product, defaultData } = useContext(ProductContext);
 
-    let productData = defaultData.product as Product;
+    let productData = defaultData.product as GetProductBySlugResponseDto;
 
-    const { data, awaitingAny } = useQueryContexts({
+    const { data, awaitingAny: contextAwaitingAny } = useQueryContexts({
         contexts: [{ name: "product", context: product }],
     });
 
-    if (!awaitingAny) {
+    if (!contextAwaitingAny) {
         if (data.product) productData = data.product;
     }
 
-    const [filter, setFilter] = useState<(typeof filterOptions)[number]>("All");
-    const [sort, setSort] = useState<(typeof sortOptions)[number]>("Most Recent");
-    const [page, setPage] = useState<number>(0);
+    let reviewResponse = {
+        total: 1,
+        filteredCount: 1,
+        reviews: [],
+    } as GetReviewsByProductSlugResponseDto;
 
-    const {
-        response: reviewsResponse,
-        setParams,
-        attempt,
-        awaiting,
-    } = useAsync.GET(
-        mockGetReviews,
-        [
+    const { response, setParams, attempt, awaiting } = useAsync.GET(getReviewsByProductSlug, [{}], {
+        attemptOnMount: false,
+    });
+
+    if (!awaiting) {
+        if (response.success) reviewResponse = response.data;
+    }
+
+    const [filter, setFilter] = useState<(typeof filterOptions)[number]["name"] | undefined>(
+        undefined,
+    );
+    const [sort, setSort] = useState<(typeof sortOptions)[number]["name"]>("created_desc");
+    const [page, setPage] = useState<number>(1);
+
+    useEffect(() => {
+        if (contextAwaitingAny) return;
+
+        setParams([
             {
                 params: {
-                    productId: productData?.id,
-                    filter: filter === "All" ? undefined : filter,
-                    sort,
-                    start: page * reviewsPerPage,
-                    end: page * reviewsPerPage + reviewsPerPage,
+                    path: { slug: productData.slug },
+                    query: { page, pageSize, sort, filter },
                 },
             },
-        ],
-        { attemptOnMount: false },
-    );
-
-    useMemo(() => {
-        const newFunctionParams = {
-            productId: productData?.id,
-            filter: filter === "All" ? undefined : filter,
-            sort,
-            start: page * reviewsPerPage,
-            end: page * reviewsPerPage + reviewsPerPage,
-        };
-        setParams([{ params: newFunctionParams }]);
+        ]);
         attempt();
-        return newFunctionParams;
-    }, [productData, filter, sort, page, setParams, attempt]);
-
-    const reviews = useMemo<ProductReview[]>(() => {
-        if (!reviewsResponse || !reviewsResponse.success || !reviewsResponse.data) return [];
-        return reviewsResponse.data;
-    }, [reviewsResponse]);
+    }, [productData, contextAwaitingAny, page, sort, filter, setParams, attempt]);
 
     // Don't test auto-scroll logic
     /* v8 ignore start */
@@ -117,14 +125,9 @@ export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
 
     /* v8 ignore stop */
 
-    if (!awaitingAny) return null;
+    const awaitingAny = contextAwaitingAny || awaiting;
 
-    const { rating, reviews: reviewIds } = productData;
-
-    const reviewQuantity =
-        filter === "All"
-            ? reviewIds.length
-            : rating.quantities[Number.parseInt(filter, 10) as keyof typeof rating.quantities];
+    const { filteredCount, reviews } = reviewResponse;
 
     return (
         <div className={styles["product-reviews"]}>
@@ -145,8 +148,8 @@ export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
             >
                 <ProductRatingBars
                     onClick={(tier) => {
-                        if (`${tier}` === filter) setFilter("All");
-                        else setFilter(`${tier}` as (typeof filterOptions)[number]);
+                        if (`${tier}` === filter) setFilter(undefined);
+                        else setFilter(`${tier}` as (typeof filterOptions)[number]["name"]);
                         setQueueScroll(true);
                     }}
                 />
@@ -160,21 +163,28 @@ export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
                             value={filter}
                             onChange={(e) => {
                                 const { value } = e.target;
-                                setFilter(value as (typeof filterOptions)[number]);
-                                setPage(0);
+                                setFilter(value as (typeof filterOptions)[number]["name"]);
+                                setPage(1);
                                 setQueueScroll(true);
                             }}
                             disabled={awaitingAny}
                             key="sort-options"
                         >
+                            <option
+                                className={styles["filter-reviews-option"]}
+                                value={undefined}
+                                key="filter-reviews-option-All"
+                            >
+                                All
+                            </option>
                             {filterOptions.map((option) => {
                                 return (
                                     <option
                                         className={styles["filter-reviews-option"]}
-                                        value={option}
-                                        key={`filter-reviews-option-${option}`}
+                                        value={option.name}
+                                        key={`filter-reviews-option-${option.title}`}
                                     >
-                                        {option}
+                                        {option.title}
                                     </option>
                                 );
                             })}
@@ -189,8 +199,8 @@ export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
                             defaultValue={sort}
                             onChange={(e) => {
                                 const { value } = e.target;
-                                setSort(value as (typeof sortOptions)[number]);
-                                setPage(0);
+                                setSort(value as (typeof sortOptions)[number]["name"]);
+                                setPage(1);
                                 setQueueScroll(true);
                             }}
                             disabled={awaitingAny}
@@ -200,10 +210,10 @@ export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
                                 return (
                                     <option
                                         className={styles["sort-reviews-option"]}
-                                        value={option}
-                                        key={`sort-reviews-option-${option}`}
+                                        value={option.name}
+                                        key={`sort-reviews-option-${option.title}`}
                                     >
-                                        {option}
+                                        {option.title}
                                     </option>
                                 );
                             })}
@@ -217,21 +227,15 @@ export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
                         className={styles["review-count"]}
                         style={{ visibility: awaitingAny ? "hidden" : "initial" }}
                     >
-                        {reviewQuantity} reviews
+                        {filteredCount} reviews
                     </p>
                 </Skeleton>
 
                 <Divider className={styles["divider"]} />
 
-                {!awaiting
-                    ? reviews.slice(0, reviewsPerPage).map((review) => {
-                          return <Review data={review} key={review.id} />;
-                      })
-                    : Array.from({
-                          length: Math.min(reviewQuantity - page * reviewsPerPage, reviewsPerPage),
-                      }).map(() => {
-                          return <Review awaiting key={uuid()} />;
-                      })}
+                {reviews.slice(0, pageSize).map((review) => {
+                    return <Review data={review} awaiting={awaitingAny} key={uuid()} />;
+                })}
 
                 <div className={styles["pagination-container"]}>
                     <Pagination
@@ -239,11 +243,11 @@ export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
                         // doesn't have an accessible role and the page buttons' names (numbers)
                         // often conflict with the ProductRatingBars component's buttons.
                         data-testid="pagination"
-                        total={Math.ceil(reviewQuantity / reviewsPerPage)}
-                        value={page + 1}
+                        total={Math.ceil(filteredCount / pageSize)}
+                        value={page}
                         withEdges
                         onChange={(newPageNo) => {
-                            setPage(newPageNo - 1);
+                            setPage(newPageNo);
                             setQueueScroll(true);
                         }}
                         classNames={{ control: styles["pagination-control"] }}

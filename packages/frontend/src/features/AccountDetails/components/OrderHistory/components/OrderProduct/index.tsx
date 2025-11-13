@@ -1,12 +1,11 @@
 import { Skeleton, Image } from "@mantine/core";
-import { variantOptions } from "@/utils/products/product";
-import { PopulatedOrderData } from "@/utils/products/orders";
+import { OrderData } from "@/utils/products/orders";
 import { Price } from "@/features/Price";
 import { Link } from "react-router-dom";
 import styles from "./index.module.css";
 
 export type TOrderProduct = {
-    data: PopulatedOrderData["products"][number];
+    data: OrderData["products"][number];
     awaiting: boolean;
 };
 
@@ -14,22 +13,23 @@ export function OrderProduct({ data, awaiting }: TOrderProduct) {
     const { product, variant, quantity, cost } = data;
     const { unit } = cost;
 
-    const { id: productId, slug, name, images } = product;
-    const { options, image } = variant;
+    const { id: productId, slug, name, images: productImages } = product;
+    const { attributes, images: variantImages } = variant;
 
-    const usedImage = image || images.thumb;
-    const { src, alt } = usedImage;
+    let usedImage = { id: "", src: "", alt: "", position: 0 };
+    if (productImages.length > 0) [usedImage] = productImages;
+    if (variantImages.length > 0) [usedImage] = variantImages;
 
     const variantUrlParams = new URLSearchParams();
-    Object.entries(options).forEach(([key, value]) => variantUrlParams.append(key, `${value}`));
+    attributes.forEach((a) => variantUrlParams.append(a.type.name, `${a.value.code}`));
 
     return (
         <li className={styles["order-product"]}>
             <Skeleton visible={awaiting}>
                 <Image
                     className={styles["product-thumbnail-image"]}
-                    src={src}
-                    alt={alt}
+                    src={usedImage.src}
+                    alt={usedImage.alt}
                     style={{ visibility: awaiting ? "hidden" : "initial" }}
                 />
             </Skeleton>
@@ -41,29 +41,25 @@ export function OrderProduct({ data, awaiting }: TOrderProduct) {
                         className={styles["product-full-name"]}
                         style={{ visibility: awaiting ? "hidden" : "initial" }}
                     >
-                        {name.full}
+                        {name}
                     </Link>
                 </Skeleton>
 
                 <div className={styles["product-variant-options"]}>
-                    {Object.entries(options).map((option) => {
-                        const [key, value] = option;
-                        const variantOption = variantOptions.find((vOpt) => vOpt.id === key);
-                        const variantOptionValue = variantOption?.values.find(
-                            (vOptVal) => vOptVal.id === value,
-                        );
+                    {attributes.map((attribute) => {
+                        const { type, value } = attribute;
                         return (
-                            <Skeleton visible={awaiting} key={`${key}-skeleton`}>
+                            <Skeleton visible={awaiting} key={`${type.name}-skeleton`}>
                                 <div
                                     className={styles["product-variant-option-info"]}
-                                    key={key}
+                                    key={type.name}
                                     style={{ visibility: awaiting ? "hidden" : "initial" }}
                                 >
                                     <p className={styles["product-variant-option-name"]}>
-                                        {variantOption?.name || key}:{" "}
+                                        {type.title}:{" "}
                                     </p>
                                     <p className={styles["product-variant-option-value"]}>
-                                        {variantOptionValue?.name || value}
+                                        {value.name}
                                     </p>
                                 </div>
                             </Skeleton>

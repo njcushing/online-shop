@@ -4,16 +4,19 @@ import { useMatches } from "@mantine/core";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { UserContext } from "@/pages/Root";
 import { CartSummary } from "@/features/Cart/components/CartSummary";
-import { PopulatedCart } from "@/utils/products/cart";
+import { Cart } from "@/utils/products/cart";
 import { TCartItem } from "../CartItem";
 import styles from "./index.module.css";
 
 export function CartContent() {
-    const CartItemQuantitySize = useMatches<TCartItem["QuantitySize"]>({ base: "sm", xs: "md" });
+    const CartItemQuantitySize = useMatches<TCartItem["QuantitySize"]>(
+        { base: "sm", xs: "md" },
+        { getInitialValueInEffect: false },
+    );
 
     const { cart, defaultData } = useContext(UserContext);
 
-    let cartData = defaultData.cart as PopulatedCart;
+    let cartData = defaultData.cart as Cart;
 
     const { data, awaitingAny } = useQueryContexts({
         contexts: [{ name: "cart", context: cart }],

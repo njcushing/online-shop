@@ -1,35 +1,40 @@
 import { Link } from "react-router-dom";
 import { Skeleton, Image } from "@mantine/core";
-import { variantOptions } from "@/utils/products/product";
-import { PopulatedSubscriptionData } from "@/utils/products/subscriptions";
+import { SubscriptionData } from "@/utils/products/subscriptions";
 import { Price } from "@/features/Price";
 import styles from "./index.module.css";
 
 export type TSubscriptionProduct = {
-    data: PopulatedSubscriptionData;
+    data: SubscriptionData;
     awaiting: boolean;
 };
 
 export function SubscriptionProduct({ data, awaiting }: TSubscriptionProduct) {
     const { product, variant } = data;
 
-    const { id: productId, slug, name, images } = product;
-    const { price, options, image } = variant;
-    const { base, current, subscriptionDiscountPercentage } = price;
+    const { id: productId, slug, name, images: productImages } = product;
+    const {
+        priceBase,
+        priceCurrent,
+        subscriptionDiscountPercentage,
+        attributes,
+        images: variantImages,
+    } = variant;
 
-    const usedImage = image || images.thumb;
-    const { src, alt } = usedImage;
+    let usedImage = { id: "", src: "", alt: "", position: 0 };
+    if (productImages.length > 0) [usedImage] = productImages;
+    if (variantImages.length > 0) [usedImage] = variantImages;
 
     const variantUrlParams = new URLSearchParams();
-    Object.entries(options).forEach(([key, value]) => variantUrlParams.append(key, `${value}`));
+    attributes.forEach((a) => variantUrlParams.append(a.type.name, `${a.value.code}`));
 
     return (
         <div className={styles["subscription-product"]}>
             <Skeleton visible={awaiting}>
                 <Image
                     className={styles["product-thumbnail-image"]}
-                    src={src}
-                    alt={alt}
+                    src={usedImage.src}
+                    alt={usedImage.alt}
                     style={{ visibility: awaiting ? "hidden" : "initial" }}
                 />
             </Skeleton>
@@ -41,29 +46,25 @@ export function SubscriptionProduct({ data, awaiting }: TSubscriptionProduct) {
                         className={styles["product-full-name"]}
                         style={{ visibility: awaiting ? "hidden" : "initial" }}
                     >
-                        {name.full}
+                        {name}
                     </Link>
                 </Skeleton>
 
                 <div className={styles["product-variant-options"]}>
-                    {Object.entries(options).map((option) => {
-                        const [key, value] = option;
-                        const variantOption = variantOptions.find((vOpt) => vOpt.id === key);
-                        const variantOptionValue = variantOption?.values.find(
-                            (vOptVal) => vOptVal.id === value,
-                        );
+                    {attributes.map((attribute) => {
+                        const { type, value } = attribute;
                         return (
-                            <Skeleton visible={awaiting} key={`${key}-skeleton`}>
+                            <Skeleton visible={awaiting} key={`${type.name}-skeleton`}>
                                 <div
                                     className={styles["product-variant-option-info"]}
-                                    key={key}
+                                    key={type.name}
                                     style={{ visibility: awaiting ? "hidden" : "initial" }}
                                 >
                                     <p className={styles["product-variant-option-name"]}>
-                                        {variantOption?.name || key}:{" "}
+                                        {type.title}:{" "}
                                     </p>
                                     <p className={styles["product-variant-option-value"]}>
-                                        {variantOptionValue?.name || value}
+                                        {value.name}
                                     </p>
                                 </div>
                             </Skeleton>
@@ -75,8 +76,10 @@ export function SubscriptionProduct({ data, awaiting }: TSubscriptionProduct) {
                     <Skeleton visible={awaiting}>
                         <div style={{ visibility: awaiting ? "hidden" : "initial" }}>
                             <Price
-                                base={base}
-                                current={current * (1 - subscriptionDiscountPercentage / 100)}
+                                base={priceBase}
+                                current={
+                                    priceCurrent * (1 - (subscriptionDiscountPercentage ?? 1) / 100)
+                                }
                                 classNames={{
                                     base: styles["price-base"],
                                     current: styles["price-current"],
@@ -86,13 +89,15 @@ export function SubscriptionProduct({ data, awaiting }: TSubscriptionProduct) {
                         </div>
                     </Skeleton>
 
-                    {!awaiting && subscriptionDiscountPercentage > 0 && (
-                        <p className={styles["discount-percentage-message"]}>
-                            The above unit cost includes a{" "}
-                            <strong>{subscriptionDiscountPercentage}%</strong> discount for
-                            subscriptions to this product.
-                        </p>
-                    )}
+                    {!awaiting &&
+                        subscriptionDiscountPercentage &&
+                        subscriptionDiscountPercentage > 0 && (
+                            <p className={styles["discount-percentage-message"]}>
+                                The above unit cost includes a{" "}
+                                <strong>{subscriptionDiscountPercentage}%</strong> discount for
+                                subscriptions to this product.
+                            </p>
+                        )}
                 </div>
             </div>
         </div>

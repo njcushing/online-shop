@@ -1,16 +1,13 @@
-import { ProductReview, Product, reviews, products as productData } from "@/utils/products/product";
-import { CartItemData, Cart, PopulatedCart, mockCart } from "@/utils/products/cart";
-import { OrderData, PopulatedOrderData, mockOrders } from "@/utils/products/orders";
-import {
-    SubscriptionData,
-    PopulatedSubscriptionData,
-    mockSubscriptions,
-} from "@/utils/products/subscriptions";
+import { mockProducts } from "@/utils/products/product";
+import { Cart, generateSkeletonCart } from "@/utils/products/cart";
+import { OrderData, generateSkeletonOrderList } from "@/utils/products/orders";
+import { SubscriptionData, generateSkeletonSubscriptionList } from "@/utils/products/subscriptions";
 import { filterOptions as reviewFilterOptions, sortOptions } from "@/features/ProductReviews";
 import { FilterOption as OrderFilterOption } from "@/features/AccountDetails/components/OrderHistory";
 import { User, defaultUser } from "@/utils/schemas/user";
 import { Profile, defaultProfile } from "@/utils/schemas/profile";
 import dayjs from "dayjs";
+import { ResponseBody as GetProductBySlugResponseDto } from "./product/[slug]/GET";
 import * as HTTPMethodTypes from "./types";
 
 export const mockGetUser: HTTPMethodTypes.GET<undefined, User> = async () => {
@@ -61,121 +58,17 @@ export const mockGetProfile: HTTPMethodTypes.GET<undefined, Profile> = async () 
     };
 };
 
-export const mockPopulateCartItems = (cart: Cart): PopulatedCart => {
-    const populatedItems = cart.items.flatMap((cartItem) => {
-        const { productId, variantId } = cartItem;
-        const matchedProduct = productData.find((product) => product.id === productId);
-        if (!matchedProduct) return [];
-        const matchedVariant = matchedProduct.variants.find((variant) => variant.id === variantId);
-        if (!matchedVariant) return [];
-        return { ...cartItem, product: matchedProduct, variant: matchedVariant };
-    });
-
-    return { ...cart, items: populatedItems };
-};
-
-export const mockGetCart: HTTPMethodTypes.GET<undefined, PopulatedCart> = async () => {
+export const mockGetCart: HTTPMethodTypes.GET<undefined, Cart> = async () => {
     await new Promise((resolve) => {
         setTimeout(resolve, 1000);
-    });
-
-    const foundCart = mockPopulateCartItems(mockCart);
-
-    if (!foundCart) {
-        return {
-            success: false,
-            status: 404,
-            message: "Cart not found",
-            error: undefined,
-        };
-    }
-
-    return {
-        success: true,
-        status: 200,
-        message: "Success",
-        data: foundCart,
-    };
-};
-
-export const mockUpdateCart: HTTPMethodTypes.PUT<
-    undefined,
-    { products: CartItemData[] },
-    PopulatedCart
-> = async (data) => {
-    const token = localStorage.getItem(import.meta.env.VITE_TOKEN_LOCAL_LOCATION);
-    if (!token) {
-        return {
-            success: false,
-            status: 400,
-            message: "No token provided for query",
-            error: undefined,
-        };
-    }
-
-    const { products } = data.body || { products: [] };
-    if (products.length === 0) {
-        return {
-            success: false,
-            status: 400,
-            message: "No products provided for query",
-            error: undefined,
-        };
-    }
-
-    await new Promise((resolve) => {
-        setTimeout(resolve, 1000);
-    });
-
-    const updatedCart = structuredClone(mockCart);
-
-    products.forEach(async (productToUpdate) => {
-        const { productId, variantId, quantity } = productToUpdate;
-
-        const existingEntryIndex = updatedCart.items.findIndex((cartItem) => {
-            return cartItem.productId === productId && cartItem.variantId === variantId;
-        });
-        if (existingEntryIndex >= 0) {
-            if (updatedCart.items[existingEntryIndex].quantity + quantity <= 0) {
-                updatedCart.items.splice(existingEntryIndex, 1);
-            } else {
-                updatedCart.items[existingEntryIndex].quantity += quantity;
-            }
-        } else {
-            const foundProduct = await mockGetProduct({ params: { productId } });
-            if (!foundProduct || !foundProduct.success) return;
-            const variant = foundProduct.data.variants.find(
-                (productVariant) => productVariant.id === variantId,
-            );
-            if (!variant) return;
-
-            updatedCart.items.push(productToUpdate);
-        }
     });
 
     return {
         success: true,
         status: 200,
         message: "Success",
-        data: mockPopulateCartItems(updatedCart),
+        data: generateSkeletonCart() as Cart,
     };
-};
-
-export const mockPopulateOrders = (orders: OrderData[]): PopulatedOrderData[] => {
-    return orders.flatMap((order) => {
-        const { products } = order;
-        const matchedProducts = products.flatMap((product) => {
-            const { productId, variantId } = product;
-
-            const matchedProduct = productData.find((p) => p.id === productId);
-            if (!matchedProduct) return [];
-            const matchedVariant = matchedProduct.variants.find((v) => v.id === variantId);
-            if (!matchedVariant) return [];
-
-            return { ...product, product: matchedProduct, variant: matchedVariant };
-        });
-        return { ...order, products: matchedProducts };
-    });
 };
 
 export const mockGetOrders: HTTPMethodTypes.GET<
@@ -184,7 +77,7 @@ export const mockGetOrders: HTTPMethodTypes.GET<
         start?: number;
         end?: number;
     },
-    { quantity: number; orders: PopulatedOrderData[] }
+    { quantity: number; orders: OrderData[] }
 > = async (data) => {
     const { params } = data;
     const { filter, start, end } = params || {};
@@ -193,18 +86,7 @@ export const mockGetOrders: HTTPMethodTypes.GET<
         setTimeout(resolve, 1000);
     });
 
-    const foundOrders = mockPopulateOrders(mockOrders);
-
-    if (!foundOrders) {
-        return {
-            success: false,
-            status: 404,
-            message: "Orders not found",
-            error: undefined,
-        };
-    }
-
-    let filteredOrders = foundOrders;
+    let filteredOrders = generateSkeletonOrderList() as OrderData[];
     switch (filter) {
         case "1_month":
             filteredOrders = filteredOrders.filter((order) => {
@@ -252,30 +134,12 @@ export const mockGetOrders: HTTPMethodTypes.GET<
     };
 };
 
-export const mockPopulateSubscriptions = (
-    subscriptions: SubscriptionData[],
-): PopulatedSubscriptionData[] => {
-    return subscriptions.flatMap((subscription) => {
-        const { productId, variantId } = subscription;
-        const matchedProduct = productData.find((product) => product.id === productId);
-        if (!matchedProduct) return [];
-        const matchedVariant = matchedProduct.variants.find((variant) => variant.id === variantId);
-        if (!matchedVariant) return [];
-        const populatedSubscription = {
-            ...subscription,
-            product: matchedProduct,
-            variant: matchedVariant,
-        };
-        return populatedSubscription;
-    });
-};
-
 export const mockGetSubscriptions: HTTPMethodTypes.GET<
     {
         start?: number;
         end?: number;
     },
-    PopulatedSubscriptionData[]
+    SubscriptionData[]
 > = async (data) => {
     const { params } = data;
     const { start, end } = params || {};
@@ -284,18 +148,9 @@ export const mockGetSubscriptions: HTTPMethodTypes.GET<
         setTimeout(resolve, 1000);
     });
 
-    const foundSubscriptions = mockPopulateSubscriptions(mockSubscriptions);
+    const subscriptions = generateSkeletonSubscriptionList() as SubscriptionData[];
 
-    if (!foundSubscriptions) {
-        return {
-            success: false,
-            status: 404,
-            message: "Subscriptions not found",
-            error: undefined,
-        };
-    }
-
-    const slicedSubscriptions = foundSubscriptions.slice(start, end);
+    const slicedSubscriptions = subscriptions.slice(start, end);
 
     return {
         success: true,
@@ -305,32 +160,33 @@ export const mockGetSubscriptions: HTTPMethodTypes.GET<
     };
 };
 
-export const mockGetProduct: HTTPMethodTypes.GET<{ productId?: string }, Product> = async (
-    data,
-) => {
+export const mockGetProductBySlug: HTTPMethodTypes.GET<
+    { productSlug?: GetProductBySlugResponseDto["slug"] },
+    GetProductBySlugResponseDto
+> = async (data) => {
     const { params } = data;
-    const { productId } = params || {};
+    const { productSlug } = params || {};
 
     await new Promise((resolve) => {
         setTimeout(resolve, 1000);
     });
 
-    if (!productId) {
+    if (!productSlug) {
         return {
             success: false,
             status: 400,
-            message: "No product id provided for query",
+            message: "No product slug provided for query",
             error: undefined,
         };
     }
 
-    const foundProduct = productData.find((product) => product.id === productId);
+    const foundProduct = mockProducts.find((p) => p.slug === productSlug);
 
     if (!foundProduct) {
         return {
             success: false,
             status: 404,
-            message: "Product not found",
+            message: "No product found with the specified slug",
             error: undefined,
         };
     }
@@ -339,13 +195,14 @@ export const mockGetProduct: HTTPMethodTypes.GET<{ productId?: string }, Product
         success: true,
         status: 200,
         message: "Success",
-        data: foundProduct as Product,
+        data: foundProduct,
     };
 };
 
-export const mockGetReview: HTTPMethodTypes.GET<{ reviewId: string }, ProductReview> = async (
-    data,
-) => {
+export const mockGetReview: HTTPMethodTypes.GET<
+    { reviewId: string },
+    GetProductBySlugResponseDto["reviews"][number]
+> = async (data) => {
     const { params } = data;
     const { reviewId } = params || {};
 
@@ -362,13 +219,14 @@ export const mockGetReview: HTTPMethodTypes.GET<{ reviewId: string }, ProductRev
         };
     }
 
-    const foundReview = reviews.find((review) => review.id === reviewId);
+    const reviews = mockProducts.flatMap((p) => p.reviews);
+    const foundReview = reviews.find((r) => r.id === reviewId);
 
     if (!foundReview) {
         return {
             success: false,
             status: 404,
-            message: "Review not found",
+            message: "No review found with specified review id",
             error: undefined,
         };
     }
@@ -383,33 +241,42 @@ export const mockGetReview: HTTPMethodTypes.GET<{ reviewId: string }, ProductRev
 
 export const mockGetReviews: HTTPMethodTypes.GET<
     {
-        productId?: string;
+        productSlug?: GetProductBySlugResponseDto["slug"];
         filter?: (typeof reviewFilterOptions)[number];
         sort?: (typeof sortOptions)[number];
         start?: number;
         end?: number;
     },
-    ProductReview[]
+    GetProductBySlugResponseDto["reviews"]
 > = async (data) => {
     const { params } = data;
-    const { productId, filter, sort, start, end } = params || {};
+    const { productSlug, filter, sort, start, end } = params || {};
 
     await new Promise((resolve) => {
         setTimeout(resolve, 1000);
     });
 
-    if (!productId) {
+    if (!productSlug) {
         return {
             success: false,
             status: 400,
-            message: "No product id provided for query",
+            message: "No product slug provided for query",
             error: undefined,
         };
     }
 
-    const productReviews = reviews.filter((review) => review.productId === productId);
+    const foundProduct = mockProducts.find((p) => p.slug === productSlug);
 
-    let filteredReviews = productReviews;
+    if (!foundProduct) {
+        return {
+            success: false,
+            status: 404,
+            message: "No product found with the specified slug",
+            error: undefined,
+        };
+    }
+
+    let filteredReviews = foundProduct.reviews;
     if (filter) {
         filteredReviews = filteredReviews.filter(
             (review) => review.rating === Number.parseInt(filter, 10),
@@ -421,20 +288,20 @@ export const mockGetReviews: HTTPMethodTypes.GET<
         switch (sort) {
             case "Most Recent":
                 sortedReviews.sort(
-                    (a, b) => new Date(b.datePosted).getTime() - new Date(a.datePosted).getTime(),
+                    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
                 );
                 break;
             case "Highest Rating":
                 // Sort by recency first
                 sortedReviews.sort(
-                    (a, b) => new Date(b.datePosted).getTime() - new Date(a.datePosted).getTime(),
+                    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
                 );
                 sortedReviews.sort((a, b) => b.rating - a.rating);
                 break;
             case "Lowest Rating":
                 // Sort by recency first
                 sortedReviews.sort(
-                    (a, b) => new Date(b.datePosted).getTime() - new Date(a.datePosted).getTime(),
+                    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
                 );
                 sortedReviews.sort((a, b) => a.rating - b.rating);
                 break;

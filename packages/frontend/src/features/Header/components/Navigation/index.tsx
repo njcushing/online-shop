@@ -4,10 +4,10 @@ import { useMatches, ActionIcon, Burger, BurgerProps, Skeleton } from "@mantine/
 import { useClickOutside } from "@mantine/hooks";
 import { MagnifyingGlass, User, ShoppingCartSimple, IconProps } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
-import { buildCategoryTree, skeletonCategories } from "@/utils/products/categories";
+import { buildCategoriesTree, skeletonCategories } from "@/utils/products/categories";
 import { Logo } from "@/features/Logo";
 import { CartDrawer } from "@/features/Cart/components/CartDrawer";
-import { PopulatedCart } from "@/utils/products/cart";
+import { Cart } from "@/utils/products/cart";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { SearchBar } from "../SearchBar";
 import { NavDrawer } from "./components/NavDrawer";
@@ -23,7 +23,7 @@ export function Navigation({ opened = false, reduced }: TNavigation) {
     const { cart, defaultData } = useContext(UserContext);
 
     let categoriesData = null;
-    let cartData = defaultData.cart as PopulatedCart;
+    let cartData = defaultData.cart as Cart;
 
     const { data, awaitingAny } = useQueryContexts({
         contexts: [
@@ -39,10 +39,10 @@ export function Navigation({ opened = false, reduced }: TNavigation) {
 
     const navigate = useNavigate();
 
-    const [categoryTree, setCategoryTree] = useState<ReturnType<typeof buildCategoryTree>>([]);
+    const [categoryTree, setCategoryTree] = useState<ReturnType<typeof buildCategoriesTree>>([]);
     useEffect(() => {
         if (awaitingAny) setCategoryTree(skeletonCategories);
-        else setCategoryTree(buildCategoryTree(categoriesData || []));
+        else setCategoryTree(buildCategoriesTree(categoriesData || []));
     }, [awaitingAny, categoriesData]);
 
     const [navDrawerOpen, setNavDrawerOpen] = useState<boolean>(false);
@@ -55,10 +55,13 @@ export function Navigation({ opened = false, reduced }: TNavigation) {
     const { burgerSize, iconSize } = useMatches<{
         burgerSize: BurgerProps["size"];
         iconSize: IconProps["size"];
-    }>({
-        base: { burgerSize: "28px", iconSize: "24px" },
-        xs: { burgerSize: "32px", iconSize: "26px" },
-    });
+    }>(
+        {
+            base: { burgerSize: "28px", iconSize: "24px" },
+            xs: { burgerSize: "32px", iconSize: "26px" },
+        },
+        { getInitialValueInEffect: false },
+    );
 
     useEffect(() => {
         if (reduced) {

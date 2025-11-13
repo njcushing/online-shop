@@ -3,7 +3,7 @@ import { RootContext, UserContext } from "@/pages/Root";
 import { useScrollIntoView } from "@mantine/hooks";
 import { Skeleton, Divider, Pagination } from "@mantine/core";
 import { v4 as uuid } from "uuid";
-import { PopulatedOrderData } from "@/utils/products/orders";
+import { OrderData } from "@/utils/products/orders";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { OrderSummary } from "./components/OrderSummary";
 import styles from "./index.module.css";
@@ -28,7 +28,7 @@ export function OrderHistory() {
     const { orders, defaultData } = useContext(UserContext);
     const { setParams, attempt } = orders;
 
-    let ordersData = { quantity: 0, orders: defaultData.orders as PopulatedOrderData[] };
+    let ordersData = { quantity: 0, orders: defaultData.orders as OrderData[] };
 
     const { data, awaitingAny: contextAwaitingAny } = useQueryContexts({
         contexts: [{ name: "orders", context: orders, markUnattemptedAsAwaiting: true }],

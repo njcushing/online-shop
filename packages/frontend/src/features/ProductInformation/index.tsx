@@ -3,12 +3,12 @@ import { RootContext } from "@/pages/Root";
 import { ProductContext } from "@/pages/Product";
 import { useMatches, Accordion, Table, Skeleton } from "@mantine/core";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
+import { ResponseBody as GetProductBySlugResponseDto } from "@/api/product/[slug]/GET";
 import { ProductReviews } from "@/features/ProductReviews";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import dayjs from "dayjs";
 import { v4 as uuid } from "uuid";
-import { Product, ProductVariant } from "@/utils/products/product";
 import styles from "./index.module.css";
 
 export type TProductInformation = {
@@ -20,14 +20,14 @@ export type TProductInformation = {
 };
 
 export function ProductInformation({ defaultOpenTab = "Description" }: TProductInformation) {
-    const tableColumnCount = useMatches({ base: 1, lg: 2 });
+    const tableColumnCount = useMatches({ base: 1, lg: 2 }, { getInitialValueInEffect: false });
 
     const { settings } = useContext(RootContext);
     const { product, variant, defaultData } = useContext(ProductContext);
 
     let settingsData = null;
-    let productData = defaultData.product as Product;
-    let variantData = defaultData.variant as ProductVariant;
+    let productData = defaultData.product as GetProductBySlugResponseDto;
+    let variantData = defaultData.variant as GetProductBySlugResponseDto["variants"][number];
 
     const { data, awaitingAny } = useQueryContexts({
         contexts: [
@@ -168,14 +168,9 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
                                                 visibility: awaitingAny ? "hidden" : "initial",
                                             }}
                                         >
-                                            Free delivery on all orders of at least £
+                                            Free delivery on all orders of at least{" "}
                                             <strong>
-                                                {
-                                                    +parseFloat(
-                                                        `${settingsData.freeExpressDeliveryThreshold / 100}`,
-                                                    ).toFixed(2)
-                                                }
-                                                .
+                                                £{settingsData.freeExpressDeliveryThreshold}.
                                             </strong>
                                         </span>
                                     </Skeleton>
@@ -201,12 +196,7 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
                                         }}
                                     >
                                         Express Delivery (£
-                                        {
-                                            +parseFloat(
-                                                `${settingsData.baseExpressDeliveryCost / 100}`,
-                                            ).toFixed(2)
-                                        }
-                                        )
+                                        {settingsData.baseExpressDeliveryCost})
                                     </p>
                                 </Skeleton>
                                 <div className={styles["delivery-information-segment-information"]}>

@@ -1,9 +1,5 @@
-import {
-    ProductVariant,
-    Product,
-    generateSkeletonProduct,
-    generateSkeletonProductVariant,
-} from "@/utils/products/product";
+import { ResponseBody as GetProductBySlugResponseDto } from "@/api/product/[slug]/GET";
+import { mockProducts } from "@/utils/products/product";
 import { RecursivePartial } from "@/utils/types";
 import { SubscriptionFrequency } from "../subscriptions";
 
@@ -12,11 +8,6 @@ export type CartItemDataBase = {
     info?: {
         subscription?: { frequency: SubscriptionFrequency };
     };
-};
-
-export type CartItemData = CartItemDataBase & {
-    productId: Product["id"];
-    variantId: Product["variants"][number]["id"];
 };
 
 export type CartPromotion = {
@@ -29,9 +20,9 @@ export type CartPromotion = {
     };
 };
 
-export type PopulatedCartItemData = CartItemDataBase & {
-    product: Product;
-    variant: ProductVariant;
+export type CartItemData = CartItemDataBase & {
+    product: GetProductBySlugResponseDto;
+    variant: GetProductBySlugResponseDto["variants"][number];
 };
 
 export type CartBase<T> = {
@@ -41,55 +32,34 @@ export type CartBase<T> = {
 
 export type Cart = CartBase<CartItemData>;
 
-export type PopulatedCart = CartBase<PopulatedCartItemData>;
-
-export const mockCart: Cart = {
-    items: [
-        { productId: "1", variantId: "1-1", quantity: 10 },
-        {
-            productId: "1",
-            variantId: "1-2",
-            quantity: 5,
-            info: { subscription: { frequency: "one_month" } },
-        },
-        {
-            productId: "2",
-            variantId: "2-2",
-            quantity: 15,
-        },
-        { productId: "3", variantId: "3-1", quantity: 6 },
-        {
-            productId: "3",
-            variantId: "3-3",
-            quantity: 18,
-            info: { subscription: { frequency: "one_week" } },
-        },
-    ],
-    promotions: [
-        {
-            code: "SUMMER",
-            description: "Summer sale: 10% off orders over £50!",
-            threshold: 5000,
-            discount: { value: 10, type: "percentage" },
-        },
-        {
-            code: "SPEND100",
-            description: "Spend £100 and get £10 off your order!",
-            threshold: 10000,
-            discount: { value: 1000, type: "fixed" },
-        },
-    ],
-};
-
-export const generateSkeletonCart = (length: number = 5): RecursivePartial<PopulatedCart> => {
+export const generateSkeletonCart = (length: number = 5): RecursivePartial<Cart> => {
     return {
         items: Array.from({
             length,
-        }).map(() => ({
-            product: generateSkeletonProduct(),
-            variant: generateSkeletonProductVariant(),
-            quantity: 1,
-        })),
-        promotions: [],
+        }).map(() => {
+            const pickProduct = mockProducts[Math.floor(Math.random() * mockProducts.length)];
+            const pickVariant =
+                pickProduct.variants[Math.floor(Math.random() * pickProduct.variants.length)];
+
+            return {
+                product: pickProduct,
+                variant: pickVariant,
+                quantity: 1,
+            };
+        }),
+        promotions: [
+            {
+                code: "SUMMER",
+                description: "Summer sale: 10% off orders over £50!",
+                threshold: 5000,
+                discount: { value: 10, type: "percentage" },
+            },
+            {
+                code: "SPEND100",
+                description: "Spend £100 and get £10 off your order!",
+                threshold: 10000,
+                discount: { value: 1000, type: "fixed" },
+            },
+        ],
     };
 };

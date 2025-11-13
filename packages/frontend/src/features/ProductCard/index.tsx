@@ -9,31 +9,35 @@ import React, {
 } from "react";
 import { RootContext } from "@/pages/Root";
 import { Link } from "react-router-dom";
-import { Image, Rating } from "@mantine/core";
+import { Image, Rating, Skeleton } from "@mantine/core";
 import { useIntersection, useMergedRef } from "@mantine/hooks";
-import { Product as ProductDataType, ProductVariant } from "@/utils/products/product";
+import { ResponseBody as GetProductBySlugResponseDto } from "@/api/product/[slug]/GET";
+import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import dayjs from "dayjs";
 import { Price } from "@/features/Price";
 import styles from "./index.module.css";
 
 export type TProductCard = {
-    productData: ProductDataType;
+    productData: GetProductBySlugResponseDto | GetCategoryBySlugResponseDto["products"][number];
+    awaiting?: boolean;
 };
 
 export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
-    ({ productData }: TProductCard, ref) => {
+    ({ productData, awaiting = false }: TProductCard, ref) => {
         const { settings } = useContext(RootContext);
 
         let settingsData = null;
 
-        const { data, awaitingAny } = useQueryContexts({
+        const { data, awaitingAny: contextAwaitingAny } = useQueryContexts({
             contexts: [{ name: "settings", context: settings }],
         });
 
-        if (!awaitingAny) {
+        if (!contextAwaitingAny) {
             if (data.settings) settingsData = data.settings;
         }
+
+        const awaitingAny = awaiting || contextAwaitingAny;
 
         const containerRef = useRef<HTMLDivElement>(null);
         const { ref: productCardRef, entry: intersectionEntry } = useIntersection({
@@ -43,8 +47,9 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
         const mergedProductCardRef = useMergedRef(ref, productCardRef);
         const [visible, setVisible] = useState<boolean>(false);
         useEffect(() => {
+            if (awaitingAny) return;
             if (!visible) setVisible(intersectionEntry?.isIntersecting || false);
-        }, [intersectionEntry?.isIntersecting, visible]);
+        }, [awaitingAny, intersectionEntry?.isIntersecting, visible]);
 
         const productInformationBanner = useCallback((): React.ReactNode | null => {
             const highestStockVariant = productData.variants.reduce(
@@ -77,53 +82,89 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
             return null;
         }, [productData, settingsData]);
 
-        const lowestPriceVariant = useMemo<ProductVariant | undefined>(() => {
+        const lowestPriceVariant = useMemo<TProductCard["productData"]["variants"][number]>(() => {
             return productData.variants.reduce(
                 (current, variant) =>
-                    variant.price.current < current.price.current ? variant : current,
+                    variant.priceCurrent < current.priceCurrent ? variant : current,
                 productData.variants[0],
             );
         }, [productData]);
 
         if (!lowestPriceVariant) return null;
 
+        const { name, images } = productData;
+
+        let usedImage = { id: "", src: "", alt: "", position: 0 };
+        if (images.length > 0) [usedImage] = images;
+
         return (
             <Link
-                to={`/p/${productData.id}/${productData.slug}`}
+                to={`/p/${productData.slug}`}
                 className={styles["product-card"]}
-                data-visible={visible}
+                data-visible={awaitingAny || visible}
                 ref={mergedProductCardRef}
             >
-                <div className={styles["product-card-image-container"]}>
-                    <Image
-                        className={styles["product-image"]}
-                        src={productData.images.thumb.src}
-                        alt={productData.images.thumb.alt}
-                    />
-                    {productInformationBanner()}
-                </div>
-                <p className={styles["product-name"]}>{productData.name.full}</p>
-                <Price
-                    base={lowestPriceVariant.price.base}
-                    current={lowestPriceVariant.price.current}
-                    size="md"
-                />
-                <div className={styles["product-card-rating-container"]}>
-                    <Rating
-                        className={styles["product-rating"]}
-                        readOnly
-                        count={5}
-                        fractions={10}
-                        value={productData.rating.meanValue}
-                        color="gold"
-                        size="xs"
-                    />
-                    <div className={styles["product-rating-value"]}>
-                        {productData.rating.meanValue.toFixed(2)}
-                    </div>
+                <Skeleton visible={awaitingAny}>
                     <div
-                        className={styles["product-rating-quantity"]}
-                    >{`(${productData.rating.totalQuantity})`}</div>
+                        className={styles["product-card-image-container"]}
+                        style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                    >
+                        <Image
+                            className={styles["product-image"]}
+                            src={usedImage.src}
+                            alt={usedImage.alt}
+                        />
+                        {productInformationBanner()}
+                    </div>
+                </Skeleton>
+
+                <Skeleton visible={awaitingAny}>
+                    <p
+                        className={styles["product-name"]}
+                        style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                    >
+                        {name}
+                    </p>
+                </Skeleton>
+
+                <Skeleton visible={awaitingAny}>
+                    <span style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
+                        <Price
+                            base={lowestPriceVariant.priceBase}
+                            current={lowestPriceVariant.priceCurrent}
+                            size="md"
+                        />
+                    </span>
+                </Skeleton>
+
+                <div className={styles["product-card-rating-container"]}>
+                    <Skeleton visible={awaitingAny} width="min-content">
+                        <span style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
+                            <Rating
+                                className={styles["product-rating"]}
+                                readOnly
+                                count={5}
+                                fractions={10}
+                                value={productData.rating.average}
+                                color="gold"
+                                size="xs"
+                            />
+                        </span>
+                    </Skeleton>
+                    <Skeleton visible={awaitingAny} width="min-content">
+                        <div
+                            className={styles["product-rating-value"]}
+                            style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                        >
+                            {productData.rating.average.toFixed(2)}
+                        </div>
+                    </Skeleton>
+                    <Skeleton visible={awaitingAny} width="min-content">
+                        <div
+                            className={styles["product-rating-quantity"]}
+                            style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                        >{`(${productData.rating.total})`}</div>
+                    </Skeleton>
                 </div>
             </Link>
         );

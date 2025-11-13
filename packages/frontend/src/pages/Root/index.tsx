@@ -2,18 +2,15 @@ import { createContext, useState, useEffect, useMemo } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { Header } from "@/features/Header";
 import { Footer } from "@/features/Footer";
-import { generateSkeletonCart, PopulatedCart } from "@/utils/products/cart";
-import { getSettings } from "@/api/settings";
-import { getCategories } from "@/api/categories";
+import { generateSkeletonCart, Cart as CartType } from "@/utils/products/cart";
+import { getSettings } from "@/api/settings/GET";
+import { getCategories } from "@/api/categories/GET";
 import { mockGetUser, mockGetCart, mockGetOrders, mockGetSubscriptions } from "@/api/mocks";
 import { RecursivePartial } from "@/utils/types";
 import * as useAsync from "@/hooks/useAsync";
 import { createQueryContextObject } from "@/hooks/useAsync/utils/createQueryContextObject";
-import { generateSkeletonOrderList, PopulatedOrderData } from "@/utils/products/orders";
-import {
-    generateSkeletonSubscriptionList,
-    PopulatedSubscriptionData,
-} from "@/utils/products/subscriptions";
+import { generateSkeletonOrderList, OrderData } from "@/utils/products/orders";
+import { generateSkeletonSubscriptionList, SubscriptionData } from "@/utils/products/subscriptions";
 import { User, defaultUser } from "@/utils/schemas/user";
 import { CheckoutShippingOption } from "@/utils/schemas/checkout";
 import { Home } from "../Home";
@@ -37,7 +34,7 @@ export const Routes = [
         errorElement: <ErrorPage hideHeader hideFooter height="fill" />,
     },
     {
-        path: "p/:productId/:productSlug",
+        path: "p/:productSlug",
         element: <Product />,
         errorElement: <ErrorPage hideHeader hideFooter height="fill" />,
     },
@@ -88,9 +85,9 @@ export interface IUserContext {
 
     defaultData: {
         user: User;
-        cart: RecursivePartial<PopulatedCart>;
-        orders: RecursivePartial<PopulatedOrderData>[];
-        subscriptions: RecursivePartial<PopulatedSubscriptionData>[];
+        cart: RecursivePartial<CartType>;
+        orders: RecursivePartial<OrderData>[];
+        subscriptions: RecursivePartial<SubscriptionData>[];
     };
 }
 

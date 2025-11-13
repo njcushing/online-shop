@@ -5,7 +5,7 @@ import { Drawer, Skeleton, NavLink } from "@mantine/core";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { Logo } from "@/features/Logo";
 import { CaretRight, Placeholder } from "@phosphor-icons/react";
-import { skeletonCategories, buildCategoryTree } from "@/utils/products/categories";
+import { skeletonCategories, buildCategoriesTree } from "@/utils/products/categories";
 import { getIcon } from "./utils/getIcon";
 import styles from "./index.module.css";
 
@@ -27,9 +27,9 @@ export function NavDrawer({ opened = false, onClose }: TNavDrawer) {
         if (data.categories) categoriesData = data.categories;
     }
 
-    const categoryTree = useMemo<ReturnType<typeof buildCategoryTree>>(() => {
+    const categoryTree = useMemo<ReturnType<typeof buildCategoriesTree>>(() => {
         if (awaitingAny) return skeletonCategories;
-        return buildCategoryTree(categoriesData || []);
+        return buildCategoriesTree(categoriesData || []);
     }, [awaitingAny, categoriesData]);
 
     return (

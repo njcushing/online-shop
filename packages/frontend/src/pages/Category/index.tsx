@@ -1,17 +1,21 @@
-import { createContext, useContext, useMemo } from "react";
+import { createContext, useContext, useState, useEffect, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { CategoryHero } from "@/features/CategoryHero";
-import { ProductList } from "@/features/ProductList";
+import { CategoryProductList } from "@/features/CategoryProductList";
+import * as useAsync from "@/hooks/useAsync";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
-import { buildCategoryTree } from "@/utils/products/categories";
+import { buildCategoriesTree } from "@/utils/products/categories";
+import { getCategoryBySlug } from "@/api/categories/[slug]/GET";
+import { createQueryContextObject } from "@/hooks/useAsync/utils/createQueryContextObject";
 import { RootContext } from "../Root";
 import styles from "./index.module.css";
 
 export interface ICategoryContext {
     urlPathFull: string;
     urlPathSplit: string[];
-    categoryTree: ReturnType<typeof buildCategoryTree>;
-    categoryBranch: ReturnType<typeof buildCategoryTree>;
+    categoryTree: ReturnType<typeof buildCategoriesTree>;
+    categoryBranch: ReturnType<typeof buildCategoriesTree>;
+    categoryData: useAsync.InferUseAsyncReturnTypeFromFunction<typeof getCategoryBySlug>;
 }
 
 export const defaultCategoryContext: ICategoryContext = {
@@ -19,6 +23,7 @@ export const defaultCategoryContext: ICategoryContext = {
     urlPathSplit: [],
     categoryTree: [],
     categoryBranch: [],
+    categoryData: createQueryContextObject({ response: { success: true }, awaiting: true }),
 };
 
 export const CategoryContext = createContext<ICategoryContext>(defaultCategoryContext);
@@ -50,6 +55,9 @@ export type TCategory = {
 };
 
 export function Category({ children }: TCategory) {
+    const { "*": urlPathFull } = useParams();
+    const urlPathSplit = useMemo(() => (urlPathFull ? urlPathFull.split("/") : []), [urlPathFull]);
+
     const { categories } = useContext(RootContext);
 
     let categoriesData = null;
@@ -62,11 +70,23 @@ export function Category({ children }: TCategory) {
         if (data.categories) categoriesData = data.categories;
     }
 
-    const { "*": urlPathFull } = useParams();
-    const urlPathSplit = useMemo(() => (urlPathFull ? urlPathFull.split("/") : []), [urlPathFull]);
+    const [categoryData, setCategoryData] = useState<ICategoryContext["categoryData"]>(
+        defaultCategoryContext.categoryData,
+    );
+    const getCategoryReturn = useAsync.GET(
+        getCategoryBySlug,
+        [{ params: { path: { slug: "" } } }] as Parameters<typeof getCategoryBySlug>,
+        { attemptOnMount: false },
+    );
+    useEffect(() => setCategoryData(getCategoryReturn), [getCategoryReturn]);
+    const { setParams, attempt } = getCategoryReturn;
+    useEffect(() => {
+        setParams([{ params: { path: { slug: urlPathSplit.at(-1)! } } }]);
+        attempt();
+    }, [urlPathSplit, setParams, attempt]);
 
     const categoryTree = useMemo<ICategoryContext["categoryTree"]>(() => {
-        return buildCategoryTree(categoriesData || []);
+        return buildCategoriesTree(categoriesData || []);
     }, [categoriesData]);
 
     const categoryBranch = useMemo<ICategoryContext["categoryBranch"]>(() => {
@@ -74,8 +94,14 @@ export function Category({ children }: TCategory) {
     }, [urlPathSplit, categoryTree]);
 
     const contextValue = useMemo<ICategoryContext>(() => {
-        return { urlPathFull: urlPathFull || "", urlPathSplit, categoryTree, categoryBranch };
-    }, [urlPathFull, urlPathSplit, categoryTree, categoryBranch]);
+        return {
+            urlPathFull: urlPathFull || "",
+            urlPathSplit,
+            categoryTree,
+            categoryBranch,
+            categoryData,
+        };
+    }, [urlPathFull, urlPathSplit, categoryTree, categoryBranch, categoryData]);
 
     if (!awaitingAny && !categoryBranch) {
         throw new Response("Category not found", { status: 404 });
@@ -85,7 +111,7 @@ export function Category({ children }: TCategory) {
         <CategoryContext.Provider value={contextValue}>
             <div className={styles["page"]}>
                 <CategoryHero />
-                <ProductList />
+                <CategoryProductList />
             </div>
             {children}
         </CategoryContext.Provider>

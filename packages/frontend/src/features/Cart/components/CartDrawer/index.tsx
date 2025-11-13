@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Skeleton, Button, Divider, Drawer } from "@mantine/core";
 import { calculateCartSubtotal } from "@/utils/products/utils/calculateCartSubtotal";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
-import { PopulatedCart } from "@/utils/products/cart";
+import { Cart } from "@/utils/products/cart";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { CartItem } from "../CartItem";
 import styles from "./index.module.css";
@@ -19,7 +19,7 @@ export function CartDrawer({ opened = false, onClose }: TCartDrawer) {
     const { cart, shipping, defaultData } = useContext(UserContext);
 
     let settingsData = { baseExpressDeliveryCost: 0, freeExpressDeliveryThreshold: 0 };
-    let cartData = defaultData.cart as PopulatedCart;
+    let cartData = defaultData.cart as Cart;
     let freeExpressDeliveryThreshold = null;
     let baseExpressDeliveryCost = null;
     let { items } = cartData;

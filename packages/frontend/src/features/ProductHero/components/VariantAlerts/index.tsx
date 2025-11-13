@@ -2,7 +2,7 @@ import { useContext, useState, useEffect, useMemo } from "react";
 import { RootContext, UserContext } from "@/pages/Root";
 import { ProductContext } from "@/pages/Product";
 import { Skeleton, Collapse, Alert, AlertProps } from "@mantine/core";
-import { PopulatedCartItemData } from "@/utils/products/cart";
+import { CartItemData } from "@/utils/products/cart";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { WarningCircle, Info } from "@phosphor-icons/react";
 import styles from "./index.module.css";
@@ -39,7 +39,7 @@ export function VariantAlerts() {
         if (variant) stock = variant.stock;
     }
 
-    const cartItemData = useMemo<PopulatedCartItemData | undefined>(() => {
+    const cartItemData = useMemo<CartItemData | undefined>(() => {
         if (!cartData) return undefined;
         if (!cartData?.items) return undefined;
         return cartData.items.find((cartItem) => cartItem.variant.id === variant?.id);

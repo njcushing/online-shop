@@ -1,9 +1,5 @@
-import {
-    ProductVariant,
-    Product,
-    generateSkeletonProduct,
-    generateSkeletonProductVariant,
-} from "@/utils/products/product";
+import { ResponseBody as GetProductBySlugResponseDto } from "@/api/product/[slug]/GET";
+import { mockProducts } from "@/utils/products/product";
 import { defaultProfile } from "@/utils/schemas/profile";
 import { Address } from "@/utils/schemas/address";
 import { RecursivePartial } from "@/utils/types";
@@ -46,205 +42,53 @@ export type OrderDataBase = {
 
 export type OrderData = OrderDataBase & {
     products: (OrderProductData & {
-        productId: Product["id"];
-        variantId: Product["variants"][number]["id"];
+        product: GetProductBySlugResponseDto;
+        variant: GetProductBySlugResponseDto["variants"][number];
     })[];
 };
 
-export type PopulatedOrderData = OrderDataBase & {
-    products: (OrderProductData & {
-        product: Product;
-        variant: ProductVariant;
-    })[];
-};
-
-export const mockOrders: OrderData[] = [
-    {
-        id: "1",
-        orderNo: ulid(),
-        status: "pending",
-        userId: "1",
-        cost: {
-            total: 7899,
-            products: 7499,
-            postage: 400,
-        },
-        products: [
-            {
-                quantity: 3,
-                cost: { unit: 700, paid: 1899 },
-                productId: "1",
-                variantId: "1-1",
-            },
-            {
-                quantity: 8,
-                cost: { unit: 700, paid: 5600 },
-                productId: "1",
-                variantId: "1-2",
-            },
-        ],
-        orderDate: new Date().toISOString(),
-        deliveryAddress: defaultProfile.addresses.delivery,
-        billingAddress: defaultProfile.addresses.billing,
-        paymentMethod: "card",
-        deliveryInfo: {
-            expectedDate: new Date().toISOString(),
-            deliveredDate: undefined,
-            trackingNumber: undefined,
-        },
-    },
-    {
-        id: "2",
-        orderNo: ulid(),
-        status: "paid",
-        userId: "1",
-        cost: {
-            total: 8199,
-            products: 8199,
-            postage: 0,
-        },
-        products: [
-            {
-                quantity: 14,
-                cost: { unit: 700, paid: 8199 },
-                productId: "1",
-                variantId: "1-3",
-            },
-        ],
-        orderDate: new Date().toISOString(),
-        deliveryAddress: defaultProfile.addresses.delivery,
-        billingAddress: defaultProfile.addresses.billing,
-        paymentMethod: "card",
-        deliveryInfo: {
-            expectedDate: new Date().toISOString(),
-            deliveredDate: undefined,
-            trackingNumber: undefined,
-        },
-    },
-    {
-        id: "3",
-        orderNo: ulid(),
-        status: "shipped",
-        userId: "1",
-        cost: {
-            total: 20099,
-            products: 20099,
-            postage: 0,
-        },
-        products: [
-            {
-                quantity: 18,
-                cost: { unit: 1250, paid: 20099 },
-                productId: "2",
-                variantId: "2-1",
-            },
-        ],
-        orderDate: new Date().toISOString(),
-        deliveryAddress: defaultProfile.addresses.delivery,
-        billingAddress: defaultProfile.addresses.billing,
-        paymentMethod: "paypal",
-        deliveryInfo: {
-            expectedDate: new Date().toISOString(),
-            deliveredDate: undefined,
-            trackingNumber: undefined,
-        },
-    },
-    {
-        id: "4",
-        orderNo: ulid(),
-        status: "delivered",
-        userId: "1",
-        cost: {
-            total: 7099,
-            products: 7099,
-            postage: 0,
-        },
-        products: [
-            {
-                quantity: 6,
-                cost: { unit: 1250, paid: 7099 },
-                productId: "2",
-                variantId: "2-3",
-            },
-        ],
-        orderDate: new Date().toISOString(),
-        deliveryAddress: defaultProfile.addresses.delivery,
-        billingAddress: defaultProfile.addresses.billing,
-        paymentMethod: "bank_transfer",
-        deliveryInfo: {
-            expectedDate: new Date().toISOString(),
-            deliveredDate: new Date().toISOString(),
-            trackingNumber: undefined,
-        },
-    },
-    {
-        id: "5",
-        orderNo: ulid(),
-        status: "cancelled",
-        userId: "1",
-        cost: {
-            total: 43099,
-            products: 43099,
-            postage: 0,
-        },
-        products: [
-            {
-                quantity: 22,
-                cost: { unit: 2250, paid: 43099 },
-                productId: "3",
-                variantId: "3-1",
-            },
-        ],
-        orderDate: new Date().toISOString(),
-        deliveryAddress: defaultProfile.addresses.delivery,
-        billingAddress: defaultProfile.addresses.billing,
-        paymentMethod: "gift_card",
-        deliveryInfo: {
-            expectedDate: new Date().toISOString(),
-            deliveredDate: undefined,
-            trackingNumber: undefined,
-        },
-    },
-];
-
-export const generateSkeletonOrderList = (
-    length: number = 5,
-): RecursivePartial<PopulatedOrderData>[] => {
-    const product = {
-        quantity: 1,
-        cost: (() => {
-            const unit = Math.floor(Math.random() * 2000) + 1000;
-
-            return {
-                unit,
-                paid: unit * 0.8,
-            };
-        })(),
-        product: generateSkeletonProduct(),
-        variant: generateSkeletonProductVariant(),
-    };
-
+export const generateSkeletonOrderList = (length: number = 5): RecursivePartial<OrderData>[] => {
     return Array.from({
         length,
-    }).map((v, i) => ({
-        id: `${i + 1}`,
-        orderNo: ulid(),
-        status: statuses[0],
-        userId: "1",
-        cost: {
-            total: product.cost.paid,
-            products: product.cost.paid,
-            postage: 0,
-        },
-        products: [product],
-        orderDate: new Date().toISOString(),
-        deliveryAddress: defaultProfile.addresses.delivery,
-        billingAddress: defaultProfile.addresses.billing,
-        paymentMethod: paymentMethods[0],
-        deliveryInfo: {
-            expectedDate: new Date().toISOString(),
-            deliveredDate: undefined,
-            trackingNumber: undefined,
-        },
-    }));
+    }).map((v, i) => {
+        const pickProduct = mockProducts[Math.floor(Math.random() * mockProducts.length)];
+        const pickVariant =
+            pickProduct.variants[Math.floor(Math.random() * pickProduct.variants.length)];
+
+        const product = {
+            quantity: 1,
+            cost: (() => {
+                const unit = Math.floor(Math.random() * 2000) + 1000;
+
+                return {
+                    unit,
+                    paid: unit * 0.8,
+                };
+            })(),
+            product: pickProduct,
+            variant: pickVariant,
+        };
+
+        return {
+            id: `${i + 1}`,
+            orderNo: ulid(),
+            status: statuses[0],
+            userId: "1",
+            cost: {
+                total: product.cost.paid,
+                products: product.cost.paid,
+                postage: 0,
+            },
+            products: [product],
+            orderDate: new Date().toISOString(),
+            deliveryAddress: defaultProfile.addresses.delivery,
+            billingAddress: defaultProfile.addresses.billing,
+            paymentMethod: paymentMethods[0],
+            deliveryInfo: {
+                expectedDate: new Date().toISOString(),
+                deliveredDate: undefined,
+                trackingNumber: undefined,
+            },
+        };
+    });
 };

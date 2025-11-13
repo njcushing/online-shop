@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMatches, Skeleton, Button } from "@mantine/core";
-import { frequencies, PopulatedSubscriptionData } from "@/utils/products/subscriptions";
+import { frequencies, SubscriptionData } from "@/utils/products/subscriptions";
 import dayjs from "dayjs";
 import { SubscriptionProduct } from "../SubscriptionProduct";
 import { SubscriptionDetails } from "../SubscriptionDetails";
@@ -9,14 +9,14 @@ import { CancellationModal } from "../CancellationModal";
 import styles from "./index.module.css";
 
 export type TSubscriptionSummary = {
-    data: PopulatedSubscriptionData;
+    data: SubscriptionData;
     awaiting: boolean;
 };
 
 export function SubscriptionSummary({ data, awaiting }: TSubscriptionSummary) {
     const { count, frequency, nextDate } = data;
 
-    const wide = useMatches({ base: false, xs: true });
+    const wide = useMatches({ base: false, xs: true }, { getInitialValueInEffect: false });
 
     const [scheduleModalOpen, setScheduleModalOpen] = useState<boolean>(false);
     const [cancellationModalOpen, setCancellationModalOpen] = useState<boolean>(false);

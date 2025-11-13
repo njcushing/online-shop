@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import { UserContext } from "@/pages/Root";
 import { Skeleton, Image } from "@mantine/core";
 import { Quantity, TQuantity } from "@/components/Inputs/Quantity";
-import { ProductVariant, Product, variantOptions } from "@/utils/products/product";
-import { PopulatedCartItemData } from "@/utils/products/cart";
+import { CartItemData } from "@/utils/products/cart";
 import { calculateUnitPrice } from "@/utils/products/utils/calculateUnitPrice";
+import { ResponseBody as GetProductBySlugResponseDto } from "@/api/product/[slug]/GET";
 import { Price, TPrice } from "@/features/Price";
 import styles from "./index.module.css";
 
 export type TCartItem = {
-    data: PopulatedCartItemData;
+    data: CartItemData;
     editableQuantity?: boolean;
     disableLink?: boolean;
     QuantitySize?: TQuantity["size"];
@@ -26,9 +26,9 @@ export type TCartItem = {
 };
 
 const calculateMaximumAvailability = (
-    stock: ProductVariant["stock"],
-    allowance: Product["allowance"],
-    allowanceOverride: ProductVariant["allowanceOverride"],
+    stock: GetProductBySlugResponseDto["variants"][number]["stock"],
+    allowance: GetProductBySlugResponseDto["allowance"],
+    allowanceOverride: GetProductBySlugResponseDto["variants"][number]["allowanceOverride"],
 ): number => {
     if (typeof allowanceOverride === "number" && !Number.isNaN(allowanceOverride)) {
         return Math.min(stock, allowanceOverride as number);
@@ -49,23 +49,30 @@ export function CartItem({
     const { product, variant, quantity, info } = data;
     const { id, slug } = product;
 
-    const { name, images, allowance } = product;
-    const { price, stock, options, allowanceOverride, image } = variant;
-    const { subscriptionDiscountPercentage } = price;
+    const { name, images: productImages, allowance } = product;
+    const {
+        stock,
+        priceBase,
+        subscriptionDiscountPercentage,
+        allowanceOverride,
+        attributes,
+        images: variantImages,
+    } = variant;
 
-    const usedImage = image || images.thumb;
-    const { src, alt } = usedImage;
+    let usedImage = { id: "", src: "", alt: "", position: 0 };
+    if (productImages.length > 0) [usedImage] = productImages;
+    if (variantImages.length > 0) [usedImage] = variantImages;
 
     const variantUrlParams = new URLSearchParams();
-    Object.entries(options).forEach(([key, value]) => variantUrlParams.append(key, `${value}`));
+    Object.entries(attributes).forEach(([key, value]) => variantUrlParams.append(key, `${value}`));
 
     return (
         <li className={`${styles["cart-item"]} ${classNames?.container}`}>
             <Skeleton visible={awaiting}>
                 <Image
                     className={styles["cart-item-thumbnail-image"]}
-                    src={src}
-                    alt={alt}
+                    src={usedImage.src}
+                    alt={usedImage.alt}
                     style={{ visibility: awaiting ? "hidden" : "initial" }}
                 />
             </Skeleton>
@@ -79,7 +86,7 @@ export function CartItem({
                                 className={`${styles["cart-item-name"]} ${classNames?.name}`}
                                 style={{ visibility: awaiting ? "hidden" : "initial" }}
                             >
-                                {name.full}
+                                {name}
                             </Link>
                         </div>
                     ) : (
@@ -87,18 +94,14 @@ export function CartItem({
                             className={`${styles["cart-item-name"]} ${classNames?.name}`}
                             style={{ visibility: awaiting ? "hidden" : "initial" }}
                         >
-                            {name.full}
+                            {name}
                         </p>
                     )}
                 </Skeleton>
 
                 <div className={styles["cart-item-content-middle"]}>
-                    {Object.entries(options).map((option) => {
-                        const [key, value] = option;
-                        const variantOption = variantOptions.find((vOpt) => vOpt.id === key);
-                        const variantOptionValue = variantOption?.values.find(
-                            (vOptVal) => vOptVal.id === value,
-                        );
+                    {Object.entries(attributes).map((attribute) => {
+                        const [key] = attribute;
                         return (
                             <Skeleton
                                 visible={awaiting}
@@ -113,12 +116,12 @@ export function CartItem({
                                     <p
                                         className={`${styles["cart-item-variant-option-name"]} ${classNames?.variantOptionName}`}
                                     >
-                                        {variantOption?.name || key}:{" "}
+                                        {key}:{" "}
                                     </p>
                                     <p
                                         className={`${styles["cart-item-variant-option-value"]} ${classNames?.variantOptionValue}`}
                                     >
-                                        {variantOptionValue?.name || value}
+                                        Attribute Value
                                     </p>
                                 </div>
                             </Skeleton>
@@ -126,13 +129,16 @@ export function CartItem({
                     })}
                 </div>
 
-                {!awaiting && info?.subscription && subscriptionDiscountPercentage > 0 && (
-                    <p className={styles["discount-percentage-message"]}>
-                        The price below includes a{" "}
-                        <strong>{subscriptionDiscountPercentage}%</strong> discount for
-                        subscriptions to this product.
-                    </p>
-                )}
+                {!awaiting &&
+                    info?.subscription &&
+                    subscriptionDiscountPercentage &&
+                    subscriptionDiscountPercentage > 0 && (
+                        <p className={styles["discount-percentage-message"]}>
+                            The price below includes a{" "}
+                            <strong>{subscriptionDiscountPercentage}%</strong> discount for
+                            subscriptions to this product.
+                        </p>
+                    )}
 
                 <div className={styles["cart-item-content-bottom"]}>
                     <Skeleton visible={awaiting} width="min-content">
@@ -160,7 +166,7 @@ export function CartItem({
                     <Skeleton visible={awaiting} width="min-content">
                         <div style={{ visibility: awaiting ? "hidden" : "initial" }}>
                             <Price
-                                base={price.base}
+                                base={priceBase}
                                 current={calculateUnitPrice(data)}
                                 multiply={quantity}
                                 classNames={classNames?.price}

@@ -6,81 +6,71 @@ import { RecommendedProducts } from "@/features/RecommendedProducts";
 import * as useAsync from "@/hooks/useAsync";
 import { createQueryContextObject } from "@/hooks/useAsync/utils/createQueryContextObject";
 import {
-    Product as ProductDataType,
-    ProductVariant,
-    findVariantFromOptions,
-    filterVariantOptions,
-    findCollections,
+    extractAttributesOrdered,
+    extractRelatedAttributesOrdered,
+    findVariantByAttributeParams,
     generateSkeletonProduct,
     generateSkeletonProductVariant,
 } from "@/utils/products/product";
-import { mockGetProduct } from "@/api/mocks";
 import { RecursivePartial } from "@/utils/types";
+import {
+    getProductBySlug,
+    ResponseBody as GetProductBySlugResponseDto,
+} from "@/api/product/[slug]/GET";
 import styles from "./index.module.css";
 
-const defaultVariantOptionsData: ReturnType<typeof filterVariantOptions> = new Map([
-    ["option", new Set(["1", "2", "3"])],
-]);
-
-const defaultCollectionStepsData: ReturnType<typeof findCollections> = [
-    {
-        collection: { id: "", type: "quantity" },
-        products: Array.from({ length: 3 }).map((v, i) => {
-            return {
-                id: "",
-                name: {
-                    full: "Product Name",
-                    shorthands: [{ type: "quantity", value: `Shorthand ${i}` }],
-                },
-                description: "",
-                slug: "",
-                images: { thumb: { src: "", alt: "" }, dynamic: [] },
-                rating: {
-                    meanValue: 0.0,
-                    totalQuantity: 0,
-                    quantities: { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0 },
-                },
-                allowance: 0,
-                tags: [],
-                variants: [],
-                variantOptionOrder: [],
-                customisations: [],
-                reviews: [],
-                releaseDate: "",
-            };
-        }),
-    },
-];
-
 export interface IProductContext {
-    product: useAsync.InferUseAsyncReturnTypeFromFunction<typeof mockGetProduct>;
-    variant: ProductVariant | null;
-    selectedVariantOptions: ProductVariant["options"];
-    setSelectedVariantOptions: React.Dispatch<React.SetStateAction<ProductVariant["options"]>>;
+    product: useAsync.InferUseAsyncReturnTypeFromFunction<typeof getProductBySlug>;
+    variant: GetProductBySlugResponseDto["variants"][number] | null;
+    selectedAttributeParams: { [k: string]: string };
+    setSelectedAttributeParams: React.Dispatch<React.SetStateAction<{ [k: string]: string }>>;
+    allAttributes: ReturnType<typeof extractAttributesOrdered>;
+    relatedAttributes: ReturnType<typeof extractRelatedAttributesOrdered>;
 
     defaultData: {
-        product: RecursivePartial<ProductDataType>;
-        variant: RecursivePartial<ProductVariant>;
-        variantOptions: ReturnType<typeof filterVariantOptions>;
-        collectionSteps: ReturnType<typeof findCollections>;
+        product: RecursivePartial<GetProductBySlugResponseDto>;
+        variant: RecursivePartial<GetProductBySlugResponseDto["variants"][number]>;
     };
 }
 
 const defaultProductContext: IProductContext = {
     product: createQueryContextObject({ awaiting: true }),
     variant: null,
-    selectedVariantOptions: {},
-    setSelectedVariantOptions: () => {},
+    selectedAttributeParams: {},
+    setSelectedAttributeParams: () => {},
+    allAttributes: [],
+    relatedAttributes: [],
 
     defaultData: {
         product: generateSkeletonProduct(),
         variant: generateSkeletonProductVariant(),
-        variantOptions: defaultVariantOptionsData,
-        collectionSteps: defaultCollectionStepsData,
     },
 };
 
 export const ProductContext = createContext<IProductContext>(defaultProductContext);
+
+const generateAttributeParamsFromVariant = (
+    variant: GetProductBySlugResponseDto["variants"][number] | null,
+): IProductContext["selectedAttributeParams"] => {
+    const attributeParams: IProductContext["selectedAttributeParams"] = {};
+    if (variant) {
+        variant!.attributes.forEach((a) => {
+            attributeParams[a.type.name] = a.value.code;
+        });
+    }
+    return attributeParams;
+};
+
+const generateSearchParamsFromAttributeParams = (
+    attributeParams: IProductContext["selectedAttributeParams"],
+): URLSearchParams => {
+    const searchParams = new URLSearchParams();
+    Object.entries(attributeParams).forEach((entry) => {
+        const [key, value] = entry;
+        searchParams.set(key, value);
+    });
+    return searchParams;
+};
 
 export type TProduct = {
     children?: React.ReactNode;
@@ -89,73 +79,86 @@ export type TProduct = {
 export function Product({ children }: TProduct) {
     const params = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
-    const { productId } = params;
+    const { productSlug } = params;
+
+    const [selectedAttributeParams, setSelectedAttributeParams] = useState<
+        IProductContext["selectedAttributeParams"]
+    >(Object.fromEntries(searchParams.entries()));
+    const selectedAttributeParamsRef =
+        useRef<IProductContext["selectedAttributeParams"]>(selectedAttributeParams);
+    useEffect(() => {
+        selectedAttributeParamsRef.current = selectedAttributeParams;
+    }, [selectedAttributeParams]);
+
+    const updateSelectedVariant = useCallback(
+        (
+            productData: typeof productDataRef.current,
+        ): GetProductBySlugResponseDto["variants"][number] | null => {
+            const newVariantData = productData
+                ? findVariantByAttributeParams(productData, selectedAttributeParamsRef.current)
+                : null;
+            setVariant(newVariantData);
+            return newVariantData;
+        },
+        [],
+    );
+
+    useEffect(() => {
+        const newSearchParams = generateSearchParamsFromAttributeParams(selectedAttributeParams);
+        setSearchParams(newSearchParams);
+    }, [setSearchParams, selectedAttributeParams]);
 
     const [product, setProduct] = useState<IProductContext["product"]>(
         defaultProductContext.product,
     );
-    const getProductReturn = useAsync.GET(
-        mockGetProduct,
-        [{ params: { productId } }] as Parameters<typeof mockGetProduct>,
-        {
-            attemptOnMount: true,
-        },
-    );
-    useEffect(() => setProduct(getProductReturn), [getProductReturn]);
-    const { response, setParams, attempt } = getProductReturn;
-
-    const productDataRef = useRef<ProductDataType | null>(response.data);
-    useEffect(() => {
-        productDataRef.current = response.data;
-    }, [response]);
-
     const [variant, setVariant] = useState<IProductContext["variant"]>(
         defaultProductContext.variant,
     );
-
-    const [selectedVariantOptions, setSelectedVariantOptions] = useState<ProductVariant["options"]>(
-        Object.fromEntries(searchParams.entries()),
+    const getProductReturn = useAsync.GET(
+        getProductBySlug,
+        [{ params: { path: { slug: productSlug } } }] as Parameters<typeof getProductBySlug>,
+        { attemptOnMount: true },
     );
-    const selectedVariantOptionsRef = useRef<ProductVariant["options"]>(selectedVariantOptions);
     useEffect(() => {
-        selectedVariantOptionsRef.current = selectedVariantOptions;
-    }, [selectedVariantOptions]);
+        const { response, awaiting } = getProductReturn;
+        setProduct(getProductReturn);
+        const newVariant = updateSelectedVariant(response.success ? response.data : null);
 
-    const updateSelectedVariantData = useCallback((productData: ProductDataType | null) => {
-        const newVariantData = productData
-            ? findVariantFromOptions(productData, selectedVariantOptionsRef.current)
-            : null;
-        setVariant(newVariantData);
-        if (
-            newVariantData &&
-            JSON.stringify(newVariantData.options) !==
-                JSON.stringify(selectedVariantOptionsRef.current)
-        ) {
-            setSelectedVariantOptions(newVariantData.options);
-        }
-    }, []);
+        if (awaiting) return;
+
+        const newSelectedAttributeParams = generateAttributeParamsFromVariant(newVariant);
+        setSelectedAttributeParams(newSelectedAttributeParams);
+        const newSearchParams = generateSearchParamsFromAttributeParams(newSelectedAttributeParams);
+        setSearchParams(newSearchParams);
+    }, [setSearchParams, updateSelectedVariant, getProductReturn]);
+    const { response, setParams, attempt } = getProductReturn;
+
+    const productDataRef = useRef<GetProductBySlugResponseDto | null>(
+        response.success ? response.data : null,
+    );
+    useEffect(() => {
+        productDataRef.current = response.success ? response.data : null;
+    }, [response]);
 
     useMemo(() => {
-        setParams([{ params: { productId } }]);
+        if (!productSlug) return;
+        setParams([{ params: { path: { slug: productSlug } } }]);
         attempt();
-    }, [setParams, attempt, productId]);
+    }, [productSlug, setParams, attempt]);
 
     useEffect(() => {
-        updateSelectedVariantData(response?.data || null);
-    }, [response, updateSelectedVariantData]);
+        updateSelectedVariant(productDataRef.current);
+    }, [selectedAttributeParams, updateSelectedVariant]);
 
-    useEffect(() => {
-        updateSelectedVariantData(productDataRef.current);
-    }, [selectedVariantOptions, updateSelectedVariantData]);
+    const allAttributes = useMemo(() => {
+        if (!response.success) return [];
+        return extractAttributesOrdered(response.data);
+    }, [response]);
 
-    useEffect(() => {
-        const newSearchParams = new URLSearchParams();
-        Object.entries(selectedVariantOptions).forEach((entry) => {
-            const [key, value] = entry;
-            newSearchParams.set(key, value);
-        });
-        setSearchParams(newSearchParams);
-    }, [setSearchParams, selectedVariantOptions]);
+    const relatedAttributes = useMemo(() => {
+        if (!response.success || !variant) return [];
+        return extractRelatedAttributesOrdered(response.data, variant);
+    }, [response, variant]);
 
     return (
         <ProductContext.Provider
@@ -163,12 +166,21 @@ export function Product({ children }: TProduct) {
                 () => ({
                     product,
                     variant,
-                    selectedVariantOptions,
-                    setSelectedVariantOptions,
+                    selectedAttributeParams,
+                    setSelectedAttributeParams,
+                    allAttributes,
+                    relatedAttributes,
 
                     defaultData: defaultProductContext.defaultData,
                 }),
-                [product, variant, selectedVariantOptions, setSelectedVariantOptions],
+                [
+                    product,
+                    variant,
+                    selectedAttributeParams,
+                    setSelectedAttributeParams,
+                    allAttributes,
+                    relatedAttributes,
+                ],
             )}
         >
             <div className={styles["page"]}>

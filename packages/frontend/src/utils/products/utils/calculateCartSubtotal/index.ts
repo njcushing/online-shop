@@ -1,4 +1,4 @@
-import { PopulatedCart } from "../../cart";
+import { Cart } from "../../cart";
 
 /**
  * Order of operations for cart subtotal calculation:
@@ -20,12 +20,12 @@ type ReturnType = {
         subscriptions: number;
         promotions: {
             total: number;
-            individual: { code: PopulatedCart["promotions"][number]["code"]; value: number }[];
+            individual: { code: Cart["promotions"][number]["code"]; value: number }[];
         };
     };
 };
 
-export const calculateCartSubtotal = (cart: PopulatedCart): ReturnType => {
+export const calculateCartSubtotal = (cart: Cart): ReturnType => {
     const { items, promotions } = cart;
 
     const cost: ReturnType["cost"] = { products: 0, total: 0 };
@@ -37,18 +37,23 @@ export const calculateCartSubtotal = (cart: PopulatedCart): ReturnType => {
 
     items.forEach((item) => {
         const { variant, quantity, info } = item;
-        const { price } = variant;
-        const { current, base, subscriptionDiscountPercentage } = price;
+        const { priceBase, priceCurrent, subscriptionDiscountPercentage } = variant;
 
-        let unitPrice = current;
-        if (info?.subscription) unitPrice *= 1 - subscriptionDiscountPercentage / 100;
+        let unitPrice = priceCurrent;
+        if (
+            info?.subscription &&
+            typeof subscriptionDiscountPercentage !== "undefined" &&
+            subscriptionDiscountPercentage !== null
+        ) {
+            unitPrice *= 1 - subscriptionDiscountPercentage / 100;
+        }
         unitPrice = Math.floor(unitPrice);
 
-        cost.products += base * quantity;
+        cost.products += priceBase * quantity;
         cost.total += unitPrice * quantity;
 
-        discount.products += (base - current) * quantity;
-        discount.subscriptions += (current - unitPrice) * quantity;
+        discount.products += (priceBase - priceCurrent) * quantity;
+        discount.subscriptions += (priceCurrent - unitPrice) * quantity;
     });
 
     const totalBeforePromotions = cost.total;

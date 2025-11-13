@@ -2,13 +2,13 @@
 
 import { AccountCreationForm } from "./AccountCreationForm";
 import { CategoryHero } from "./CategoryHero";
+import { CategoryProductList } from "./CategoryProductList";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { Hero } from "./Hero";
 import { ProductCard } from "./ProductCard";
 import { ProductHero } from "./ProductHero";
 import { ProductInformation } from "./ProductInformation";
-import { ProductList } from "./ProductList";
 import { LoginForm } from "./LoginForm";
 import { Logo } from "./Logo";
 import { RecommendedProducts } from "./RecommendedProducts";
@@ -23,7 +23,7 @@ export const Features = {
     ProductCard,
     ProductHero,
     ProductInformation,
-    ProductList,
+    CategoryProductList,
     LoginForm,
     Logo,
     RecommendedProducts,

@@ -1,7 +1,7 @@
 import { useCallback, useRef } from "react";
 import { useMatches } from "@mantine/core";
 import { Carousel, Embla } from "@mantine/carousel";
-import { products } from "@/utils/products/product";
+import { mockProducts } from "@/utils/products/product";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 import { ProductCard } from "../ProductCard";
 import styles from "./index.module.css";
@@ -17,24 +17,27 @@ export function RecommendedProducts() {
      * update when slideSize changes when a breakpoint is crossed.
      */
 
-    const carouselProps = useMatches({
-        base: {
-            slideSize: "100%",
-            slidesToScroll: 1,
+    const carouselProps = useMatches(
+        {
+            base: {
+                slideSize: "100%",
+                slidesToScroll: 1,
+            },
+            xs: {
+                slideSize: `calc((100% / 2) - (${slideGapPx}px * (1 / 2)))`,
+                slidesToScroll: 2,
+            },
+            md: {
+                slideSize: `calc((100% / 3) - (${slideGapPx}px * (2 / 3)))`,
+                slidesToScroll: 3,
+            },
+            lg: {
+                slideSize: `calc((100% / 4) - (${slideGapPx}px * (3 / 4)))`,
+                slidesToScroll: 4,
+            },
         },
-        xs: {
-            slideSize: `calc((100% / 2) - (${slideGapPx}px * (1 / 2)))`,
-            slidesToScroll: 2,
-        },
-        md: {
-            slideSize: `calc((100% / 3) - (${slideGapPx}px * (2 / 3)))`,
-            slidesToScroll: 3,
-        },
-        lg: {
-            slideSize: `calc((100% / 4) - (${slideGapPx}px * (3 / 4)))`,
-            slidesToScroll: 4,
-        },
-    });
+        { getInitialValueInEffect: false },
+    );
 
     /**
      * Don't test logic dependent on window dimensions - window width is 0px in unit tests using
@@ -79,10 +82,10 @@ export function RecommendedProducts() {
                         indicators: styles["carousel-indicators"],
                     }}
                 >
-                    {products.map((product, i) => {
+                    {mockProducts.slice(5).map((product, i) => {
                         return (
                             <Carousel.Slide
-                                data-last={i === products.length - 1}
+                                data-last={i === 4}
                                 onFocus={
                                     /* v8 ignore start */
 
@@ -92,10 +95,7 @@ export function RecommendedProducts() {
                                 }
                                 className={styles["carousel-slide"]}
                                 key={product.id}
-                                style={{
-                                    marginRight:
-                                        i === products.length - 1 ? "0px" : `${slideGapPx}px`,
-                                }}
+                                style={{ marginRight: i === 4 ? "0px" : `${slideGapPx}px` }}
                             >
                                 <ProductCard productData={product} />
                             </Carousel.Slide>

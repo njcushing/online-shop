@@ -100,7 +100,7 @@ export function CategoryHero() {
                     </p>
                 </Skeleton>
 
-                {subcategories && (
+                {subcategories.length > 0 && (
                     <nav className={styles["subcategory-links"]}>
                         {subcategories.map((subcategory) => {
                             const { slug, name: catName /* , img */ } = subcategory;

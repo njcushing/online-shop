@@ -2,17 +2,15 @@ import { Rating, Skeleton } from "@mantine/core";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import dayjs from "dayjs";
-import { ProductReview } from "@/utils/products/product";
+import { ResponseBody as GetReviewsByProductSlugResponseDto } from "@/api/product/[slug]/reviews/GET";
 import styles from "./index.module.css";
 
 export type TReview = {
-    data?: ProductReview;
+    data: GetReviewsByProductSlugResponseDto["reviews"][number];
     awaiting?: boolean;
 };
 
 export function Review({ data, awaiting = false }: TReview) {
-    if (!data && !awaiting) return null;
-
     if (awaiting) {
         return (
             <div className={styles["review"]}>
@@ -23,17 +21,17 @@ export function Review({ data, awaiting = false }: TReview) {
         );
     }
 
-    const { rating, comment, datePosted } = data!;
+    const { rating, description, createdAt } = data;
 
     return (
         <div className={styles["review"]}>
             <Rating readOnly count={rating} value={rating} color="gold" size="md" />
             <span className={styles["date-posted"]}>
-                Posted by username on {dayjs(datePosted).format("MMMM D, YYYY")}
+                Posted by username on {dayjs(createdAt).format("MMMM D, YYYY")}
             </span>
-            <div className={styles["comment"]}>
+            <div className={styles["description"]}>
                 <div className={styles["markdown-container"]}>
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{comment}</ReactMarkdown>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{description}</ReactMarkdown>
                 </div>
             </div>
         </div>

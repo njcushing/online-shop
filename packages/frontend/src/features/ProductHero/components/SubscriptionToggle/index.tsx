@@ -1,9 +1,10 @@
 import { useContext, useState, useEffect } from "react";
 import { Collapse, Skeleton, Radio } from "@mantine/core";
+import { UserContext } from "@/pages/Root";
 import { ProductContext } from "@/pages/Product";
+import { ResponseBody as GetProductBySlugResponseDto } from "@/api/product/[slug]/GET";
 import { frequencies, SubscriptionFrequency } from "@/utils/products/subscriptions";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
-import { ProductVariant } from "@/utils/products/product";
 import styles from "./index.module.css";
 
 export type TSubscriptionToggle = {
@@ -19,30 +20,33 @@ export function SubscriptionToggle({
     onToggle,
     onFrequencyChange,
 }: TSubscriptionToggle) {
+    const { cart } = useContext(UserContext);
     const { product, variant, defaultData } = useContext(ProductContext);
 
-    let variantData = defaultData.variant as ProductVariant;
+    let variantData = defaultData.variant as GetProductBySlugResponseDto["variants"][number];
 
     const { awaitingAny } = useQueryContexts({
-        contexts: [{ name: "product", context: product }],
+        contexts: [
+            { name: "cart", context: cart },
+            { name: "product", context: product },
+        ],
     });
 
     if (!awaitingAny) {
         if (variant) variantData = variant;
     }
 
-    const { canSubscribe, price } = variantData;
-    const { subscriptionDiscountPercentage } = price;
+    const { canSubscribe, subscriptionDiscountPercentage } = variantData;
 
     const [lastValidDiscount, setLastValidDiscount] = useState<number>(0);
     useEffect(() => {
-        if (!canSubscribe) return;
+        if (!canSubscribe || !subscriptionDiscountPercentage) return;
         setLastValidDiscount(subscriptionDiscountPercentage);
     }, [canSubscribe, subscriptionDiscountPercentage]);
 
     const [labelText, setLabelText] = useState<React.ReactNode>(null);
     useEffect(() => {
-        if (!canSubscribe) return;
+        if (!canSubscribe || typeof subscriptionDiscountPercentage === "undefined") return;
         if (subscriptionDiscountPercentage === 0) {
             setLabelText(<>Schedule repeat deliveries for this product.</>);
             return;
@@ -56,7 +60,11 @@ export function SubscriptionToggle({
     }, [canSubscribe, subscriptionDiscountPercentage, lastValidDiscount]);
 
     return (
-        <Collapse in={!awaitingAny && canSubscribe} animateOpacity={false} transitionDuration={500}>
+        <Collapse
+            in={!awaitingAny && !!canSubscribe}
+            animateOpacity={false}
+            transitionDuration={500}
+        >
             <Skeleton visible={awaitingAny}>
                 <div
                     className={styles["subscription-toggle"]}
@@ -113,14 +121,17 @@ export function SubscriptionToggle({
                             </label>
 
                             <ul className={styles["repeat-delivery-info-container"]}>
-                                {canSubscribe && subscriptionDiscountPercentage > 0 && (
-                                    <li>
-                                        <strong>Discount:</strong> receive a discounted price when
-                                        subscribing to this product. The discount is calculated on
-                                        the current price of the product, after any other price
-                                        reductions have been applied
-                                    </li>
-                                )}
+                                {canSubscribe &&
+                                    typeof subscriptionDiscountPercentage !== "undefined" &&
+                                    subscriptionDiscountPercentage !== null &&
+                                    subscriptionDiscountPercentage > 0 && (
+                                        <li>
+                                            <strong>Discount:</strong> receive a discounted price
+                                            when subscribing to this product. The discount is
+                                            calculated on the current price of the product, after
+                                            any other price reductions have been applied
+                                        </li>
+                                    )}
                                 <li>
                                     <strong>No fees:</strong> we will continue shipping this product
                                     to you at your specified delivery frequency

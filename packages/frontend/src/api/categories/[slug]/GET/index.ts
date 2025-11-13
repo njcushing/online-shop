@@ -1,10 +1,8 @@
-import * as HTTPMethodTypes from "../types";
-import { paths, components } from "../schema";
-import { fetcher } from "../utils/fetcher";
+import * as HTTPMethodTypes from "@/api/types";
+import { paths } from "@/api/schema";
+import { fetcher } from "@/api/utils/fetcher";
 
-type RequestParams = {
-    slug: components["schemas"]["Categories._Slug.GET.GetCategoryBySlugResponseDto"]["slug"];
-};
+type RequestParams = paths["/api/categories/{slug}"]["get"]["parameters"];
 
 const endpoint = "/api/categories/{slug}";
 const method = "get";
@@ -16,7 +14,19 @@ export type ResponseBody = Responses[typeof code]["content"][typeof contentType]
 export const getCategoryBySlug: HTTPMethodTypes.GET<RequestParams, ResponseBody> = async (data) => {
     const { params } = data;
 
-    if (!params || !params.slug) {
+    if (!params) {
+        return {
+            success: false as const,
+            status: 400,
+            message: "Could not make request: no query parameters provided.",
+            error: undefined,
+        };
+    }
+
+    const { path } = params;
+    const { slug } = path;
+
+    if (!slug) {
         return {
             success: false as const,
             status: 400,
@@ -24,8 +34,6 @@ export const getCategoryBySlug: HTTPMethodTypes.GET<RequestParams, ResponseBody>
             error: undefined,
         };
     }
-
-    const { slug } = params;
 
     const apiUrl = import.meta.env.VITE_API_BASE_URL || "/api";
 

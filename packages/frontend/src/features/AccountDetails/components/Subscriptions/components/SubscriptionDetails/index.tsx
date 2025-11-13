@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import { RootContext } from "@/pages/Root";
 import { Accordion, Skeleton } from "@mantine/core";
-import { PopulatedSubscriptionData } from "@/utils/products/subscriptions";
+import { SubscriptionData } from "@/utils/products/subscriptions";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import styles from "./index.module.css";
 
 export type TSubscriptionDetails = {
-    data: PopulatedSubscriptionData;
+    data: SubscriptionData;
     awaiting: boolean;
 };
 
@@ -26,11 +26,16 @@ export function SubscriptionDetails({ data, awaiting }: TSubscriptionDetails) {
     }
 
     const { deliveryAddress, billingAddress, count, variant } = data;
-    const { price } = variant;
-    const { current, subscriptionDiscountPercentage } = price;
+    const { priceCurrent, subscriptionDiscountPercentage } = variant;
 
     const { baseExpressDeliveryCost, freeExpressDeliveryThreshold } = settingsData;
-    const estimatedUnitCost = current * (1 - subscriptionDiscountPercentage / 100) * count;
+    let estimatedUnitCost = priceCurrent * count;
+    if (
+        typeof subscriptionDiscountPercentage !== "undefined" &&
+        subscriptionDiscountPercentage !== null
+    ) {
+        estimatedUnitCost *= 1 - subscriptionDiscountPercentage / 100;
+    }
     const meetsFreeDeliveryThreshold = estimatedUnitCost >= freeExpressDeliveryThreshold;
     const deliveryCost = meetsFreeDeliveryThreshold ? 0 : baseExpressDeliveryCost;
     const subtotal = estimatedUnitCost + deliveryCost;

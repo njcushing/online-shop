@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { useMatches, Divider, Skeleton } from "@mantine/core";
-import { OrderStatus, PopulatedOrderData } from "@/utils/products/orders";
+import { OrderStatus, OrderData } from "@/utils/products/orders";
 import dayjs from "dayjs";
 import { v4 as uuid } from "uuid";
 import { Price } from "@/features/Price";
@@ -11,7 +11,7 @@ import styles from "./index.module.css";
 const statusMessage = (
     awaiting: boolean,
     status: OrderStatus,
-    deliveryInfo: PopulatedOrderData["deliveryInfo"],
+    deliveryInfo: OrderData["deliveryInfo"],
 ) => {
     const { expectedDate, deliveredDate } = deliveryInfo;
 
@@ -73,7 +73,7 @@ const statusMessage = (
 };
 
 export type TOrderSummary = {
-    data: PopulatedOrderData;
+    data: OrderData;
     awaiting: boolean;
 };
 
@@ -82,7 +82,7 @@ export function OrderSummary({ data, awaiting }: TOrderSummary) {
 
     const { total } = cost;
 
-    const wide = useMatches({ base: false, md: true });
+    const wide = useMatches({ base: false, md: true }, { getInitialValueInEffect: false });
 
     return (
         <li className={styles["order-summary"]}>

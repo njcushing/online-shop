@@ -24,7 +24,10 @@ export function AccountDetails() {
     const currentGroup = groupNames.at(-1);
     const atBase = currentGroup === "account";
 
-    const [wide, caretSize] = useMatches({ base: [false, 14], lg: [true, 16] });
+    const [wide, caretSize] = useMatches(
+        { base: [false, 14], lg: [true, 16] },
+        { getInitialValueInEffect: false },
+    );
 
     return (
         <section className={styles["account-details"]}>

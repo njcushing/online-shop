@@ -1,57 +1,50 @@
 import { useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Collection, findCollections } from "@/utils/products/product";
 import { Image } from "@mantine/core";
+import { ResponseBody as GetProductBySlugResponseDto } from "@/api/product/[slug]/GET";
 import styles from "./index.module.css";
 
 export type TCollectionStep = {
-    collectionData: ReturnType<typeof findCollections>[number];
-};
-
-const getTitle = (type: Collection["type"]): string => {
-    if (type === "quantity") return "Select a quantity";
-    return "Other products in this collection";
+    collectionData: GetProductBySlugResponseDto["collections"][number];
 };
 
 export function CollectionStep({ collectionData }: TCollectionStep) {
     const params = useParams();
-    const { productId: URLProductId } = params;
+    const { productSlug: URLProductSlug } = params;
 
-    const { collection, products } = collectionData;
-    const { id, type } = collection;
+    const { title, products } = collectionData;
 
     const items = useMemo(() => {
         return products.map((product) => {
-            const { id: productId, slug: productSlug, images, name } = product;
-            const { thumb } = images;
-            const { full, shorthands } = name;
-            const shorthand = shorthands.find((entry) => entry.type === type)?.value;
-            const usedName = shorthand || full;
+            const { id: productId, slug: productSlug, images, name: productName } = product;
 
-            const isSelected = productId === URLProductId;
+            const isSelected = productSlug === URLProductSlug;
+
+            let usedImage = { id: "", src: "", alt: "", position: 0 };
+            if (images.length > 0) [usedImage] = images;
 
             return (
                 <Link
-                    to={`/p/${productId}/${productSlug}`}
+                    to={`/p/${productSlug}`}
                     className={styles["product-hero-step-product-link"]}
                     data-selected={isSelected}
                     tabIndex={isSelected ? -1 : 0}
-                    key={`variant-options-${id}-${usedName}`}
+                    key={`variant-options-${productId}-${productName}`}
                 >
                     <Image
                         className={styles["product-thumbnail-image"]}
-                        src={thumb.src}
-                        alt={thumb.alt}
+                        src={usedImage.src}
+                        alt={usedImage.alt}
                     />
-                    {usedName}
+                    {productName}
                 </Link>
             );
         });
-    }, [URLProductId, products, id, type]);
+    }, [URLProductSlug, products]);
 
     return (
         <div className={styles["product-hero-step"]}>
-            <p className={styles["product-hero-step-title"]}>{getTitle(type)}</p>
+            <p className={styles["product-hero-step-title"]}>{title}</p>
             <div className={styles["product-hero-step-options"]}>{items}</div>
         </div>
     );
