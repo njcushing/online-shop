@@ -82,7 +82,9 @@ public partial class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.HasPostgresExtension("uuid-ossp");
+        modelBuilder
+            .HasPostgresExtension("pg_trgm")
+            .HasPostgresExtension("uuid-ossp");
 
         modelBuilder.Entity<AddressType>(entity =>
         {
@@ -422,6 +424,10 @@ public partial class AppDbContext : DbContext
 
             entity.ToTable("products");
 
+            entity.HasIndex(e => e.Name, "idx_products_trgm")
+                .HasMethod("gin")
+                .HasOperators(new[] { "gin_trgm_ops" });
+
             entity.HasIndex(e => e.Slug, "products_slug_key").IsUnique();
 
             entity.Property(e => e.Id)
@@ -439,6 +445,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.ReleaseDate)
                 .HasDefaultValueSql("now()")
                 .HasColumnName("release_date");
+            entity.Property(e => e.SearchText).HasColumnName("search_text");
             entity.Property(e => e.Slug).HasColumnName("slug");
             entity.Property(e => e.Tags)
                 .HasDefaultValueSql("'{}'::text[]")

@@ -25,6 +25,8 @@ public partial class Product
 
     public DateTime? UpdatedAt { get; set; }
 
+    public string? SearchText { get; set; }
+
     public virtual ICollection<CategoryProduct> CategoryProducts { get; set; } = new List<CategoryProduct>();
 
     public virtual ICollection<CollectionProduct> CollectionProducts { get; set; } = new List<CollectionProduct>();
