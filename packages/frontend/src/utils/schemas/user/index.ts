@@ -1,6 +1,6 @@
 import { Consent } from "@/utils/schemas/consent";
 import { Cart, generateSkeletonCart } from "@/utils/products/cart";
-import { ResponseBody as GetProductBySlugResponseDto } from "@/api/product/[slug]/GET";
+import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
 import { OrderDataBase } from "@/utils/products/orders";
 import { SubscriptionDataBase } from "@/utils/products/subscriptions";
 import { defaultProfile, Profile } from "../profile";

@@ -1,6 +1,6 @@
 import { loremIpsum } from "lorem-ipsum";
 import { RecursivePartial } from "@/utils/types";
-import { ResponseBody as GetProductBySlugResponseDto } from "@/api/product/[slug]/GET";
+import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
 import { v4 as uuid } from "uuid";
 
 type ExtractAttributesReturnType = {

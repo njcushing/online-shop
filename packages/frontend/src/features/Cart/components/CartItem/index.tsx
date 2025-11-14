@@ -5,7 +5,7 @@ import { Skeleton, Image } from "@mantine/core";
 import { Quantity, TQuantity } from "@/components/Inputs/Quantity";
 import { CartItemData } from "@/utils/products/cart";
 import { calculateUnitPrice } from "@/utils/products/utils/calculateUnitPrice";
-import { ResponseBody as GetProductBySlugResponseDto } from "@/api/product/[slug]/GET";
+import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
 import { Price, TPrice } from "@/features/Price";
 import styles from "./index.module.css";
 

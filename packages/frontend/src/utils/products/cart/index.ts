@@ -1,4 +1,4 @@
-import { ResponseBody as GetProductBySlugResponseDto } from "@/api/product/[slug]/GET";
+import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
 import { mockProducts } from "@/utils/products/product";
 import { RecursivePartial } from "@/utils/types";
 import { SubscriptionFrequency } from "../subscriptions";

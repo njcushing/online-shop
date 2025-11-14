@@ -7,7 +7,7 @@ import { FilterOption as OrderFilterOption } from "@/features/AccountDetails/com
 import { User, defaultUser } from "@/utils/schemas/user";
 import { Profile, defaultProfile } from "@/utils/schemas/profile";
 import dayjs from "dayjs";
-import { ResponseBody as GetProductBySlugResponseDto } from "./product/[slug]/GET";
+import { ResponseBody as GetProductBySlugResponseDto } from "./products/[slug]/GET";
 import * as HTTPMethodTypes from "./types";
 
 export const mockGetUser: HTTPMethodTypes.GET<undefined, User> = async () => {

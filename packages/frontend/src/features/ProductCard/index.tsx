@@ -11,7 +11,7 @@ import { RootContext } from "@/pages/Root";
 import { Link } from "react-router-dom";
 import { Image, Rating, Skeleton } from "@mantine/core";
 import { useIntersection, useMergedRef } from "@mantine/hooks";
-import { ResponseBody as GetProductBySlugResponseDto } from "@/api/product/[slug]/GET";
+import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import dayjs from "dayjs";

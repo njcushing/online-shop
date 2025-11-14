@@ -1,4 +1,4 @@
-import { ResponseBody as GetProductBySlugResponseDto } from "@/api/product/[slug]/GET";
+import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
 import { mockProducts } from "@/utils/products/product";
 import { defaultProfile } from "@/utils/schemas/profile";
 import { Address } from "@/utils/schemas/address";

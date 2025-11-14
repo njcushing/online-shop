@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { ProductContext } from "@/pages/Product";
 import { Skeleton, Rating, Progress } from "@mantine/core";
-import { ResponseBody as GetProductBySlugResponseDto } from "@/api/product/[slug]/GET";
+import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { filterOptions } from "@/features/ProductReviews";
 import styles from "./index.module.css";

@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { Collapse, Skeleton, Radio } from "@mantine/core";
 import { UserContext } from "@/pages/Root";
 import { ProductContext } from "@/pages/Product";
-import { ResponseBody as GetProductBySlugResponseDto } from "@/api/product/[slug]/GET";
+import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
 import { frequencies, SubscriptionFrequency } from "@/utils/products/subscriptions";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import styles from "./index.module.css";

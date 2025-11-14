@@ -2,7 +2,7 @@ import { Rating, Skeleton } from "@mantine/core";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import dayjs from "dayjs";
-import { ResponseBody as GetReviewsByProductSlugResponseDto } from "@/api/product/[slug]/reviews/GET";
+import { ResponseBody as GetReviewsByProductSlugResponseDto } from "@/api/products/[slug]/reviews/GET";
 import styles from "./index.module.css";
 
 export type TReview = {

@@ -16,7 +16,7 @@ import { RecursivePartial } from "@/utils/types";
 import {
     getProductBySlug,
     ResponseBody as GetProductBySlugResponseDto,
-} from "@/api/product/[slug]/GET";
+} from "@/api/products/[slug]/GET";
 import styles from "./index.module.css";
 
 export interface IProductContext {

@@ -3,11 +3,11 @@ import { RootContext } from "@/pages/Root";
 import { ProductContext } from "@/pages/Product";
 import { Divider, Pagination, Skeleton } from "@mantine/core";
 import { useScrollIntoView } from "@mantine/hooks";
-import { ResponseBody as GetProductBySlugResponseDto } from "@/api/product/[slug]/GET";
+import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
 import {
     ResponseBody as GetReviewsByProductSlugResponseDto,
     getReviewsByProductSlug,
-} from "@/api/product/[slug]/reviews/GET";
+} from "@/api/products/[slug]/reviews/GET";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import * as useAsync from "@/hooks/useAsync";
 import { v4 as uuid } from "uuid";

@@ -2,7 +2,7 @@ import { useContext, useState, useEffect, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { IProductContext, ProductContext } from "@/pages/Product";
 import { Skeleton, Button, Divider, Rating } from "@mantine/core";
-import { ResponseBody as GetProductBySlugDto } from "@/api/product/[slug]/GET";
+import { ResponseBody as GetProductBySlugDto } from "@/api/products/[slug]/GET";
 import { Quantity } from "@/components/Inputs/Quantity";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
 import { Price } from "@/features/Price";

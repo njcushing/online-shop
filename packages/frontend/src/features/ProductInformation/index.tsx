@@ -3,7 +3,7 @@ import { RootContext } from "@/pages/Root";
 import { ProductContext } from "@/pages/Product";
 import { useMatches, Accordion, Table, Skeleton } from "@mantine/core";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
-import { ResponseBody as GetProductBySlugResponseDto } from "@/api/product/[slug]/GET";
+import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
 import { ProductReviews } from "@/features/ProductReviews";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
