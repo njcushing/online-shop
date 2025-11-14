@@ -152,6 +152,56 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/products/search": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query: {
+                    string: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Products.Search.GET.GetProductsBySearchResponseDto"][];
+                        "application/json": components["schemas"]["Products.Search.GET.GetProductsBySearchResponseDto"][];
+                        "text/json": components["schemas"]["Products.Search.GET.GetProductsBySearchResponseDto"][];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Microsoft.AspNetCore.Mvc.ProblemDetails"];
+                        "application/json": components["schemas"]["Microsoft.AspNetCore.Mvc.ProblemDetails"];
+                        "text/json": components["schemas"]["Microsoft.AspNetCore.Mvc.ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/products/{slug}/reviews": {
         parameters: {
             query?: never;
@@ -390,6 +440,110 @@ export interface components {
             instance?: string | null;
         } & {
             [key: string]: unknown;
+        };
+        "Products.Search.GET.GetProductsBySearchResponseDto": {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            description?: string | null;
+            slug: string;
+            /** Format: int32 */
+            allowance: number;
+            tags?: string[] | null;
+            /** Format: date-time */
+            releaseDate: string;
+            details: components["schemas"]["Products.Search.GET.GetProductsBySearchResponseDto.Detail"][];
+            images: components["schemas"]["Products.Search.GET.GetProductsBySearchResponseDto.Image"][];
+            rating: components["schemas"]["Products.Search.GET.GetProductsBySearchResponseDto.ProductRating"];
+            variants: components["schemas"]["Products.Search.GET.GetProductsBySearchResponseDto.Variant"][];
+            /** Format: float */
+            score: number;
+        };
+        "Products.Search.GET.GetProductsBySearchResponseDto.Detail": {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            value: string;
+        };
+        "Products.Search.GET.GetProductsBySearchResponseDto.Image": {
+            /** Format: uuid */
+            id: string;
+            src: string;
+            alt: string;
+            /** Format: int32 */
+            position: number;
+        };
+        "Products.Search.GET.GetProductsBySearchResponseDto.ProductRating": {
+            /** Format: double */
+            average: number;
+            /** Format: int32 */
+            total: number;
+            quantities: components["schemas"]["Products.Search.GET.GetProductsBySearchResponseDto.ProductRating.RatingQuantities"];
+        };
+        "Products.Search.GET.GetProductsBySearchResponseDto.ProductRating.RatingQuantities": {
+            /** Format: int32 */
+            1: number;
+            /** Format: int32 */
+            2: number;
+            /** Format: int32 */
+            3: number;
+            /** Format: int32 */
+            4: number;
+            /** Format: int32 */
+            5: number;
+        };
+        "Products.Search.GET.GetProductsBySearchResponseDto.Variant": {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            sku: string;
+            canSubscribe?: boolean | null;
+            /** Format: double */
+            priceCurrent: number;
+            /** Format: double */
+            priceBase: number;
+            /** Format: double */
+            subscriptionDiscountPercentage?: number | null;
+            /** Format: int32 */
+            stock: number;
+            /** Format: int32 */
+            allowanceOverride?: number | null;
+            active: boolean;
+            /** Format: date-time */
+            releaseDate: string;
+            attributes: components["schemas"]["Products.Search.GET.GetProductsBySearchResponseDto.Variant.Attribute"][];
+            details: components["schemas"]["Products.Search.GET.GetProductsBySearchResponseDto.Variant.Detail"][];
+            images: components["schemas"]["Products.Search.GET.GetProductsBySearchResponseDto.Variant.Image"][];
+        };
+        "Products.Search.GET.GetProductsBySearchResponseDto.Variant.Attribute": {
+            type: components["schemas"]["Products.Search.GET.GetProductsBySearchResponseDto.Variant.Attribute.AttributeType"];
+            value: components["schemas"]["Products.Search.GET.GetProductsBySearchResponseDto.Variant.Attribute.AttributeValue"];
+        };
+        "Products.Search.GET.GetProductsBySearchResponseDto.Variant.Attribute.AttributeType": {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            title: string;
+        };
+        "Products.Search.GET.GetProductsBySearchResponseDto.Variant.Attribute.AttributeValue": {
+            code: string;
+            name: string;
+            /** Format: int32 */
+            position: number;
+        };
+        "Products.Search.GET.GetProductsBySearchResponseDto.Variant.Detail": {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            value: string;
+        };
+        "Products.Search.GET.GetProductsBySearchResponseDto.Variant.Image": {
+            /** Format: uuid */
+            id: string;
+            src: string;
+            alt: string;
+            /** Format: int32 */
+            position: number;
         };
         "Products._Slug.GET.GetProductBySlugResponseDto": {
             /** Format: uuid */
