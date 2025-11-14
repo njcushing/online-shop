@@ -18,7 +18,7 @@ export const getProductBySlug: HTTPMethodTypes.GET<RequestParams, ResponseBody> 
         return {
             success: false as const,
             status: 400,
-            message: "Could not make request: no query parameters provided.",
+            message: "Could not make request: no request parameters provided.",
             error: undefined,
         };
     }
