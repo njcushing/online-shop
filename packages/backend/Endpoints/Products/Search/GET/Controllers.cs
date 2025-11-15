@@ -102,12 +102,6 @@ namespace Cafree.Api.Endpoints.Products.Search.GET
                 .Take(10)
                 .ToListAsync();
 
-            if (products.Count == 0) return Problem(
-                statusCode: StatusCodes.Status404NotFound,
-                title: "Products not found",
-                detail: $"No products could be located using the search string '{query.String}'."
-            );
-
             return Ok(products);
         }
     }
