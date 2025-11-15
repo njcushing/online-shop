@@ -1,6 +1,13 @@
 import { forwardRef, useState, useEffect, useRef, useCallback } from "react";
 import { Input, CloseButton, Collapse } from "@mantine/core";
 import { mergeRefs } from "@/utils/mergeRefs";
+import * as useAsync from "@/hooks/useAsync";
+import { createQueryContextObject } from "@/hooks/useAsync/utils/createQueryContextObject";
+import {
+    ResponseBody as GetProductsBySearchResponseDto,
+    getProductsBySearch,
+} from "@/api/products/search/GET";
+import { useDebouncedValue } from "@mantine/hooks";
 import styles from "./index.module.css";
 
 export type TSearchBar = {
@@ -10,6 +17,7 @@ export type TSearchBar = {
 export const SearchBar = forwardRef<HTMLInputElement, TSearchBar>(
     ({ opened = false }: TSearchBar, ref) => {
         const [value, setValue] = useState<string>("");
+        const [debouncedValue] = useDebouncedValue(value, 250);
         const inputRef = useRef<HTMLInputElement>(null);
 
         useEffect(() => {
@@ -32,6 +40,33 @@ export const SearchBar = forwardRef<HTMLInputElement, TSearchBar>(
         }, [opened]);
 
         /* v8 ignore stop */
+
+        const [productsData, setProductsData] = useState<
+            useAsync.InferUseAsyncReturnTypeFromFunction<typeof getProductsBySearch>
+        >(createQueryContextObject());
+        const getProductsBySearchReturn = useAsync.GET(
+            getProductsBySearch,
+            [{ params: { query: { string: debouncedValue } } }] as Parameters<
+                typeof getProductsBySearch
+            >,
+            { attemptOnMount: false },
+        );
+        useEffect(() => setProductsData(getProductsBySearchReturn), [getProductsBySearchReturn]);
+        const [cachedProducts, setCachedProducts] = useState<GetProductsBySearchResponseDto>([]);
+        useEffect(() => {
+            if (productsData.response.success) {
+                setCachedProducts(productsData.response.data);
+            }
+        }, [productsData]);
+        const { setParams, attempt } = getProductsBySearchReturn;
+        useEffect(() => {
+            if (!debouncedValue || debouncedValue.length === 0) {
+                setCachedProducts([]);
+                return;
+            }
+            setParams([{ params: { query: { string: debouncedValue } } }]);
+            attempt();
+        }, [debouncedValue, setParams, attempt]);
 
         return (
             <Collapse
