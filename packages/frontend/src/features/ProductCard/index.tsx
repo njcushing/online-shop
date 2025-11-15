@@ -25,10 +25,11 @@ export type TProductCard = {
         | GetCategoryBySlugResponseDto["products"][number]
         | GetProductsBySearchResponseDto[number];
     awaiting?: boolean;
+    immediatelyVisible?: boolean;
 };
 
 export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
-    ({ productData, awaiting = false }: TProductCard, ref) => {
+    ({ productData, awaiting = false, immediatelyVisible = false }: TProductCard, ref) => {
         const { settings } = useContext(RootContext);
 
         let settingsData = null;
@@ -49,7 +50,7 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
             threshold: 0.2,
         });
         const mergedProductCardRef = useMergedRef(ref, productCardRef);
-        const [visible, setVisible] = useState<boolean>(false);
+        const [visible, setVisible] = useState<boolean>(immediatelyVisible);
         useEffect(() => {
             if (awaitingAny) return;
             if (!visible) setVisible(intersectionEntry?.isIntersecting || false);
