@@ -7,6 +7,11 @@
     background-color: var(--site-colour-secondary, rgb(255, 236, 218));
 }
 
+.RemoveScroll {
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
 .input-wrapper {
     /* Had to do some odd positioning for this component to get the right section to remain
     correctly-positioned */
@@ -41,4 +46,29 @@
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 1rem;
     }
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 16px;
+
+    overflow-y: auto;
+
+    padding: 16px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: $mantine-breakpoint-md) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (min-width: $mantine-breakpoint-lg) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.product-container {
 }

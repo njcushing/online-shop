@@ -1,5 +1,6 @@
-import { forwardRef, useState, useEffect, useRef, useCallback } from "react";
-import { Input, CloseButton, Collapse } from "@mantine/core";
+import { forwardRef, useContext, useState, useEffect, useRef, useCallback } from "react";
+import { RootContext } from "@/pages/Root";
+import { Input, CloseButton, Collapse, RemoveScroll } from "@mantine/core";
 import { mergeRefs } from "@/utils/mergeRefs";
 import * as useAsync from "@/hooks/useAsync";
 import { createQueryContextObject } from "@/hooks/useAsync/utils/createQueryContextObject";
@@ -8,6 +9,7 @@ import {
     getProductsBySearch,
 } from "@/api/products/search/GET";
 import { useDebouncedValue } from "@mantine/hooks";
+import { ProductCard } from "@/features/ProductCard";
 import styles from "./index.module.css";
 
 export type TSearchBar = {
@@ -16,6 +18,8 @@ export type TSearchBar = {
 
 export const SearchBar = forwardRef<HTMLInputElement, TSearchBar>(
     ({ opened = false }: TSearchBar, ref) => {
+        const { headerInfo } = useContext(RootContext);
+
         const [value, setValue] = useState<string>("");
         const [debouncedValue] = useDebouncedValue(value, 250);
         const inputRef = useRef<HTMLInputElement>(null);
@@ -75,22 +79,43 @@ export const SearchBar = forwardRef<HTMLInputElement, TSearchBar>(
                 onTransitionEnd={focusInput}
                 className={styles["search-bar"]}
             >
-                <Input
-                    placeholder="Search for a product"
-                    value={value}
-                    onChange={(event) => setValue(event.currentTarget.value)}
-                    rightSectionPointerEvents="all"
-                    mt="md"
-                    rightSection={
-                        <CloseButton
-                            aria-label="Clear input"
-                            onClick={() => setValue("")}
-                            style={{ display: value ? undefined : "none" }}
-                        />
-                    }
-                    classNames={{ wrapper: styles["input-wrapper"], input: styles["input"] }}
-                    ref={mergeRefs(ref, inputRef)}
-                />
+                <RemoveScroll
+                    removeScrollBar
+                    enabled={opened}
+                    className={styles["RemoveScroll"]}
+                    style={{
+                        maxHeight: `calc(calc(var(--vh, 1vh) * 100) - ${headerInfo.height}px)`,
+                    }}
+                >
+                    <Input
+                        placeholder="Search for a product"
+                        value={value}
+                        onChange={(event) => setValue(event.currentTarget.value)}
+                        rightSectionPointerEvents="all"
+                        mt="md"
+                        rightSection={
+                            <CloseButton
+                                aria-label="Clear input"
+                                onClick={() => setValue("")}
+                                style={{ display: value ? undefined : "none" }}
+                            />
+                        }
+                        classNames={{ wrapper: styles["input-wrapper"], input: styles["input"] }}
+                        ref={mergeRefs(ref, inputRef)}
+                    />
+
+                    {cachedProducts.length > 0 && (
+                        <div className={styles["products"]}>
+                            {cachedProducts.map((product) => {
+                                return (
+                                    <div className={styles["product-container"]} key={product.slug}>
+                                        <ProductCard productData={product} immediatelyVisible />
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    )}
+                </RemoveScroll>
             </Collapse>
         );
     },
