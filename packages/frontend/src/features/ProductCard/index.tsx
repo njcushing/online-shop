@@ -13,13 +13,17 @@ import { Image, Rating, Skeleton } from "@mantine/core";
 import { useIntersection, useMergedRef } from "@mantine/hooks";
 import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
+import { ResponseBody as GetProductsBySearchResponseDto } from "@/api/products/search/GET";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import dayjs from "dayjs";
 import { Price } from "@/features/Price";
 import styles from "./index.module.css";
 
 export type TProductCard = {
-    productData: GetProductBySlugResponseDto | GetCategoryBySlugResponseDto["products"][number];
+    productData:
+        | GetProductBySlugResponseDto
+        | GetCategoryBySlugResponseDto["products"][number]
+        | GetProductsBySearchResponseDto[number];
     awaiting?: boolean;
 };
 
