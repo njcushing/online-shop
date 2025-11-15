@@ -49,15 +49,17 @@ export function CategoryProductList() {
 
                 {category.products.length > 0 && category.subcategories.length > 0 && <Divider />}
 
-                {category.subcategories.slice(0, awaitingAny ? 3 : -1).map((subcategory, i) => {
-                    const { slug } = subcategory;
-                    return (
-                        <Fragment key={subcategory.slug}>
-                            <SubcategoryProductList slug={slug} awaiting={awaitingAny} />
-                            {i < category.subcategories.length - 1 && <Divider />}
-                        </Fragment>
-                    );
-                })}
+                {category.subcategories
+                    .slice(0, awaitingAny ? 3 : undefined)
+                    .map((subcategory, i) => {
+                        const { slug } = subcategory;
+                        return (
+                            <Fragment key={subcategory.slug}>
+                                <SubcategoryProductList slug={slug} awaiting={awaitingAny} />
+                                {i < category.subcategories.length - 1 && <Divider />}
+                            </Fragment>
+                        );
+                    })}
             </div>
         </section>
     );
