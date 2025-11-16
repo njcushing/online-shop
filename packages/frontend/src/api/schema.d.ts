@@ -871,6 +871,23 @@ export interface components {
         "Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto.Review.ProductVariant": {
             name: string;
             sku: string;
+            attributes: components["schemas"]["Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto.Review.ProductVariant.Attribute"][];
+        };
+        "Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto.Review.ProductVariant.Attribute": {
+            type: components["schemas"]["Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto.Review.ProductVariant.Attribute.AttributeType"];
+            value: components["schemas"]["Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto.Review.ProductVariant.Attribute.AttributeValue"];
+        };
+        "Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto.Review.ProductVariant.Attribute.AttributeType": {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            title: string;
+        };
+        "Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto.Review.ProductVariant.Attribute.AttributeValue": {
+            code: string;
+            name: string;
+            /** Format: int32 */
+            position: number;
         };
         "Settings.GET.GetSettingsResponseDto": {
             /** Format: double */
