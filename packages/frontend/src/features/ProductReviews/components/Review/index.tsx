@@ -21,14 +21,24 @@ export function Review({ data, awaiting = false }: TReview) {
         );
     }
 
-    const { rating, description, createdAt } = data;
+    const { title, description, rating, createdAt, variant } = data;
 
     return (
         <div className={styles["review"]}>
             <Rating readOnly count={rating} value={rating} color="gold" size="md" />
+
+            {title && title.length > 0 && <span className={styles["title"]}>{title}</span>}
+
             <span className={styles["date-posted"]}>
                 Posted by username on {dayjs(createdAt).format("MMMM D, YYYY")}
             </span>
+
+            {variant && (
+                <span className={styles["variant-attributes"]}>
+                    {variant.attributes.map((a) => `${a.type.name}: ${a.value.name}`).join(" | ")}
+                </span>
+            )}
+
             <div className={styles["description"]}>
                 <div className={styles["markdown-container"]}>
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>{description}</ReactMarkdown>
