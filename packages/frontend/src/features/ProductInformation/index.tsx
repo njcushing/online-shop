@@ -75,11 +75,15 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
                 content: (() => {
                     if (!awaitingAny && !product.response.success) return null;
 
-                    const { sku, details, releaseDate } = variantData;
+                    const { categories, details: productDetails } = productData;
+                    const { sku, details: variantDetails, attributes, releaseDate } = variantData;
 
                     const rows = [
                         { name: "SKU", value: sku },
-                        ...details,
+                        ...productDetails,
+                        ...variantDetails,
+                        ...attributes.map((a) => ({ name: a.type.name, value: a.value.name })),
+                        { name: "Categories", value: categories.map((c) => c.name).join(", ") },
                         {
                             name: "Release Date",
                             value: dayjs(releaseDate).format("MMMM D, YYYY"),
