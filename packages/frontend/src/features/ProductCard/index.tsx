@@ -14,6 +14,7 @@ import { useIntersection, useMergedRef } from "@mantine/hooks";
 import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
 import { ResponseBody as GetProductsBySearchResponseDto } from "@/api/products/search/GET";
+import { ResponseBody as GetRelatedProductsBySlugResponseDto } from "@/api/products/[slug]/related/GET";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import dayjs from "dayjs";
 import { Price } from "@/features/Price";
@@ -23,7 +24,8 @@ export type TProductCard = {
     productData:
         | GetProductBySlugResponseDto
         | GetCategoryBySlugResponseDto["products"][number]
-        | GetProductsBySearchResponseDto[number];
+        | GetProductsBySearchResponseDto[number]
+        | GetRelatedProductsBySlugResponseDto[number];
     awaiting?: boolean;
     immediatelyVisible?: boolean;
 };
