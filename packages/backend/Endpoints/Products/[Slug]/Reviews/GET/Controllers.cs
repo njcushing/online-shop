@@ -70,8 +70,22 @@ namespace Cafree.Api.Endpoints.Products._Slug.Reviews.GET
                         {
                             Name = pr.ProductVariant.Name,
                             Sku = pr.ProductVariant.Sku,
+                            Attributes = pr.ProductVariant.ProductVariantAttributes.Select(pva => new GetReviewsByProductSlugResponseDto.Review.ProductVariant.Attribute
+                            {
+                                Type = new GetReviewsByProductSlugResponseDto.Review.ProductVariant.Attribute.AttributeType
+                                {
+                                    Id = pva.ProductAttribute.Id,
+                                    Name = pva.ProductAttribute.Name,
+                                    Title = pva.ProductAttribute.Title,
+                                },
+                                Value = new GetReviewsByProductSlugResponseDto.Review.ProductVariant.Attribute.AttributeValue
+                                {
+                                    Code = pva.ProductAttributeValue.Code,
+                                    Name = pva.ProductAttributeValue.Name,
+                                    Position = pva.ProductAttributeValue.Position,
+                                },
+                            }).ToList(),
                         }
-
                 })
                 .ToListAsync();
 

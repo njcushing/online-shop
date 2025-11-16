@@ -24,6 +24,40 @@ namespace Cafree.Api.Endpoints.Products._Slug.Reviews.GET
         {
             public class ProductVariant
             {
+                public class Attribute
+                {
+                    public class AttributeType
+                    {
+                        public Guid Id { get; set; }
+
+                        public required string Name { get; set; }
+
+                        public required string Title { get; set; }
+                    }
+
+                    public class AttributeValue
+                    {
+                        [JsonIgnore]
+                        public Guid ProductAttributeId { get; set; }
+
+                        public required string Code { get; set; }
+
+                        public required string Name { get; set; }
+
+                        public required int Position { get; set; }
+                    }
+
+                    [JsonIgnore]
+                    public Guid ProductVariantId { get; set; }
+
+                    [JsonIgnore]
+                    public Guid ProductAttributeId { get; set; }
+
+                    public required virtual AttributeType Type { get; set; }
+
+                    public required virtual AttributeValue Value { get; set; }
+                }
+
                 [JsonIgnore]
                 public Guid Id { get; set; }
 
@@ -33,6 +67,8 @@ namespace Cafree.Api.Endpoints.Products._Slug.Reviews.GET
                 public required string Name { get; set; }
 
                 public required string Sku { get; set; }
+
+                public virtual ICollection<Attribute> Attributes { get; set; } = new List<Attribute>();
             }
 
             [JsonIgnore]
