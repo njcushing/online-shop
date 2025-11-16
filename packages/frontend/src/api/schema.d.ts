@@ -202,6 +202,56 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/products/{slug}/related": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    slug: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto"][];
+                        "application/json": components["schemas"]["Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto"][];
+                        "text/json": components["schemas"]["Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto"][];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Microsoft.AspNetCore.Mvc.ProblemDetails"];
+                        "application/json": components["schemas"]["Microsoft.AspNetCore.Mvc.ProblemDetails"];
+                        "text/json": components["schemas"]["Microsoft.AspNetCore.Mvc.ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/products/{slug}/reviews": {
         parameters: {
             query?: never;
@@ -689,6 +739,110 @@ export interface components {
             value: string;
         };
         "Products._Slug.GET.GetProductBySlugResponseDto.Variant.Image": {
+            /** Format: uuid */
+            id: string;
+            src: string;
+            alt: string;
+            /** Format: int32 */
+            position: number;
+        };
+        "Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto": {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            description?: string | null;
+            slug: string;
+            /** Format: int32 */
+            allowance: number;
+            tags?: string[] | null;
+            /** Format: date-time */
+            releaseDate: string;
+            details: components["schemas"]["Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.Detail"][];
+            images: components["schemas"]["Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.Image"][];
+            rating: components["schemas"]["Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.ProductRating"];
+            variants: components["schemas"]["Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.Variant"][];
+            /** Format: float */
+            score: number;
+        };
+        "Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.Detail": {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            value: string;
+        };
+        "Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.Image": {
+            /** Format: uuid */
+            id: string;
+            src: string;
+            alt: string;
+            /** Format: int32 */
+            position: number;
+        };
+        "Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.ProductRating": {
+            /** Format: double */
+            average: number;
+            /** Format: int32 */
+            total: number;
+            quantities: components["schemas"]["Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.ProductRating.RatingQuantities"];
+        };
+        "Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.ProductRating.RatingQuantities": {
+            /** Format: int32 */
+            1: number;
+            /** Format: int32 */
+            2: number;
+            /** Format: int32 */
+            3: number;
+            /** Format: int32 */
+            4: number;
+            /** Format: int32 */
+            5: number;
+        };
+        "Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.Variant": {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            sku: string;
+            canSubscribe?: boolean | null;
+            /** Format: double */
+            priceCurrent: number;
+            /** Format: double */
+            priceBase: number;
+            /** Format: double */
+            subscriptionDiscountPercentage?: number | null;
+            /** Format: int32 */
+            stock: number;
+            /** Format: int32 */
+            allowanceOverride?: number | null;
+            active: boolean;
+            /** Format: date-time */
+            releaseDate: string;
+            attributes: components["schemas"]["Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.Variant.Attribute"][];
+            details: components["schemas"]["Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.Variant.Detail"][];
+            images: components["schemas"]["Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.Variant.Image"][];
+        };
+        "Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.Variant.Attribute": {
+            type: components["schemas"]["Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.Variant.Attribute.AttributeType"];
+            value: components["schemas"]["Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.Variant.Attribute.AttributeValue"];
+        };
+        "Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.Variant.Attribute.AttributeType": {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            title: string;
+        };
+        "Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.Variant.Attribute.AttributeValue": {
+            code: string;
+            name: string;
+            /** Format: int32 */
+            position: number;
+        };
+        "Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.Variant.Detail": {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            value: string;
+        };
+        "Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.Variant.Image": {
             /** Format: uuid */
             id: string;
             src: string;
