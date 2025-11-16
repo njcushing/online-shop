@@ -1,14 +1,48 @@
-import { useCallback, useRef } from "react";
+import { useContext, useEffect, useCallback, useRef } from "react";
+import { ProductContext } from "@/pages/Product";
 import { useMatches } from "@mantine/core";
 import { Carousel, Embla } from "@mantine/carousel";
-import { mockProducts } from "@/utils/products/product";
+import * as useAsync from "@/hooks/useAsync";
+import { useQueryContexts } from "@/hooks/useQueryContexts";
+import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
+import {
+    ResponseBody as GetRelatedProductsBySlugResponseDto,
+    getRelatedProductsBySlug,
+} from "@/api/products/[slug]/related/GET";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
+import { mockProducts } from "@/utils/products/product";
+import { customStatusCodes } from "@/api/types";
 import { ProductCard } from "../ProductCard";
 import styles from "./index.module.css";
 
 const slideGapPx = 16;
 
 export function RecommendedProducts() {
+    const { product, defaultData } = useContext(ProductContext);
+
+    let productData = defaultData.product as GetProductBySlugResponseDto;
+
+    const { data, awaitingAny: contextAwaitingAny } = useQueryContexts({
+        contexts: [{ name: "product", context: product }],
+    });
+
+    if (!contextAwaitingAny) {
+        if (data.product) productData = data.product;
+    }
+
+    const { response, setParams, attempt, awaiting } = useAsync.GET(
+        getRelatedProductsBySlug,
+        [{}] as Parameters<typeof getRelatedProductsBySlug>,
+        { attemptOnMount: false },
+    );
+    useEffect(() => {
+        if (contextAwaitingAny) return;
+        if (productData.slug.length > 0) {
+            setParams([{ params: { path: { slug: productData.slug } } }]);
+            attempt();
+        }
+    }, [productData.slug, contextAwaitingAny, setParams, attempt]);
+
     const emblaRef = useRef<Embla | null>(null);
 
     /*
@@ -56,6 +90,18 @@ export function RecommendedProducts() {
 
     /* v8 ignore stop */
 
+    let relatedProducts: GetRelatedProductsBySlugResponseDto =
+        mockProducts as unknown as GetRelatedProductsBySlugResponseDto;
+
+    if (!awaiting) {
+        if (response.success) relatedProducts = response.data;
+    }
+
+    const awaitingAny =
+        awaiting || contextAwaitingAny || response.status === customStatusCodes.unattempted;
+
+    if (!awaitingAny && relatedProducts.length === 0) return null;
+
     return (
         <section className={styles["recommended-products"]}>
             <div className={styles["recommended-products-width-controller"]}>
@@ -82,25 +128,30 @@ export function RecommendedProducts() {
                         indicators: styles["carousel-indicators"],
                     }}
                 >
-                    {mockProducts.slice(5).map((product, i) => {
-                        return (
-                            <Carousel.Slide
-                                data-last={i === 4}
-                                onFocus={
-                                    /* v8 ignore start */
+                    {relatedProducts
+                        .slice(0, awaitingAny ? carouselProps.slidesToScroll : undefined)
+                        .map((relatedProduct, i) => {
+                            return (
+                                <Carousel.Slide
+                                    data-last={i === 4}
+                                    onFocus={
+                                        /* v8 ignore start */
 
-                                    () => handleFocus(i)
+                                        () => handleFocus(i)
 
-                                    /* v8 ignore stop */
-                                }
-                                className={styles["carousel-slide"]}
-                                key={product.id}
-                                style={{ marginRight: i === 4 ? "0px" : `${slideGapPx}px` }}
-                            >
-                                <ProductCard productData={product} />
-                            </Carousel.Slide>
-                        );
-                    })}
+                                        /* v8 ignore stop */
+                                    }
+                                    className={styles["carousel-slide"]}
+                                    key={relatedProduct.id}
+                                    style={{ marginRight: i === 4 ? "0px" : `${slideGapPx}px` }}
+                                >
+                                    <ProductCard
+                                        productData={relatedProduct}
+                                        awaiting={awaitingAny}
+                                    />
+                                </Carousel.Slide>
+                            );
+                        })}
                 </Carousel>
             </div>
         </section>
