@@ -116,6 +116,12 @@
         }
     }
 
+    h3 {
+        font-weight: 600;
+
+        margin-bottom: revert;
+    }
+
     p {
         margin-bottom: revert;
     }
@@ -143,5 +149,9 @@
 
     li {
         margin-bottom: 8px;
+    }
+
+    hr {
+        margin: 12px 0px;
     }
 }
