@@ -75,8 +75,10 @@ export function Category({ children }: TCategory) {
     );
     const getCategoryReturn = useAsync.GET(
         getCategoryBySlug,
-        [{ params: { path: { slug: "" } } }] as Parameters<typeof getCategoryBySlug>,
-        { attemptOnMount: false },
+        [{ params: { path: { slug: urlPathSplit.at(-1)! } } }] as Parameters<
+            typeof getCategoryBySlug
+        >,
+        { attemptOnMount: !awaitingAny },
     );
     useEffect(() => setCategoryData(getCategoryReturn), [getCategoryReturn]);
     const { setParams, attempt } = getCategoryReturn;
