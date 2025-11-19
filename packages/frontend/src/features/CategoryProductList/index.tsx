@@ -15,7 +15,7 @@ export function CategoryProductList() {
     );
 
     const { categories } = useContext(RootContext);
-    const { categoryData } = useContext(CategoryContext);
+    const { categoryData, categoryBranch } = useContext(CategoryContext);
 
     let category = skeletonCategory as GetCategoryBySlugResponseDto;
 
@@ -29,6 +29,10 @@ export function CategoryProductList() {
     if (!awaitingAny) {
         if (data.categories && data.category) category = data.category;
     }
+
+    let subcategoryCount;
+    if (categories.awaiting) subcategoryCount = 3;
+    if (categoryBranch.length > 0) subcategoryCount = categoryBranch.at(-1)!.subcategories.length;
 
     return (
         <section className={styles["category-product-list"]}>
@@ -49,17 +53,15 @@ export function CategoryProductList() {
 
                 {category.products.length > 0 && category.subcategories.length > 0 && <Divider />}
 
-                {category.subcategories
-                    .slice(0, awaitingAny ? 3 : undefined)
-                    .map((subcategory, i) => {
-                        const { slug } = subcategory;
-                        return (
-                            <Fragment key={subcategory.slug}>
-                                <SubcategoryProductList slug={slug} awaiting={awaitingAny} />
-                                {i < category.subcategories.length - 1 && <Divider />}
-                            </Fragment>
-                        );
-                    })}
+                {category.subcategories.slice(0, subcategoryCount).map((subcategory, i) => {
+                    const { slug } = subcategory;
+                    return (
+                        <Fragment key={subcategory.slug}>
+                            <SubcategoryProductList slug={slug} awaiting={awaitingAny} />
+                            {i < category.subcategories.length - 1 && <Divider />}
+                        </Fragment>
+                    );
+                })}
             </div>
         </section>
     );
