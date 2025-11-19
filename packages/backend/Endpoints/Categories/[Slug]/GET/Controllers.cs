@@ -30,6 +30,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.GET
                         Slug = ip.Slug,
                         Description = ip.Description,
                     }).ToList(),
+                    ProductCount = c.CategoryProducts.Count(),
                 })
                 .FirstOrDefaultAsync();
 

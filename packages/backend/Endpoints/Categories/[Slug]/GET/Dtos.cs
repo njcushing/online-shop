@@ -29,5 +29,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.GET
         public string? Description { get; set; }
 
         public virtual ICollection<Subcategory> Subcategories { get; set; } = new List<Subcategory>();
+
+        public required int ProductCount { get; set; }
     }
 }
