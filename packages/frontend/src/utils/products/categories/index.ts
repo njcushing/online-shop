@@ -1,6 +1,5 @@
 import { v4 as uuid } from "uuid";
 import { components } from "@/api/schema";
-import { mockProducts } from "../product";
 
 export type CategoriesDto = components["schemas"]["Categories.GET.GetCategoriesResponseDto"];
 export type CategoriesDtoWithSubcategories = CategoriesDto & {
@@ -144,7 +143,6 @@ export const skeletonCategory: GetCategoryBySlugResponseDto = {
     name: "Default Cat 1",
     slug: "default-category-1",
     description: "Default Category 1 description",
-    products: mockProducts,
     subcategories: [
         {
             slug: "default-category-2",
@@ -167,4 +165,5 @@ export const skeletonCategory: GetCategoryBySlugResponseDto = {
             description: "Default Category 5 description",
         },
     ],
+    productCount: 10,
 };

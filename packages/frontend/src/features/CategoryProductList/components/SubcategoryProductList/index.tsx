@@ -1,14 +1,17 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useMatches, NavLink, Skeleton } from "@mantine/core";
 import { Link } from "react-router-dom";
 import * as useAsync from "@/hooks/useAsync";
-import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { getCategoryBySlug } from "@/api/categories/[slug]/GET";
 import { CaretRight } from "@phosphor-icons/react";
 import { ProductCard } from "@/features/ProductCard";
 import { GetCategoryBySlugResponseDto, skeletonCategory } from "@/utils/products/categories";
-import { createQueryContextObject } from "@/hooks/useAsync/utils/createQueryContextObject";
+import {
+    ResponseBody as GetCategoryBySlugProductsResponseDto,
+    getCategoryBySlugProducts,
+} from "@/api/categories/[slug]/products/GET";
 import { customStatusCodes } from "@/api/types";
+import { mockProducts } from "@/utils/products/product";
 import styles from "./index.module.css";
 
 export type TSubcategoryProductList = {
@@ -17,83 +20,118 @@ export type TSubcategoryProductList = {
 };
 
 export function SubcategoryProductList({ slug, awaiting = false }: TSubcategoryProductList) {
-    const productsToDisplay = useMatches({ base: 3, xs: 5, lg: 7 });
+    const productsToDisplay = useMatches(
+        { base: 3, xs: 5, lg: 7 },
+        { getInitialValueInEffect: false },
+    );
     const productsToDisplayWhileAwaiting = useMatches(
         { base: 0, xs: 1, md: 2, lg: 3 },
         { getInitialValueInEffect: false },
     );
 
-    const [categoryData, setCategoryData] = useState<
-        useAsync.InferUseAsyncReturnTypeFromFunction<typeof getCategoryBySlug>
-    >(createQueryContextObject());
-    const getCategoryReturn = useAsync.GET(
-        getCategoryBySlug,
-        [{ params: { path: { slug } } }] as Parameters<typeof getCategoryBySlug>,
-        { attemptOnMount: !awaiting },
-    );
-    useEffect(() => setCategoryData(getCategoryReturn), [getCategoryReturn]);
-    const { setParams, attempt } = getCategoryReturn;
-    useEffect(() => {
-        if (awaiting) return;
-        if (slug.length > 0) {
-            setParams([{ params: { path: { slug } } }]);
-            attempt();
-        }
-    }, [slug, awaiting, setParams, attempt]);
-
     let category = skeletonCategory as GetCategoryBySlugResponseDto;
 
-    const { data, awaitingAny: contextAwaitingAny } = useQueryContexts({
-        contexts: [{ name: "category", context: categoryData }],
-    });
+    const {
+        response: categoryResponse,
+        setParams: categorySetParams,
+        attempt: categoryAttempt,
+        awaiting: categoryAwaiting,
+    } = useAsync.GET(
+        getCategoryBySlug,
+        [{ params: { path: { slug } } }] as Parameters<typeof getCategoryBySlug>,
+        { attemptOnMount: false }, // useEffect hook will handle attempt(s)
+    );
 
-    if (!contextAwaitingAny) {
-        if (data.category) category = data.category;
+    if (!categoryAwaiting) {
+        if (categoryResponse.success) category = categoryResponse.data;
     }
 
-    const awaitingAny =
-        awaiting ||
-        contextAwaitingAny ||
-        getCategoryReturn.response.status === customStatusCodes.unattempted;
+    useEffect(() => {
+        if (awaiting) return;
+
+        categorySetParams([{ params: { path: { slug } } }]);
+        categoryAttempt();
+    }, [slug, awaiting, categorySetParams, categoryAttempt]);
+
+    const awaitingCategory =
+        awaiting || categoryAwaiting || categoryResponse.status === customStatusCodes.unattempted;
+
+    let products = mockProducts as GetCategoryBySlugProductsResponseDto;
+
+    const {
+        response: productsResponse,
+        setParams: productsSetParams,
+        attempt: productsAttempt,
+        awaiting: productsAwaiting,
+    } = useAsync.GET(
+        getCategoryBySlugProducts,
+        [{}],
+        { attemptOnMount: false }, // useEffect hook will handle attempt(s)
+    );
+
+    if (!awaiting) {
+        if (productsResponse.success) products = productsResponse.data;
+    }
+
+    useEffect(() => {
+        if (awaiting) return;
+
+        productsSetParams([
+            {
+                params: {
+                    path: { slug },
+                    query: { page: 1, pageSize: 7 },
+                },
+            },
+        ]);
+        productsAttempt();
+    }, [slug, awaiting, productsSetParams, productsAttempt]);
+
+    const awaitingProducts =
+        awaiting || productsAwaiting || productsResponse.status === customStatusCodes.unattempted;
+
+    const awaitingAny = awaitingCategory || awaitingProducts;
+
+    let productCount = productsToDisplay;
+    if (categoryAwaiting) productCount = productsToDisplayWhileAwaiting;
+    if (!categoryAwaiting && categoryResponse.success) productCount = category.productCount;
 
     return (
         <div className={styles["product-list-category-group"]}>
             <div className={styles["subcategory-information"]}>
-                <Skeleton visible={awaitingAny}>
+                <Skeleton visible={awaitingCategory}>
                     <h2
                         className={styles["subcategory-name"]}
-                        style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                        style={{ visibility: awaitingCategory ? "hidden" : "initial" }}
                     >
                         {category.name}
                     </h2>
                 </Skeleton>
 
-                <Skeleton visible={awaitingAny}>
+                <Skeleton visible={awaitingCategory}>
                     <p
                         className={styles["subcategory-description"]}
-                        style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                        style={{ visibility: awaitingCategory ? "hidden" : "initial" }}
                     >
                         {category.description}
                     </p>
                 </Skeleton>
 
-                <Skeleton visible={awaitingAny}>
+                <Skeleton visible={awaitingCategory}>
                     <NavLink
                         component={Link}
                         to={category.slug}
                         label="Shop all"
                         rightSection={<CaretRight size={16} />}
                         className={styles["shop-all-button"]}
-                        style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                        style={{ visibility: awaitingCategory ? "hidden" : "initial" }}
                     />
                 </Skeleton>
             </div>
 
-            {category.products
-                .slice(0, awaitingAny ? productsToDisplayWhileAwaiting : productsToDisplay)
-                .map((product) => (
-                    <ProductCard productData={product!} awaiting={awaitingAny} key={product!.id} />
-                ))}
+            {products.slice(0, productCount).map((product) => (
+                <ProductCard productData={product!} awaiting={awaitingAny} key={product!.id} />
+            ))}
         </div>
     );
 }
