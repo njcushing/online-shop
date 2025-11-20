@@ -13,13 +13,14 @@ import { GetCategoryBySlugResponseDto, skeletonCategory } from "@/utils/products
 import { customStatusCodes } from "@/api/types";
 import { mockProducts } from "@/utils/products/product";
 import { SubcategoryProductList } from "./components/SubcategoryProductList";
+import { CategoryProductsSortAndFilters } from "./components/CategoryProductsSortAndFilters";
 import styles from "./index.module.css";
 
 const pageSize = 24;
 
 export function CategoryProductList() {
     const productsToDisplayWhileAwaiting = useMatches(
-        { base: 1, xs: 2, md: 3, lg: 4 },
+        { base: 0, xs: 1, md: 2, lg: 3 },
         { getInitialValueInEffect: false },
     );
     const subcategoriesToDisplayWhileAwaiting = 3;
@@ -86,14 +87,18 @@ export function CategoryProductList() {
         <section className={styles["category-product-list"]}>
             <div className={styles["category-product-list-width-controller"]}>
                 {products.length > 0 && (
-                    <div className={styles["category-product-list-category-group"]}>
-                        {products.slice(0, productCount).map((product) => (
-                            <ProductCard
-                                productData={product}
-                                awaiting={awaitingProducts}
-                                key={product.id}
-                            />
-                        ))}
+                    <div className={styles["category-product-list-category-group-container"]}>
+                        <CategoryProductsSortAndFilters />
+
+                        <div className={styles["category-product-list-category-group"]}>
+                            {products.slice(0, productCount).map((product) => (
+                                <ProductCard
+                                    productData={product}
+                                    awaiting={awaitingProducts}
+                                    key={product.id}
+                                />
+                            ))}
+                        </div>
                     </div>
                 )}
 
