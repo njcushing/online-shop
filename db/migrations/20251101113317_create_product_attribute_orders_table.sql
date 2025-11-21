@@ -7,7 +7,7 @@ CREATE TABLE product_attribute_orders (
     updated_at timestamptz,
     PRIMARY KEY (product_id, product_attribute_id),
     UNIQUE (product_id, position)
-)
+);
 
 -- migrate:down
 
