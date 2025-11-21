@@ -10,4 +10,4 @@ CREATE TABLE product_attribute_orders (
 );
 
 -- migrate:down
-
+DROP TABLE IF EXISTS product_attribute_orders;

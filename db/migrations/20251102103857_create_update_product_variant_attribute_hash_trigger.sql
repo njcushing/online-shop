@@ -4,7 +4,7 @@ RETURNS trigger AS $$
 DECLARE new_attribute_hash text;
 BEGIN
     SELECT md5(string_agg(
-        pva.product_attribute_id::text || ':' || pva.product_attribute_value_code,
+        pva.product_attribute_id::text || ':' || pva.product_attribute_value_id,
         ',' ORDER BY pva.product_attribute_id
     ))
     INTO new_attribute_hash
