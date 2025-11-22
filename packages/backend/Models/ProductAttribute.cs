@@ -11,11 +11,17 @@ public partial class ProductAttribute
 
     public string Title { get; set; } = null!;
 
+    public Guid ProductAttributeValueTypeId { get; set; }
+
     public DateTime CreatedAt { get; set; }
 
     public DateTime? UpdatedAt { get; set; }
 
+    public virtual ICollection<CategoryProductAttributeFilter> CategoryProductAttributeFilters { get; set; } = new List<CategoryProductAttributeFilter>();
+
     public virtual ICollection<ProductAttributeOrder> ProductAttributeOrders { get; set; } = new List<ProductAttributeOrder>();
+
+    public virtual ProductAttributeValueType ProductAttributeValueType { get; set; } = null!;
 
     public virtual ICollection<ProductAttributeValue> ProductAttributeValues { get; set; } = new List<ProductAttributeValue>();
 

@@ -11,7 +11,7 @@ public partial class ProductVariantAttribute
 
     public Guid ProductAttributeId { get; set; }
 
-    public string ProductAttributeValueCode { get; set; } = null!;
+    public Guid ProductAttributeValueId { get; set; }
 
     public DateTime CreatedAt { get; set; }
 
@@ -22,8 +22,6 @@ public partial class ProductVariantAttribute
     public virtual ProductAttribute ProductAttribute { get; set; } = null!;
 
     public virtual ProductAttributeOrder ProductAttributeOrder { get; set; } = null!;
-
-    public virtual ProductAttributeValue ProductAttributeValue { get; set; } = null!;
 
     public virtual ProductVariant ProductVariant { get; set; } = null!;
 }

@@ -24,6 +24,8 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<CategoryProduct> CategoryProducts { get; set; }
 
+    public virtual DbSet<CategoryProductAttributeFilter> CategoryProductAttributeFilters { get; set; }
+
     public virtual DbSet<Collection> Collections { get; set; }
 
     public virtual DbSet<CollectionProduct> CollectionProducts { get; set; }
@@ -43,6 +45,8 @@ public partial class AppDbContext : DbContext
     public virtual DbSet<ProductAttributeOrder> ProductAttributeOrders { get; set; }
 
     public virtual DbSet<ProductAttributeValue> ProductAttributeValues { get; set; }
+
+    public virtual DbSet<ProductAttributeValueType> ProductAttributeValueTypes { get; set; }
 
     public virtual DbSet<ProductDetail> ProductDetails { get; set; }
 
@@ -239,6 +243,28 @@ public partial class AppDbContext : DbContext
             entity.HasOne(d => d.Product).WithMany(p => p.CategoryProducts)
                 .HasForeignKey(d => d.ProductId)
                 .HasConstraintName("category_products_product_id_fkey");
+        });
+
+        modelBuilder.Entity<CategoryProductAttributeFilter>(entity =>
+        {
+            entity.HasKey(e => new { e.CategoryId, e.ProductAttributeId }).HasName("category_product_attribute_filters_pkey");
+
+            entity.ToTable("category_product_attribute_filters");
+
+            entity.Property(e => e.CategoryId).HasColumnName("category_id");
+            entity.Property(e => e.ProductAttributeId).HasColumnName("product_attribute_id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("now()")
+                .HasColumnName("created_at");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+
+            entity.HasOne(d => d.Category).WithMany(p => p.CategoryProductAttributeFilters)
+                .HasForeignKey(d => d.CategoryId)
+                .HasConstraintName("category_product_attribute_filters_category_id_fkey");
+
+            entity.HasOne(d => d.ProductAttribute).WithMany(p => p.CategoryProductAttributeFilters)
+                .HasForeignKey(d => d.ProductAttributeId)
+                .HasConstraintName("category_product_attribute_filters_product_attribute_id_fkey");
         });
 
         modelBuilder.Entity<Collection>(entity =>
@@ -476,8 +502,14 @@ public partial class AppDbContext : DbContext
                 .HasDefaultValueSql("now()")
                 .HasColumnName("created_at");
             entity.Property(e => e.Name).HasColumnName("name");
+            entity.Property(e => e.ProductAttributeValueTypeId).HasColumnName("product_attribute_value_type_id");
             entity.Property(e => e.Title).HasColumnName("title");
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+
+            entity.HasOne(d => d.ProductAttributeValueType).WithMany(p => p.ProductAttributes)
+                .HasForeignKey(d => d.ProductAttributeValueTypeId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("product_attributes_product_attribute_value_type_id_fkey");
         });
 
         modelBuilder.Entity<ProductAttributeOrder>(entity =>
@@ -508,24 +540,83 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<ProductAttributeValue>(entity =>
         {
-            entity.HasKey(e => new { e.ProductAttributeId, e.Code }).HasName("product_attribute_values_pkey");
+            entity.HasKey(e => e.Id).HasName("product_attribute_values_pkey");
 
             entity.ToTable("product_attribute_values");
 
+            entity.HasIndex(e => new { e.ProductAttributeId, e.Code }, "idx_product_attribute_value_attribute_code");
+
+            entity.HasIndex(e => new { e.Id, e.ProductAttributeId }, "product_attribute_values_id_product_attribute_id_key").IsUnique();
+
+            entity.HasIndex(e => new { e.ProductAttributeId, e.Code }, "product_attribute_values_product_attribute_id_code_key").IsUnique();
+
             entity.HasIndex(e => new { e.ProductAttributeId, e.Position }, "product_attribute_values_product_attribute_id_position_key").IsUnique();
 
-            entity.Property(e => e.ProductAttributeId).HasColumnName("product_attribute_id");
+            entity.HasIndex(e => new { e.ProductAttributeId, e.ValueBoolean }, "uq_attribute_value_boolean")
+                .IsUnique()
+                .HasFilter("(value_boolean IS NOT NULL)");
+
+            entity.HasIndex(e => new { e.ProductAttributeId, e.ValueColor }, "uq_attribute_value_color")
+                .IsUnique()
+                .HasFilter("(value_color IS NOT NULL)");
+
+            entity.HasIndex(e => new { e.ProductAttributeId, e.ValueDate }, "uq_attribute_value_date")
+                .IsUnique()
+                .HasFilter("(value_date IS NOT NULL)");
+
+            entity.HasIndex(e => new { e.ProductAttributeId, e.ValueNumeric }, "uq_attribute_value_numeric")
+                .IsUnique()
+                .HasFilter("(value_numeric IS NOT NULL)");
+
+            entity.HasIndex(e => new { e.ProductAttributeId, e.ValueSelect }, "uq_attribute_value_select")
+                .IsUnique()
+                .HasFilter("(value_select IS NOT NULL)");
+
+            entity.HasIndex(e => new { e.ProductAttributeId, e.ValueText }, "uq_attribute_value_text")
+                .IsUnique()
+                .HasFilter("(value_text IS NOT NULL)");
+
+            entity.Property(e => e.Id)
+                .HasDefaultValueSql("uuid_generate_v4()")
+                .HasColumnName("id");
             entity.Property(e => e.Code).HasColumnName("code");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("now()")
                 .HasColumnName("created_at");
             entity.Property(e => e.Name).HasColumnName("name");
             entity.Property(e => e.Position).HasColumnName("position");
+            entity.Property(e => e.ProductAttributeId).HasColumnName("product_attribute_id");
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+            entity.Property(e => e.ValueBoolean).HasColumnName("value_boolean");
+            entity.Property(e => e.ValueColor)
+                .HasMaxLength(7)
+                .HasColumnName("value_color");
+            entity.Property(e => e.ValueDate).HasColumnName("value_date");
+            entity.Property(e => e.ValueNumeric).HasColumnName("value_numeric");
+            entity.Property(e => e.ValueSelect).HasColumnName("value_select");
+            entity.Property(e => e.ValueText).HasColumnName("value_text");
 
             entity.HasOne(d => d.ProductAttribute).WithMany(p => p.ProductAttributeValues)
                 .HasForeignKey(d => d.ProductAttributeId)
                 .HasConstraintName("product_attribute_values_product_attribute_id_fkey");
+        });
+
+        modelBuilder.Entity<ProductAttributeValueType>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("product_attribute_value_types_pkey");
+
+            entity.ToTable("product_attribute_value_types");
+
+            entity.HasIndex(e => e.Name, "product_attribute_value_types_name_key").IsUnique();
+
+            entity.Property(e => e.Id)
+                .HasDefaultValueSql("uuid_generate_v4()")
+                .HasColumnName("id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("now()")
+                .HasColumnName("created_at");
+            entity.Property(e => e.Name).HasColumnName("name");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
         });
 
         modelBuilder.Entity<ProductDetail>(entity =>
@@ -712,7 +803,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("now()")
                 .HasColumnName("created_at");
-            entity.Property(e => e.ProductAttributeValueCode).HasColumnName("product_attribute_value_code");
+            entity.Property(e => e.ProductAttributeValueId).HasColumnName("product_attribute_value_id");
             entity.Property(e => e.ProductId).HasColumnName("product_id");
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
 
@@ -724,11 +815,6 @@ public partial class AppDbContext : DbContext
             entity.HasOne(d => d.Product).WithMany(p => p.ProductVariantAttributes)
                 .HasForeignKey(d => d.ProductId)
                 .HasConstraintName("product_variant_attributes_product_id_fkey");
-
-            entity.HasOne(d => d.ProductAttributeValue).WithMany(p => p.ProductVariantAttributes)
-                .HasForeignKey(d => new { d.ProductAttributeId, d.ProductAttributeValueCode })
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("fk_attribute_value_matches_attribute");
 
             entity.HasOne(d => d.ProductAttributeOrder).WithMany(p => p.ProductVariantAttributes)
                 .HasForeignKey(d => new { d.ProductId, d.ProductAttributeId })

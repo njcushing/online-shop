@@ -19,6 +19,8 @@ public partial class Category
 
     public DateTime? UpdatedAt { get; set; }
 
+    public virtual ICollection<CategoryProductAttributeFilter> CategoryProductAttributeFilters { get; set; } = new List<CategoryProductAttributeFilter>();
+
     public virtual ICollection<CategoryProduct> CategoryProducts { get; set; } = new List<CategoryProduct>();
 
     public virtual ICollection<Category> InverseParent { get; set; } = new List<Category>();
