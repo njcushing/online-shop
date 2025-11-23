@@ -11,8 +11,8 @@ CREATE TABLE product_variant_attributes (
         FOREIGN KEY (product_variant_id, product_id)
         REFERENCES product_variants(id, product_id) ON DELETE CASCADE,
     CONSTRAINT fk_attribute_value_matches_attribute
-        FOREIGN KEY (product_attribute_id, product_attribute_value_id)
-        REFERENCES product_attribute_values(product_attribute_id, id) ON DELETE RESTRICT,
+        FOREIGN KEY (product_attribute_value_id, product_attribute_id)
+        REFERENCES product_attribute_values(id, product_attribute_id) ON DELETE RESTRICT,
     CONSTRAINT fk_attribute_id_belongs_to_product_attribute_order
         FOREIGN KEY (product_id, product_attribute_id)
         REFERENCES product_attribute_orders (product_id, product_attribute_id) ON DELETE RESTRICT

@@ -540,13 +540,11 @@ public partial class AppDbContext : DbContext
 
         modelBuilder.Entity<ProductAttributeValue>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("product_attribute_values_pkey");
+            entity.HasKey(e => new { e.Id, e.ProductAttributeId }).HasName("product_attribute_values_pkey");
 
             entity.ToTable("product_attribute_values");
 
             entity.HasIndex(e => new { e.ProductAttributeId, e.Code }, "idx_product_attribute_value_attribute_code");
-
-            entity.HasIndex(e => new { e.Id, e.ProductAttributeId }, "product_attribute_values_id_product_attribute_id_key").IsUnique();
 
             entity.HasIndex(e => new { e.ProductAttributeId, e.Code }, "product_attribute_values_product_attribute_id_code_key").IsUnique();
 
@@ -579,13 +577,13 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Id)
                 .HasDefaultValueSql("uuid_generate_v4()")
                 .HasColumnName("id");
+            entity.Property(e => e.ProductAttributeId).HasColumnName("product_attribute_id");
             entity.Property(e => e.Code).HasColumnName("code");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("now()")
                 .HasColumnName("created_at");
             entity.Property(e => e.Name).HasColumnName("name");
             entity.Property(e => e.Position).HasColumnName("position");
-            entity.Property(e => e.ProductAttributeId).HasColumnName("product_attribute_id");
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
             entity.Property(e => e.ValueBoolean).HasColumnName("value_boolean");
             entity.Property(e => e.ValueColor)
@@ -815,6 +813,11 @@ public partial class AppDbContext : DbContext
             entity.HasOne(d => d.Product).WithMany(p => p.ProductVariantAttributes)
                 .HasForeignKey(d => d.ProductId)
                 .HasConstraintName("product_variant_attributes_product_id_fkey");
+
+            entity.HasOne(d => d.ProductAttributeValue).WithMany(p => p.ProductVariantAttributes)
+                .HasForeignKey(d => new { d.ProductAttributeValueId, d.ProductAttributeId })
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_attribute_value_matches_attribute");
 
             entity.HasOne(d => d.ProductAttributeOrder).WithMany(p => p.ProductVariantAttributes)
                 .HasForeignKey(d => new { d.ProductId, d.ProductAttributeId })

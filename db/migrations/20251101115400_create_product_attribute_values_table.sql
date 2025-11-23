@@ -74,7 +74,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TABLE product_attribute_values (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id uuid NOT NULL DEFAULT uuid_generate_v4(),
     product_attribute_id uuid NOT NULL REFERENCES product_attributes(id) ON DELETE CASCADE,
     position int NOT NULL CHECK (position >= 0),
     code text NOT NULL,
@@ -87,6 +87,7 @@ CREATE TABLE product_attribute_values (
     value_select text,
     created_at timestamptz NOT NULL DEFAULT now(),
     updated_at timestamptz,
+    PRIMARY KEY (id, product_attribute_id),
     UNIQUE (id, product_attribute_id),
     UNIQUE (product_attribute_id, position),
     UNIQUE (product_attribute_id, code),

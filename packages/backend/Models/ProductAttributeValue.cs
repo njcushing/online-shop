@@ -32,4 +32,6 @@ public partial class ProductAttributeValue
     public DateTime? UpdatedAt { get; set; }
 
     public virtual ProductAttribute ProductAttribute { get; set; } = null!;
+
+    public virtual ICollection<ProductVariantAttribute> ProductVariantAttributes { get; set; } = new List<ProductVariantAttribute>();
 }

@@ -23,5 +23,7 @@ public partial class ProductVariantAttribute
 
     public virtual ProductAttributeOrder ProductAttributeOrder { get; set; } = null!;
 
+    public virtual ProductAttributeValue ProductAttributeValue { get; set; } = null!;
+
     public virtual ProductVariant ProductVariant { get; set; } = null!;
 }
