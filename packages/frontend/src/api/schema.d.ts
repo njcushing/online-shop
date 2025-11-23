@@ -426,8 +426,24 @@ export interface components {
             slug: string;
             description?: string | null;
             subcategories: components["schemas"]["Categories._Slug.GET.GetCategoryBySlugResponseDto.Subcategory"][];
+            filters: components["schemas"]["Categories._Slug.GET.GetCategoryBySlugResponseDto.Filter"][];
             /** Format: int32 */
             productCount: number;
+        };
+        "Categories._Slug.GET.GetCategoryBySlugResponseDto.Filter": {
+            name: string;
+            title: string;
+            type: string;
+            values: components["schemas"]["Categories._Slug.GET.GetCategoryBySlugResponseDto.Filter.AttributeValue"][];
+        };
+        "Categories._Slug.GET.GetCategoryBySlugResponseDto.Filter.AttributeValue": {
+            /** Format: int32 */
+            position: number;
+            code: string;
+            name: string;
+            value: string;
+            /** Format: int32 */
+            count: number;
         };
         "Categories._Slug.GET.GetCategoryBySlugResponseDto.Subcategory": {
             name: string;
