@@ -30,6 +30,50 @@ namespace Cafree.Api.Endpoints.Categories._Slug.GET
                         Slug = ip.Slug,
                         Description = ip.Description,
                     }).ToList(),
+                    Filters = c.CategoryProductAttributeFilters.Select(cpaf => new GetCategoryBySlugResponseDto.Filter
+                    {
+                        Name = cpaf.ProductAttribute.Name,
+                        Title = cpaf.ProductAttribute.Title,
+                        Type = cpaf.ProductAttribute.ProductAttributeValueType.Name,
+                        Values = _context.ProductVariantAttributes
+                            .Where(pva =>
+                                pva.ProductAttributeId == cpaf.ProductAttributeId &&
+                                c.CategoryProducts.Any(cp => cp.ProductId == pva.ProductId)
+                            )
+                            .GroupBy(pva => new
+                            {
+                                pva.ProductAttributeValue.Id,
+                                pva.ProductAttributeValue.Code,
+                                pva.ProductAttributeValue.Name,
+                                pva.ProductAttributeValue.Position,
+                                pva.ProductAttributeValue.ValueText,
+                                pva.ProductAttributeValue.ValueNumeric,
+                                pva.ProductAttributeValue.ValueBoolean,
+                                pva.ProductAttributeValue.ValueColor,
+                                pva.ProductAttributeValue.ValueDate,
+                                pva.ProductAttributeValue.ValueSelect
+                            })
+                            .Select(g => new GetCategoryBySlugResponseDto.Filter.AttributeValue
+                            {
+                                Id = g.Key.Id,
+                                ProductAttributeId = cpaf.ProductAttributeId,
+                                Position = g.Key.Position,
+                                Code = g.Key.Code,
+                                Name = g.Key.Name,
+                                Value =
+                                    (g.Key.ValueText != null ? g.Key.ValueText : null) ??
+                                    (g.Key.ValueNumeric != null ? g.Key.ValueNumeric.ToString() : null) ??
+                                    (g.Key.ValueBoolean != null ? g.Key.ValueBoolean.ToString() : null) ??
+                                    (g.Key.ValueColor != null ? g.Key.ValueColor : null) ??
+                                    (g.Key.ValueDate != null ? g.Key.ValueDate.ToString() : null) ??
+                                    (g.Key.ValueSelect != null ? g.Key.ValueSelect : null) ??
+                                    "",
+                                Count = g.Count()
+                            })
+                            .OrderBy(v => v.Position)
+                            .ToList()
+                    })
+                    .ToList(),
                     ProductCount = c.CategoryProducts.Count(),
                 })
                 .FirstOrDefaultAsync();
