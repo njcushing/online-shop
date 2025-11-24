@@ -19,6 +19,7 @@
 .category-product-list-category-group-container {
     display: grid;
     grid-template-columns: 1fr;
+    gap: 16px;
 
     @media (min-width: $mantine-breakpoint-xs) {
         grid-template-columns: 50% 1fr;

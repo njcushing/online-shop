@@ -1,0 +1,83 @@
+.category-products-sort-and-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.filter {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-name {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    font-weight: 600;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.1rem;
+    }
+}
+
+.filter-colors {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.filter-value-color {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+
+    border: none;
+    background-color: transparent;
+
+    padding: 0px;
+}
+
+.filter-value-color-box,
+.filter-value-color-box::before {
+    border-radius: 4px;
+
+    width: 24px;
+    aspect-ratio: 1;
+}
+
+.filter-value-color-box::before {
+    content: "";
+    display: block;
+
+    position: relative;
+    z-index: -1;
+
+    outline: 2px solid black;
+    outline-offset: -3px;
+}
+
+.filter-value-name {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 0.84rem;
+    font-weight: 600;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
+}
+
+.filter-value-count {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 0.84rem;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
+}
