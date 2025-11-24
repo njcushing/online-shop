@@ -165,5 +165,43 @@ export const skeletonCategory: GetCategoryBySlugResponseDto = {
             description: "Default Category 5 description",
         },
     ],
+    filters: [
+        {
+            name: "Filter_String",
+            title: "Filter String",
+            type: "string",
+            values: [
+                { position: 1, code: "A2", name: "A2 Name", value: "A2 Value", count: 10 },
+                { position: 4, code: "A5", name: "A5 Name", value: "A5 Value", count: 10 },
+                { position: 0, code: "A1", name: "A1 Name", value: "A1 Value", count: 10 },
+                { position: 2, code: "A3", name: "A3 Name", value: "A3 Value", count: 10 },
+                { position: 3, code: "A4", name: "A4 Name", value: "A4 Value", count: 10 },
+            ],
+        },
+        {
+            name: "Filter_Numeric",
+            title: "Filter Numeric",
+            type: "numeric",
+            values: [
+                { position: 2, code: "B3", name: "B3 Name", value: "30", count: 10 },
+                { position: 4, code: "B5", name: "B5 Name", value: "50", count: 10 },
+                { position: 0, code: "B1", name: "B1 Name", value: "10", count: 10 },
+                { position: 1, code: "B2", name: "B2 Name", value: "20", count: 10 },
+                { position: 3, code: "B4", name: "B4 Name", value: "40", count: 10 },
+            ],
+        },
+        {
+            name: "Filter_Color",
+            title: "Filter Color",
+            type: "color",
+            values: [
+                { position: 1, code: "C2", name: "C2 Name", value: "#E7A67A", count: 10 },
+                { position: 0, code: "C1", name: "C1 Name", value: "#FFECDA", count: 10 },
+                { position: 2, code: "C3", name: "C3 Name", value: "#945A38", count: 10 },
+                { position: 4, code: "C5", name: "C5 Name", value: "#251515", count: 10 },
+                { position: 3, code: "C4", name: "C4 Name", value: "#523727", count: 10 },
+            ],
+        },
+    ],
     productCount: 10,
 };
