@@ -1,5 +1,5 @@
 import { useContext, useCallback } from "react";
-import { Checkbox, RangeSlider } from "@mantine/core";
+import { Checkbox, RangeSlider, Radio } from "@mantine/core";
 import { CategoryContext } from "@/pages/Category";
 import { skeletonCategory } from "@/utils/products/categories";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
@@ -95,7 +95,38 @@ export function CategoryProductsSortAndFilters() {
                 case "date":
                     return null;
                 case "select":
-                    return null;
+                    return (
+                        <Radio.Group>
+                            <ul className={styles["filter-radio"]}>
+                                {values.map((value) => {
+                                    const { code, name: valueName, count } = value;
+
+                                    return (
+                                        <Radio
+                                            value={code}
+                                            label={
+                                                <>
+                                                    <p className={styles["filter-value-name"]}>
+                                                        {valueName}
+                                                    </p>
+                                                    <p className={styles["filter-value-count"]}>
+                                                        ({count})
+                                                    </p>
+                                                </>
+                                            }
+                                            classNames={{
+                                                root: styles["radio-root"],
+                                                body: styles["radio-body"],
+                                                radio: styles["radio"],
+                                                label: styles["radio-label"],
+                                            }}
+                                            key={code}
+                                        />
+                                    );
+                                })}
+                            </ul>
+                        </Radio.Group>
+                    );
                 default:
                     return null;
             }
