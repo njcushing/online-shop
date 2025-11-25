@@ -1,5 +1,5 @@
 import { useContext, useCallback } from "react";
-import { Checkbox } from "@mantine/core";
+import { Checkbox, RangeSlider } from "@mantine/core";
 import { CategoryContext } from "@/pages/Category";
 import { skeletonCategory } from "@/utils/products/categories";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
@@ -59,8 +59,13 @@ export function CategoryProductsSortAndFilters() {
                             })}
                         </ul>
                     );
-                case "numeric":
-                    return null;
+                case "numeric": {
+                    const min = Math.min(...values.map((v) => Number(v.value)));
+                    const max = Math.max(...values.map((v) => Number(v.value)));
+                    const step = (Math.floor(Math.log10(max - min)) - 2) ** 10;
+
+                    return <RangeSlider color="black" size="lg" min={min} max={max} step={step} />;
+                }
                 case "boolean":
                     return null;
                 case "color":
