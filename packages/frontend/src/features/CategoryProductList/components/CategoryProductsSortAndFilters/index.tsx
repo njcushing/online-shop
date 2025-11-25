@@ -1,4 +1,5 @@
-import { useContext } from "react";
+import { useContext, useCallback } from "react";
+import { Checkbox } from "@mantine/core";
 import { CategoryContext } from "@/pages/Category";
 import { skeletonCategory } from "@/utils/products/categories";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
@@ -20,14 +21,50 @@ export function CategoryProductsSortAndFilters() {
 
     const { filters } = category;
 
-    return (
-        <div className={styles["category-products-sort-and-filters"]}>
-            {filters.map((filter) => {
-                const { name: filterName, values } = filter;
+    const filterElements = useCallback(
+        (
+            type: GetCategoryBySlugResponseDto["filters"][number]["type"],
+            values: GetCategoryBySlugResponseDto["filters"][number]["values"],
+        ) => {
+            switch (type) {
+                case "string":
+                    return (
+                        <ul className={styles["filter-strings"]}>
+                            {values.map((value) => {
+                                const { code, name: valueName, count } = value;
 
-                return (
-                    <div className={styles["filter"]} key={filterName}>
-                        <p className={styles["filter-name"]}>{filterName}</p>
+                                return (
+                                    <div className={styles["filter-value-string"]} key={code}>
+                                        <Checkbox
+                                            label={
+                                                <>
+                                                    <p className={styles["filter-value-name"]}>
+                                                        {valueName}
+                                                    </p>
+                                                    <p className={styles["filter-value-count"]}>
+                                                        ({count})
+                                                    </p>
+                                                </>
+                                            }
+                                            onChange={() => {}}
+                                            classNames={{
+                                                root: styles["checkbox-root"],
+                                                body: styles["checkbox-body"],
+                                                input: styles["checkbox-input"],
+                                                label: styles["checkbox-label"],
+                                            }}
+                                        />
+                                    </div>
+                                );
+                            })}
+                        </ul>
+                    );
+                case "numeric":
+                    return null;
+                case "boolean":
+                    return null;
+                case "color":
+                    return (
                         <ul className={styles["filter-colors"]}>
                             {values.map((value) => {
                                 const { code, name: valueName, value: valueString, count } = value;
@@ -49,6 +86,27 @@ export function CategoryProductsSortAndFilters() {
                                 );
                             })}
                         </ul>
+                    );
+                case "date":
+                    return null;
+                case "select":
+                    return null;
+                default:
+                    return null;
+            }
+        },
+        [],
+    );
+
+    return (
+        <div className={styles["category-products-sort-and-filters"]}>
+            {filters.map((filter) => {
+                const { name: filterName, type, values } = filter;
+
+                return (
+                    <div className={styles["filter"]} key={filterName}>
+                        <p className={styles["filter-name"]}>{filterName}</p>
+                        {filterElements(type, values)}
                     </div>
                 );
             })}
