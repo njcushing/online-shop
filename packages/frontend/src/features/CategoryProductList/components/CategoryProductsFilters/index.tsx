@@ -4,6 +4,7 @@ import { Skeleton } from "@mantine/core";
 import { skeletonCategory } from "@/utils/products/categories";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
+import { customStatusCodes } from "@/api/types";
 import { StringFilter } from "./components/StringFilter";
 import { NumericFilter } from "./components/NumericFilter";
 import { ColorFilter } from "./components/ColorFilter";
@@ -15,13 +16,16 @@ export function CategoryProductsFilters() {
 
     let category = skeletonCategory as GetCategoryBySlugResponseDto;
 
-    const { data, awaitingAny } = useQueryContexts({
+    const { data, awaitingAny: contextAwaitingAny } = useQueryContexts({
         contexts: [{ name: "category", context: categoryData }],
     });
 
-    if (!awaitingAny) {
+    if (!contextAwaitingAny) {
         if (data.category) category = data.category;
     }
+
+    const awaitingAny =
+        contextAwaitingAny || categoryData.response.status === customStatusCodes.unattempted;
 
     const { filters } = category;
 
