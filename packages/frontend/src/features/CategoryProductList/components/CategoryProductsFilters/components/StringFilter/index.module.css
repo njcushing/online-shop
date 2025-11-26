@@ -56,11 +56,11 @@
 }
 
 @media (hover: hover) {
-    .checkbox-root:hover * {
+    .filter-strings[data-disabled="false"] .checkbox-root:hover * {
         cursor: pointer;
     }
 
-    .checkbox-root:hover .checkbox-input {
+    .filter-strings[data-disabled="false"] .checkbox-root:hover .checkbox-input {
         outline: 2px solid black;
     }
 }

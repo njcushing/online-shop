@@ -12,7 +12,7 @@ export function SelectFilter({ data, awaiting = false }: TSelectFilter) {
 
     return (
         <Radio.Group>
-            <ul className={styles["filter-radio"]}>
+            <ul className={styles["filter-radio"]} data-disabled={awaiting}>
                 {values.map((value) => {
                     const { code, name: valueName, count } = value;
 

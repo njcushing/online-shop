@@ -11,7 +11,7 @@ export function StringFilter({ data, awaiting = false }: TStringFilter) {
     const { values } = data;
 
     return (
-        <ul className={styles["filter-strings"]}>
+        <ul className={styles["filter-strings"]} data-disabled={!!awaiting}>
             {values.map((value) => {
                 const { code, name: valueName, count } = value;
 

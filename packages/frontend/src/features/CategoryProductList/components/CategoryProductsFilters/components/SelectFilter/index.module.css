@@ -43,11 +43,11 @@
 }
 
 @media (hover: hover) {
-    .radio-root:hover * {
+    .filter-radio[data-disabled="false"] .radio-root:hover * {
         cursor: pointer;
     }
 
-    .radio-root:hover .radio {
+    .filter-radio[data-disabled="false"] .radio-root:hover .radio {
         outline: 2px solid black;
     }
 }
