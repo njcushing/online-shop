@@ -1,4 +1,4 @@
-import { Radio } from "@mantine/core";
+import { Radio, Skeleton } from "@mantine/core";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
 import styles from "./index.module.css";
 
@@ -21,10 +21,29 @@ export function SelectFilter({ data, awaiting = false }: TSelectFilter) {
                             value={code}
                             label={
                                 <>
-                                    <p className={styles["filter-value-name"]}>{valueName}</p>
-                                    <p className={styles["filter-value-count"]}>({count})</p>
+                                    <Skeleton visible={awaiting}>
+                                        <p
+                                            className={styles["filter-value-name"]}
+                                            style={{
+                                                visibility: awaiting ? "hidden" : "initial",
+                                            }}
+                                        >
+                                            {valueName}
+                                        </p>
+                                    </Skeleton>
+                                    <Skeleton visible={awaiting}>
+                                        <p
+                                            className={styles["filter-value-count"]}
+                                            style={{
+                                                visibility: awaiting ? "hidden" : "initial",
+                                            }}
+                                        >
+                                            ({count})
+                                        </p>
+                                    </Skeleton>
                                 </>
                             }
+                            disabled={awaiting}
                             classNames={{
                                 root: styles["radio-root"],
                                 body: styles["radio-body"],

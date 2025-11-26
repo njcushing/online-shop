@@ -1,5 +1,6 @@
 import { useContext, useCallback } from "react";
 import { CategoryContext } from "@/pages/Category";
+import { Skeleton } from "@mantine/core";
 import { skeletonCategory } from "@/utils/products/categories";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
@@ -55,7 +56,15 @@ export function CategoryProductsSortAndFilters() {
 
                 return (
                     <div className={styles["filter"]} key={filterName}>
-                        <p className={styles["filter-name"]}>{filterName}</p>
+                        <Skeleton visible={awaitingAny}>
+                            <p
+                                className={styles["filter-name"]}
+                                style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                            >
+                                {filterName}
+                            </p>
+                        </Skeleton>
+
                         {filterElements(filter)}
                     </div>
                 );

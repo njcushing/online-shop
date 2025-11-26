@@ -71,8 +71,8 @@
 }
 
 .checkbox-label {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr auto;
     gap: 4px;
 
     width: 100%;

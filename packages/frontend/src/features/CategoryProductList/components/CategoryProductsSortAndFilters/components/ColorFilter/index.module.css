@@ -9,9 +9,8 @@
     position: relative;
     z-index: 1;
 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     gap: 4px;
 
     border: none;
@@ -40,10 +39,17 @@
 }
 
 .filter-value-name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
     color: black;
     font-family: var(--font-primary);
     font-size: 0.84rem;
     font-weight: 600;
+    text-align: start;
+
+    height: 100%;
 
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 0.92rem;
@@ -51,6 +57,10 @@
 }
 
 .filter-value-count {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
     color: black;
     font-family: var(--font-primary);
     font-size: 0.84rem;

@@ -1,4 +1,4 @@
-import { Checkbox } from "@mantine/core";
+import { Checkbox, Skeleton } from "@mantine/core";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
 import styles from "./index.module.css";
 
@@ -20,11 +20,30 @@ export function StringFilter({ data, awaiting = false }: TStringFilter) {
                         <Checkbox
                             label={
                                 <>
-                                    <p className={styles["filter-value-name"]}>{valueName}</p>
-                                    <p className={styles["filter-value-count"]}>({count})</p>
+                                    <Skeleton visible={awaiting}>
+                                        <p
+                                            className={styles["filter-value-name"]}
+                                            style={{
+                                                visibility: awaiting ? "hidden" : "initial",
+                                            }}
+                                        >
+                                            {valueName}
+                                        </p>
+                                    </Skeleton>
+                                    <Skeleton visible={awaiting}>
+                                        <p
+                                            className={styles["filter-value-count"]}
+                                            style={{
+                                                visibility: awaiting ? "hidden" : "initial",
+                                            }}
+                                        >
+                                            ({count})
+                                        </p>
+                                    </Skeleton>
                                 </>
                             }
                             onChange={() => {}}
+                            disabled={awaiting}
                             classNames={{
                                 root: styles["checkbox-root"],
                                 body: styles["checkbox-body"],
