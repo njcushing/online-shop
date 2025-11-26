@@ -13,7 +13,7 @@ import { GetCategoryBySlugResponseDto, skeletonCategory } from "@/utils/products
 import { customStatusCodes } from "@/api/types";
 import { mockProducts } from "@/utils/products/product";
 import { SubcategoryProductList } from "./components/SubcategoryProductList";
-import { CategoryProductsSortAndFilters } from "./components/CategoryProductsSortAndFilters";
+import { CategoryProductsFilters } from "./components/CategoryProductsFilters";
 import styles from "./index.module.css";
 
 const pageSize = 24;
@@ -88,7 +88,7 @@ export function CategoryProductList() {
             <div className={styles["category-product-list-width-controller"]}>
                 {products.length > 0 && (
                     <div className={styles["category-product-list-category-group-container"]}>
-                        <CategoryProductsSortAndFilters />
+                        <CategoryProductsFilters />
 
                         <div className={styles["category-product-list-category-group"]}>
                             {products.slice(0, productCount).map((product) => (

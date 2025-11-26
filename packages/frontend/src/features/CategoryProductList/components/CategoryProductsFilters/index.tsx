@@ -10,7 +10,7 @@ import { ColorFilter } from "./components/ColorFilter";
 import { SelectFilter } from "./components/SelectFilter";
 import styles from "./index.module.css";
 
-export function CategoryProductsSortAndFilters() {
+export function CategoryProductsFilters() {
     const { categoryData } = useContext(CategoryContext);
 
     let category = skeletonCategory as GetCategoryBySlugResponseDto;
