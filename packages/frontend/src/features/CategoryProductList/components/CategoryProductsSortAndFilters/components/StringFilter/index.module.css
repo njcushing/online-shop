@@ -1,31 +1,20 @@
-.category-products-sort-and-filters {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.filter {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.filter-name {
-    color: black;
-    font-family: var(--font-primary);
-    font-size: 1rem;
-    font-weight: 600;
-
-    @media (min-width: $mantine-breakpoint-xs) {
-        font-size: 1.1rem;
-    }
-}
-
-.filter-radio {
+.filter-strings {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 6px;
+}
+
+.filter-value-string {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+
+    border: none;
+    background-color: transparent;
+
+    padding: 0px;
 }
 
 .filter-value-name {
@@ -49,38 +38,39 @@
     }
 }
 
-.radio-root {
+.checkbox-root {
     width: 100%;
 }
 
-.radio-body {
+.checkbox-body {
     display: grid;
     grid-template-columns: auto 1fr;
 
     width: 100%;
 }
 
-.radio {
+.checkbox-input {
     border: 2px solid black;
+    border-radius: 0px;
     background-color: transparent;
 }
 
 @media (hover: hover) {
-    .radio-root:hover * {
+    .checkbox-root:hover * {
         cursor: pointer;
     }
 
-    .radio-root:hover .radio {
+    .checkbox-root:hover .checkbox-input {
         outline: 2px solid black;
     }
 }
 
-.radio:focus-visible {
+.checkbox-input:focus-visible {
     outline: 2px solid #000;
     border-radius: 0px;
 }
 
-.radio-label {
+.checkbox-label {
     display: flex;
     flex-direction: row;
     gap: 4px;

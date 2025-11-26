@@ -1,11 +1,12 @@
 import { useContext, useCallback } from "react";
-import { Checkbox, RangeSlider, Radio } from "@mantine/core";
+import { RangeSlider, Radio } from "@mantine/core";
 import { CategoryContext } from "@/pages/Category";
 import { skeletonCategory } from "@/utils/products/categories";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
-import styles from "./index.module.css";
 import { ColorFilter } from "./components/ColorFilter";
+import { StringFilter } from "./components/StringFilter";
+import styles from "./index.module.css";
 
 export function CategoryProductsSortAndFilters() {
     const { categoryData } = useContext(CategoryContext);
@@ -28,37 +29,7 @@ export function CategoryProductsSortAndFilters() {
 
             switch (type) {
                 case "string":
-                    return (
-                        <ul className={styles["filter-strings"]}>
-                            {values.map((value) => {
-                                const { code, name: valueName, count } = value;
-
-                                return (
-                                    <div className={styles["filter-value-string"]} key={code}>
-                                        <Checkbox
-                                            label={
-                                                <>
-                                                    <p className={styles["filter-value-name"]}>
-                                                        {valueName}
-                                                    </p>
-                                                    <p className={styles["filter-value-count"]}>
-                                                        ({count})
-                                                    </p>
-                                                </>
-                                            }
-                                            onChange={() => {}}
-                                            classNames={{
-                                                root: styles["checkbox-root"],
-                                                body: styles["checkbox-body"],
-                                                input: styles["checkbox-input"],
-                                                label: styles["checkbox-label"],
-                                            }}
-                                        />
-                                    </div>
-                                );
-                            })}
-                        </ul>
-                    );
+                    return <StringFilter data={filter} awaiting={awaitingAny} />;
                 case "numeric": {
                     const min = Math.min(...values.map((v) => Number(v.value)));
                     const max = Math.max(...values.map((v) => Number(v.value)));
