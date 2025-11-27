@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Radio, Skeleton } from "@mantine/core";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
 import styles from "./index.module.css";
@@ -5,10 +6,14 @@ import styles from "./index.module.css";
 export type TSelectFilter = {
     data: GetCategoryBySlugResponseDto["filters"][number];
     awaiting?: boolean;
+    onChange?: (selected: string) => void;
 };
 
-export function SelectFilter({ data, awaiting = false }: TSelectFilter) {
+export function SelectFilter({ data, awaiting = false, onChange }: TSelectFilter) {
     const { values } = data;
+
+    const [selected, setSelected] = useState<string>("");
+    useEffect(() => onChange && onChange(selected), [onChange, selected]);
 
     return (
         <Radio.Group>
@@ -43,6 +48,8 @@ export function SelectFilter({ data, awaiting = false }: TSelectFilter) {
                                     </Skeleton>
                                 </>
                             }
+                            onChange={() => setSelected(code)}
+                            checked={selected === code}
                             disabled={awaiting}
                             classNames={{
                                 root: styles["radio-root"],

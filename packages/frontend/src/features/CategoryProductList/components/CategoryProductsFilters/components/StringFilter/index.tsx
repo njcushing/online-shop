@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Checkbox, Skeleton } from "@mantine/core";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
 import styles from "./index.module.css";
@@ -5,10 +6,14 @@ import styles from "./index.module.css";
 export type TStringFilter = {
     data: GetCategoryBySlugResponseDto["filters"][number];
     awaiting?: boolean;
+    onChange?: (selected: Set<string>) => void;
 };
 
-export function StringFilter({ data, awaiting = false }: TStringFilter) {
+export function StringFilter({ data, awaiting = false, onChange }: TStringFilter) {
     const { values } = data;
+
+    const [selected, setSelected] = useState<Set<string>>(new Set());
+    useEffect(() => onChange && onChange(selected), [onChange, selected]);
 
     return (
         <ul className={styles["filter-strings"]} data-disabled={!!awaiting}>
@@ -42,7 +47,13 @@ export function StringFilter({ data, awaiting = false }: TStringFilter) {
                                     </Skeleton>
                                 </>
                             }
-                            onChange={() => {}}
+                            onChange={() => {
+                                const newSelected = new Set<string>(selected);
+                                if (newSelected.has(code)) newSelected.delete(code);
+                                else newSelected.add(code);
+                                setSelected(newSelected);
+                            }}
+                            checked={selected.has(code)}
                             disabled={awaiting}
                             classNames={{
                                 root: styles["checkbox-root"],
