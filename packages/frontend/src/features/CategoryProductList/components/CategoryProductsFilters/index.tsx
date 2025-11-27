@@ -1,6 +1,6 @@
-import { useContext, useCallback } from "react";
+import { useContext, useState, useEffect, useCallback } from "react";
 import { CategoryContext } from "@/pages/Category";
-import { Skeleton } from "@mantine/core";
+import { Accordion, Skeleton } from "@mantine/core";
 import { skeletonCategory } from "@/utils/products/categories";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
@@ -53,26 +53,49 @@ export function CategoryProductsFilters() {
         [awaitingAny],
     );
 
+    const [accordionValues, setAccordionValues] = useState<Set<string>>(
+        new Set(filters.map((filter) => filter.name)),
+    );
+    useEffect(() => {
+        setAccordionValues(new Set(filters.map((filter) => filter.name)));
+    }, [filters]);
+
     return (
-        <div className={styles["category-products-sort-and-filters"]}>
+        <Accordion
+            multiple
+            value={[...accordionValues]}
+            /**
+             * Have to take manual control of setting open panels as it doesn't automatically open
+             * them when the category data is fetched
+             */
+            onChange={(values) => setAccordionValues(new Set(values))}
+            classNames={{
+                control: styles["Accordion-control"],
+                label: styles["Accordion-label"],
+                content: styles["Accordion-content"],
+            }}
+        >
             {filters.map((filter) => {
                 const { name: filterName } = filter;
 
                 return (
-                    <div className={styles["filter"]} key={filterName}>
-                        <Skeleton visible={awaitingAny}>
-                            <p
-                                className={styles["filter-name"]}
-                                style={{ visibility: awaitingAny ? "hidden" : "initial" }}
-                            >
-                                {filterName}
-                            </p>
-                        </Skeleton>
+                    <Accordion.Item value={filterName} key={filterName}>
+                        <Accordion.Control disabled={awaitingAny} opacity={1}>
+                            <Skeleton visible={awaitingAny} width="min-content">
+                                <p style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
+                                    {filterName}
+                                </p>
+                            </Skeleton>
+                        </Accordion.Control>
 
-                        {filterElements(filter)}
-                    </div>
+                        <Accordion.Panel
+                            style={{ opacity: 1 }} // Override default opacity transition
+                        >
+                            {filterElements(filter)}
+                        </Accordion.Panel>
+                    </Accordion.Item>
                 );
             })}
-        </div>
+        </Accordion>
     );
 }
