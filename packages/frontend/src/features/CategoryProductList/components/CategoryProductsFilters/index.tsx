@@ -61,41 +61,44 @@ export function CategoryProductsFilters() {
     }, [filters]);
 
     return (
-        <Accordion
-            multiple
-            value={[...accordionValues]}
-            /**
-             * Have to take manual control of setting open panels as it doesn't automatically open
-             * them when the category data is fetched
-             */
-            onChange={(values) => setAccordionValues(new Set(values))}
-            classNames={{
-                control: styles["Accordion-control"],
-                label: styles["Accordion-label"],
-                content: styles["Accordion-content"],
-            }}
-        >
-            {filters.map((filter) => {
-                const { name: filterName } = filter;
+        <div className={styles["category-products-filters"]}>
+            <p className={styles["title"]}>Filter by</p>
+            <Accordion
+                multiple
+                value={[...accordionValues]}
+                /**
+                 * Have to take manual control of setting open panels as it doesn't automatically open
+                 * them when the category data is fetched
+                 */
+                onChange={(values) => setAccordionValues(new Set(values))}
+                classNames={{
+                    control: styles["Accordion-control"],
+                    label: styles["Accordion-label"],
+                    content: styles["Accordion-content"],
+                }}
+            >
+                {filters.map((filter) => {
+                    const { name: filterName } = filter;
 
-                return (
-                    <Accordion.Item value={filterName} key={filterName}>
-                        <Accordion.Control disabled={awaitingAny} opacity={1}>
-                            <Skeleton visible={awaitingAny} width="min-content">
-                                <p style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
-                                    {filterName}
-                                </p>
-                            </Skeleton>
-                        </Accordion.Control>
+                    return (
+                        <Accordion.Item value={filterName} key={filterName}>
+                            <Accordion.Control disabled={awaitingAny} opacity={1}>
+                                <Skeleton visible={awaitingAny} width="min-content">
+                                    <p style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
+                                        {filterName}
+                                    </p>
+                                </Skeleton>
+                            </Accordion.Control>
 
-                        <Accordion.Panel
-                            style={{ opacity: 1 }} // Override default opacity transition
-                        >
-                            {filterElements(filter)}
-                        </Accordion.Panel>
-                    </Accordion.Item>
-                );
-            })}
-        </Accordion>
+                            <Accordion.Panel
+                                style={{ opacity: 1 }} // Override default opacity transition
+                            >
+                                {filterElements(filter)}
+                            </Accordion.Panel>
+                        </Accordion.Item>
+                    );
+                })}
+            </Accordion>
+        </div>
     );
 }

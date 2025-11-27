@@ -1,7 +1,18 @@
-.category-products-sort-and-filters {
+.category-products-filters {
     display: flex;
     flex-direction: column;
     gap: 16px;
+}
+
+.title {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.2rem;
+    }
 }
 
 .Accordion-control {
