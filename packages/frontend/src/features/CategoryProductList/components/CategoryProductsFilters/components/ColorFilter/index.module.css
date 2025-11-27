@@ -14,10 +14,30 @@
     align-items: center;
     gap: 4px;
 
+    pointer-events: all;
+
     border: none;
     background-color: transparent;
 
     padding: 0px;
+}
+
+.filter-value-color[data-selected="true"] .filter-value-color-box {
+    border: 2px solid black;
+}
+
+@media (hover: hover) {
+    .filter-value-color:not(:disabled):hover {
+        cursor: pointer;
+    }
+
+    .filter-value-color:not(:disabled):hover .filter-value-color-box {
+        outline: 2px solid black;
+    }
+}
+
+.filter-value-color:focus-visible {
+    outline: 2px solid #000;
 }
 
 .filter-value-color-box,
@@ -30,7 +50,7 @@
 
 .filter-value-color-box::before {
     content: "";
-    display: block;
+    display: inline;
 
     position: relative;
     z-index: -1;
