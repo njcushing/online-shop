@@ -1,0 +1,16 @@
+.filter-numeric {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-numeric-range {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 0.92rem;
+    font-weight: 600;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1rem;
+    }
+}
