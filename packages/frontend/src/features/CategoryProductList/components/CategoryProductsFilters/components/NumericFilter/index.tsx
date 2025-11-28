@@ -6,7 +6,7 @@ import styles from "./index.module.css";
 export type TNumericFilter = {
     data: GetCategoryBySlugResponseDto["filters"][number];
     awaiting?: boolean;
-    onChange?: (range: [number, number]) => void;
+    onChange?: (range: [number, number] | null) => void;
 };
 
 export function NumericFilter({ data, awaiting = false, onChange }: TNumericFilter) {
@@ -18,7 +18,9 @@ export function NumericFilter({ data, awaiting = false, onChange }: TNumericFilt
 
     const [selectedForDisplay, setSelectedForDisplay] = useState<[number, number]>([min, max]);
     const [selected, setSelected] = useState<[number, number]>([min, max]);
-    useEffect(() => onChange && onChange(selected), [onChange, selected]);
+    useEffect(() => {
+        if (onChange) onChange(selected[0] !== min || selected[1] !== max ? selected : null);
+    }, [onChange, min, max, selected]);
 
     return (
         <div className={styles["filter-numeric"]}>
