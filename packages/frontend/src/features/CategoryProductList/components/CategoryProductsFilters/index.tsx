@@ -1,5 +1,6 @@
-import { useContext, useState, useEffect, useCallback } from "react";
+import { useContext, useState, useEffect, useCallback, useMemo } from "react";
 import { CategoryContext } from "@/pages/Category";
+import { useSearchParams } from "react-router-dom";
 import { Accordion, Skeleton } from "@mantine/core";
 import { skeletonCategory } from "@/utils/products/categories";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
@@ -29,19 +30,78 @@ export function CategoryProductsFilters() {
 
     const { filters } = category;
 
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [filterSelections, setFilterSelections] = useState<Map<string, string>>(
+        new Map(searchParams),
+    );
+    useEffect(() => {
+        const newSearchParams = new URLSearchParams();
+        filterSelections.entries().forEach((entry) => {
+            const [key, value] = entry;
+            newSearchParams.set(key, value);
+        });
+        setSearchParams(newSearchParams);
+    }, [setSearchParams, filterSelections]);
+
     const filterElements = useCallback(
         (filter: GetCategoryBySlugResponseDto["filters"][number]) => {
-            const { type } = filter;
+            const { name, type } = filter;
 
             switch (type) {
                 case "string":
-                    return <StringFilter data={filter} awaiting={awaitingAny} />;
+                    return (
+                        <StringFilter
+                            data={filter}
+                            awaiting={awaitingAny}
+                            onChange={(selected) => {
+                                setFilterSelections((curr) => {
+                                    const newSelections = new Map(curr);
+                                    if (selected.size === 0) {
+                                        if (newSelections.has(name)) newSelections.delete(name);
+                                    } else {
+                                        newSelections.set(name, [...selected.values()].join(","));
+                                    }
+                                    return newSelections;
+                                });
+                            }}
+                        />
+                    );
                 case "numeric":
-                    return <NumericFilter data={filter} awaiting={awaitingAny} />;
+                    return (
+                        <NumericFilter
+                            data={filter}
+                            awaiting={awaitingAny}
+                            onChange={(selected) => {
+                                setFilterSelections((curr) => {
+                                    const newSelections = new Map(curr);
+                                    if (!selected) {
+                                        if (newSelections.has(name)) newSelections.delete(name);
+                                    } else newSelections.set(name, selected.join(".."));
+                                    return newSelections;
+                                });
+                            }}
+                        />
+                    );
                 case "boolean":
                     return null;
                 case "color":
-                    return <ColorFilter data={filter} awaiting={awaitingAny} />;
+                    return (
+                        <ColorFilter
+                            data={filter}
+                            awaiting={awaitingAny}
+                            onChange={(selected) => {
+                                setFilterSelections((curr) => {
+                                    const newSelections = new Map(curr);
+                                    if (selected.size === 0) {
+                                        if (newSelections.has(name)) newSelections.delete(name);
+                                    } else {
+                                        newSelections.set(name, [...selected.values()].join(","));
+                                    }
+                                    return newSelections;
+                                });
+                            }}
+                        />
+                    );
                 case "date":
                     return null;
                 case "select":
@@ -52,6 +112,30 @@ export function CategoryProductsFilters() {
         },
         [awaitingAny],
     );
+
+    const filtersContainer = useMemo(() => {
+        return filters.map((filter) => {
+            const { name: filterName } = filter;
+
+            return (
+                <Accordion.Item value={filterName} key={filterName}>
+                    <Accordion.Control disabled={awaitingAny} opacity={1}>
+                        <Skeleton visible={awaitingAny} width="min-content">
+                            <p style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
+                                {filterName}
+                            </p>
+                        </Skeleton>
+                    </Accordion.Control>
+
+                    <Accordion.Panel
+                        style={{ opacity: 1 }} // Override default opacity transition
+                    >
+                        {filterElements(filter)}
+                    </Accordion.Panel>
+                </Accordion.Item>
+            );
+        });
+    }, [awaitingAny, filters, filterElements]);
 
     const [accordionValues, setAccordionValues] = useState<Set<string>>(
         new Set(filters.map((filter) => filter.name)),
@@ -77,27 +161,7 @@ export function CategoryProductsFilters() {
                     content: styles["Accordion-content"],
                 }}
             >
-                {filters.map((filter) => {
-                    const { name: filterName } = filter;
-
-                    return (
-                        <Accordion.Item value={filterName} key={filterName}>
-                            <Accordion.Control disabled={awaitingAny} opacity={1}>
-                                <Skeleton visible={awaitingAny} width="min-content">
-                                    <p style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
-                                        {filterName}
-                                    </p>
-                                </Skeleton>
-                            </Accordion.Control>
-
-                            <Accordion.Panel
-                                style={{ opacity: 1 }} // Override default opacity transition
-                            >
-                                {filterElements(filter)}
-                            </Accordion.Panel>
-                        </Accordion.Item>
-                    );
-                })}
+                {filtersContainer}
             </Accordion>
         </div>
     );
