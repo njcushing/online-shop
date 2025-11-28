@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { RangeSlider, Skeleton } from "@mantine/core";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
 import styles from "./index.module.css";
+
+const isNumeric = (str: string): boolean => {
+    if (typeof str !== "string") return false;
+    return !Number.isNaN(str) && !Number.isNaN(parseFloat(str));
+};
 
 export type TNumericFilter = {
     data: GetCategoryBySlugResponseDto["filters"][number];
@@ -10,14 +16,26 @@ export type TNumericFilter = {
 };
 
 export function NumericFilter({ data, awaiting = false, onChange }: TNumericFilter) {
-    const { values } = data;
+    const [searchParams] = useSearchParams();
+
+    const { name, values } = data;
 
     const min = Math.min(...values.map((v) => Number(v.value)));
     const max = Math.max(...values.map((v) => Number(v.value)));
     const step = 10 ** Math.floor(Math.log10(max) - 2);
 
     const [selectedForDisplay, setSelectedForDisplay] = useState<[number, number]>([min, max]);
-    const [selected, setSelected] = useState<[number, number]>([min, max]);
+    const [selected, setSelected] = useState<[number, number]>(
+        (() => {
+            if (searchParams.has(name) && searchParams.get(name)) {
+                const range = searchParams.get(name)!.split("..");
+                if (range.length === 2 && isNumeric(range[0]) && isNumeric(range[1])) {
+                    return [Math.max(min, Number(range[0])), Math.min(max, Number(range[1]))];
+                }
+            }
+            return [min, max];
+        })(),
+    );
     useEffect(() => {
         if (onChange) onChange(selected[0] !== min || selected[1] !== max ? selected : null);
     }, [onChange, min, max, selected]);

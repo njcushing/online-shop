@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Checkbox, Skeleton } from "@mantine/core";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
 import styles from "./index.module.css";
@@ -10,9 +11,25 @@ export type TStringFilter = {
 };
 
 export function StringFilter({ data, awaiting = false, onChange }: TStringFilter) {
-    const { values } = data;
+    const [searchParams] = useSearchParams();
 
-    const [selected, setSelected] = useState<Set<string>>(new Set());
+    const { name, values } = data;
+    const allValues = new Set<string>([...values.map((v) => v.code)]);
+
+    const [selected, setSelected] = useState<Set<string>>(
+        (() => {
+            const initSelected = new Set<string>();
+            if (searchParams.has(name) && searchParams.get(name)) {
+                searchParams
+                    .get(name)!
+                    .split(",")
+                    .forEach((code) => {
+                        if (allValues.has(code)) initSelected.add(code);
+                    });
+            }
+            return initSelected;
+        })(),
+    );
     useEffect(() => onChange && onChange(selected), [onChange, selected]);
 
     return (
