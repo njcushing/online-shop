@@ -35,6 +35,17 @@ export function CategoryProductsFilters() {
         new Map(searchParams),
     );
     useEffect(() => {
+        if (awaitingAny) return;
+        setFilterSelections((curr) => {
+            const allFilterNames = new Set<string>([...filters.map((filter) => filter.name)]);
+            const newSelections = new Map(curr);
+            newSelections.keys().forEach((key) => {
+                if (!allFilterNames.has(key)) newSelections.delete(key);
+            });
+            return newSelections;
+        });
+    }, [awaitingAny, filters]);
+    useEffect(() => {
         const newSearchParams = new URLSearchParams();
         filterSelections.entries().forEach((entry) => {
             const [key, value] = entry;
