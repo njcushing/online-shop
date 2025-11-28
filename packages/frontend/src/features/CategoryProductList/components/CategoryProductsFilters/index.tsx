@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, useCallback, useMemo } from "react";
+import { useContext, useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { CategoryContext } from "@/pages/Category";
 import { useSearchParams } from "react-router-dom";
 import { Accordion, Skeleton } from "@mantine/core";
@@ -13,7 +13,7 @@ import { SelectFilter } from "./components/SelectFilter";
 import styles from "./index.module.css";
 
 export function CategoryProductsFilters() {
-    const { categoryData } = useContext(CategoryContext);
+    const { urlPathSplit, categoryData } = useContext(CategoryContext);
 
     let category = skeletonCategory as GetCategoryBySlugResponseDto;
 
@@ -53,6 +53,16 @@ export function CategoryProductsFilters() {
         });
         setSearchParams(newSearchParams);
     }, [setSearchParams, filterSelections]);
+
+    // Clear search params when navigating to other categories
+    const cachedCategoryName = useRef<string>(urlPathSplit.at(-1)!);
+    useEffect(() => {
+        if (cachedCategoryName.current !== urlPathSplit.at(-1)!) {
+            setFilterSelections(new Map());
+            setSearchParams(new URLSearchParams());
+            cachedCategoryName.current = urlPathSplit.at(-1)!;
+        }
+    }, [urlPathSplit, setSearchParams]);
 
     const filterElements = useCallback(
         (filter: GetCategoryBySlugResponseDto["filters"][number]) => {
