@@ -6,6 +6,7 @@ import { skeletonCategory } from "@/utils/products/categories";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
 import { customStatusCodes } from "@/api/types";
+import { RatingFilter } from "./components/RatingFilter";
 import { StringFilter } from "./components/StringFilter";
 import { NumericFilter } from "./components/NumericFilter";
 import { ColorFilter } from "./components/ColorFilter";
@@ -40,7 +41,7 @@ export function CategoryProductsFilters() {
             const allFilterNames = new Set<string>([...filters.map((filter) => filter.name)]);
             const newSelections = new Map(curr);
             newSelections.keys().forEach((key) => {
-                if (!allFilterNames.has(key)) newSelections.delete(key);
+                if (!allFilterNames.has(key) && key !== "Rating") newSelections.delete(key);
             });
             return newSelections;
         });
@@ -134,10 +135,8 @@ export function CategoryProductsFilters() {
         [awaitingAny],
     );
 
-    const filtersContainer = useMemo(() => {
-        return filters.map((filter) => {
-            const { name: filterName } = filter;
-
+    const filterContainer = useCallback(
+        (filterName: string, content: React.ReactNode) => {
             return (
                 <Accordion.Item value={filterName} key={filterName}>
                     <Accordion.Control disabled={awaitingAny} opacity={1}>
@@ -151,18 +150,45 @@ export function CategoryProductsFilters() {
                     <Accordion.Panel
                         style={{ opacity: 1 }} // Override default opacity transition
                     >
-                        {filterElements(filter)}
+                        {content}
                     </Accordion.Panel>
                 </Accordion.Item>
             );
+        },
+        [awaitingAny],
+    );
+
+    const otherFilters = useMemo(() => {
+        return filterContainer(
+            "Rating",
+            <RatingFilter
+                awaiting={awaitingAny}
+                onChange={(selected) => {
+                    setFilterSelections((curr) => {
+                        const newSelections = new Map(curr);
+                        if (!selected) {
+                            if (newSelections.has("Rating")) newSelections.delete("Rating");
+                        } else newSelections.set("Rating", `${selected}`);
+                        return newSelections;
+                    });
+                }}
+            />,
+        );
+    }, [awaitingAny, filterContainer]);
+
+    const generatedFilters = useMemo(() => {
+        return filters.map((filter) => {
+            const { name: filterName } = filter;
+
+            return filterContainer(filterName, filterElements(filter));
         });
-    }, [awaitingAny, filters, filterElements]);
+    }, [filters, filterElements, filterContainer]);
 
     const [accordionValues, setAccordionValues] = useState<Set<string>>(
-        new Set(filters.map((filter) => filter.name)),
+        new Set(["Rating", ...filters.map((filter) => filter.name)]),
     );
     useEffect(() => {
-        setAccordionValues(new Set(filters.map((filter) => filter.name)));
+        setAccordionValues(new Set(["Rating", ...filters.map((filter) => filter.name)]));
     }, [filters]);
 
     return (
@@ -182,7 +208,8 @@ export function CategoryProductsFilters() {
                     content: styles["Accordion-content"],
                 }}
             >
-                {filtersContainer}
+                {otherFilters}
+                {generatedFilters}
             </Accordion>
         </div>
     );
