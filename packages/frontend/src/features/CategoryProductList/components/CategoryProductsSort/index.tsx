@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { CategoryContext } from "@/pages/Category";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
@@ -13,7 +13,13 @@ export const sortOptions = [
     { title: "Newest Releases", name: "created_desc" },
 ] as const;
 
-export function CategoryProductsSort() {
+const defaultSort: (typeof sortOptions)[number]["name"] = "best_sellers";
+
+export type TCategoryProductsSort = {
+    onChange?: (sort: (typeof sortOptions)[number]["name"] | null) => void;
+};
+
+export function CategoryProductsSort({ onChange }: TCategoryProductsSort) {
     const { categoryData } = useContext(CategoryContext);
 
     const { awaitingAny: contextAwaitingAny } = useQueryContexts({
@@ -33,9 +39,12 @@ export function CategoryProductsSort() {
                     return initSelected! as unknown as (typeof sortOptions)[number]["name"];
                 }
             }
-            return "best_sellers";
+            return defaultSort;
         })(),
     );
+    useEffect(() => {
+        if (onChange) onChange(selected !== defaultSort ? selected : null);
+    }, [onChange, selected]);
 
     return (
         <div className={styles["category-products-sort"]}>
