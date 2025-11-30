@@ -73,6 +73,9 @@ export function CategoryProductList() {
         productsAttempt();
     }, [urlPathSplit, page, productsSetParams, productsAttempt]);
 
+    const awaitingCategory =
+        categoryData.awaiting || categoryData.response.status === customStatusCodes.unattempted;
+
     const awaitingProducts =
         productsAwaiting || productsResponse.status === customStatusCodes.unattempted;
 
@@ -92,7 +95,7 @@ export function CategoryProductList() {
                         <CategoryProductsFilters />
 
                         <div className={styles["category-product-list-category-group"]}>
-                            <CategoryProductsSort />
+                            <CategoryProductsSort awaiting={awaitingCategory || awaitingProducts} />
 
                             <div
                                 className={styles["category-product-list-category-group-products"]}

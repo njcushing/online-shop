@@ -1,8 +1,5 @@
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { CategoryContext } from "@/pages/Category";
-import { useQueryContexts } from "@/hooks/useQueryContexts";
-import { customStatusCodes } from "@/api/types";
 import styles from "./index.module.css";
 
 export const sortOptions = [
@@ -16,19 +13,11 @@ export const sortOptions = [
 const defaultSort: (typeof sortOptions)[number]["name"] = "best_sellers";
 
 export type TCategoryProductsSort = {
+    awaiting?: boolean;
     onChange?: (sort: (typeof sortOptions)[number]["name"] | null) => void;
 };
 
-export function CategoryProductsSort({ onChange }: TCategoryProductsSort) {
-    const { categoryData } = useContext(CategoryContext);
-
-    const { awaitingAny: contextAwaitingAny } = useQueryContexts({
-        contexts: [{ name: "category", context: categoryData }],
-    });
-
-    const awaitingAny =
-        contextAwaitingAny || categoryData.response.status === customStatusCodes.unattempted;
-
+export function CategoryProductsSort({ awaiting = false, onChange }: TCategoryProductsSort) {
     const [searchParams] = useSearchParams();
 
     const [selected, setSelected] = useState<(typeof sortOptions)[number]["name"]>(
@@ -59,7 +48,7 @@ export function CategoryProductsSort({ onChange }: TCategoryProductsSort) {
                         const { value } = e.target;
                         setSelected(value as (typeof sortOptions)[number]["name"]);
                     }}
-                    disabled={awaitingAny}
+                    disabled={awaiting}
                     key="sort-options"
                 >
                     {sortOptions.map((option) => {
