@@ -36,7 +36,7 @@ export function CategoryProductsSort({ awaiting = false, onChange }: TCategoryPr
     }, [onChange, selected]);
 
     return (
-        <div className={styles["category-products-sort"]}>
+        <div className={styles["category-products-sort"]} data-disabled={awaiting}>
             <label htmlFor="category-products-sort" className={styles["label"]}>
                 Sort by:
                 <select

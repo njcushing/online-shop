@@ -18,6 +18,18 @@
     }
 }
 
+.category-products-sort[data-disabled="true"] {
+    .label {
+        color: rgba(0, 0, 0, 0.6);
+    }
+
+    @media (hover: hover) {
+        .select:hover {
+            cursor: not-allowed;
+        }
+    }
+}
+
 .select {
     align-self: center;
 
