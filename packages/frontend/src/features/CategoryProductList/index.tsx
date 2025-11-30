@@ -14,6 +14,7 @@ import { customStatusCodes } from "@/api/types";
 import { mockProducts } from "@/utils/products/product";
 import { SubcategoryProductList } from "./components/SubcategoryProductList";
 import { CategoryProductsFilters } from "./components/CategoryProductsFilters";
+import { CategoryProductsSort } from "./components/CategoryProductsSort";
 import styles from "./index.module.css";
 
 const pageSize = 24;
@@ -91,13 +92,19 @@ export function CategoryProductList() {
                         <CategoryProductsFilters />
 
                         <div className={styles["category-product-list-category-group"]}>
-                            {products.slice(0, productCount).map((product) => (
-                                <ProductCard
-                                    productData={product}
-                                    awaiting={awaitingProducts}
-                                    key={product.id}
-                                />
-                            ))}
+                            <CategoryProductsSort />
+
+                            <div
+                                className={styles["category-product-list-category-group-products"]}
+                            >
+                                {products.slice(0, productCount).map((product) => (
+                                    <ProductCard
+                                        productData={product}
+                                        awaiting={awaitingProducts}
+                                        key={product.id}
+                                    />
+                                ))}
+                            </div>
                         </div>
                     </div>
                 )}
