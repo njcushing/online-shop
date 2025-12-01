@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useContext, useState, useEffect, useCallback } from "react";
+import { CategoryProductListContext } from "@/features/CategoryProductList";
 import { Radio, Rating } from "@mantine/core";
 import styles from "./index.module.css";
 
@@ -10,24 +10,30 @@ const isNumeric = (str: string): boolean => {
 
 export type TRatingFilter = {
     awaiting?: boolean;
-    onChange?: (rating: number | null) => void;
 };
 
-export function RatingFilter({ awaiting = false, onChange }: TRatingFilter) {
-    const [searchParams] = useSearchParams();
+export function RatingFilter({ awaiting = false }: TRatingFilter) {
+    const { filterSelections, setFilterSelections } = useContext(CategoryProductListContext);
 
     const [selected, setSelected] = useState<number>(
         (() => {
-            if (searchParams.has("Rating") && searchParams.get("Rating")) {
-                const rating = searchParams.get("Rating")!;
+            if (filterSelections.has("Rating") && filterSelections.get("Rating")) {
+                const rating = filterSelections.get("Rating")!;
                 if (isNumeric(rating)) return Number(rating);
             }
             return 1;
         })(),
     );
     useEffect(() => {
-        if (onChange) onChange(selected > 1 ? selected : null);
-    }, [onChange, selected]);
+        setFilterSelections((curr) => {
+            const newSelections = new Map(curr);
+            const validValue = selected > 1;
+            if (!validValue) {
+                if (newSelections.has("Rating")) newSelections.delete("Rating");
+            } else newSelections.set("Rating", `${selected}`);
+            return newSelections;
+        });
+    }, [setFilterSelections, selected]);
 
     const createRatingOption = useCallback(
         (tier: number, supplementaryText: string) => {

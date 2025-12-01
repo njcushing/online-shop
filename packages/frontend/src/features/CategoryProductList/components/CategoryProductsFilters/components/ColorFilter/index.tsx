@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { CategoryProductListContext } from "@/features/CategoryProductList";
 import { Skeleton } from "@mantine/core";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
 import styles from "./index.module.css";
@@ -7,11 +7,10 @@ import styles from "./index.module.css";
 export type TColorFilter = {
     data: GetCategoryBySlugResponseDto["filters"][number];
     awaiting?: boolean;
-    onChange?: (selected: Set<string>) => void;
 };
 
-export function ColorFilter({ data, awaiting = false, onChange }: TColorFilter) {
-    const [searchParams] = useSearchParams();
+export function ColorFilter({ data, awaiting = false }: TColorFilter) {
+    const { filterSelections, setFilterSelections } = useContext(CategoryProductListContext);
 
     const { name, values } = data;
     const allValues = new Set<string>([...values.map((v) => v.code)]);
@@ -19,8 +18,8 @@ export function ColorFilter({ data, awaiting = false, onChange }: TColorFilter) 
     const [selected, setSelected] = useState<Set<string>>(
         (() => {
             const initSelected = new Set<string>();
-            if (searchParams.has(name) && searchParams.get(name)) {
-                searchParams
+            if (filterSelections.has(name) && filterSelections.get(name)) {
+                filterSelections
                     .get(name)!
                     .split(",")
                     .forEach((code) => {
@@ -30,7 +29,17 @@ export function ColorFilter({ data, awaiting = false, onChange }: TColorFilter) 
             return initSelected;
         })(),
     );
-    useEffect(() => onChange && onChange(selected), [onChange, selected]);
+    useEffect(() => {
+        setFilterSelections((curr) => {
+            const newSelections = new Map(curr);
+            if (selected.size === 0) {
+                if (newSelections.has(name)) newSelections.delete(name);
+            } else {
+                newSelections.set(name, [...selected.values()].join(","));
+            }
+            return newSelections;
+        });
+    }, [setFilterSelections, name, selected]);
 
     return (
         <ul className={styles["filter-colors"]}>

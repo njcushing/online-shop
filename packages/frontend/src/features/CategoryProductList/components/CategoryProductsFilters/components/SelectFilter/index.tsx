@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useContext, useState, useEffect } from "react";
+import { CategoryProductListContext } from "@/features/CategoryProductList";
 import { Radio, Skeleton } from "@mantine/core";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
 import styles from "./index.module.css";
@@ -7,25 +7,33 @@ import styles from "./index.module.css";
 export type TSelectFilter = {
     data: GetCategoryBySlugResponseDto["filters"][number];
     awaiting?: boolean;
-    onChange?: (selected: string) => void;
 };
 
-export function SelectFilter({ data, awaiting = false, onChange }: TSelectFilter) {
-    const [searchParams] = useSearchParams();
+export function SelectFilter({ data, awaiting = false }: TSelectFilter) {
+    const { filterSelections, setFilterSelections } = useContext(CategoryProductListContext);
 
     const { name, values } = data;
     const allValues = new Set<string>([...values.map((v) => v.code)]);
 
     const [selected, setSelected] = useState<string>(
         (() => {
-            if (searchParams.has(name) && searchParams.get(name)) {
-                const initSelected = searchParams.get(name);
+            if (filterSelections.has(name) && filterSelections.get(name)) {
+                const initSelected = filterSelections.get(name);
                 if (allValues.has(initSelected!)) return initSelected!;
             }
             return "";
         })(),
     );
-    useEffect(() => onChange && onChange(selected), [onChange, selected]);
+    useEffect(() => {
+        setFilterSelections((curr) => {
+            const newSelections = new Map(curr);
+            const validValue = selected.length > 0;
+            if (!validValue) {
+                if (newSelections.has(name)) newSelections.delete(name);
+            } else newSelections.set(name, `${selected}`);
+            return newSelections;
+        });
+    }, [setFilterSelections, name, selected]);
 
     return (
         <Radio.Group>

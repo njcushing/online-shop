@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useContext, useState, useEffect } from "react";
+import { CategoryProductListContext } from "@/features/CategoryProductList";
 import { RangeSlider, Skeleton } from "@mantine/core";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
 import styles from "./index.module.css";
@@ -12,11 +12,10 @@ const isNumeric = (str: string): boolean => {
 export type TNumericFilter = {
     data: GetCategoryBySlugResponseDto["filters"][number];
     awaiting?: boolean;
-    onChange?: (range: [number, number] | null) => void;
 };
 
-export function NumericFilter({ data, awaiting = false, onChange }: TNumericFilter) {
-    const [searchParams] = useSearchParams();
+export function NumericFilter({ data, awaiting = false }: TNumericFilter) {
+    const { filterSelections, setFilterSelections } = useContext(CategoryProductListContext);
 
     const { name, values } = data;
 
@@ -27,8 +26,8 @@ export function NumericFilter({ data, awaiting = false, onChange }: TNumericFilt
     const [selectedForDisplay, setSelectedForDisplay] = useState<[number, number]>([min, max]);
     const [selected, setSelected] = useState<[number, number]>(
         (() => {
-            if (searchParams.has(name) && searchParams.get(name)) {
-                const range = searchParams.get(name)!.split("..");
+            if (filterSelections.has(name) && filterSelections.get(name)) {
+                const range = filterSelections.get(name)!.split("..");
                 if (range.length === 2 && isNumeric(range[0]) && isNumeric(range[1])) {
                     return [Math.max(min, Number(range[0])), Math.min(max, Number(range[1]))];
                 }
@@ -37,8 +36,15 @@ export function NumericFilter({ data, awaiting = false, onChange }: TNumericFilt
         })(),
     );
     useEffect(() => {
-        if (onChange) onChange(selected[0] !== min || selected[1] !== max ? selected : null);
-    }, [onChange, min, max, selected]);
+        setFilterSelections((curr) => {
+            const newSelections = new Map(curr);
+            const validValue = selected[0] !== min || selected[1] !== max;
+            if (!validValue) {
+                if (newSelections.has(name)) newSelections.delete(name);
+            } else newSelections.set(name, selected.join(".."));
+            return newSelections;
+        });
+    }, [setFilterSelections, name, min, max, selected]);
 
     return (
         <div className={styles["filter-numeric"]}>

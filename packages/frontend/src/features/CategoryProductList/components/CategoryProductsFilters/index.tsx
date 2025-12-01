@@ -1,11 +1,6 @@
-import { useContext, useState, useEffect, useCallback, useRef, useMemo } from "react";
-import { CategoryContext } from "@/pages/Category";
-import { useSearchParams } from "react-router-dom";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { Accordion, Skeleton } from "@mantine/core";
-import { skeletonCategory } from "@/utils/products/categories";
-import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
-import { customStatusCodes } from "@/api/types";
 import { RatingFilter } from "./components/RatingFilter";
 import { StringFilter } from "./components/StringFilter";
 import { NumericFilter } from "./components/NumericFilter";
@@ -13,135 +8,43 @@ import { ColorFilter } from "./components/ColorFilter";
 import { SelectFilter } from "./components/SelectFilter";
 import styles from "./index.module.css";
 
-export function CategoryProductsFilters() {
-    const { urlPathSplit, categoryData } = useContext(CategoryContext);
+export type TCategoryProductsFilters = {
+    filters: GetCategoryBySlugResponseDto["filters"];
+    awaiting?: boolean;
+};
 
-    let category = skeletonCategory as GetCategoryBySlugResponseDto;
-
-    const { data, awaitingAny: contextAwaitingAny } = useQueryContexts({
-        contexts: [{ name: "category", context: categoryData }],
-    });
-
-    if (!contextAwaitingAny) {
-        if (data.category) category = data.category;
-    }
-
-    const awaitingAny =
-        contextAwaitingAny || categoryData.response.status === customStatusCodes.unattempted;
-
-    const { filters } = category;
-
-    const [searchParams, setSearchParams] = useSearchParams();
-    const [filterSelections, setFilterSelections] = useState<Map<string, string>>(
-        new Map(searchParams),
-    );
-    useEffect(() => {
-        if (awaitingAny) return;
-        setFilterSelections((curr) => {
-            const allFilterNames = new Set<string>([...filters.map((filter) => filter.name)]);
-            const newSelections = new Map(curr);
-            newSelections.keys().forEach((key) => {
-                if (!allFilterNames.has(key) && key !== "Rating") newSelections.delete(key);
-            });
-            return newSelections;
-        });
-    }, [awaitingAny, filters]);
-    useEffect(() => {
-        const newSearchParams = new URLSearchParams();
-        filterSelections.entries().forEach((entry) => {
-            const [key, value] = entry;
-            newSearchParams.set(key, value);
-        });
-        setSearchParams(newSearchParams);
-    }, [setSearchParams, filterSelections]);
-
-    // Clear search params when navigating to other categories
-    const cachedCategoryName = useRef<string>(urlPathSplit.at(-1)!);
-    useEffect(() => {
-        if (cachedCategoryName.current !== urlPathSplit.at(-1)!) {
-            setFilterSelections(new Map());
-            setSearchParams(new URLSearchParams());
-            cachedCategoryName.current = urlPathSplit.at(-1)!;
-        }
-    }, [urlPathSplit, setSearchParams]);
-
+export function CategoryProductsFilters({ filters, awaiting = false }: TCategoryProductsFilters) {
     const filterElements = useCallback(
         (filter: GetCategoryBySlugResponseDto["filters"][number]) => {
-            const { name, type } = filter;
+            const { type } = filter;
 
             switch (type) {
                 case "string":
-                    return (
-                        <StringFilter
-                            data={filter}
-                            awaiting={awaitingAny}
-                            onChange={(selected) => {
-                                setFilterSelections((curr) => {
-                                    const newSelections = new Map(curr);
-                                    if (selected.size === 0) {
-                                        if (newSelections.has(name)) newSelections.delete(name);
-                                    } else {
-                                        newSelections.set(name, [...selected.values()].join(","));
-                                    }
-                                    return newSelections;
-                                });
-                            }}
-                        />
-                    );
+                    return <StringFilter data={filter} awaiting={awaiting} />;
                 case "numeric":
-                    return (
-                        <NumericFilter
-                            data={filter}
-                            awaiting={awaitingAny}
-                            onChange={(selected) => {
-                                setFilterSelections((curr) => {
-                                    const newSelections = new Map(curr);
-                                    if (!selected) {
-                                        if (newSelections.has(name)) newSelections.delete(name);
-                                    } else newSelections.set(name, selected.join(".."));
-                                    return newSelections;
-                                });
-                            }}
-                        />
-                    );
+                    return <NumericFilter data={filter} awaiting={awaiting} />;
                 case "boolean":
                     return null;
                 case "color":
-                    return (
-                        <ColorFilter
-                            data={filter}
-                            awaiting={awaitingAny}
-                            onChange={(selected) => {
-                                setFilterSelections((curr) => {
-                                    const newSelections = new Map(curr);
-                                    if (selected.size === 0) {
-                                        if (newSelections.has(name)) newSelections.delete(name);
-                                    } else {
-                                        newSelections.set(name, [...selected.values()].join(","));
-                                    }
-                                    return newSelections;
-                                });
-                            }}
-                        />
-                    );
+                    return <ColorFilter data={filter} awaiting={awaiting} />;
                 case "date":
                     return null;
                 case "select":
-                    return <SelectFilter data={filter} awaiting={awaitingAny} />;
+                    return <SelectFilter data={filter} awaiting={awaiting} />;
                 default:
                     return null;
             }
         },
-        [awaitingAny],
+        [awaiting],
     );
 
     const filterContainer = useCallback(
         (filterName: string, content: React.ReactNode) => {
             return (
                 <Accordion.Item value={filterName} key={filterName}>
-                    <Accordion.Control disabled={awaitingAny} opacity={1}>
-                        <Skeleton visible={awaitingAny} width="min-content">
-                            <p style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
+                    <Accordion.Control disabled={awaiting} opacity={1}>
+                        <Skeleton visible={awaiting} width="min-content">
+                            <p style={{ visibility: awaiting ? "hidden" : "initial" }}>
                                 {filterName}
                             </p>
                         </Skeleton>
@@ -155,26 +58,12 @@ export function CategoryProductsFilters() {
                 </Accordion.Item>
             );
         },
-        [awaitingAny],
+        [awaiting],
     );
 
     const otherFilters = useMemo(() => {
-        return filterContainer(
-            "Rating",
-            <RatingFilter
-                awaiting={awaitingAny}
-                onChange={(selected) => {
-                    setFilterSelections((curr) => {
-                        const newSelections = new Map(curr);
-                        if (!selected) {
-                            if (newSelections.has("Rating")) newSelections.delete("Rating");
-                        } else newSelections.set("Rating", `${selected}`);
-                        return newSelections;
-                    });
-                }}
-            />,
-        );
-    }, [awaitingAny, filterContainer]);
+        return filterContainer("Rating", <RatingFilter awaiting={awaiting} />);
+    }, [awaiting, filterContainer]);
 
     const generatedFilters = useMemo(() => {
         return filters.map((filter) => {
