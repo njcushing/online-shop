@@ -12,7 +12,10 @@ type Return = {
     pageSize: number;
 };
 
-export const parseSearchParams = (searchParams: URLSearchParams): Return => {
+export const parseSearchParams = (): Return => {
+    const decoded = decodeURIComponent(window.location.search);
+    const searchParams = new URLSearchParams(decoded);
+
     const filters = new Map<string, string>();
     let sort = null;
     let page = 1;
@@ -21,9 +24,15 @@ export const parseSearchParams = (searchParams: URLSearchParams): Return => {
     searchParams.entries().forEach((param) => {
         const [key, value] = param;
 
-        if (key.length >= 3 && key.slice(0, 3) === "fq:") {
-            const [, name] = key.split(":");
-            filters.set(name, value);
+        if (key === "filter") {
+            const filterList = value.split("~");
+            filterList.forEach((filter) => {
+                const [filterName, filterValues] = filter.split("=");
+                const filterValuesSplit = filterValues.split("|");
+                if (filterValuesSplit.length === 1) filters.set(filterName, filterValuesSplit[0]);
+                if (filterValuesSplit.length > 1)
+                    filters.set(filterName, filterValuesSplit.join(","));
+            });
             return;
         }
 
