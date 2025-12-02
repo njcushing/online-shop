@@ -13,6 +13,7 @@ import { ProductCard } from "@/features/ProductCard";
 import { GetCategoryBySlugResponseDto, skeletonCategory } from "@/utils/products/categories";
 import { customStatusCodes } from "@/api/types";
 import { mockProducts } from "@/utils/products/product";
+import { parseSearchParams } from "./utils/parseSearchParams";
 import { SubcategoryProductList } from "./components/SubcategoryProductList";
 import { CategoryProductsFilters } from "./components/CategoryProductsFilters";
 import { CategoryProductsSort, sortOptions } from "./components/CategoryProductsSort";
@@ -109,13 +110,14 @@ export function CategoryProductList() {
         ? subcategoriesToDisplayWhileAwaiting
         : category.subcategories.length;
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [, setSearchParams] = useSearchParams();
 
     const [filterSelections, setFilterSelections] = useState<
         ICategoryProductListContext["filterSelections"]
-    >(new Map(searchParams));
-    const [sortSelection, setSortSelection] =
-        useState<ICategoryProductListContext["sortSelection"]>(null);
+    >(new Map(parseSearchParams().filters));
+    const [sortSelection, setSortSelection] = useState<
+        ICategoryProductListContext["sortSelection"]
+    >(parseSearchParams().sort || null);
 
     useEffect(() => {
         const newSearchParams = new URLSearchParams();
