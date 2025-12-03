@@ -1,3 +1,4 @@
+import { defaultSort, sortOptions } from "../components/CategoryProductsSort";
 import { ICategoryProductListContext } from "..";
 
 const isNumeric = (str: string): boolean => {
@@ -12,14 +13,11 @@ type Return = {
     pageSize: number;
 };
 
-export const parseSearchParams = (): Return => {
-    const decoded = decodeURIComponent(window.location.search);
-    const searchParams = new URLSearchParams(decoded);
-
-    const filters = new Map<string, string>();
-    let sort = null;
-    let page = 1;
-    let pageSize = 24;
+export const parseSearchParams = (searchParams: URLSearchParams): Return => {
+    const filters: Return["filters"] = new Map();
+    let sort: Return["sort"] = null;
+    let page: Return["page"] = 1;
+    let pageSize: Return["pageSize"] = 24;
 
     searchParams.entries().forEach((param) => {
         const [key, value] = param;
@@ -30,15 +28,17 @@ export const parseSearchParams = (): Return => {
                 const [filterName, filterValues] = filter.split("=");
                 const filterValuesSplit = filterValues.split("|");
                 if (filterValuesSplit.length === 1) filters.set(filterName, filterValuesSplit[0]);
-                if (filterValuesSplit.length > 1)
-                    filters.set(filterName, filterValuesSplit.join(","));
+                if (filterValuesSplit.length > 1) filters.set(filterName, filterValuesSplit);
             });
             return;
         }
 
         if (key === "sort") {
-            sort = value;
-            return;
+            if (sortOptions.find((opt) => opt.name === value)) {
+                sort = value as (typeof sortOptions)[number]["name"];
+            } else {
+                sort = defaultSort;
+            }
         }
 
         if (key === "page" && isNumeric(value)) {
