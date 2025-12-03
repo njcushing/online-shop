@@ -17,9 +17,9 @@ export function RatingFilter({ awaiting = false }: TRatingFilter) {
 
     const [selected, setSelected] = useState<number>(
         (() => {
-            if (filterSelections.has("Rating") && filterSelections.get("Rating")) {
-                const rating = filterSelections.get("Rating")!;
-                if (isNumeric(rating)) return Number(rating);
+            const rating = filterSelections.get("Rating");
+            if (rating && typeof rating === "string" && isNumeric(rating)) {
+                return Number(rating);
             }
             return 1;
         })(),

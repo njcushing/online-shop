@@ -26,11 +26,9 @@ export function NumericFilter({ data, awaiting = false }: TNumericFilter) {
     const [selectedForDisplay, setSelectedForDisplay] = useState<[number, number]>([min, max]);
     const [selected, setSelected] = useState<[number, number]>(
         (() => {
-            if (filterSelections.has(name) && filterSelections.get(name)) {
-                const range = filterSelections.get(name)!.split("..");
-                if (range.length === 2 && isNumeric(range[0]) && isNumeric(range[1])) {
-                    return [Math.max(min, Number(range[0])), Math.min(max, Number(range[1]))];
-                }
+            const range = filterSelections.get(name);
+            if (range && range.length === 2 && isNumeric(range[0]) && isNumeric(range[1])) {
+                return [Math.max(min, Number(range[0])), Math.min(max, Number(range[1]))];
             }
             return [min, max];
         })(),
@@ -41,7 +39,7 @@ export function NumericFilter({ data, awaiting = false }: TNumericFilter) {
             const validValue = selected[0] !== min || selected[1] !== max;
             if (!validValue) {
                 if (newSelections.has(name)) newSelections.delete(name);
-            } else newSelections.set(name, selected.join(".."));
+            } else newSelections.set(name, [`${selected[0]}`, `${selected[1]}`]);
             return newSelections;
         });
     }, [setFilterSelections, name, min, max, selected]);

@@ -18,13 +18,11 @@ export function ColorFilter({ data, awaiting = false }: TColorFilter) {
     const [selected, setSelected] = useState<Set<string>>(
         (() => {
             const initSelected = new Set<string>();
-            if (filterSelections.has(name) && filterSelections.get(name)) {
-                filterSelections
-                    .get(name)!
-                    .split(",")
-                    .forEach((code) => {
-                        if (allValues.has(code)) initSelected.add(code);
-                    });
+            const colors = filterSelections.get(name);
+            if (colors && Array.isArray(colors)) {
+                colors.forEach((code) => {
+                    if (allValues.has(code)) initSelected.add(code);
+                });
             }
             return initSelected;
         })(),
@@ -35,7 +33,7 @@ export function ColorFilter({ data, awaiting = false }: TColorFilter) {
             if (selected.size === 0) {
                 if (newSelections.has(name)) newSelections.delete(name);
             } else {
-                newSelections.set(name, [...selected.values()].join(","));
+                newSelections.set(name, Array.from(selected));
             }
             return newSelections;
         });

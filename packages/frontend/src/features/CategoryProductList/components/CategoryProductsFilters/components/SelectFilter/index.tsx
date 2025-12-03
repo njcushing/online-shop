@@ -17,9 +17,9 @@ export function SelectFilter({ data, awaiting = false }: TSelectFilter) {
 
     const [selected, setSelected] = useState<string>(
         (() => {
-            if (filterSelections.has(name) && filterSelections.get(name)) {
-                const initSelected = filterSelections.get(name);
-                if (allValues.has(initSelected!)) return initSelected!;
+            const select = filterSelections.get(name);
+            if (select && typeof select === "string" && allValues.has(select)) {
+                return select;
             }
             return "";
         })(),
@@ -30,7 +30,7 @@ export function SelectFilter({ data, awaiting = false }: TSelectFilter) {
             const validValue = selected.length > 0;
             if (!validValue) {
                 if (newSelections.has(name)) newSelections.delete(name);
-            } else newSelections.set(name, `${selected}`);
+            } else newSelections.set(name, selected);
             return newSelections;
         });
     }, [setFilterSelections, name, selected]);
