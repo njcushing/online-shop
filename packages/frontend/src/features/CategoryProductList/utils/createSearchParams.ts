@@ -1,4 +1,4 @@
-import { ICategoryProductListContext } from "..";
+import { defaultPageSize, ICategoryProductListContext } from "..";
 
 export const createSearchParams = (params: {
     filters: ICategoryProductListContext["filterSelections"];
@@ -23,8 +23,8 @@ export const createSearchParams = (params: {
     }
 
     if (sort) searchParams.set("sort", sort);
-    if (page) searchParams.set("page", `${page}`);
-    if (pageSize) searchParams.set("pageSize", `${pageSize}`);
+    if (page > 1) searchParams.set("page", `${page}`);
+    if (pageSize !== defaultPageSize) searchParams.set("pageSize", `${pageSize}`);
 
     return searchParams;
 };
