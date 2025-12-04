@@ -1,4 +1,13 @@
-import { Fragment, createContext, useContext, useState, useEffect, useRef, useMemo } from "react";
+import {
+    Fragment,
+    createContext,
+    useContext,
+    useState,
+    useEffect,
+    useCallback,
+    useRef,
+    useMemo,
+} from "react";
 import { useSearchParams } from "react-router-dom";
 import { RootContext } from "@/pages/Root";
 import { CategoryContext } from "@/pages/Category";
@@ -13,15 +22,17 @@ import { ProductCard } from "@/features/ProductCard";
 import { GetCategoryBySlugResponseDto, skeletonCategory } from "@/utils/products/categories";
 import { customStatusCodes } from "@/api/types";
 import { mockProducts } from "@/utils/products/product";
+import _ from "lodash";
 import { parseSearchParams } from "./utils/parseSearchParams";
+import { createSearchParams } from "./utils/createSearchParams";
 import { SubcategoryProductList } from "./components/SubcategoryProductList";
 import { CategoryProductsFilters } from "./components/CategoryProductsFilters";
 import { CategoryProductsSort, sortOptions } from "./components/CategoryProductsSort";
 import styles from "./index.module.css";
 
-const pageSize = 24;
+export const defaultPageSize = 24;
 
-type Filters = Map<string, string>;
+type Filters = Map<string, string | string[]>;
 type Sort = (typeof sortOptions)[number]["name"] | null;
 
 export interface ICategoryProductListContext {
@@ -74,7 +85,14 @@ export function CategoryProductList() {
         awaiting: productsAwaiting,
     } = useAsync.GET(
         getCategoryBySlugProducts,
-        [{ params: { path: { slug: urlPathSplit.at(-1)! }, query: { page: 1, pageSize } } }],
+        [
+            {
+                params: {
+                    path: { slug: urlPathSplit.at(-1)! },
+                    query: { page: 1, pageSize: defaultPageSize },
+                },
+            },
+        ],
         { attemptOnMount: false }, // useEffect hook will immediately trigger attempt on mount
     );
 
@@ -82,7 +100,30 @@ export function CategoryProductList() {
         if (productsResponse.success) products = productsResponse.data;
     }
 
-    const [page] = useState<number>(1);
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const [filterSelections, filterSelectionsSetter] = useState<
+        ICategoryProductListContext["filterSelections"]
+    >(new Map(parseSearchParams(searchParams).filters));
+    const [sortSelection, setSortSelection] = useState<
+        ICategoryProductListContext["sortSelection"]
+    >(parseSearchParams(searchParams).sort || null);
+    const [page, setPage] = useState<number>(parseSearchParams(searchParams).page);
+    const [pageSize, setPageSize] = useState<number>(parseSearchParams(searchParams).pageSize);
+
+    /**
+     * Custom setter to avoid unnecessary rerenders when filterSelections is set to a new Map
+     * instance even though it has identical key-value pairs, as a change in the Map's reference
+     * triggers the useEffect hook.
+     */
+    const setFilterSelections = useCallback((newValue: Filters | ((curr: Filters) => Filters)) => {
+        filterSelectionsSetter((curr) => {
+            let newFilterSelections = newValue;
+            if (typeof newValue === "function") newFilterSelections = newValue(curr);
+            if (!_.isEqual(curr, newFilterSelections)) return newFilterSelections as Filters;
+            return curr;
+        });
+    }, []);
 
     useEffect(() => {
         productsSetParams([
@@ -94,7 +135,38 @@ export function CategoryProductList() {
             },
         ]);
         productsAttempt();
-    }, [urlPathSplit, page, productsSetParams, productsAttempt]);
+    }, [
+        urlPathSplit,
+        productsSetParams,
+        productsAttempt,
+        filterSelections,
+        sortSelection,
+        page,
+        pageSize,
+    ]);
+
+    useEffect(() => {
+        const newSearchParams = createSearchParams({
+            filters: filterSelections,
+            sort: sortSelection,
+            page,
+            pageSize,
+        });
+        setSearchParams(newSearchParams);
+    }, [setSearchParams, filterSelections, sortSelection, page, pageSize]);
+
+    // Clear search params when navigating to other categories
+    const cachedCategoryName = useRef<string>(urlPathSplit.at(-1)!);
+    useEffect(() => {
+        if (cachedCategoryName.current !== urlPathSplit.at(-1)!) {
+            setFilterSelections(new Map());
+            setSortSelection(null);
+            setPage(1);
+            setPageSize(defaultPageSize);
+            setSearchParams(new URLSearchParams());
+            cachedCategoryName.current = urlPathSplit.at(-1)!;
+        }
+    }, [urlPathSplit, setFilterSelections, setSearchParams]);
 
     const awaitingCategory =
         categoryData.awaiting || categoryData.response.status === customStatusCodes.unattempted;
@@ -110,25 +182,6 @@ export function CategoryProductList() {
         ? subcategoriesToDisplayWhileAwaiting
         : category.subcategories.length;
 
-    const [, setSearchParams] = useSearchParams();
-
-    const [filterSelections, setFilterSelections] = useState<
-        ICategoryProductListContext["filterSelections"]
-    >(new Map(parseSearchParams().filters));
-    const [sortSelection, setSortSelection] = useState<
-        ICategoryProductListContext["sortSelection"]
-    >(parseSearchParams().sort || null);
-
-    useEffect(() => {
-        const newSearchParams = new URLSearchParams();
-        filterSelections.entries().forEach((entry) => {
-            const [key, value] = entry;
-            newSearchParams.set(key, value);
-        });
-        if (sortSelection) newSearchParams.set("sort", sortSelection);
-        setSearchParams(newSearchParams);
-    }, [setSearchParams, filterSelections, sortSelection]);
-
     useEffect(() => {
         if (awaitingCategory || awaitingProducts) return;
         setFilterSelections((curr) => {
@@ -142,16 +195,6 @@ export function CategoryProductList() {
             return newSelections;
         });
     }, [category.filters, awaitingCategory, awaitingProducts, setFilterSelections]);
-
-    // Clear search params when navigating to other categories
-    const cachedCategoryName = useRef<string>(urlPathSplit.at(-1)!);
-    useEffect(() => {
-        if (cachedCategoryName.current !== urlPathSplit.at(-1)!) {
-            setFilterSelections(new Map());
-            setSearchParams(new URLSearchParams());
-            cachedCategoryName.current = urlPathSplit.at(-1)!;
-        }
-    }, [urlPathSplit, setSearchParams]);
 
     return (
         <CategoryProductListContext.Provider

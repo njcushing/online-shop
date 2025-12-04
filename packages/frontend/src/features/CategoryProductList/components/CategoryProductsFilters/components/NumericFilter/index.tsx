@@ -2,12 +2,8 @@ import { useContext, useState, useEffect } from "react";
 import { CategoryProductListContext } from "@/features/CategoryProductList";
 import { RangeSlider, Skeleton } from "@mantine/core";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
+import { isNumeric } from "@/utils/isNumeric";
 import styles from "./index.module.css";
-
-const isNumeric = (str: string): boolean => {
-    if (typeof str !== "string") return false;
-    return !Number.isNaN(str) && !Number.isNaN(parseFloat(str));
-};
 
 export type TNumericFilter = {
     data: GetCategoryBySlugResponseDto["filters"][number];

@@ -1,12 +1,8 @@
 import { useContext, useState, useEffect, useCallback } from "react";
 import { CategoryProductListContext } from "@/features/CategoryProductList";
 import { Radio, Rating } from "@mantine/core";
+import { isNumeric } from "@/utils/isNumeric";
 import styles from "./index.module.css";
-
-const isNumeric = (str: string): boolean => {
-    if (typeof str !== "string") return false;
-    return !Number.isNaN(str) && !Number.isNaN(parseFloat(str));
-};
 
 export type TRatingFilter = {
     awaiting?: boolean;

@@ -1,10 +1,6 @@
+import { isNumeric } from "@/utils/isNumeric";
+import { defaultPageSize, ICategoryProductListContext } from "..";
 import { defaultSort, sortOptions } from "../components/CategoryProductsSort";
-import { ICategoryProductListContext } from "..";
-
-const isNumeric = (str: string): boolean => {
-    if (typeof str !== "string") return false;
-    return !Number.isNaN(str) && !Number.isNaN(parseFloat(str));
-};
 
 type Return = {
     filters: ICategoryProductListContext["filterSelections"];
@@ -17,7 +13,7 @@ export const parseSearchParams = (searchParams: URLSearchParams): Return => {
     const filters: Return["filters"] = new Map();
     let sort: Return["sort"] = null;
     let page: Return["page"] = 1;
-    let pageSize: Return["pageSize"] = 24;
+    let pageSize: Return["pageSize"] = defaultPageSize;
 
     searchParams.entries().forEach((param) => {
         const [key, value] = param;
