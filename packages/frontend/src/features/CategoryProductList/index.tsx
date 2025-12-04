@@ -116,14 +116,22 @@ export function CategoryProductList() {
      * instance even though it has identical key-value pairs, as a change in the Map's reference
      * triggers the useEffect hook.
      */
-    const setFilterSelections = useCallback((newValue: Filters | ((curr: Filters) => Filters)) => {
-        filterSelectionsSetter((curr) => {
-            let newFilterSelections = newValue;
-            if (typeof newValue === "function") newFilterSelections = newValue(curr);
-            if (!_.isEqual(curr, newFilterSelections)) return newFilterSelections as Filters;
-            return curr;
-        });
-    }, []);
+    const setFilterSelections = useCallback(
+        (newValue: Filters | ((curr: Filters) => Filters), preventRerender: boolean = false) => {
+            filterSelectionsSetter((curr) => {
+                let newFilterSelections = newValue;
+                if (typeof newValue === "function") newFilterSelections = newValue(curr);
+                // Preserve object reference to prevent rerender if specified
+                if (preventRerender) {
+                    curr.keys().forEach((k) => curr.delete(k));
+                    (newFilterSelections as Filters).entries().forEach((e) => curr.set(e[0], e[1]));
+                }
+                if (!_.isEqual(curr, newFilterSelections)) return newFilterSelections as Filters;
+                return curr;
+            });
+        },
+        [],
+    );
 
     useEffect(() => {
         productsSetParams([
@@ -183,7 +191,7 @@ export function CategoryProductList() {
         : category.subcategories.length;
 
     useEffect(() => {
-        if (awaitingCategory || awaitingProducts) return;
+        if (awaitingCategory) return;
         setFilterSelections((curr) => {
             const allFilterNames = new Set<string>([
                 ...category.filters.map((filter) => filter.name),
@@ -193,8 +201,8 @@ export function CategoryProductList() {
                 if (!allFilterNames.has(key) && key !== "Rating") newSelections.delete(key);
             });
             return newSelections;
-        });
-    }, [category.filters, awaitingCategory, awaitingProducts, setFilterSelections]);
+        }, true);
+    }, [category.filters, awaitingCategory, setFilterSelections]);
 
     return (
         <CategoryProductListContext.Provider
