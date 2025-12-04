@@ -129,9 +129,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto"][];
-                        "application/json": components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto"][];
-                        "text/json": components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto"][];
+                        "text/plain": components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto"];
+                        "application/json": components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto"];
+                        "text/json": components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto"];
                     };
                 };
                 /** @description Not Found */
@@ -451,6 +451,10 @@ export interface components {
             description?: string | null;
         };
         "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto": {
+            products: components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product"][];
+            price: components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.ProductPrice"];
+        };
+        "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product": {
             /** Format: uuid */
             id: string;
             name: string;
@@ -460,18 +464,18 @@ export interface components {
             tags?: string[] | null;
             /** Format: date-time */
             releaseDate: string;
-            rating: components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.ProductRating"];
-            attributes: components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.AttributeOrder"][];
-            images: components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Image"][];
-            variants: components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Variant"][];
+            rating: components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.ProductRating"];
+            attributes: components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.AttributeOrder"][];
+            images: components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.Image"][];
+            variants: components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.Variant"][];
         };
-        "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.AttributeOrder": {
+        "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.AttributeOrder": {
             name: string;
             title: string;
             /** Format: int32 */
             position: number;
         };
-        "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Image": {
+        "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.Image": {
             /** Format: uuid */
             id: string;
             src: string;
@@ -479,14 +483,14 @@ export interface components {
             /** Format: int32 */
             position: number;
         };
-        "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.ProductRating": {
+        "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.ProductRating": {
             /** Format: double */
             average: number;
             /** Format: int32 */
             total: number;
-            quantities: components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.ProductRating.RatingQuantities"];
+            quantities: components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.ProductRating.RatingQuantities"];
         };
-        "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.ProductRating.RatingQuantities": {
+        "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.ProductRating.RatingQuantities": {
             /** Format: int32 */
             1: number;
             /** Format: int32 */
@@ -498,7 +502,7 @@ export interface components {
             /** Format: int32 */
             5: number;
         };
-        "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Variant": {
+        "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.Variant": {
             /** Format: uuid */
             id: string;
             name: string;
@@ -517,32 +521,38 @@ export interface components {
             active: boolean;
             /** Format: date-time */
             releaseDate: string;
-            attributes: components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Variant.Attribute"][];
-            images: components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Variant.Image"][];
+            attributes: components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.Variant.Attribute"][];
+            images: components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.Variant.Image"][];
         };
-        "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Variant.Attribute": {
-            type: components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Variant.Attribute.AttributeType"];
-            value: components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Variant.Attribute.AttributeValue"];
+        "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.Variant.Attribute": {
+            type: components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.Variant.Attribute.AttributeType"];
+            value: components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.Variant.Attribute.AttributeValue"];
         };
-        "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Variant.Attribute.AttributeType": {
+        "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.Variant.Attribute.AttributeType": {
             /** Format: uuid */
             id: string;
             name: string;
             title: string;
         };
-        "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Variant.Attribute.AttributeValue": {
+        "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.Variant.Attribute.AttributeValue": {
             code: string;
             name: string;
             /** Format: int32 */
             position: number;
         };
-        "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Variant.Image": {
+        "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.Variant.Image": {
             /** Format: uuid */
             id: string;
             src: string;
             alt: string;
             /** Format: int32 */
             position: number;
+        };
+        "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.ProductPrice": {
+            /** Format: double */
+            min: number;
+            /** Format: double */
+            max: number;
         };
         "Microsoft.AspNetCore.Http.HttpValidationProblemDetails": components["schemas"]["Microsoft.AspNetCore.Mvc.ProblemDetails"] & ({
             errors?: {
