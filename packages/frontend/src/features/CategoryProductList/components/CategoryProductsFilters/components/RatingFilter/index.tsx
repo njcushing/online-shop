@@ -68,7 +68,7 @@ export function RatingFilter({ awaiting = false }: TRatingFilter) {
 
     return (
         <span className={styles["filter-rating"]} data-disabled={awaiting}>
-            {createRatingOption(5, "& only")}
+            {createRatingOption(5, "only")}
             {createRatingOption(4, "& above")}
             {createRatingOption(3, "& above")}
             {createRatingOption(2, "& above")}
