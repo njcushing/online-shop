@@ -11,7 +11,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
         private readonly AppDbContext _context = context;
 
         [HttpGet]
-        [ProducesResponseType(typeof(List<GetCategoryBySlugProductsResponseDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GetCategoryBySlugProductsResponseDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetCategoryBySlugProducts(string slug, [FromQuery] GetCategoryBySlugProductsRequestDto query)
         {
@@ -36,7 +36,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
             var products = await productQuery
                 .Skip((query.Page - 1) * pageSize)
                 .Take(pageSize)
-                .Select(cp => new GetCategoryBySlugProductsResponseDto
+                .Select(cp => new GetCategoryBySlugProductsResponseDto.Product
                 {
                     Id = cp.Product.Id,
                     Name = cp.Product.Name,
@@ -44,11 +44,11 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                     Allowance = cp.Product.Allowance,
                     Tags = cp.Product.Tags,
                     ReleaseDate = cp.Product.ReleaseDate,
-                    Rating = new GetCategoryBySlugProductsResponseDto.ProductRating
+                    Rating = new GetCategoryBySlugProductsResponseDto.Product.ProductRating
                     {
                         Average = cp.Product.ProductRating!.Average,
                         Total = cp.Product.ProductRating.Total,
-                        Quantities = new GetCategoryBySlugProductsResponseDto.ProductRating.RatingQuantities
+                        Quantities = new GetCategoryBySlugProductsResponseDto.Product.ProductRating.RatingQuantities
                         {
                             Rating5 = cp.Product.ProductRating.Rating5,
                             Rating4 = cp.Product.ProductRating.Rating4,
@@ -57,20 +57,20 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                             Rating1 = cp.Product.ProductRating.Rating1,
                         }
                     },
-                    Attributes = cp.Product.ProductAttributeOrders.Select(pao => new GetCategoryBySlugProductsResponseDto.AttributeOrder
+                    Attributes = cp.Product.ProductAttributeOrders.Select(pao => new GetCategoryBySlugProductsResponseDto.Product.AttributeOrder
                     {
                         Position = pao.Position,
                         Name = pao.ProductAttribute.Name,
                         Title = pao.ProductAttribute.Title,
                     }).ToList(),
-                    Images = cp.Product.ProductImages.Select(pi => new GetCategoryBySlugProductsResponseDto.Image
+                    Images = cp.Product.ProductImages.Select(pi => new GetCategoryBySlugProductsResponseDto.Product.Image
                     {
                         Id = pi.Id,
                         Src = pi.Src,
                         Alt = pi.Alt,
                         Position = pi.Position,
                     }).ToList(),
-                    Variants = cp.Product.ProductVariants.Select(pv => new GetCategoryBySlugProductsResponseDto.Variant
+                    Variants = cp.Product.ProductVariants.Select(pv => new GetCategoryBySlugProductsResponseDto.Product.Variant
                     {
                         Id = pv.Id,
                         Name = pv.Name,
@@ -83,22 +83,22 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                         AllowanceOverride = pv.AllowanceOverride,
                         Active = pv.Active,
                         ReleaseDate = pv.ReleaseDate,
-                        Attributes = pv.ProductVariantAttributes.Select(pva => new GetCategoryBySlugProductsResponseDto.Variant.Attribute
+                        Attributes = pv.ProductVariantAttributes.Select(pva => new GetCategoryBySlugProductsResponseDto.Product.Variant.Attribute
                         {
-                            Type = new GetCategoryBySlugProductsResponseDto.Variant.Attribute.AttributeType
+                            Type = new GetCategoryBySlugProductsResponseDto.Product.Variant.Attribute.AttributeType
                             {
                                 Id = pva.ProductAttribute.Id,
                                 Name = pva.ProductAttribute.Name,
                                 Title = pva.ProductAttribute.Title,
                             },
-                            Value = new GetCategoryBySlugProductsResponseDto.Variant.Attribute.AttributeValue
+                            Value = new GetCategoryBySlugProductsResponseDto.Product.Variant.Attribute.AttributeValue
                             {
                                 Code = pva.ProductAttributeValue.Code,
                                 Name = pva.ProductAttributeValue.Name,
                                 Position = pva.ProductAttributeValue.Position,
                             },
                         }).ToList(),
-                        Images = pv.ProductVariantImages.Select(pvi => new GetCategoryBySlugProductsResponseDto.Variant.Image
+                        Images = pv.ProductVariantImages.Select(pvi => new GetCategoryBySlugProductsResponseDto.Product.Variant.Image
                         {
                             Id = pvi.Id,
                             Src = pvi.Src,
@@ -109,7 +109,25 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                 })
                 .ToListAsync();
 
-            return Ok(products);
+            var priceQuery = _context.CategoryProducts
+                .Where(cp => cp.CategoryId == category.Id)
+                .SelectMany(cp => cp.Product.ProductVariants)
+                .Select(v => v.PriceCurrent);
+
+            var priceMin = await priceQuery.MinAsync();
+            var priceMax = await priceQuery.MaxAsync();
+
+            var response = new GetCategoryBySlugProductsResponseDto
+            {
+                Products = products,
+                Price = new GetCategoryBySlugProductsResponseDto.ProductPrice
+                {
+                    Min = priceMin,
+                    Max = priceMax,
+                }
+            };
+
+            return Ok(response);
         }
     }
 }
