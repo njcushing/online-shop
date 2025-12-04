@@ -18,6 +18,7 @@ import {
     ResponseBody as GetCategoryBySlugProductsResponseDto,
     getCategoryBySlugProducts,
 } from "@/api/categories/[slug]/products/GET";
+import { createQueryContextObject } from "@/hooks/useAsync/utils/createQueryContextObject";
 import { ProductCard } from "@/features/ProductCard";
 import { GetCategoryBySlugResponseDto, skeletonCategory } from "@/utils/products/categories";
 import { customStatusCodes } from "@/api/types";
@@ -36,6 +37,7 @@ type Filters = Map<string, string | string[]>;
 type Sort = (typeof sortOptions)[number]["name"] | null;
 
 export interface ICategoryProductListContext {
+    products: useAsync.InferUseAsyncReturnTypeFromFunction<typeof getCategoryBySlugProducts>;
     filterSelections: Filters;
     setFilterSelections: React.Dispatch<React.SetStateAction<Filters>>;
     sortSelection: Sort;
@@ -43,6 +45,7 @@ export interface ICategoryProductListContext {
 }
 
 export const defaultCategoryProductListContext: ICategoryProductListContext = {
+    products: createQueryContextObject(),
     filterSelections: new Map(),
     setFilterSelections: () => {},
     sortSelection: null,
@@ -72,18 +75,13 @@ export function CategoryProductList() {
         ],
     });
 
-    let products = mockProducts as GetCategoryBySlugProductsResponseDto;
+    let productsData = mockProducts as GetCategoryBySlugProductsResponseDto;
 
     if (!contextAwaitingAny) {
         if (data.categories && data.category) category = data.category;
     }
 
-    const {
-        response: productsResponse,
-        setParams: productsSetParams,
-        attempt: productsAttempt,
-        awaiting: productsAwaiting,
-    } = useAsync.GET(
+    const products = useAsync.GET(
         getCategoryBySlugProducts,
         [
             {
@@ -92,12 +90,18 @@ export function CategoryProductList() {
                     query: { page: 1, pageSize: defaultPageSize },
                 },
             },
-        ],
+        ] as Parameters<typeof getCategoryBySlugProducts>,
         { attemptOnMount: false }, // useEffect hook will immediately trigger attempt on mount
     );
+    const {
+        response: productsResponse,
+        setParams: productsSetParams,
+        attempt: productsAttempt,
+        awaiting: productsAwaiting,
+    } = products;
 
     if (!productsAwaiting) {
-        if (productsResponse.success) products = productsResponse.data;
+        if (productsResponse.success) productsData = productsResponse.data;
     }
 
     const [searchParams, setSearchParams] = useSearchParams();
@@ -208,17 +212,18 @@ export function CategoryProductList() {
         <CategoryProductListContext.Provider
             value={useMemo(
                 () => ({
+                    products,
                     filterSelections,
                     setFilterSelections,
                     sortSelection,
                     setSortSelection,
                 }),
-                [filterSelections, setFilterSelections, sortSelection, setSortSelection],
+                [products, filterSelections, setFilterSelections, sortSelection, setSortSelection],
             )}
         >
             <section className={styles["category-product-list"]}>
                 <div className={styles["category-product-list-width-controller"]}>
-                    {products.length > 0 && (
+                    {productsData.length > 0 && (
                         <div className={styles["category-product-list-category-group-container"]}>
                             <CategoryProductsFilters
                                 filters={category.filters}
@@ -235,7 +240,7 @@ export function CategoryProductList() {
                                         styles["category-product-list-category-group-products"]
                                     }
                                 >
-                                    {products.slice(0, productCount).map((product) => (
+                                    {productsData.slice(0, productCount).map((product) => (
                                         <ProductCard
                                             productData={product}
                                             awaiting={awaitingProducts}
@@ -247,7 +252,7 @@ export function CategoryProductList() {
                         </div>
                     )}
 
-                    {products.length > 0 && category.subcategories.length > 0 && <Divider />}
+                    {productsData.length > 0 && category.subcategories.length > 0 && <Divider />}
 
                     {category.subcategories.slice(0, subcategoryCount).map((subcategory, i) => {
                         const { slug } = subcategory;
