@@ -22,6 +22,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                             .ThenInclude(cp => cp.Product)
                 .Include(p => p.ProductAttributeOrders)
                     .ThenInclude(pao => pao.ProductAttribute)
+                        .ThenInclude(pao => pao.ProductAttributeValueType)
                 .Include(p => p.ProductVariants.Where(pv => pv.Active))
                     .ThenInclude(pv => pv.ProductVariantAttributes)
                         .ThenInclude(pva => pva.ProductAttribute)
