@@ -40,11 +40,13 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             [JsonIgnore]
             public Guid ProductAttributeId { get; set; }
 
-            public string Name { get; set; } = null!;
+            public required int Position { get; set; }
 
-            public string Title { get; set; } = null!;
+            public required string Name { get; set; }
 
-            public int Position { get; set; }
+            public required string Title { get; set; }
+
+            public required string Type { get; set; }
         }
 
         public class Category

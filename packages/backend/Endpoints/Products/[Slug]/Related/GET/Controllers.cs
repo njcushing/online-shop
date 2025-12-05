@@ -40,6 +40,13 @@ namespace Cafree.Api.Endpoints.Products._Slug.Related.GET
                     Allowance = p.Allowance,
                     Tags = p.Tags,
                     ReleaseDate = p.ReleaseDate,
+                    Attributes = p.ProductAttributeOrders.Select(pao => new GetRelatedProductsBySlugResponseDto.AttributeOrder
+                    {
+                        Position = pao.Position,
+                        Name = pao.ProductAttribute.Name,
+                        Title = pao.ProductAttribute.Title,
+                        Type = pao.ProductAttribute.ProductAttributeValueType.Name,
+                    }).ToList(),
                     Details = p.ProductDetails.Select(pi => new GetRelatedProductsBySlugResponseDto.Detail
                     {
                         Id = pi.Id,

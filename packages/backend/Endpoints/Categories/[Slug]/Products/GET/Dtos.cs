@@ -49,11 +49,14 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                 [JsonIgnore]
                 public Guid ProductAttributeId { get; set; }
 
-                public string Name { get; set; } = null!;
+                public required int Position { get; set; }
 
-                public string Title { get; set; } = null!;
+                public required string Name { get; set; }
 
-                public int Position { get; set; }
+                public required string Title { get; set; }
+
+                public required string Type { get; set; }
+
             }
 
             public class Detail
@@ -143,13 +146,13 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
 
                 public bool? CanSubscribe { get; set; }
 
-                public decimal PriceCurrent { get; set; }
+                public required decimal PriceCurrent { get; set; }
 
-                public decimal PriceBase { get; set; }
+                public required decimal PriceBase { get; set; }
 
                 public decimal? SubscriptionDiscountPercentage { get; set; }
 
-                public int Stock { get; set; }
+                public required int Stock { get; set; }
 
                 public int? AllowanceOverride { get; set; }
 
@@ -168,7 +171,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
 
             public required string Slug { get; set; }
 
-            public int Allowance { get; set; }
+            public required int Allowance { get; set; }
 
             public List<string>? Tags { get; set; }
 
@@ -176,11 +179,11 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
 
             public required ProductRating Rating { get; set; }
 
-            public virtual ICollection<AttributeOrder> Attributes { get; set; } = new List<AttributeOrder>();
+            public required virtual ICollection<AttributeOrder> Attributes { get; set; } = new List<AttributeOrder>();
 
-            public virtual ICollection<Image> Images { get; set; } = new List<Image>();
+            public required virtual ICollection<Image> Images { get; set; } = new List<Image>();
 
-            public virtual ICollection<Variant> Variants { get; set; } = new List<Variant>();
+            public required virtual ICollection<Variant> Variants { get; set; } = new List<Variant>();
         }
 
         public class ProductPrice

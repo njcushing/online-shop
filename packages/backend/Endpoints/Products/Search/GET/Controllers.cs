@@ -32,6 +32,13 @@ namespace Cafree.Api.Endpoints.Products.Search.GET
                     Allowance = p.Allowance,
                     Tags = p.Tags,
                     ReleaseDate = p.ReleaseDate,
+                    Attributes = p.ProductAttributeOrders.Select(pao => new GetProductsBySearchResponseDto.AttributeOrder
+                    {
+                        Position = pao.Position,
+                        Name = pao.ProductAttribute.Name,
+                        Title = pao.ProductAttribute.Title,
+                        Type = pao.ProductAttribute.ProductAttributeValueType.Name,
+                    }).ToList(),
                     Details = p.ProductDetails.Select(pi => new GetProductsBySearchResponseDto.Detail
                     {
                         Id = pi.Id,

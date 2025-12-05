@@ -36,6 +36,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                 Position = productAttributeOrder.Position,
                 Name = productAttributeOrder.ProductAttribute.Name,
                 Title = productAttributeOrder.ProductAttribute.Title,
+                Type = productAttributeOrder.ProductAttribute.ProductAttributeValueType.Name,
             };
         }
 

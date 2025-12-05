@@ -11,6 +11,23 @@ namespace Cafree.Api.Endpoints.Products._Slug.Related.GET
 
     public class GetRelatedProductsBySlugResponseDto
     {
+        public class AttributeOrder
+        {
+            [JsonIgnore]
+            public Guid ProductId { get; set; }
+
+            [JsonIgnore]
+            public Guid ProductAttributeId { get; set; }
+
+            public required int Position { get; set; }
+
+            public required string Name { get; set; }
+
+            public required string Title { get; set; }
+
+            public required string Type { get; set; }
+        }
+
         public class Detail
         {
             public Guid Id { get; set; }
@@ -135,13 +152,13 @@ namespace Cafree.Api.Endpoints.Products._Slug.Related.GET
 
             public bool? CanSubscribe { get; set; }
 
-            public decimal PriceCurrent { get; set; }
+            public required decimal PriceCurrent { get; set; }
 
-            public decimal PriceBase { get; set; }
+            public required decimal PriceBase { get; set; }
 
             public decimal? SubscriptionDiscountPercentage { get; set; }
 
-            public int Stock { get; set; }
+            public required int Stock { get; set; }
 
             public int? AllowanceOverride { get; set; }
 
@@ -164,19 +181,21 @@ namespace Cafree.Api.Endpoints.Products._Slug.Related.GET
 
         public required string Slug { get; set; }
 
-        public int Allowance { get; set; }
+        public required int Allowance { get; set; }
 
         public List<string>? Tags { get; set; }
 
-        public DateTime ReleaseDate { get; set; }
+        public required DateTime ReleaseDate { get; set; }
 
-        public virtual ICollection<Detail> Details { get; set; } = new List<Detail>();
+        public required virtual ICollection<AttributeOrder> Attributes { get; set; } = new List<AttributeOrder>();
 
-        public virtual ICollection<Image> Images { get; set; } = new List<Image>();
+        public required virtual ICollection<Detail> Details { get; set; } = new List<Detail>();
+
+        public required virtual ICollection<Image> Images { get; set; } = new List<Image>();
 
         public required virtual ProductRating Rating { get; set; }
 
-        public virtual ICollection<Variant> Variants { get; set; } = new List<Variant>();
+        public required virtual ICollection<Variant> Variants { get; set; } = new List<Variant>();
 
         public required float Score { get; set; }
     }

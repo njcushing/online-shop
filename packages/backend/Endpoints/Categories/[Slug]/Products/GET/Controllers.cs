@@ -62,6 +62,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                         Position = pao.Position,
                         Name = pao.ProductAttribute.Name,
                         Title = pao.ProductAttribute.Title,
+                        Type = pao.ProductAttribute.ProductAttributeValueType.Name,
                     }).ToList(),
                     Images = cp.Product.ProductImages.Select(pi => new GetCategoryBySlugProductsResponseDto.Product.Image
                     {
