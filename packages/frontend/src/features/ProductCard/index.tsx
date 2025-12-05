@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { Image, Rating, Skeleton } from "@mantine/core";
 import { useIntersection, useMergedRef } from "@mantine/hooks";
 import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
-import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
+import { ResponseBody as GetCategoryBySlugProductsResponseDto } from "@/api/categories/[slug]/products/GET";
 import { ResponseBody as GetProductsBySearchResponseDto } from "@/api/products/search/GET";
 import { ResponseBody as GetRelatedProductsBySlugResponseDto } from "@/api/products/[slug]/related/GET";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
@@ -23,7 +23,7 @@ import styles from "./index.module.css";
 export type TProductCard = {
     productData:
         | GetProductBySlugResponseDto
-        | GetCategoryBySlugResponseDto["products"][number]
+        | GetCategoryBySlugProductsResponseDto["products"][number]
         | GetProductsBySearchResponseDto[number]
         | GetRelatedProductsBySlugResponseDto[number];
     awaiting?: boolean;
