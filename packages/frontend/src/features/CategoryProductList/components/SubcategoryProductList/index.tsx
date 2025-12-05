@@ -56,7 +56,10 @@ export function SubcategoryProductList({ slug, awaiting = false }: TSubcategoryP
     const awaitingCategory =
         awaiting || categoryAwaiting || categoryResponse.status === customStatusCodes.unattempted;
 
-    let products = mockProducts as GetCategoryBySlugProductsResponseDto;
+    let productsData = {
+        products: mockProducts,
+        price: { min: 0, max: 0 },
+    } as GetCategoryBySlugProductsResponseDto;
 
     const {
         response: productsResponse,
@@ -70,7 +73,7 @@ export function SubcategoryProductList({ slug, awaiting = false }: TSubcategoryP
     );
 
     if (!awaiting) {
-        if (productsResponse.success) products = productsResponse.data;
+        if (productsResponse.success) productsData = productsResponse.data;
     }
 
     useEffect(() => {
@@ -129,7 +132,7 @@ export function SubcategoryProductList({ slug, awaiting = false }: TSubcategoryP
                 </Skeleton>
             </div>
 
-            {products.slice(0, productCount).map((product) => (
+            {productsData.products.slice(0, productCount).map((product) => (
                 <ProductCard productData={product!} awaiting={awaitingAny} key={product!.id} />
             ))}
         </div>

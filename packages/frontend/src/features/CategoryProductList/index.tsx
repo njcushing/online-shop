@@ -75,7 +75,10 @@ export function CategoryProductList() {
         ],
     });
 
-    let productsData = mockProducts as GetCategoryBySlugProductsResponseDto;
+    let productsData = {
+        products: mockProducts,
+        price: { min: 0, max: 0 },
+    } as GetCategoryBySlugProductsResponseDto;
 
     if (!contextAwaitingAny) {
         if (data.categories && data.category) category = data.category;
@@ -223,7 +226,7 @@ export function CategoryProductList() {
         >
             <section className={styles["category-product-list"]}>
                 <div className={styles["category-product-list-width-controller"]}>
-                    {productsData.length > 0 && (
+                    {productsData.products.length > 0 && (
                         <div className={styles["category-product-list-category-group-container"]}>
                             <CategoryProductsFilters
                                 filters={category.filters}
@@ -240,7 +243,7 @@ export function CategoryProductList() {
                                         styles["category-product-list-category-group-products"]
                                     }
                                 >
-                                    {productsData.slice(0, productCount).map((product) => (
+                                    {productsData.products.slice(0, productCount).map((product) => (
                                         <ProductCard
                                             productData={product}
                                             awaiting={awaitingProducts}
@@ -252,7 +255,9 @@ export function CategoryProductList() {
                         </div>
                     )}
 
-                    {productsData.length > 0 && category.subcategories.length > 0 && <Divider />}
+                    {productsData.products.length > 0 && category.subcategories.length > 0 && (
+                        <Divider />
+                    )}
 
                     {category.subcategories.slice(0, subcategoryCount).map((subcategory, i) => {
                         const { slug } = subcategory;

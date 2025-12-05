@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { Accordion, Skeleton } from "@mantine/core";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
 import { RatingFilter } from "./components/RatingFilter";
+import { PriceFilter } from "./components/PriceFilter";
 import { StringFilter } from "./components/StringFilter";
 import { NumericFilter } from "./components/NumericFilter";
 import { ColorFilter } from "./components/ColorFilter";
@@ -62,7 +63,12 @@ export function CategoryProductsFilters({ filters, awaiting = false }: TCategory
     );
 
     const otherFilters = useMemo(() => {
-        return filterContainer("Rating", <RatingFilter awaiting={awaiting} />);
+        return (
+            <>
+                {filterContainer("Rating", <RatingFilter awaiting={awaiting} />)}
+                {filterContainer("Price", <PriceFilter awaiting={awaiting} />)}
+            </>
+        );
     }, [awaiting, filterContainer]);
 
     const generatedFilters = useMemo(() => {
@@ -74,10 +80,10 @@ export function CategoryProductsFilters({ filters, awaiting = false }: TCategory
     }, [filters, filterElements, filterContainer]);
 
     const [accordionValues, setAccordionValues] = useState<Set<string>>(
-        new Set(["Rating", ...filters.map((filter) => filter.name)]),
+        new Set(["Rating", "Price", ...filters.map((filter) => filter.name)]),
     );
     useEffect(() => {
-        setAccordionValues(new Set(["Rating", ...filters.map((filter) => filter.name)]));
+        setAccordionValues(new Set(["Rating", "Price", ...filters.map((filter) => filter.name)]));
     }, [filters]);
 
     return (
