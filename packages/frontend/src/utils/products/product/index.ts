@@ -1,6 +1,7 @@
 import { loremIpsum } from "lorem-ipsum";
 import { RecursivePartial } from "@/utils/types";
 import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
+import { ResponseBody as GetReviewsByProductSlugResponseDto } from "@/api/products/[slug]/reviews/GET";
 import { v4 as uuid } from "uuid";
 
 type ExtractAttributesReturnType = {
@@ -183,15 +184,15 @@ export const findVariantByAttributeParams = (
 };
 
 export const generateSkeletonProductReview = (): RecursivePartial<
-    GetProductBySlugResponseDto["reviews"][number]
+    GetReviewsByProductSlugResponseDto["reviews"][number]
 > => {
     return {
-        id: uuid(),
-        variantId: uuid(),
         title: "Review Title",
         description: "Review description",
         rating: Math.ceil(Math.random() * 5),
         createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        variant: { name: "Variant Name", sku: "", attributes: [] },
     };
 };
 
@@ -248,7 +249,26 @@ export const generateSkeletonProduct = (): RecursivePartial<GetProductBySlugResp
             total: 100,
             quantities: { 5: 90, 4: 6, 3: 2, 2: 1, 1: 1 },
         },
-        attributes: [{ name: "Size", title: "Choose a size", position: 0 }],
+        attributes: [
+            {
+                position: 0,
+                name: "Size",
+                title: "Choose a size",
+                type: "string",
+                values: [
+                    { position: 0, code: "AA", name: "Name AA", value: "Value AA" },
+                    { position: 1, code: "AB", name: "Name AB", value: "Value AB" },
+                    { position: 2, code: "AC", name: "Name AC", value: "Value AC" },
+                    { position: 3, code: "AD", name: "Name AD", value: "Value AD" },
+                    { position: 4, code: "AE", name: "Name AE", value: "Value AE" },
+                    { position: 5, code: "AF", name: "Name AF", value: "Value AF" },
+                    { position: 6, code: "AG", name: "Name AG", value: "Value AG" },
+                    { position: 7, code: "AH", name: "Name AH", value: "Value AH" },
+                    { position: 8, code: "AI", name: "Name AI", value: "Value AI" },
+                    { position: 9, code: "AJ", name: "Name AJ", value: "Value AJ" },
+                ],
+            },
+        ],
         collections: [
             {
                 id: uuid(),
@@ -291,7 +311,6 @@ export const generateSkeletonProduct = (): RecursivePartial<GetProductBySlugResp
             { id: uuid(), src: "d", alt: "", position: 3 },
             { id: uuid(), src: "e", alt: "", position: 4 },
         ],
-        reviews: Array.from({ length: 5 }).map(() => generateSkeletonProductReview()),
         variants: Array.from({ length: 5 }).map(() => generateSkeletonProductVariant()),
     };
 };
