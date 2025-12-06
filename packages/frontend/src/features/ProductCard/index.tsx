@@ -9,7 +9,7 @@ import React, {
 } from "react";
 import { RootContext } from "@/pages/Root";
 import { Link } from "react-router-dom";
-import { Image, Rating, Skeleton } from "@mantine/core";
+import { Image, Rating, Tooltip, Skeleton } from "@mantine/core";
 import { useIntersection, useMergedRef, useResizeObserver } from "@mantine/hooks";
 import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
 import { ResponseBody as GetCategoryBySlugProductsResponseDto } from "@/api/categories/[slug]/products/GET";
@@ -167,20 +167,28 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
                         ref={attributeContainerRef}
                     >
                         {displayAttribute.values.slice(0, attributeValueCount).map((v) => {
-                            const { code, value } = v;
+                            const { name: attributeName } = displayAttribute;
+                            const { code, name: valueName, value } = v;
 
                             return (
-                                <button
-                                    type="button"
-                                    className={styles["product-card-attribute-value-button"]}
-                                    style={{ width: attributeButtonWidth }}
+                                <Tooltip
+                                    label={`${attributeName}: ${valueName}`}
+                                    withArrow
                                     key={code}
                                 >
-                                    <div
-                                        className={styles["product-card-attribute-value-color-box"]}
-                                        style={{ backgroundColor: value }}
-                                    ></div>
-                                </button>
+                                    <button
+                                        type="button"
+                                        className={styles["product-card-attribute-value-button"]}
+                                        style={{ width: attributeButtonWidth }}
+                                    >
+                                        <div
+                                            className={
+                                                styles["product-card-attribute-value-color-box"]
+                                            }
+                                            style={{ backgroundColor: value }}
+                                        ></div>
+                                    </button>
+                                </Tooltip>
                             );
                         })}
 
