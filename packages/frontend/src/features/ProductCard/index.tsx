@@ -10,7 +10,7 @@ import React, {
 import { RootContext } from "@/pages/Root";
 import { Link } from "react-router-dom";
 import { Image, Rating, Skeleton } from "@mantine/core";
-import { useIntersection, useMergedRef } from "@mantine/hooks";
+import { useIntersection, useMergedRef, useResizeObserver } from "@mantine/hooks";
 import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
 import { ResponseBody as GetCategoryBySlugProductsResponseDto } from "@/api/categories/[slug]/products/GET";
 import { ResponseBody as GetProductsBySearchResponseDto } from "@/api/products/search/GET";
@@ -97,9 +97,22 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
             );
         }, [productData]);
 
+        const attributeButtonWidth = 32;
+        const attributeButtonGap = 8;
+        const [attributeContainerRef, attributeContainerRect] = useResizeObserver();
+        const [attributeValueCount, setAttributeValueCount] = useState<number>(0);
+        useEffect(() => {
+            const { width } = attributeContainerRect;
+            const newCount = Math.floor(
+                (width + attributeButtonGap) / (attributeButtonWidth + attributeButtonGap) - 1,
+            );
+            setAttributeValueCount(newCount);
+        }, [attributeContainerRect]);
+
         if (!lowestPriceVariant) return null;
 
-        const { name, images } = productData;
+        const { name, images, attributes } = productData;
+        const displayAttribute = attributes.find((a) => a.type === "color");
 
         let usedImage = { id: "", src: "", alt: "", position: 0 };
         if (images.length > 0) [usedImage] = images;
@@ -143,6 +156,41 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
                         />
                     </span>
                 </Skeleton>
+
+                {displayAttribute && (
+                    <div
+                        className={styles["product-card-attribute-container"]}
+                        style={{
+                            gridTemplateColumns: `repeat(auto-fill, ${attributeButtonWidth}px)`,
+                            gap: attributeButtonGap,
+                        }}
+                        ref={attributeContainerRef}
+                    >
+                        {displayAttribute.values.slice(0, attributeValueCount).map((v) => {
+                            const { code, value } = v;
+
+                            return (
+                                <button
+                                    type="button"
+                                    className={styles["product-card-attribute-value-button"]}
+                                    style={{ width: attributeButtonWidth }}
+                                    key={code}
+                                >
+                                    <div
+                                        className={styles["product-card-attribute-value-color-box"]}
+                                        style={{ backgroundColor: value }}
+                                    ></div>
+                                </button>
+                            );
+                        })}
+
+                        {attributeValueCount < displayAttribute.values.length && (
+                            <div className={styles["product-card-attribute-value-remainder"]}>
+                                {`+${displayAttribute.values.length - attributeValueCount}`}
+                            </div>
+                        )}
+                    </div>
+                )}
 
                 <div className={styles["product-card-rating-container"]}>
                     <Skeleton visible={awaitingAny} width="min-content">
