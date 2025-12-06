@@ -470,10 +470,19 @@ export interface components {
             variants: components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.Variant"][];
         };
         "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.AttributeOrder": {
-            name: string;
-            title: string;
             /** Format: int32 */
             position: number;
+            name: string;
+            title: string;
+            type: string;
+            values: components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.AttributeOrder.AttributeValue"][];
+        };
+        "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.AttributeOrder.AttributeValue": {
+            /** Format: int32 */
+            position: number;
+            code: string;
+            name: string;
+            value: string;
         };
         "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.Image": {
             /** Format: uuid */
@@ -582,12 +591,28 @@ export interface components {
             tags?: string[] | null;
             /** Format: date-time */
             releaseDate: string;
+            attributes: components["schemas"]["Products.Search.GET.GetProductsBySearchResponseDto.AttributeOrder"][];
             details: components["schemas"]["Products.Search.GET.GetProductsBySearchResponseDto.Detail"][];
             images: components["schemas"]["Products.Search.GET.GetProductsBySearchResponseDto.Image"][];
             rating: components["schemas"]["Products.Search.GET.GetProductsBySearchResponseDto.ProductRating"];
             variants: components["schemas"]["Products.Search.GET.GetProductsBySearchResponseDto.Variant"][];
             /** Format: float */
             score: number;
+        };
+        "Products.Search.GET.GetProductsBySearchResponseDto.AttributeOrder": {
+            /** Format: int32 */
+            position: number;
+            name: string;
+            title: string;
+            type: string;
+            values: components["schemas"]["Products.Search.GET.GetProductsBySearchResponseDto.AttributeOrder.AttributeValue"][];
+        };
+        "Products.Search.GET.GetProductsBySearchResponseDto.AttributeOrder.AttributeValue": {
+            /** Format: int32 */
+            position: number;
+            code: string;
+            name: string;
+            value: string;
         };
         "Products.Search.GET.GetProductsBySearchResponseDto.Detail": {
             /** Format: uuid */
@@ -686,20 +711,28 @@ export interface components {
             tags?: string[] | null;
             /** Format: date-time */
             releaseDate: string;
-            collections: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Collection"][];
             attributes: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.AttributeOrder"][];
             categories: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Category"][];
+            collections: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Collection"][];
             details: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Detail"][];
             images: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Image"][];
             rating: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.ProductRating"];
-            reviews: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Review"][];
             variants: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.Variant"][];
         };
         "Products._Slug.GET.GetProductBySlugResponseDto.AttributeOrder": {
-            name: string;
-            title: string;
             /** Format: int32 */
             position: number;
+            name: string;
+            title: string;
+            type: string;
+            values: components["schemas"]["Products._Slug.GET.GetProductBySlugResponseDto.AttributeOrder.AttributeValue"][];
+        };
+        "Products._Slug.GET.GetProductBySlugResponseDto.AttributeOrder.AttributeValue": {
+            /** Format: int32 */
+            position: number;
+            code: string;
+            name: string;
+            value: string;
         };
         "Products._Slug.GET.GetProductBySlugResponseDto.Category": {
             /** Format: uuid */
@@ -760,18 +793,6 @@ export interface components {
             4: number;
             /** Format: int32 */
             5: number;
-        };
-        "Products._Slug.GET.GetProductBySlugResponseDto.Review": {
-            /** Format: uuid */
-            id: string;
-            /** Format: uuid */
-            variantId?: string | null;
-            title?: string | null;
-            description: string;
-            /** Format: int32 */
-            rating: number;
-            /** Format: date-time */
-            createdAt: string;
         };
         "Products._Slug.GET.GetProductBySlugResponseDto.Variant": {
             /** Format: uuid */
@@ -837,12 +858,28 @@ export interface components {
             tags?: string[] | null;
             /** Format: date-time */
             releaseDate: string;
+            attributes: components["schemas"]["Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.AttributeOrder"][];
             details: components["schemas"]["Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.Detail"][];
             images: components["schemas"]["Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.Image"][];
             rating: components["schemas"]["Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.ProductRating"];
             variants: components["schemas"]["Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.Variant"][];
             /** Format: float */
             score: number;
+        };
+        "Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.AttributeOrder": {
+            /** Format: int32 */
+            position: number;
+            name: string;
+            title: string;
+            type: string;
+            values: components["schemas"]["Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.AttributeOrder.AttributeValue"][];
+        };
+        "Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.AttributeOrder.AttributeValue": {
+            /** Format: int32 */
+            position: number;
+            code: string;
+            name: string;
+            value: string;
         };
         "Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.Detail": {
             /** Format: uuid */
