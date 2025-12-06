@@ -46,7 +46,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.GET
 
             public required string Type { get; set; }
 
-            public virtual ICollection<AttributeValue> Values { get; set; } = new List<AttributeValue>();
+            public required virtual ICollection<AttributeValue> Values { get; set; } = new List<AttributeValue>();
         }
 
         [JsonIgnore]

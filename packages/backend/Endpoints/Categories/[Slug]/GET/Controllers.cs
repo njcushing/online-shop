@@ -55,8 +55,6 @@ namespace Cafree.Api.Endpoints.Categories._Slug.GET
                             })
                             .Select(g => new GetCategoryBySlugResponseDto.Filter.AttributeValue
                             {
-                                Id = g.Key.Id,
-                                ProductAttributeId = cpaf.ProductAttributeId,
                                 Position = g.Key.Position,
                                 Code = g.Key.Code,
                                 Name = g.Key.Name,

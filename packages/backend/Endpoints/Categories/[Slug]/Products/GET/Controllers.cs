@@ -63,6 +63,39 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                         Name = pao.ProductAttribute.Name,
                         Title = pao.ProductAttribute.Title,
                         Type = pao.ProductAttribute.ProductAttributeValueType.Name,
+                        Values = pao.ProductAttribute.ProductAttributeValues
+                            .Where(pav =>
+                                pav.ProductVariantAttributes.Any(pva => pva.ProductId == cp.Product.Id)
+                            )
+                            .GroupBy(pav => new
+                            {
+                                pav.Id,
+                                pav.Code,
+                                pav.Name,
+                                pav.Position,
+                                pav.ValueText,
+                                pav.ValueNumeric,
+                                pav.ValueBoolean,
+                                pav.ValueColor,
+                                pav.ValueDate,
+                                pav.ValueSelect
+                            })
+                            .Select(g => new GetCategoryBySlugProductsResponseDto.Product.AttributeOrder.AttributeValue
+                            {
+                                Position = g.Key.Position,
+                                Code = g.Key.Code,
+                                Name = g.Key.Name,
+                                Value =
+                                    (g.Key.ValueText != null ? g.Key.ValueText : null) ??
+                                    (g.Key.ValueNumeric != null ? g.Key.ValueNumeric.ToString() : null) ??
+                                    (g.Key.ValueBoolean != null ? g.Key.ValueBoolean.ToString() : null) ??
+                                    (g.Key.ValueColor != null ? g.Key.ValueColor : null) ??
+                                    (g.Key.ValueDate != null ? g.Key.ValueDate.ToString() : null) ??
+                                    (g.Key.ValueSelect != null ? g.Key.ValueSelect : null) ??
+                                    ""
+                            })
+                            .OrderBy(v => v.Position)
+                            .ToList()
                     }).ToList(),
                     Images = cp.Product.ProductImages.Select(pi => new GetCategoryBySlugProductsResponseDto.Product.Image
                     {

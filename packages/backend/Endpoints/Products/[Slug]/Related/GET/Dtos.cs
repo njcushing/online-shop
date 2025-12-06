@@ -13,6 +13,23 @@ namespace Cafree.Api.Endpoints.Products._Slug.Related.GET
     {
         public class AttributeOrder
         {
+            public class AttributeValue
+            {
+                [JsonIgnore]
+                public Guid Id { get; set; }
+
+                [JsonIgnore]
+                public Guid ProductAttributeId { get; set; }
+
+                public int Position { get; set; }
+
+                public required string Code { get; set; }
+
+                public required string Name { get; set; }
+
+                public required string Value { get; set; }
+            }
+
             [JsonIgnore]
             public Guid ProductId { get; set; }
 
@@ -26,6 +43,8 @@ namespace Cafree.Api.Endpoints.Products._Slug.Related.GET
             public required string Title { get; set; }
 
             public required string Type { get; set; }
+
+            public required virtual ICollection<AttributeValue> Values { get; set; } = new List<AttributeValue>();
         }
 
         public class Detail

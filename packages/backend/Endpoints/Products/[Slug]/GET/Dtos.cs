@@ -4,6 +4,61 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
 {
     public class GetProductBySlugResponseDto
     {
+        public class AttributeOrder
+        {
+            public class AttributeValue
+            {
+                [JsonIgnore]
+                public Guid Id { get; set; }
+
+                [JsonIgnore]
+                public Guid ProductAttributeId { get; set; }
+
+                public int Position { get; set; }
+
+                public required string Code { get; set; }
+
+                public required string Name { get; set; }
+
+                public required string Value { get; set; }
+            }
+
+            [JsonIgnore]
+            public Guid ProductId { get; set; }
+
+            [JsonIgnore]
+            public Guid ProductAttributeId { get; set; }
+
+            public required int Position { get; set; }
+
+            public required string Name { get; set; }
+
+            public required string Title { get; set; }
+
+            public required string Type { get; set; }
+
+            public required virtual ICollection<AttributeValue> Values { get; set; } = new List<AttributeValue>();
+        }
+
+        public class Category
+        {
+            [JsonIgnore]
+            public Guid ProductId { get; set; }
+
+            [JsonIgnore]
+            public Guid CategoryId { get; set; }
+
+            public Guid Id { get; set; }
+
+            public Guid? ParentId { get; set; }
+
+            public required string Name { get; set; }
+
+            public required string Slug { get; set; }
+
+            public string? Description { get; set; }
+        }
+
         public class Collection
         {
             public class Product
@@ -30,42 +85,6 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             public required string Slug { get; set; }
 
             public virtual ICollection<Product> Products { get; set; } = new List<Product>();
-        }
-
-        public class AttributeOrder
-        {
-            [JsonIgnore]
-            public Guid ProductId { get; set; }
-
-            [JsonIgnore]
-            public Guid ProductAttributeId { get; set; }
-
-            public required int Position { get; set; }
-
-            public required string Name { get; set; }
-
-            public required string Title { get; set; }
-
-            public required string Type { get; set; }
-        }
-
-        public class Category
-        {
-            [JsonIgnore]
-            public Guid ProductId { get; set; }
-
-            [JsonIgnore]
-            public Guid CategoryId { get; set; }
-
-            public Guid Id { get; set; }
-
-            public Guid? ParentId { get; set; }
-
-            public required string Name { get; set; }
-
-            public required string Slug { get; set; }
-
-            public string? Description { get; set; }
         }
 
         public class Detail
@@ -117,24 +136,6 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
             public int Total { get; set; }
 
             public RatingQuantities Quantities { get; set; } = new();
-        }
-
-        public class Review
-        {
-            public Guid Id { get; set; }
-
-            [JsonIgnore]
-            public Guid ProductId { get; set; }
-
-            public Guid? VariantId { get; set; }
-
-            public string? Title { get; set; }
-
-            public required string Description { get; set; }
-
-            public required short Rating { get; set; }
-
-            public required DateTime CreatedAt { get; set; }
         }
 
         public class Variant
@@ -245,19 +246,17 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
 
         public DateTime ReleaseDate { get; set; }
 
-        public virtual ICollection<Collection> Collections { get; set; } = new List<Collection>();
-
         public virtual ICollection<AttributeOrder> Attributes { get; set; } = new List<AttributeOrder>();
 
         public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
+
+        public virtual ICollection<Collection> Collections { get; set; } = new List<Collection>();
 
         public virtual ICollection<Detail> Details { get; set; } = new List<Detail>();
 
         public virtual ICollection<Image> Images { get; set; } = new List<Image>();
 
         public required virtual ProductRating Rating { get; set; }
-
-        public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
 
         public virtual ICollection<Variant> Variants { get; set; } = new List<Variant>();
     }
