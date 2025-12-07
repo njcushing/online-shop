@@ -67,7 +67,9 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                             })
                             .OrderBy(v => v.Position)
                             .ToList()
-                    }).ToList(),
+                    })
+                    .OrderBy(pao => pao.Position)
+                    .ToList(),
                     Categories = p.CategoryProducts.Select(cp => new GetProductBySlugResponseDto.Category
                     {
                         Id = cp.Category.Id,
@@ -95,8 +97,12 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                                 Src = pi.Src,
                                 Alt = pi.Alt,
                                 Position = pi.Position,
-                            }).ToList(),
-                        }).ToList(),
+                            })
+                            .OrderBy(pi => pi.Position)
+                            .ToList(),
+                        })
+                        .OrderBy(ccp => ccp.Position)
+                        .ToList(),
                     }).ToList(),
                     Details = p.ProductDetails.Select(pi => new GetProductBySlugResponseDto.Detail
                     {
@@ -110,7 +116,9 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                         Src = pi.Src,
                         Alt = pi.Alt,
                         Position = pi.Position,
-                    }).ToList(),
+                    })
+                    .OrderBy(pi => pi.Position)
+                    .ToList(),
                     Rating = new GetProductBySlugResponseDto.ProductRating
                     {
                         Average = p.ProductRating!.Average,
@@ -158,7 +166,9 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                             Src = pvi.Src,
                             Alt = pvi.Alt,
                             Position = pvi.Position,
-                        }).ToList(),
+                        })
+                        .OrderBy(pvi => pvi.Position)
+                        .ToList(),
                     }).ToList(),
                 })
                 .FirstOrDefaultAsync();

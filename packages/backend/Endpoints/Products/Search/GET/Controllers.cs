@@ -71,7 +71,9 @@ namespace Cafree.Api.Endpoints.Products.Search.GET
                             })
                             .OrderBy(v => v.Position)
                             .ToList()
-                    }).ToList(),
+                    })
+                    .OrderBy(pao => pao.Position)
+                    .ToList(),
                     Details = p.ProductDetails.Select(pi => new GetProductsBySearchResponseDto.Detail
                     {
                         Id = pi.Id,
@@ -84,7 +86,9 @@ namespace Cafree.Api.Endpoints.Products.Search.GET
                         Src = pi.Src,
                         Alt = pi.Alt,
                         Position = pi.Position,
-                    }).ToList(),
+                    })
+                    .OrderBy(pi => pi.Position)
+                    .ToList(),
                     Rating = new GetProductsBySearchResponseDto.ProductRating
                     {
                         Average = p.ProductRating!.Average,
@@ -132,7 +136,9 @@ namespace Cafree.Api.Endpoints.Products.Search.GET
                             Src = pvi.Src,
                             Alt = pvi.Alt,
                             Position = pvi.Position,
-                        }).ToList(),
+                        })
+                        .OrderBy(pvi => pvi.Position)
+                        .ToList(),
                     }).ToList(),
                     Score = EF.Functions.ToTsVector("english", p.SearchText ?? "")
                         .Rank(EF.Functions.PlainToTsQuery(query.String))

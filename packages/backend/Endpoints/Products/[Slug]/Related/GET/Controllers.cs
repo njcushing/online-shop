@@ -79,7 +79,9 @@ namespace Cafree.Api.Endpoints.Products._Slug.Related.GET
                             })
                             .OrderBy(v => v.Position)
                             .ToList()
-                    }).ToList(),
+                    })
+                    .OrderBy(pao => pao.Position)
+                    .ToList(),
                     Details = p.ProductDetails.Select(pi => new GetRelatedProductsBySlugResponseDto.Detail
                     {
                         Id = pi.Id,
@@ -92,7 +94,9 @@ namespace Cafree.Api.Endpoints.Products._Slug.Related.GET
                         Src = pi.Src,
                         Alt = pi.Alt,
                         Position = pi.Position,
-                    }).ToList(),
+                    })
+                    .OrderBy(pi => pi.Position)
+                    .ToList(),
                     Rating = new GetRelatedProductsBySlugResponseDto.ProductRating
                     {
                         Average = p.ProductRating!.Average,
@@ -140,7 +144,9 @@ namespace Cafree.Api.Endpoints.Products._Slug.Related.GET
                             Src = pvi.Src,
                             Alt = pvi.Alt,
                             Position = pvi.Position,
-                        }).ToList(),
+                        })
+                        .OrderBy(pvi => pvi.Position)
+                        .ToList(),
                     }).ToList(),
                     Score =
                         5 * p.CategoryProducts.Count(c => categoryIds.Contains(c.CategoryId)) +

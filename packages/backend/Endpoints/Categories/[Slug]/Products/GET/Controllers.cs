@@ -96,14 +96,18 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                             })
                             .OrderBy(v => v.Position)
                             .ToList()
-                    }).ToList(),
+                    })
+                    .OrderBy(pao => pao.Position)
+                    .ToList(),
                     Images = cp.Product.ProductImages.Select(pi => new GetCategoryBySlugProductsResponseDto.Product.Image
                     {
                         Id = pi.Id,
                         Src = pi.Src,
                         Alt = pi.Alt,
                         Position = pi.Position,
-                    }).ToList(),
+                    })
+                    .OrderBy(pi => pi.Position)
+                    .ToList(),
                     Variants = cp.Product.ProductVariants.Select(pv => new GetCategoryBySlugProductsResponseDto.Product.Variant
                     {
                         Id = pv.Id,
@@ -138,7 +142,9 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                             Src = pvi.Src,
                             Alt = pvi.Alt,
                             Position = pvi.Position,
-                        }).ToList(),
+                        })
+                        .OrderBy(pvi => pvi.Position)
+                        .ToList(),
                     }).ToList(),
                 })
                 .ToListAsync();
