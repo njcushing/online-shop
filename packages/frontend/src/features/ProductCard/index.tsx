@@ -7,8 +7,8 @@ import React, {
     useRef,
     useEffect,
 } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { RootContext } from "@/pages/Root";
-import { Link } from "react-router-dom";
 import { Image, Rating, Tooltip, Skeleton } from "@mantine/core";
 import { useIntersection, useMergedRef, useResizeObserver } from "@mantine/hooks";
 import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
@@ -32,6 +32,8 @@ export type TProductCard = {
 
 export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
     ({ productData, awaiting = false, immediatelyVisible = false }: TProductCard, ref) => {
+        const navigate = useNavigate();
+
         const { settings } = useContext(RootContext);
 
         let settingsData = null;
@@ -178,6 +180,14 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
                                 >
                                     <button
                                         type="button"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            e.preventDefault();
+                                            navigate({
+                                                pathname: `/p/${productData.slug}`,
+                                                search: `?${attributeName}=${code}`,
+                                            });
+                                        }}
                                         className={styles["product-card-attribute-value-button"]}
                                         style={{ width: attributeButtonWidth }}
                                     >
