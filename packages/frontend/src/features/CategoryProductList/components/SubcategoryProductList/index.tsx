@@ -96,8 +96,8 @@ export function SubcategoryProductList({ slug, awaiting = false }: TSubcategoryP
     const awaitingAny = awaitingCategory || awaitingProducts;
 
     let productCount = productsToDisplay;
-    if (categoryAwaiting) productCount = productsToDisplayWhileAwaiting;
-    if (!categoryAwaiting && categoryResponse.success) productCount = category.productCount;
+    if (awaitingAny) productCount = productsToDisplayWhileAwaiting;
+    if (!awaitingAny && categoryResponse.success) productCount = category.productCount;
 
     return (
         <div className={styles["product-list-category-group"]}>

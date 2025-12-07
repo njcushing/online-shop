@@ -79,16 +79,26 @@ export function CategoryProductsFilters({ filters, awaiting = false }: TCategory
         });
     }, [filters, filterElements, filterContainer]);
 
-    const [accordionValues, setAccordionValues] = useState<Set<string>>(
-        new Set(["Rating", "Price", ...filters.map((filter) => filter.name)]),
-    );
+    const [accordionValues, setAccordionValues] = useState<Set<string>>(new Set());
     useEffect(() => {
+        if (awaiting) {
+            setAccordionValues(new Set());
+            return;
+        }
         setAccordionValues(new Set(["Rating", "Price", ...filters.map((filter) => filter.name)]));
-    }, [filters]);
+    }, [awaiting, filters]);
 
     return (
         <div className={styles["category-products-filters"]}>
-            <p className={styles["title"]}>Filter by</p>
+            <Skeleton visible={awaiting} width="min-content">
+                <p
+                    className={styles["title"]}
+                    style={{ visibility: awaiting ? "hidden" : "initial", textWrap: "nowrap" }}
+                >
+                    Filter by
+                </p>
+            </Skeleton>
+
             <Accordion
                 multiple
                 value={[...accordionValues]}
