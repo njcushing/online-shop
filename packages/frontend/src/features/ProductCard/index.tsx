@@ -176,6 +176,7 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
                                 <Tooltip
                                     label={`${attributeName}: ${valueName}`}
                                     withArrow
+                                    className={styles["Tooltip"]}
                                     key={code}
                                 >
                                     <button

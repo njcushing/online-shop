@@ -78,6 +78,16 @@
     display: grid;
 }
 
+.Tooltip {
+    font-family: var(--font-primary);
+    font-size: 0.86rem;
+    font-weight: 500;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
+}
+
 .product-card-attribute-value-button,
 .product-card-attribute-value-remainder {
     position: relative;
