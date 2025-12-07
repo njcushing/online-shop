@@ -148,8 +148,8 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                 .SelectMany(cp => cp.Product.ProductVariants)
                 .Select(v => v.PriceCurrent);
 
-            var priceMin = await priceQuery.MinAsync();
-            var priceMax = await priceQuery.MaxAsync();
+            var priceMin = priceQuery.Count() > 0 ? await priceQuery.MinAsync() : 0.0m;
+            var priceMax = priceQuery.Count() > 0 ? await priceQuery.MaxAsync() : 0.0m;
 
             var response = new GetCategoryBySlugProductsResponseDto
             {
