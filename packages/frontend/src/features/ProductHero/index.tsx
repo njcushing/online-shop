@@ -7,6 +7,7 @@ import { Quantity } from "@/components/Inputs/Quantity";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
 import { Price } from "@/features/Price";
 import { calculateMaxAddableVariantStock } from "@/utils/products/utils/calculateMaxAddableVariantStock";
+import { Cart } from "@/utils/products/cart";
 import { SubscriptionFrequency } from "@/utils/products/subscriptions";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { ImageCarousel } from "./components/ImageCarousel";
@@ -22,10 +23,16 @@ export function ProductHero() {
     const { product, variant, relatedAttributes, defaultData } = useContext(ProductContext);
     const { product: defaultProductData, variant: defaultVariantData } = defaultData;
 
-    let cartData = null;
-    let productData = defaultProductData as GetProductBySlugDto;
-    let variantData = defaultVariantData as GetProductBySlugDto["variants"][number];
-    let relatedAttributesData: IProductContext["relatedAttributes"] = [];
+    const [cartData, setCartData] = useState<Cart | null>(null);
+    const [productData, setProductData] = useState<GetProductBySlugDto>(
+        defaultProductData as GetProductBySlugDto,
+    );
+    const [variantData, setVariantData] = useState<GetProductBySlugDto["variants"][number]>(
+        defaultVariantData as GetProductBySlugDto["variants"][number],
+    );
+    const [relatedAttributesData, setRelatedAttributesData] = useState<
+        IProductContext["relatedAttributes"]
+    >([]);
 
     const { data, awaitingAny } = useQueryContexts({
         contexts: [
@@ -34,12 +41,21 @@ export function ProductHero() {
         ],
     });
 
-    if (!awaitingAny) {
-        if (data.cart) cartData = data.cart;
-        if (data.product) productData = data.product;
-        if (variant) variantData = variant;
-        if (data.product && variant) relatedAttributesData = relatedAttributes;
-    }
+    useEffect(() => {
+        if (!awaitingAny && data.cart) setCartData(data.cart);
+    }, [awaitingAny, data.cart]);
+
+    useEffect(() => {
+        if (!awaitingAny && data.product) setProductData(data.product);
+    }, [awaitingAny, data.product]);
+
+    useEffect(() => {
+        if (!awaitingAny && variant) setVariantData(variant);
+    }, [awaitingAny, variant]);
+
+    useEffect(() => {
+        if (!awaitingAny && data.product && variant) setRelatedAttributesData(relatedAttributes);
+    }, [awaitingAny, data.product, variant, relatedAttributes]);
 
     const [subscriptionChecked, setSubscriptionChecked] = useState<boolean>(false);
     const [frequency, setFrequency] = useState<SubscriptionFrequency>("one_week");
@@ -65,12 +81,101 @@ export function ProductHero() {
     let unitPrice = priceCurrent;
     if (subscriptionChecked) unitPrice *= 1 - subscriptionDiscountPercentage! / 100;
 
+    const imageCarouselMemo = useMemo(() => {
+        return <ImageCarousel images={images} awaiting={awaitingAny} />;
+    }, [awaitingAny, images]);
+
+    const ratingMemo = useMemo(() => {
+        return (
+            <>
+                <Rating
+                    className={styles["product-rating"]}
+                    readOnly
+                    count={5}
+                    fractions={10}
+                    value={rating.average}
+                    color="gold"
+                    size="sm"
+                />
+                <div className={styles["product-rating-value"]}>{rating.average.toFixed(2)}</div>
+                <div className={styles["product-rating-quantity"]}>{`(${rating.total})`}</div>
+            </>
+        );
+    }, [rating.average, rating.total]);
+
+    const collectionQuantitiesMemo = useMemo(() => {
+        return collections.map((collection, i) => {
+            return (
+                <Skeleton visible={awaitingAny} key={collection.id}>
+                    <div
+                        style={{
+                            visibility: awaitingAny ? "hidden" : "initial",
+                        }}
+                    >
+                        <CollectionStep collectionData={collection} />
+                        {i < collections.length - 1 && <Divider />}
+                    </div>
+                </Skeleton>
+            );
+        });
+    }, [awaitingAny, collections]);
+
+    const relatedAttributesMemo = useMemo(() => {
+        return relatedAttributesData.map((attribute, i) => {
+            const { info, values } = attribute;
+            if (values.length === 0) return null;
+            return (
+                <Skeleton visible={awaitingAny} key={info.name}>
+                    <div
+                        style={{
+                            visibility: awaitingAny ? "hidden" : "initial",
+                        }}
+                    >
+                        <VariantStep attribute={attribute} />
+                        {i < relatedAttributesData.length - 1 && <Divider />}
+                    </div>
+                </Skeleton>
+            );
+        });
+    }, [relatedAttributesData, awaitingAny]);
+
+    const priceMemo = useMemo(() => {
+        return <Price base={priceBase} current={unitPrice} size="lg" />;
+    }, [priceBase, unitPrice]);
+
+    const subscriptionToggleMemo = useMemo(() => {
+        return (
+            <SubscriptionToggle
+                checked={subscriptionChecked}
+                selectedFrequency={frequency}
+                onToggle={() => setSubscriptionChecked((c) => !c)}
+                onFrequencyChange={(f) => setFrequency(f)}
+            />
+        );
+    }, [subscriptionChecked, frequency]);
+
+    const variantAlertsMemo = useMemo(() => <VariantAlerts />, []);
+
+    const quantityMemo = useMemo(() => {
+        return (
+            <Quantity
+                defaultValue={1}
+                min={1}
+                max={Math.max(1, maximumVariantQuantity)}
+                disabled={awaitingAny || maximumVariantQuantity === 0}
+                onQuantityChange={(v) => setQuantity(v)}
+            />
+        );
+    }, [awaitingAny, maximumVariantQuantity]);
+
+    const watchListButtonMemo = useMemo(() => <WatchlistButton />, []);
+
+    const deliveryProgressMemo = useMemo(() => <DeliveryProgress />, []);
+
     return (
         <section className={styles["product-hero"]}>
             <div className={styles["product-hero-width-controller"]}>
-                <div>
-                    <ImageCarousel images={images} awaiting={awaitingAny} />
-                </div>
+                <div>{imageCarouselMemo}</div>
 
                 <div className={styles["product-content"]}>
                     <Skeleton visible={awaitingAny} className={styles["margin"]}>
@@ -87,21 +192,7 @@ export function ProductHero() {
                             className={styles["product-hero-rating-container"]}
                             style={{ visibility: awaitingAny ? "hidden" : "initial" }}
                         >
-                            <Rating
-                                className={styles["product-rating"]}
-                                readOnly
-                                count={5}
-                                fractions={10}
-                                value={rating.average}
-                                color="gold"
-                                size="sm"
-                            />
-                            <div className={styles["product-rating-value"]}>
-                                {rating.average.toFixed(2)}
-                            </div>
-                            <div
-                                className={styles["product-rating-quantity"]}
-                            >{`(${rating.total})`}</div>
+                            {ratingMemo}
                         </div>
                     </Skeleton>
 
@@ -110,68 +201,29 @@ export function ProductHero() {
                     <div
                         className={`${styles["product-hero-steps-container"]} ${styles["margin"]}`}
                     >
-                        {collections.map((collection, i) => {
-                            return (
-                                <Skeleton visible={awaitingAny} key={collection.id}>
-                                    <div
-                                        style={{
-                                            visibility: awaitingAny ? "hidden" : "initial",
-                                        }}
-                                    >
-                                        <CollectionStep collectionData={collection} />
-                                        {i < collections.length - 1 && <Divider />}
-                                    </div>
-                                </Skeleton>
-                            );
-                        })}
+                        {collectionQuantitiesMemo}
 
-                        {collections.length > 0 && <Divider />}
+                        {collectionQuantitiesMemo.length > 0 && <Divider />}
 
-                        {relatedAttributesData.map((attribute, i) => {
-                            const { info, values } = attribute;
-                            if (values.length === 0) return null;
-                            return (
-                                <Skeleton visible={awaitingAny} key={info.name}>
-                                    <div
-                                        style={{
-                                            visibility: awaitingAny ? "hidden" : "initial",
-                                        }}
-                                    >
-                                        <VariantStep attribute={attribute} />
-                                        {i < relatedAttributesData.length - 1 && <Divider />}
-                                    </div>
-                                </Skeleton>
-                            );
-                        })}
+                        {relatedAttributesMemo}
 
-                        {relatedAttributesData.length > 0 && <Divider />}
+                        {relatedAttributesMemo.length > 0 && <Divider />}
                     </div>
 
                     <Skeleton visible={awaitingAny} className={styles["margin"]}>
                         <div style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
-                            <Price base={priceBase} current={unitPrice} size="lg" />
+                            {priceMemo}
                         </div>
                     </Skeleton>
 
-                    <SubscriptionToggle
-                        checked={subscriptionChecked}
-                        selectedFrequency={frequency}
-                        onToggle={() => setSubscriptionChecked((c) => !c)}
-                        onFrequencyChange={(f) => setFrequency(f)}
-                    />
+                    {subscriptionToggleMemo}
 
-                    <VariantAlerts />
+                    {variantAlertsMemo}
 
                     <div
                         className={`${styles["product-hero-buttons-container"]} ${styles["margin"]}`}
                     >
-                        <Quantity
-                            defaultValue={1}
-                            min={1}
-                            max={Math.max(1, maximumVariantQuantity)}
-                            disabled={awaitingAny || maximumVariantQuantity === 0}
-                            onQuantityChange={(v) => setQuantity(v)}
-                        />
+                        {quantityMemo}
 
                         <Button
                             color="#242424"
@@ -181,12 +233,12 @@ export function ProductHero() {
                             Add to Cart
                         </Button>
 
-                        <WatchlistButton />
+                        {watchListButtonMemo}
                     </div>
 
                     <Skeleton visible={awaitingAny}>
                         <div style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
-                            <DeliveryProgress />
+                            {deliveryProgressMemo}
                         </div>
                     </Skeleton>
                 </div>

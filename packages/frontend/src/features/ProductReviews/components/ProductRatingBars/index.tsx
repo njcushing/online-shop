@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { ProductContext } from "@/pages/Product";
 import { Skeleton, Rating, Progress } from "@mantine/core";
 import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
@@ -14,18 +14,21 @@ export type TProductRatingBars = {
 export function ProductRatingBars({ clickable = true, onClick }: TProductRatingBars) {
     const { product, defaultData } = useContext(ProductContext);
 
-    let productData = defaultData.product as GetProductBySlugResponseDto;
+    const defaultProductData = defaultData.product as GetProductBySlugResponseDto;
+    const [productData, setProductData] = useState<GetProductBySlugResponseDto | null>(
+        defaultData.product as GetProductBySlugResponseDto,
+    );
 
     const { data, awaitingAny } = useQueryContexts({
         contexts: [{ name: "product", context: product }],
     });
 
-    if (!awaitingAny) {
-        if (data.product) productData = data.product;
-    }
+    useEffect(() => {
+        if (!awaitingAny && data.product) setProductData(data.product);
+    }, [data.product, awaitingAny]);
 
-    const { rating } = productData;
-    const { average, total, quantities } = rating;
+    const { rating } = productData ?? defaultProductData;
+    const { average, total, quantities } = rating ?? defaultProductData;
 
     return (
         <div className={styles["product-reviews-rating-container"]}>

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useMatches, NavLink, Skeleton } from "@mantine/core";
 import { Link } from "react-router-dom";
 import * as useAsync from "@/hooks/useAsync";
@@ -99,6 +99,14 @@ export function SubcategoryProductList({ slug, awaiting = false }: TSubcategoryP
     if (awaitingAny) productCount = productsToDisplayWhileAwaiting;
     if (!awaitingAny && categoryResponse.success) productCount = category.productCount;
 
+    const productCards = useMemo(() => {
+        return productsData.products
+            .slice(0, productCount)
+            .map((product) => (
+                <ProductCard productData={product!} awaiting={awaitingAny} key={product!.id} />
+            ));
+    }, [productsData.products, awaitingAny, productCount]);
+
     return (
         <div className={styles["product-list-category-group"]}>
             <div className={styles["subcategory-information"]}>
@@ -132,9 +140,7 @@ export function SubcategoryProductList({ slug, awaiting = false }: TSubcategoryP
                 </Skeleton>
             </div>
 
-            {productsData.products.slice(0, productCount).map((product) => (
-                <ProductCard productData={product!} awaiting={awaitingAny} key={product!.id} />
-            ))}
+            {productCards}
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { RootContext } from "@/pages/Root";
 import { CategoryContext } from "@/pages/Category";
@@ -27,54 +27,105 @@ export function CategoryHero() {
     const currentCategory = currentCategoryBranch.at(-1)!;
     const { name, description, subcategories } = currentCategory;
 
+    const breadcrumbElements = useMemo(() => {
+        return (
+            <Breadcrumbs
+                component="nav"
+                separator="·"
+                classNames={{ separator: styles["category-breadcrumbs-separator"] }}
+            >
+                <Skeleton visible={awaitingAny} width="min-content">
+                    <button
+                        type="button"
+                        className={styles["category-breadcrumb-button"]}
+                        onClick={() => navigate("/")}
+                        disabled={awaitingAny}
+                        style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                    >
+                        Home
+                    </button>
+                </Skeleton>
+
+                {categoryBranch.map((category, i) => {
+                    const { name: catName } = category;
+                    const current = i === categoryBranch.length - 1;
+                    const path = `/c/${[...urlPathSplit.slice(0, i + 1)].join("/")}`;
+                    return !current ? (
+                        <Skeleton visible={awaitingAny} width="min-content" key={catName}>
+                            <button
+                                type="button"
+                                className={styles["category-breadcrumb-button"]}
+                                onClick={() => navigate(path)}
+                                disabled={awaitingAny}
+                                style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                            >
+                                {catName}
+                            </button>
+                        </Skeleton>
+                    ) : (
+                        <Skeleton visible={awaitingAny} width="min-content" key={catName}>
+                            <span
+                                className={styles["category-breadcrumb-current"]}
+                                style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                            >
+                                {catName}
+                            </span>
+                        </Skeleton>
+                    );
+                })}
+            </Breadcrumbs>
+        );
+    }, [navigate, urlPathSplit, categoryBranch, awaitingAny]);
+
+    const subcategoryLinkElements = useMemo(() => {
+        return (
+            subcategories.length > 0 && (
+                <nav className={styles["subcategory-links"]}>
+                    {subcategories.map((subcategory) => {
+                        const { slug, name: catName /* , img */ } = subcategory;
+                        return (
+                            <button
+                                type="button"
+                                onClick={() => navigate(slug)}
+                                disabled={awaitingAny}
+                                className={styles["subcategory-link"]}
+                                key={catName}
+                            >
+                                <Skeleton visible={awaitingAny}>
+                                    <Image
+                                        radius="md"
+                                        // src={img?.src}
+                                        // alt={img?.alt}
+                                        w={120}
+                                        h={120}
+                                        className={styles["subcategory-link-image"]}
+                                        style={{
+                                            visibility: awaitingAny ? "hidden" : "initial",
+                                        }}
+                                    />
+                                </Skeleton>
+
+                                <Skeleton visible={awaitingAny}>
+                                    <p
+                                        style={{
+                                            visibility: awaitingAny ? "hidden" : "initial",
+                                        }}
+                                    >
+                                        {catName}
+                                    </p>
+                                </Skeleton>
+                            </button>
+                        );
+                    })}
+                </nav>
+            )
+        );
+    }, [navigate, awaitingAny, subcategories]);
+
     return (
         <section className={styles["category-hero"]}>
             <div className={styles["category-hero-width-controller"]}>
-                <Breadcrumbs
-                    component="nav"
-                    separator="·"
-                    classNames={{ separator: styles["category-breadcrumbs-separator"] }}
-                >
-                    <Skeleton visible={awaitingAny} width="min-content">
-                        <button
-                            type="button"
-                            className={styles["category-breadcrumb-button"]}
-                            onClick={() => navigate("/")}
-                            disabled={awaitingAny}
-                            style={{ visibility: awaitingAny ? "hidden" : "initial" }}
-                        >
-                            Home
-                        </button>
-                    </Skeleton>
-
-                    {categoryBranch.map((category, i) => {
-                        const { name: catName } = category;
-                        const current = i === categoryBranch.length - 1;
-                        const path = `/c/${[...urlPathSplit.slice(0, i + 1)].join("/")}`;
-                        return !current ? (
-                            <Skeleton visible={awaitingAny} width="min-content" key={catName}>
-                                <button
-                                    type="button"
-                                    className={styles["category-breadcrumb-button"]}
-                                    onClick={() => navigate(path)}
-                                    disabled={awaitingAny}
-                                    style={{ visibility: awaitingAny ? "hidden" : "initial" }}
-                                >
-                                    {catName}
-                                </button>
-                            </Skeleton>
-                        ) : (
-                            <Skeleton visible={awaitingAny} width="min-content" key={catName}>
-                                <span
-                                    className={styles["category-breadcrumb-current"]}
-                                    style={{ visibility: awaitingAny ? "hidden" : "initial" }}
-                                >
-                                    {catName}
-                                </span>
-                            </Skeleton>
-                        );
-                    })}
-                </Breadcrumbs>
+                {breadcrumbElements}
 
                 <Skeleton visible={awaitingAny} width={awaitingAny ? "min-content" : "100%"}>
                     <h1
@@ -100,46 +151,7 @@ export function CategoryHero() {
                     </p>
                 </Skeleton>
 
-                {subcategories.length > 0 && (
-                    <nav className={styles["subcategory-links"]}>
-                        {subcategories.map((subcategory) => {
-                            const { slug, name: catName /* , img */ } = subcategory;
-                            return (
-                                <button
-                                    type="button"
-                                    onClick={() => navigate(slug)}
-                                    disabled={awaitingAny}
-                                    className={styles["subcategory-link"]}
-                                    key={catName}
-                                >
-                                    <Skeleton visible={awaitingAny}>
-                                        <Image
-                                            radius="md"
-                                            // src={img?.src}
-                                            // alt={img?.alt}
-                                            w={120}
-                                            h={120}
-                                            className={styles["subcategory-link-image"]}
-                                            style={{
-                                                visibility: awaitingAny ? "hidden" : "initial",
-                                            }}
-                                        />
-                                    </Skeleton>
-
-                                    <Skeleton visible={awaitingAny}>
-                                        <p
-                                            style={{
-                                                visibility: awaitingAny ? "hidden" : "initial",
-                                            }}
-                                        >
-                                            {catName}
-                                        </p>
-                                    </Skeleton>
-                                </button>
-                            );
-                        })}
-                    </nav>
-                )}
+                {subcategoryLinkElements}
             </div>
         </section>
     );

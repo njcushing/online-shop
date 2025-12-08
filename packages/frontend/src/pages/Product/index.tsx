@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useRef, useMemo, useCallback } from "react";
+import { createContext, useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { ProductHero } from "@/features/ProductHero";
 import { ProductInformation } from "@/features/ProductInformation";
@@ -160,6 +160,10 @@ export function Product({ children }: TProduct) {
         return extractRelatedAttributesOrdered(response.data, variant);
     }, [response, variant]);
 
+    const productHeroMemo = useMemo(() => <ProductHero />, []);
+    const productInformationMemo = useMemo(() => <ProductInformation />, []);
+    const recommendedProductsMemo = useMemo(() => <RecommendedProducts />, []);
+
     return (
         <ProductContext.Provider
             value={useMemo(
@@ -184,9 +188,9 @@ export function Product({ children }: TProduct) {
             )}
         >
             <div className={styles["page"]}>
-                <ProductHero />
-                <ProductInformation />
-                <RecommendedProducts />
+                {productHeroMemo}
+                {productInformationMemo}
+                {recommendedProductsMemo}
             </div>
             {children}
         </ProductContext.Provider>

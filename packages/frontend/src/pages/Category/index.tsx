@@ -109,11 +109,19 @@ export function Category({ children }: TCategory) {
         throw new Response("Category not found", { status: 404 });
     }
 
+    const categoryHero = useMemo(() => {
+        return <CategoryHero />;
+    }, []);
+
+    const categoryProductList = useMemo(() => {
+        return <CategoryProductList />;
+    }, []);
+
     return (
         <CategoryContext.Provider value={contextValue}>
             <div className={styles["page"]}>
-                <CategoryHero />
-                <CategoryProductList />
+                {categoryHero}
+                {categoryProductList}
             </div>
             {children}
         </CategoryContext.Provider>

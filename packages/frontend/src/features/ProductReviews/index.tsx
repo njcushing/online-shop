@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, useRef } from "react";
+import { useContext, useState, useEffect, useRef, useMemo } from "react";
 import { RootContext } from "@/pages/Root";
 import { ProductContext } from "@/pages/Product";
 import { Divider, Pagination, Skeleton } from "@mantine/core";
@@ -42,31 +42,34 @@ export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
     const { headerInfo } = useContext(RootContext);
     const { forceClose } = headerInfo;
 
-    const { product, defaultData } = useContext(ProductContext);
+    const { product } = useContext(ProductContext);
 
-    let productData = defaultData.product as GetProductBySlugResponseDto;
+    const [productData, setProductData] = useState<GetProductBySlugResponseDto | null>(null);
 
     const { data, awaitingAny: contextAwaitingAny } = useQueryContexts({
         contexts: [{ name: "product", context: product }],
     });
 
-    if (!contextAwaitingAny) {
-        if (data.product) productData = data.product;
-    }
+    useEffect(() => {
+        if (!contextAwaitingAny && data.product) setProductData(data.product);
+    }, [data.product, contextAwaitingAny]);
 
-    let reviewResponse = {
+    const defaultReviewResponse = {
         total: 1,
         filteredCount: 1,
         reviews: [],
     } as GetReviewsByProductSlugResponseDto;
+    const [reviewResponse, setReviewResponse] = useState<GetReviewsByProductSlugResponseDto | null>(
+        null,
+    );
 
     const { response, setParams, attempt, awaiting } = useAsync.GET(getReviewsByProductSlug, [{}], {
         attemptOnMount: false,
     });
 
-    if (!awaiting) {
-        if (response.success) reviewResponse = response.data;
-    }
+    useEffect(() => {
+        if (!awaiting && response.success) setReviewResponse(response.data);
+    }, [response, awaiting]);
 
     const [filter, setFilter] = useState<(typeof filterOptions)[number]["name"] | undefined>(
         undefined,
@@ -75,7 +78,7 @@ export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
     const [page, setPage] = useState<number>(1);
 
     useEffect(() => {
-        if (contextAwaitingAny) return;
+        if (contextAwaitingAny || !productData) return;
 
         setParams([
             {
@@ -125,9 +128,124 @@ export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
 
     /* v8 ignore stop */
 
-    const awaitingAny = contextAwaitingAny || awaiting;
+    const awaitingAny = useMemo(
+        () => contextAwaitingAny || awaiting,
+        [contextAwaitingAny, awaiting],
+    );
 
-    const { filteredCount, reviews } = reviewResponse;
+    const { filteredCount, reviews } = reviewResponse ?? defaultReviewResponse;
+
+    const productRatingBarsMemo = useMemo(() => {
+        return (
+            <ProductRatingBars
+                onClick={(tier) => {
+                    if (`${tier}` === filter) setFilter(undefined);
+                    else setFilter(`${tier}` as (typeof filterOptions)[number]["name"]);
+                    setQueueScroll(true);
+                }}
+            />
+        );
+    }, [filter]);
+
+    const ratingFilterSelectMemo = useMemo(() => {
+        return (
+            <label htmlFor="filter-reviews" className={styles["label"]}>
+                Rating
+                <select
+                    className={styles["select"]}
+                    id="filter-reviews"
+                    name="filter-reviews"
+                    value={filter}
+                    onChange={(e) => {
+                        const { value } = e.target;
+                        setFilter(value as (typeof filterOptions)[number]["name"]);
+                        setPage(1);
+                        setQueueScroll(true);
+                    }}
+                    disabled={awaitingAny}
+                    key="sort-options"
+                >
+                    <option
+                        className={styles["filter-reviews-option"]}
+                        value={undefined}
+                        key="filter-reviews-option-All"
+                    >
+                        All
+                    </option>
+                    {filterOptions.map((option) => {
+                        return (
+                            <option
+                                className={styles["filter-reviews-option"]}
+                                value={option.name}
+                                key={`filter-reviews-option-${option.title}`}
+                            >
+                                {option.title}
+                            </option>
+                        );
+                    })}
+                </select>
+            </label>
+        );
+    }, [filter, awaitingAny]);
+
+    const sortSelectMemo = useMemo(() => {
+        return (
+            <label htmlFor="sort-reviews" className={styles["label"]}>
+                Sort by
+                <select
+                    className={styles["select"]}
+                    id="sort-reviews"
+                    name="sort-reviews"
+                    defaultValue={sort}
+                    onChange={(e) => {
+                        const { value } = e.target;
+                        setSort(value as (typeof sortOptions)[number]["name"]);
+                        setPage(1);
+                        setQueueScroll(true);
+                    }}
+                    disabled={awaitingAny}
+                    key="sort-options"
+                >
+                    {sortOptions.map((option) => {
+                        return (
+                            <option
+                                className={styles["sort-reviews-option"]}
+                                value={option.name}
+                                key={`sort-reviews-option-${option.title}`}
+                            >
+                                {option.title}
+                            </option>
+                        );
+                    })}
+                </select>
+            </label>
+        );
+    }, [sort, awaitingAny]);
+
+    const reviewsMemo = useMemo(() => {
+        return reviews.slice(0, pageSize).map((review) => {
+            return <Review data={review} awaiting={awaitingAny} key={uuid()} />;
+        });
+    }, [reviews, awaitingAny]);
+
+    const paginationMemo = useMemo(() => {
+        return (
+            <Pagination
+                // Adding data-testid attribute to test onChange logic; Pagination component
+                // doesn't have an accessible role and the page buttons' names (numbers)
+                // often conflict with the ProductRatingBars component's buttons.
+                data-testid="pagination"
+                total={Math.ceil(filteredCount / pageSize)}
+                value={page}
+                withEdges
+                onChange={(newPageNo) => {
+                    setPage(newPageNo);
+                    setQueueScroll(true);
+                }}
+                classNames={{ control: styles["pagination-control"] }}
+            />
+        );
+    }, [filteredCount, page]);
 
     return (
         <div className={styles["product-reviews"]}>
@@ -146,79 +264,12 @@ export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
 
                 /* v8 ignore stop */
             >
-                <ProductRatingBars
-                    onClick={(tier) => {
-                        if (`${tier}` === filter) setFilter(undefined);
-                        else setFilter(`${tier}` as (typeof filterOptions)[number]["name"]);
-                        setQueueScroll(true);
-                    }}
-                />
+                {productRatingBarsMemo}
+
                 <div className={styles["filter-and-sort-options-container"]}>
-                    <label htmlFor="filter-reviews" className={styles["label"]}>
-                        Rating
-                        <select
-                            className={styles["select"]}
-                            id="filter-reviews"
-                            name="filter-reviews"
-                            value={filter}
-                            onChange={(e) => {
-                                const { value } = e.target;
-                                setFilter(value as (typeof filterOptions)[number]["name"]);
-                                setPage(1);
-                                setQueueScroll(true);
-                            }}
-                            disabled={awaitingAny}
-                            key="sort-options"
-                        >
-                            <option
-                                className={styles["filter-reviews-option"]}
-                                value={undefined}
-                                key="filter-reviews-option-All"
-                            >
-                                All
-                            </option>
-                            {filterOptions.map((option) => {
-                                return (
-                                    <option
-                                        className={styles["filter-reviews-option"]}
-                                        value={option.name}
-                                        key={`filter-reviews-option-${option.title}`}
-                                    >
-                                        {option.title}
-                                    </option>
-                                );
-                            })}
-                        </select>
-                    </label>
-                    <label htmlFor="sort-reviews" className={styles["label"]}>
-                        Sort by
-                        <select
-                            className={styles["select"]}
-                            id="sort-reviews"
-                            name="sort-reviews"
-                            defaultValue={sort}
-                            onChange={(e) => {
-                                const { value } = e.target;
-                                setSort(value as (typeof sortOptions)[number]["name"]);
-                                setPage(1);
-                                setQueueScroll(true);
-                            }}
-                            disabled={awaitingAny}
-                            key="sort-options"
-                        >
-                            {sortOptions.map((option) => {
-                                return (
-                                    <option
-                                        className={styles["sort-reviews-option"]}
-                                        value={option.name}
-                                        key={`sort-reviews-option-${option.title}`}
-                                    >
-                                        {option.title}
-                                    </option>
-                                );
-                            })}
-                        </select>
-                    </label>
+                    {ratingFilterSelectMemo}
+
+                    {sortSelectMemo}
                 </div>
             </div>
             <div className={styles["reviews"]} ref={targetRef}>
@@ -233,26 +284,9 @@ export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
 
                 <Divider className={styles["divider"]} />
 
-                {reviews.slice(0, pageSize).map((review) => {
-                    return <Review data={review} awaiting={awaitingAny} key={uuid()} />;
-                })}
+                {reviewsMemo}
 
-                <div className={styles["pagination-container"]}>
-                    <Pagination
-                        // Adding data-testid attribute to test onChange logic; Pagination component
-                        // doesn't have an accessible role and the page buttons' names (numbers)
-                        // often conflict with the ProductRatingBars component's buttons.
-                        data-testid="pagination"
-                        total={Math.ceil(filteredCount / pageSize)}
-                        value={page}
-                        withEdges
-                        onChange={(newPageNo) => {
-                            setPage(newPageNo);
-                            setQueueScroll(true);
-                        }}
-                        classNames={{ control: styles["pagination-control"] }}
-                    />
-                </div>
+                <div className={styles["pagination-container"]}>{paginationMemo}</div>
             </div>
         </div>
     );

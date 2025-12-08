@@ -211,6 +211,55 @@ export function CategoryProductList() {
         }, true);
     }, [category.filters, awaitingCategory, setFilterSelections]);
 
+    const categoryProductsFilters = useMemo(() => {
+        return (
+            <CategoryProductsFilters
+                filters={category.filters}
+                awaiting={awaitingCategory || awaitingProducts}
+            />
+        );
+    }, [category.filters, awaitingCategory, awaitingProducts]);
+
+    const categoryProductsSort = useMemo(() => {
+        return <CategoryProductsSort awaiting={awaitingCategory || awaitingProducts} />;
+    }, [awaitingCategory, awaitingProducts]);
+
+    const productCards = useMemo(() => {
+        return productsData.products
+            .slice(0, productCount)
+            .map((product) => (
+                <ProductCard productData={product} awaiting={awaitingProducts} key={product.id} />
+            ));
+    }, [productsData.products, awaitingProducts, productCount]);
+
+    const categoryGroup = useMemo(() => {
+        return productsData.products.length > 0 ? (
+            <div className={styles["category-product-list-category-group-container"]}>
+                {categoryProductsFilters}
+
+                <div className={styles["category-product-list-category-group"]}>
+                    {categoryProductsSort}
+
+                    <div className={styles["category-product-list-category-group-products"]}>
+                        {productCards}
+                    </div>
+                </div>
+            </div>
+        ) : null;
+    }, [productsData.products, categoryProductsFilters, categoryProductsSort, productCards]);
+
+    const subcategoryProductLists = useMemo(() => {
+        return category.subcategories.slice(0, subcategoryCount).map((subcategory, i) => {
+            const { slug } = subcategory;
+            return (
+                <Fragment key={subcategory.slug}>
+                    <SubcategoryProductList slug={slug} awaiting={awaitingSubcategories} />
+                    {i < category.subcategories.length - 1 && <Divider />}
+                </Fragment>
+            );
+        });
+    }, [category.subcategories, awaitingSubcategories, subcategoryCount]);
+
     return (
         <CategoryProductListContext.Provider
             value={useMemo(
@@ -226,51 +275,13 @@ export function CategoryProductList() {
         >
             <section className={styles["category-product-list"]}>
                 <div className={styles["category-product-list-width-controller"]}>
-                    {productsData.products.length > 0 && (
-                        <div className={styles["category-product-list-category-group-container"]}>
-                            <CategoryProductsFilters
-                                filters={category.filters}
-                                awaiting={awaitingCategory || awaitingProducts}
-                            />
-
-                            <div className={styles["category-product-list-category-group"]}>
-                                <CategoryProductsSort
-                                    awaiting={awaitingCategory || awaitingProducts}
-                                />
-
-                                <div
-                                    className={
-                                        styles["category-product-list-category-group-products"]
-                                    }
-                                >
-                                    {productsData.products.slice(0, productCount).map((product) => (
-                                        <ProductCard
-                                            productData={product}
-                                            awaiting={awaitingProducts}
-                                            key={product.id}
-                                        />
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    )}
+                    {categoryGroup}
 
                     {productsData.products.length > 0 && category.subcategories.length > 0 && (
                         <Divider />
                     )}
 
-                    {category.subcategories.slice(0, subcategoryCount).map((subcategory, i) => {
-                        const { slug } = subcategory;
-                        return (
-                            <Fragment key={subcategory.slug}>
-                                <SubcategoryProductList
-                                    slug={slug}
-                                    awaiting={awaitingSubcategories}
-                                />
-                                {i < category.subcategories.length - 1 && <Divider />}
-                            </Fragment>
-                        );
-                    })}
+                    {subcategoryProductLists}
                 </div>
             </section>
         </CategoryProductListContext.Provider>
