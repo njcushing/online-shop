@@ -36,17 +36,19 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
 
         const { settings } = useContext(RootContext);
 
-        let settingsData = null;
-
         const { data, awaitingAny: contextAwaitingAny } = useQueryContexts({
             contexts: [{ name: "settings", context: settings }],
         });
 
-        if (!contextAwaitingAny) {
-            if (data.settings) settingsData = data.settings;
-        }
+        const settingsData = useMemo(() => {
+            if (!contextAwaitingAny && data.settings) return data.settings;
+            return null;
+        }, [data.settings, contextAwaitingAny]);
 
-        const awaitingAny = awaiting || contextAwaitingAny;
+        const awaitingAny = useMemo(
+            () => awaiting || contextAwaitingAny,
+            [awaiting, contextAwaitingAny],
+        );
 
         const containerRef = useRef<HTMLDivElement>(null);
         const { ref: productCardRef, entry: intersectionEntry } = useIntersection({
@@ -111,13 +113,117 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
             setAttributeValueCount(newCount);
         }, [attributeContainerRect]);
 
+        const { name, images, attributes } = useMemo(() => productData, [productData]);
+        const displayAttribute = useMemo(
+            () => attributes.find((a) => a.type === "color"),
+            [attributes],
+        );
+
+        const [usedImage] = useMemo(() => {
+            if (images.length > 0) return images;
+            return [{ id: "", src: "", alt: "", position: 0 }];
+        }, [images]);
+
+        const imageMemo = useMemo(() => {
+            return (
+                <Image
+                    className={styles["product-image"]}
+                    src={usedImage.src}
+                    alt={usedImage.alt}
+                />
+            );
+        }, [usedImage.src, usedImage.alt]);
+
+        const productInformationBannerMemo = useMemo(
+            () => productInformationBanner(),
+            [productInformationBanner],
+        );
+
+        const priceMemo = useMemo(() => {
+            return (
+                <Price
+                    base={lowestPriceVariant.priceBase}
+                    current={lowestPriceVariant.priceCurrent}
+                    size="md"
+                />
+            );
+        }, [lowestPriceVariant.priceBase, lowestPriceVariant.priceCurrent]);
+
+        const displayedAttributeValuesMemo = useMemo(() => {
+            if (!displayAttribute) return null;
+
+            return (
+                <div
+                    className={styles["product-card-attribute-container"]}
+                    style={{
+                        gridTemplateColumns: `repeat(auto-fill, ${attributeButtonWidth}px)`,
+                        gap: attributeButtonGap,
+                    }}
+                    ref={attributeContainerRef}
+                >
+                    {displayAttribute.values.slice(0, attributeValueCount).map((v) => {
+                        const { name: attributeName } = displayAttribute;
+                        const { code, name: valueName, value } = v;
+
+                        return (
+                            <Tooltip
+                                label={`${attributeName}: ${valueName}`}
+                                withArrow
+                                className={styles["Tooltip"]}
+                                key={code}
+                            >
+                                <button
+                                    type="button"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        e.preventDefault();
+                                        navigate({
+                                            pathname: `/p/${productData.slug}`,
+                                            search: `?${attributeName}=${code}`,
+                                        });
+                                    }}
+                                    className={styles["product-card-attribute-value-button"]}
+                                    style={{ width: attributeButtonWidth }}
+                                >
+                                    <div
+                                        className={styles["product-card-attribute-value-color-box"]}
+                                        style={{ backgroundColor: value }}
+                                    ></div>
+                                </button>
+                            </Tooltip>
+                        );
+                    })}
+
+                    {attributeValueCount < displayAttribute.values.length && (
+                        <div className={styles["product-card-attribute-value-remainder"]}>
+                            {`+${displayAttribute.values.length - attributeValueCount}`}
+                        </div>
+                    )}
+                </div>
+            );
+        }, [
+            navigate,
+            productData.slug,
+            attributeContainerRef,
+            attributeValueCount,
+            displayAttribute,
+        ]);
+
+        const ratingMemo = useMemo(() => {
+            return (
+                <Rating
+                    className={styles["product-rating"]}
+                    readOnly
+                    count={5}
+                    fractions={10}
+                    value={productData.rating.average}
+                    color="gold"
+                    size="xs"
+                />
+            );
+        }, [productData.rating.average]);
+
         if (!lowestPriceVariant) return null;
-
-        const { name, images, attributes } = productData;
-        const displayAttribute = attributes.find((a) => a.type === "color");
-
-        let usedImage = { id: "", src: "", alt: "", position: 0 };
-        if (images.length > 0) [usedImage] = images;
 
         return (
             <Link
@@ -131,12 +237,8 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
                         className={styles["product-card-image-container"]}
                         style={{ visibility: awaitingAny ? "hidden" : "initial" }}
                     >
-                        <Image
-                            className={styles["product-image"]}
-                            src={usedImage.src}
-                            alt={usedImage.alt}
-                        />
-                        {productInformationBanner()}
+                        {imageMemo}
+                        {productInformationBannerMemo}
                     </div>
                 </Skeleton>
 
@@ -151,78 +253,16 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
 
                 <Skeleton visible={awaitingAny}>
                     <span style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
-                        <Price
-                            base={lowestPriceVariant.priceBase}
-                            current={lowestPriceVariant.priceCurrent}
-                            size="md"
-                        />
+                        {priceMemo}
                     </span>
                 </Skeleton>
 
-                {displayAttribute && (
-                    <div
-                        className={styles["product-card-attribute-container"]}
-                        style={{
-                            gridTemplateColumns: `repeat(auto-fill, ${attributeButtonWidth}px)`,
-                            gap: attributeButtonGap,
-                        }}
-                        ref={attributeContainerRef}
-                    >
-                        {displayAttribute.values.slice(0, attributeValueCount).map((v) => {
-                            const { name: attributeName } = displayAttribute;
-                            const { code, name: valueName, value } = v;
-
-                            return (
-                                <Tooltip
-                                    label={`${attributeName}: ${valueName}`}
-                                    withArrow
-                                    className={styles["Tooltip"]}
-                                    key={code}
-                                >
-                                    <button
-                                        type="button"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            e.preventDefault();
-                                            navigate({
-                                                pathname: `/p/${productData.slug}`,
-                                                search: `?${attributeName}=${code}`,
-                                            });
-                                        }}
-                                        className={styles["product-card-attribute-value-button"]}
-                                        style={{ width: attributeButtonWidth }}
-                                    >
-                                        <div
-                                            className={
-                                                styles["product-card-attribute-value-color-box"]
-                                            }
-                                            style={{ backgroundColor: value }}
-                                        ></div>
-                                    </button>
-                                </Tooltip>
-                            );
-                        })}
-
-                        {attributeValueCount < displayAttribute.values.length && (
-                            <div className={styles["product-card-attribute-value-remainder"]}>
-                                {`+${displayAttribute.values.length - attributeValueCount}`}
-                            </div>
-                        )}
-                    </div>
-                )}
+                {displayedAttributeValuesMemo}
 
                 <div className={styles["product-card-rating-container"]}>
                     <Skeleton visible={awaitingAny} width="min-content">
                         <span style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
-                            <Rating
-                                className={styles["product-rating"]}
-                                readOnly
-                                count={5}
-                                fractions={10}
-                                value={productData.rating.average}
-                                color="gold"
-                                size="xs"
-                            />
+                            {ratingMemo}
                         </span>
                     </Skeleton>
                     <Skeleton visible={awaitingAny} width="min-content">
