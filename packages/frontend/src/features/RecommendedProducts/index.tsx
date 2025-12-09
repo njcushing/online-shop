@@ -1,4 +1,4 @@
-import { useContext, useEffect, useCallback, useRef } from "react";
+import { useContext, useEffect, useCallback, useRef, useMemo } from "react";
 import { ProductContext } from "@/pages/Product";
 import { useMatches } from "@mantine/core";
 import { Carousel, Embla } from "@mantine/carousel";
@@ -20,15 +20,14 @@ const slideGapPx = 16;
 export function RecommendedProducts() {
     const { product, defaultData } = useContext(ProductContext);
 
-    let productData = defaultData.product as GetProductBySlugResponseDto;
-
     const { data, awaitingAny: contextAwaitingAny } = useQueryContexts({
         contexts: [{ name: "product", context: product }],
     });
 
-    if (!contextAwaitingAny) {
-        if (data.product) productData = data.product;
-    }
+    const productData = useMemo(() => {
+        if (!contextAwaitingAny && data.product) return data.product;
+        return defaultData.product as GetProductBySlugResponseDto;
+    }, [defaultData.product, data.product, contextAwaitingAny]);
 
     const { response, setParams, attempt, awaiting } = useAsync.GET(
         getRelatedProductsBySlug,
@@ -90,15 +89,66 @@ export function RecommendedProducts() {
 
     /* v8 ignore stop */
 
-    let relatedProducts: GetRelatedProductsBySlugResponseDto =
-        mockProducts as unknown as GetRelatedProductsBySlugResponseDto;
-
-    if (!awaiting) {
-        if (response.success) relatedProducts = response.data;
-    }
+    const relatedProducts = useMemo(() => {
+        if (!awaiting && response.success) return response.data;
+        return mockProducts as unknown as GetRelatedProductsBySlugResponseDto;
+    }, [response, awaiting]);
 
     const awaitingAny =
         awaiting || contextAwaitingAny || response.status === customStatusCodes.unattempted;
+
+    const carouselSlidesMemo = useMemo(() => {
+        return relatedProducts
+            .slice(0, awaitingAny ? carouselProps.slidesToScroll : undefined)
+            .map((relatedProduct, i) => {
+                return (
+                    <Carousel.Slide
+                        data-last={i === 4}
+                        onFocus={
+                            /* v8 ignore start */
+
+                            () => handleFocus(i)
+
+                            /* v8 ignore stop */
+                        }
+                        className={styles["carousel-slide"]}
+                        key={relatedProduct.id}
+                        style={{ marginRight: i === 4 ? "0px" : `${slideGapPx}px` }}
+                    >
+                        <ProductCard productData={relatedProduct} awaiting={awaitingAny} />
+                    </Carousel.Slide>
+                );
+            });
+    }, [carouselProps.slidesToScroll, handleFocus, relatedProducts, awaitingAny]);
+
+    const carouselMemo = useMemo(() => {
+        return (
+            <Carousel
+                slideSize={carouselProps.slideSize}
+                slidesToScroll={carouselProps.slidesToScroll}
+                slideGap={`${slideGapPx}px`}
+                align="start"
+                includeGapInSize={false}
+                skipSnaps
+                previousControlIcon={<ArrowLeft />}
+                nextControlIcon={<ArrowRight />}
+                withControls={false}
+                withIndicators
+                getEmblaApi={(api) => {
+                    emblaRef.current = api;
+                }}
+                classNames={{
+                    root: styles["carousel-root"],
+                    container: styles["carousel-container"],
+                    viewport: styles["carousel-viewport"],
+                    indicator: styles["carousel-indicator"],
+                    indicators: styles["carousel-indicators"],
+                }}
+            >
+                {carouselSlidesMemo}
+            </Carousel>
+        );
+    }, [carouselProps.slideSize, carouselProps.slidesToScroll, carouselSlidesMemo]);
 
     if (!awaitingAny && relatedProducts.length === 0) return null;
 
@@ -106,53 +156,8 @@ export function RecommendedProducts() {
         <section className={styles["recommended-products"]}>
             <div className={styles["recommended-products-width-controller"]}>
                 <h2 className={styles["recommended-products-title"]}>You may also like these</h2>
-                <Carousel
-                    slideSize={carouselProps.slideSize}
-                    slidesToScroll={carouselProps.slidesToScroll}
-                    slideGap={`${slideGapPx}px`}
-                    align="start"
-                    includeGapInSize={false}
-                    skipSnaps
-                    previousControlIcon={<ArrowLeft />}
-                    nextControlIcon={<ArrowRight />}
-                    withControls={false}
-                    withIndicators
-                    getEmblaApi={(api) => {
-                        emblaRef.current = api;
-                    }}
-                    classNames={{
-                        root: styles["carousel-root"],
-                        container: styles["carousel-container"],
-                        viewport: styles["carousel-viewport"],
-                        indicator: styles["carousel-indicator"],
-                        indicators: styles["carousel-indicators"],
-                    }}
-                >
-                    {relatedProducts
-                        .slice(0, awaitingAny ? carouselProps.slidesToScroll : undefined)
-                        .map((relatedProduct, i) => {
-                            return (
-                                <Carousel.Slide
-                                    data-last={i === 4}
-                                    onFocus={
-                                        /* v8 ignore start */
 
-                                        () => handleFocus(i)
-
-                                        /* v8 ignore stop */
-                                    }
-                                    className={styles["carousel-slide"]}
-                                    key={relatedProduct.id}
-                                    style={{ marginRight: i === 4 ? "0px" : `${slideGapPx}px` }}
-                                >
-                                    <ProductCard
-                                        productData={relatedProduct}
-                                        awaiting={awaitingAny}
-                                    />
-                                </Carousel.Slide>
-                            );
-                        })}
-                </Carousel>
+                {carouselMemo}
             </div>
         </section>
     );
