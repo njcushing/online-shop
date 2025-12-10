@@ -19,11 +19,11 @@ export function StringFilter({ data, awaiting = false }: TStringFilter) {
         (() => {
             const initSelected = new Set<string>();
             const strings = filterSelections.get(name);
-            if (strings && Array.isArray(strings)) {
-                strings.forEach((code) => {
-                    if (allValues.has(code)) initSelected.add(code);
-                });
-            }
+            if (!strings || strings.type !== "text") return initSelected;
+            const { value } = strings;
+            value.forEach((code) => {
+                if (allValues.has(code)) initSelected.add(code);
+            });
             return initSelected;
         })(),
     );
@@ -33,7 +33,7 @@ export function StringFilter({ data, awaiting = false }: TStringFilter) {
             if (selected.size === 0) {
                 if (newSelections.has(name)) newSelections.delete(name);
             } else {
-                newSelections.set(name, Array.from(selected));
+                newSelections.set(name, { type: "text", value: Array.from(selected) });
             }
             return newSelections;
         });

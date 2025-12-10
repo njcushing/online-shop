@@ -13,10 +13,38 @@ export const createSearchParams = (params: {
     if (filters.size > 0) {
         const filterString = [...filters.entries()]
             .flatMap((entry) => {
-                const [key, value] = entry;
-                if (typeof value === "string") return `${key}=${value}`;
-                if (Array.isArray(value)) return `${key}=${(value as Array<string>).join("|")}`;
-                return [];
+                const [key, v] = entry;
+                const { type, value } = v;
+
+                switch (type) {
+                    case "text": {
+                        const valuesString = value.filter((s) => s.length).join("|");
+                        if (valuesString.length > 0) return `${key}=${valuesString}`;
+                        return [];
+                    }
+                    case "boolean":
+                        return `${key}=${value ? "true" : "false"}`;
+                    case "numeric": {
+                        const valuesString = value.join("..");
+                        if (valuesString.length > 0) return `${key}=${valuesString}`;
+                        return [];
+                    }
+                    case "color": {
+                        const valuesString = value.filter((s) => s.length).join("|");
+                        if (valuesString.length > 0) return `${key}=${valuesString}`;
+                        return [];
+                    }
+                    case "date": {
+                        const valuesString = value.filter((s) => s.length).join("..");
+                        if (valuesString.length > 0) return `${key}=${valuesString}`;
+                        return [];
+                    }
+                    case "select":
+                        if (value.length > 0) return `${key}=${value}`;
+                        return [];
+                    default:
+                        return [];
+                }
             })
             .join("~");
         searchParams.set("filter", `${filterString}`);

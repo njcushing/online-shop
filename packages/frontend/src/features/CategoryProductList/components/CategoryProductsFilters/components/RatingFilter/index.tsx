@@ -14,10 +14,8 @@ export function RatingFilter({ awaiting = false }: TRatingFilter) {
     const [selected, setSelected] = useState<number>(
         (() => {
             const rating = filterSelections.get("Rating");
-            if (rating && typeof rating === "string" && isNumeric(rating)) {
-                return Number(rating);
-            }
-            return 1;
+            if (!rating || rating.type !== "select" || !isNumeric(rating.value)) return 1;
+            return Number(rating);
         })(),
     );
     useEffect(() => {
@@ -26,7 +24,7 @@ export function RatingFilter({ awaiting = false }: TRatingFilter) {
             const validValue = selected > 1;
             if (!validValue) {
                 if (newSelections.has("Rating")) newSelections.delete("Rating");
-            } else newSelections.set("Rating", `${selected}`);
+            } else newSelections.set("Rating", { type: "select", value: `${selected}` });
             return newSelections;
         });
     }, [setFilterSelections, selected]);

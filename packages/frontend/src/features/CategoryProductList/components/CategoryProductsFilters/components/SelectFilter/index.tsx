@@ -18,10 +18,8 @@ export function SelectFilter({ data, awaiting = false }: TSelectFilter) {
     const [selected, setSelected] = useState<string>(
         (() => {
             const select = filterSelections.get(name);
-            if (select && typeof select === "string" && allValues.has(select)) {
-                return select;
-            }
-            return "";
+            if (!select || select.type !== "select" || !allValues.has(select.value)) return "";
+            return select.value;
         })(),
     );
     useEffect(() => {
@@ -30,7 +28,7 @@ export function SelectFilter({ data, awaiting = false }: TSelectFilter) {
             const validValue = selected.length > 0;
             if (!validValue) {
                 if (newSelections.has(name)) newSelections.delete(name);
-            } else newSelections.set(name, selected);
+            } else newSelections.set(name, { type: "select", value: selected });
             return newSelections;
         });
     }, [setFilterSelections, name, selected]);

@@ -19,11 +19,11 @@ export function ColorFilter({ data, awaiting = false }: TColorFilter) {
         (() => {
             const initSelected = new Set<string>();
             const colors = filterSelections.get(name);
-            if (colors && Array.isArray(colors)) {
-                colors.forEach((code) => {
-                    if (allValues.has(code)) initSelected.add(code);
-                });
-            }
+            if (!colors || colors.type !== "color") return initSelected;
+            const { value } = colors;
+            value.forEach((code) => {
+                if (allValues.has(code)) initSelected.add(code);
+            });
             return initSelected;
         })(),
     );
@@ -33,7 +33,7 @@ export function ColorFilter({ data, awaiting = false }: TColorFilter) {
             if (selected.size === 0) {
                 if (newSelections.has(name)) newSelections.delete(name);
             } else {
-                newSelections.set(name, Array.from(selected));
+                newSelections.set(name, { type: "color", value: Array.from(selected) });
             }
             return newSelections;
         });

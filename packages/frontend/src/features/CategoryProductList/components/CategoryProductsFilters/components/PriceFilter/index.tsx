@@ -3,7 +3,6 @@ import { CategoryProductListContext } from "@/features/CategoryProductList";
 import { RangeSlider, Skeleton } from "@mantine/core";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { ResponseBody as GetCategoryBySlugProductsResponseDto } from "@/api/categories/[slug]/products/GET";
-import { isNumeric } from "@/utils/isNumeric";
 import { mockProducts } from "@/utils/products/product";
 import styles from "./index.module.css";
 
@@ -37,12 +36,8 @@ export function PriceFilter({ awaiting = false }: TPriceFilter) {
     const [selected, setSelected] = useState<[number, number]>(
         (() => {
             const range = filterSelections.get("Price");
-            let [initMin, initMax]: [number, number] = [min, max];
-            if (range && range.length === 2) {
-                if (isNumeric(range[0])) initMin = Math.max(min, Number(range[0]));
-                if (isNumeric(range[1])) initMax = Math.min(max, Number(range[1]));
-            }
-            return [initMin, initMax];
+            if (!range || range.type !== "numeric") return [min, max];
+            return [Math.max(min, range.value[0]), Math.min(max, range.value[1])];
         })(),
     );
     useEffect(() => {
@@ -89,7 +84,7 @@ export function PriceFilter({ awaiting = false }: TPriceFilter) {
                             const validValue = value[0] !== min || value[1] !== max;
                             if (!validValue) {
                                 if (newSelections.has("Price")) newSelections.delete("Price");
-                            } else newSelections.set("Price", [`${value[0]}`, `${value[1]}`]);
+                            } else newSelections.set("Price", { type: "numeric", value });
                             return newSelections;
                         });
                     }}

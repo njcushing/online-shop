@@ -33,7 +33,15 @@ import styles from "./index.module.css";
 
 export const defaultPageSize = 24;
 
-type Filters = Map<string, string | string[]>;
+type Filters = Map<
+    string,
+    | { type: "text"; value: string[] }
+    | { type: "numeric"; value: [number, number] }
+    | { type: "boolean"; value: boolean }
+    | { type: "color"; value: string[] }
+    | { type: "date"; value: string[] }
+    | { type: "select"; value: string }
+>;
 type Sort = (typeof sortOptions)[number]["name"] | null;
 
 export interface ICategoryProductListContext {
@@ -111,12 +119,16 @@ export function CategoryProductList() {
 
     const [filterSelections, filterSelectionsSetter] = useState<
         ICategoryProductListContext["filterSelections"]
-    >(new Map(parseSearchParams(searchParams).filters));
+    >(new Map(parseSearchParams(searchParams, category.filters).filters));
     const [sortSelection, setSortSelection] = useState<
         ICategoryProductListContext["sortSelection"]
-    >(parseSearchParams(searchParams).sort || null);
-    const [page, setPage] = useState<number>(parseSearchParams(searchParams).page);
-    const [pageSize, setPageSize] = useState<number>(parseSearchParams(searchParams).pageSize);
+    >(parseSearchParams(searchParams, category.filters).sort || null);
+    const [page, setPage] = useState<number>(
+        parseSearchParams(searchParams, category.filters).page,
+    );
+    const [pageSize, setPageSize] = useState<number>(
+        parseSearchParams(searchParams, category.filters).pageSize,
+    );
 
     /**
      * Custom setter to avoid unnecessary rerenders when filterSelections is set to a new Map

@@ -1,3 +1,4 @@
+import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
 import { isNumeric } from "@/utils/isNumeric";
 import { defaultPageSize, ICategoryProductListContext } from "..";
 import { defaultSort, sortOptions } from "../components/CategoryProductsSort";
@@ -9,7 +10,10 @@ type Return = {
     pageSize: number;
 };
 
-export const parseSearchParams = (searchParams: URLSearchParams): Return => {
+export const parseSearchParams = (
+    searchParams: URLSearchParams,
+    categoryFilters: GetCategoryBySlugResponseDto["filters"],
+): Return => {
     const filters: Return["filters"] = new Map();
     let sort: Return["sort"] = null;
     let page: Return["page"] = 1;
@@ -22,9 +26,55 @@ export const parseSearchParams = (searchParams: URLSearchParams): Return => {
             const filterList = value.split("~");
             filterList.forEach((filter) => {
                 const [filterName, filterValues] = filter.split("=");
-                const filterValuesSplit = filterValues.split("|");
-                if (filterValuesSplit.length === 1) filters.set(filterName, filterValuesSplit[0]);
-                if (filterValuesSplit.length > 1) filters.set(filterName, filterValuesSplit);
+                const filterData = categoryFilters.find((cf) => cf.name === filterName);
+
+                let { type } = filterData ?? { type: "INVALID" };
+                if (filterName === "Rating") type = "select";
+                if (filterName === "Price") type = "numeric";
+
+                if (type === "INVALID") return;
+
+                switch (type) {
+                    case "text": {
+                        const filterValuesSplit = filterValues.split("|");
+                        if (filterValuesSplit.length > 0) {
+                            filters.set(filterName, { type, value: filterValuesSplit });
+                        }
+                        break;
+                    }
+                    case "boolean":
+                        filters.set(filterName, { type, value: filterValues === "true" });
+                        break;
+                    case "numeric": {
+                        const filterValuesSplit = filterValues.split("..");
+                        if (!isNumeric(filterValuesSplit[0]) || !isNumeric(filterValuesSplit[1])) {
+                            return;
+                        }
+                        filters.set(filterName, {
+                            type,
+                            value: [Number(filterValuesSplit[0]), Number(filterValuesSplit[1])],
+                        });
+                        break;
+                    }
+                    case "color": {
+                        const filterValuesSplit = filterValues.split("|");
+                        if (filterValuesSplit.length > 0) {
+                            filters.set(filterName, { type, value: filterValuesSplit });
+                        }
+                        break;
+                    }
+                    case "date": {
+                        const filterValuesSplit = filterValues.split("..");
+                        if (filterValuesSplit.length > 0) {
+                            filters.set(filterName, { type, value: filterValuesSplit });
+                        }
+                        break;
+                    }
+                    case "select":
+                        filters.set(filterName, { type, value: filterValues });
+                        break;
+                    default:
+                }
             });
             return;
         }
