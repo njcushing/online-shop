@@ -5,6 +5,12 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
 {
     public class GetCategoryBySlugProductsRequestDto
     {
+        [FromQuery(Name = "filter")]
+        public string? Filter { get; set; }
+
+        [FromQuery(Name = "sort")]
+        public string? Sort { get; set; }
+
         [FromQuery(Name = "page")]
         public required int Page { get; set; }
 
