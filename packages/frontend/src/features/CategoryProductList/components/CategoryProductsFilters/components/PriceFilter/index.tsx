@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef, useMemo } from "react";
 import { CategoryProductListContext } from "@/features/CategoryProductList";
 import { RangeSlider, Skeleton } from "@mantine/core";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
@@ -15,22 +15,21 @@ export function PriceFilter({ awaiting = false }: TPriceFilter) {
         CategoryProductListContext,
     );
 
-    let productsData = {
-        products: mockProducts,
-        price: { min: 0, max: 999999999999999 },
-    } as GetCategoryBySlugProductsResponseDto;
-
     const { data, awaitingAny: contextAwaitingAny } = useQueryContexts({
         contexts: [{ name: "products", context: products }],
     });
 
-    if (!contextAwaitingAny) {
-        if (data.products) productsData = data.products;
-    }
+    const productsData = useMemo(() => {
+        if (!contextAwaitingAny && data.products) return data.products;
+        return {
+            products: mockProducts,
+            price: { min: 0, max: 999999999999999 },
+        } as GetCategoryBySlugProductsResponseDto;
+    }, [data.products, contextAwaitingAny]);
 
-    const { price } = productsData;
-    const { min, max } = price;
-
+    const [min, max] = useMemo(() => {
+        return [productsData.price.min, productsData.price.max];
+    }, [productsData.price.min, productsData.price.max]);
     const step = 10 ** Math.floor(Math.log10(max) - 2);
 
     const [selected, setSelected] = useState<[number, number]>(
@@ -40,14 +39,34 @@ export function PriceFilter({ awaiting = false }: TPriceFilter) {
             return [Math.max(min, range.value[0]), Math.min(max, range.value[1])];
         })(),
     );
+    const awaitingRef = useRef<boolean>(contextAwaitingAny);
     useEffect(() => {
+        awaitingRef.current = contextAwaitingAny;
+    }, [contextAwaitingAny]);
+    const cachedMinMax = useRef<[number, number]>([min, max]);
+    useEffect(() => {
+        if (awaitingRef.current) return;
+        const [prevMin, prevMax] = cachedMinMax.current;
         setSelected((curr) => {
-            const newRange = curr;
-            if (newRange[0] === null || newRange[0] < min) newRange[0] = min;
-            if (newRange[1] === null || newRange[1] > max) newRange[1] = max;
+            const newRange: [number, number] = [curr[0], curr[1]];
+            if (newRange[0] === null || newRange[0] === prevMin || newRange[0] < min) {
+                newRange[0] = min;
+            }
+            if (newRange[0] > max) newRange[0] = max;
+            if (newRange[1] === null || newRange[1] === prevMax || newRange[1] > max) {
+                newRange[1] = max;
+            }
+            if (newRange[1] < min) newRange[1] = min;
+            if (newRange[0] > newRange[1]) {
+                /* eslint-disable prefer-destructuring */
+                if (newRange[0] !== min && newRange[1] === max) newRange[1] = newRange[0];
+                else newRange[0] = newRange[1];
+                /* eslint-enable prefer-destructuring */
+            }
             return newRange;
         });
-    }, [min, max, selected]);
+        cachedMinMax.current = [min, max];
+    }, [min, max]);
 
     return (
         <div className={styles["filter-price"]}>
@@ -56,8 +75,7 @@ export function PriceFilter({ awaiting = false }: TPriceFilter) {
                     className={styles["filter-price-range"]}
                     style={{ visibility: awaiting ? "hidden" : "initial" }}
                 >
-                    £{((selected[0] !== null ? selected[0] : min) / 100).toFixed(2)} - £
-                    {((selected[1] !== null ? selected[1] : max) / 100).toFixed(2)}
+                    £{(selected[0] / 100).toFixed(2)} - £{(selected[1] / 100).toFixed(2)}
                 </p>
             </Skeleton>
 
