@@ -24,6 +24,7 @@ import { GetCategoryBySlugResponseDto, skeletonCategory } from "@/utils/products
 import { customStatusCodes } from "@/api/types";
 import { mockProducts } from "@/utils/products/product";
 import _ from "lodash";
+import { isNumeric } from "@/utils/isNumeric";
 import { parseSearchParams } from "./utils/parseSearchParams";
 import { createSearchParams } from "./utils/createSearchParams";
 import { SubcategoryProductList } from "./components/SubcategoryProductList";
@@ -83,6 +84,21 @@ export function CategoryProductList() {
         ],
     });
 
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const [filterSelections, filterSelectionsSetter] = useState<
+        ICategoryProductListContext["filterSelections"]
+    >(new Map(parseSearchParams(searchParams, category.filters).filters));
+    const [sortSelection, setSortSelection] = useState<
+        ICategoryProductListContext["sortSelection"]
+    >(parseSearchParams(searchParams, category.filters).sort || null);
+    const [page, setPage] = useState<number>(
+        parseSearchParams(searchParams, category.filters).page,
+    );
+    const [pageSize, setPageSize] = useState<number>(
+        parseSearchParams(searchParams, category.filters).pageSize,
+    );
+
     let productsData = {
         products: mockProducts,
         price: { min: 0, max: 0 },
@@ -98,11 +114,22 @@ export function CategoryProductList() {
             {
                 params: {
                     path: { slug: urlPathSplit.at(-1)! },
-                    query: { page: 1, pageSize: defaultPageSize },
+                    query: {
+                        filter: searchParams.get("filter") ?? undefined,
+                        sort: searchParams.get("sort") ?? undefined,
+                        page:
+                            searchParams.has("page") && isNumeric(searchParams.get("page")!)
+                                ? Number(searchParams.get("page"))
+                                : 1,
+                        pageSize:
+                            searchParams.has("pageSize") && isNumeric(searchParams.get("pageSize")!)
+                                ? Number(searchParams.get("pageSize"))
+                                : undefined,
+                    },
                 },
             },
         ] as Parameters<typeof getCategoryBySlugProducts>,
-        { attemptOnMount: false }, // useEffect hook will immediately trigger attempt on mount
+        { attemptOnMount: false }, // useEffect hook should not immediately trigger attempt on mount
     );
     const {
         response: productsResponse,
@@ -114,21 +141,6 @@ export function CategoryProductList() {
     if (!productsAwaiting) {
         if (productsResponse.success) productsData = productsResponse.data;
     }
-
-    const [searchParams, setSearchParams] = useSearchParams();
-
-    const [filterSelections, filterSelectionsSetter] = useState<
-        ICategoryProductListContext["filterSelections"]
-    >(new Map(parseSearchParams(searchParams, category.filters).filters));
-    const [sortSelection, setSortSelection] = useState<
-        ICategoryProductListContext["sortSelection"]
-    >(parseSearchParams(searchParams, category.filters).sort || null);
-    const [page, setPage] = useState<number>(
-        parseSearchParams(searchParams, category.filters).page,
-    );
-    const [pageSize, setPageSize] = useState<number>(
-        parseSearchParams(searchParams, category.filters).pageSize,
-    );
 
     /**
      * Custom setter to avoid unnecessary rerenders when filterSelections is set to a new Map
@@ -157,20 +169,23 @@ export function CategoryProductList() {
             {
                 params: {
                     path: { slug: urlPathSplit.at(-1)! },
-                    query: { page, pageSize },
+                    query: {
+                        filter: searchParams.get("filter") ?? undefined,
+                        sort: searchParams.get("sort") ?? undefined,
+                        page:
+                            searchParams.has("page") && isNumeric(searchParams.get("page")!)
+                                ? Number(searchParams.get("page"))
+                                : 1,
+                        pageSize:
+                            searchParams.has("pageSize") && isNumeric(searchParams.get("pageSize")!)
+                                ? Number(searchParams.get("pageSize"))
+                                : undefined,
+                    },
                 },
             },
         ]);
         productsAttempt();
-    }, [
-        urlPathSplit,
-        productsSetParams,
-        productsAttempt,
-        filterSelections,
-        sortSelection,
-        page,
-        pageSize,
-    ]);
+    }, [urlPathSplit, productsSetParams, productsAttempt, searchParams]);
 
     useEffect(() => {
         const newSearchParams = createSearchParams({

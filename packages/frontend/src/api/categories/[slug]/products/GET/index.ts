@@ -48,7 +48,10 @@ export const getCategoryBySlugProducts: HTTPMethodTypes.GET<RequestParams, Respo
     }
 
     const urlParams = new URLSearchParams();
-    Object.entries(query).forEach(([key, value]) => urlParams.append(key, `${value}`));
+    Object.entries(query).forEach(([key, value]) => {
+        if (typeof value === "undefined") return;
+        urlParams.append(key, `${value}`);
+    });
 
     const apiUrl = import.meta.env.VITE_API_BASE_URL || "/api";
 
