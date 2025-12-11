@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Cafree.Api.Data;
+using Cafree.Api.Models;
 
 namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
 {
@@ -9,6 +10,57 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
     public class GetCategoryBySlugProductsController(AppDbContext context) : ControllerBase
     {
         private readonly AppDbContext _context = context;
+
+        public static Dictionary<string, string> ParseFilters(string? filterString)
+        {
+            var result = new Dictionary<string, string>();
+            if (string.IsNullOrWhiteSpace(filterString)) return result;
+
+            var filters = filterString.Split('~', StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var filter in filters)
+            {
+                var parts = filter.Split('=', 2);
+                if (parts.Length != 2) continue;
+
+                var name = parts[0];
+                var value = parts[1];
+
+                result[name] = value;
+            }
+
+            return result;
+        }
+
+        private IQueryable<CategoryProduct> ApplyFilters(
+            IQueryable<CategoryProduct> query,
+            Dictionary<string, string> filters,
+            Dictionary<string, ProductAttribute> categoryProductAttributeFilters
+        )
+        {
+            foreach (var (name, value) in filters)
+            {
+                if (!categoryProductAttributeFilters.TryGetValue(name, out var pa)) continue;
+
+                switch (pa.ProductAttributeValueType.Name)
+                {
+                    case "color":
+                        var values = value.Split('|', StringSplitOptions.RemoveEmptyEntries).ToList();
+                        query = query.Where(cp =>
+                            cp.Product.ProductVariants.Any(pv =>
+                                pv.ProductVariantAttributes.Any(pva =>
+                                    pva.ProductAttribute.Name == name &&
+                                    pva.ProductAttribute.ProductAttributeValueType.Name == "color" &&
+                                    values.Contains(pva.ProductAttributeValue.Code)
+                                )
+                            )
+                        );
+                        break;
+                }
+            }
+
+            return query;
+        }
 
         [HttpGet]
         [ProducesResponseType(typeof(GetCategoryBySlugProductsResponseDto), StatusCodes.Status200OK)]
@@ -30,6 +82,23 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
             var productQuery = _context.CategoryProducts
                 .Where(cp => cp.CategoryId == category.Id)
                 .AsNoTracking();
+
+            var parsedFilters = ParseFilters(query.Filter);
+            var categoryProductAttributeFilters = await _context.CategoryProductAttributeFilters
+                .Where(cpaf => cpaf.CategoryId == category.Id)
+                .Include(cpaf => cpaf.ProductAttribute)
+                .Include(cpaf => cpaf.ProductAttribute.ProductAttributeValueType)
+                .ToDictionaryAsync(cpaf => cpaf.ProductAttribute.Name, cpaf => cpaf.ProductAttribute);
+
+            productQuery = ApplyFilters(productQuery, parsedFilters, categoryProductAttributeFilters);
+
+            var priceQuery = productQuery
+                .Where(cp => cp.CategoryId == category.Id)
+                .SelectMany(cp => cp.Product.ProductVariants)
+                .Select(v => v.PriceCurrent);
+
+            var priceMin = priceQuery.Count() > 0 ? await priceQuery.MinAsync() : 0.0m;
+            var priceMax = priceQuery.Count() > 0 ? await priceQuery.MaxAsync() : 0.0m;
 
             int pageSize = query.PageSize ?? 10;
 
@@ -148,14 +217,6 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                     }).ToList(),
                 })
                 .ToListAsync();
-
-            var priceQuery = _context.CategoryProducts
-                .Where(cp => cp.CategoryId == category.Id)
-                .SelectMany(cp => cp.Product.ProductVariants)
-                .Select(v => v.PriceCurrent);
-
-            var priceMin = priceQuery.Count() > 0 ? await priceQuery.MinAsync() : 0.0m;
-            var priceMax = priceQuery.Count() > 0 ? await priceQuery.MaxAsync() : 0.0m;
 
             var response = new GetCategoryBySlugProductsResponseDto
             {
