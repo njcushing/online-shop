@@ -112,6 +112,8 @@ export interface paths {
         get: {
             parameters: {
                 query: {
+                    filter?: string;
+                    sort?: string;
                     page: number;
                     pageSize?: number;
                 };
