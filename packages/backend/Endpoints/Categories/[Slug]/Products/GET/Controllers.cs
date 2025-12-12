@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Cafree.Api.Data;
 using Cafree.Api.Models;
+using System.Globalization;
 
 namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
 {
@@ -11,22 +12,27 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
     {
         private readonly AppDbContext _context = context;
 
+        private const int MaxPageSize = 72;
+        private const int MaxFilterStringLength = 2000;
+
+        private static readonly HashSet<string> AllowedSorts = new()
+        {
+            "best_sellers", "price_asc", "price_desc", "rating_desc", "created_desc"
+        };
+
         public static Dictionary<string, string> ParseFilters(string? filterString)
         {
-            var result = new Dictionary<string, string>();
+            var result = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             if (string.IsNullOrWhiteSpace(filterString)) return result;
+
+            if (filterString.Length > MaxFilterStringLength) filterString = filterString[..MaxFilterStringLength];
 
             var filters = filterString.Split('~', StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var filter in filters)
             {
                 var parts = filter.Split('=', 2);
-                if (parts.Length != 2) continue;
-
-                var name = parts[0];
-                var value = parts[1];
-
-                result[name] = value;
+                if (parts.Length == 2) result[parts[0]] = parts[1];
             }
 
             return result;
@@ -40,23 +46,27 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
         {
             foreach (var (name, value) in filters)
             {
-
-                if (name.ToLower() == "rating")
+                if (name.Equals("rating", StringComparison.OrdinalIgnoreCase))
                 {
-                    var rating = decimal.Parse(value);
-                    query = query.Where(
-                        cp => cp.Product.ProductRating != null &&
-                        cp.Product.ProductRating.Average >= rating
-                    );
+                    if (decimal.TryParse(value, NumberStyles.Number, CultureInfo.InvariantCulture, out var rating))
+                    {
+                        rating = Math.Clamp(rating, 1m, 5m);
+                        query = query.Where(cp =>
+                            cp.Product.ProductRating != null &&
+                            cp.Product.ProductRating.Average >= rating
+                        );
+                    }
                     continue;
                 }
+
+                if (name.Equals("price", StringComparison.OrdinalIgnoreCase)) continue;
 
                 if (!categoryProductAttributeFilters.TryGetValue(name, out var pa)) continue;
 
                 switch (pa.ProductAttributeValueType.Name)
                 {
                     case "color":
-                        var values = value.Split('|', StringSplitOptions.RemoveEmptyEntries).ToList();
+                        var values = value.Split('|', StringSplitOptions.RemoveEmptyEntries).Take(50).ToList();
                         query = query.Where(cp =>
                             cp.Product.ProductVariants.Any(pv =>
                                 pv.ProductVariantAttributes.Any(pva =>
@@ -73,11 +83,40 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
             return query;
         }
 
+        private IQueryable<CategoryProduct> ApplyPriceFilter(
+            IQueryable<CategoryProduct> query,
+            Dictionary<string, string> filters
+        )
+        {
+            if (!filters.TryGetValue("price", out var value)) return query;
+            if (!value.Contains("..")) return query;
+
+            var parts = value.Split("..", 2);
+            if (parts.Length != 2) return query;
+
+            bool lowerOk = decimal.TryParse(parts[0], NumberStyles.Number, CultureInfo.InvariantCulture, out var lower);
+            bool upperOk = decimal.TryParse(parts[1], NumberStyles.Number, CultureInfo.InvariantCulture, out var upper);
+
+            if (!lowerOk || !upperOk) return query;
+
+            if (lower > upper) (lower, upper) = (upper, lower);
+
+            query = query.Where(cp =>
+                cp.Product.ProductVariants.Any(pv =>
+                    pv.PriceCurrent >= lower && pv.PriceCurrent <= upper
+                )
+            );
+
+            return query;
+        }
+
         private static IQueryable<CategoryProduct> ApplySorting(
             IQueryable<CategoryProduct> query,
             string? sort
         )
         {
+            if (!AllowedSorts.Contains(sort ?? "")) sort = "best_sellers";
+
             return sort switch
             {
                 "best_sellers" => query.OrderByDescending(cp => cp.Product.ProductVariants.Sum(v => v.TimesSold - v.TimesReturned)),
@@ -85,7 +124,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                 "price_desc" => query.OrderByDescending(cp => cp.Product.ProductVariants.Max(v => v.PriceCurrent)),
                 "rating_desc" => query.OrderByDescending(cp => cp.Product.ProductRating != null ? cp.Product.ProductRating.Average : 0.0m),
                 "created_desc" => query.OrderByDescending(cp => cp.Product.ReleaseDate),
-                _ => query.OrderByDescending(cp => cp.Product.ProductVariants.Sum(v => v.TimesSold - v.TimesReturned)),
+                _ => query,
             };
         }
 
@@ -106,6 +145,9 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                 detail: $"No category with the specified slug '{slug}' could be located."
             );
 
+            int pageSize = Math.Clamp(query.PageSize ?? 12, 1, MaxPageSize);
+            int page = query.Page < 1 ? 1 : query.Page;
+
             var productQuery = _context.CategoryProducts
                 .Where(cp => cp.CategoryId == category.Id)
                 .AsNoTracking();
@@ -115,7 +157,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                 .Where(cpaf => cpaf.CategoryId == category.Id)
                 .Include(cpaf => cpaf.ProductAttribute)
                 .Include(cpaf => cpaf.ProductAttribute.ProductAttributeValueType)
-                .ToDictionaryAsync(cpaf => cpaf.ProductAttribute.Name, cpaf => cpaf.ProductAttribute);
+                .ToDictionaryAsync(cpaf => cpaf.ProductAttribute.Name, cpaf => cpaf.ProductAttribute, StringComparer.OrdinalIgnoreCase);
 
             productQuery = ApplyFilters(productQuery, parsedFilters, categoryProductAttributeFilters);
             productQuery = ApplySorting(productQuery, query.Sort);
@@ -128,7 +170,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
             var priceMin = priceQuery.Count() > 0 ? await priceQuery.MinAsync() : 0.0m;
             var priceMax = priceQuery.Count() > 0 ? await priceQuery.MaxAsync() : 0.0m;
 
-            int pageSize = query.PageSize ?? 10;
+            productQuery = ApplyPriceFilter(productQuery, parsedFilters);
 
             var products = await productQuery
                 .Skip((query.Page - 1) * pageSize)
