@@ -10,6 +10,8 @@ CREATE TABLE product_variants (
     subscription_discount_percentage numeric(10,4) DEFAULT 0,
     stock int NOT NULL DEFAULT 0,
     allowance_override int NULL,
+    times_sold int NOT NULL DEFAULT 0,
+    times_returned int NOT NULL DEFAULT 0,
     active boolean NOT NULL,
     release_date timestamptz NOT NULL DEFAULT now(),
     attribute_hash text,

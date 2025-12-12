@@ -6,6 +6,7 @@ INSERT INTO order_status_types (name) VALUES
     ('shipped'),
     ('delivered'),
     ('cancelled'),
-    ('refunded');
+    ('refunded'),
+    ('returned');
 
 COMMIT;

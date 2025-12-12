@@ -11,6 +11,8 @@ INSERT INTO product_variants
         subscription_discount_percentage,
         stock,
         allowance_override,
+        times_sold,
+        times_returned,
         active,
         release_date
     )
@@ -25,6 +27,8 @@ VALUES
         10.0000,
         321,
         NULL,
+        234,
+        12,
         true,
         now()
     ),
@@ -38,6 +42,8 @@ VALUES
         10.0000,
         40,
         NULL,
+        489,
+        8,
         true,
         now()
     ),
@@ -51,6 +57,8 @@ VALUES
         0.0000,
         108,
         NULL,
+        72,
+        3,
         true,
         now()
     ),
@@ -64,6 +72,8 @@ VALUES
         15.0000,
         0,
         NULL,
+        109,
+        2,
         true,
         now()
     ),
@@ -77,6 +87,8 @@ VALUES
         5.0000,
         237,
         NULL,
+        892,
+        14,
         true,
         now()
     ),
@@ -90,6 +102,8 @@ VALUES
         10.0000,
         382,
         NULL,
+        287,
+        10,
         true,
         now()
     ),
@@ -103,6 +117,8 @@ VALUES
         0.0000,
         237,
         NULL,
+        1952,
+        32,
         true,
         now()
     ),
@@ -116,6 +132,8 @@ VALUES
         0.0000,
         123,
         NULL,
+        1288,
+        20,
         true,
         now()
     ),
@@ -129,6 +147,8 @@ VALUES
         5.0000,
         63,
         NULL,
+        993,
+        17,
         true,
         now()
     ),
@@ -142,6 +162,8 @@ VALUES
         0.0000,
         89,
         NULL,
+        3581,
+        83,
         true,
         now()
     ),
@@ -155,6 +177,8 @@ VALUES
         5.0000,
         1084,
         NULL,
+        1194,
+        16,
         true,
         now()
     ),
@@ -168,6 +192,8 @@ VALUES
         10.0000,
         76,
         NULL,
+        2813,
+        63,
         true,
         now()
     ),
@@ -181,6 +207,8 @@ VALUES
         20.0000,
         102,
         NULL,
+        1766,
+        48,
         true,
         now()
     ),
@@ -194,6 +222,8 @@ VALUES
         12.5000,
         938,
         NULL,
+        662,
+        15,
         true,
         now()
     );
