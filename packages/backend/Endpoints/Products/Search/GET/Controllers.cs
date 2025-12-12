@@ -10,11 +10,15 @@ namespace Cafree.Api.Endpoints.Products.Search.GET
     {
         private readonly AppDbContext _context = context;
 
+        private const int MaxSearchStringLength = 2000;
+
         [HttpGet]
         [ProducesResponseType(typeof(List<GetProductsBySearchResponseDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetProductBySlugReviews([FromQuery] GetProductsBySearchRequestDto query)
         {
+            if (query.String.Length > MaxSearchStringLength) query.String = query.String[..MaxSearchStringLength];
+
             var products = await _context.Products
                 .AsNoTracking()
                 .Where(p =>

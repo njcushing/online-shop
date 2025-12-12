@@ -10,13 +10,25 @@ namespace Cafree.Api.Endpoints.Products._Slug.Reviews.GET
     {
         private readonly AppDbContext _context = context;
 
+        private const int MaxPageSize = 72;
+        private const int MaxSortStringLength = 2000;
+        private const int MaxFilterStringLength = 2000;
+
+        private static readonly HashSet<string> AllowedSorts = new()
+        {
+            "rating_desc", "rating_asc", "created_asc", "created_desc"
+        };
+
+        private static readonly HashSet<string> AllowedFilters = new()
+        {
+            "rating_5", "rating_4", "rating_3", "rating_2", "rating_1"
+        };
+
         [HttpGet]
         [ProducesResponseType(typeof(GetReviewsByProductSlugResponseDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetProductBySlugReviews(string slug, [FromQuery] GetReviewsByProductSlugRequestDto query)
         {
-            query.PageSize ??= 10;
-
             var product = await _context.Products
                 .AnyAsync(p => p.Active && p.Slug == slug);
 
@@ -26,12 +38,18 @@ namespace Cafree.Api.Endpoints.Products._Slug.Reviews.GET
                 detail: $"No product with the specified slug '{slug}' could be located."
             );
 
+            if (query.Sort?.Length > MaxSortStringLength) query.Sort = query.Sort[..MaxSortStringLength];
+            if (query.Filter?.Length > MaxFilterStringLength) query.Filter = query.Filter[..MaxFilterStringLength];
+            int page = query.Page < 1 ? 1 : query.Page;
+            int pageSize = Math.Clamp(query.PageSize ?? 12, 1, MaxPageSize);
+
             var reviewQuery = _context.ProductReviews
                 .Where(pr => pr.Product.Slug == slug)
                 .AsNoTracking();
 
             var totalCount = await reviewQuery.CountAsync();
 
+            if (!AllowedFilters.Contains(query.Filter ?? "")) query.Filter = "";
             reviewQuery = query.Filter switch
             {
                 "rating_5" => reviewQuery.Where(pr => pr.Rating == 5),
@@ -44,6 +62,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.Reviews.GET
 
             var filteredCount = await reviewQuery.CountAsync();
 
+            if (!AllowedSorts.Contains(query.Sort ?? "")) query.Sort = "created_desc";
             reviewQuery = query.Sort switch
             {
                 "rating_desc" => reviewQuery.OrderByDescending(pr => pr.Rating),
@@ -51,8 +70,6 @@ namespace Cafree.Api.Endpoints.Products._Slug.Reviews.GET
                 "created_asc" => reviewQuery.OrderBy(pr => pr.CreatedAt),
                 "created_desc" or _ => reviewQuery.OrderByDescending(pr => pr.CreatedAt),
             };
-
-            int pageSize = query.PageSize ?? 10;
 
             var reviews = await reviewQuery
                 .Skip((query.Page - 1) * pageSize)

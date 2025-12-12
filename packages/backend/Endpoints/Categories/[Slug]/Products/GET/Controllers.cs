@@ -145,8 +145,8 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                 detail: $"No category with the specified slug '{slug}' could be located."
             );
 
-            int pageSize = Math.Clamp(query.PageSize ?? 12, 1, MaxPageSize);
             int page = query.Page < 1 ? 1 : query.Page;
+            int pageSize = Math.Clamp(query.PageSize ?? 12, 1, MaxPageSize);
 
             var productQuery = _context.CategoryProducts
                 .Where(cp => cp.CategoryId == category.Id)

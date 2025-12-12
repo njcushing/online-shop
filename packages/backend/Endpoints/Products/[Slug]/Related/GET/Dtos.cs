@@ -3,12 +3,6 @@ using System.Text.Json.Serialization;
 
 namespace Cafree.Api.Endpoints.Products._Slug.Related.GET
 {
-    public class GetRelatedProductsBySlugRequestDto
-    {
-        [FromQuery(Name = "slug")]
-        public required string Slug { get; set; }
-    }
-
     public class GetRelatedProductsBySlugResponseDto
     {
         public class AttributeOrder
