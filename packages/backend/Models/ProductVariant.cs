@@ -25,6 +25,10 @@ public partial class ProductVariant
 
     public int? AllowanceOverride { get; set; }
 
+    public int TimesSold { get; set; }
+
+    public int TimesReturned { get; set; }
+
     public bool Active { get; set; }
 
     public DateTime ReleaseDate { get; set; }

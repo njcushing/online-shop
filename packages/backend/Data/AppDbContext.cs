@@ -783,6 +783,12 @@ public partial class AppDbContext : DbContext
                 .HasPrecision(10, 4)
                 .HasDefaultValueSql("0")
                 .HasColumnName("subscription_discount_percentage");
+            entity.Property(e => e.TimesReturned)
+                .HasDefaultValue(0)
+                .HasColumnName("times_returned");
+            entity.Property(e => e.TimesSold)
+                .HasDefaultValue(0)
+                .HasColumnName("times_sold");
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
 
             entity.HasOne(d => d.Product).WithMany(p => p.ProductVariants)
