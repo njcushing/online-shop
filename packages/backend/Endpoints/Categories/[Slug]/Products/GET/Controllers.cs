@@ -40,6 +40,17 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
         {
             foreach (var (name, value) in filters)
             {
+
+                if (name.ToLower() == "rating")
+                {
+                    var rating = decimal.Parse(value);
+                    query = query.Where(
+                        cp => cp.Product.ProductRating != null &&
+                        cp.Product.ProductRating.Average >= rating
+                    );
+                    continue;
+                }
+
                 if (!categoryProductAttributeFilters.TryGetValue(name, out var pa)) continue;
 
                 switch (pa.ProductAttributeValueType.Name)
