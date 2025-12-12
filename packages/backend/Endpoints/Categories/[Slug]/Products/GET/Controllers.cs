@@ -73,6 +73,22 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
             return query;
         }
 
+        private static IQueryable<CategoryProduct> ApplySorting(
+            IQueryable<CategoryProduct> query,
+            string? sort
+        )
+        {
+            return sort switch
+            {
+                "best_sellers" => query.OrderByDescending(cp => cp.Product.ProductVariants.Sum(v => v.TimesSold - v.TimesReturned)),
+                "price_asc" => query.OrderBy(cp => cp.Product.ProductVariants.Min(v => v.PriceCurrent)),
+                "price_desc" => query.OrderByDescending(cp => cp.Product.ProductVariants.Max(v => v.PriceCurrent)),
+                "rating_desc" => query.OrderByDescending(cp => cp.Product.ProductRating != null ? cp.Product.ProductRating.Average : 0.0m),
+                "created_desc" => query.OrderByDescending(cp => cp.Product.ReleaseDate),
+                _ => query.OrderByDescending(cp => cp.Product.ProductVariants.Sum(v => v.TimesSold - v.TimesReturned)),
+            };
+        }
+
         [HttpGet]
         [ProducesResponseType(typeof(GetCategoryBySlugProductsResponseDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
@@ -102,6 +118,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                 .ToDictionaryAsync(cpaf => cpaf.ProductAttribute.Name, cpaf => cpaf.ProductAttribute);
 
             productQuery = ApplyFilters(productQuery, parsedFilters, categoryProductAttributeFilters);
+            productQuery = ApplySorting(productQuery, query.Sort);
 
             var priceQuery = productQuery
                 .Where(cp => cp.CategoryId == category.Id)
