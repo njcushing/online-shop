@@ -81,10 +81,6 @@ export function CategoryProductsFilters({ filters, awaiting = false }: TCategory
 
     const [accordionValues, setAccordionValues] = useState<Set<string>>(new Set());
     useEffect(() => {
-        if (awaiting) {
-            setAccordionValues(new Set());
-            return;
-        }
         setAccordionValues(new Set(["Rating", "Price", ...filters.map((filter) => filter.name)]));
     }, [awaiting, filters]);
 
