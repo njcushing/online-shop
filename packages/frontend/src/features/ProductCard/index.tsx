@@ -7,7 +7,7 @@ import React, {
     useRef,
     useEffect,
 } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { RootContext } from "@/pages/Root";
 import { Image, Rating, Tooltip, Skeleton } from "@mantine/core";
 import { useIntersection, useMergedRef, useResizeObserver } from "@mantine/hooks";
@@ -174,14 +174,14 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
                             >
                                 <button
                                     type="button"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        e.preventDefault();
+                                    role="link"
+                                    onClick={() => {
                                         navigate({
                                             pathname: `/p/${productData.slug}`,
                                             search: `?${attributeName}=${code}`,
                                         });
                                     }}
+                                    disabled={awaiting}
                                     className={styles["product-card-attribute-value-button"]}
                                     style={{ width: attributeButtonWidth }}
                                 >
@@ -202,6 +202,7 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
                 </div>
             );
         }, [
+            awaiting,
             navigate,
             productData.slug,
             attributeContainerRef,
@@ -226,61 +227,68 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
         if (!lowestPriceVariant) return null;
 
         return (
-            <Link
-                to={`/p/${productData.slug}`}
+            <div
                 className={styles["product-card"]}
                 data-visible={awaitingAny || visible}
                 ref={mergedProductCardRef}
             >
-                <Skeleton visible={awaitingAny}>
-                    <div
-                        className={styles["product-card-image-container"]}
-                        style={{ visibility: awaitingAny ? "hidden" : "initial" }}
-                    >
-                        {imageMemo}
-                        {productInformationBannerMemo}
-                    </div>
-                </Skeleton>
-
-                <Skeleton visible={awaitingAny}>
-                    <p
-                        className={styles["product-name"]}
-                        style={{ visibility: awaitingAny ? "hidden" : "initial" }}
-                    >
-                        {name}
-                    </p>
-                </Skeleton>
-
-                <Skeleton visible={awaitingAny}>
-                    <span style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
-                        {priceMemo}
-                    </span>
-                </Skeleton>
-
-                {displayedAttributeValuesMemo}
-
-                <div className={styles["product-card-rating-container"]}>
-                    <Skeleton visible={awaitingAny} width="min-content">
-                        <span style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
-                            {ratingMemo}
-                        </span>
-                    </Skeleton>
-                    <Skeleton visible={awaitingAny} width="min-content">
+                <button
+                    type="button"
+                    role="link"
+                    onClick={() => navigate({ pathname: `/p/${productData.slug}` })}
+                    disabled={awaiting}
+                    className={styles["product-card-link"]}
+                >
+                    <Skeleton visible={awaitingAny}>
                         <div
-                            className={styles["product-rating-value"]}
+                            className={styles["product-card-image-container"]}
                             style={{ visibility: awaitingAny ? "hidden" : "initial" }}
                         >
-                            {productData.rating.average.toFixed(2)}
+                            {imageMemo}
+                            {productInformationBannerMemo}
                         </div>
                     </Skeleton>
-                    <Skeleton visible={awaitingAny} width="min-content">
-                        <div
-                            className={styles["product-rating-quantity"]}
+
+                    <Skeleton visible={awaitingAny}>
+                        <p
+                            className={styles["product-name"]}
                             style={{ visibility: awaitingAny ? "hidden" : "initial" }}
-                        >{`(${productData.rating.total})`}</div>
+                        >
+                            {name}
+                        </p>
                     </Skeleton>
-                </div>
-            </Link>
+
+                    <Skeleton visible={awaitingAny}>
+                        <span style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
+                            {priceMemo}
+                        </span>
+                    </Skeleton>
+
+                    <div className={styles["product-card-rating-container"]}>
+                        <Skeleton visible={awaitingAny} width="min-content">
+                            <span style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
+                                {ratingMemo}
+                            </span>
+                        </Skeleton>
+                        <Skeleton visible={awaitingAny} width="min-content">
+                            <div
+                                className={styles["product-rating-value"]}
+                                style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                            >
+                                {productData.rating.average.toFixed(2)}
+                            </div>
+                        </Skeleton>
+                        <Skeleton visible={awaitingAny} width="min-content">
+                            <div
+                                className={styles["product-rating-quantity"]}
+                                style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                            >{`(${productData.rating.total})`}</div>
+                        </Skeleton>
+                    </div>
+                </button>
+
+                {displayedAttributeValuesMemo}
+            </div>
         );
     },
 );
