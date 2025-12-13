@@ -73,7 +73,7 @@ export function CategoryProductList() {
     const subcategoriesToDisplayWhileAwaiting = 3;
 
     const { categories } = useContext(RootContext);
-    const { urlPathSplit, categoryData } = useContext(CategoryContext);
+    const { urlPathSplit, categoryBranch, categoryData } = useContext(CategoryContext);
 
     let category = skeletonCategory as GetCategoryBySlugResponseDto;
 
@@ -210,6 +210,13 @@ export function CategoryProductList() {
         }
     }, [urlPathSplit, setFilterSelections, setSearchParams]);
 
+    const displaySidebar = useMemo(() => {
+        const currentCategory = categoryBranch.find((l) => l.slug === urlPathSplit.at(-1));
+        if (!currentCategory) return false;
+        if (currentCategory.subcategories.length > 0) return false;
+        return true;
+    }, [urlPathSplit, categoryBranch]);
+
     const awaitingCategory =
         categoryData.awaiting || categoryData.response.status === customStatusCodes.unattempted;
 
@@ -219,7 +226,9 @@ export function CategoryProductList() {
     const awaitingSubcategories =
         categoryData.awaiting || categoryData.response.status === customStatusCodes.unattempted;
 
-    const productCount = awaitingProducts ? productsToDisplayWhileAwaiting : category.productCount;
+    const productCount = awaitingProducts
+        ? productsToDisplayWhileAwaiting + (displaySidebar ? 0 : 1)
+        : category.productCount;
     const subcategoryCount = awaitingSubcategories
         ? subcategoriesToDisplayWhileAwaiting
         : category.subcategories.length;
@@ -239,17 +248,19 @@ export function CategoryProductList() {
     }, [category.filters, awaitingCategory, setFilterSelections]);
 
     const categoryProductsFilters = useMemo(() => {
+        if (!displaySidebar) return null;
         return (
             <CategoryProductsFilters
                 filters={category.filters}
                 awaiting={awaitingCategory || awaitingProducts}
             />
         );
-    }, [category.filters, awaitingCategory, awaitingProducts]);
+    }, [category.filters, displaySidebar, awaitingCategory, awaitingProducts]);
 
     const categoryProductsSort = useMemo(() => {
+        if (!displaySidebar) return null;
         return <CategoryProductsSort awaiting={awaitingCategory || awaitingProducts} />;
-    }, [awaitingCategory, awaitingProducts]);
+    }, [awaitingCategory, displaySidebar, awaitingProducts]);
 
     const productCards = useMemo(() => {
         return productsData.products
@@ -261,7 +272,10 @@ export function CategoryProductList() {
 
     const categoryGroup = useMemo(() => {
         return productsData.products.length > 0 ? (
-            <div className={styles["category-product-list-category-group-container"]}>
+            <div
+                className={styles["category-product-list-category-group-container"]}
+                data-sidebar={!!displaySidebar}
+            >
                 {categoryProductsFilters}
 
                 <div className={styles["category-product-list-category-group"]}>
@@ -273,7 +287,13 @@ export function CategoryProductList() {
                 </div>
             </div>
         ) : null;
-    }, [productsData.products, categoryProductsFilters, categoryProductsSort, productCards]);
+    }, [
+        productsData.products,
+        displaySidebar,
+        categoryProductsFilters,
+        categoryProductsSort,
+        productCards,
+    ]);
 
     const subcategoryProductLists = useMemo(() => {
         return category.subcategories.slice(0, subcategoryCount).map((subcategory, i) => {
