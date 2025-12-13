@@ -14,6 +14,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
 
         private const int MaxPageSize = 72;
         private const int MaxFilterStringLength = 2000;
+        private const int MaxFilterValueCount = 50;
 
         private static readonly HashSet<string> AllowedSorts = new()
         {
@@ -65,18 +66,152 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
 
                 switch (pa.ProductAttributeValueType.Name)
                 {
-                    case "color":
-                        var values = value.Split('|', StringSplitOptions.RemoveEmptyEntries).Take(50).ToList();
-                        query = query.Where(cp =>
-                            cp.Product.ProductVariants.Any(pv =>
-                                pv.ProductVariantAttributes.Any(pva =>
-                                    pva.ProductAttribute.Name == name &&
-                                    pva.ProductAttribute.ProductAttributeValueType.Name == "color" &&
-                                    values.Contains(pva.ProductAttributeValue.Code)
+                    case "text":
+                        {
+                            var values = value.Split('|', StringSplitOptions.RemoveEmptyEntries)
+                                .Take(MaxFilterValueCount)
+                                .ToList();
+                            query = query.Where(cp =>
+                                cp.Product.ProductVariants.Any(pv =>
+                                    pv.ProductVariantAttributes.Any(pva =>
+                                        pva.ProductAttribute.Name == name &&
+                                        pva.ProductAttribute.ProductAttributeValueType.Name == "text" &&
+                                        values.Contains(pva.ProductAttributeValue.Code)
+                                    )
                                 )
-                            )
-                        );
-                        break;
+                            );
+                            break;
+                        }
+                    case "numeric":
+                        {
+                            if (!value.Contains("..")) break;
+
+                            var parts = value.Split("..", 2);
+                            if (parts.Length != 2) break;
+
+                            bool lowerOk = decimal.TryParse(parts[0], NumberStyles.Number, CultureInfo.InvariantCulture, out var lower);
+                            bool upperOk = decimal.TryParse(parts[1], NumberStyles.Number, CultureInfo.InvariantCulture, out var upper);
+
+                            if (!lowerOk || !upperOk) break;
+
+                            if (lower > upper) (lower, upper) = (upper, lower);
+
+                            query = query.Where(cp =>
+                                cp.Product.ProductVariants.Any(pv =>
+                                    pv.ProductVariantAttributes.Any(pva =>
+                                        pva.ProductAttribute.Name == name &&
+                                        pva.ProductAttribute.ProductAttributeValueType.Name == "numeric" &&
+                                        pva.ProductAttributeValue.ValueNumeric >= lower &&
+                                        pva.ProductAttributeValue.ValueNumeric <= upper
+                                    )
+                                )
+                            );
+                            break;
+                        }
+                    case "boolean":
+                        {
+                            query = query.Where(cp =>
+                                cp.Product.ProductVariants.Any(pv =>
+                                    pv.ProductVariantAttributes.Any(pva =>
+                                        pva.ProductAttribute.Name == name &&
+                                        pva.ProductAttribute.ProductAttributeValueType.Name == "boolean" &&
+                                        (
+                                            value == "true" && pva.ProductAttributeValue.ValueBoolean == true ||
+                                            value == "false" && !pva.ProductAttributeValue.ValueBoolean == false
+                                        )
+                                    )
+                                )
+                            );
+                            break;
+                        }
+                    case "color":
+                        {
+                            var values = value.Split('|', StringSplitOptions.RemoveEmptyEntries).Take(MaxFilterValueCount).ToList();
+                            query = query.Where(cp =>
+                                cp.Product.ProductVariants.Any(pv =>
+                                    pv.ProductVariantAttributes.Any(pva =>
+                                        pva.ProductAttribute.Name == name &&
+                                        pva.ProductAttribute.ProductAttributeValueType.Name == "color" &&
+                                        values.Contains(pva.ProductAttributeValue.Code)
+                                    )
+                                )
+                            );
+                            break;
+                        }
+                    case "date":
+                        {
+                            DateTimeOffset lower;
+                            DateTimeOffset upper;
+
+                            if (value.Contains(".."))
+                            {
+                                var parts = value.Split("..", 2);
+                                if (parts.Length != 2) continue;
+
+                                bool lowerOk = DateTimeOffset.TryParse(
+                                    parts[0],
+                                    CultureInfo.InvariantCulture,
+                                    DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal,
+                                    out lower
+                                );
+
+                                bool upperOk = DateTimeOffset.TryParse(
+                                    parts[1],
+                                    CultureInfo.InvariantCulture,
+                                    DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal,
+                                    out upper
+                                );
+
+                                if (!lowerOk || !upperOk) continue;
+
+                                if (lower > upper)
+                                    (lower, upper) = (upper, lower);
+
+                                query = query.Where(cp =>
+                                    cp.Product.ProductVariants.Any(pv =>
+                                        pv.ProductVariantAttributes.Any(pva =>
+                                            pva.ProductAttribute.Name == name &&
+                                            pva.ProductAttribute.ProductAttributeValueType.Name == "date" &&
+                                            pva.ProductAttributeValue.ValueDate >= lower &&
+                                            pva.ProductAttributeValue.ValueDate <= upper
+                                        )
+                                    )
+                                );
+                                break;
+                            }
+
+                            if (DateTimeOffset.TryParse(
+                                value,
+                                CultureInfo.InvariantCulture,
+                                DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal,
+                                out lower
+                            ))
+                            {
+                                query = query.Where(cp =>
+                                    cp.Product.ProductVariants.Any(pv =>
+                                        pv.ProductVariantAttributes.Any(pva =>
+                                            pva.ProductAttribute.Name == name &&
+                                            pva.ProductAttribute.ProductAttributeValueType.Name == "date" &&
+                                            pva.ProductAttributeValue.ValueDate >= lower
+                                        )
+                                    )
+                                );
+                            }
+                            break;
+                        }
+                    case "select":
+                        {
+                            query = query.Where(cp =>
+                                cp.Product.ProductVariants.Any(pv =>
+                                    pv.ProductVariantAttributes.Any(pva =>
+                                        pva.ProductAttribute.Name == name &&
+                                        pva.ProductAttribute.ProductAttributeValueType.Name == "select" &&
+                                        value == pva.ProductAttributeValue.Code
+                                    )
+                                )
+                            );
+                            break;
+                        }
                 }
             }
 
