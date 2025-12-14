@@ -29,6 +29,7 @@ export const parseSearchParams = (
                 const filterData = categoryFilters.find((cf) => cf.name === filterName);
 
                 let { type } = filterData ?? { type: "INVALID" };
+                const { values } = filterData ?? { values: [] };
                 if (filterName === "Rating") type = "select";
                 if (filterName === "Price") type = "numeric";
 
@@ -36,9 +37,11 @@ export const parseSearchParams = (
 
                 switch (type) {
                     case "text": {
-                        const filterValuesSplit = filterValues.split("|");
-                        if (filterValuesSplit.length > 0) {
-                            filters.set(filterName, { type, value: filterValuesSplit });
+                        const validFilterValues = filterValues
+                            .split("|")
+                            .filter((v) => values.find(({ code }) => code === v));
+                        if (validFilterValues.length > 0) {
+                            filters.set(filterName, { type, value: validFilterValues });
                         }
                         break;
                     }
@@ -57,9 +60,11 @@ export const parseSearchParams = (
                         break;
                     }
                     case "color": {
-                        const filterValuesSplit = filterValues.split("|");
-                        if (filterValuesSplit.length > 0) {
-                            filters.set(filterName, { type, value: filterValuesSplit });
+                        const validFilterValues = filterValues
+                            .split("|")
+                            .filter((v) => values.find(({ code }) => code === v));
+                        if (validFilterValues.length > 0) {
+                            filters.set(filterName, { type, value: validFilterValues });
                         }
                         break;
                     }
@@ -71,6 +76,9 @@ export const parseSearchParams = (
                         break;
                     }
                     case "select":
+                        if (values.find(({ code }) => code === filterValues)) {
+                            filters.set(filterName, { type, value: filterValues });
+                        }
                         filters.set(filterName, { type, value: filterValues });
                         break;
                     default:
