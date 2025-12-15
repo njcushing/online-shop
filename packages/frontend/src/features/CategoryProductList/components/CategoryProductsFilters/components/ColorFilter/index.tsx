@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState, useEffect, useCallback, useMemo } from "react";
 import { CategoryProductListContext } from "@/features/CategoryProductList";
 import { Skeleton } from "@mantine/core";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
@@ -13,31 +13,20 @@ export function ColorFilter({ data, awaiting = false }: TColorFilter) {
     const { filterSelections, setFilterSelections } = useContext(CategoryProductListContext);
 
     const { name, values } = data;
-    const allValues = new Set<string>([...values.map((v) => v.code)]);
+    const allValues = useMemo(() => new Set<string>([...values.map((v) => v.code)]), [values]);
 
-    const [selected, setSelected] = useState<Set<string>>(
-        (() => {
-            const initSelected = new Set<string>();
-            const colors = filterSelections.get(name);
-            if (!colors || colors.type !== "color") return initSelected;
-            const { value } = colors;
-            value.forEach((code) => {
-                if (allValues.has(code)) initSelected.add(code);
-            });
-            return initSelected;
-        })(),
-    );
-    useEffect(() => {
-        setFilterSelections((curr) => {
-            const newSelections = new Map(curr);
-            if (selected.size === 0) {
-                if (newSelections.has(name)) newSelections.delete(name);
-            } else {
-                newSelections.set(name, { type: "color", value: Array.from(selected) });
-            }
-            return newSelections;
+    const getSelected = useCallback(() => {
+        const initSelected = new Set<string>();
+        const colors = filterSelections.get(name);
+        if (!colors || colors.type !== "color") return initSelected;
+        const { value } = colors;
+        value.forEach((code) => {
+            if (allValues.has(code)) initSelected.add(code);
         });
-    }, [setFilterSelections, name, selected]);
+        return initSelected;
+    }, [filterSelections, name, allValues]);
+    const [selected, setSelected] = useState<Set<string>>(getSelected());
+    useEffect(() => setSelected(getSelected()), [getSelected]);
 
     return (
         <ul className={styles["filter-colors"]}>
@@ -51,7 +40,19 @@ export function ColorFilter({ data, awaiting = false }: TColorFilter) {
                             const newSelected = new Set<string>(selected);
                             if (newSelected.has(code)) newSelected.delete(code);
                             else newSelected.add(code);
-                            setSelected(newSelected);
+
+                            setFilterSelections((curr) => {
+                                const newSelections = new Map(curr);
+                                if (newSelected.size === 0) {
+                                    if (newSelections.has(name)) newSelections.delete(name);
+                                } else {
+                                    newSelections.set(name, {
+                                        type: "color",
+                                        value: Array.from(newSelected),
+                                    });
+                                }
+                                return newSelections;
+                            });
                         }}
                         data-selected={selected.has(code)}
                         disabled={awaiting}

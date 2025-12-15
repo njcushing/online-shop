@@ -11,23 +11,13 @@ export type TRatingFilter = {
 export function RatingFilter({ awaiting = false }: TRatingFilter) {
     const { filterSelections, setFilterSelections } = useContext(CategoryProductListContext);
 
-    const [selected, setSelected] = useState<number>(
-        (() => {
-            const rating = filterSelections.get("Rating");
-            if (!rating || rating.type !== "select" || !isNumeric(rating.value)) return 1;
-            return Number(rating);
-        })(),
-    );
-    useEffect(() => {
-        setFilterSelections((curr) => {
-            const newSelections = new Map(curr);
-            const validValue = selected > 1;
-            if (!validValue) {
-                if (newSelections.has("Rating")) newSelections.delete("Rating");
-            } else newSelections.set("Rating", { type: "select", value: `${selected}` });
-            return newSelections;
-        });
-    }, [setFilterSelections, selected]);
+    const getSelected = useCallback(() => {
+        const rating = filterSelections.get("Rating");
+        if (!rating || rating.type !== "select" || !isNumeric(rating.value)) return 1;
+        return Number(rating.value);
+    }, [filterSelections]);
+    const [selected, setSelected] = useState<number>(getSelected());
+    useEffect(() => setSelected(getSelected()), [getSelected]);
 
     const createRatingOption = useCallback(
         (tier: number, supplementaryText: string) => {
@@ -48,7 +38,20 @@ export function RatingFilter({ awaiting = false }: TRatingFilter) {
                             <p>{supplementaryText}</p>
                         </div>
                     }
-                    onChange={() => setSelected(tier)}
+                    onChange={() => {
+                        setFilterSelections((curr) => {
+                            const newSelections = new Map(curr);
+                            const validValue = tier > 1;
+                            if (!validValue) {
+                                if (newSelections.has("Rating")) newSelections.delete("Rating");
+                            } else
+                                newSelections.set("Rating", {
+                                    type: "select",
+                                    value: `${tier}`,
+                                });
+                            return newSelections;
+                        });
+                    }}
                     checked={selected === tier}
                     disabled={awaiting}
                     classNames={{
@@ -61,7 +64,7 @@ export function RatingFilter({ awaiting = false }: TRatingFilter) {
                 />
             );
         },
-        [awaiting, selected],
+        [awaiting, setFilterSelections, selected],
     );
 
     return (

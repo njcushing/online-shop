@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useCallback, useMemo } from "react";
 import { CategoryProductListContext } from "@/features/CategoryProductList";
 import { Checkbox, Skeleton } from "@mantine/core";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
@@ -13,31 +13,20 @@ export function StringFilter({ data, awaiting = false }: TStringFilter) {
     const { filterSelections, setFilterSelections } = useContext(CategoryProductListContext);
 
     const { name, values } = data;
-    const allValues = new Set<string>([...values.map((v) => v.code)]);
+    const allValues = useMemo(() => new Set<string>([...values.map((v) => v.code)]), [values]);
 
-    const [selected, setSelected] = useState<Set<string>>(
-        (() => {
-            const initSelected = new Set<string>();
-            const strings = filterSelections.get(name);
-            if (!strings || strings.type !== "text") return initSelected;
-            const { value } = strings;
-            value.forEach((code) => {
-                if (allValues.has(code)) initSelected.add(code);
-            });
-            return initSelected;
-        })(),
-    );
-    useEffect(() => {
-        setFilterSelections((curr) => {
-            const newSelections = new Map(curr);
-            if (selected.size === 0) {
-                if (newSelections.has(name)) newSelections.delete(name);
-            } else {
-                newSelections.set(name, { type: "text", value: Array.from(selected) });
-            }
-            return newSelections;
+    const getSelected = useCallback(() => {
+        const initSelected = new Set<string>();
+        const strings = filterSelections.get(name);
+        if (!strings || strings.type !== "text") return initSelected;
+        const { value } = strings;
+        value.forEach((code) => {
+            if (allValues.has(code)) initSelected.add(code);
         });
-    }, [setFilterSelections, name, selected]);
+        return initSelected;
+    }, [filterSelections, name, allValues]);
+    const [selected, setSelected] = useState<Set<string>>(getSelected());
+    useEffect(() => setSelected(getSelected()), [getSelected]);
 
     return (
         <ul className={styles["filter-strings"]} data-disabled={!!awaiting}>
@@ -75,7 +64,19 @@ export function StringFilter({ data, awaiting = false }: TStringFilter) {
                                 const newSelected = new Set<string>(selected);
                                 if (newSelected.has(code)) newSelected.delete(code);
                                 else newSelected.add(code);
-                                setSelected(newSelected);
+
+                                setFilterSelections((curr) => {
+                                    const newSelections = new Map(curr);
+                                    if (newSelected.size === 0) {
+                                        if (newSelections.has(name)) newSelections.delete(name);
+                                    } else {
+                                        newSelections.set(name, {
+                                            type: "text",
+                                            value: Array.from(newSelected),
+                                        });
+                                    }
+                                    return newSelections;
+                                });
                             }}
                             checked={selected.has(code)}
                             disabled={awaiting}

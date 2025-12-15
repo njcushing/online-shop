@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, useRef, useMemo } from "react";
+import { useContext, useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { CategoryProductListContext } from "@/features/CategoryProductList";
 import { RangeSlider, Skeleton } from "@mantine/core";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
@@ -32,41 +32,33 @@ export function PriceFilter({ awaiting = false }: TPriceFilter) {
     }, [productsData.price.min, productsData.price.max]);
     const step = 10 ** Math.floor(Math.log10(max) - 2);
 
-    const [selected, setSelected] = useState<[number, number]>(
-        (() => {
-            const range = filterSelections.get("Price");
-            if (!range || range.type !== "numeric") return [min, max];
-            return [Math.max(min, range.value[0]), Math.min(max, range.value[1])];
-        })(),
-    );
-    const awaitingRef = useRef<boolean>(contextAwaitingAny);
-    useEffect(() => {
-        awaitingRef.current = contextAwaitingAny;
-    }, [contextAwaitingAny]);
     const cachedMinMax = useRef<[number, number]>([min, max]);
-    useEffect(() => {
-        if (awaitingRef.current) return;
+
+    const getSelected = useCallback(() => {
+        const range = filterSelections.get("Price");
+        if (!range || range.type !== "numeric") return [min, max] as [number, number];
+
         const [prevMin, prevMax] = cachedMinMax.current;
-        setSelected((curr) => {
-            const newRange: [number, number] = [curr[0], curr[1]];
-            if (newRange[0] === null || newRange[0] === prevMin || newRange[0] < min) {
-                newRange[0] = min;
-            }
-            if (newRange[0] > max) newRange[0] = max;
-            if (newRange[1] === null || newRange[1] === prevMax || newRange[1] > max) {
-                newRange[1] = max;
-            }
-            if (newRange[1] < min) newRange[1] = min;
-            if (newRange[0] > newRange[1]) {
-                /* eslint-disable prefer-destructuring */
-                if (newRange[0] !== min && newRange[1] === max) newRange[1] = newRange[0];
-                else newRange[0] = newRange[1];
-                /* eslint-enable prefer-destructuring */
-            }
-            return newRange;
-        });
         cachedMinMax.current = [min, max];
-    }, [min, max]);
+        const newRange: [number, number] = range.value;
+        if (newRange[0] === null || newRange[0] === prevMin || newRange[0] < min) {
+            newRange[0] = min;
+        }
+        if (newRange[0] > max) newRange[0] = max;
+        if (newRange[1] === null || newRange[1] === prevMax || newRange[1] > max) {
+            newRange[1] = max;
+        }
+        if (newRange[1] < min) newRange[1] = min;
+        if (newRange[0] > newRange[1]) {
+            /* eslint-disable prefer-destructuring */
+            if (newRange[0] !== min && newRange[1] === max) newRange[1] = newRange[0];
+            else newRange[0] = newRange[1];
+            /* eslint-enable prefer-destructuring */
+        }
+        return newRange;
+    }, [filterSelections, min, max]);
+    const [selected, setSelected] = useState<[number, number]>(getSelected());
+    useEffect(() => setSelected(getSelected()), [getSelected]);
 
     return (
         <div className={styles["filter-price"]}>

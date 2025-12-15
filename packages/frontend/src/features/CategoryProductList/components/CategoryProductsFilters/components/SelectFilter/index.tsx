@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useCallback, useMemo } from "react";
 import { CategoryProductListContext } from "@/features/CategoryProductList";
 import { Radio, Skeleton } from "@mantine/core";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
@@ -13,25 +13,15 @@ export function SelectFilter({ data, awaiting = false }: TSelectFilter) {
     const { filterSelections, setFilterSelections } = useContext(CategoryProductListContext);
 
     const { name, values } = data;
-    const allValues = new Set<string>([...values.map((v) => v.code)]);
+    const allValues = useMemo(() => new Set<string>([...values.map((v) => v.code)]), [values]);
 
-    const [selected, setSelected] = useState<string>(
-        (() => {
-            const select = filterSelections.get(name);
-            if (!select || select.type !== "select" || !allValues.has(select.value)) return "";
-            return select.value;
-        })(),
-    );
-    useEffect(() => {
-        setFilterSelections((curr) => {
-            const newSelections = new Map(curr);
-            const validValue = selected.length > 0;
-            if (!validValue) {
-                if (newSelections.has(name)) newSelections.delete(name);
-            } else newSelections.set(name, { type: "select", value: selected });
-            return newSelections;
-        });
-    }, [setFilterSelections, name, selected]);
+    const getSelected = useCallback(() => {
+        const select = filterSelections.get(name);
+        if (!select || select.type !== "select" || !allValues.has(select.value)) return "";
+        return select.value;
+    }, [filterSelections, name, allValues]);
+    const [selected, setSelected] = useState<string>(getSelected());
+    useEffect(() => setSelected(getSelected()), [getSelected]);
 
     return (
         <Radio.Group>
@@ -66,7 +56,16 @@ export function SelectFilter({ data, awaiting = false }: TSelectFilter) {
                                     </Skeleton>
                                 </>
                             }
-                            onChange={() => setSelected(code)}
+                            onChange={() => {
+                                setFilterSelections((curr) => {
+                                    const newSelections = new Map(curr);
+                                    const validValue = code.length > 0;
+                                    if (!validValue) {
+                                        if (newSelections.has(name)) newSelections.delete(name);
+                                    } else newSelections.set(name, { type: "select", value: code });
+                                    return newSelections;
+                                });
+                            }}
                             checked={selected === code}
                             disabled={awaiting}
                             classNames={{
