@@ -50,9 +50,7 @@ export const parseSearchParams = (
                         break;
                     case "numeric": {
                         const filterValuesSplit = filterValues.split("..");
-                        if (!isNumeric(filterValuesSplit[0]) || !isNumeric(filterValuesSplit[1])) {
-                            return;
-                        }
+                        if (filterValuesSplit.some((v) => !isNumeric(v))) break;
                         filters.set(filterName, {
                             type,
                             value: [Number(filterValuesSplit[0]), Number(filterValuesSplit[1])],
@@ -70,6 +68,7 @@ export const parseSearchParams = (
                     }
                     case "date": {
                         const filterValuesSplit = filterValues.split("..");
+                        if (filterValuesSplit.some((v) => Number.isNaN(Date.parse(v)))) break;
                         if (filterValuesSplit.length > 0) {
                             filters.set(filterName, { type, value: filterValuesSplit });
                         }
