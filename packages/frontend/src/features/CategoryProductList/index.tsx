@@ -272,11 +272,11 @@ export function CategoryProductList() {
         }
     }, [urlPathSplit, clearSearchParams]);
 
-    const displaySidebar = useMemo(() => {
+    const layoutType = useMemo<"single" | "multi">(() => {
         const currentCategory = categoryBranch.find((l) => l.slug === urlPathSplit.at(-1));
-        if (!currentCategory) return false;
-        if (currentCategory.subcategories.length > 0) return false;
-        return true;
+        if (!currentCategory) return "multi";
+        if (currentCategory.subcategories.length > 0) return "multi";
+        return "single";
     }, [urlPathSplit, categoryBranch]);
 
     const awaitingProducts =
@@ -286,7 +286,7 @@ export function CategoryProductList() {
         categoryData.awaiting || categoryData.response.status === customStatusCodes.unattempted;
 
     const productCount = awaitingProducts
-        ? productsToDisplayWhileAwaiting + (displaySidebar ? 0 : 1)
+        ? productsToDisplayWhileAwaiting + (layoutType === "single" ? 0 : 1)
         : category.productCount;
     const subcategoryCount = awaitingSubcategories
         ? subcategoriesToDisplayWhileAwaiting
@@ -314,19 +314,19 @@ export function CategoryProductList() {
     }, [category.filters, awaitingCategory, setFilterSelections]);
 
     const categoryProductsFilters = useMemo(() => {
-        if (!displaySidebar) return null;
+        if (layoutType !== "single") return null;
         return (
             <CategoryProductsFilters
                 filters={category.filters}
                 awaiting={awaitingCategory || awaitingProducts}
             />
         );
-    }, [category.filters, displaySidebar, awaitingCategory, awaitingProducts]);
+    }, [category.filters, layoutType, awaitingCategory, awaitingProducts]);
 
     const categoryProductsSort = useMemo(() => {
-        if (!displaySidebar) return null;
+        if (layoutType !== "single") return null;
         return <CategoryProductsSort awaiting={awaitingCategory || awaitingProducts} />;
-    }, [awaitingCategory, displaySidebar, awaitingProducts]);
+    }, [awaitingCategory, layoutType, awaitingProducts]);
 
     const productCards = useMemo(() => {
         return productsData.products
@@ -337,10 +337,11 @@ export function CategoryProductList() {
     }, [productsData.products, awaitingProducts, productCount]);
 
     const categoryGroup = useMemo(() => {
+        if (layoutType === "multi" && productsData.products.length === 0) return null;
         return (
             <div
                 className={styles["category-product-list-category-group-container"]}
-                data-sidebar={!!displaySidebar}
+                data-sidebar={layoutType === "single"}
             >
                 {categoryProductsFilters}
 
@@ -353,9 +354,16 @@ export function CategoryProductList() {
                 </div>
             </div>
         );
-    }, [displaySidebar, categoryProductsFilters, categoryProductsSort, productCards]);
+    }, [
+        productsData.products.length,
+        layoutType,
+        categoryProductsFilters,
+        categoryProductsSort,
+        productCards,
+    ]);
 
     const subcategoryProductLists = useMemo(() => {
+        if (layoutType !== "multi") return null;
         return category.subcategories.slice(0, subcategoryCount).map((subcategory, i) => {
             const { slug } = subcategory;
             return (
@@ -365,7 +373,7 @@ export function CategoryProductList() {
                 </Fragment>
             );
         });
-    }, [category.subcategories, awaitingSubcategories, subcategoryCount]);
+    }, [category.subcategories, layoutType, awaitingSubcategories, subcategoryCount]);
 
     return (
         <CategoryProductListContext.Provider
