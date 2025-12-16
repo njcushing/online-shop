@@ -337,7 +337,7 @@ export function CategoryProductList() {
     }, [productsData.products, awaitingProducts, productCount]);
 
     const categoryGroup = useMemo(() => {
-        return productsData.products.length > 0 ? (
+        return (
             <div
                 className={styles["category-product-list-category-group-container"]}
                 data-sidebar={!!displaySidebar}
@@ -352,14 +352,8 @@ export function CategoryProductList() {
                     </div>
                 </div>
             </div>
-        ) : null;
-    }, [
-        productsData.products,
-        displaySidebar,
-        categoryProductsFilters,
-        categoryProductsSort,
-        productCards,
-    ]);
+        );
+    }, [displaySidebar, categoryProductsFilters, categoryProductsSort, productCards]);
 
     const subcategoryProductLists = useMemo(() => {
         return category.subcategories.slice(0, subcategoryCount).map((subcategory, i) => {
@@ -390,9 +384,7 @@ export function CategoryProductList() {
                 <div className={styles["category-product-list-width-controller"]}>
                     {categoryGroup}
 
-                    {productsData.products.length > 0 && category.subcategories.length > 0 && (
-                        <Divider />
-                    )}
+                    {categoryGroup && subcategoryProductLists && <Divider />}
 
                     {subcategoryProductLists}
                 </div>
