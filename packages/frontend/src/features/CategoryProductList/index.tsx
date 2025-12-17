@@ -216,6 +216,9 @@ export function CategoryProductList() {
         setSearchParams(newSearchParams);
     }, [category.filters, setSearchParams, setFilterSelections, getProducts, awaitingCategory]);
 
+    const cachedCategoryName = useRef<string>(urlPathSplit.at(-1)!);
+    const cachedProductsStatus = useRef<number>(products.response.status);
+
     useEffect(() => {
         if (awaitingCategory) return;
 
@@ -225,6 +228,8 @@ export function CategoryProductList() {
             page,
             pageSize,
         });
+
+        const hasChanged = newParams.toString() !== searchParams.toString();
 
         if (newParams.get("filter")) searchParams.set("filter", newParams.get("filter")!);
         else if (searchParams.has("filter")) searchParams.delete("filter");
@@ -244,7 +249,13 @@ export function CategoryProductList() {
             searchParams.size > 0 ? `?${searchParams.toString()}` : window.location.pathname,
         );
 
-        getProducts(newParams);
+        if (
+            hasChanged ||
+            cachedProductsStatus.current === customStatusCodes.unattempted ||
+            cachedCategoryName.current !== urlPathSplit.at(-1)!
+        ) {
+            getProducts(newParams);
+        }
     }, [
         searchParams,
         filterSelections,
@@ -253,7 +264,12 @@ export function CategoryProductList() {
         pageSize,
         getProducts,
         awaitingCategory,
+        urlPathSplit,
     ]);
+
+    useEffect(() => {
+        cachedProductsStatus.current = products.response.status;
+    }, [products.response.status]);
 
     const clearSearchParams = useCallback(() => {
         setFilterSelections(new Map());
@@ -264,7 +280,6 @@ export function CategoryProductList() {
     }, [setFilterSelections, setSearchParams]);
 
     // Clear search params when navigating to other categories
-    const cachedCategoryName = useRef<string>(urlPathSplit.at(-1)!);
     useEffect(() => {
         if (cachedCategoryName.current !== urlPathSplit.at(-1)!) {
             clearSearchParams();
