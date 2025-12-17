@@ -32,6 +32,7 @@ export function PriceFilter({ awaiting = false }: TPriceFilter) {
     }, [productsData.price.min, productsData.price.max]);
     const step = 10 ** Math.floor(Math.log10(max) - 2);
 
+    const [cachedAwaiting, setCachedAwaiting] = useState<boolean>(awaiting);
     const cachedMinMax = useRef<[number, number]>([min, max]);
 
     const getSelected = useCallback(() => {
@@ -59,19 +60,20 @@ export function PriceFilter({ awaiting = false }: TPriceFilter) {
     }, [filterSelections, min, max]);
     const [selected, setSelected] = useState<[number, number]>(getSelected());
     useEffect(() => setSelected(getSelected()), [getSelected]);
+    useEffect(() => setCachedAwaiting(awaiting), [awaiting]);
 
     return (
         <div className={styles["filter-price"]}>
-            <Skeleton visible={awaiting}>
+            <Skeleton visible={awaiting || cachedAwaiting}>
                 <p
                     className={styles["filter-price-range"]}
-                    style={{ visibility: awaiting ? "hidden" : "initial" }}
+                    style={{ visibility: awaiting || cachedAwaiting ? "hidden" : "initial" }}
                 >
                     £{(selected[0] / 100).toFixed(2)} - £{(selected[1] / 100).toFixed(2)}
                 </p>
             </Skeleton>
 
-            <Skeleton visible={awaiting}>
+            <Skeleton visible={awaiting || cachedAwaiting}>
                 <RangeSlider
                     color="black"
                     size="lg"
@@ -98,8 +100,8 @@ export function PriceFilter({ awaiting = false }: TPriceFilter) {
                             return newSelections;
                         });
                     }}
-                    disabled={awaiting}
-                    style={{ visibility: awaiting ? "hidden" : "initial" }}
+                    disabled={awaiting || cachedAwaiting}
+                    style={{ visibility: awaiting || cachedAwaiting ? "hidden" : "initial" }}
                 />
             </Skeleton>
         </div>

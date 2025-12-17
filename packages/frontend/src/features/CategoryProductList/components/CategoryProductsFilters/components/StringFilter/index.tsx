@@ -15,6 +15,8 @@ export function StringFilter({ data, awaiting = false }: TStringFilter) {
     const { name, values } = data;
     const allValues = useMemo(() => new Set<string>([...values.map((v) => v.code)]), [values]);
 
+    const [cachedAwaiting, setCachedAwaiting] = useState<boolean>(awaiting);
+
     const getSelected = useCallback(() => {
         const initSelected = new Set<string>();
         const strings = filterSelections.get(name);
@@ -27,9 +29,10 @@ export function StringFilter({ data, awaiting = false }: TStringFilter) {
     }, [filterSelections, name, allValues]);
     const [selected, setSelected] = useState<Set<string>>(getSelected());
     useEffect(() => setSelected(getSelected()), [getSelected]);
+    useEffect(() => setCachedAwaiting(awaiting), [awaiting]);
 
     return (
-        <ul className={styles["filter-strings"]} data-disabled={!!awaiting}>
+        <ul className={styles["filter-strings"]} data-disabled={!!awaiting || cachedAwaiting}>
             {values.map((value) => {
                 const { code, name: valueName, count } = value;
 
@@ -38,21 +41,27 @@ export function StringFilter({ data, awaiting = false }: TStringFilter) {
                         <Checkbox
                             label={
                                 <>
-                                    <Skeleton visible={awaiting}>
+                                    <Skeleton visible={awaiting || cachedAwaiting}>
                                         <p
                                             className={styles["filter-value-name"]}
                                             style={{
-                                                visibility: awaiting ? "hidden" : "initial",
+                                                visibility:
+                                                    awaiting || cachedAwaiting
+                                                        ? "hidden"
+                                                        : "initial",
                                             }}
                                         >
                                             {valueName}
                                         </p>
                                     </Skeleton>
-                                    <Skeleton visible={awaiting}>
+                                    <Skeleton visible={awaiting || cachedAwaiting}>
                                         <p
                                             className={styles["filter-value-count"]}
                                             style={{
-                                                visibility: awaiting ? "hidden" : "initial",
+                                                visibility:
+                                                    awaiting || cachedAwaiting
+                                                        ? "hidden"
+                                                        : "initial",
                                             }}
                                         >
                                             ({count})
@@ -79,7 +88,7 @@ export function StringFilter({ data, awaiting = false }: TStringFilter) {
                                 });
                             }}
                             checked={selected.has(code)}
-                            disabled={awaiting}
+                            disabled={awaiting || cachedAwaiting}
                             classNames={{
                                 root: styles["checkbox-root"],
                                 body: styles["checkbox-body"],

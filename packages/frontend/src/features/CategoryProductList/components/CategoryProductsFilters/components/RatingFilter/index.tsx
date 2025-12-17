@@ -11,6 +11,8 @@ export type TRatingFilter = {
 export function RatingFilter({ awaiting = false }: TRatingFilter) {
     const { filterSelections, setFilterSelections } = useContext(CategoryProductListContext);
 
+    const [cachedAwaiting, setCachedAwaiting] = useState<boolean>(awaiting);
+
     const getSelected = useCallback(() => {
         const rating = filterSelections.get("Rating");
         if (!rating || rating.type !== "select" || !isNumeric(rating.value)) return 1;
@@ -18,6 +20,7 @@ export function RatingFilter({ awaiting = false }: TRatingFilter) {
     }, [filterSelections]);
     const [selected, setSelected] = useState<number>(getSelected());
     useEffect(() => setSelected(getSelected()), [getSelected]);
+    useEffect(() => setCachedAwaiting(awaiting), [awaiting]);
 
     const createRatingOption = useCallback(
         (tier: number, supplementaryText: string) => {
@@ -53,7 +56,7 @@ export function RatingFilter({ awaiting = false }: TRatingFilter) {
                         });
                     }}
                     checked={selected === tier}
-                    disabled={awaiting}
+                    disabled={awaiting || cachedAwaiting}
                     classNames={{
                         root: styles["radio-root"],
                         body: styles["radio-body"],
@@ -64,11 +67,11 @@ export function RatingFilter({ awaiting = false }: TRatingFilter) {
                 />
             );
         },
-        [awaiting, setFilterSelections, selected],
+        [awaiting, setFilterSelections, cachedAwaiting, selected],
     );
 
     return (
-        <span className={styles["filter-rating"]} data-disabled={awaiting}>
+        <span className={styles["filter-rating"]} data-disabled={awaiting || cachedAwaiting}>
             {createRatingOption(5, "only")}
             {createRatingOption(4, "& above")}
             {createRatingOption(3, "& above")}

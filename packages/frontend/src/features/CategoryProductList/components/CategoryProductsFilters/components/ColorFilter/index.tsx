@@ -15,6 +15,8 @@ export function ColorFilter({ data, awaiting = false }: TColorFilter) {
     const { name, values } = data;
     const allValues = useMemo(() => new Set<string>([...values.map((v) => v.code)]), [values]);
 
+    const [cachedAwaiting, setCachedAwaiting] = useState<boolean>(awaiting);
+
     const getSelected = useCallback(() => {
         const initSelected = new Set<string>();
         const colors = filterSelections.get(name);
@@ -27,6 +29,7 @@ export function ColorFilter({ data, awaiting = false }: TColorFilter) {
     }, [filterSelections, name, allValues]);
     const [selected, setSelected] = useState<Set<string>>(getSelected());
     useEffect(() => setSelected(getSelected()), [getSelected]);
+    useEffect(() => setCachedAwaiting(awaiting), [awaiting]);
 
     return (
         <ul className={styles["filter-colors"]}>
@@ -55,35 +58,35 @@ export function ColorFilter({ data, awaiting = false }: TColorFilter) {
                             });
                         }}
                         data-selected={selected.has(code)}
-                        disabled={awaiting}
+                        disabled={awaiting || cachedAwaiting}
                         className={styles["filter-value-color"]}
                         key={code}
                     >
-                        <Skeleton visible={awaiting}>
+                        <Skeleton visible={awaiting || cachedAwaiting}>
                             <div
                                 className={styles["filter-value-color-box"]}
                                 data-valid-color={!!valueString}
                                 style={{
-                                    visibility: awaiting ? "hidden" : "initial",
+                                    visibility: awaiting || cachedAwaiting ? "hidden" : "initial",
                                     backgroundColor: valueString,
                                 }}
                             ></div>
                         </Skeleton>
-                        <Skeleton visible={awaiting}>
+                        <Skeleton visible={awaiting || cachedAwaiting}>
                             <p
                                 className={styles["filter-value-name"]}
                                 style={{
-                                    visibility: awaiting ? "hidden" : "initial",
+                                    visibility: awaiting || cachedAwaiting ? "hidden" : "initial",
                                 }}
                             >
                                 {valueName}
                             </p>
                         </Skeleton>
-                        <Skeleton visible={awaiting}>
+                        <Skeleton visible={awaiting || cachedAwaiting}>
                             <p
                                 className={styles["filter-value-count"]}
                                 style={{
-                                    visibility: awaiting ? "hidden" : "initial",
+                                    visibility: awaiting || cachedAwaiting ? "hidden" : "initial",
                                 }}
                             >
                                 ({count})

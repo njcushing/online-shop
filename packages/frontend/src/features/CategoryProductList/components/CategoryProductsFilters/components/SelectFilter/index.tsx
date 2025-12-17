@@ -15,6 +15,8 @@ export function SelectFilter({ data, awaiting = false }: TSelectFilter) {
     const { name, values } = data;
     const allValues = useMemo(() => new Set<string>([...values.map((v) => v.code)]), [values]);
 
+    const [cachedAwaiting, setCachedAwaiting] = useState<boolean>(awaiting);
+
     const getSelected = useCallback(() => {
         const select = filterSelections.get(name);
         if (!select || select.type !== "select" || !allValues.has(select.value)) return "";
@@ -22,6 +24,7 @@ export function SelectFilter({ data, awaiting = false }: TSelectFilter) {
     }, [filterSelections, name, allValues]);
     const [selected, setSelected] = useState<string>(getSelected());
     useEffect(() => setSelected(getSelected()), [getSelected]);
+    useEffect(() => setCachedAwaiting(awaiting), [awaiting]);
 
     return (
         <Radio.Group>
@@ -34,21 +37,27 @@ export function SelectFilter({ data, awaiting = false }: TSelectFilter) {
                             value={code}
                             label={
                                 <>
-                                    <Skeleton visible={awaiting}>
+                                    <Skeleton visible={awaiting || cachedAwaiting}>
                                         <p
                                             className={styles["filter-value-name"]}
                                             style={{
-                                                visibility: awaiting ? "hidden" : "initial",
+                                                visibility:
+                                                    awaiting || cachedAwaiting
+                                                        ? "hidden"
+                                                        : "initial",
                                             }}
                                         >
                                             {valueName}
                                         </p>
                                     </Skeleton>
-                                    <Skeleton visible={awaiting}>
+                                    <Skeleton visible={awaiting || cachedAwaiting}>
                                         <p
                                             className={styles["filter-value-count"]}
                                             style={{
-                                                visibility: awaiting ? "hidden" : "initial",
+                                                visibility:
+                                                    awaiting || cachedAwaiting
+                                                        ? "hidden"
+                                                        : "initial",
                                             }}
                                         >
                                             ({count})
@@ -67,7 +76,7 @@ export function SelectFilter({ data, awaiting = false }: TSelectFilter) {
                                 });
                             }}
                             checked={selected === code}
-                            disabled={awaiting}
+                            disabled={awaiting || cachedAwaiting}
                             classNames={{
                                 root: styles["radio-root"],
                                 body: styles["radio-body"],
