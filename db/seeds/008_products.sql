@@ -1,31 +1,20 @@
 BEGIN;
 
-INSERT INTO products
-    (name, description, slug, allowance, active, release_date)
-VALUES
-    (
-        'Coffee - Whole Bean - 250g',
-        '',
-        'coffee-whole-bean-250g',
-        100,
-        true,
-        now()
-    ),
-    (
-        'Coffee - Whole Bean - 500g',
-        '',
-        'coffee-whole-bean-500g',
-        50,
-        true,
-        now()
-    ),
-    (
-        'Coffee - Whole Bean - 1kg',
-        '',
-        'coffee-whole-bean-1kg',
-        25,
-        true,
-        now()
-    );
+CREATE TEMP TABLE products_csv (
+    name text,
+    description text,
+    slug text,
+    allowance int,
+    active boolean,
+    release_date timestamptz
+);
+
+COPY products_csv (name, description, slug, allowance, active, release_date)
+FROM '/db/seeds/data/products.csv'
+WITH (FORMAT csv, HEADER true);
+
+INSERT INTO products (name, description, slug, allowance, active, release_date)
+SELECT name, description, slug, allowance, active, release_date
+FROM products_csv;
 
 COMMIT;
