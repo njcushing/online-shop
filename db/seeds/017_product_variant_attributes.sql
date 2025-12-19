@@ -1,91 +1,23 @@
 BEGIN;
 
-INSERT INTO product_variant_attributes
-    (product_id, product_variant_id, product_attribute_id, product_attribute_value_id)
-VALUES
-    (
-        (SELECT id FROM products WHERE slug='coffee-whole-bean-250g'),
-        (SELECT id FROM product_variants WHERE sku='COF-WB-250G-LT'),
-        (SELECT id FROM product_attributes WHERE name='Blend'),
-        (SELECT get_product_attribute_value_id('Blend', 'LT'))
-    ),
-    (
-        (SELECT id FROM products WHERE slug='coffee-whole-bean-250g'),
-        (SELECT id FROM product_variants WHERE sku='COF-WB-250G-MD'),
-        (SELECT id FROM product_attributes WHERE name='Blend'),
-        (SELECT get_product_attribute_value_id('Blend', 'MD'))
-    ),
-    (
-        (SELECT id FROM products WHERE slug='coffee-whole-bean-250g'),
-        (SELECT id FROM product_variants WHERE sku='COF-WB-250G-XD'),
-        (SELECT id FROM product_attributes WHERE name='Blend'),
-        (SELECT get_product_attribute_value_id('Blend', 'XD'))
-    ),
-    (
-        (SELECT id FROM products WHERE slug='coffee-whole-bean-250g'),
-        (SELECT id FROM product_variants WHERE sku='COF-WB-250G-DK'),
-        (SELECT id FROM product_attributes WHERE name='Blend'),
-        (SELECT get_product_attribute_value_id('Blend', 'DK'))
-    ),
-    (
-        (SELECT id FROM products WHERE slug='coffee-whole-bean-250g'),
-        (SELECT id FROM product_variants WHERE sku='COF-WB-250G-MO'),
-        (SELECT id FROM product_attributes WHERE name='Blend'),
-        (SELECT get_product_attribute_value_id('Blend', 'MO'))
-    ),
-    (
-        (SELECT id FROM products WHERE slug='coffee-whole-bean-500g'),
-        (SELECT id FROM product_variants WHERE sku='COF-WB-500G-DK'),
-        (SELECT id FROM product_attributes WHERE name='Blend'),
-        (SELECT get_product_attribute_value_id('Blend', 'DK'))
-    ),
-    (
-        (SELECT id FROM products WHERE slug='coffee-whole-bean-500g'),
-        (SELECT id FROM product_variants WHERE sku='COF-WB-500G-LT'),
-        (SELECT id FROM product_attributes WHERE name='Blend'),
-        (SELECT get_product_attribute_value_id('Blend', 'LT'))
-    ),
-    (
-        (SELECT id FROM products WHERE slug='coffee-whole-bean-500g'),
-        (SELECT id FROM product_variants WHERE sku='COF-WB-500G-MD'),
-        (SELECT id FROM product_attributes WHERE name='Blend'),
-        (SELECT get_product_attribute_value_id('Blend', 'MD'))
-    ),
-    (
-        (SELECT id FROM products WHERE slug='coffee-whole-bean-500g'),
-        (SELECT id FROM product_variants WHERE sku='COF-WB-500G-IN'),
-        (SELECT id FROM product_attributes WHERE name='Blend'),
-        (SELECT get_product_attribute_value_id('Blend', 'IN'))
-    ),
-    (
-        (SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'),
-        (SELECT id FROM product_variants WHERE sku='COF-WB-1KG-LT'),
-        (SELECT id FROM product_attributes WHERE name='Blend'),
-        (SELECT get_product_attribute_value_id('Blend', 'LT'))
-    ),
-    (
-        (SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'),
-        (SELECT id FROM product_variants WHERE sku='COF-WB-1KG-PK'),
-        (SELECT id FROM product_attributes WHERE name='Blend'),
-        (SELECT get_product_attribute_value_id('Blend', 'PK'))
-    ),
-    (
-        (SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'),
-        (SELECT id FROM product_variants WHERE sku='COF-WB-1KG-MD'),
-        (SELECT id FROM product_attributes WHERE name='Blend'),
-        (SELECT get_product_attribute_value_id('Blend', 'MD'))
-    ),
-    (
-        (SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'),
-        (SELECT id FROM product_variants WHERE sku='COF-WB-1KG-DK'),
-        (SELECT id FROM product_attributes WHERE name='Blend'),
-        (SELECT get_product_attribute_value_id('Blend', 'DK'))
-    ),
-    (
-        (SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'),
-        (SELECT id FROM product_variants WHERE sku='COF-WB-1KG-ES'),
-        (SELECT id FROM product_attributes WHERE name='Blend'),
-        (SELECT get_product_attribute_value_id('Blend', 'ES'))
-    );
+CREATE TEMP TABLE product_variant_attributes_csv (
+    product_slug text,
+    product_variant_sku text,
+    product_attribute_name text,
+    product_attribute_value_code text
+);
+
+COPY product_variant_attributes_csv (product_slug, product_variant_sku, product_attribute_name, product_attribute_value_code)
+FROM '/db/seeds/data/product_variant_attributes.csv'
+WITH (FORMAT csv, HEADER true);
+
+INSERT INTO product_variant_attributes (product_id, product_variant_id, product_attribute_id, product_attribute_value_id)
+SELECT p.id, pv.id, pa.id, pav.id
+FROM product_variant_attributes_csv pva
+JOIN products p ON p.slug = pva.product_slug
+JOIN product_variants pv ON pv.sku = pva.product_variant_sku
+JOIN product_attributes pa ON pa.name = pva.product_attribute_name
+JOIN product_attribute_values pav ON pav.code = pva.product_attribute_value_code
+    AND pav.product_attribute_id = pa.id;
 
 COMMIT;

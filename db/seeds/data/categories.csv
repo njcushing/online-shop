@@ -1,0 +1,25 @@
+parent_slug,name,slug,description
+,Coffee,coffee,All coffee-related products.
+,Tea,tea,A variety of teas from around the world.
+,Equipment,equipment,Everything you need to brew coffee & tea.
+,Accessories,accessories,Enhance your coffee and tea experience.
+,Gifts & Subscriptions,gifts_subscriptions,Great gifts for coffee and tea lovers.
+coffee,Beans,beans,Whole coffee beans.
+coffee,Ground,ground,Pre-ground coffee for convenience.
+coffee,Instant & Pods,instant-and-pods,Whole coffee beans.
+coffee,Cold Brew & Ready-to-Drink,cold-brew-ready,Pre-made cold brews.
+tea,Loose Leaf,loose-leaf,High-quality loose tea leaves.
+tea,Bags,bags,Convenient tea bags.
+tea,Specialty & Powdered,specialty-and-powdered,Matcha and chai powders.
+tea,Ready-to-Drink,ready-to-drink,Pre-bottled teas.
+equipment,Brewing,brewing,Manual brewing devices.
+equipment,Espresso Machines,espresso-machines,Machines for making espresso.
+equipment,Grinders,grinders,For freshly ground coffee.
+equipment,Scales & Timers,scales-timers,Precision tools for brewing.
+equipment,Cold Brew Makers,cold-brew-makers,Specialized cold brew tools.
+accessories,Mugs & Tumblers,mugs-tumblers,Drinkware for all beverages.
+accessories,Filters & Maintenance,filters-maintenance,Reusable and disposable filters.
+accessories,Frothers & Steamers,frothers-steamers,Tools for milk frothing.
+gifts_subscriptions,Gift Sets & Sampler Packs,gift-sets-packs,Curated gift sets.
+gifts_subscriptions,Coffee Subscription Boxes,subscription-boxes,Monthly coffee deliveries.
+gifts_subscriptions,Gift Cards,gift-cards,Digital and physical gift cards.

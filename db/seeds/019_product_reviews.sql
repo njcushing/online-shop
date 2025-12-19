@@ -1,80 +1,21 @@
 BEGIN;
 
-INSERT INTO product_reviews (product_id, product_variant_id, title, description, rating) VALUES
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), (SELECT id FROM product_variants WHERE sku='COF-WB-250G-LT'), 'Review 1 Title', 'Review 1 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), NULL, 'Review 2 Title', 'Review 2 Description', 1),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), (SELECT id FROM product_variants WHERE sku='COF-WB-250G-MD'), 'Review 3 Title', 'Review 3 Description', 4),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), (SELECT id FROM product_variants WHERE sku='COF-WB-250G-LT'), 'Review 4 Title', 'Review 4 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), NULL, 'Review 5 Title', 'Review 5 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), NULL, 'Review 6 Title', 'Review 6 Description', 3),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), (SELECT id FROM product_variants WHERE sku='COF-WB-250G-DK'), 'Review 7 Title', 'Review 7 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), NULL, 'Review 8 Title', 'Review 8 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), (SELECT id FROM product_variants WHERE sku='COF-WB-250G-MD'), 'Review 9 Title', 'Review 9 Description', 4),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), NULL, 'Review 10 Title', 'Review 10 Description', 2),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), (SELECT id FROM product_variants WHERE sku='COF-WB-250G-MD'), 'Review 11 Title', 'Review 11 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), NULL, 'Review 12 Title', 'Review 12 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), NULL, 'Review 13 Title', 'Review 13 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), (SELECT id FROM product_variants WHERE sku='COF-WB-250G-LT'), 'Review 14 Title', 'Review 14 Description', 3),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), (SELECT id FROM product_variants WHERE sku='COF-WB-250G-LT'), 'Review 15 Title', 'Review 15 Description', 4),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), NULL, 'Review 16 Title', 'Review 16 Description', 4),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), NULL, 'Review 17 Title', 'Review 17 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), (SELECT id FROM product_variants WHERE sku='COF-WB-250G-DK'), 'Review 18 Title', 'Review 18 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), NULL, 'Review 19 Title', 'Review 19 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), NULL, 'Review 20 Title', 'Review 20 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), NULL, 'Review 21 Title', 'Review 21 Description', 1),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), (SELECT id FROM product_variants WHERE sku='COF-WB-250G-MD'), 'Review 22 Title', 'Review 22 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), (SELECT id FROM product_variants WHERE sku='COF-WB-250G-MD'), 'Review 23 Title', 'Review 23 Description', 2),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), (SELECT id FROM product_variants WHERE sku='COF-WB-250G-DK'), 'Review 24 Title', 'Review 24 Description', 4),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-250g'), NULL, 'Review 25 Title', 'Review 25 Description', 1),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), NULL, 'Review 1 Title', 'Review 1 Description', 4),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), (SELECT id FROM product_variants WHERE sku='COF-WB-500G-MD'), 'Review 2 Title', 'Review 2 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), (SELECT id FROM product_variants WHERE sku='COF-WB-500G-DK'), 'Review 3 Title', 'Review 3 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), (SELECT id FROM product_variants WHERE sku='COF-WB-500G-DK'), 'Review 4 Title', 'Review 4 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), NULL, 'Review 5 Title', 'Review 5 Description', 1),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), (SELECT id FROM product_variants WHERE sku='COF-WB-500G-MD'), 'Review 6 Title', 'Review 6 Description', 2),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), (SELECT id FROM product_variants WHERE sku='COF-WB-500G-LT'), 'Review 7 Title', 'Review 7 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), NULL, 'Review 8 Title', 'Review 8 Description', 3),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), NULL, 'Review 9 Title', 'Review 9 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), (SELECT id FROM product_variants WHERE sku='COF-WB-500G-MD'), 'Review 10 Title', 'Review 10 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), NULL, 'Review 11 Title', 'Review 11 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), NULL, 'Review 12 Title', 'Review 12 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), (SELECT id FROM product_variants WHERE sku='COF-WB-500G-DK'), 'Review 13 Title', 'Review 13 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), (SELECT id FROM product_variants WHERE sku='COF-WB-500G-LT'), 'Review 14 Title', 'Review 14 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), NULL, 'Review 15 Title', 'Review 15 Description', 3),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), NULL, 'Review 16 Title', 'Review 16 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), (SELECT id FROM product_variants WHERE sku='COF-WB-500G-MD'), 'Review 17 Title', 'Review 17 Description', 4),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), NULL, 'Review 18 Title', 'Review 18 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), NULL, 'Review 19 Title', 'Review 19 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), (SELECT id FROM product_variants WHERE sku='COF-WB-500G-LT'), 'Review 20 Title', 'Review 20 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), (SELECT id FROM product_variants WHERE sku='COF-WB-500G-MD'), 'Review 21 Title', 'Review 21 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), (SELECT id FROM product_variants WHERE sku='COF-WB-500G-DK'), 'Review 22 Title', 'Review 22 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), NULL, 'Review 23 Title', 'Review 23 Description', 1),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), (SELECT id FROM product_variants WHERE sku='COF-WB-500G-LT'), 'Review 24 Title', 'Review 24 Description', 1),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-500g'), NULL, 'Review 25 Title', 'Review 25 Description', 4),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), NULL, 'Review 1 Title', 'Review 1 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), (SELECT id FROM product_variants WHERE sku='COF-WB-1KG-LT'), 'Review 2 Title', 'Review 2 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), NULL, 'Review 3 Title', 'Review 3 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), (SELECT id FROM product_variants WHERE sku='COF-WB-1KG-MD'), 'Review 4 Title', 'Review 4 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), NULL, 'Review 5 Title', 'Review 5 Description', 3),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), NULL, 'Review 6 Title', 'Review 6 Description', 1),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), (SELECT id FROM product_variants WHERE sku='COF-WB-1KG-DK'), 'Review 7 Title', 'Review 7 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), (SELECT id FROM product_variants WHERE sku='COF-WB-1KG-LT'), 'Review 8 Title', 'Review 8 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), NULL, 'Review 9 Title', 'Review 9 Description', 2),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), (SELECT id FROM product_variants WHERE sku='COF-WB-1KG-MD'), 'Review 10 Title', 'Review 10 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), (SELECT id FROM product_variants WHERE sku='COF-WB-1KG-DK'), 'Review 11 Title', 'Review 11 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), NULL, 'Review 12 Title', 'Review 12 Description', 4),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), NULL, 'Review 13 Title', 'Review 13 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), (SELECT id FROM product_variants WHERE sku='COF-WB-1KG-LT'), 'Review 14 Title', 'Review 14 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), (SELECT id FROM product_variants WHERE sku='COF-WB-1KG-LT'), 'Review 15 Title', 'Review 15 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), NULL, 'Review 16 Title', 'Review 16 Description', 4),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), (SELECT id FROM product_variants WHERE sku='COF-WB-1KG-DK'), 'Review 17 Title', 'Review 17 Description', 4),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), NULL, 'Review 18 Title', 'Review 18 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), (SELECT id FROM product_variants WHERE sku='COF-WB-1KG-MD'), 'Review 19 Title', 'Review 19 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), NULL, 'Review 20 Title', 'Review 20 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), (SELECT id FROM product_variants WHERE sku='COF-WB-1KG-DK'), 'Review 21 Title', 'Review 21 Description', 1),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), NULL, 'Review 22 Title', 'Review 22 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), NULL, 'Review 23 Title', 'Review 23 Description', 5),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), (SELECT id FROM product_variants WHERE sku='COF-WB-1KG-LT'), 'Review 24 Title', 'Review 24 Description', 1),
-    ((SELECT id FROM products WHERE slug='coffee-whole-bean-1kg'), (SELECT id FROM product_variants WHERE sku='COF-WB-1KG-DK'), 'Review 25 Title', 'Review 25 Description', 5);
+CREATE TEMP TABLE product_reviews_csv (
+    product_slug text,
+    product_variant_sku text,
+    title text,
+    description text,
+    rating int
+);
+
+COPY product_reviews_csv (product_slug, product_variant_sku, title, description, rating)
+FROM '/db/seeds/data/product_reviews.csv'
+WITH (FORMAT csv, HEADER true);
+
+INSERT INTO product_reviews (product_id, product_variant_id, title, description, rating)
+SELECT p.id, pv.id, pr.title, pr.description, pr.rating
+FROM product_reviews_csv pr
+JOIN products p ON p.slug = pr.product_slug
+LEFT JOIN product_variants pv ON pv.sku = pr.product_variant_sku;
 
 COMMIT;

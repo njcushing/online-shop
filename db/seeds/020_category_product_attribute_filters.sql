@@ -1,6 +1,18 @@
 BEGIN;
 
-INSERT INTO category_product_attribute_filters (category_id, product_attribute_id) VALUES
-    ((SELECT id FROM categories WHERE slug='beans'), (SELECT id FROM product_attributes WHERE name='Blend'));
+CREATE TEMP TABLE category_product_attribute_filters_csv (
+    category_slug text,
+    product_attribute_name text
+);
+
+COPY category_product_attribute_filters_csv (category_slug, product_attribute_name)
+FROM '/db/seeds/data/category_product_attribute_filters.csv'
+WITH (FORMAT csv, HEADER true);
+
+INSERT INTO category_product_attribute_filters (category_id, product_attribute_id)
+SELECT c.id, pa.id
+FROM category_product_attribute_filters_csv cpaf
+JOIN categories c ON c.slug = cpaf.category_slug
+JOIN product_attributes pa ON pa.name = cpaf.product_attribute_name;
 
 COMMIT;

@@ -1,0 +1,31 @@
+product_slug,name,sku,can_subscribe,price_current,price_base,subscription_discount_percentage,stock,allowance_override,times_sold,times_returned,active,release_date
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g - House Blend,COF-WB-250G-HO,TRUE,550.00,700.00,5.0000,891,,9858,2,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g - Light Blend,COF-WB-250G-LT,TRUE,600.00,700.00,5.0000,567,,3899,19,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g - Medium Blend,COF-WB-250G-MD,FALSE,700.00,700.00,0.0000,1223,,9639,37,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g - Dark Blend,COF-WB-250G-DK,TRUE,700.00,700.00,7.5000,3425,,9679,16,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g - Extra Dark Blend,COF-WB-250G-XD,TRUE,700.00,700.00,5.0000,345,,8987,5,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g - Breakfast Blend,COF-WB-250G-BK,TRUE,500.00,700.00,5.0000,768,,7988,48,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g - Pumpkin Spice Blend,COF-WB-250G-PK,TRUE,675.00,700.00,7.5000,456,,4696,32,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g - Mocha Blend,COF-WB-250G-MO,FALSE,675.00,700.00,0.0000,2178,,4542,22,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g - Espresso Blend,COF-WB-250G-ES,FALSE,600.00,700.00,0.0000,978,,5797,3,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g - Vanilla Blend,COF-WB-250G-VA,TRUE,625.00,700.00,5.0000,823,,6421,1,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g - House Blend,COF-WB-500G-HO,TRUE,1250.00,1250.00,5.0000,389,,4237,2,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g - Light Blend,COF-WB-500G-LT,TRUE,1100.00,1250.00,0.0000,294,,1259,5,FALSE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g - Medium Blend,COF-WB-500G-MD,FALSE,1200.00,1250.00,10.0000,273,,2532,17,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g - Dark Blend,COF-WB-500G-DK,TRUE,1250.00,1250.00,0.0000,280,,2026,6,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g - Extra Dark Blend,COF-WB-500G-XD,FALSE,1250.00,1250.00,5.0000,210,,3093,6,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g - Breakfast Blend,COF-WB-500G-BK,TRUE,1125.00,1250.00,0.0000,189,,1986,19,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g - Mocha Blend,COF-WB-500G-MO,FALSE,1250.00,1250.00,5.0000,213,,1573,10,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g - Espresso Blend,COF-WB-500G-ES,TRUE,1100.00,1250.00,5.0000,217,,2250,3,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g - Caramel Blend,COF-WB-500G-CA,TRUE,1000.00,1250.00,2.5000,188,,2087,10,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g - French Roast Blend,COF-WB-500G-FR,TRUE,1250.00,1250.00,7.5000,120,20,3312,16,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg - House Blend,COF-WB-1KG-HO,TRUE,2200.00,2250.00,5.0000,85,,641,1,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg - Light Blend,COF-WB-1KG-LT,TRUE,2250.00,2250.00,5.0000,48,,475,2,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg - Medium Blend,COF-WB-1KG-MD,TRUE,2210.00,2250.00,5.0000,92,,407,3,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg - Dark Blend,COF-WB-1KG-DK,TRUE,2200.00,2250.00,10.0000,78,,635,2,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg - Extra Dark Blend,COF-WB-1KG-XD,FALSE,1700.00,2250.00,0.0000,29,,354,2,FALSE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg - Pumpkin Spice Blend,COF-WB-1KG-PK,TRUE,2250.00,2250.00,5.0000,95,,655,1,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg - Mocha Blend,COF-WB-1KG-MO,FALSE,2250.00,2250.00,0.0000,38,,905,5,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg - Vanilla Blend,COF-WB-1KG-VA,TRUE,1950.00,2250.00,2.5000,44,,490,3,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg - Intense Blend,COF-WB-1KG-IN,TRUE,2250.00,2250.00,5.0000,20,,498,2,TRUE,2025-12-18 15:18:47.833+00
+coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg - Italian Roast Blend,COF-WB-1KG-IR,TRUE,1900.00,2250.00,2.5000,35,10,566,5,TRUE,2025-12-18 15:18:47.833+00
