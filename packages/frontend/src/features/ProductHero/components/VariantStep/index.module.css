@@ -18,6 +18,52 @@
     text-transform: capitalize;
 }
 
+.checkbox-root {
+    width: 100%;
+}
+
+.checkbox-body {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px;
+
+    width: 100%;
+}
+
+.checkbox-input {
+    outline: 3px solid transparent;
+    outline-offset: -1px;
+    border: 1px solid black;
+    border-radius: 4px;
+    background: none;
+
+    transition: outline linear 0.16s;
+}
+
+@media (hover: hover) {
+    .checkbox-root:hover * {
+        cursor: pointer;
+    }
+
+    .checkbox-root:hover .checkbox-input {
+        outline-color: black;
+    }
+}
+
+.checkbox-input:focus-visible {
+    outline: 2px solid #000;
+    border-radius: 0px;
+}
+
+.checkbox-label {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4px;
+
+    width: 100%;
+    padding-left: 4px;
+}
+
 .variant-step-options {
     display: flex;
     flex-direction: row;
@@ -25,7 +71,7 @@
     gap: 8px;
 }
 
-.variant-step-text-button {
+.variant-step-text {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -35,12 +81,12 @@
 
     color: black;
     font-family: var(--font-primary);
-    font-size: 1.1rem;
+    font-size: 1rem;
     text-wrap: wrap;
 
-    outline: 2px solid transparent;
-    outline-offset: 2px;
-    border: 2px solid black;
+    outline: 3px solid transparent;
+    outline-offset: -1px;
+    border: 1px solid black;
     border-radius: 4px;
     background: none;
 
@@ -49,7 +95,7 @@
     transition: outline linear 0.16s;
 
     @media (min-width: $mantine-breakpoint-xs) {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
 }
 
@@ -125,6 +171,6 @@
 }
 
 .variant-step-text:focus-visible {
-    outline: 2px solid #000;
+    outline-color: black;
     border-radius: 0px;
 }
