@@ -4,62 +4,23 @@ import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slu
 import { ResponseBody as GetReviewsByProductSlugResponseDto } from "@/api/products/[slug]/reviews/GET";
 import { v4 as uuid } from "uuid";
 
-type ExtractAttributesReturnType = {
-    info: GetProductBySlugResponseDto["attributes"][number];
-    values: GetProductBySlugResponseDto["variants"][number]["attributes"][number]["value"][];
-}[];
-export const extractAttributesOrdered = (
-    product: GetProductBySlugResponseDto,
-): ExtractAttributesReturnType => {
-    const attributeMap: Map<string, { index: number; codes: Set<string> }> = new Map();
-    const attributes: ExtractAttributesReturnType = [];
-
-    const { attributes: attributeOrder, variants } = product;
-
-    variants.forEach((variant) => {
-        variant.attributes.forEach((attribute) => {
-            const { type, value } = attribute;
-            const { name } = type;
-
-            if (!attributeMap.has(name)) {
-                attributeMap.set(name, { index: attributes.length, codes: new Set() });
-
-                attributes.push({
-                    info: attributeOrder.find((a) => a.name === name)!,
-                    values: [],
-                });
-            }
-
-            if (!attributeMap.get(name)!.codes.has(value.code)) {
-                attributeMap.get(name)!.codes.add(value.code);
-                attributes[attributeMap.get(name)!.index]!.values.push(value);
-            }
-        });
-    });
-
-    attributes.sort((a, b) => a.info.position - b.info.position);
-    attributes.map((att) => att.values.sort((a, b) => a.position - b.position));
-
-    return attributes;
-};
-
 export const extractRelatedAttributesOrdered = (
     product: GetProductBySlugResponseDto,
     selectedVariant: GetProductBySlugResponseDto["variants"][number],
-): ExtractAttributesReturnType => {
-    const { attributes: attributeOrder, variants } = product;
+): GetProductBySlugResponseDto["attributes"] => {
+    const { attributes: allAttributes, variants } = product;
     const { attributes: selectedVariantAttributes } = selectedVariant;
 
     const attributeMap: Map<string, { index: number; codes: Set<string> }> = new Map();
-    const attributes: ExtractAttributesReturnType = [];
+    const attributes: GetProductBySlugResponseDto["attributes"] = [];
 
-    const matchedVariants = structuredClone(variants);
-    for (let i = 0; i < attributeOrder.length; i++) {
-        const ancestorAttributeName = i > 0 ? attributeOrder[i - 1].name : null;
-        const currentAttributeName = attributeOrder[i].name;
+    const clonedVariants = structuredClone(variants);
+    for (let i = 0; i < allAttributes.length; i++) {
+        const ancestorAttributeName = i > 0 ? allAttributes[i - 1].name : null;
+        const currentAttributeName = allAttributes[i].name;
 
-        for (let j = matchedVariants.length - 1; j >= 0; j--) {
-            const variant = matchedVariants[j];
+        for (let j = clonedVariants.length - 1; j >= 0; j--) {
+            const variant = clonedVariants[j];
 
             const variantAncestorAttribute = variant.attributes.find(
                 (a) => a.type.name === ancestorAttributeName,
@@ -88,27 +49,28 @@ export const extractRelatedAttributesOrdered = (
                         codes: new Set(),
                     });
 
-                    attributes.push({
-                        info: attributeOrder.find((a) => a.name === currentAttributeName)!,
-                        values: [],
-                    });
+                    attributes.push({ ...allAttributes[i], values: [] });
                 }
 
                 if (
                     !attributeMap.get(currentAttributeName)!.codes.has(variantAttribute.value.code)
                 ) {
-                    attributeMap.get(currentAttributeName)!.codes.add(variantAttribute.value.code);
+                    const { code } = variantAttribute.value;
+                    const attributeValueData = allAttributes[i].values.find(
+                        (v) => v.code === code,
+                    )!;
+                    attributeMap.get(currentAttributeName)!.codes.add(code);
                     attributes[attributeMap.get(currentAttributeName)!.index]!.values.push(
-                        variantAttribute.value,
+                        attributeValueData,
                     );
                 }
             } else {
-                matchedVariants.splice(j, 1);
+                clonedVariants.splice(j, 1);
             }
         }
     }
 
-    attributes.sort((a, b) => a.info.position - b.info.position);
+    attributes.sort((a, b) => a.position - b.position);
     attributes.map((att) => att.values.sort((a, b) => a.position - b.position));
 
     return attributes;

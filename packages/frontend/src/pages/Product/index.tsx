@@ -6,7 +6,6 @@ import { RecommendedProducts } from "@/features/RecommendedProducts";
 import * as useAsync from "@/hooks/useAsync";
 import { createQueryContextObject } from "@/hooks/useAsync/utils/createQueryContextObject";
 import {
-    extractAttributesOrdered,
     extractRelatedAttributesOrdered,
     findVariantByAttributeParams,
     generateSkeletonProduct,
@@ -24,7 +23,6 @@ export interface IProductContext {
     variant: GetProductBySlugResponseDto["variants"][number] | null;
     selectedAttributeParams: { [k: string]: string };
     setSelectedAttributeParams: React.Dispatch<React.SetStateAction<{ [k: string]: string }>>;
-    allAttributes: ReturnType<typeof extractAttributesOrdered>;
     relatedAttributes: ReturnType<typeof extractRelatedAttributesOrdered>;
 
     defaultData: {
@@ -38,7 +36,6 @@ const defaultProductContext: IProductContext = {
     variant: null,
     selectedAttributeParams: {},
     setSelectedAttributeParams: () => {},
-    allAttributes: [],
     relatedAttributes: [],
 
     defaultData: {
@@ -150,11 +147,6 @@ export function Product({ children }: TProduct) {
         updateSelectedVariant(productDataRef.current);
     }, [selectedAttributeParams, updateSelectedVariant]);
 
-    const allAttributes = useMemo(() => {
-        if (!response.success) return [];
-        return extractAttributesOrdered(response.data);
-    }, [response]);
-
     const relatedAttributes = useMemo(() => {
         if (!response.success || !variant) return [];
         return extractRelatedAttributesOrdered(response.data, variant);
@@ -172,7 +164,6 @@ export function Product({ children }: TProduct) {
                     variant,
                     selectedAttributeParams,
                     setSelectedAttributeParams,
-                    allAttributes,
                     relatedAttributes,
 
                     defaultData: defaultProductContext.defaultData,
@@ -182,7 +173,6 @@ export function Product({ children }: TProduct) {
                     variant,
                     selectedAttributeParams,
                     setSelectedAttributeParams,
-                    allAttributes,
                     relatedAttributes,
                 ],
             )}

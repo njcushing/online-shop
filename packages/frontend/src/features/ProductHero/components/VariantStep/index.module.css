@@ -1,10 +1,10 @@
-.product-hero-step {
+.variant-step {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-.product-hero-step-title {
+.variant-step-title {
     color: black;
     font-family: var(--font-primary);
     font-size: 0.94rem;
@@ -14,60 +14,18 @@
     }
 }
 
-.product-hero-step-title::first-letter {
+.variant-step-title::first-letter {
     text-transform: capitalize;
 }
 
-.product-hero-step-options {
+.variant-step-options {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 8px;
 }
 
-.product-hero-step-dot-button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-
-    cursor: pointer;
-
-    color: black;
-    font-family: var(--font-primary);
-    font-size: 0.84rem;
-    text-wrap: wrap;
-
-    outline-offset: 2px;
-    border: none;
-    border-radius: 4px;
-    background: none;
-
-    width: 100%;
-    max-width: 60px;
-
-    @media (min-width: $mantine-breakpoint-xs) {
-        font-size: 0.9rem;
-    }
-}
-
-.product-hero-step-dot-button[data-selected="true"] {
-    pointer-events: none;
-}
-
-.product-hero-step-dot {
-    outline: 2px solid transparent;
-    outline-offset: 2px;
-    border: none;
-    border-radius: 4px;
-
-    width: 40px;
-    height: 40px;
-
-    transition: outline linear 0.16s;
-}
-
-.product-hero-step-text-button {
+.variant-step-text-button {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -95,22 +53,64 @@
     }
 }
 
-.product-hero-step-dot-button:focus-visible,
-.product-hero-step-text-button:focus-visible {
-    outline: 2px solid #000;
-    border-radius: 0px;
+.variant-step-color {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    cursor: pointer;
+
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 0.84rem;
+    text-wrap: wrap;
+
+    outline-offset: 2px;
+    border: none;
+    border-radius: 4px;
+    background: none;
+
+    width: 100%;
+    max-width: 60px;
+    padding: 0px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.9rem;
+    }
 }
 
-.product-hero-step-dot-button[data-selected="true"] .product-hero-step-dot,
-.product-hero-step-text-button[data-selected="true"] {
+.variant-step-color[data-selected="true"] {
+    pointer-events: none;
+}
+
+.variant-step-color-box {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    border: none;
+    border-radius: 4px;
+
+    width: 40px;
+    aspect-ratio: 1;
+
+    transition: outline linear 0.16s;
+}
+
+.variant-step-text[data-selected="true"],
+.variant-step-color[data-selected="true"] .variant-step-color-box {
     outline-color: black;
 
     transition-duration: 0s;
 }
 
 @media (hover: hover) {
-    .product-hero-step-dot-button:hover .product-hero-step-dot,
-    .product-hero-step-text-button:hover {
+    .variant-step-text:hover:not(:disabled),
+    .variant-step-color:hover:not(:disabled) .variant-step-color-box {
         outline-color: black;
     }
+}
+
+.variant-step-text:focus-visible {
+    outline: 2px solid #000;
+    border-radius: 0px;
 }

@@ -1,57 +1,63 @@
 import { useContext, useCallback, useMemo } from "react";
 import { ProductContext } from "@/pages/Product";
-import { extractAttributesOrdered } from "@/utils/products/product";
+import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
 import styles from "./index.module.css";
 
 export type TVariantStep = {
-    attribute: ReturnType<typeof extractAttributesOrdered>[number];
+    attribute: GetProductBySlugResponseDto["attributes"][number];
 };
 
 export function VariantStep({ attribute }: TVariantStep) {
-    const { info, values } = attribute;
+    const { name, type, values } = attribute;
 
     const { selectedAttributeParams, setSelectedAttributeParams } = useContext(ProductContext);
 
     const onClick = useCallback(
         (code: string) => {
             const newSelectedAttributeParams = { ...selectedAttributeParams };
-            newSelectedAttributeParams[info.name] = code;
+            newSelectedAttributeParams[name] = code;
             setSelectedAttributeParams(newSelectedAttributeParams);
         },
-        [info.name, selectedAttributeParams, setSelectedAttributeParams],
+        [name, selectedAttributeParams, setSelectedAttributeParams],
     );
 
     const items = useMemo(() => {
-        return values.map((value) => {
-            const { code, name } = value;
+        return values.map((v) => {
+            const { code, name: valueName, value } = v;
 
             const isSelected =
-                info.name in selectedAttributeParams && selectedAttributeParams[info.name] === code;
+                name in selectedAttributeParams && selectedAttributeParams[name] === code;
 
-            return (
-                <button
-                    type="button"
-                    onClick={() => onClick && onClick(code)}
-                    className={styles["product-hero-step-dot-button"]}
-                    data-selected={isSelected}
-                    tabIndex={isSelected ? -1 : 0}
-                    disabled={isSelected}
-                    key={`variant-options-${info.name}-${code}`}
-                >
-                    <span
-                        className={styles["product-hero-step-dot"]}
-                        style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
-                    ></span>
-                    {name}
-                </button>
-            );
+            switch (type) {
+                case "color": {
+                    return (
+                        <button
+                            type="button"
+                            onClick={() => onClick && onClick(code)}
+                            className={styles["variant-step-color"]}
+                            data-selected={isSelected}
+                            tabIndex={isSelected ? -1 : 0}
+                            disabled={isSelected}
+                            key={`variant-options-${name}-${code}`}
+                        >
+                            <span
+                                className={styles["variant-step-color-box"]}
+                                style={{ backgroundColor: value }}
+                            ></span>
+                            {valueName}
+                        </button>
+                    );
+                }
+                default:
+                    return null;
+            }
         });
-    }, [info.name, values, selectedAttributeParams, onClick]);
+    }, [values, name, type, selectedAttributeParams, onClick]);
 
     return (
-        <div className={styles["product-hero-step"]} key={`variant-options-${info.name}`}>
-            <p className={styles["product-hero-step-title"]}>{info.title}</p>
-            <div className={styles["product-hero-step-options"]}>{items}</div>
+        <div className={styles["variant-step"]} key={`variant-options-${name}`}>
+            <p className={styles["variant-step-title"]}>{attribute.title}</p>
+            <div className={styles["variant-step-options"]}>{items}</div>
         </div>
     );
 }

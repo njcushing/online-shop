@@ -2,7 +2,7 @@ import { useContext, useState, useEffect, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { IProductContext, ProductContext } from "@/pages/Product";
 import { Skeleton, Button, Divider, Rating } from "@mantine/core";
-import { ResponseBody as GetProductBySlugDto } from "@/api/products/[slug]/GET";
+import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
 import { Quantity } from "@/components/Inputs/Quantity";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
 import { Price } from "@/features/Price";
@@ -24,11 +24,11 @@ export function ProductHero() {
     const { product: defaultProductData, variant: defaultVariantData } = defaultData;
 
     const [cartData, setCartData] = useState<Cart | null>(null);
-    const [productData, setProductData] = useState<GetProductBySlugDto>(
-        defaultProductData as GetProductBySlugDto,
+    const [productData, setProductData] = useState<GetProductBySlugResponseDto>(
+        defaultProductData as GetProductBySlugResponseDto,
     );
-    const [variantData, setVariantData] = useState<GetProductBySlugDto["variants"][number]>(
-        defaultVariantData as GetProductBySlugDto["variants"][number],
+    const [variantData, setVariantData] = useState<GetProductBySlugResponseDto["variants"][number]>(
+        defaultVariantData as GetProductBySlugResponseDto["variants"][number],
     );
     const [relatedAttributesData, setRelatedAttributesData] = useState<
         IProductContext["relatedAttributes"]
@@ -122,10 +122,10 @@ export function ProductHero() {
 
     const relatedAttributesMemo = useMemo(() => {
         return relatedAttributesData.map((attribute, i) => {
-            const { info, values } = attribute;
+            const { name: attributeName, values } = attribute;
             if (values.length === 0) return null;
             return (
-                <Skeleton visible={awaitingAny} key={info.name}>
+                <Skeleton visible={awaitingAny} key={attributeName}>
                     <div
                         style={{
                             visibility: awaitingAny ? "hidden" : "initial",
