@@ -96,6 +96,20 @@
     transition: outline linear 0.16s;
 }
 
+.variant-step-color-box::before {
+    content: "";
+    display: block;
+
+    position: relative;
+    z-index: -1;
+
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.2);
+
+    width: 40px;
+    aspect-ratio: 1;
+}
+
 .variant-step-text[data-selected="true"],
 .variant-step-color[data-selected="true"] .variant-step-color-box {
     outline-color: black;
