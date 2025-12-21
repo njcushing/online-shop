@@ -1,2 +1,6 @@
 name,title,description,slug
-Coffee - Whole Bean,Select a quantity,,coffee-whole-bean
+Coffee - Whole Bean - Bags,Select a weight,,coffee-whole-bean-bags
+Coffee - Whole Bean - Tins,Select a weight,,coffee-whole-bean-tins
+Coffee - Ground - Bags,Select a weight,,coffee-ground-bags
+Coffee - Ground - Tins,Select a weight,,coffee-ground-tins
+Coffee - Pods,Select a quantity,,coffee-pods

@@ -2,3 +2,16 @@ product_slug,name,value
 coffee-whole-bean-250g-bag,Weight,250g
 coffee-whole-bean-500g-bag,Weight,500g
 coffee-whole-bean-1kg-bag,Weight,1kg
+coffee-whole-bean-100g-tin,Weight,100g
+coffee-whole-bean-250g-tin,Weight,250g
+coffee-whole-bean-500g-tin,Weight,500g
+coffee-ground-250g-bag,Weight,250g
+coffee-ground-500g-bag,Weight,500g
+coffee-ground-1kg-bag,Weight,1kg
+coffee-ground-100g-tin,Weight,100g
+coffee-ground-250g-tin,Weight,250g
+coffee-ground-500g-tin,Weight,500g
+coffee-pods-10-pack,Quantity,10
+coffee-pods-25-pack,Quantity,25
+coffee-pods-50-pack,Quantity,50
+coffee-pods-100-pack,Quantity,100

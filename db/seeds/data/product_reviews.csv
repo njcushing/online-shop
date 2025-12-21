@@ -1,76 +1,317 @@
 product_slug,product_variant_sku,title,description,rating
-coffee-whole-bean-250g-bag,COF-WB-250G-LT,Review 1 Title,Review 1 Description,5
-coffee-whole-bean-250g-bag,,Review 2 Title,Review 2 Description,1
-coffee-whole-bean-250g-bag,COF-WB-250G-MD,Review 3 Title,Review 3 Description,4
-coffee-whole-bean-250g-bag,COF-WB-250G-LT,Review 4 Title,Review 4 Description,5
-coffee-whole-bean-250g-bag,,Review 5 Title,Review 5 Description,5
-coffee-whole-bean-250g-bag,,Review 6 Title,Review 6 Description,3
-coffee-whole-bean-250g-bag,COF-WB-250G-DK,Review 7 Title,Review 7 Description,5
-coffee-whole-bean-250g-bag,,Review 8 Title,Review 8 Description,5
-coffee-whole-bean-250g-bag,COF-WB-250G-MD,Review 9 Title,Review 9 Description,4
-coffee-whole-bean-250g-bag,,Review 10 Title,Review 10 Description,2
-coffee-whole-bean-250g-bag,COF-WB-250G-MD,Review 11 Title,Review 11 Description,5
-coffee-whole-bean-250g-bag,,Review 12 Title,Review 12 Description,5
-coffee-whole-bean-250g-bag,,Review 13 Title,Review 13 Description,5
-coffee-whole-bean-250g-bag,COF-WB-250G-LT,Review 14 Title,Review 14 Description,3
-coffee-whole-bean-250g-bag,COF-WB-250G-LT,Review 15 Title,Review 15 Description,4
-coffee-whole-bean-250g-bag,,Review 16 Title,Review 16 Description,4
-coffee-whole-bean-250g-bag,,Review 17 Title,Review 17 Description,5
-coffee-whole-bean-250g-bag,COF-WB-250G-DK,Review 18 Title,Review 18 Description,5
-coffee-whole-bean-250g-bag,,Review 19 Title,Review 19 Description,5
-coffee-whole-bean-250g-bag,,Review 20 Title,Review 20 Description,1
-coffee-whole-bean-250g-bag,,Review 21 Title,Review 21 Description,5
-coffee-whole-bean-250g-bag,COF-WB-250G-MD,Review 22 Title,Review 22 Description,2
-coffee-whole-bean-250g-bag,COF-WB-250G-MD,Review 23 Title,Review 23 Description,4
-coffee-whole-bean-250g-bag,COF-WB-250G-DK,Review 24 Title,Review 24 Description,1
-coffee-whole-bean-250g-bag,,Review 25 Title,Review 25 Description,4
-coffee-whole-bean-500g-bag,,Review 1 Title,Review 1 Description,5
-coffee-whole-bean-500g-bag,COF-WB-500G-MD,Review 2 Title,Review 2 Description,5
-coffee-whole-bean-500g-bag,COF-WB-500G-DK,Review 3 Title,Review 3 Description,5
-coffee-whole-bean-500g-bag,COF-WB-500G-DK,Review 4 Title,Review 4 Description,1
-coffee-whole-bean-500g-bag,,Review 5 Title,Review 5 Description,2
-coffee-whole-bean-500g-bag,COF-WB-500G-MD,Review 6 Title,Review 6 Description,5
-coffee-whole-bean-500g-bag,COF-WB-500G-LT,Review 7 Title,Review 7 Description,3
-coffee-whole-bean-500g-bag,,Review 8 Title,Review 8 Description,5
-coffee-whole-bean-500g-bag,,Review 9 Title,Review 9 Description,5
-coffee-whole-bean-500g-bag,COF-WB-500G-MD,Review 10 Title,Review 10 Description,5
-coffee-whole-bean-500g-bag,,Review 11 Title,Review 11 Description,5
-coffee-whole-bean-500g-bag,,Review 12 Title,Review 12 Description,5
-coffee-whole-bean-500g-bag,COF-WB-500G-DK,Review 13 Title,Review 13 Description,5
-coffee-whole-bean-500g-bag,COF-WB-500G-LT,Review 14 Title,Review 14 Description,3
-coffee-whole-bean-500g-bag,,Review 15 Title,Review 15 Description,5
-coffee-whole-bean-500g-bag,,Review 16 Title,Review 16 Description,4
-coffee-whole-bean-500g-bag,COF-WB-500G-MD,Review 17 Title,Review 17 Description,5
-coffee-whole-bean-500g-bag,,Review 18 Title,Review 18 Description,5
-coffee-whole-bean-500g-bag,,Review 19 Title,Review 19 Description,5
-coffee-whole-bean-500g-bag,COF-WB-500G-LT,Review 20 Title,Review 20 Description,5
-coffee-whole-bean-500g-bag,COF-WB-500G-MD,Review 21 Title,Review 21 Description,5
-coffee-whole-bean-500g-bag,COF-WB-500G-DK,Review 22 Title,Review 22 Description,5
-coffee-whole-bean-500g-bag,,Review 23 Title,Review 23 Description,1
-coffee-whole-bean-500g-bag,COF-WB-500G-LT,Review 24 Title,Review 24 Description,1
-coffee-whole-bean-500g-bag,,Review 25 Title,Review 25 Description,4
-coffee-whole-bean-1kg-bag,,Review 1 Title,Review 1 Description,5
-coffee-whole-bean-1kg-bag,COF-WB-1KG-LT,Review 2 Title,Review 2 Description,5
-coffee-whole-bean-1kg-bag,,Review 3 Title,Review 3 Description,5
-coffee-whole-bean-1kg-bag,COF-WB-1KG-MD,Review 4 Title,Review 4 Description,5
-coffee-whole-bean-1kg-bag,,Review 5 Title,Review 5 Description,3
-coffee-whole-bean-1kg-bag,,Review 6 Title,Review 6 Description,1
-coffee-whole-bean-1kg-bag,COF-WB-1KG-DK,Review 7 Title,Review 7 Description,5
-coffee-whole-bean-1kg-bag,COF-WB-1KG-LT,Review 8 Title,Review 8 Description,5
-coffee-whole-bean-1kg-bag,,Review 9 Title,Review 9 Description,2
-coffee-whole-bean-1kg-bag,COF-WB-1KG-MD,Review 10 Title,Review 10 Description,5
-coffee-whole-bean-1kg-bag,COF-WB-1KG-DK,Review 11 Title,Review 11 Description,5
-coffee-whole-bean-1kg-bag,,Review 12 Title,Review 12 Description,4
-coffee-whole-bean-1kg-bag,,Review 13 Title,Review 13 Description,5
-coffee-whole-bean-1kg-bag,COF-WB-1KG-LT,Review 14 Title,Review 14 Description,5
-coffee-whole-bean-1kg-bag,COF-WB-1KG-LT,Review 15 Title,Review 15 Description,5
-coffee-whole-bean-1kg-bag,,Review 16 Title,Review 16 Description,4
-coffee-whole-bean-1kg-bag,COF-WB-1KG-DK,Review 17 Title,Review 17 Description,5
-coffee-whole-bean-1kg-bag,,Review 18 Title,Review 18 Description,5
-coffee-whole-bean-1kg-bag,COF-WB-1KG-MD,Review 19 Title,Review 19 Description,5
-coffee-whole-bean-1kg-bag,,Review 20 Title,Review 20 Description,4
-coffee-whole-bean-1kg-bag,COF-WB-1KG-DK,Review 21 Title,Review 21 Description,4
-coffee-whole-bean-1kg-bag,,Review 22 Title,Review 22 Description,5
-coffee-whole-bean-1kg-bag,,Review 23 Title,Review 23 Description,5
-coffee-whole-bean-1kg-bag,COF-WB-1KG-LT,Review 24 Title,Review 24 Description,5
-coffee-whole-bean-1kg-bag,COF-WB-1KG-DK,Review 25 Title,Review 25 Description,1
+coffee-whole-bean-250g-bag,COF-WB-250GB-LT,Review Title,Review Description,5
+coffee-whole-bean-250g-bag,,Review Title,Review Description,1
+coffee-whole-bean-250g-bag,COF-WB-250GB-MD,Review Title,Review Description,4
+coffee-whole-bean-250g-bag,COF-WB-250GB-LT,Review Title,Review Description,5
+coffee-whole-bean-250g-bag,,Review Title,Review Description,5
+coffee-whole-bean-250g-bag,,Review Title,Review Description,3
+coffee-whole-bean-250g-bag,COF-WB-250GB-DK,Review Title,Review Description,5
+coffee-whole-bean-250g-bag,,Review Title,Review Description,5
+coffee-whole-bean-250g-bag,COF-WB-250GB-MD,Review Title,Review Description,4
+coffee-whole-bean-250g-bag,,Review Title,Review Description,2
+coffee-whole-bean-250g-bag,COF-WB-250GB-MD,Review Title,Review Description,5
+coffee-whole-bean-250g-bag,,Review Title,Review Description,5
+coffee-whole-bean-250g-bag,,Review Title,Review Description,5
+coffee-whole-bean-250g-bag,COF-WB-250GB-LT,Review Title,Review Description,3
+coffee-whole-bean-250g-bag,COF-WB-250GB-LT,Review Title,Review Description,4
+coffee-whole-bean-250g-bag,,Review Title,Review Description,4
+coffee-whole-bean-250g-bag,,Review Title,Review Description,5
+coffee-whole-bean-250g-bag,COF-WB-250GB-DK,Review Title,Review Description,5
+coffee-whole-bean-250g-bag,,Review Title,Review Description,5
+coffee-whole-bean-250g-bag,,Review Title,Review Description,1
+coffee-whole-bean-250g-bag,,Review Title,Review Description,5
+coffee-whole-bean-250g-bag,COF-WB-250GB-MD,Review Title,Review Description,2
+coffee-whole-bean-250g-bag,COF-WB-250GB-MD,Review Title,Review Description,4
+coffee-whole-bean-250g-bag,COF-WB-250GB-DK,Review Title,Review Description,1
+coffee-whole-bean-250g-bag,,Review Title,Review Description,4
+coffee-whole-bean-500g-bag,,Review Title,Review Description,5
+coffee-whole-bean-500g-bag,COF-WB-500GB-MD,Review Title,Review Description,5
+coffee-whole-bean-500g-bag,COF-WB-500GB-DK,Review Title,Review Description,5
+coffee-whole-bean-500g-bag,COF-WB-500GB-DK,Review Title,Review Description,1
+coffee-whole-bean-500g-bag,,Review Title,Review Description,2
+coffee-whole-bean-500g-bag,COF-WB-500GB-MD,Review Title,Review Description,5
+coffee-whole-bean-500g-bag,COF-WB-500GB-LT,Review Title,Review Description,3
+coffee-whole-bean-500g-bag,,Review Title,Review Description,5
+coffee-whole-bean-500g-bag,,Review Title,Review Description,5
+coffee-whole-bean-500g-bag,COF-WB-500GB-MD,Review Title,Review Description,5
+coffee-whole-bean-500g-bag,,Review Title,Review Description,5
+coffee-whole-bean-500g-bag,,Review Title,Review Description,5
+coffee-whole-bean-500g-bag,COF-WB-500GB-DK,Review Title,Review Description,5
+coffee-whole-bean-500g-bag,COF-WB-500GB-LT,Review Title,Review Description,3
+coffee-whole-bean-500g-bag,,Review Title,Review Description,5
+coffee-whole-bean-500g-bag,,Review Title,Review Description,4
+coffee-whole-bean-500g-bag,COF-WB-500GB-MD,Review Title,Review Description,5
+coffee-whole-bean-500g-bag,,Review Title,Review Description,5
+coffee-whole-bean-500g-bag,,Review Title,Review Description,5
+coffee-whole-bean-500g-bag,COF-WB-500GB-LT,Review Title,Review Description,5
+coffee-whole-bean-500g-bag,COF-WB-500GB-MD,Review Title,Review Description,5
+coffee-whole-bean-500g-bag,COF-WB-500GB-DK,Review Title,Review Description,5
+coffee-whole-bean-500g-bag,,Review Title,Review Description,1
+coffee-whole-bean-500g-bag,COF-WB-500GB-LT,Review Title,Review Description,1
+coffee-whole-bean-500g-bag,,Review Title,Review Description,4
+coffee-whole-bean-1kg-bag,,Review Title,Review Description,5
+coffee-whole-bean-1kg-bag,COF-WB-1KGB-LT,Review Title,Review Description,5
+coffee-whole-bean-1kg-bag,,Review Title,Review Description,5
+coffee-whole-bean-1kg-bag,COF-WB-1KGB-MD,Review Title,Review Description,5
+coffee-whole-bean-1kg-bag,,Review Title,Review Description,3
+coffee-whole-bean-1kg-bag,,Review Title,Review Description,1
+coffee-whole-bean-1kg-bag,COF-WB-1KGB-DK,Review Title,Review Description,5
+coffee-whole-bean-1kg-bag,COF-WB-1KGB-LT,Review Title,Review Description,5
+coffee-whole-bean-1kg-bag,,Review Title,Review Description,2
+coffee-whole-bean-1kg-bag,COF-WB-1KGB-MD,Review Title,Review Description,5
+coffee-whole-bean-1kg-bag,COF-WB-1KGB-DK,Review Title,Review Description,5
+coffee-whole-bean-1kg-bag,,Review Title,Review Description,4
+coffee-whole-bean-1kg-bag,,Review Title,Review Description,5
+coffee-whole-bean-1kg-bag,COF-WB-1KGB-LT,Review Title,Review Description,5
+coffee-whole-bean-1kg-bag,COF-WB-1KGB-LT,Review Title,Review Description,5
+coffee-whole-bean-1kg-bag,,Review Title,Review Description,4
+coffee-whole-bean-1kg-bag,COF-WB-1KGB-DK,Review Title,Review Description,5
+coffee-whole-bean-1kg-bag,,Review Title,Review Description,5
+coffee-whole-bean-1kg-bag,COF-WB-1KGB-MD,Review Title,Review Description,5
+coffee-whole-bean-1kg-bag,,Review Title,Review Description,4
+coffee-whole-bean-1kg-bag,COF-WB-1KGB-DK,Review Title,Review Description,4
+coffee-whole-bean-1kg-bag,,Review Title,Review Description,5
+coffee-whole-bean-1kg-bag,,Review Title,Review Description,5
+coffee-whole-bean-1kg-bag,COF-WB-1KGB-LT,Review Title,Review Description,5
+coffee-whole-bean-1kg-bag,COF-WB-1KGB-DK,Review Title,Review Description,1
+coffee-whole-bean-100g-tin,,Review Title,Review Description,2
+coffee-whole-bean-100g-tin,COF-WB-100GT-LT,Review Title,Review Description,1
+coffee-whole-bean-100g-tin,,Review Title,Review Description,5
+coffee-whole-bean-100g-tin,,Review Title,Review Description,3
+coffee-whole-bean-100g-tin,,Review Title,Review Description,5
+coffee-whole-bean-100g-tin,COF-WB-100GT-DK,Review Title,Review Description,5
+coffee-whole-bean-100g-tin,COF-WB-100GT-PK,Review Title,Review Description,5
+coffee-whole-bean-100g-tin,,Review Title,Review Description,5
+coffee-whole-bean-100g-tin,,Review Title,Review Description,2
+coffee-whole-bean-100g-tin,COF-WB-100GT-LT,Review Title,Review Description,4
+coffee-whole-bean-100g-tin,,Review Title,Review Description,2
+coffee-whole-bean-100g-tin,,Review Title,Review Description,4
+coffee-whole-bean-100g-tin,,Review Title,Review Description,5
+coffee-whole-bean-100g-tin,COF-WB-100GT-LT,Review Title,Review Description,3
+coffee-whole-bean-100g-tin,COF-WB-100GT-MO,Review Title,Review Description,3
+coffee-whole-bean-100g-tin,COF-WB-100GT-LT,Review Title,Review Description,1
+coffee-whole-bean-100g-tin,,Review Title,Review Description,5
+coffee-whole-bean-100g-tin,,Review Title,Review Description,3
+coffee-whole-bean-100g-tin,COF-WB-100GT-LT,Review Title,Review Description,1
+coffee-whole-bean-100g-tin,COF-WB-100GT-LT,Review Title,Review Description,5
+coffee-whole-bean-100g-tin,COF-WB-100GT-IN,Review Title,Review Description,2
+coffee-whole-bean-100g-tin,,Review Title,Review Description,5
+coffee-whole-bean-100g-tin,,Review Title,Review Description,5
+coffee-whole-bean-100g-tin,COF-WB-100GT-DK,Review Title,Review Description,5
+coffee-whole-bean-100g-tin,,Review Title,Review Description,3
+coffee-whole-bean-100g-tin,COF-WB-100GT-MD,Review Title,Review Description,5
+coffee-whole-bean-250g-tin,COF-WB-250GT-LT,Review Title,Review Description,4
+coffee-whole-bean-250g-tin,,Review Title,Review Description,1
+coffee-whole-bean-250g-tin,,Review Title,Review Description,4
+coffee-whole-bean-250g-tin,COF-WB-250GT-PK,Review Title,Review Description,4
+coffee-whole-bean-250g-tin,COF-WB-250GT-DK,Review Title,Review Description,5
+coffee-whole-bean-250g-tin,,Review Title,Review Description,2
+coffee-whole-bean-250g-tin,,Review Title,Review Description,3
+coffee-whole-bean-250g-tin,,Review Title,Review Description,2
+coffee-whole-bean-250g-tin,COF-WB-250GT-DK,Review Title,Review Description,4
+coffee-whole-bean-250g-tin,COF-WB-250GT-MD,Review Title,Review Description,5
+coffee-whole-bean-250g-tin,COF-WB-250GT-DK,Review Title,Review Description,3
+coffee-whole-bean-250g-tin,,Review Title,Review Description,5
+coffee-whole-bean-250g-tin,COF-WB-250GT-LT,Review Title,Review Description,5
+coffee-whole-bean-250g-tin,,Review Title,Review Description,4
+coffee-whole-bean-250g-tin,COF-WB-250GT-CA,Review Title,Review Description,5
+coffee-whole-bean-250g-tin,COF-WB-250GT-MD,Review Title,Review Description,5
+coffee-whole-bean-250g-tin,COF-WB-250GT-VA,Review Title,Review Description,2
+coffee-whole-bean-250g-tin,,Review Title,Review Description,5
+coffee-whole-bean-250g-tin,,Review Title,Review Description,4
+coffee-whole-bean-250g-tin,COF-WB-250GT-LT,Review Title,Review Description,3
+coffee-whole-bean-250g-tin,COF-WB-250GT-XD,Review Title,Review Description,5
+coffee-whole-bean-250g-tin,,Review Title,Review Description,5
+coffee-whole-bean-500g-tin,,Review Title,Review Description,5
+coffee-whole-bean-500g-tin,COF-WB-500GT-LT,Review Title,Review Description,5
+coffee-whole-bean-500g-tin,,Review Title,Review Description,4
+coffee-whole-bean-500g-tin,,Review Title,Review Description,3
+coffee-whole-bean-500g-tin,,Review Title,Review Description,3
+coffee-whole-bean-500g-tin,,Review Title,Review Description,3
+coffee-whole-bean-500g-tin,COF-WB-500GT-MD,Review Title,Review Description,2
+coffee-whole-bean-500g-tin,COF-WB-500GT-LT,Review Title,Review Description,3
+coffee-whole-bean-500g-tin,COF-WB-500GT-XD,Review Title,Review Description,5
+coffee-whole-bean-500g-tin,,Review Title,Review Description,2
+coffee-whole-bean-500g-tin,COF-WB-500GT-MD,Review Title,Review Description,5
+coffee-whole-bean-500g-tin,,Review Title,Review Description,5
+coffee-whole-bean-500g-tin,COF-WB-500GT-FR,Review Title,Review Description,5
+coffee-ground-250g-bag,COF-GR-250GB-LT,Review Title,Review Description,5
+coffee-ground-250g-bag,,Review Title,Review Description,4
+coffee-ground-250g-bag,,Review Title,Review Description,5
+coffee-ground-250g-bag,,Review Title,Review Description,5
+coffee-ground-250g-bag,COF-GR-250GB-MD,Review Title,Review Description,5
+coffee-ground-250g-bag,COF-GR-250GB-IT,Review Title,Review Description,1
+coffee-ground-250g-bag,,Review Title,Review Description,5
+coffee-ground-250g-bag,COF-GR-250GB-ES,Review Title,Review Description,5
+coffee-ground-250g-bag,,Review Title,Review Description,4
+coffee-ground-250g-bag,COF-GR-250GB-BK,Review Title,Review Description,1
+coffee-ground-250g-bag,COF-GR-250GB-LT,Review Title,Review Description,3
+coffee-ground-250g-bag,COF-GR-250GB-MO,Review Title,Review Description,5
+coffee-ground-250g-bag,,Review Title,Review Description,5
+coffee-ground-250g-bag,,Review Title,Review Description,5
+coffee-ground-250g-bag,,Review Title,Review Description,5
+coffee-ground-250g-bag,COF-GR-250GB-LT,Review Title,Review Description,5
+coffee-ground-250g-bag,,Review Title,Review Description,5
+coffee-ground-250g-bag,COF-GR-250GB-MD,Review Title,Review Description,5
+coffee-ground-250g-bag,,Review Title,Review Description,5
+coffee-ground-250g-bag,,Review Title,Review Description,5
+coffee-ground-250g-bag,COF-GR-250GB-DK,Review Title,Review Description,5
+coffee-ground-250g-bag,COF-GR-250GB-XD,Review Title,Review Description,5
+coffee-ground-250g-bag,,Review Title,Review Description,5
+coffee-ground-250g-bag,,Review Title,Review Description,5
+coffee-ground-250g-bag,COF-GR-250GB-LT,Review Title,Review Description,5
+coffee-ground-250g-bag,,Review Title,Review Description,5
+coffee-ground-250g-bag,COF-GR-250GB-MD,Review Title,Review Description,5
+coffee-ground-250g-bag,COF-GR-250GB-LT,Review Title,Review Description,5
+coffee-ground-250g-bag,,Review Title,Review Description,1
+coffee-ground-500g-bag,COF-GR-500GB-LT,Review Title,Review Description,5
+coffee-ground-500g-bag,,Review Title,Review Description,5
+coffee-ground-500g-bag,,Review Title,Review Description,5
+coffee-ground-500g-bag,COF-GR-500GB-XD,Review Title,Review Description,5
+coffee-ground-500g-bag,COF-GR-500GB-LT,Review Title,Review Description,2
+coffee-ground-500g-bag,COF-GR-500GB-DK,Review Title,Review Description,5
+coffee-ground-500g-bag,COF-GR-500GB-MD,Review Title,Review Description,5
+coffee-ground-500g-bag,,Review Title,Review Description,4
+coffee-ground-500g-bag,COF-GR-500GB-XD,Review Title,Review Description,5
+coffee-ground-500g-bag,,Review Title,Review Description,5
+coffee-ground-500g-bag,COF-GR-500GB-PK,Review Title,Review Description,4
+coffee-ground-500g-bag,COF-GR-500GB-MD,Review Title,Review Description,4
+coffee-ground-500g-bag,COF-GR-500GB-LT,Review Title,Review Description,4
+coffee-ground-1kg-bag,,Review Title,Review Description,5
+coffee-ground-1kg-bag,COF-GR-1KGB-LT,Review Title,Review Description,5
+coffee-ground-1kg-bag,COF-GR-1KGB-LT,Review Title,Review Description,5
+coffee-ground-1kg-bag,COF-GR-1KGB-MD,Review Title,Review Description,2
+coffee-ground-1kg-bag,,Review Title,Review Description,1
+coffee-ground-1kg-bag,,Review Title,Review Description,5
+coffee-ground-1kg-bag,COF-GR-1KGB-XD,Review Title,Review Description,2
+coffee-ground-1kg-bag,COF-GR-1KGB-LT,Review Title,Review Description,5
+coffee-ground-1kg-bag,,Review Title,Review Description,5
+coffee-ground-1kg-bag,COF-GR-1KGB-LT,Review Title,Review Description,5
+coffee-ground-1kg-bag,,Review Title,Review Description,2
+coffee-ground-100g-tin,COF-GR-100GT-MD,Review Title,Review Description,5
+coffee-ground-100g-tin,,Review Title,Review Description,4
+coffee-ground-100g-tin,,Review Title,Review Description,5
+coffee-ground-100g-tin,COF-GR-100GT-LT,Review Title,Review Description,3
+coffee-ground-100g-tin,COF-GR-100GT-XD,Review Title,Review Description,1
+coffee-ground-100g-tin,COF-GR-100GT-LT,Review Title,Review Description,1
+coffee-ground-100g-tin,,Review Title,Review Description,4
+coffee-ground-100g-tin,,Review Title,Review Description,5
+coffee-ground-100g-tin,COF-GR-100GT-ES,Review Title,Review Description,4
+coffee-ground-100g-tin,,Review Title,Review Description,5
+coffee-ground-100g-tin,COF-GR-100GT-LT,Review Title,Review Description,3
+coffee-ground-100g-tin,,Review Title,Review Description,5
+coffee-ground-100g-tin,,Review Title,Review Description,4
+coffee-ground-100g-tin,COF-GR-100GT-ES,Review Title,Review Description,5
+coffee-ground-100g-tin,COF-GR-100GT-BK,Review Title,Review Description,1
+coffee-ground-100g-tin,,Review Title,Review Description,4
+coffee-ground-100g-tin,COF-GR-100GT-LT,Review Title,Review Description,2
+coffee-ground-100g-tin,COF-GR-100GT-IN,Review Title,Review Description,5
+coffee-ground-100g-tin,,Review Title,Review Description,4
+coffee-ground-100g-tin,COF-GR-100GT-LT,Review Title,Review Description,1
+coffee-ground-100g-tin,,Review Title,Review Description,2
+coffee-ground-250g-tin,,Review Title,Review Description,3
+coffee-ground-250g-tin,,Review Title,Review Description,5
+coffee-ground-250g-tin,COF-GR-250GT-CA,Review Title,Review Description,3
+coffee-ground-250g-tin,,Review Title,Review Description,4
+coffee-ground-250g-tin,COF-GR-250GT-LT,Review Title,Review Description,1
+coffee-ground-250g-tin,,Review Title,Review Description,5
+coffee-ground-250g-tin,COF-GR-250GT-MD,Review Title,Review Description,4
+coffee-ground-250g-tin,COF-GR-250GT-VA,Review Title,Review Description,5
+coffee-ground-250g-tin,COF-GR-250GT-LT,Review Title,Review Description,4
+coffee-ground-250g-tin,,Review Title,Review Description,5
+coffee-ground-250g-tin,,Review Title,Review Description,5
+coffee-ground-250g-tin,COF-GR-250GT-DK,Review Title,Review Description,5
+coffee-ground-250g-tin,,Review Title,Review Description,5
+coffee-ground-250g-tin,COF-GR-250GT-LT,Review Title,Review Description,5
+coffee-ground-250g-tin,,Review Title,Review Description,5
+coffee-ground-250g-tin,COF-GR-250GT-LT,Review Title,Review Description,5
+coffee-ground-250g-tin,,Review Title,Review Description,5
+coffee-ground-500g-tin,COF-GR-500GT-LT,Review Title,Review Description,2
+coffee-ground-500g-tin,,Review Title,Review Description,3
+coffee-ground-500g-tin,,Review Title,Review Description,5
+coffee-ground-500g-tin,COF-GR-500GT-XD,Review Title,Review Description,5
+coffee-ground-500g-tin,COF-GR-500GT-XD,Review Title,Review Description,5
+coffee-ground-500g-tin,COF-GR-500GT-LT,Review Title,Review Description,1
+coffee-ground-500g-tin,COF-GR-500GT-LT,Review Title,Review Description,5
+coffee-ground-500g-tin,,Review Title,Review Description,3
+coffee-ground-500g-tin,COF-GR-500GT-MD,Review Title,Review Description,2
+coffee-ground-500g-tin,,Review Title,Review Description,5
+coffee-ground-500g-tin,COF-GR-500GT-LT,Review Title,Review Description,5
+coffee-ground-500g-tin,COF-GR-500GT-FR,Review Title,Review Description,5
+coffee-ground-500g-tin,,Review Title,Review Description,5
+coffee-pods-10-pack,COF-PO-10PK-DK,Review Title,Review Description,1
+coffee-pods-10-pack,,Review Title,Review Description,1
+coffee-pods-10-pack,COF-PO-10PK-LT,Review Title,Review Description,5
+coffee-pods-10-pack,,Review Title,Review Description,4
+coffee-pods-10-pack,,Review Title,Review Description,5
+coffee-pods-10-pack,COF-PO-10PK-CA,Review Title,Review Description,5
+coffee-pods-10-pack,COF-PO-10PK-LT,Review Title,Review Description,5
+coffee-pods-10-pack,,Review Title,Review Description,2
+coffee-pods-10-pack,COF-PO-10PK-ES,Review Title,Review Description,5
+coffee-pods-10-pack,COF-PO-10PK-DK,Review Title,Review Description,2
+coffee-pods-10-pack,,Review Title,Review Description,5
+coffee-pods-10-pack,COF-PO-10PK-LT,Review Title,Review Description,3
+coffee-pods-10-pack,COF-PO-10PK-MD,Review Title,Review Description,5
+coffee-pods-10-pack,COF-PO-10PK-PK,Review Title,Review Description,5
+coffee-pods-10-pack,,Review Title,Review Description,5
+coffee-pods-10-pack,,Review Title,Review Description,5
+coffee-pods-10-pack,COF-PO-10PK-XD,Review Title,Review Description,2
+coffee-pods-10-pack,COF-PO-10PK-MD,Review Title,Review Description,5
+coffee-pods-10-pack,,Review Title,Review Description,3
+coffee-pods-10-pack,,Review Title,Review Description,5
+coffee-pods-10-pack,,Review Title,Review Description,5
+coffee-pods-10-pack,COF-PO-10PK-LT,Review Title,Review Description,2
+coffee-pods-10-pack,,Review Title,Review Description,5
+coffee-pods-25-pack,,Review Title,Review Description,5
+coffee-pods-25-pack,COF-PO-25PK-MD,Review Title,Review Description,3
+coffee-pods-25-pack,,Review Title,Review Description,5
+coffee-pods-25-pack,,Review Title,Review Description,2
+coffee-pods-25-pack,COF-PO-25PK-LT,Review Title,Review Description,5
+coffee-pods-25-pack,COF-PO-25PK-MD,Review Title,Review Description,5
+coffee-pods-25-pack,,Review Title,Review Description,5
+coffee-pods-25-pack,COF-PO-25PK-LT,Review Title,Review Description,1
+coffee-pods-25-pack,COF-PO-25PK-DK,Review Title,Review Description,3
+coffee-pods-25-pack,COF-PO-25PK-MD,Review Title,Review Description,5
+coffee-pods-25-pack,COF-PO-25PK-LT,Review Title,Review Description,5
+coffee-pods-25-pack,,Review Title,Review Description,5
+coffee-pods-25-pack,,Review Title,Review Description,5
+coffee-pods-25-pack,COF-PO-25PK-XD,Review Title,Review Description,5
+coffee-pods-25-pack,,Review Title,Review Description,5
+coffee-pods-25-pack,,Review Title,Review Description,4
+coffee-pods-25-pack,COF-PO-25PK-ES,Review Title,Review Description,5
+coffee-pods-25-pack,,Review Title,Review Description,5
+coffee-pods-25-pack,COF-PO-25PK-LT,Review Title,Review Description,5
+coffee-pods-25-pack,COF-PO-25PK-VA,Review Title,Review Description,2
+coffee-pods-25-pack,,Review Title,Review Description,3
+coffee-pods-25-pack,COF-PO-25PK-LT,Review Title,Review Description,5
+coffee-pods-25-pack,,Review Title,Review Description,3
+coffee-pods-50-pack,COF-PO-50PK-LT,Review Title,Review Description,3
+coffee-pods-50-pack,,Review Title,Review Description,1
+coffee-pods-50-pack,,Review Title,Review Description,5
+coffee-pods-50-pack,COF-PO-50PK-MD,Review Title,Review Description,4
+coffee-pods-50-pack,COF-PO-50PK-LT,Review Title,Review Description,5
+coffee-pods-50-pack,,Review Title,Review Description,4
+coffee-pods-50-pack,COF-PO-50PK-MD,Review Title,Review Description,5
+coffee-pods-50-pack,COF-PO-50PK-XD,Review Title,Review Description,1
+coffee-pods-50-pack,COF-PO-50PK-MD,Review Title,Review Description,4
+coffee-pods-50-pack,,Review Title,Review Description,3
+coffee-pods-50-pack,,Review Title,Review Description,5
+coffee-pods-50-pack,COF-PO-50PK-LT,Review Title,Review Description,4
+coffee-pods-50-pack,COF-PO-50PK-DK,Review Title,Review Description,5
+coffee-pods-50-pack,,Review Title,Review Description,5
+coffee-pods-50-pack,COF-PO-50PK-LT,Review Title,Review Description,5
+coffee-pods-50-pack,COF-PO-50PK-IN,Review Title,Review Description,5
+coffee-pods-50-pack,,Review Title,Review Description,4
+coffee-pods-100-pack,COF-PO-100PK-LT,Review Title,Review Description,5
+coffee-pods-100-pack,,Review Title,Review Description,3
+coffee-pods-100-pack,,Review Title,Review Description,5
+coffee-pods-100-pack,COF-PO-100PK-MD,Review Title,Review Description,2
+coffee-pods-100-pack,COF-PO-100PK-LT,Review Title,Review Description,5
+coffee-pods-100-pack,,Review Title,Review Description,5
+coffee-pods-100-pack,,Review Title,Review Description,5
+coffee-pods-100-pack,COF-PO-100PK-XD,Review Title,Review Description,5
+coffee-pods-100-pack,COF-PO-100PK-MD,Review Title,Review Description,3
+coffee-pods-100-pack,,Review Title,Review Description,5
+coffee-pods-100-pack,,Review Title,Review Description,5
+coffee-pods-100-pack,COF-PO-100PK-DK,Review Title,Review Description,5
+coffee-pods-100-pack,,Review Title,Review Description,5
