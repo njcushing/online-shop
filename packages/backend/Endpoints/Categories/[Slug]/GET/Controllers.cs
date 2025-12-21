@@ -72,7 +72,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.GET
                             .ToList()
                     })
                     .ToList(),
-                    ProductCount = c.CategoryProducts.Count(),
+                    ProductCount = c.CategoryProducts.Where(cp => cp.Product.Active).Count(),
                 })
                 .FirstOrDefaultAsync();
 

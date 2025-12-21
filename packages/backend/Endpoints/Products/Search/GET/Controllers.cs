@@ -21,11 +21,13 @@ namespace Cafree.Api.Endpoints.Products.Search.GET
 
             var products = await _context.Products
                 .AsNoTracking()
-                .Where(p =>
-                    EF.Functions.ToTsVector("english", p.SearchText ?? "")
-                        .Matches(EF.Functions.PlainToTsQuery(query.String))
-                    ||
-                    EF.Functions.ILike(p.Name, $"%{query.String}%")
+                .Where(p => p.Active &&
+                    (
+                        EF.Functions.ToTsVector("english", p.SearchText ?? "")
+                            .Matches(EF.Functions.PlainToTsQuery(query.String))
+                        ||
+                        EF.Functions.ILike(p.Name, $"%{query.String}%")
+                    )
                 )
                 .Select(p => new GetProductsBySearchResponseDto
                 {

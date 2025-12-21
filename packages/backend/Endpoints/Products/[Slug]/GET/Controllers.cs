@@ -16,7 +16,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
         public async Task<IActionResult> GetProductBySlug(string slug)
         {
             var product = await _context.Products
-                .Where(p => p.Slug == slug)
+                .Where(p => p.Active && p.Slug == slug)
                 .AsNoTracking()
                 .AsSplitQuery()
                 .Select(p => new GetProductBySlugResponseDto

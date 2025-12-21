@@ -18,7 +18,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.Related.GET
             var product = await _context.Products
                 .Include(p => p.CategoryProducts)
                 .AsNoTracking()
-                .FirstOrDefaultAsync(p => p.Slug == slug);
+                .FirstOrDefaultAsync(p => p.Slug == slug && p.Active);
 
             if (product == null) return Problem(
                 statusCode: StatusCodes.Status404NotFound,
@@ -30,7 +30,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.Related.GET
             var productTags = product.Tags ?? [];
 
             var relatedProducts = await _context.Products
-                .Where(p => p.Slug != slug)
+                .Where(p => p.Active && p.Slug != slug)
                 .Select(p => new GetRelatedProductsBySlugResponseDto
                 {
                     Id = p.Id,

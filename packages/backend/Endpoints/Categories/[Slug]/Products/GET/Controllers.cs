@@ -284,7 +284,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
             int pageSize = Math.Clamp(query.PageSize ?? 12, 1, MaxPageSize);
 
             var productQuery = _context.CategoryProducts
-                .Where(cp => cp.CategoryId == category.Id)
+                .Where(cp => cp.Product.Active && cp.CategoryId == category.Id)
                 .AsNoTracking();
 
             var parsedFilters = ParseFilters(query.Filter);
