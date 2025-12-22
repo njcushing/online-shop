@@ -347,7 +347,9 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                         Type = pao.ProductAttribute.ProductAttributeValueType.Name,
                         Values = pao.ProductAttribute.ProductAttributeValues
                             .Where(pav =>
-                                pav.ProductVariantAttributes.Any(pva => pva.ProductId == cp.Product.Id)
+                                pav.ProductVariantAttributes.Any(
+                                    pva => pva.ProductVariant.Active && pva.ProductId == cp.Product.Id
+                                )
                             )
                             .GroupBy(pav => new
                             {

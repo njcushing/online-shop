@@ -36,7 +36,9 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                         Type = pao.ProductAttribute.ProductAttributeValueType.Name,
                         Values = pao.ProductAttribute.ProductAttributeValues
                             .Where(pav =>
-                                pav.ProductVariantAttributes.Any(pva => pva.ProductId == p.Id)
+                                pav.ProductVariantAttributes.Any(
+                                    pva => pva.ProductVariant.Active && pva.ProductId == p.Id
+                                )
                             )
                             .GroupBy(pav => new
                             {
@@ -132,7 +134,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                             Rating1 = p.ProductRating.Rating1,
                         }
                     },
-                    Variants = p.ProductVariants.Select(pv => new GetProductBySlugResponseDto.Variant
+                    Variants = p.ProductVariants.Where(pv => pv.Active).Select(pv => new GetProductBySlugResponseDto.Variant
                     {
                         Id = pv.Id,
                         Name = pv.Name,
