@@ -73,6 +73,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                                 .ToList();
                             query = query.Where(cp =>
                                 cp.Product.ProductVariants.Any(pv =>
+                                    pv.Active &&
                                     pv.ProductVariantAttributes.Any(pva =>
                                         pva.ProductAttribute.Name == name &&
                                         pva.ProductAttribute.ProductAttributeValueType.Name == "text" &&
@@ -98,6 +99,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
 
                             query = query.Where(cp =>
                                 cp.Product.ProductVariants.Any(pv =>
+                                    pv.Active &&
                                     pv.ProductVariantAttributes.Any(pva =>
                                         pva.ProductAttribute.Name == name &&
                                         pva.ProductAttribute.ProductAttributeValueType.Name == "numeric" &&
@@ -112,6 +114,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                         {
                             query = query.Where(cp =>
                                 cp.Product.ProductVariants.Any(pv =>
+                                    pv.Active &&
                                     pv.ProductVariantAttributes.Any(pva =>
                                         pva.ProductAttribute.Name == name &&
                                         pva.ProductAttribute.ProductAttributeValueType.Name == "boolean" &&
@@ -129,6 +132,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                             var values = value.Split('|', StringSplitOptions.RemoveEmptyEntries).Take(MaxFilterValueCount).ToList();
                             query = query.Where(cp =>
                                 cp.Product.ProductVariants.Any(pv =>
+                                    pv.Active &&
                                     pv.ProductVariantAttributes.Any(pva =>
                                         pva.ProductAttribute.Name == name &&
                                         pva.ProductAttribute.ProductAttributeValueType.Name == "color" &&
@@ -169,6 +173,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
 
                                 query = query.Where(cp =>
                                     cp.Product.ProductVariants.Any(pv =>
+                                        pv.Active &&
                                         pv.ProductVariantAttributes.Any(pva =>
                                             pva.ProductAttribute.Name == name &&
                                             pva.ProductAttribute.ProductAttributeValueType.Name == "date" &&
@@ -189,6 +194,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                             {
                                 query = query.Where(cp =>
                                     cp.Product.ProductVariants.Any(pv =>
+                                        pv.Active &&
                                         pv.ProductVariantAttributes.Any(pva =>
                                             pva.ProductAttribute.Name == name &&
                                             pva.ProductAttribute.ProductAttributeValueType.Name == "date" &&
@@ -203,6 +209,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                         {
                             query = query.Where(cp =>
                                 cp.Product.ProductVariants.Any(pv =>
+                                    pv.Active &&
                                     pv.ProductVariantAttributes.Any(pva =>
                                         pva.ProductAttribute.Name == name &&
                                         pva.ProductAttribute.ProductAttributeValueType.Name == "select" &&
@@ -238,6 +245,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
 
             query = query.Where(cp =>
                 cp.Product.ProductVariants.Any(pv =>
+                    pv.Active &&
                     pv.PriceCurrent >= lower && pv.PriceCurrent <= upper
                 )
             );
