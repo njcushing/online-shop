@@ -37,6 +37,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.GET
                         Type = cpaf.ProductAttribute.ProductAttributeValueType.Name,
                         Values = _context.ProductVariantAttributes
                             .Where(pva =>
+                                pva.ProductVariant.Active &&
                                 pva.ProductAttributeId == cpaf.ProductAttributeId &&
                                 c.CategoryProducts.Any(cp => cp.ProductId == pva.ProductId)
                             )
