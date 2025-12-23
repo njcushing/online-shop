@@ -11,6 +11,12 @@ name,description,slug,allowance,active,release_date
 100g Tin of Ground Coffee,,coffee-ground-100g-tin,150,TRUE,2025-12-21 13:32:28.067+00
 250g Tin of Ground Coffee,,coffee-ground-250g-tin,100,TRUE,2025-12-21 13:32:28.067+00
 500g Tin of Ground Coffee,,coffee-ground-500g-tin,50,TRUE,2025-12-21 13:32:28.067+00
+250g Bag of Instant Coffee,,coffee-instant-250g-bag,100,TRUE,2025-12-21 13:32:28.067+00
+500g Bag of Instant Coffee,,coffee-instant-500g-bag,50,TRUE,2025-12-21 13:32:28.067+00
+1kg Bag of Instant Coffee,,coffee-instant-1kg-bag,25,TRUE,2025-12-21 13:32:28.067+00
+100g Tin of Instant Coffee,,coffee-instant-100g-tin,150,TRUE,2025-12-21 13:32:28.067+00
+250g Tin of Instant Coffee,,coffee-instant-250g-tin,100,TRUE,2025-12-21 13:32:28.067+00
+500g Tin of Instant Coffee,,coffee-instant-500g-tin,50,TRUE,2025-12-21 13:32:28.067+00
 Coffee Pods - Pack of 10,,coffee-pods-10-pack,250,TRUE,2025-12-21 13:39:54.343+00
 Coffee Pods - Pack of 25,,coffee-pods-25-pack,150,TRUE,2025-12-21 13:39:54.343+00
 Coffee Pods - Pack of 50,,coffee-pods-50-pack,100,TRUE,2025-12-21 13:39:54.343+00
