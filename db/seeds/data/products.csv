@@ -11,13 +11,16 @@ name,description,slug,allowance,active,release_date
 100g Tin of Ground Coffee,,coffee-ground-100g-tin,150,TRUE,2025-12-21 13:32:28.067+00
 250g Tin of Ground Coffee,,coffee-ground-250g-tin,100,TRUE,2025-12-21 13:32:28.067+00
 500g Tin of Ground Coffee,,coffee-ground-500g-tin,50,TRUE,2025-12-21 13:32:28.067+00
-250g Bag of Instant Coffee,,coffee-instant-250g-bag,100,TRUE,2025-12-21 13:32:28.067+00
-500g Bag of Instant Coffee,,coffee-instant-500g-bag,50,TRUE,2025-12-21 13:32:28.067+00
-1kg Bag of Instant Coffee,,coffee-instant-1kg-bag,25,TRUE,2025-12-21 13:32:28.067+00
-100g Tin of Instant Coffee,,coffee-instant-100g-tin,150,TRUE,2025-12-21 13:32:28.067+00
-250g Tin of Instant Coffee,,coffee-instant-250g-tin,100,TRUE,2025-12-21 13:32:28.067+00
-500g Tin of Instant Coffee,,coffee-instant-500g-tin,50,TRUE,2025-12-21 13:32:28.067+00
+250g Bag of Instant Coffee,,coffee-instant-250g-bag,100,TRUE,2025-12-22 20:06:40.272+00
+500g Bag of Instant Coffee,,coffee-instant-500g-bag,50,TRUE,2025-12-22 20:06:40.272+00
+1kg Bag of Instant Coffee,,coffee-instant-1kg-bag,25,TRUE,2025-12-22 20:06:40.272+00
+100g Tin of Instant Coffee,,coffee-instant-100g-tin,150,TRUE,2025-12-22 20:06:40.272+00
+250g Tin of Instant Coffee,,coffee-instant-250g-tin,100,TRUE,2025-12-22 20:06:40.272+00
+500g Tin of Instant Coffee,,coffee-instant-500g-tin,50,TRUE,2025-12-22 20:06:40.272+00
 Coffee Pods - Pack of 10,,coffee-pods-10-pack,250,TRUE,2025-12-21 13:39:54.343+00
 Coffee Pods - Pack of 25,,coffee-pods-25-pack,150,TRUE,2025-12-21 13:39:54.343+00
 Coffee Pods - Pack of 50,,coffee-pods-50-pack,100,TRUE,2025-12-21 13:39:54.343+00
 Coffee Pods - Pack of 100,,coffee-pods-100-pack,75,TRUE,2025-12-21 13:39:54.343+00
+Cold Brew Concentrate - 10 Servings,,coffee-cold-brew-concentrate-10-servings,150,TRUE,2025-12-22 20:10:12.558+00
+Cold Brew Concentrate - 25 Servings,,coffee-cold-brew-concentrate-25-servings,100,TRUE,2025-12-22 20:10:12.558+00
+Cold Brew Concentrate - 50 Servings,,coffee-cold-brew-concentrate-50-servings,50,TRUE,2025-12-22 20:10:12.558+00
