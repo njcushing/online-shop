@@ -17,17 +17,20 @@ coffee-instant-1kg-bag,Weight,1kg
 coffee-instant-100g-tin,Weight,100g
 coffee-instant-250g-tin,Weight,250g
 coffee-instant-500g-tin,Weight,500g
-coffee-pods-10-pack,Quantity,10
-coffee-pods-25-pack,Quantity,25
-coffee-pods-50-pack,Quantity,50
-coffee-pods-100-pack,Quantity,100
-coffee-cold-brew-concentrate-10-servings,Quantity,10
-coffee-cold-brew-concentrate-25-servings,Quantity,25
-coffee-cold-brew-concentrate-50-servings,Quantity,50
-coffee-iced-cans-4-pack,Quantity,4
-coffee-iced-cans-8-pack,Quantity,8
-coffee-iced-cans-16-pack,Quantity,16
-coffee-iced-cans-32-pack,Quantity,32
+coffee-pods-10-pack,Quantity,10 pods
+coffee-pods-25-pack,Quantity,25 pods
+coffee-pods-50-pack,Quantity,50 pods
+coffee-pods-100-pack,Quantity,100 pods
+coffee-cold-brew-concentrate-10-servings,Quantity,10 servings
+coffee-cold-brew-concentrate-25-servings,Quantity,25 servings
+coffee-cold-brew-concentrate-50-servings,Quantity,50 servings
+coffee-iced-cans-4-pack,Quantity,4 cans
+coffee-iced-cans-8-pack,Quantity,8 cans
+coffee-iced-cans-16-pack,Quantity,16 cans
+coffee-iced-cans-32-pack,Quantity,32 cans
 tea-loose-leaf-100g-bag,Weight,100g
 tea-loose-leaf-250g-bag,Weight,250g
 tea-loose-leaf-500g-bag,Weight,500g
+tea-bags-25-box,Quantity,25 bags
+tea-bags-50-box,Quantity,50 bags
+tea-bags-100-box,Quantity,100 bags
