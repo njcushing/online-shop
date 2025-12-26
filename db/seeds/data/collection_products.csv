@@ -34,6 +34,9 @@ tea-loose-leaf,tea-loose-leaf-500g-bag,500g bag,2
 tea-bags,tea-bags-25-box,Box of 25,0
 tea-bags,tea-bags-50-box,Box of 50,1
 tea-bags,tea-bags-100-box,Box of 100,2
-specialty-and-powdered,tea-powdered-250g-tub,250g bag,0
-specialty-and-powdered,tea-powdered-500g-tub,500g bag,1
-specialty-and-powdered,tea-powdered-1kg-tub,1kg bag,2
+tea-powdered,tea-powdered-250g-tub,250g tub,0
+tea-powdered,tea-powdered-500g-tub,500g tub,1
+tea-powdered,tea-powdered-1kg-tub,1kg tub,2
+tea-matcha,tea-matcha-25g-tub,25g tub,0
+tea-matcha,tea-matcha-50g-tub,50g tub,1
+tea-matcha,tea-matcha-100g-tub,100g tub,2

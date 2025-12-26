@@ -7,10 +7,10 @@ parent_slug,name,slug,description
 coffee,Beans,beans,Whole coffee beans.
 coffee,Ground,ground,Pre-ground coffee for convenience.
 coffee,Instant & Pods,instant-and-pods,Whole coffee beans.
-coffee,Cold Brew & Ready-to-Drink,cold-brew-ready,Pre-made cold brews.
+coffee,Cold Brew & Ready-to-Drink,cold-brew-ready,Cold brew concentrate and ready-made beverages.
 tea,Loose Leaf,loose-leaf,High-quality loose tea leaves.
 tea,Bags,bags,Convenient tea bags.
-tea,Specialty & Powdered,specialty-and-powdered,Matcha and chai powders.
+tea,Specialty & Powdered,specialty-and-powdered,Specialty teas and instant tea powders.
 tea,Ready-to-Drink,ready-to-drink,Pre-bottled teas.
 equipment,Brewing,brewing,Manual brewing devices.
 equipment,Espresso Machines,espresso-machines,Machines for making espresso.
