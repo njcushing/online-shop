@@ -12,7 +12,7 @@ export type TNumericFilter = {
 export function NumericFilter({ data, awaiting = false }: TNumericFilter) {
     const { filterSelections, setFilterSelections } = useContext(CategoryProductListContext);
 
-    const { name, values } = data;
+    const { code, values } = data;
 
     const min = Math.min(...values.map((v) => Number(v.value)));
     const max = Math.max(...values.map((v) => Number(v.value)));
@@ -22,7 +22,7 @@ export function NumericFilter({ data, awaiting = false }: TNumericFilter) {
     const cachedMinMax = useRef<[number, number]>([min, max]);
 
     const getSelected = useCallback(() => {
-        const range = filterSelections.get(name);
+        const range = filterSelections.get(code);
         if (!range || range.type !== "numeric") return [min, max] as [number, number];
 
         const [prevMin, prevMax] = cachedMinMax.current;
@@ -43,7 +43,7 @@ export function NumericFilter({ data, awaiting = false }: TNumericFilter) {
             /* eslint-enable prefer-destructuring */
         }
         return newRange;
-    }, [filterSelections, name, min, max]);
+    }, [filterSelections, code, min, max]);
     const [selected, setSelected] = useState<[number, number]>(getSelected());
     useEffect(() => setSelected(getSelected()), [getSelected]);
     useEffect(() => setCachedAwaiting(awaiting), [awaiting]);
@@ -81,8 +81,8 @@ export function NumericFilter({ data, awaiting = false }: TNumericFilter) {
                             const newSelections = new Map(curr);
                             const validValue = value[0] !== min || value[1] !== max;
                             if (!validValue) {
-                                if (newSelections.has(name)) newSelections.delete(name);
-                            } else newSelections.set(name, { type: "numeric", value });
+                                if (newSelections.has(code)) newSelections.delete(code);
+                            } else newSelections.set(code, { type: "numeric", value });
                             return newSelections;
                         });
                     }}

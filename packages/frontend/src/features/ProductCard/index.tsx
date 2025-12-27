@@ -162,15 +162,15 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
                     ref={attributeContainerRef}
                 >
                     {displayAttribute.values.slice(0, attributeValueCount).map((v) => {
-                        const { name: attributeName } = displayAttribute;
-                        const { code, name: valueName, value } = v;
+                        const { code: attributeCode, name: attributeName } = displayAttribute;
+                        const { code: valueCode, name: valueName, value } = v;
 
                         return (
                             <Tooltip
                                 label={`${attributeName}: ${valueName}`}
                                 withArrow
                                 className={styles["Tooltip"]}
-                                key={code}
+                                key={valueCode}
                             >
                                 <button
                                     type="button"
@@ -178,7 +178,7 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
                                     onClick={() => {
                                         navigate({
                                             pathname: `/p/${productData.slug}`,
-                                            search: `?${attributeName}=${code}`,
+                                            search: `?${attributeCode}=${valueCode}`,
                                         });
                                     }}
                                     disabled={awaiting}

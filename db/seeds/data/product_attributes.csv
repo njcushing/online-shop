@@ -1,3 +1,5 @@
-name,title,product_attribute_value_type_name
-Size_Text,Choose a size,text
-Blend,Choose a blend,color
+code,name,title,product_attribute_value_type_name
+size_text,Size,Choose a size,text
+coffee_blend,Blend,Choose a blend,color
+tea_blend,Blend,Choose a blend,color
+tea_flavour,Flavour,Choose a flavour,color

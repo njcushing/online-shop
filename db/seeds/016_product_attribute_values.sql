@@ -1,7 +1,7 @@
 BEGIN;
 
 CREATE TEMP TABLE product_attribute_values_csv (
-    product_attribute_name text,
+    product_attribute_code text,
     position int,
     code text,
     name text,
@@ -14,7 +14,7 @@ CREATE TEMP TABLE product_attribute_values_csv (
 );
 
 COPY product_attribute_values_csv (
-    product_attribute_name,
+    product_attribute_code,
     position,
     code,
     name,
@@ -52,6 +52,6 @@ SELECT
     pav.value_date,
     pav.value_select
 FROM product_attribute_values_csv pav
-JOIN product_attributes pa ON pa.name = pav.product_attribute_name;
+JOIN product_attributes pa ON pa.code = pav.product_attribute_code;
 
 COMMIT;

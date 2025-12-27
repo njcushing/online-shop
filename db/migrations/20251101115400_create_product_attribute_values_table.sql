@@ -111,12 +111,12 @@ CREATE UNIQUE INDEX uq_attribute_value_color ON product_attribute_values (produc
 CREATE UNIQUE INDEX uq_attribute_value_date ON product_attribute_values (product_attribute_id, value_date) WHERE value_date IS NOT NULL;
 CREATE UNIQUE INDEX uq_attribute_value_select ON product_attribute_values (product_attribute_id, value_select) WHERE value_select IS NOT NULL;
 
-CREATE FUNCTION get_product_attribute_value_id(value_name text, value_code text)
+CREATE FUNCTION get_product_attribute_value_id(attribute_code text, value_code text)
 RETURNS uuid AS $$
     SELECT pav.id
     FROM product_attribute_values pav
     JOIN product_attributes pa ON pav.product_attribute_id = pa.id
-    WHERE pa.name = value_name
+    WHERE pa.code = attribute_code
         AND pav.code = value_code
     LIMIT 1;
 $$ LANGUAGE sql STABLE;

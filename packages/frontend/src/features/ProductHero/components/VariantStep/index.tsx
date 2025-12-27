@@ -9,17 +9,17 @@ export type TVariantStep = {
 };
 
 export function VariantStep({ attribute }: TVariantStep) {
-    const { name, title, type, values } = attribute;
+    const { code, title, type, values } = attribute;
 
     const { selectedAttributeParams, setSelectedAttributeParams } = useContext(ProductContext);
 
     const onClick = useCallback(
-        (code: string) => {
+        (valueCode: string) => {
             const newSelectedAttributeParams = { ...selectedAttributeParams };
-            newSelectedAttributeParams[name] = code;
+            newSelectedAttributeParams[code] = valueCode;
             setSelectedAttributeParams(newSelectedAttributeParams);
         },
-        [name, selectedAttributeParams, setSelectedAttributeParams],
+        [code, selectedAttributeParams, setSelectedAttributeParams],
     );
 
     const items = useMemo(() => {
@@ -29,20 +29,21 @@ export function VariantStep({ attribute }: TVariantStep) {
             case "date":
             case "select": {
                 return values.map((v) => {
-                    const { code, name: valueName } = v;
+                    const { code: valueCode, name: valueName } = v;
 
                     const isSelected =
-                        name in selectedAttributeParams && selectedAttributeParams[name] === code;
+                        code in selectedAttributeParams &&
+                        selectedAttributeParams[code] === valueCode;
 
                     return (
                         <button
                             type="button"
-                            onClick={() => onClick && onClick(code)}
+                            onClick={() => onClick && onClick(valueCode)}
                             className={styles["variant-step-text"]}
                             data-selected={isSelected}
                             tabIndex={isSelected ? -1 : 0}
                             disabled={isSelected}
-                            key={`variant-options-${name}-${code}`}
+                            key={`variant-options-${code}-${valueCode}`}
                         >
                             {valueName}
                         </button>
@@ -51,20 +52,21 @@ export function VariantStep({ attribute }: TVariantStep) {
             }
             case "color": {
                 return values.map((v) => {
-                    const { code, name: valueName, value } = v;
+                    const { code: valueCode, name: valueName, value } = v;
 
                     const isSelected =
-                        name in selectedAttributeParams && selectedAttributeParams[name] === code;
+                        code in selectedAttributeParams &&
+                        selectedAttributeParams[code] === valueCode;
 
                     return (
                         <button
                             type="button"
-                            onClick={() => onClick && onClick(code)}
+                            onClick={() => onClick && onClick(valueCode)}
                             className={styles["variant-step-color"]}
                             data-selected={isSelected}
                             tabIndex={isSelected ? -1 : 0}
                             disabled={isSelected}
-                            key={`variant-options-${name}-${code}`}
+                            key={`variant-options-${code}-${valueCode}`}
                         >
                             <span
                                 className={styles["variant-step-color-box"]}
@@ -78,16 +80,16 @@ export function VariantStep({ attribute }: TVariantStep) {
             default:
                 return null;
         }
-    }, [values, name, type, selectedAttributeParams, onClick]);
+    }, [values, code, type, selectedAttributeParams, onClick]);
 
     const content = useMemo(() => {
         if (type === "boolean") {
             const isSelected =
-                name in selectedAttributeParams && selectedAttributeParams[name] === "true";
+                code in selectedAttributeParams && selectedAttributeParams[code] === "true";
 
             return (
                 <Checkbox
-                    label={<p className={styles["variant-step-title"]}>{name}</p>}
+                    label={<p className={styles["variant-step-title"]}>{code}</p>}
                     onChange={() => onClick && onClick(isSelected ? "false" : "true")}
                     checked={isSelected}
                     data-selected={isSelected}
@@ -108,10 +110,10 @@ export function VariantStep({ attribute }: TVariantStep) {
                 <div className={styles["variant-step-options"]}>{items}</div>
             </>
         );
-    }, [name, title, type, selectedAttributeParams, onClick, items]);
+    }, [code, title, type, selectedAttributeParams, onClick, items]);
 
     return (
-        <div className={styles["variant-step"]} key={`variant-options-${name}`}>
+        <div className={styles["variant-step"]} key={`variant-options-${code}`}>
             {content}
         </div>
     );

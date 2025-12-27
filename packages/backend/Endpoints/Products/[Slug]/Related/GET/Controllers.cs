@@ -43,6 +43,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.Related.GET
                     Attributes = p.ProductAttributeOrders.Select(pao => new GetRelatedProductsBySlugResponseDto.AttributeOrder
                     {
                         Position = pao.Position,
+                        Code = pao.ProductAttribute.Code,
                         Name = pao.ProductAttribute.Name,
                         Title = pao.ProductAttribute.Title,
                         Type = pao.ProductAttribute.ProductAttributeValueType.Name,
@@ -130,6 +131,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.Related.GET
                             Type = new GetRelatedProductsBySlugResponseDto.Variant.Attribute.AttributeType
                             {
                                 Id = pva.ProductAttribute.Id,
+                                Code = pva.ProductAttribute.Code,
                                 Name = pva.ProductAttribute.Name,
                                 Title = pva.ProductAttribute.Title,
                             },

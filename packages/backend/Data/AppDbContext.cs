@@ -493,11 +493,12 @@ public partial class AppDbContext : DbContext
 
             entity.ToTable("product_attributes");
 
-            entity.HasIndex(e => e.Name, "product_attributes_name_key").IsUnique();
+            entity.HasIndex(e => e.Code, "product_attributes_code_key").IsUnique();
 
             entity.Property(e => e.Id)
                 .HasDefaultValueSql("uuid_generate_v4()")
                 .HasColumnName("id");
+            entity.Property(e => e.Code).HasColumnName("code");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("now()")
                 .HasColumnName("created_at");

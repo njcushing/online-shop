@@ -1,8 +1,8 @@
-category_slug,product_attribute_name
-beans,Blend
-ground,Blend
-instant-and-pods,Blend
-cold-brew-ready,Blend
-loose-leaf,Blend
-bags,Blend
-specialty-and-powdered,Blend
+category_slug,product_attribute_code
+beans,coffee_blend
+ground,coffee_blend
+instant-and-pods,coffee_blend
+cold-brew-ready,coffee_blend
+loose-leaf,tea_blend
+bags,tea_blend
+specialty-and-powdered,tea_blend

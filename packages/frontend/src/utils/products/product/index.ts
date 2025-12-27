@@ -16,22 +16,22 @@ export const extractRelatedAttributesOrdered = (
 
     const clonedVariants = structuredClone(variants);
     for (let i = 0; i < allAttributes.length; i++) {
-        const ancestorAttributeName = i > 0 ? allAttributes[i - 1].name : null;
-        const currentAttributeName = allAttributes[i].name;
+        const ancestorAttributeCode = i > 0 ? allAttributes[i - 1].code : null;
+        const currentAttributeCode = allAttributes[i].code;
 
         for (let j = clonedVariants.length - 1; j >= 0; j--) {
             const variant = clonedVariants[j];
 
             const variantAncestorAttribute = variant.attributes.find(
-                (a) => a.type.name === ancestorAttributeName,
+                (a) => a.type.code === ancestorAttributeCode,
             );
 
             const variantAttribute = variant.attributes.find(
-                (a) => a.type.name === currentAttributeName,
+                (a) => a.type.code === currentAttributeCode,
             );
 
             const selectedVariantAncestorAttribute = selectedVariantAttributes.find(
-                (a) => a.type.name === ancestorAttributeName,
+                (a) => a.type.code === ancestorAttributeCode,
             );
 
             if (
@@ -40,11 +40,11 @@ export const extractRelatedAttributesOrdered = (
                     variantAncestorAttribute !== undefined &&
                     variantAttribute !== undefined &&
                     selectedVariantAncestorAttribute !== undefined &&
-                    variantAncestorAttribute.type.name ===
-                        selectedVariantAncestorAttribute.type.name)
+                    variantAncestorAttribute.type.code ===
+                        selectedVariantAncestorAttribute.type.code)
             ) {
-                if (!attributeMap.has(currentAttributeName)) {
-                    attributeMap.set(currentAttributeName, {
+                if (!attributeMap.has(currentAttributeCode)) {
+                    attributeMap.set(currentAttributeCode, {
                         index: attributes.length,
                         codes: new Set(),
                     });
@@ -53,14 +53,14 @@ export const extractRelatedAttributesOrdered = (
                 }
 
                 if (
-                    !attributeMap.get(currentAttributeName)!.codes.has(variantAttribute.value.code)
+                    !attributeMap.get(currentAttributeCode)!.codes.has(variantAttribute.value.code)
                 ) {
                     const { code } = variantAttribute.value;
                     const attributeValueData = allAttributes[i].values.find(
                         (v) => v.code === code,
                     )!;
-                    attributeMap.get(currentAttributeName)!.codes.add(code);
-                    attributes[attributeMap.get(currentAttributeName)!.index]!.values.push(
+                    attributeMap.get(currentAttributeCode)!.codes.add(code);
+                    attributes[attributeMap.get(currentAttributeCode)!.index]!.values.push(
                         attributeValueData,
                     );
                 }
@@ -129,7 +129,7 @@ export const findVariantByAttributeParams = (
         for (let j = 0; j < attributeParamsEntries.length; j++) {
             const [key, value] = attributeParamsEntries[j];
             const variantAttributeMatch = variant.attributes.find((a) => {
-                return a.type.name === key && a.value.code === value;
+                return a.type.code === key && a.value.code === value;
             });
             if (variantAttributeMatch) matches += 1;
         }
@@ -174,7 +174,7 @@ export const generateSkeletonProductVariant = (): RecursivePartial<
     releaseDate: new Date().toISOString(),
     attributes: [
         {
-            type: { id: uuid(), name: "Size", title: "Choose a size" },
+            type: { id: uuid(), code: "size_text", name: "Size", title: "Choose a size" },
             value: { code: "LG", name: "Large" },
         },
     ],
@@ -214,6 +214,7 @@ export const generateSkeletonProduct = (): RecursivePartial<GetProductBySlugResp
         attributes: [
             {
                 position: 0,
+                code: "size_text",
                 name: "Size",
                 title: "Choose a size",
                 type: "string",

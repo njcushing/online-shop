@@ -12,21 +12,21 @@ export type TStringFilter = {
 export function StringFilter({ data, awaiting = false }: TStringFilter) {
     const { filterSelections, setFilterSelections } = useContext(CategoryProductListContext);
 
-    const { name, values } = data;
+    const { code, values } = data;
     const allValues = useMemo(() => new Set<string>([...values.map((v) => v.code)]), [values]);
 
     const [cachedAwaiting, setCachedAwaiting] = useState<boolean>(awaiting);
 
     const getSelected = useCallback(() => {
         const initSelected = new Set<string>();
-        const strings = filterSelections.get(name);
+        const strings = filterSelections.get(code);
         if (!strings || strings.type !== "text") return initSelected;
         const { value } = strings;
-        value.forEach((code) => {
-            if (allValues.has(code)) initSelected.add(code);
+        value.forEach((v) => {
+            if (allValues.has(v)) initSelected.add(v);
         });
         return initSelected;
-    }, [filterSelections, name, allValues]);
+    }, [filterSelections, code, allValues]);
     const [selected, setSelected] = useState<Set<string>>(getSelected());
     useEffect(() => setSelected(getSelected()), [getSelected]);
     useEffect(() => setCachedAwaiting(awaiting), [awaiting]);
@@ -34,10 +34,10 @@ export function StringFilter({ data, awaiting = false }: TStringFilter) {
     return (
         <ul className={styles["filter-strings"]} data-disabled={!!awaiting || cachedAwaiting}>
             {values.map((value) => {
-                const { code, name: valueName, count } = value;
+                const { code: valueCode, name: valueName, count } = value;
 
                 return (
-                    <div className={styles["filter-value-string"]} key={code}>
+                    <div className={styles["filter-value-string"]} key={valueCode}>
                         <Checkbox
                             label={
                                 <>
@@ -71,15 +71,15 @@ export function StringFilter({ data, awaiting = false }: TStringFilter) {
                             }
                             onChange={() => {
                                 const newSelected = new Set<string>(selected);
-                                if (newSelected.has(code)) newSelected.delete(code);
-                                else newSelected.add(code);
+                                if (newSelected.has(valueCode)) newSelected.delete(valueCode);
+                                else newSelected.add(valueCode);
 
                                 setFilterSelections((curr) => {
                                     const newSelections = new Map(curr);
                                     if (newSelected.size === 0) {
-                                        if (newSelections.has(name)) newSelections.delete(name);
+                                        if (newSelections.has(code)) newSelections.delete(code);
                                     } else {
-                                        newSelections.set(name, {
+                                        newSelections.set(code, {
                                             type: "text",
                                             value: Array.from(newSelected),
                                         });
@@ -87,7 +87,7 @@ export function StringFilter({ data, awaiting = false }: TStringFilter) {
                                     return newSelections;
                                 });
                             }}
-                            checked={selected.has(code)}
+                            checked={selected.has(valueCode)}
                             disabled={awaiting || cachedAwaiting}
                             classNames={{
                                 root: styles["checkbox-root"],

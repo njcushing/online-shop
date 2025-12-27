@@ -31,6 +31,8 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
 
             public required int Position { get; set; }
 
+            public required string Code { get; set; }
+
             public required string Name { get; set; }
 
             public required string Title { get; set; }
@@ -145,6 +147,8 @@ namespace Cafree.Api.Endpoints.Products._Slug.GET
                 public class AttributeType
                 {
                     public Guid Id { get; set; }
+
+                    public required string Code { get; set; }
 
                     public required string Name { get; set; }
 

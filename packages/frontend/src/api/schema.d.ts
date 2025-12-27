@@ -433,6 +433,7 @@ export interface components {
             productCount: number;
         };
         "Categories._Slug.GET.GetCategoryBySlugResponseDto.Filter": {
+            code: string;
             name: string;
             title: string;
             type: string;
@@ -474,6 +475,7 @@ export interface components {
         "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.AttributeOrder": {
             /** Format: int32 */
             position: number;
+            code: string;
             name: string;
             title: string;
             type: string;
@@ -542,6 +544,7 @@ export interface components {
         "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product.Variant.Attribute.AttributeType": {
             /** Format: uuid */
             id: string;
+            code: string;
             name: string;
             title: string;
         };
@@ -604,6 +607,7 @@ export interface components {
         "Products.Search.GET.GetProductsBySearchResponseDto.AttributeOrder": {
             /** Format: int32 */
             position: number;
+            code: string;
             name: string;
             title: string;
             type: string;
@@ -679,6 +683,7 @@ export interface components {
         "Products.Search.GET.GetProductsBySearchResponseDto.Variant.Attribute.AttributeType": {
             /** Format: uuid */
             id: string;
+            code: string;
             name: string;
             title: string;
         };
@@ -724,6 +729,7 @@ export interface components {
         "Products._Slug.GET.GetProductBySlugResponseDto.AttributeOrder": {
             /** Format: int32 */
             position: number;
+            code: string;
             name: string;
             title: string;
             type: string;
@@ -826,6 +832,7 @@ export interface components {
         "Products._Slug.GET.GetProductBySlugResponseDto.Variant.Attribute.AttributeType": {
             /** Format: uuid */
             id: string;
+            code: string;
             name: string;
             title: string;
         };
@@ -871,6 +878,7 @@ export interface components {
         "Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.AttributeOrder": {
             /** Format: int32 */
             position: number;
+            code: string;
             name: string;
             title: string;
             type: string;
@@ -946,6 +954,7 @@ export interface components {
         "Products._Slug.Related.GET.GetRelatedProductsBySlugResponseDto.Variant.Attribute.AttributeType": {
             /** Format: uuid */
             id: string;
+            code: string;
             name: string;
             title: string;
         };
@@ -999,6 +1008,7 @@ export interface components {
         "Products._Slug.Reviews.GET.GetReviewsByProductSlugResponseDto.Review.ProductVariant.Attribute.AttributeType": {
             /** Format: uuid */
             id: string;
+            code: string;
             name: string;
             title: string;
         };

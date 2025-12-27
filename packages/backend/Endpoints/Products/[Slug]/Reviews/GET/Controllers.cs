@@ -92,6 +92,7 @@ namespace Cafree.Api.Endpoints.Products._Slug.Reviews.GET
                                 Type = new GetReviewsByProductSlugResponseDto.Review.ProductVariant.Attribute.AttributeType
                                 {
                                     Id = pva.ProductAttribute.Id,
+                                    Code = pva.ProductAttribute.Code,
                                     Name = pva.ProductAttribute.Name,
                                     Title = pva.ProductAttribute.Title,
                                 },

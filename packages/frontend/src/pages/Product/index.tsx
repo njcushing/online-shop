@@ -52,7 +52,7 @@ const generateAttributeParamsFromVariant = (
     const attributeParams: IProductContext["selectedAttributeParams"] = {};
     if (variant) {
         variant!.attributes.forEach((a) => {
-            attributeParams[a.type.name] = a.value.code;
+            attributeParams[a.type.code] = a.value.code;
         });
     }
     return attributeParams;

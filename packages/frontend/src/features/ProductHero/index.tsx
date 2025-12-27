@@ -122,10 +122,10 @@ export function ProductHero() {
 
     const relatedAttributesMemo = useMemo(() => {
         return relatedAttributesData.map((attribute, i) => {
-            const { name: attributeName, values } = attribute;
+            const { code: attributeCode, values } = attribute;
             if (values.length === 0) return null;
             return (
-                <Skeleton visible={awaitingAny} key={attributeName}>
+                <Skeleton visible={awaitingAny} key={attributeCode}>
                     <div
                         style={{
                             visibility: awaitingAny ? "hidden" : "initial",

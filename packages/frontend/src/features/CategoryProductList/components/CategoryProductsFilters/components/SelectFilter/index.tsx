@@ -12,16 +12,16 @@ export type TSelectFilter = {
 export function SelectFilter({ data, awaiting = false }: TSelectFilter) {
     const { filterSelections, setFilterSelections } = useContext(CategoryProductListContext);
 
-    const { name, values } = data;
+    const { code, values } = data;
     const allValues = useMemo(() => new Set<string>([...values.map((v) => v.code)]), [values]);
 
     const [cachedAwaiting, setCachedAwaiting] = useState<boolean>(awaiting);
 
     const getSelected = useCallback(() => {
-        const select = filterSelections.get(name);
+        const select = filterSelections.get(code);
         if (!select || select.type !== "select" || !allValues.has(select.value)) return "";
         return select.value;
-    }, [filterSelections, name, allValues]);
+    }, [filterSelections, code, allValues]);
     const [selected, setSelected] = useState<string>(getSelected());
     useEffect(() => setSelected(getSelected()), [getSelected]);
     useEffect(() => setCachedAwaiting(awaiting), [awaiting]);
@@ -30,11 +30,11 @@ export function SelectFilter({ data, awaiting = false }: TSelectFilter) {
         <Radio.Group>
             <ul className={styles["filter-radio"]} data-disabled={awaiting}>
                 {values.map((value) => {
-                    const { code, name: valueName, count } = value;
+                    const { code: valueCode, name: valueName, count } = value;
 
                     return (
                         <Radio
-                            value={code}
+                            value={valueCode}
                             label={
                                 <>
                                     <Skeleton visible={awaiting || cachedAwaiting}>
@@ -68,14 +68,18 @@ export function SelectFilter({ data, awaiting = false }: TSelectFilter) {
                             onChange={() => {
                                 setFilterSelections((curr) => {
                                     const newSelections = new Map(curr);
-                                    const validValue = code.length > 0;
+                                    const validValue = valueCode.length > 0;
                                     if (!validValue) {
-                                        if (newSelections.has(name)) newSelections.delete(name);
-                                    } else newSelections.set(name, { type: "select", value: code });
+                                        if (newSelections.has(code)) newSelections.delete(code);
+                                    } else
+                                        newSelections.set(code, {
+                                            type: "select",
+                                            value: valueCode,
+                                        });
                                     return newSelections;
                                 });
                             }}
-                            checked={selected === code}
+                            checked={selected === valueCode}
                             disabled={awaiting || cachedAwaiting}
                             classNames={{
                                 root: styles["radio-root"],
@@ -83,7 +87,7 @@ export function SelectFilter({ data, awaiting = false }: TSelectFilter) {
                                 radio: styles["radio"],
                                 label: styles["radio-label"],
                             }}
-                            key={code}
+                            key={valueCode}
                         />
                     );
                 })}

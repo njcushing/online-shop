@@ -45,9 +45,9 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
             Dictionary<string, ProductAttribute> categoryProductAttributeFilters
         )
         {
-            foreach (var (name, value) in filters)
+            foreach (var (code, value) in filters)
             {
-                if (name.Equals("rating", StringComparison.OrdinalIgnoreCase))
+                if (code.Equals("rating", StringComparison.OrdinalIgnoreCase))
                 {
                     if (decimal.TryParse(value, NumberStyles.Number, CultureInfo.InvariantCulture, out var rating))
                     {
@@ -60,9 +60,9 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                     continue;
                 }
 
-                if (name.Equals("price", StringComparison.OrdinalIgnoreCase)) continue;
+                if (code.Equals("price", StringComparison.OrdinalIgnoreCase)) continue;
 
-                if (!categoryProductAttributeFilters.TryGetValue(name, out var pa)) continue;
+                if (!categoryProductAttributeFilters.TryGetValue(code, out var pa)) continue;
 
                 switch (pa.ProductAttributeValueType.Name)
                 {
@@ -75,7 +75,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                                 cp.Product.ProductVariants.Any(pv =>
                                     pv.Active &&
                                     pv.ProductVariantAttributes.Any(pva =>
-                                        pva.ProductAttribute.Name == name &&
+                                        pva.ProductAttribute.Code == code &&
                                         pva.ProductAttribute.ProductAttributeValueType.Name == "text" &&
                                         values.Contains(pva.ProductAttributeValue.Code)
                                     )
@@ -101,7 +101,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                                 cp.Product.ProductVariants.Any(pv =>
                                     pv.Active &&
                                     pv.ProductVariantAttributes.Any(pva =>
-                                        pva.ProductAttribute.Name == name &&
+                                        pva.ProductAttribute.Code == code &&
                                         pva.ProductAttribute.ProductAttributeValueType.Name == "numeric" &&
                                         pva.ProductAttributeValue.ValueNumeric >= lower &&
                                         pva.ProductAttributeValue.ValueNumeric <= upper
@@ -116,7 +116,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                                 cp.Product.ProductVariants.Any(pv =>
                                     pv.Active &&
                                     pv.ProductVariantAttributes.Any(pva =>
-                                        pva.ProductAttribute.Name == name &&
+                                        pva.ProductAttribute.Code == code &&
                                         pva.ProductAttribute.ProductAttributeValueType.Name == "boolean" &&
                                         (
                                             value == "true" && pva.ProductAttributeValue.ValueBoolean == true ||
@@ -134,7 +134,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                                 cp.Product.ProductVariants.Any(pv =>
                                     pv.Active &&
                                     pv.ProductVariantAttributes.Any(pva =>
-                                        pva.ProductAttribute.Name == name &&
+                                        pva.ProductAttribute.Code == code &&
                                         pva.ProductAttribute.ProductAttributeValueType.Name == "color" &&
                                         values.Contains(pva.ProductAttributeValue.Code)
                                     )
@@ -175,7 +175,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                                     cp.Product.ProductVariants.Any(pv =>
                                         pv.Active &&
                                         pv.ProductVariantAttributes.Any(pva =>
-                                            pva.ProductAttribute.Name == name &&
+                                            pva.ProductAttribute.Code == code &&
                                             pva.ProductAttribute.ProductAttributeValueType.Name == "date" &&
                                             pva.ProductAttributeValue.ValueDate >= lower &&
                                             pva.ProductAttributeValue.ValueDate <= upper
@@ -196,7 +196,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                                     cp.Product.ProductVariants.Any(pv =>
                                         pv.Active &&
                                         pv.ProductVariantAttributes.Any(pva =>
-                                            pva.ProductAttribute.Name == name &&
+                                            pva.ProductAttribute.Code == code &&
                                             pva.ProductAttribute.ProductAttributeValueType.Name == "date" &&
                                             pva.ProductAttributeValue.ValueDate >= lower
                                         )
@@ -211,7 +211,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                                 cp.Product.ProductVariants.Any(pv =>
                                     pv.Active &&
                                     pv.ProductVariantAttributes.Any(pva =>
-                                        pva.ProductAttribute.Name == name &&
+                                        pva.ProductAttribute.Name == code &&
                                         pva.ProductAttribute.ProductAttributeValueType.Name == "select" &&
                                         value == pva.ProductAttributeValue.Code
                                     )
@@ -300,7 +300,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                 .Where(cpaf => cpaf.CategoryId == category.Id)
                 .Include(cpaf => cpaf.ProductAttribute)
                 .Include(cpaf => cpaf.ProductAttribute.ProductAttributeValueType)
-                .ToDictionaryAsync(cpaf => cpaf.ProductAttribute.Name, cpaf => cpaf.ProductAttribute, StringComparer.OrdinalIgnoreCase);
+                .ToDictionaryAsync(cpaf => cpaf.ProductAttribute.Code, cpaf => cpaf.ProductAttribute, StringComparer.OrdinalIgnoreCase);
 
             productQuery = ApplyFilters(productQuery, parsedFilters, categoryProductAttributeFilters);
             productQuery = ApplySorting(productQuery, query.Sort);
@@ -342,6 +342,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                     Attributes = cp.Product.ProductAttributeOrders.Select(pao => new GetCategoryBySlugProductsResponseDto.Product.AttributeOrder
                     {
                         Position = pao.Position,
+                        Code = pao.ProductAttribute.Code,
                         Name = pao.ProductAttribute.Name,
                         Title = pao.ProductAttribute.Title,
                         Type = pao.ProductAttribute.ProductAttributeValueType.Name,
@@ -410,6 +411,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
                             Type = new GetCategoryBySlugProductsResponseDto.Product.Variant.Attribute.AttributeType
                             {
                                 Id = pva.ProductAttribute.Id,
+                                Code = pva.ProductAttribute.Code,
                                 Name = pva.ProductAttribute.Name,
                                 Title = pva.ProductAttribute.Title,
                             },

@@ -25,13 +25,13 @@ export const parseSearchParams = (
         if (key === "filter") {
             const filterList = value.split("~");
             filterList.forEach((filter) => {
-                const [filterName, filterValues] = filter.split("=");
-                const filterData = categoryFilters.find((cf) => cf.name === filterName);
+                const [filterCode, filterValues] = filter.split("=");
+                const filterData = categoryFilters.find((cf) => cf.name === filterCode);
 
                 let { type } = filterData ?? { type: "INVALID" };
                 const { values } = filterData ?? { values: [] };
-                if (filterName === "Rating") type = "select";
-                if (filterName === "Price") type = "numeric";
+                if (filterCode.toLowerCase() === "rating") type = "select";
+                if (filterCode.toLowerCase() === "price") type = "numeric";
 
                 if (type === "INVALID") return;
 
@@ -41,17 +41,17 @@ export const parseSearchParams = (
                             .split("|")
                             .filter((v) => values.find(({ code }) => code === v));
                         if (validFilterValues.length > 0) {
-                            filters.set(filterName, { type, value: validFilterValues });
+                            filters.set(filterCode, { type, value: validFilterValues });
                         }
                         break;
                     }
                     case "boolean":
-                        filters.set(filterName, { type, value: filterValues === "true" });
+                        filters.set(filterCode, { type, value: filterValues === "true" });
                         break;
                     case "numeric": {
                         const filterValuesSplit = filterValues.split("..");
                         if (filterValuesSplit.some((v) => !isNumeric(v))) break;
-                        filters.set(filterName, {
+                        filters.set(filterCode, {
                             type,
                             value: [Number(filterValuesSplit[0]), Number(filterValuesSplit[1])],
                         });
@@ -62,7 +62,7 @@ export const parseSearchParams = (
                             .split("|")
                             .filter((v) => values.find(({ code }) => code === v));
                         if (validFilterValues.length > 0) {
-                            filters.set(filterName, { type, value: validFilterValues });
+                            filters.set(filterCode, { type, value: validFilterValues });
                         }
                         break;
                     }
@@ -70,15 +70,15 @@ export const parseSearchParams = (
                         const filterValuesSplit = filterValues.split("..");
                         if (filterValuesSplit.some((v) => Number.isNaN(Date.parse(v)))) break;
                         if (filterValuesSplit.length > 0) {
-                            filters.set(filterName, { type, value: filterValuesSplit });
+                            filters.set(filterCode, { type, value: filterValuesSplit });
                         }
                         break;
                     }
                     case "select":
                         if (values.find(({ code }) => code === filterValues)) {
-                            filters.set(filterName, { type, value: filterValues });
+                            filters.set(filterCode, { type, value: filterValues });
                         }
-                        filters.set(filterName, { type, value: filterValues });
+                        filters.set(filterCode, { type, value: filterValues });
                         break;
                     default:
                 }

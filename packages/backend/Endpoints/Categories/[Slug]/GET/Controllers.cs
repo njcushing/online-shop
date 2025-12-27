@@ -32,6 +32,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.GET
                     }).ToList(),
                     Filters = c.CategoryProductAttributeFilters.Select(cpaf => new GetCategoryBySlugResponseDto.Filter
                     {
+                        Code = cpaf.ProductAttribute.Code,
                         Name = cpaf.ProductAttribute.Name,
                         Title = cpaf.ProductAttribute.Title,
                         Type = cpaf.ProductAttribute.ProductAttributeValueType.Name,
