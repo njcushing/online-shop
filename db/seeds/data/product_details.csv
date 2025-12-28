@@ -44,9 +44,12 @@ tea-iced-cans-4-pack,Quantity,4 cans
 tea-iced-cans-8-pack,Quantity,8 cans
 tea-iced-cans-16-pack,Quantity,16 cans
 tea-iced-cans-32-pack,Quantity,32 cans
-brewing-cafetière-3-cup,Servings,3 Cups
+brewing-cafetière-3-cup,Servings,3x Espresso Cups or 1-2x Standard Mugs
 brewing-cafetière-3-cup,Capacity,350ml
 brewing-cafetière-3-cup,Compatibility,Ground Coffee
-brewing-cafetière-8-cup,Servings,8 Cups
+brewing-cafetière-8-cup,Servings,8x Espresso Cups or 3-4x Standard Mugs
 brewing-cafetière-8-cup,Capacity,1000ml
 brewing-cafetière-8-cup,Compatibility,Ground Coffee
+brewing-aeropress,Servings,1x Standard Mug
+brewing-aeropress,Capacity,300ml
+brewing-aeropress,Compatibility,Ground Coffee
