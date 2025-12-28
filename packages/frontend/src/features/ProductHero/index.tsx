@@ -198,17 +198,19 @@ export function ProductHero() {
 
                     <Divider className={styles["margin"]} />
 
-                    <div
-                        className={`${styles["product-hero-steps-container"]} ${styles["margin"]}`}
-                    >
-                        {collectionQuantitiesMemo}
+                    {collectionQuantitiesMemo.length > 0 && relatedAttributesMemo.length > 0 && (
+                        <div
+                            className={`${styles["product-hero-steps-container"]} ${styles["margin"]}`}
+                        >
+                            {collectionQuantitiesMemo}
 
-                        {collectionQuantitiesMemo.length > 0 && <Divider />}
+                            {collectionQuantitiesMemo.length > 0 && <Divider />}
 
-                        {relatedAttributesMemo}
+                            {relatedAttributesMemo}
 
-                        {relatedAttributesMemo.length > 0 && <Divider />}
-                    </div>
+                            {relatedAttributesMemo.length > 0 && <Divider />}
+                        </div>
+                    )}
 
                     <Skeleton visible={awaitingAny} className={styles["margin"]}>
                         <div style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
