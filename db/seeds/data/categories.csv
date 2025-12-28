@@ -1,9 +1,9 @@
 parent_slug,name,slug,description
 ,Coffee,coffee,All coffee-related products.
 ,Tea,tea,A variety of teas from around the world.
-,Equipment,equipment,Everything you need to brew coffee & tea.
-,Accessories,accessories,Enhance your coffee and tea experience.
-,Gifts & Subscriptions,gifts-subscriptions,Great gifts for coffee and tea lovers.
+,Equipment & Accessories,equipment-and-accessories,Everything you need to create the perfect coffee & tea.
+,Gifts,gifts,Great gifts for coffee and tea lovers.
+,Samples,samples,Get a taste for the variety of flavours on offer at Cafree.
 coffee,Beans,beans,Whole coffee beans.
 coffee,Ground,ground,Pre-ground coffee for convenience.
 coffee,Instant & Pods,instant-and-pods,Whole coffee beans.
@@ -11,15 +11,14 @@ coffee,Cold Brew & Ready-to-Drink,cold-brew-ready,Cold brew concentrate and read
 tea,Loose Leaf,loose-leaf,High-quality loose tea leaves.
 tea,Bags,bags,Convenient tea bags.
 tea,Specialty & Powdered,specialty-and-powdered,Specialty teas and instant tea powders.
-tea,Ready-to-Drink,ready-to-drink,Pre-bottled teas.
-equipment,Brewing,brewing,Manual brewing devices.
-equipment,Espresso Machines,espresso-machines,Machines for making espresso.
-equipment,Grinders,grinders,For freshly ground coffee.
-equipment,Scales & Timers,scales-timers,Precision tools for brewing.
-equipment,Cold Brew Makers,cold-brew-makers,Specialized cold brew tools.
-accessories,Mugs & Tumblers,mugs-tumblers,Drinkware for all beverages.
-accessories,Filters & Maintenance,filters-maintenance,Reusable and disposable filters.
-accessories,Frothers & Steamers,frothers-steamers,Tools for milk frothing.
-gifts-subscriptions,Gift Sets & Sampler Packs,gift-sets-packs,Curated gift sets.
-gifts-subscriptions,Selection Boxes,selection-boxes,A variety of products packaged together for the full Cafree experience at a reasonable price.
-gifts-subscriptions,Gift Cards,gift-cards,Digital and physical gift cards.
+tea,Ready-to-Drink,ready-to-drink,Ready-made beverages.
+equipment-and-accessories,Brewing,brewing,Devices and utilities for brewing coffee & tea.
+equipment-and-accessories,Espresso Machines,espresso-machines,Machines for making espresso.
+equipment-and-accessories,Grinders,grinders,For freshly ground coffee.
+equipment-and-accessories,Cold Brew Makers,cold-brew-makers,Specialized cold brew tools.
+equipment-and-accessories,Mugs & Tumblers,mugs-tumblers,Drinkware for all beverages.
+equipment-and-accessories,Filters & Maintenance,filters-maintenance,Reusable and disposable filters.
+equipment-and-accessories,Frothers & Steamers,frothers-steamers,Tools for milk frothing.
+gifts,Gift Sets,gift-sets,Curated sets of products to be given as gifts.
+gifts,Selection Boxes,selection-boxes,A variety of products to be enjoyed at reasonable prices.
+gifts,Gift Cards,gift-cards,Digital and physical gift cards.
