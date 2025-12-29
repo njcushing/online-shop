@@ -198,7 +198,7 @@ export function ProductHero() {
 
                     <Divider className={styles["margin"]} />
 
-                    {collectionQuantitiesMemo.length > 0 && relatedAttributesMemo.length > 0 && (
+                    {(collectionQuantitiesMemo.length > 0 || relatedAttributesMemo.length > 0) && (
                         <div
                             className={`${styles["product-hero-steps-container"]} ${styles["margin"]}`}
                         >
