@@ -3,4 +3,5 @@ size_text,Size,Choose a size,text
 coffee_blend,Blend,Choose a blend,color
 tea_blend,Blend,Choose a blend,color
 tea_flavour,Flavour,Choose a flavour,color
-cafetière_material,Material,Choose a style,color
+build_material,Material,Choose a style,color
+colour,Colour,Choose a colour,color

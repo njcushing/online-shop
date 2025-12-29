@@ -481,3 +481,8 @@ brewing-cafetière-8-cup,Cafetière - 8-Cup - Stainless Steel,EQP-BR-CA8C-SS,FAL
 brewing-aeropress,AeroPress Coffee Maker - Classic,EQP-BR-AER-CL,FALSE,4000.00,4000.00,0.0000,32,,88,0,TRUE,2025-12-28 13:06:52.586+00
 brewing-pour-over-coffee-dripper,Pour-Over Coffee Dripper - Glass,EQP-BR-POCD-GL,FALSE,2400.00,2400.00,0.0000,19,,68,1,TRUE,2025-12-28 13:43:26.927+00
 brewing-moka-pot-hob-coffee-maker,Moka Pot Hob Coffee Maker - Stainless Steel,EQP-BR-MKP6C-SS,FALSE,4200.00,4200.00,0.0000,32,,50,0,TRUE,2025-12-28 13:54:16.121+00
+brewing-teapot-ceramic,Teapot - Ceramic - White,EQP-BR-TP-CR-WH,FALSE,2400.00,2400.00,0.0000,28,,44,3,TRUE,2025-12-29 14:30:44.906+00
+brewing-teapot-ceramic,Teapot - Ceramic - Orange,EQP-BR-TP-CR-OR,FALSE,2400.00,2400.00,0.0000,34,,31,1,TRUE,2025-12-29 14:30:44.906+00
+brewing-teapot-ceramic,Teapot - Ceramic - Black,EQP-BR-TP-CR-BL,FALSE,2160.00,2400.00,0.0000,36,,63,0,TRUE,2025-12-29 14:30:44.906+00
+brewing-teapot-cast-iron,Teapot - Cast Iron,EQP-BR-TP-CI,FALSE,3000.00,3000.00,0.0000,45,,98,1,TRUE,2025-12-29 14:30:44.906+00
+brewing-teapot-glass,Teapot - Glass,EQP-BR-TP-GL,FALSE,2800.00,2800.00,0.0000,60,,60,3,TRUE,2025-12-29 14:30:44.906+00
