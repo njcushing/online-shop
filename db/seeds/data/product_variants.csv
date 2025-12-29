@@ -486,3 +486,14 @@ brewing-teapot-ceramic,Teapot - Ceramic - Orange,EQP-BR-TP-CR-OR,FALSE,2400.00,2
 brewing-teapot-ceramic,Teapot - Ceramic - Black,EQP-BR-TP-CR-BL,FALSE,2160.00,2400.00,0.0000,36,,63,0,TRUE,2025-12-29 14:30:44.906+00
 brewing-teapot-cast-iron,Teapot - Cast Iron,EQP-BR-TP-CI,FALSE,3000.00,3000.00,0.0000,45,,98,1,TRUE,2025-12-29 14:30:44.906+00
 brewing-teapot-glass,Teapot - Glass,EQP-BR-TP-GL,FALSE,2800.00,2800.00,0.0000,60,,60,3,TRUE,2025-12-29 14:30:44.906+00
+brewing-espresso-machine-essential,Essential Espresso Coffee Machine - Black,EQP-BR-ECM-ES-BL,FALSE,6000.00,6000.00,0.0000,5,,14,0,TRUE,2025-12-29 15:07:06.856+00
+brewing-espresso-machine-essential,Essential Espresso Coffee Machine - White,EQP-BR-ECM-ES-WH,FALSE,6000.00,6000.00,0.0000,4,,7,0,TRUE,2025-12-29 15:07:06.856+00
+brewing-espresso-machine-essential,Essential Espresso Coffee Machine - Green,EQP-BR-ECM-ES-GR,FALSE,6000.00,6000.00,0.0000,14,,14,1,TRUE,2025-12-29 15:07:06.856+00
+brewing-espresso-machine-essential,Essential Espresso Coffee Machine - Red,EQP-BR-ECM-ES-RD,FALSE,6000.00,6000.00,0.0000,21,,16,0,TRUE,2025-12-29 15:07:06.856+00
+brewing-espresso-machine-essential,Essential Espresso Coffee Machine - Blue,EQP-BR-ECM-ES-BU,FALSE,6000.00,6000.00,0.0000,7,,17,0,TRUE,2025-12-29 15:07:06.856+00
+brewing-espresso-machine-deluxe,Deluxe Espresso Coffee Machine - Black,EQP-BR-ECM-DE-BL,FALSE,11000.00,11000.00,0.0000,3,,20,1,TRUE,2025-12-29 15:07:06.856+00
+brewing-espresso-machine-deluxe,Deluxe Espresso Coffee Machine - White,EQP-BR-ECM-DE-WH,FALSE,11000.00,11000.00,0.0000,5,,3,0,TRUE,2025-12-29 15:07:06.856+00
+brewing-espresso-machine-deluxe,Deluxe Espresso Coffee Machine - Green,EQP-BR-ECM-DE-GR,FALSE,11000.00,11000.00,0.0000,10,,10,0,TRUE,2025-12-29 15:07:06.856+00
+brewing-espresso-machine-professional,Professional Espresso Coffee Machine - Black,EQP-BR-ECM-PR-BL,FALSE,32000.00,32000.00,0.0000,4,,0,0,TRUE,2025-12-29 15:07:06.856+00
+brewing-espresso-machine-professional,Professional Espresso Coffee Machine - White,EQP-BR-ECM-PR-WH,FALSE,32000.00,32000.00,0.0000,6,,5,0,TRUE,2025-12-29 15:07:06.856+00
+brewing-espresso-machine-professional,Professional Espresso Coffee Machine - Green,EQP-BR-ECM-PR-GR,FALSE,32000.00,32000.00,0.0000,7,,6,0,TRUE,2025-12-29 15:07:06.856+00
