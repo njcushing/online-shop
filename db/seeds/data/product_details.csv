@@ -67,3 +67,9 @@ brewing-teapot-glass,Capacity,600ml
 brewing-espresso-machine-essential,Weight,6.7kg
 brewing-espresso-machine-deluxe,Weight,10.4kg
 brewing-espresso-machine-professional,Weight,11.8kg
+burr-coffee-grinder-manual,Weight,284g
+burr-coffee-grinder-manual,Capacity,30g of Beans
+burr-coffee-grinder-automatic,Weight,492g
+burr-coffee-grinder-automatic,Capacity,30g of Beans
+blade-coffee-grinder,Weight,190g
+blade-coffee-grinder,Capacity,25g of Beans

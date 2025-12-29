@@ -497,3 +497,6 @@ brewing-espresso-machine-deluxe,Deluxe Espresso Coffee Machine - Green,EQP-BR-EC
 brewing-espresso-machine-professional,Professional Espresso Coffee Machine - Black,EQP-BR-ECM-PR-BL,FALSE,32000.00,32000.00,0.0000,4,,0,0,TRUE,2025-12-29 15:07:06.856+00
 brewing-espresso-machine-professional,Professional Espresso Coffee Machine - White,EQP-BR-ECM-PR-WH,FALSE,32000.00,32000.00,0.0000,6,,5,0,TRUE,2025-12-29 15:07:06.856+00
 brewing-espresso-machine-professional,Professional Espresso Coffee Machine - Green,EQP-BR-ECM-PR-GR,FALSE,32000.00,32000.00,0.0000,7,,6,0,TRUE,2025-12-29 15:07:06.856+00
+burr-coffee-grinder-manual,Burr Coffee Grinder - Manual,EQP-GR-BU-MN-BL,FALSE,1500.00,1500.00,0.0000,22,,38,0,TRUE,2025-12-29 15:28:51.826+00
+burr-coffee-grinder-automatic,Burr Coffee Grinder - Automatic,EQP-GR-BU-AU-BL,FALSE,4500.00,4500.00,0.0000,12,,18,0,TRUE,2025-12-29 15:28:51.826+00
+blade-coffee-grinder,Blade Coffee Grinder,EQP-GR-BL-BL,FALSE,800.00,800.00,0.0000,48,,51,2,TRUE,2025-12-29 15:28:51.826+00
