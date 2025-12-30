@@ -13,7 +13,12 @@ Tea - Bags,Select a quantity,,tea-bags
 Tea - Powdered,Select a weight,,tea-powdered
 Tea - Matcha,Select a weight,,tea-matcha
 Tea - Iced Cans,Select a quantity,,tea-iced-cans
-Brewing - Cafetières,Select a size,,brewing-cafetières
-Brewing - Teapots,Select a type,,brewing-teapots
-Brewing - Cold Brew Bottles,Select a size,,brewing-cold-brew-bottles
-Brewing - Espresso Machines,Select a style,,brewing-espresso-machines
+Brewing - Cafetières,Select a size,,cafetières
+Brewing - Teapots,Select a type,,teapots
+Brewing - Cold Brew Bottles,Select a size,,cold-brew-bottles
+Brewing - Espresso Machines,Select a style,,espresso-machines
+Mugs - Ceramic,Select a quantity,,mugs-ceramic
+Mugs - Glass,Select a quantity,,mugs-glass
+Teacups - Ceramic,Select a quantity,,teacups-ceramic
+Insulated Tumblers,Select a size,,insulated-tumblers
+Travel Mugs,Select a size,,travel-mugs

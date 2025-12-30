@@ -44,37 +44,51 @@ tea-iced-cans-4-pack,Quantity,4 cans
 tea-iced-cans-8-pack,Quantity,8 cans
 tea-iced-cans-16-pack,Quantity,16 cans
 tea-iced-cans-32-pack,Quantity,32 cans
-brewing-cafetière-3-cup,Servings,3x Espresso Cups or 1-2x Standard Mugs
-brewing-cafetière-3-cup,Capacity,350ml
-brewing-cafetière-3-cup,Compatibility,Ground Coffee
-brewing-cafetière-8-cup,Servings,8x Espresso Cups or 3-4x Standard Mugs
-brewing-cafetière-8-cup,Capacity,1000ml
-brewing-cafetière-8-cup,Compatibility,Ground Coffee
-brewing-aeropress,Servings,1x Standard Mug
-brewing-aeropress,Capacity,300ml
-brewing-aeropress,Compatibility,Ground Coffee
-brewing-pour-over-coffee-dripper,Servings,1-2x Standard Mugs
-brewing-pour-over-coffee-dripper,Capacity,Up to 500ml
-brewing-pour-over-coffee-dripper,Compatibility,Ground Coffee
-brewing-moka-pot-hob-coffee-maker,Servings,6x Espresso Cups
-brewing-moka-pot-hob-coffee-maker,Capacity,250ml
-brewing-teapot-ceramic,Servings,1-2x Standard Mugs
-brewing-teapot-ceramic,Capacity,600ml
-brewing-teapot-cast-iron,Servings,1-2x Standard Mugs
-brewing-teapot-cast-iron,Capacity,600ml
-brewing-teapot-glass,Servings,1-2x Standard Mugs
-brewing-teapot-glass,Capacity,600ml
-brewing-espresso-machine-essential,Weight,6.7kg
-brewing-espresso-machine-deluxe,Weight,10.4kg
-brewing-espresso-machine-professional,Weight,11.8kg
+cafetière-3-cup,Servings,3x Espresso Cups or 1-2x Standard Mugs
+cafetière-3-cup,Capacity,350ml
+cafetière-3-cup,Compatibility,Ground Coffee
+cafetière-8-cup,Servings,8x Espresso Cups or 3-4x Standard Mugs
+cafetière-8-cup,Capacity,1000ml
+cafetière-8-cup,Compatibility,Ground Coffee
+aeropress,Servings,1x Standard Mug
+aeropress,Capacity,300ml
+aeropress,Compatibility,Ground Coffee
+pour-over-coffee-dripper,Servings,1-2x Standard Mugs
+pour-over-coffee-dripper,Capacity,Up to 500ml
+pour-over-coffee-dripper,Compatibility,Ground Coffee
+moka-pot-hob-coffee-maker,Servings,6x Espresso Cups
+moka-pot-hob-coffee-maker,Capacity,250ml
+teapot-ceramic,Servings,1-2x Standard Mugs
+teapot-ceramic,Capacity,600ml
+teapot-cast-iron,Servings,1-2x Standard Mugs
+teapot-cast-iron,Capacity,600ml
+teapot-glass,Servings,1-2x Standard Mugs
+teapot-glass,Capacity,600ml
+espresso-machine-essential,Weight,6.7kg
+espresso-machine-deluxe,Weight,10.4kg
+espresso-machine-professional,Weight,11.8kg
 burr-coffee-grinder-manual,Weight,284g
 burr-coffee-grinder-manual,Capacity,30g of Beans
 burr-coffee-grinder-automatic,Weight,492g
 burr-coffee-grinder-automatic,Capacity,30g of Beans
 blade-coffee-grinder,Weight,190g
 blade-coffee-grinder,Capacity,25g of Beans
-brewing-cold-brew-bottle-small,Capacity,500ml
-brewing-cold-brew-bottle-small,Material(s),"Glass bottle, built-in filter, plastic stopper"
-brewing-cold-brew-bottle-large,Capacity,1000ml
-brewing-cold-brew-bottle-large,Material(s),"Glass bottle, built-in filter, plastic stopper"
-brewing-cold-brew-maker-automatic,Capacity,1000ml
+cold-brew-bottle-small,Capacity,500ml
+cold-brew-bottle-small,Material(s),"Glass bottle, built-in filter, plastic stopper"
+cold-brew-bottle-large,Capacity,1000ml
+cold-brew-bottle-large,Material(s),"Glass bottle, built-in filter, plastic stopper"
+cold-brew-maker-automatic,Capacity,1000ml
+mug-ceramic-single,Capacity,300ml
+mug-ceramic-set-of-4,Capacity,300ml
+mug-glass-single,Capacity,300ml
+mug-glass-set-of-4,Capacity,300ml
+teacup-ceramic-single,Capacity,160ml
+teacup-ceramic-set-of-4,Capacity,160ml
+insulated-tumbler-small,Material(s),"Stainless Steel, Plastic"
+insulated-tumbler-small,Capacity,300ml
+insulated-tumbler-large,Material(s),"Stainless Steel, Plastic"
+insulated-tumbler-large,Capacity,600ml
+travel-mug-small,Capacity,300ml
+travel-mug-small,Material(s),"Stainless Steel, Plastic"
+travel-mug-large,Capacity,600ml
+travel-mug-large,Material(s),"Stainless Steel, Plastic"

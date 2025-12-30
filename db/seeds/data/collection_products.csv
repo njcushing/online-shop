@@ -44,13 +44,23 @@ tea-iced-cans,tea-iced-cans-4-pack,4 cans,0
 tea-iced-cans,tea-iced-cans-8-pack,8 cans,1
 tea-iced-cans,tea-iced-cans-16-pack,16 cans,2
 tea-iced-cans,tea-iced-cans-32-pack,32 cans,3
-brewing-cafetières,brewing-cafetière-3-cup,3 cups,0
-brewing-cafetières,brewing-cafetière-8-cup,8 cups,1
-brewing-teapots,brewing-teapot-ceramic,Ceramic,0
-brewing-teapots,brewing-teapot-cast-iron,Cast Iron,1
-brewing-teapots,brewing-teapot-glass,Glass,2
-brewing-cold-brew-bottles,brewing-cold-brew-bottle-small,500ml,0
-brewing-cold-brew-bottles,brewing-cold-brew-bottle-large,1000ml,1
-brewing-espresso-machines,brewing-espresso-machine-essential,Essential,0
-brewing-espresso-machines,brewing-espresso-machine-deluxe,Deluxe,1
-brewing-espresso-machines,brewing-espresso-machine-professional,Professional,2
+cafetières,cafetière-3-cup,3 cups,0
+cafetières,cafetière-8-cup,8 cups,1
+teapots,teapot-ceramic,Ceramic,0
+teapots,teapot-cast-iron,Cast Iron,1
+teapots,teapot-glass,Glass,2
+cold-brew-bottles,cold-brew-bottle-small,500ml,0
+cold-brew-bottles,cold-brew-bottle-large,1000ml,1
+espresso-machines,espresso-machine-essential,Essential,0
+espresso-machines,espresso-machine-deluxe,Deluxe,1
+espresso-machines,espresso-machine-professional,Professional,2
+mugs-ceramic,mug-ceramic-single,Single,0
+mugs-ceramic,mug-ceramic-set-of-4,Set of 4,1
+mugs-glass,mug-glass-single,Single,0
+mugs-glass,mug-glass-set-of-4,Set of 4,1
+teacups-ceramic,teacup-ceramic-single,Single,0
+teacups-ceramic,teacup-ceramic-set-of-4,Set of 4,1
+insulated-tumblers,insulated-tumbler-small,300ml,0
+insulated-tumblers,insulated-tumbler-large,600ml,1
+travel-mugs,travel-mug-small,300ml,0
+travel-mugs,travel-mug-large,600ml,1

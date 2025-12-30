@@ -432,80 +432,114 @@ tea-powdered-1kg-tub,Tea - Powdered - 1kg Tub - Ginger & Lemon Blend,TEA-PW-1KGT
 tea-matcha-25g-tub,Tea - Powdered - 25g Tub - Matcha,TEA-PW-25GT-MA,FALSE,1800.00,1800.00,0.0000,489,,827,2,TRUE,2025-12-26 14:42:10.892+00
 tea-matcha-50g-tub,Tea - Powdered - 50g Tub - Matcha,TEA-PW-50GT-MA,FALSE,3300.00,3300.00,0.0000,178,,230,0,TRUE,2025-12-26 14:42:10.892+00
 tea-matcha-100g-tub,Tea - Powdered - 100g Tub - Matcha,TEA-PW-100GT-MA,FALSE,6000.00,6000.00,0.0000,74,,89,0,TRUE,2025-12-26 14:42:10.892+00
-tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Peach Flavour,TEA-RTDIC-4PK-PE,FALSE,750.00,750.00,0.0000,514,,635,16,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Blood Orange Flavour,TEA-RTDIC-4PK-BO,TRUE,750.00,750.00,2.5000,455,,437,4,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Lemon Flavour,TEA-RTDIC-4PK-LE,FALSE,750.00,750.00,0.0000,0,,914,6,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Elderflower & Apple Flavour,TEA-RTDIC-4PK-EA,FALSE,750.00,750.00,0.0000,193,,875,3,FALSE,2025-12-27 23:01:45.468+00
-tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Raspberry Lemonade Flavour,TEA-RTDIC-4PK-RL,TRUE,750.00,750.00,5.0000,9,,423,5,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Lychee Flavour,TEA-RTDIC-4PK-LY,FALSE,750.00,750.00,0.0000,187,,910,9,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Cranberry Flavour,TEA-RTDIC-4PK-CR,TRUE,750.00,750.00,2.5000,222,,255,16,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Mango & Passionfruit Flavour,TEA-RTDIC-4PK-MP,FALSE,750.00,750.00,0.0000,472,,842,16,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Summer Fruits Flavour,TEA-RTDIC-4PK-SF,FALSE,750.00,750.00,0.0000,754,,159,1,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Pineapple Flavour,TEA-RTDIC-4PK-PI,FALSE,750.00,750.00,0.0000,219,,801,2,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Peach Flavour,TEA-RTDIC-8PK-PE,FALSE,1400.00,1400.00,0.0000,38,,276,12,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Blood Orange Flavour,TEA-RTDIC-8PK-BO,FALSE,1400.00,1400.00,0.0000,71,,156,15,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Lemon Flavour,TEA-RTDIC-8PK-LE,TRUE,1260.00,1400.00,5.0000,5,,207,7,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Elderflower & Apple Flavour,TEA-RTDIC-8PK-EA,TRUE,1400.00,1400.00,2.5000,364,,95,7,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Raspberry Lemonade Flavour,TEA-RTDIC-8PK-RL,FALSE,1400.00,1400.00,0.0000,103,,400,10,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Lychee Flavour,TEA-RTDIC-8PK-LY,TRUE,1400.00,1400.00,2.5000,154,,88,4,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Cranberry Flavour,TEA-RTDIC-8PK-CR,FALSE,1330.00,1400.00,0.0000,243,,281,9,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Mango & Passionfruit Flavour,TEA-RTDIC-8PK-MP,TRUE,1260.00,1400.00,2.5000,364,,334,0,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Summer Fruits Flavour,TEA-RTDIC-8PK-SF,FALSE,1400.00,1400.00,0.0000,0,,120,14,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Pineapple Flavour,TEA-RTDIC-8PK-PI,FALSE,1400.00,1400.00,0.0000,385,,265,7,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Peach Flavour,TEA-RTDIC-16PK-PE,FALSE,2500.00,2500.00,0.0000,33,,75,10,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Blood Orange Flavour,TEA-RTDIC-16PK-BO,FALSE,2125.00,2500.00,0.0000,18,,184,8,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Lemon Flavour,TEA-RTDIC-16PK-LE,FALSE,2250.00,2500.00,0.0000,29,,110,3,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Elderflower & Apple Flavour,TEA-RTDIC-16PK-EA,TRUE,2500.00,2500.00,2.5000,28,,77,8,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Raspberry Lemonade Flavour,TEA-RTDIC-16PK-RL,TRUE,2500.00,2500.00,10.0000,14,,173,3,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Lychee Flavour,TEA-RTDIC-16PK-LY,FALSE,2375.00,2500.00,0.0000,74,,169,9,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Cranberry Flavour,TEA-RTDIC-16PK-CR,TRUE,2375.00,2500.00,5.0000,21,,165,4,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Mango & Passionfruit Flavour,TEA-RTDIC-16PK-MP,TRUE,2500.00,2500.00,2.5000,52,,54,10,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Summer Fruits Flavour,TEA-RTDIC-16PK-SF,FALSE,2500.00,2500.00,0.0000,21,,124,3,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Pineapple Flavour,TEA-RTDIC-16PK-PI,FALSE,2500.00,2500.00,0.0000,40,,151,5,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Peach Flavour,TEA-RTDIC-32PK-PE,TRUE,4500.00,4500.00,7.5000,34,,47,2,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Blood Orange Flavour,TEA-RTDIC-32PK-BO,TRUE,4500.00,4500.00,5.0000,23,,26,2,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Lemon Flavour,TEA-RTDIC-32PK-LE,FALSE,4500.00,4500.00,0.0000,8,,9,3,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Elderflower & Apple Flavour,TEA-RTDIC-32PK-EA,FALSE,4500.00,4500.00,0.0000,15,,39,5,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Raspberry Lemonade Flavour,TEA-RTDIC-32PK-RL,FALSE,4500.00,4500.00,0.0000,3,,40,0,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Lychee Flavour,TEA-RTDIC-32PK-LY,FALSE,4500.00,4500.00,0.0000,0,,33,2,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Cranberry Flavour,TEA-RTDIC-32PK-CR,TRUE,4500.00,4500.00,2.5000,28,,45,0,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Mango & Passionfruit Flavour,TEA-RTDIC-32PK-MP,TRUE,4500.00,4500.00,5.0000,15,,12,1,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Summer Fruits Flavour,TEA-RTDIC-32PK-SF,FALSE,4500.00,4500.00,0.0000,8,,22,5,FALSE,2025-12-27 23:01:45.468+00
-tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Pineapple Flavour,TEA-RTDIC-32PK-PI,TRUE,4500.00,4500.00,2.5000,26,,24,0,TRUE,2025-12-27 23:01:45.468+00
-brewing-cafetière-3-cup,Cafetière - 3-Cup - Black,EQP-BR-CA3C-BL,FALSE,1620.00,1800.00,0.0000,17,,86,4,TRUE,2025-12-28 12:24:20.353+00
-brewing-cafetière-3-cup,Cafetière - 3-Cup - Copper,EQP-BR-CA3C-CO,FALSE,1800.00,1800.00,0.0000,48,,50,8,TRUE,2025-12-28 12:24:20.353+00
-brewing-cafetière-3-cup,Cafetière - 3-Cup - Stainless Steel,EQP-BR-CA3C-SS,FALSE,1800.00,1800.00,0.0000,22,,69,8,TRUE,2025-12-28 12:24:20.353+00
-brewing-cafetière-8-cup,Cafetière - 8-Cup - Black,EQP-BR-CA8C-BL,FALSE,2160.00,2700.00,0.0000,12,,7,2,TRUE,2025-12-28 12:24:20.353+00
-brewing-cafetière-8-cup,Cafetière - 8-Cup - Copper,EQP-BR-CA8C-CO,FALSE,2700.00,2700.00,0.0000,11,,14,2,TRUE,2025-12-28 12:24:20.353+00
-brewing-cafetière-8-cup,Cafetière - 8-Cup - Stainless Steel,EQP-BR-CA8C-SS,FALSE,2700.00,2700.00,0.0000,9,,26,3,TRUE,2025-12-28 12:24:20.354+00
-brewing-aeropress,AeroPress Coffee Maker - Classic,EQP-BR-AER-CL,FALSE,4000.00,4000.00,0.0000,32,,88,0,TRUE,2025-12-28 13:06:52.586+00
-brewing-pour-over-coffee-dripper,Pour-Over Coffee Dripper - Glass,EQP-BR-POCD-GL,FALSE,2400.00,2400.00,0.0000,19,,68,1,TRUE,2025-12-28 13:43:26.927+00
-brewing-moka-pot-hob-coffee-maker,Moka Pot Hob Coffee Maker - Stainless Steel,EQP-BR-MKP6C-SS,FALSE,4200.00,4200.00,0.0000,32,,50,0,TRUE,2025-12-28 13:54:16.121+00
-brewing-teapot-ceramic,Teapot - Ceramic - White,EQP-BR-TP-CR-WH,FALSE,2400.00,2400.00,0.0000,28,,44,3,TRUE,2025-12-29 14:30:44.906+00
-brewing-teapot-ceramic,Teapot - Ceramic - Orange,EQP-BR-TP-CR-OR,FALSE,2400.00,2400.00,0.0000,34,,31,1,TRUE,2025-12-29 14:30:44.906+00
-brewing-teapot-ceramic,Teapot - Ceramic - Black,EQP-BR-TP-CR-BL,FALSE,2160.00,2400.00,0.0000,36,,63,0,TRUE,2025-12-29 14:30:44.906+00
-brewing-teapot-cast-iron,Teapot - Cast Iron,EQP-BR-TP-CI,FALSE,3000.00,3000.00,0.0000,45,,98,1,TRUE,2025-12-29 14:30:44.906+00
-brewing-teapot-glass,Teapot - Glass,EQP-BR-TP-GL,FALSE,2800.00,2800.00,0.0000,60,,60,3,TRUE,2025-12-29 14:30:44.906+00
-brewing-espresso-machine-essential,Essential Espresso Coffee Machine - Black,EQP-BR-ECM-ES-BL,FALSE,6000.00,6000.00,0.0000,5,,14,0,TRUE,2025-12-29 15:07:06.856+00
-brewing-espresso-machine-essential,Essential Espresso Coffee Machine - White,EQP-BR-ECM-ES-WH,FALSE,6000.00,6000.00,0.0000,4,,7,0,TRUE,2025-12-29 15:07:06.856+00
-brewing-espresso-machine-essential,Essential Espresso Coffee Machine - Green,EQP-BR-ECM-ES-GR,FALSE,6000.00,6000.00,0.0000,14,,14,1,TRUE,2025-12-29 15:07:06.856+00
-brewing-espresso-machine-essential,Essential Espresso Coffee Machine - Red,EQP-BR-ECM-ES-RD,FALSE,6000.00,6000.00,0.0000,21,,16,0,TRUE,2025-12-29 15:07:06.856+00
-brewing-espresso-machine-essential,Essential Espresso Coffee Machine - Blue,EQP-BR-ECM-ES-BU,FALSE,6000.00,6000.00,0.0000,7,,17,0,TRUE,2025-12-29 15:07:06.856+00
-brewing-espresso-machine-deluxe,Deluxe Espresso Coffee Machine - Black,EQP-BR-ECM-DE-BL,FALSE,11000.00,11000.00,0.0000,3,,20,1,TRUE,2025-12-29 15:07:06.856+00
-brewing-espresso-machine-deluxe,Deluxe Espresso Coffee Machine - White,EQP-BR-ECM-DE-WH,FALSE,11000.00,11000.00,0.0000,5,,3,0,TRUE,2025-12-29 15:07:06.856+00
-brewing-espresso-machine-deluxe,Deluxe Espresso Coffee Machine - Green,EQP-BR-ECM-DE-GR,FALSE,11000.00,11000.00,0.0000,10,,10,0,TRUE,2025-12-29 15:07:06.856+00
-brewing-espresso-machine-professional,Professional Espresso Coffee Machine - Black,EQP-BR-ECM-PR-BL,FALSE,32000.00,32000.00,0.0000,4,,0,0,TRUE,2025-12-29 15:07:06.856+00
-brewing-espresso-machine-professional,Professional Espresso Coffee Machine - White,EQP-BR-ECM-PR-WH,FALSE,32000.00,32000.00,0.0000,6,,5,0,TRUE,2025-12-29 15:07:06.856+00
-brewing-espresso-machine-professional,Professional Espresso Coffee Machine - Green,EQP-BR-ECM-PR-GR,FALSE,32000.00,32000.00,0.0000,7,,6,0,TRUE,2025-12-29 15:07:06.856+00
-brewing-cold-brew-bottle-small,Cold Brew Bottle - Small - Black,EQP-BR-CBB-SM-BL,FALSE,1800.00,1800.00,0.0000,33,,26,1,TRUE,2025-12-30 11:38:29.495+00
-brewing-cold-brew-bottle-small,Cold Brew Bottle - Small - White,EQP-BR-CBB-SM-WH,FALSE,1800.00,1800.00,0.0000,22,,10,0,TRUE,2025-12-30 11:38:29.495+00
-brewing-cold-brew-bottle-small,Cold Brew Bottle - Small - Blue,EQP-BR-CBB-SM-BU,FALSE,1800.00,1800.00,0.0000,31,,16,0,TRUE,2025-12-30 11:38:29.495+00
-brewing-cold-brew-bottle-large,Cold Brew Bottle - Large - Black,EQP-BR-CBB-LG-BL,FALSE,2800.00,2800.00,0.0000,20,,16,0,TRUE,2025-12-30 11:38:29.495+00
-brewing-cold-brew-bottle-large,Cold Brew Bottle - Large - White,EQP-BR-CBB-LG-WH,FALSE,2800.00,2800.00,0.0000,33,,14,1,TRUE,2025-12-30 11:38:29.495+00
-brewing-cold-brew-bottle-large,Cold Brew Bottle - Large - Blue,EQP-BR-CBB-LG-BU,FALSE,2800.00,2800.00,0.0000,1,,18,0,TRUE,2025-12-30 11:38:29.495+00
-brewing-cold-brew-bottle-large,Cold Brew Bottle - Large - Green,EQP-BR-CBB-LG-GR,FALSE,2800.00,2800.00,0.0000,2,,12,0,TRUE,2025-12-30 11:38:29.495+00
-brewing-cold-brew-bottle-large,Cold Brew Bottle - Large - Red,EQP-BR-CBB-LG-RD,FALSE,2800.00,2800.00,0.0000,6,,15,0,TRUE,2025-12-30 11:38:29.495+00
-brewing-cold-brew-maker-automatic,Cold Brew Maker - Automatic - Black,EQP-BR-CBM-AU-BL,FALSE,5000.00,5000.00,0.0000,9,,8,0,TRUE,2025-12-30 11:38:29.495+00
+tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Peach Flavour,TEA-RTD-IC-4PK-PE,FALSE,750.00,750.00,0.0000,514,,635,16,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Blood Orange Flavour,TEA-RTD-IC-4PK-BO,TRUE,750.00,750.00,2.5000,455,,437,4,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Lemon Flavour,TEA-RTD-IC-4PK-LE,FALSE,750.00,750.00,0.0000,0,,914,6,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Elderflower & Apple Flavour,TEA-RTD-IC-4PK-EA,FALSE,750.00,750.00,0.0000,193,,875,3,FALSE,2025-12-27 23:01:45.468+00
+tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Raspberry Lemonade Flavour,TEA-RTD-IC-4PK-RL,TRUE,750.00,750.00,5.0000,9,,423,5,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Lychee Flavour,TEA-RTD-IC-4PK-LY,FALSE,750.00,750.00,0.0000,187,,910,9,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Cranberry Flavour,TEA-RTD-IC-4PK-CR,TRUE,750.00,750.00,2.5000,222,,255,16,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Mango & Passionfruit Flavour,TEA-RTD-IC-4PK-MP,FALSE,750.00,750.00,0.0000,472,,842,16,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Summer Fruits Flavour,TEA-RTD-IC-4PK-SF,FALSE,750.00,750.00,0.0000,754,,159,1,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Pineapple Flavour,TEA-RTD-IC-4PK-PI,FALSE,750.00,750.00,0.0000,219,,801,2,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Peach Flavour,TEA-RTD-IC-8PK-PE,FALSE,1400.00,1400.00,0.0000,38,,276,12,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Blood Orange Flavour,TEA-RTD-IC-8PK-BO,FALSE,1400.00,1400.00,0.0000,71,,156,15,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Lemon Flavour,TEA-RTD-IC-8PK-LE,TRUE,1260.00,1400.00,5.0000,5,,207,7,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Elderflower & Apple Flavour,TEA-RTD-IC-8PK-EA,TRUE,1400.00,1400.00,2.5000,364,,95,7,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Raspberry Lemonade Flavour,TEA-RTD-IC-8PK-RL,FALSE,1400.00,1400.00,0.0000,103,,400,10,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Lychee Flavour,TEA-RTD-IC-8PK-LY,TRUE,1400.00,1400.00,2.5000,154,,88,4,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Cranberry Flavour,TEA-RTD-IC-8PK-CR,FALSE,1330.00,1400.00,0.0000,243,,281,9,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Mango & Passionfruit Flavour,TEA-RTD-IC-8PK-MP,TRUE,1260.00,1400.00,2.5000,364,,334,0,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Summer Fruits Flavour,TEA-RTD-IC-8PK-SF,FALSE,1400.00,1400.00,0.0000,0,,120,14,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Pineapple Flavour,TEA-RTD-IC-8PK-PI,FALSE,1400.00,1400.00,0.0000,385,,265,7,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Peach Flavour,TEA-RTD-IC-16PK-PE,FALSE,2500.00,2500.00,0.0000,33,,75,10,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Blood Orange Flavour,TEA-RTD-IC-16PK-BO,FALSE,2125.00,2500.00,0.0000,18,,184,8,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Lemon Flavour,TEA-RTD-IC-16PK-LE,FALSE,2250.00,2500.00,0.0000,29,,110,3,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Elderflower & Apple Flavour,TEA-RTD-IC-16PK-EA,TRUE,2500.00,2500.00,2.5000,28,,77,8,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Raspberry Lemonade Flavour,TEA-RTD-IC-16PK-RL,TRUE,2500.00,2500.00,10.0000,14,,173,3,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Lychee Flavour,TEA-RTD-IC-16PK-LY,FALSE,2375.00,2500.00,0.0000,74,,169,9,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Cranberry Flavour,TEA-RTD-IC-16PK-CR,TRUE,2375.00,2500.00,5.0000,21,,165,4,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Mango & Passionfruit Flavour,TEA-RTD-IC-16PK-MP,TRUE,2500.00,2500.00,2.5000,52,,54,10,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Summer Fruits Flavour,TEA-RTD-IC-16PK-SF,FALSE,2500.00,2500.00,0.0000,21,,124,3,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Pineapple Flavour,TEA-RTD-IC-16PK-PI,FALSE,2500.00,2500.00,0.0000,40,,151,5,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Peach Flavour,TEA-RTD-IC-32PK-PE,TRUE,4500.00,4500.00,7.5000,34,,47,2,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Blood Orange Flavour,TEA-RTD-IC-32PK-BO,TRUE,4500.00,4500.00,5.0000,23,,26,2,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Lemon Flavour,TEA-RTD-IC-32PK-LE,FALSE,4500.00,4500.00,0.0000,8,,9,3,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Elderflower & Apple Flavour,TEA-RTD-IC-32PK-EA,FALSE,4500.00,4500.00,0.0000,15,,39,5,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Raspberry Lemonade Flavour,TEA-RTD-IC-32PK-RL,FALSE,4500.00,4500.00,0.0000,3,,40,0,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Lychee Flavour,TEA-RTD-IC-32PK-LY,FALSE,4500.00,4500.00,0.0000,0,,33,2,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Cranberry Flavour,TEA-RTD-IC-32PK-CR,TRUE,4500.00,4500.00,2.5000,28,,45,0,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Mango & Passionfruit Flavour,TEA-RTD-IC-32PK-MP,TRUE,4500.00,4500.00,5.0000,15,,12,1,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Summer Fruits Flavour,TEA-RTD-IC-32PK-SF,FALSE,4500.00,4500.00,0.0000,8,,22,5,FALSE,2025-12-27 23:01:45.468+00
+tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Pineapple Flavour,TEA-RTD-IC-32PK-PI,TRUE,4500.00,4500.00,2.5000,26,,24,0,TRUE,2025-12-27 23:01:45.468+00
+cafetière-3-cup,Cafetière - 3-Cup - Black,EQP-BR-CA3C-BL,FALSE,1620.00,1800.00,0.0000,17,,86,4,TRUE,2025-12-28 12:24:20.353+00
+cafetière-3-cup,Cafetière - 3-Cup - Copper,EQP-BR-CA3C-CO,FALSE,1800.00,1800.00,0.0000,48,,50,8,TRUE,2025-12-28 12:24:20.353+00
+cafetière-3-cup,Cafetière - 3-Cup - Stainless Steel,EQP-BR-CA3C-SS,FALSE,1800.00,1800.00,0.0000,22,,69,8,TRUE,2025-12-28 12:24:20.353+00
+cafetière-8-cup,Cafetière - 8-Cup - Black,EQP-BR-CA8C-BL,FALSE,2160.00,2700.00,0.0000,12,,7,2,TRUE,2025-12-28 12:24:20.353+00
+cafetière-8-cup,Cafetière - 8-Cup - Copper,EQP-BR-CA8C-CO,FALSE,2700.00,2700.00,0.0000,11,,14,2,TRUE,2025-12-28 12:24:20.353+00
+cafetière-8-cup,Cafetière - 8-Cup - Stainless Steel,EQP-BR-CA8C-SS,FALSE,2700.00,2700.00,0.0000,9,,26,3,TRUE,2025-12-28 12:24:20.354+00
+aeropress,AeroPress Coffee Maker - Classic,EQP-BR-AER-CL,FALSE,4000.00,4000.00,0.0000,32,,88,0,TRUE,2025-12-28 13:06:52.586+00
+pour-over-coffee-dripper,Pour-Over Coffee Dripper - Glass,EQP-BR-POCD-GL,FALSE,2400.00,2400.00,0.0000,19,,68,1,TRUE,2025-12-28 13:43:26.927+00
+moka-pot-hob-coffee-maker,Moka Pot Hob Coffee Maker - Stainless Steel,EQP-BR-MKP6C-SS,FALSE,4200.00,4200.00,0.0000,32,,50,0,TRUE,2025-12-28 13:54:16.121+00
+teapot-ceramic,Teapot - Ceramic - White,EQP-BR-TP-CR-WH,FALSE,2400.00,2400.00,0.0000,28,,44,3,TRUE,2025-12-29 14:30:44.906+00
+teapot-ceramic,Teapot - Ceramic - Orange,EQP-BR-TP-CR-OR,FALSE,2400.00,2400.00,0.0000,34,,31,1,TRUE,2025-12-29 14:30:44.906+00
+teapot-ceramic,Teapot - Ceramic - Black,EQP-BR-TP-CR-BL,FALSE,2160.00,2400.00,0.0000,36,,63,0,TRUE,2025-12-29 14:30:44.906+00
+teapot-cast-iron,Teapot - Cast Iron,EQP-BR-TP-CI,FALSE,3000.00,3000.00,0.0000,45,,98,1,TRUE,2025-12-29 14:30:44.906+00
+teapot-glass,Teapot - Glass,EQP-BR-TP-GL,FALSE,2800.00,2800.00,0.0000,60,,60,3,TRUE,2025-12-29 14:30:44.906+00
+espresso-machine-essential,Essential Espresso Coffee Machine - Black,EQP-BR-ECM-ES-BL,FALSE,6000.00,6000.00,0.0000,5,,14,0,TRUE,2025-12-29 15:07:06.856+00
+espresso-machine-essential,Essential Espresso Coffee Machine - White,EQP-BR-ECM-ES-WH,FALSE,6000.00,6000.00,0.0000,4,,7,0,TRUE,2025-12-29 15:07:06.856+00
+espresso-machine-essential,Essential Espresso Coffee Machine - Green,EQP-BR-ECM-ES-GR,FALSE,6000.00,6000.00,0.0000,14,,14,1,TRUE,2025-12-29 15:07:06.856+00
+espresso-machine-essential,Essential Espresso Coffee Machine - Red,EQP-BR-ECM-ES-RD,FALSE,6000.00,6000.00,0.0000,21,,16,0,TRUE,2025-12-29 15:07:06.856+00
+espresso-machine-essential,Essential Espresso Coffee Machine - Blue,EQP-BR-ECM-ES-BU,FALSE,6000.00,6000.00,0.0000,7,,17,0,TRUE,2025-12-29 15:07:06.856+00
+espresso-machine-deluxe,Deluxe Espresso Coffee Machine - Black,EQP-BR-ECM-DE-BL,FALSE,11000.00,11000.00,0.0000,3,,20,1,TRUE,2025-12-29 15:07:06.856+00
+espresso-machine-deluxe,Deluxe Espresso Coffee Machine - White,EQP-BR-ECM-DE-WH,FALSE,11000.00,11000.00,0.0000,5,,3,0,TRUE,2025-12-29 15:07:06.856+00
+espresso-machine-deluxe,Deluxe Espresso Coffee Machine - Green,EQP-BR-ECM-DE-GR,FALSE,11000.00,11000.00,0.0000,10,,10,0,TRUE,2025-12-29 15:07:06.856+00
+espresso-machine-professional,Professional Espresso Coffee Machine - Black,EQP-BR-ECM-PR-BL,FALSE,32000.00,32000.00,0.0000,4,,0,0,TRUE,2025-12-29 15:07:06.856+00
+espresso-machine-professional,Professional Espresso Coffee Machine - White,EQP-BR-ECM-PR-WH,FALSE,32000.00,32000.00,0.0000,6,,5,0,TRUE,2025-12-29 15:07:06.856+00
+espresso-machine-professional,Professional Espresso Coffee Machine - Green,EQP-BR-ECM-PR-GR,FALSE,32000.00,32000.00,0.0000,7,,6,0,TRUE,2025-12-29 15:07:06.856+00
+cold-brew-bottle-small,Cold Brew Bottle - Small - Black,EQP-BR-CBB-SM-BL,FALSE,1800.00,1800.00,0.0000,33,,26,1,TRUE,2025-12-30 11:38:29.495+00
+cold-brew-bottle-small,Cold Brew Bottle - Small - White,EQP-BR-CBB-SM-WH,FALSE,1800.00,1800.00,0.0000,22,,10,0,TRUE,2025-12-30 11:38:29.495+00
+cold-brew-bottle-small,Cold Brew Bottle - Small - Blue,EQP-BR-CBB-SM-BU,FALSE,1800.00,1800.00,0.0000,31,,16,0,TRUE,2025-12-30 11:38:29.495+00
+cold-brew-bottle-large,Cold Brew Bottle - Large - Black,EQP-BR-CBB-LG-BL,FALSE,2800.00,2800.00,0.0000,20,,16,0,TRUE,2025-12-30 11:38:29.495+00
+cold-brew-bottle-large,Cold Brew Bottle - Large - White,EQP-BR-CBB-LG-WH,FALSE,2800.00,2800.00,0.0000,33,,14,1,TRUE,2025-12-30 11:38:29.495+00
+cold-brew-bottle-large,Cold Brew Bottle - Large - Blue,EQP-BR-CBB-LG-BU,FALSE,2800.00,2800.00,0.0000,1,,18,0,TRUE,2025-12-30 11:38:29.495+00
+cold-brew-bottle-large,Cold Brew Bottle - Large - Green,EQP-BR-CBB-LG-GR,FALSE,2800.00,2800.00,0.0000,2,,12,0,TRUE,2025-12-30 11:38:29.495+00
+cold-brew-bottle-large,Cold Brew Bottle - Large - Red,EQP-BR-CBB-LG-RD,FALSE,2800.00,2800.00,0.0000,6,,15,0,TRUE,2025-12-30 11:38:29.495+00
+cold-brew-maker-automatic,Cold Brew Maker - Automatic - Black,EQP-BR-CBM-AU-BL,FALSE,5000.00,5000.00,0.0000,9,,8,0,TRUE,2025-12-30 11:38:29.495+00
 burr-coffee-grinder-manual,Burr Coffee Grinder - Manual,EQP-GR-BU-MN-BL,FALSE,1500.00,1500.00,0.0000,22,,38,0,TRUE,2025-12-29 15:28:51.826+00
 burr-coffee-grinder-automatic,Burr Coffee Grinder - Automatic,EQP-GR-BU-AU-BL,FALSE,4500.00,4500.00,0.0000,12,,18,0,TRUE,2025-12-29 15:28:51.826+00
 blade-coffee-grinder,Blade Coffee Grinder,EQP-GR-BL-BL,FALSE,800.00,800.00,0.0000,48,,51,2,TRUE,2025-12-29 15:28:51.826+00
+mug-ceramic-single,Mug - Ceramic - White,EQP-MT-MG-CR-WH,FALSE,350.00,350.00,0.0000,60,,19,0,TRUE,2025-12-30 12:25:36.760+00
+mug-ceramic-single,Mug - Ceramic - Black,EQP-MT-MG-CR-BL,FALSE,350.00,350.00,0.0000,5,,69,2,TRUE,2025-12-30 12:25:36.760+00
+mug-ceramic-set-of-4,Mug - Ceramic - Set of 4 - White,EQP-MT-MG-CR4PK-WH,FALSE,720.00,800.00,0.0000,39,,52,0,TRUE,2025-12-30 12:25:36.760+00
+mug-ceramic-set-of-4,Mug - Ceramic - Set of 4 - Black,EQP-MT-MG-CR4PK-BL,FALSE,800.00,800.00,0.0000,8,,54,1,TRUE,2025-12-30 12:25:36.760+00
+mug-glass-single,Mug - Glass,EQP-MT-MG-GL,FALSE,500.00,500.00,0.0000,65,,39,0,TRUE,2025-12-30 12:25:36.760+00
+mug-glass-set-of-4,Mug - Glass - Set of 4,EQP-MT-MG-GL4PK,FALSE,1200.00,1200.00,0.0000,24,,33,0,TRUE,2025-12-30 12:25:36.760+00
+teacup-ceramic-single,Teacup - Ceramic - White,EQP-MT-TC-CR-WH,FALSE,450.00,450.00,0.0000,80,,118,2,TRUE,2025-12-30 12:25:36.760+00
+teacup-ceramic-single,Teacup - Ceramic - Black,EQP-MT-TC-CR-BL,FALSE,450.00,450.00,0.0000,9,,98,1,TRUE,2025-12-30 12:25:36.760+00
+teacup-ceramic-set-of-4,Teacup - Ceramic - Set of 4 - White,EQP-MT-TC-CR4PK-WH,FALSE,900.00,1000.00,0.0000,21,,32,0,TRUE,2025-12-30 12:25:36.760+00
+teacup-ceramic-set-of-4,Teacup - Ceramic - Set of 4 - Black,EQP-MT-TC-CR4PK-BL,FALSE,1000.00,1000.00,0.0000,24,,48,0,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-small,Insulated Tumbler - Small - Black,EQP-MT-IT-SM-BL,FALSE,1500.00,1500.00,0.0000,37,,83,1,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-small,Insulated Tumbler - Small - White,EQP-MT-IT-SM-WH,FALSE,1200.00,1500.00,0.0000,5,,126,0,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-small,Insulated Tumbler - Small - Red,EQP-MT-IT-SM-RD,FALSE,1500.00,1500.00,0.0000,13,,50,1,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-small,Insulated Tumbler - Small - Blue,EQP-MT-IT-SM-BU,FALSE,1500.00,1500.00,0.0000,3,,182,0,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-small,Insulated Tumbler - Small - Green,EQP-MT-IT-SM-GR,FALSE,1500.00,1500.00,0.0000,1,,22,1,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-small,Insulated Tumbler - Small - Yellow,EQP-MT-IT-SM-YL,FALSE,1350.00,1500.00,0.0000,15,,52,0,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-small,Insulated Tumbler - Small - Orange,EQP-MT-IT-SM-OR,FALSE,1425.00,1500.00,0.0000,28,,47,0,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-small,Insulated Tumbler - Small - Purple,EQP-MT-IT-SM-PU,FALSE,1500.00,1500.00,0.0000,1,,116,0,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-large,Insulated Tumbler - Large - Black,EQP-MT-IT-LG-BL,FALSE,2500.00,2500.00,0.0000,35,,85,0,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-large,Insulated Tumbler - Large - White,EQP-MT-IT-LG-WH,FALSE,2500.00,2500.00,0.0000,20,,191,1,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-large,Insulated Tumbler - Large - Red,EQP-MT-IT-LG-RD,FALSE,2500.00,2500.00,0.0000,8,,71,0,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-large,Insulated Tumbler - Large - Blue,EQP-MT-IT-LG-BU,FALSE,2500.00,2500.00,0.0000,19,,61,0,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-large,Insulated Tumbler - Large - Green,EQP-MT-IT-LG-GR,FALSE,2250.00,2500.00,0.0000,23,,107,0,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-large,Insulated Tumbler - Large - Yellow,EQP-MT-IT-LG-YL,FALSE,2500.00,2500.00,0.0000,19,,95,1,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-large,Insulated Tumbler - Large - Orange,EQP-MT-IT-LG-OR,FALSE,2375.00,2500.00,0.0000,30,,182,1,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-large,Insulated Tumbler - Large - Purple,EQP-MT-IT-LG-PU,FALSE,2500.00,2500.00,0.0000,38,,131,1,TRUE,2025-12-30 12:25:36.760+00
+travel-mug-small,Travel Mug - Small - Black,EQP-MT-TM-SM-BL,FALSE,800.00,800.00,0.0000,37,,42,0,TRUE,2025-12-30 12:25:36.760+00
+travel-mug-small,Travel Mug - Small - Red,EQP-MT-TM-SM-RD,FALSE,800.00,800.00,0.0000,33,,60,0,TRUE,2025-12-30 12:25:36.760+00
+travel-mug-small,Travel Mug - Small - Green,EQP-MT-TM-SM-GR,FALSE,800.00,800.00,0.0000,16,,80,1,TRUE,2025-12-30 12:25:36.760+00
+travel-mug-small,Travel Mug - Small - Blue,EQP-MT-TM-SM-BU,FALSE,800.00,800.00,0.0000,48,,71,0,TRUE,2025-12-30 12:25:36.760+00
+travel-mug-large,Travel Mug - Large - Black,EQP-MT-TM-LG-BL,FALSE,1400.00,1400.00,0.0000,4,,36,0,TRUE,2025-12-30 12:25:36.760+00
+travel-mug-large,Travel Mug - Large - Red,EQP-MT-TM-LG-RD,FALSE,1280.00,1400.00,0.0000,2,,21,0,TRUE,2025-12-30 12:25:36.760+00
+travel-mug-large,Travel Mug - Large - Green,EQP-MT-TM-LG-GR,FALSE,1400.00,1400.00,0.0000,16,,38,1,TRUE,2025-12-30 12:25:36.760+00
+travel-mug-large,Travel Mug - Large - Blue,EQP-MT-TM-LG-BU,FALSE,1400.00,1400.00,0.0000,0,,24,0,TRUE,2025-12-30 12:25:36.760+00
