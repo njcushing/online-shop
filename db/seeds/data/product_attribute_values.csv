@@ -1,5 +1,5 @@
 product_attribute_code,position,code,name,value_text,value_numeric,value_boolean,value_color,value_date,value_select
-colour,0,WH,White,,,,#FFFFFF,,
+colour,0,WH,White,,,,#F5F3ED,,
 colour,1,OR,Orange,,,,#FF7F50,,
 colour,2,BL,Black,,,,#161413,,
 colour,3,GR,Green,,,,#32634F,,
