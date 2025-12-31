@@ -113,7 +113,6 @@ export function RecommendedProducts() {
                         }
                         className={styles["carousel-slide"]}
                         key={relatedProduct.id}
-                        style={{ marginRight: i === 4 ? "0px" : `${slideGapPx}px` }}
                     >
                         <ProductCard productData={relatedProduct} awaiting={awaitingAny} />
                     </Carousel.Slide>
