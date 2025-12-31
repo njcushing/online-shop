@@ -53,7 +53,7 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
         const containerRef = useRef<HTMLDivElement>(null);
         const { ref: productCardRef, entry: intersectionEntry } = useIntersection({
             root: containerRef.current,
-            threshold: 0.2,
+            threshold: 0.1,
         });
         const mergedProductCardRef = useMergedRef(ref, productCardRef);
         const [visible, setVisible] = useState<boolean>(immediatelyVisible);
