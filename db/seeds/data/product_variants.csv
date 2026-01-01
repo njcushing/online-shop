@@ -505,9 +505,13 @@ cold-brew-bottle-large,Cold Brew Bottle - Large - Blue,EQP-BR-CBB-LG-BU,FALSE,28
 cold-brew-bottle-large,Cold Brew Bottle - Large - Green,EQP-BR-CBB-LG-GR,FALSE,2800.00,2800.00,0.0000,2,,12,0,TRUE,2025-12-30 11:38:29.495+00
 cold-brew-bottle-large,Cold Brew Bottle - Large - Red,EQP-BR-CBB-LG-RD,FALSE,2800.00,2800.00,0.0000,6,,15,0,TRUE,2025-12-30 11:38:29.495+00
 cold-brew-maker-automatic,Cold Brew Maker - Automatic - Black,EQP-BR-CBM-AU-BL,FALSE,5000.00,5000.00,0.0000,9,,8,0,TRUE,2025-12-30 11:38:29.495+00
-burr-coffee-grinder-manual,Burr Coffee Grinder - Manual,EQP-GR-BU-MN-BL,FALSE,1500.00,1500.00,0.0000,22,,38,0,TRUE,2025-12-29 15:28:51.826+00
-burr-coffee-grinder-automatic,Burr Coffee Grinder - Automatic,EQP-GR-BU-AU-BL,FALSE,4500.00,4500.00,0.0000,12,,18,0,TRUE,2025-12-29 15:28:51.826+00
-blade-coffee-grinder,Blade Coffee Grinder,EQP-GR-BL-BL,FALSE,800.00,800.00,0.0000,48,,51,2,TRUE,2025-12-29 15:28:51.826+00
+burr-coffee-grinder-manual,Burr Coffee Grinder - Manual,EQP-GF-BU-MN-BL,FALSE,1500.00,1500.00,0.0000,22,,38,0,TRUE,2025-12-29 15:28:51.826+00
+burr-coffee-grinder-automatic,Burr Coffee Grinder - Automatic,EQP-GF-BU-AU-BL,FALSE,4500.00,4500.00,0.0000,12,,18,0,TRUE,2025-12-29 15:28:51.826+00
+blade-coffee-grinder,Blade Coffee Grinder,EQP-GF-BL-BL,FALSE,800.00,800.00,0.0000,48,,51,2,TRUE,2025-12-29 15:28:51.826+00
+handheld-electric-milk-frother,Handheld Electric Milk Frother - Black,EQP-GF-HEMF-BL,FALSE,750.00,750.00,0.0000,7,,97,1,TRUE,2026-01-01 11:47:46.745+00
+handheld-electric-milk-frother,Handheld Electric Milk Frother - White,EQP-GF-HEMF-WH,FALSE,750.00,750.00,0.0000,7,,84,0,TRUE,2026-01-01 11:47:46.745+00
+standing-electric-milk-frother,Standing Electric Milk Frother - Black,EQP-GF-SEMF-BL,FALSE,3000.00,3000.00,0.0000,19,,32,0,TRUE,2026-01-01 11:47:46.745+00
+standing-electric-milk-frother,Standing Electric Milk Frother - White,EQP-GF-SEMF-WH,FALSE,2700.00,3000.00,0.0000,4,,13,0,TRUE,2026-01-01 11:47:46.745+00
 mug-ceramic-single,Mug - Ceramic - White,EQP-MT-MG-CR-WH,FALSE,350.00,350.00,0.0000,60,,19,0,TRUE,2025-12-30 12:25:36.760+00
 mug-ceramic-single,Mug - Ceramic - Black,EQP-MT-MG-CR-BL,FALSE,350.00,350.00,0.0000,5,,69,2,TRUE,2025-12-30 12:25:36.760+00
 mug-ceramic-set-of-4,Mug - Ceramic - Set of 4 - White,EQP-MT-MG-CR-4PK-WH,FALSE,720.00,800.00,0.0000,39,,52,0,TRUE,2025-12-30 12:25:36.760+00

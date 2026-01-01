@@ -57,9 +57,11 @@ brewing,espresso-machine-professional
 brewing,cold-brew-bottle-small
 brewing,cold-brew-bottle-large
 brewing,cold-brew-maker-automatic
-grinders,burr-coffee-grinder-manual
-grinders,burr-coffee-grinder-automatic
-grinders,blade-coffee-grinder
+grinders-frothers,burr-coffee-grinder-manual
+grinders-frothers,burr-coffee-grinder-automatic
+grinders-frothers,blade-coffee-grinder
+grinders-frothers,handheld-electric-milk-frother
+grinders-frothers,standing-electric-milk-frother
 mugs-tumblers,mug-ceramic-single
 mugs-tumblers,mug-ceramic-set-of-4
 mugs-tumblers,mug-glass-single
