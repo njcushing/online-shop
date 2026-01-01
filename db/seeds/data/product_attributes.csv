@@ -1,6 +1,7 @@
 code,name,title,product_attribute_value_type_name
 colour,Colour,Choose a colour,color
 size_text,Size,Choose a size,text
+coffee_type,Type,Choose a coffee,text
 coffee_blend,Blend,Choose a blend,color
 tea_blend,Blend,Choose a blend,color
 tea_flavour,Flavour,Choose a flavour,color
