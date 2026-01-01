@@ -50,9 +50,6 @@ cafetière-3-cup,Compatibility,Ground Coffee
 cafetière-8-cup,Servings,8x Espresso Cups or 3-4x Standard Mugs
 cafetière-8-cup,Capacity,1000ml
 cafetière-8-cup,Compatibility,Ground Coffee
-aeropress,Servings,1x Standard Mug
-aeropress,Capacity,300ml
-aeropress,Compatibility,Ground Coffee
 pour-over-coffee-dripper,Servings,1-2x Standard Mugs
 pour-over-coffee-dripper,Capacity,Up to 500ml
 pour-over-coffee-dripper,Compatibility,Ground Coffee
@@ -92,3 +89,22 @@ travel-mug-small,Capacity,300ml
 travel-mug-small,Material(s),"Stainless Steel, Plastic"
 travel-mug-large,Capacity,600ml
 travel-mug-large,Material(s),"Stainless Steel, Plastic"
+coffee-filters-paper-flat-bottom-100-pack,Quantity,100 units
+coffee-filters-paper-flat-bottom-100-pack,Material(s),Paper
+coffee-filters-paper-flat-bottom-250-pack,Quantity,250 units
+coffee-filters-paper-flat-bottom-250-pack,Material(s),Paper
+coffee-filters-paper-flat-bottom-500-pack,Quantity,500 units
+coffee-filters-paper-flat-bottom-500-pack,Material(s),Paper
+coffee-filters-paper-conical-100-pack,Quantity,100 units
+coffee-filters-paper-conical-100-pack,Material(s),Paper
+coffee-filters-paper-conical-250-pack,Quantity,250 units
+coffee-filters-paper-conical-250-pack,Material(s),Paper
+coffee-filters-paper-conical-500-pack,Quantity,500 units
+coffee-filters-paper-conical-500-pack,Material(s),Paper
+coffee-filter-stainless-steel-flat-bottom,Material(s),Stainless Steel
+coffee-filter-stainless-steel-conical,Material(s),Stainless Steel
+coffee-maker-descaler,Size,500ml
+coffee-grinder-cleaning-pellets-50-pack,Quantity,50 pellets
+coffee-grinder-cleaning-pellets-100-pack,Quantity,100 pellets
+coffee-grinder-cleaning-pellets-200-pack,Quantity,200 pellets
+coffee-maker-cleaning-brush-set,Brush Count,5 brushes

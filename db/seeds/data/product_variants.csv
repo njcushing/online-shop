@@ -478,7 +478,6 @@ cafetière-3-cup,Cafetière - 3-Cup - Stainless Steel,EQP-BR-CA3C-SS,FALSE,1800.
 cafetière-8-cup,Cafetière - 8-Cup - Black,EQP-BR-CA8C-BL,FALSE,2160.00,2700.00,0.0000,12,,7,2,TRUE,2025-12-28 12:24:20.353+00
 cafetière-8-cup,Cafetière - 8-Cup - Copper,EQP-BR-CA8C-CO,FALSE,2700.00,2700.00,0.0000,11,,14,2,TRUE,2025-12-28 12:24:20.353+00
 cafetière-8-cup,Cafetière - 8-Cup - Stainless Steel,EQP-BR-CA8C-SS,FALSE,2700.00,2700.00,0.0000,9,,26,3,TRUE,2025-12-28 12:24:20.354+00
-aeropress,AeroPress Coffee Maker - Classic,EQP-BR-AER-CL,FALSE,4000.00,4000.00,0.0000,32,,88,0,TRUE,2025-12-28 13:06:52.586+00
 pour-over-coffee-dripper,Pour-Over Coffee Dripper - Glass,EQP-BR-POCD-GL,FALSE,2400.00,2400.00,0.0000,19,,68,1,TRUE,2025-12-28 13:43:26.927+00
 moka-pot-hob-coffee-maker,Moka Pot Hob Coffee Maker - Stainless Steel,EQP-BR-MKP6C-SS,FALSE,4200.00,4200.00,0.0000,32,,50,0,TRUE,2025-12-28 13:54:16.121+00
 teapot-ceramic,Teapot - Ceramic - White,EQP-BR-TP-CR-WH,FALSE,2400.00,2400.00,0.0000,28,,44,3,TRUE,2025-12-29 14:30:44.906+00
@@ -511,14 +510,14 @@ burr-coffee-grinder-automatic,Burr Coffee Grinder - Automatic,EQP-GR-BU-AU-BL,FA
 blade-coffee-grinder,Blade Coffee Grinder,EQP-GR-BL-BL,FALSE,800.00,800.00,0.0000,48,,51,2,TRUE,2025-12-29 15:28:51.826+00
 mug-ceramic-single,Mug - Ceramic - White,EQP-MT-MG-CR-WH,FALSE,350.00,350.00,0.0000,60,,19,0,TRUE,2025-12-30 12:25:36.760+00
 mug-ceramic-single,Mug - Ceramic - Black,EQP-MT-MG-CR-BL,FALSE,350.00,350.00,0.0000,5,,69,2,TRUE,2025-12-30 12:25:36.760+00
-mug-ceramic-set-of-4,Mug - Ceramic - Set of 4 - White,EQP-MT-MG-CR4PK-WH,FALSE,720.00,800.00,0.0000,39,,52,0,TRUE,2025-12-30 12:25:36.760+00
-mug-ceramic-set-of-4,Mug - Ceramic - Set of 4 - Black,EQP-MT-MG-CR4PK-BL,FALSE,800.00,800.00,0.0000,8,,54,1,TRUE,2025-12-30 12:25:36.760+00
+mug-ceramic-set-of-4,Mug - Ceramic - Set of 4 - White,EQP-MT-MG-CR-4PK-WH,FALSE,720.00,800.00,0.0000,39,,52,0,TRUE,2025-12-30 12:25:36.760+00
+mug-ceramic-set-of-4,Mug - Ceramic - Set of 4 - Black,EQP-MT-MG-CR-4PK-BL,FALSE,800.00,800.00,0.0000,8,,54,1,TRUE,2025-12-30 12:25:36.760+00
 mug-glass-single,Mug - Glass,EQP-MT-MG-GL,FALSE,500.00,500.00,0.0000,65,,39,0,TRUE,2025-12-30 12:25:36.760+00
-mug-glass-set-of-4,Mug - Glass - Set of 4,EQP-MT-MG-GL4PK,FALSE,1200.00,1200.00,0.0000,24,,33,0,TRUE,2025-12-30 12:25:36.760+00
+mug-glass-set-of-4,Mug - Glass - Set of 4,EQP-MT-MG-GL-4PK,FALSE,1200.00,1200.00,0.0000,24,,33,0,TRUE,2025-12-30 12:25:36.760+00
 teacup-ceramic-single,Teacup - Ceramic - White,EQP-MT-TC-CR-WH,FALSE,450.00,450.00,0.0000,80,,118,2,TRUE,2025-12-30 12:25:36.760+00
 teacup-ceramic-single,Teacup - Ceramic - Black,EQP-MT-TC-CR-BL,FALSE,450.00,450.00,0.0000,9,,98,1,TRUE,2025-12-30 12:25:36.760+00
-teacup-ceramic-set-of-4,Teacup - Ceramic - Set of 4 - White,EQP-MT-TC-CR4PK-WH,FALSE,900.00,1000.00,0.0000,21,,32,0,TRUE,2025-12-30 12:25:36.760+00
-teacup-ceramic-set-of-4,Teacup - Ceramic - Set of 4 - Black,EQP-MT-TC-CR4PK-BL,FALSE,1000.00,1000.00,0.0000,24,,48,0,TRUE,2025-12-30 12:25:36.760+00
+teacup-ceramic-set-of-4,Teacup - Ceramic - Set of 4 - White,EQP-MT-TC-CR-4PK-WH,FALSE,900.00,1000.00,0.0000,21,,32,0,TRUE,2025-12-30 12:25:36.760+00
+teacup-ceramic-set-of-4,Teacup - Ceramic - Set of 4 - Black,EQP-MT-TC-CR-4PK-BL,FALSE,1000.00,1000.00,0.0000,24,,48,0,TRUE,2025-12-30 12:25:36.760+00
 insulated-tumbler-small,Insulated Tumbler - Small - Black,EQP-MT-IT-SM-BL,FALSE,1500.00,1500.00,0.0000,37,,83,1,TRUE,2025-12-30 12:25:36.760+00
 insulated-tumbler-small,Insulated Tumbler - Small - White,EQP-MT-IT-SM-WH,FALSE,1200.00,1500.00,0.0000,5,,126,0,TRUE,2025-12-30 12:25:36.760+00
 insulated-tumbler-small,Insulated Tumbler - Small - Red,EQP-MT-IT-SM-RD,FALSE,1500.00,1500.00,0.0000,13,,50,1,TRUE,2025-12-30 12:25:36.760+00
@@ -543,3 +542,16 @@ travel-mug-large,Travel Mug - Large - Black,EQP-MT-TM-LG-BL,FALSE,1400.00,1400.0
 travel-mug-large,Travel Mug - Large - Red,EQP-MT-TM-LG-RD,FALSE,1280.00,1400.00,0.0000,2,,21,0,TRUE,2025-12-30 12:25:36.760+00
 travel-mug-large,Travel Mug - Large - Green,EQP-MT-TM-LG-GR,FALSE,1400.00,1400.00,0.0000,16,,38,1,TRUE,2025-12-30 12:25:36.760+00
 travel-mug-large,Travel Mug - Large - Blue,EQP-MT-TM-LG-BU,FALSE,1400.00,1400.00,0.0000,0,,24,0,TRUE,2025-12-30 12:25:36.760+00
+coffee-filters-paper-flat-bottom-100-pack,Coffee Filters - Paper - Flat Bottom - Pack of 100,EQP-FM-FL-PAFB-100PK,FALSE,300.00,300.00,0.0000,127,,233,1,TRUE,2025-12-31 15:51:39.327+00
+coffee-filters-paper-flat-bottom-250-pack,Coffee Filters - Paper - Flat Bottom - Pack of 250,EQP-FM-FL-PAFB-250PK,FALSE,600.00,600.00,0.0000,73,,90,0,TRUE,2025-12-31 15:51:39.327+00
+coffee-filters-paper-flat-bottom-500-pack,Coffee Filters - Paper - Flat Bottom - Pack of 500,EQP-FM-FL-PAFB-500PK,FALSE,1000.00,1000.00,0.0000,19,,54,0,TRUE,2025-12-31 15:51:39.327+00
+coffee-filters-paper-conical-100-pack,Coffee Filters - Paper - Conical - Pack of 100,EQP-FM-FL-COFB-100PK,FALSE,300.00,300.00,0.0000,89,,49,0,TRUE,2025-12-31 15:51:39.327+00
+coffee-filters-paper-conical-250-pack,Coffee Filters - Paper - Conical - Pack of 250,EQP-FM-FL-COFB-250PK,FALSE,600.00,600.00,0.0000,42,,66,1,TRUE,2025-12-31 15:51:39.327+00
+coffee-filters-paper-conical-500-pack,Coffee Filters - Paper - Conical - Pack of 500,EQP-FM-FL-COFB-500PK,FALSE,1000.00,1000.00,0.0000,22,,39,0,TRUE,2025-12-31 15:51:39.327+00
+coffee-filter-stainless-steel-flat-bottom,Coffee Filter - Stainless Steel - Flat Bottom,EQP-FM-FL-SSFB,FALSE,1100.00,1100.00,0.0000,31,,34,0,TRUE,2025-12-31 15:51:39.327+00
+coffee-filter-stainless-steel-conical,Coffee Filter - Stainless Steel - Conical,EQP-FM-FL-SSCO,FALSE,1100.00,1100.00,0.0000,16,,30,1,TRUE,2025-12-31 15:51:39.327+00
+coffee-maker-descaler,Coffee Maker Descaler,EQP-FM-DSC,FALSE,700.00,700.00,0.0000,72,,137,0,TRUE,2025-12-31 15:51:39.327+00
+coffee-grinder-cleaning-pellets-50-pack,Coffee Grinder Cleaning Pellets - Pack of 50,EQP-FM-CGCP-50PK,FALSE,800.00,800.00,0.0000,108,,143,0,TRUE,2025-12-31 15:51:39.327+00
+coffee-grinder-cleaning-pellets-100-pack,Coffee Grinder Cleaning Pellets - Pack of 100,EQP-FM-CGCP-100PK,FALSE,1250.00,1250.00,0.0000,117,,101,0,TRUE,2025-12-31 15:51:39.327+00
+coffee-grinder-cleaning-pellets-200-pack,Coffee Grinder Cleaning Pellets - Pack of 200,EQP-FM-CGCP-200PK,FALSE,2000.00,2000.00,0.0000,34,,77,1,TRUE,2025-12-31 15:51:39.327+00
+coffee-maker-cleaning-brush-set,Coffee Maker Cleaning Brush Set,EQP-FM-CMCBS,FALSE,1400.00,1400.00,0.0000,18,,7,0,TRUE,2025-12-31 15:51:39.327+00
