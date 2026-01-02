@@ -20,7 +20,7 @@ export function CategoryProductsFilters({ filters, awaiting = false }: TCategory
             const { type } = filter;
 
             switch (type) {
-                case "string":
+                case "text":
                     return <StringFilter data={filter} awaiting={awaiting} />;
                 case "numeric":
                     return <NumericFilter data={filter} awaiting={awaiting} />;
