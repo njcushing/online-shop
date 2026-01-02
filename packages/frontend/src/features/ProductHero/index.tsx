@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, useMemo } from "react";
+import { useContext, useState, useEffect, useMemo, Fragment } from "react";
 import { UserContext } from "@/pages/Root";
 import { IProductContext, ProductContext } from "@/pages/Product";
 import { Skeleton, Button, Divider, Rating } from "@mantine/core";
@@ -103,38 +103,42 @@ export function ProductHero() {
         );
     }, [rating.average, rating.total]);
 
-    const collectionQuantitiesMemo = useMemo(() => {
+    const collectionStepsMemo = useMemo(() => {
         return collections.map((collection, i) => {
             return (
-                <Skeleton visible={awaitingAny} key={collection.id}>
-                    <div
-                        style={{
-                            visibility: awaitingAny ? "hidden" : "initial",
-                        }}
-                    >
-                        <CollectionStep collectionData={collection} />
-                        {i < collections.length - 1 && <Divider />}
-                    </div>
-                </Skeleton>
+                <Fragment key={collection.id}>
+                    <Skeleton visible={awaitingAny}>
+                        <div
+                            style={{
+                                visibility: awaitingAny ? "hidden" : "initial",
+                            }}
+                        >
+                            <CollectionStep collectionData={collection} />
+                        </div>
+                    </Skeleton>
+                    {i < collections.length - 1 && <Divider />}
+                </Fragment>
             );
         });
     }, [awaitingAny, collections]);
 
-    const relatedAttributesMemo = useMemo(() => {
+    const variantStepsMemo = useMemo(() => {
         return relatedAttributesData.map((attribute, i) => {
             const { code: attributeCode, values } = attribute;
             if (values.length === 0) return null;
             return (
-                <Skeleton visible={awaitingAny} key={attributeCode}>
-                    <div
-                        style={{
-                            visibility: awaitingAny ? "hidden" : "initial",
-                        }}
-                    >
-                        <VariantStep attribute={attribute} />
-                        {i < relatedAttributesData.length - 1 && <Divider />}
-                    </div>
-                </Skeleton>
+                <Fragment key={attributeCode}>
+                    <Skeleton visible={awaitingAny}>
+                        <div
+                            style={{
+                                visibility: awaitingAny ? "hidden" : "initial",
+                            }}
+                        >
+                            <VariantStep attribute={attribute} />
+                        </div>
+                    </Skeleton>
+                    {i < relatedAttributesData.length - 1 && <Divider />}
+                </Fragment>
             );
         });
     }, [relatedAttributesData, awaitingAny]);
@@ -198,17 +202,17 @@ export function ProductHero() {
 
                     <Divider className={styles["margin"]} />
 
-                    {(collectionQuantitiesMemo.length > 0 || relatedAttributesMemo.length > 0) && (
+                    {(collectionStepsMemo.length > 0 || variantStepsMemo.length > 0) && (
                         <div
                             className={`${styles["product-hero-steps-container"]} ${styles["margin"]}`}
                         >
-                            {collectionQuantitiesMemo}
+                            {collectionStepsMemo}
 
-                            {collectionQuantitiesMemo.length > 0 && <Divider />}
+                            {collectionStepsMemo.length > 0 && <Divider />}
 
-                            {relatedAttributesMemo}
+                            {variantStepsMemo}
 
-                            {relatedAttributesMemo.length > 0 && <Divider />}
+                            {variantStepsMemo.length > 0 && <Divider />}
                         </div>
                     )}
 
