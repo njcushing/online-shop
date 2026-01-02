@@ -10,4 +10,5 @@ ready-to-drink,tea_flavour
 brewing,build_material
 brewing,color
 mugs-tumblers,color
-gift-sets,coffee_type
+gift-items,color
+bundles,coffee_type
