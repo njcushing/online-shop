@@ -68,7 +68,9 @@ namespace Cafree.Api.Endpoints.Categories._Slug.GET
                                     (g.Key.ValueDate != null ? g.Key.ValueDate.ToString() : null) ??
                                     (g.Key.ValueSelect != null ? g.Key.ValueSelect : null) ??
                                     "",
-                                Count = g.Count()
+                                Count = g.Select(pva => pva.ProductId)
+                                    .Distinct()
+                                    .Count()
                             })
                             .OrderBy(v => v.Position)
                             .ToList()
