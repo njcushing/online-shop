@@ -11,4 +11,5 @@ brewing,build_material
 brewing,color
 mugs-tumblers,color
 gift-items,color
+gift-items,size_text
 bundles,coffee_type
