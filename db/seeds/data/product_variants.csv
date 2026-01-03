@@ -1,589 +1,589 @@
 product_slug,name,sku,can_subscribe,price_current,price_base,subscription_discount_percentage,stock,allowance_override,times_sold,times_returned,active,release_date
-coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - House Blend,COF-WB-250GB-HO,TRUE,550.00,700.00,5.0000,89,,630,16,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Light Blend,COF-WB-250GB-LT,TRUE,600.00,700.00,5.0000,56,,838,5,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Medium Blend,COF-WB-250GB-MD,FALSE,700.00,700.00,0.0000,122,,793,4,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Dark Blend,COF-WB-250GB-DK,TRUE,700.00,700.00,7.5000,342,,864,9,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Extra Dark Blend,COF-WB-250GB-XD,TRUE,700.00,700.00,5.0000,34,,368,12,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Breakfast Blend,COF-WB-250GB-BK,TRUE,500.00,700.00,5.0000,76,,339,13,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Pumpkin Spice Blend,COF-WB-250GB-PK,TRUE,675.00,700.00,7.5000,45,,964,5,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Mocha Blend,COF-WB-250GB-MO,FALSE,675.00,700.00,0.0000,217,,771,14,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Espresso Blend,COF-WB-250GB-ES,FALSE,600.00,700.00,0.0000,97,,706,15,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Vanilla Blend,COF-WB-250GB-VA,TRUE,625.00,700.00,5.0000,82,,954,11,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Caramel Blend,COF-WB-250GB-CA,TRUE,700.00,700.00,2.5000,227,,270,12,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Intense Blend,COF-WB-250GB-IN,FALSE,625.00,700.00,0.0000,188,,885,11,FALSE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - French Roast Blend,COF-WB-250GB-FR,FALSE,700.00,700.00,0.0000,290,,705,3,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Italian Roast Blend,COF-WB-250GB-IT,TRUE,700.00,700.00,2.5000,268,,455,10,FALSE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - House Blend,COF-WB-500GB-HO,TRUE,1250.00,1250.00,5.0000,38,,142,5,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Light Blend,COF-WB-500GB-LT,TRUE,1100.00,1250.00,0.0000,29,,201,3,FALSE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Medium Blend,COF-WB-500GB-MD,FALSE,1200.00,1250.00,10.0000,27,,426,1,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Dark Blend,COF-WB-500GB-DK,TRUE,1250.00,1250.00,0.0000,28,,355,4,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Extra Dark Blend,COF-WB-500GB-XD,FALSE,1250.00,1250.00,5.0000,21,,487,3,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Breakfast Blend,COF-WB-500GB-BK,TRUE,1125.00,1250.00,0.0000,18,,127,2,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Pumpkin Spice Blend,COF-WB-500GB-PK,FALSE,1250.00,1250.00,0.0000,34,,123,1,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Mocha Blend,COF-WB-500GB-MO,FALSE,1250.00,1250.00,5.0000,21,,118,3,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Espresso Blend,COF-WB-500GB-ES,TRUE,1100.00,1250.00,5.0000,21,,210,0,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Vanilla Blend,COF-WB-500GB-VA,FALSE,1100.00,1250.00,0.0000,0,,294,0,FALSE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Caramel Blend,COF-WB-500GB-CA,TRUE,1000.00,1250.00,2.5000,18,,249,4,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Intense Blend,COF-WB-500GB-IN,FALSE,1250.00,1250.00,0.0000,10,,295,0,FALSE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - French Roast Blend,COF-WB-500GB-FR,TRUE,1250.00,1250.00,7.5000,12,20,385,4,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Italian Roast Blend,COF-WB-500GB-IT,FALSE,1100.00,1250.00,0.0000,15,,189,2,FALSE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - House Blend,COF-WB-1KGB-HO,TRUE,2200.00,2250.00,5.0000,0,,79,0,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Light Blend,COF-WB-1KGB-LT,TRUE,2250.00,2250.00,5.0000,14,,32,1,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Medium Blend,COF-WB-1KGB-MD,TRUE,2210.00,2250.00,5.0000,0,,12,0,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Dark Blend,COF-WB-1KGB-DK,TRUE,2200.00,2250.00,10.0000,19,,71,0,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Extra Dark Blend,COF-WB-1KGB-XD,FALSE,1700.00,2250.00,0.0000,23,,22,0,FALSE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Breakfast Blend,COF-WB-1KGB-BR,FALSE,2250.00,2250.00,0.0000,17,,34,0,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Pumpkin Spice Blend,COF-WB-1KGB-PK,TRUE,2250.00,2250.00,5.0000,6,,42,1,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Mocha Blend,COF-WB-1KGB-MO,FALSE,2250.00,2250.00,0.0000,8,,57,1,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Espresso Blend,COF-WB-1KGB-ES,FALSE,2250.00,2250.00,0.0000,11,,93,1,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Vanilla Blend,COF-WB-1KGB-VA,TRUE,1950.00,2250.00,2.5000,1,,71,0,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Caramel Blend,COF-WB-1KGB-CA,FALSE,2250.00,2250.00,0.0000,24,,19,0,FALSE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Intense Blend,COF-WB-1KGB-IN,TRUE,2250.00,2250.00,5.0000,22,,65,0,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - French Roast Blend,COF-WB-1KGB-FR,FALSE,1950.00,2250.00,0.0000,13,,58,0,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Italian Roast Blend,COF-WB-1KGB-IR,TRUE,1900.00,2250.00,2.5000,9,10,59,0,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - House Blend,COF-WB-100GT-HO,TRUE,600.00,600.00,2.5000,308,,1031,14,TRUE,2025-12-21 14:04:12.588+00
-coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - Light Blend,COF-WB-100GT-LT,TRUE,550.00,600.00,5.0000,293,,852,29,TRUE,2025-12-21 14:04:12.588+00
-coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - Medium Blend,COF-WB-100GT-MD,TRUE,600.00,600.00,5.0000,0,,611,22,TRUE,2025-12-21 14:04:12.588+00
-coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - Dark Blend,COF-WB-100GT-DK,FALSE,600.00,600.00,0.0000,226,,549,30,TRUE,2025-12-21 14:04:12.588+00
-coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - Extra Dark Blend,COF-WB-100GT-XD,FALSE,525.00,600.00,0.0000,289,,894,17,TRUE,2025-12-21 14:04:12.588+00
-coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - Breakfast Blend,COF-WB-100GT-BK,TRUE,575.00,600.00,2.5000,216,,1086,18,TRUE,2025-12-21 14:04:12.588+00
-coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - Pumpkin Spice Blend,COF-WB-100GT-PK,FALSE,600.00,600.00,0.0000,493,,1178,20,TRUE,2025-12-21 14:04:12.588+00
-coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - Mocha Blend,COF-WB-100GT-MO,TRUE,500.00,600.00,10.0000,203,,668,15,TRUE,2025-12-21 14:04:12.588+00
-coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - Espresso Blend,COF-WB-100GT-ES,FALSE,525.00,600.00,0.0000,283,,238,17,TRUE,2025-12-21 14:04:12.588+00
-coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - Vanilla Blend,COF-WB-100GT-VA,TRUE,600.00,600.00,2.5000,153,,927,5,TRUE,2025-12-21 14:04:12.588+00
-coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - Caramel Blend,COF-WB-100GT-CA,TRUE,575.00,600.00,2.5000,201,,847,12,FALSE,2025-12-21 14:04:12.588+00
-coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - Intense Blend,COF-WB-100GT-IN,FALSE,600.00,600.00,0.0000,177,,583,28,TRUE,2025-12-21 14:04:12.588+00
-coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - French Roast Blend,COF-WB-100GT-FR,TRUE,600.00,600.00,5.0000,279,,964,9,TRUE,2025-12-21 14:04:12.588+00
-coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - Italian Roast Blend,COF-WB-100GT-IR,FALSE,540.00,600.00,0.0000,364,,1170,29,TRUE,2025-12-21 14:04:12.588+00
-coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - House Blend,COF-WB-250GT-HO,TRUE,1100.00,1200.00,2.5000,99,,629,3,TRUE,2025-12-21 14:09:47.074+00
-coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Light Blend,COF-WB-250GT-LT,FALSE,1080.00,1200.00,0.0000,148,,663,5,TRUE,2025-12-21 14:09:47.074+00
-coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Medium Blend,COF-WB-250GT-MD,TRUE,1200.00,1200.00,5.0000,138,,368,4,TRUE,2025-12-21 14:09:47.074+00
-coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Dark Blend,COF-WB-250GT-DK,TRUE,1100.00,1200.00,2.5000,161,,495,8,TRUE,2025-12-21 14:09:47.074+00
-coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Extra Dark Blend,COF-WB-250GT-XD,TRUE,1200.00,1200.00,5.0000,175,,469,7,TRUE,2025-12-21 14:09:47.074+00
-coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Breakfast Blend,COF-WB-250GT-BK,FALSE,1080.00,1200.00,0.0000,55,,632,4,TRUE,2025-12-21 14:09:47.074+00
-coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Pumpkin Spice Blend,COF-WB-250GT-PS,TRUE,1200.00,1200.00,5.0000,82,,289,5,FALSE,2025-12-21 14:09:47.074+00
-coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Mocha Blend,COF-WB-250GT-MO,TRUE,1200.00,1200.00,7.5000,57,,449,9,FALSE,2025-12-21 14:09:47.074+00
-coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Espresso Blend,COF-WB-250GT-ES,FALSE,1080.00,1200.00,0.0000,40,,782,7,TRUE,2025-12-21 14:09:47.074+00
-coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Vanilla Blend,COF-WB-250GT-VA,TRUE,1200.00,1200.00,2.5000,210,,462,4,TRUE,2025-12-21 14:09:47.074+00
-coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Caramel Blend,COF-WB-250GT-CA,FALSE,1200.00,1200.00,0.0000,118,,234,3,TRUE,2025-12-21 14:09:47.074+00
-coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Intense Blend,COF-WB-250GT-IN,FALSE,1080.00,1200.00,0.0000,241,,665,4,TRUE,2025-12-21 14:09:47.074+00
-coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - French Roast Blend,COF-WB-250GT-FR,TRUE,1200.00,1200.00,5.0000,155,50,698,6,TRUE,2025-12-21 14:09:47.074+00
-coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Italian Roast Blend,COF-WB-250GT-IT,TRUE,1200.00,1200.00,2.5000,0,,827,2,FALSE,2025-12-21 14:09:47.074+00
-coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - House Blend,COF-WB-500GT-HO,FALSE,1800.00,2000.00,0.0000,60,,40,7,TRUE,2025-12-21 14:14:24.700+00
-coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Light Blend,COF-WB-500GT-LT,TRUE,2000.00,2000.00,2.5000,70,,48,3,TRUE,2025-12-21 14:14:24.700+00
-coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Medium Blend,COF-WB-500GT-MD,FALSE,1900.00,2000.00,0.0000,59,,74,4,TRUE,2025-12-21 14:14:24.700+00
-coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Dark Blend,COF-WB-500GT-DK,TRUE,1900.00,2000.00,5.0000,68,,38,0,TRUE,2025-12-21 14:14:24.700+00
-coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Extra Dark Blend,COF-WB-500GT-XD,TRUE,2000.00,2000.00,7.5000,61,,179,4,TRUE,2025-12-21 14:14:24.700+00
-coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Breakfast Blend,COF-WB-500GT-BK,FALSE,2000.00,2000.00,0.0000,0,,92,4,TRUE,2025-12-21 14:14:24.700+00
-coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Pumpkin Spice Blend,COF-WB-500GT-PK,TRUE,1800.00,2000.00,10.0000,53,,196,7,TRUE,2025-12-21 14:14:24.700+00
-coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Mocha Blend,COF-WB-500GT-MO,FALSE,1900.00,2000.00,0.0000,2,,94,3,TRUE,2025-12-21 14:14:24.700+00
-coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Espresso Blend,COF-WB-500GT-ES,FALSE,2000.00,2000.00,0.0000,46,,96,1,TRUE,2025-12-21 14:14:24.700+00
-coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Vanilla Blend,COF-WB-500GT-VA,FALSE,2000.00,2000.00,0.0000,50,,87,0,TRUE,2025-12-21 14:14:24.700+00
-coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Caramel Blend,COF-WB-500GT-CA,FALSE,2000.00,2000.00,0.0000,23,,27,0,FALSE,2025-12-21 14:14:24.700+00
-coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Intense Blend,COF-WB-500GT-IN,TRUE,1900.00,2000.00,2.5000,12,,72,4,TRUE,2025-12-21 14:14:24.700+00
-coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - French Roast Blend,COF-WB-500GT-FR,TRUE,2000.00,2000.00,2.5000,68,,126,6,TRUE,2025-12-21 14:14:24.700+00
-coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Italian Roast Blend,COF-WB-500GT-IR,FALSE,2000.00,2000.00,0.0000,62,25,38,8,TRUE,2025-12-21 14:14:24.700+00
-coffee-ground-250g-bag,Coffee - Ground - 250g Bag - House Blend,COF-GR-250GB-HO,TRUE,700.00,700.00,5.0000,129,,996,15,TRUE,2025-12-21 14:24:55.927+00
-coffee-ground-250g-bag,Coffee - Ground - 250g Bag - Light Blend,COF-GR-250GB-LT,FALSE,630.00,700.00,0.0000,278,,774,20,TRUE,2025-12-21 14:24:55.927+00
-coffee-ground-250g-bag,Coffee - Ground - 250g Bag - Medium Blend,COF-GR-250GB-MD,TRUE,665.00,700.00,2.5000,144,,233,30,TRUE,2025-12-21 14:24:55.927+00
-coffee-ground-250g-bag,Coffee - Ground - 250g Bag - Dark Blend,COF-GR-250GB-DK,TRUE,700.00,700.00,5.0000,58,,754,31,TRUE,2025-12-21 14:24:55.927+00
-coffee-ground-250g-bag,Coffee - Ground - 250g Bag - Extra Dark Blend,COF-GR-250GB-XD,FALSE,700.00,700.00,0.0000,160,,924,12,TRUE,2025-12-21 14:24:55.927+00
-coffee-ground-250g-bag,Coffee - Ground - 250g Bag - Breakfast Blend,COF-GR-250GB-BK,FALSE,700.00,700.00,0.0000,171,,745,27,TRUE,2025-12-21 14:24:55.927+00
-coffee-ground-250g-bag,Coffee - Ground - 250g Bag - Pumpkin Spice Blend,COF-GR-250GB-PK,TRUE,700.00,700.00,2.5000,73,,292,6,TRUE,2025-12-21 14:24:55.927+00
-coffee-ground-250g-bag,Coffee - Ground - 250g Bag - Mocha Blend,COF-GR-250GB-MO,FALSE,630.00,700.00,0.0000,181,,484,32,TRUE,2025-12-21 14:24:55.927+00
-coffee-ground-250g-bag,Coffee - Ground - 250g Bag - Espresso Blend,COF-GR-250GB-ES,TRUE,700.00,700.00,5.0000,226,,526,28,TRUE,2025-12-21 14:24:55.927+00
-coffee-ground-250g-bag,Coffee - Ground - 250g Bag - Vanilla Blend,COF-GR-250GB-VA,TRUE,700.00,700.00,2.5000,65,,960,13,TRUE,2025-12-21 14:24:55.927+00
-coffee-ground-250g-bag,Coffee - Ground - 250g Bag - Caramel Blend,COF-GR-250GB-CA,FALSE,665.00,700.00,0.0000,163,,634,18,TRUE,2025-12-21 14:24:55.927+00
-coffee-ground-250g-bag,Coffee - Ground - 250g Bag - Intense Blend,COF-GR-250GB-IN,TRUE,630.00,700.00,2.5000,159,,281,31,TRUE,2025-12-21 14:24:55.927+00
-coffee-ground-250g-bag,Coffee - Ground - 250g Bag - French Roast Blend,COF-GR-250GB-FR,FALSE,700.00,700.00,0.0000,195,,579,8,TRUE,2025-12-21 14:24:55.927+00
-coffee-ground-250g-bag,Coffee - Ground - 250g Bag - Italian Roast Blend,COF-GR-250GB-IR,TRUE,665.00,700.00,2.5000,82,,825,29,TRUE,2025-12-21 14:24:55.927+00
-coffee-ground-500g-bag,Coffee - Ground - 500g Bag - House Blend,COF-GR-500GB-HO,FALSE,1125.00,1250.00,0.0000,50,,349,5,TRUE,2025-12-21 14:30:11.630+00
-coffee-ground-500g-bag,Coffee - Ground - 500g Bag - Light Blend,COF-GR-500GB-LT,TRUE,1187.50,1250.00,5.0000,77,,297,11,TRUE,2025-12-21 14:30:11.630+00
-coffee-ground-500g-bag,Coffee - Ground - 500g Bag - Medium Blend,COF-GR-500GB-MD,TRUE,1250.00,1250.00,5.0000,52,,458,6,TRUE,2025-12-21 14:30:11.630+00
-coffee-ground-500g-bag,Coffee - Ground - 500g Bag - Dark Blend,COF-GR-500GB-DK,FALSE,1250.00,1250.00,0.0000,47,,103,7,TRUE,2025-12-21 14:30:11.630+00
-coffee-ground-500g-bag,Coffee - Ground - 500g Bag - Extra Dark Blend,COF-GR-500GB-XD,TRUE,1250.00,1250.00,2.5000,70,,357,11,TRUE,2025-12-21 14:30:11.630+00
-coffee-ground-500g-bag,Coffee - Ground - 500g Bag - Breakfast Blend,COF-GR-500GB-BK,FALSE,1125.00,1250.00,0.0000,64,,142,3,TRUE,2025-12-21 14:30:11.630+00
-coffee-ground-500g-bag,Coffee - Ground - 500g Bag - Pumpkin Spice Blend,COF-GR-500GB-PK,FALSE,1125.00,1250.00,0.0000,27,,388,9,TRUE,2025-12-21 14:30:11.631+00
-coffee-ground-500g-bag,Coffee - Ground - 500g Bag - Mocha Blend,COF-GR-500GB-MO,FALSE,1250.00,1250.00,0.0000,58,,312,5,TRUE,2025-12-21 14:30:11.631+00
-coffee-ground-500g-bag,Coffee - Ground - 500g Bag - Espresso Blend,COF-GR-500GB-ES,TRUE,1250.00,1250.00,5.0000,70,,496,16,FALSE,2025-12-21 14:30:11.631+00
-coffee-ground-500g-bag,Coffee - Ground - 500g Bag - Vanilla Blend,COF-GR-500GB-VA,TRUE,1187.50,1250.00,2.5000,29,,400,11,TRUE,2025-12-21 14:30:11.631+00
-coffee-ground-500g-bag,Coffee - Ground - 500g Bag - Caramel Blend,COF-GR-500GB-CA,FALSE,1250.00,1250.00,0.0000,46,,244,12,TRUE,2025-12-21 14:30:11.631+00
-coffee-ground-500g-bag,Coffee - Ground - 500g Bag - Intense Blend,COF-GR-500GB-IN,TRUE,1125.00,1250.00,2.5000,54,,129,11,TRUE,2025-12-21 14:30:11.631+00
-coffee-ground-500g-bag,Coffee - Ground - 500g Bag - French Roast Blend,COF-GR-500GB-FR,FALSE,1250.00,1250.00,0.0000,36,,425,13,TRUE,2025-12-21 14:30:11.631+00
-coffee-ground-500g-bag,Coffee - Ground - 500g Bag - Italian Roast Blend,COF-GR-500GB-IR,FALSE,1250.00,1250.00,0.0000,71,,426,15,TRUE,2025-12-21 14:30:11.631+00
-coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - House Blend,COF-GR-1KGB-HO,FALSE,2025.00,2250.00,0.0000,29,,62,5,TRUE,2025-12-21 14:34:18.684+00
-coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - Light Blend,COF-GR-1KGB-LT,TRUE,2025.00,2250.00,2.5000,30,,29,2,TRUE,2025-12-21 14:34:18.685+00
-coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - Medium Blend,COF-GR-1KGB-MD,TRUE,2025.00,2250.00,2.5000,11,,147,2,TRUE,2025-12-21 14:34:18.685+00
-coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - Dark Blend,COF-GR-1KGB-DK,FALSE,2250.00,2250.00,0.0000,45,,32,7,TRUE,2025-12-21 14:34:18.685+00
-coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - Extra Dark Blend,COF-GR-1KGB-XD,FALSE,2137.50,2250.00,0.0000,39,,182,0,TRUE,2025-12-21 14:34:18.685+00
-coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - Breakfast Blend,COF-GR-1KGB-BK,FALSE,2250.00,2250.00,0.0000,12,,129,2,TRUE,2025-12-21 14:34:18.685+00
-coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - Pumpkin Spice Blend,COF-GR-1KGB-PK,FALSE,2250.00,2250.00,0.0000,50,,159,1,TRUE,2025-12-21 14:34:18.685+00
-coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - Mocha Blend,COF-GR-1KGB-MO,TRUE,2025.00,2250.00,2.5000,14,,49,7,TRUE,2025-12-21 14:34:18.685+00
-coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - Espresso Blend,COF-GR-1KGB-ES,FALSE,2250.00,2250.00,0.0000,49,,150,3,TRUE,2025-12-21 14:34:18.685+00
-coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - Vanilla Blend,COF-GR-1KGB-VA,TRUE,2137.50,2250.00,2.5000,35,,150,6,TRUE,2025-12-21 14:34:18.685+00
-coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - Caramel Blend,COF-GR-1KGB-CA,FALSE,2025.00,2250.00,0.0000,24,,153,0,TRUE,2025-12-21 14:34:18.685+00
-coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - Intense Blend,COF-GR-1KGB-IN,TRUE,2250.00,2250.00,2.5000,34,,44,2,TRUE,2025-12-21 14:34:18.685+00
-coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - French Roast Blend,COF-GR-1KGB-FR,TRUE,2250.00,2250.00,2.5000,8,,55,1,TRUE,2025-12-21 14:34:18.685+00
-coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - Italian Roast Blend,COF-GR-1KGB-IR,FALSE,2250.00,2250.00,0.0000,36,,63,5,TRUE,2025-12-21 14:34:18.685+00
-coffee-ground-100g-tin,Coffee - Ground - 100g Tin - House Blend,COF-GR-100GT-HO,TRUE,665.00,700.00,2.5000,411,,821,25,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-100g-tin,Coffee - Ground - 100g Tin - Light Blend,COF-GR-100GT-LT,FALSE,630.00,700.00,0.0000,476,,903,7,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-100g-tin,Coffee - Ground - 100g Tin - Medium Blend,COF-GR-100GT-MD,TRUE,700.00,700.00,2.5000,692,,749,19,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-100g-tin,Coffee - Ground - 100g Tin - Dark Blend,COF-GR-100GT-DK,FALSE,700.00,700.00,0.0000,271,,73,21,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-100g-tin,Coffee - Ground - 100g Tin - Extra Dark Blend,COF-GR-100GT-XD,FALSE,700.00,700.00,0.0000,252,,753,33,FALSE,2025-12-21 14:38:45.685+00
-coffee-ground-100g-tin,Coffee - Ground - 100g Tin - Breakfast Blend,COF-GR-100GT-BK,TRUE,665.00,700.00,5.0000,635,,287,18,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-100g-tin,Coffee - Ground - 100g Tin - Pumpkin Spice Blend,COF-GR-100GT-PK,FALSE,700.00,700.00,0.0000,538,,860,33,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-100g-tin,Coffee - Ground - 100g Tin - Mocha Blend,COF-GR-100GT-MO,TRUE,630.00,700.00,5.0000,177,,582,27,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-100g-tin,Coffee - Ground - 100g Tin - Espresso Blend,COF-GR-100GT-ES,FALSE,700.00,700.00,0.0000,538,,192,8,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-100g-tin,Coffee - Ground - 100g Tin - Vanilla Blend,COF-GR-100GT-VA,FALSE,700.00,700.00,0.0000,0,,630,19,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-100g-tin,Coffee - Ground - 100g Tin - Caramel Blend,COF-GR-100GT-CA,FALSE,700.00,700.00,0.0000,352,,635,30,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-100g-tin,Coffee - Ground - 100g Tin - Intense Blend,COF-GR-100GT-IN,FALSE,700.00,700.00,0.0000,782,,895,9,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-100g-tin,Coffee - Ground - 100g Tin - French Roast Blend,COF-GR-100GT-FR,TRUE,630.00,700.00,2.5000,213,,155,24,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-100g-tin,Coffee - Ground - 100g Tin - Italian Roast Blend,COF-GR-100GT-IR,TRUE,700.00,700.00,5.0000,54,,477,10,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-250g-tin,Coffee - Ground - 250g Tin - House Blend,COF-GR-250GT-HO,FALSE,1250.00,1250.00,0.0000,29,,246,14,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-250g-tin,Coffee - Ground - 250g Tin - Light Blend,COF-GR-250GT-LT,TRUE,1250.00,1250.00,0.0000,48,,249,11,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-250g-tin,Coffee - Ground - 250g Tin - Medium Blend,COF-GR-250GT-MD,FALSE,1250.00,1250.00,0.0000,0,,279,16,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-250g-tin,Coffee - Ground - 250g Tin - Dark Blend,COF-GR-250GT-DK,FALSE,1250.00,1250.00,0.0000,38,,131,12,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-250g-tin,Coffee - Ground - 250g Tin - Extra Dark Blend,COF-GR-250GT-XD,FALSE,1250.00,1250.00,0.0000,74,,380,14,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-250g-tin,Coffee - Ground - 250g Tin - Breakfast Blend,COF-GR-250GT-BK,TRUE,1125.00,1250.00,7.5000,42,,330,5,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-250g-tin,Coffee - Ground - 250g Tin - Pumpkin Spice Blend,COF-GR-250GT-PK,TRUE,1125.00,1250.00,2.5000,11,,179,16,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-250g-tin,Coffee - Ground - 250g Tin - Mocha Blend,COF-GR-250GT-MO,FALSE,1250.00,1250.00,0.0000,92,,197,10,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-250g-tin,Coffee - Ground - 250g Tin - Espresso Blend,COF-GR-250GT-ES,TRUE,1250.00,1250.00,2.5000,68,,277,15,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-250g-tin,Coffee - Ground - 250g Tin - Vanilla Blend,COF-GR-250GT-VA,TRUE,1250.00,1250.00,2.5000,42,,172,3,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-250g-tin,Coffee - Ground - 250g Tin - Caramel Blend,COF-GR-250GT-CA,FALSE,1250.00,1250.00,0.0000,35,,168,6,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-250g-tin,Coffee - Ground - 250g Tin - Intense Blend,COF-GR-250GT-IN,FALSE,1250.00,1250.00,0.0000,17,,329,5,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-250g-tin,Coffee - Ground - 250g Tin - French Roast Blend,COF-GR-250GT-FR,TRUE,1125.00,1250.00,5.0000,44,,382,5,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-250g-tin,Coffee - Ground - 250g Tin - Italian Roast Blend,COF-GR-250GT-IR,FALSE,1250.00,1250.00,0.0000,57,,280,8,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-500g-tin,Coffee - Ground - 500g Tin - House Blend,COF-GR-1KGT-HO,TRUE,2025.00,2250.00,5.0000,11,,97,4,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-500g-tin,Coffee - Ground - 500g Tin - Light Blend,COF-GR-1KGT-LT,FALSE,2250.00,2250.00,0.0000,5,,79,6,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-500g-tin,Coffee - Ground - 500g Tin - Medium Blend,COF-GR-1KGT-MD,TRUE,2250.00,2250.00,2.5000,14,,82,6,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-500g-tin,Coffee - Ground - 500g Tin - Dark Blend,COF-GR-1KGT-DK,FALSE,2250.00,2250.00,0.0000,13,,95,8,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-500g-tin,Coffee - Ground - 500g Tin - Extra Dark Blend,COF-GR-1KGT-XD,FALSE,2137.50,2250.00,0.0000,9,,53,4,FALSE,2025-12-21 14:38:45.685+00
-coffee-ground-500g-tin,Coffee - Ground - 500g Tin - Breakfast Blend,COF-GR-1KGT-BK,FALSE,2137.50,2250.00,0.0000,17,,81,3,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-500g-tin,Coffee - Ground - 500g Tin - Pumpkin Spice Blend,COF-GR-1KGT-PK,TRUE,2250.00,2250.00,2.5000,11,,56,1,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-500g-tin,Coffee - Ground - 500g Tin - Mocha Blend,COF-GR-1KGT-MO,FALSE,2250.00,2250.00,0.0000,8,,30,8,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-500g-tin,Coffee - Ground - 500g Tin - Espresso Blend,COF-GR-1KGT-ES,FALSE,2250.00,2250.00,0.0000,9,,72,8,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-500g-tin,Coffee - Ground - 500g Tin - Vanilla Blend,COF-GR-1KGT-VA,TRUE,2250.00,2250.00,7.5000,15,,44,1,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-500g-tin,Coffee - Ground - 500g Tin - Caramel Blend,COF-GR-1KGT-CA,TRUE,2250.00,2250.00,2.5000,15,,60,2,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-500g-tin,Coffee - Ground - 500g Tin - Intense Blend,COF-GR-1KGT-IN,FALSE,2137.50,2250.00,0.0000,0,,65,4,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-500g-tin,Coffee - Ground - 500g Tin - French Roast Blend,COF-GR-1KGT-FR,FALSE,2025.00,2250.00,0.0000,4,,63,5,TRUE,2025-12-21 14:38:45.685+00
-coffee-ground-500g-tin,Coffee - Ground - 500g Tin - Italian Roast Blend,COF-GR-1KGT-IR,TRUE,2250.00,2250.00,2.5000,9,,26,7,TRUE,2025-12-21 14:38:45.685+00
-coffee-instant-250g-bag,Coffee - Instant - 250g Bag - House Blend,COF-IN-250GB-HO,TRUE,700.00,700.00,5.0000,498,,389,23,TRUE,2025-12-22 19:33:51.828+00
-coffee-instant-250g-bag,Coffee - Instant - 250g Bag - Light Blend,COF-IN-250GB-LT,FALSE,665.00,700.00,0.0000,308,,797,16,TRUE,2025-12-22 19:33:51.828+00
-coffee-instant-250g-bag,Coffee - Instant - 250g Bag - Medium Blend,COF-IN-250GB-MD,TRUE,630.00,700.00,2.5000,629,,156,11,TRUE,2025-12-22 19:33:51.828+00
-coffee-instant-250g-bag,Coffee - Instant - 250g Bag - Dark Blend,COF-IN-250GB-DK,FALSE,700.00,700.00,0.0000,824,,531,31,TRUE,2025-12-22 19:33:51.828+00
-coffee-instant-250g-bag,Coffee - Instant - 250g Bag - Extra Dark Blend,COF-IN-250GB-XD,FALSE,700.00,700.00,0.0000,0,,341,1,TRUE,2025-12-22 19:33:51.828+00
-coffee-instant-250g-bag,Coffee - Instant - 250g Bag - Breakfast Blend,COF-IN-250GB-BK,TRUE,630.00,700.00,2.5000,849,,509,24,TRUE,2025-12-22 19:33:51.828+00
-coffee-instant-250g-bag,Coffee - Instant - 250g Bag - Pumpkin Spice Blend,COF-IN-250GB-PK,FALSE,700.00,700.00,0.0000,673,,540,8,TRUE,2025-12-22 19:33:51.828+00
-coffee-instant-250g-bag,Coffee - Instant - 250g Bag - Mocha Blend,COF-IN-250GB-MO,FALSE,665.00,700.00,0.0000,228,,737,21,TRUE,2025-12-22 19:33:51.828+00
-coffee-instant-250g-bag,Coffee - Instant - 250g Bag - Espresso Blend,COF-IN-250GB-ES,FALSE,700.00,700.00,0.0000,245,,721,25,TRUE,2025-12-22 19:33:51.828+00
-coffee-instant-250g-bag,Coffee - Instant - 250g Bag - Vanilla Blend,COF-IN-250GB-VA,FALSE,700.00,700.00,0.0000,247,,718,31,TRUE,2025-12-22 19:33:51.828+00
-coffee-instant-250g-bag,Coffee - Instant - 250g Bag - Caramel Blend,COF-IN-250GB-CA,FALSE,630.00,700.00,0.0000,611,,148,33,TRUE,2025-12-22 19:33:51.828+00
-coffee-instant-250g-bag,Coffee - Instant - 250g Bag - Intense Blend,COF-IN-250GB-IN,FALSE,595.00,700.00,0.0000,720,,3,2,TRUE,2025-12-22 19:33:51.828+00
-coffee-instant-250g-bag,Coffee - Instant - 250g Bag - French Roast Blend,COF-IN-250GB-FR,FALSE,700.00,700.00,0.0000,919,,491,2,TRUE,2025-12-22 19:33:51.828+00
-coffee-instant-250g-bag,Coffee - Instant - 250g Bag - Italian Roast Blend,COF-IN-250GB-IR,TRUE,700.00,700.00,5.0000,654,,316,11,TRUE,2025-12-22 19:33:51.828+00
-coffee-instant-500g-bag,Coffee - Instant - 500g Bag - House Blend,COF-IN-500GB-HO,FALSE,1250.00,1250.00,0.0000,113,,18,12,TRUE,2025-12-22 19:33:51.828+00
-coffee-instant-500g-bag,Coffee - Instant - 500g Bag - Light Blend,COF-IN-500GB-LT,FALSE,1250.00,1250.00,0.0000,97,,57,4,TRUE,2025-12-22 19:33:51.828+00
-coffee-instant-500g-bag,Coffee - Instant - 500g Bag - Medium Blend,COF-IN-500GB-MD,TRUE,1125.00,1250.00,5.0000,287,,159,0,TRUE,2025-12-22 19:33:51.828+00
-coffee-instant-500g-bag,Coffee - Instant - 500g Bag - Dark Blend,COF-IN-500GB-DK,TRUE,1250.00,1250.00,2.5000,259,,70,8,TRUE,2025-12-22 19:33:51.828+00
-coffee-instant-500g-bag,Coffee - Instant - 500g Bag - Extra Dark Blend,COF-IN-500GB-XD,FALSE,1250.00,1250.00,0.0000,205,,68,13,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-500g-bag,Coffee - Instant - 500g Bag - Breakfast Blend,COF-IN-500GB-BK,FALSE,1187.50,1250.00,0.0000,205,,186,8,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-500g-bag,Coffee - Instant - 500g Bag - Pumpkin Spice Blend,COF-IN-500GB-PK,FALSE,1187.50,1250.00,0.0000,0,,86,1,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-500g-bag,Coffee - Instant - 500g Bag - Mocha Blend,COF-IN-500GB-MO,FALSE,1250.00,1250.00,0.0000,69,,7,0,FALSE,2025-12-22 19:33:51.829+00
-coffee-instant-500g-bag,Coffee - Instant - 500g Bag - Espresso Blend,COF-IN-500GB-ES,TRUE,1250.00,1250.00,2.5000,174,,197,12,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-500g-bag,Coffee - Instant - 500g Bag - Vanilla Blend,COF-IN-500GB-VA,TRUE,1125.00,1250.00,2.5000,214,,25,8,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-500g-bag,Coffee - Instant - 500g Bag - Caramel Blend,COF-IN-500GB-CA,FALSE,1125.00,1250.00,0.0000,242,,138,1,FALSE,2025-12-22 19:33:51.829+00
-coffee-instant-500g-bag,Coffee - Instant - 500g Bag - Intense Blend,COF-IN-500GB-IN,FALSE,1250.00,1250.00,0.0000,0,,85,1,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-500g-bag,Coffee - Instant - 500g Bag - French Roast Blend,COF-IN-500GB-FR,FALSE,1250.00,1250.00,0.0000,118,,113,0,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-500g-bag,Coffee - Instant - 500g Bag - Italian Roast Blend,COF-IN-500GB-IR,TRUE,1250.00,1250.00,10.0000,209,,7,2,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - House Blend,COF-IN-1KGB-HO,FALSE,2250.00,2250.00,0.0000,53,,33,0,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - Light Blend,COF-IN-1KGB-LT,TRUE,2137.50,2250.00,2.5000,0,,24,2,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - Medium Blend,COF-IN-1KGB-MD,FALSE,2250.00,2250.00,0.0000,85,,33,2,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - Dark Blend,COF-IN-1KGB-DK,TRUE,2250.00,2250.00,5.0000,58,,35,4,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - Extra Dark Blend,COF-IN-1KGB-XD,TRUE,2250.00,2250.00,7.5000,28,,0,0,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - Breakfast Blend,COF-IN-1KGB-BK,FALSE,2137.50,2250.00,0.0000,40,,16,1,FALSE,2025-12-22 19:33:51.829+00
-coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - Pumpkin Spice Blend,COF-IN-1KGB-PK,TRUE,2250.00,2250.00,2.5000,13,,24,1,FALSE,2025-12-22 19:33:51.829+00
-coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - Mocha Blend,COF-IN-1KGB-MO,TRUE,2250.00,2250.00,5.0000,89,,36,1,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - Espresso Blend,COF-IN-1KGB-ES,TRUE,2250.00,2250.00,2.5000,94,,22,2,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - Vanilla Blend,COF-IN-1KGB-VA,FALSE,2025.00,2250.00,0.0000,98,,14,3,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - Caramel Blend,COF-IN-1KGB-CA,TRUE,2025.00,2250.00,5.0000,2,,10,1,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - Intense Blend,COF-IN-1KGB-IN,FALSE,2250.00,2250.00,0.0000,7,,36,3,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - French Roast Blend,COF-IN-1KGB-FR,FALSE,2250.00,2250.00,0.0000,62,,17,1,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - Italian Roast Blend,COF-IN-1KGB-IR,FALSE,2137.50,2250.00,0.0000,33,,14,3,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-100g-tin,Coffee - Instant - 100g Tin - House Blend,COF-IN-100GT-HO,FALSE,700.00,700.00,0.0000,945,,538,14,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-100g-tin,Coffee - Instant - 100g Tin - Light Blend,COF-IN-100GT-LT,TRUE,630.00,700.00,2.5000,0,,305,29,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-100g-tin,Coffee - Instant - 100g Tin - Medium Blend,COF-IN-100GT-MD,FALSE,700.00,700.00,0.0000,732,,484,15,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-100g-tin,Coffee - Instant - 100g Tin - Dark Blend,COF-IN-100GT-DK,FALSE,665.00,700.00,0.0000,743,,292,20,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-100g-tin,Coffee - Instant - 100g Tin - Extra Dark Blend,COF-IN-100GT-XD,FALSE,700.00,700.00,0.0000,210,,789,4,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-100g-tin,Coffee - Instant - 100g Tin - Breakfast Blend,COF-IN-100GT-BK,TRUE,700.00,700.00,5.0000,668,,74,18,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-100g-tin,Coffee - Instant - 100g Tin - Pumpkin Spice Blend,COF-IN-100GT-PK,TRUE,630.00,700.00,2.5000,441,,189,11,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-100g-tin,Coffee - Instant - 100g Tin - Mocha Blend,COF-IN-100GT-MO,FALSE,630.00,700.00,0.0000,954,,504,8,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-100g-tin,Coffee - Instant - 100g Tin - Espresso Blend,COF-IN-100GT-ES,TRUE,700.00,700.00,5.0000,921,,62,24,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-100g-tin,Coffee - Instant - 100g Tin - Vanilla Blend,COF-IN-100GT-VA,FALSE,665.00,700.00,0.0000,585,,72,5,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-100g-tin,Coffee - Instant - 100g Tin - Caramel Blend,COF-IN-100GT-CA,TRUE,700.00,700.00,2.5000,231,,301,17,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-100g-tin,Coffee - Instant - 100g Tin - Intense Blend,COF-IN-100GT-IN,FALSE,630.00,700.00,0.0000,360,,296,20,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-100g-tin,Coffee - Instant - 100g Tin - French Roast Blend,COF-IN-100GT-FR,TRUE,700.00,700.00,0.0000,226,,453,29,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-100g-tin,Coffee - Instant - 100g Tin - Italian Roast Blend,COF-IN-100GT-IR,TRUE,700.00,700.00,7.5000,867,,647,32,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-250g-tin,Coffee - Instant - 250g Tin - House Blend,COF-IN-250GT-HO,TRUE,1187.50,1250.00,2.5000,122,,148,3,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-250g-tin,Coffee - Instant - 250g Tin - Light Blend,COF-IN-250GT-LT,FALSE,1250.00,1250.00,0.0000,214,,140,0,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-250g-tin,Coffee - Instant - 250g Tin - Medium Blend,COF-IN-250GT-MD,FALSE,1125.00,1250.00,0.0000,238,,76,2,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-250g-tin,Coffee - Instant - 250g Tin - Dark Blend,COF-IN-250GT-DK,FALSE,1250.00,1250.00,0.0000,156,,65,16,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-250g-tin,Coffee - Instant - 250g Tin - Extra Dark Blend,COF-IN-250GT-XD,TRUE,1250.00,1250.00,5.0000,58,,150,1,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-250g-tin,Coffee - Instant - 250g Tin - Breakfast Blend,COF-IN-250GT-BK,FALSE,1250.00,1250.00,0.0000,248,,131,14,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-250g-tin,Coffee - Instant - 250g Tin - Pumpkin Spice Blend,COF-IN-250GT-PK,TRUE,1250.00,1250.00,5.0000,222,,151,0,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-250g-tin,Coffee - Instant - 250g Tin - Mocha Blend,COF-IN-250GT-MO,FALSE,1125.00,1250.00,0.0000,201,,71,5,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-250g-tin,Coffee - Instant - 250g Tin - Espresso Blend,COF-IN-250GT-ES,TRUE,1250.00,1250.00,2.5000,183,,109,0,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-250g-tin,Coffee - Instant - 250g Tin - Vanilla Blend,COF-IN-250GT-VA,TRUE,1250.00,1250.00,2.5000,0,,34,5,FALSE,2025-12-22 19:33:51.829+00
-coffee-instant-250g-tin,Coffee - Instant - 250g Tin - Caramel Blend,COF-IN-250GT-CA,FALSE,1125.00,1250.00,0.0000,281,,72,14,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-250g-tin,Coffee - Instant - 250g Tin - Intense Blend,COF-IN-250GT-IN,FALSE,1250.00,1250.00,0.0000,279,,190,16,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-250g-tin,Coffee - Instant - 250g Tin - French Roast Blend,COF-IN-250GT-FR,FALSE,1250.00,1250.00,0.0000,121,,53,4,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-250g-tin,Coffee - Instant - 250g Tin - Italian Roast Blend,COF-IN-250GT-IR,FALSE,1250.00,1250.00,0.0000,220,,70,3,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-500g-tin,Coffee - Instant - 500g Tin - House Blend,COF-IN-1KGT-HO,FALSE,2250.00,2250.00,0.0000,12,,31,2,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-500g-tin,Coffee - Instant - 500g Tin - Light Blend,COF-IN-1KGT-LT,TRUE,2250.00,2250.00,2.5000,14,,17,3,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-500g-tin,Coffee - Instant - 500g Tin - Medium Blend,COF-IN-1KGT-MD,TRUE,2250.00,2250.00,5.0000,0,,1,1,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-500g-tin,Coffee - Instant - 500g Tin - Dark Blend,COF-IN-1KGT-DK,FALSE,2025.00,2250.00,0.0000,93,,22,1,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-500g-tin,Coffee - Instant - 500g Tin - Extra Dark Blend,COF-IN-1KGT-XD,FALSE,2250.00,2250.00,0.0000,82,,37,4,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-500g-tin,Coffee - Instant - 500g Tin - Breakfast Blend,COF-IN-1KGT-BK,TRUE,2250.00,2250.00,2.5000,86,,39,4,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-500g-tin,Coffee - Instant - 500g Tin - Pumpkin Spice Blend,COF-IN-1KGT-PK,TRUE,1912.50,2250.00,2.5000,56,,8,0,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-500g-tin,Coffee - Instant - 500g Tin - Mocha Blend,COF-IN-1KGT-MO,FALSE,2250.00,2250.00,0.0000,23,,12,4,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-500g-tin,Coffee - Instant - 500g Tin - Espresso Blend,COF-IN-1KGT-ES,TRUE,2025.00,2250.00,5.0000,30,,24,2,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-500g-tin,Coffee - Instant - 500g Tin - Vanilla Blend,COF-IN-1KGT-VA,FALSE,2025.00,2250.00,0.0000,53,,31,3,FALSE,2025-12-22 19:33:51.829+00
-coffee-instant-500g-tin,Coffee - Instant - 500g Tin - Caramel Blend,COF-IN-1KGT-CA,FALSE,2250.00,2250.00,0.0000,2,,21,4,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-500g-tin,Coffee - Instant - 500g Tin - Intense Blend,COF-IN-1KGT-IN,FALSE,2250.00,2250.00,0.0000,77,,25,1,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-500g-tin,Coffee - Instant - 500g Tin - French Roast Blend,COF-IN-1KGT-FR,TRUE,2250.00,2250.00,2.5000,79,,28,4,TRUE,2025-12-22 19:33:51.829+00
-coffee-instant-500g-tin,Coffee - Instant - 500g Tin - Italian Roast Blend,COF-IN-1KGT-IR,FALSE,2137.50,2250.00,0.0000,59,,17,1,TRUE,2025-12-22 19:33:51.829+00
-coffee-pods-10-pack,Coffee - Pods - 10 Pack - House Blend,COF-PO-10PK-HO,TRUE,540.00,600.00,2.5000,765,,719,39,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-10-pack,Coffee - Pods - 10 Pack - Light Blend,COF-PO-10PK-LT,TRUE,600.00,600.00,5.0000,598,,981,22,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-10-pack,Coffee - Pods - 10 Pack - Medium Blend,COF-PO-10PK-MD,FALSE,600.00,600.00,0.0000,679,,750,16,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-10-pack,Coffee - Pods - 10 Pack - Dark Blend,COF-PO-10PK-DK,FALSE,570.00,600.00,0.0000,269,,269,13,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-10-pack,Coffee - Pods - 10 Pack - Extra Dark Blend,COF-PO-10PK-XD,TRUE,600.00,600.00,2.5000,644,,421,15,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-10-pack,Coffee - Pods - 10 Pack - Breakfast Blend,COF-PO-10PK-BK,TRUE,600.00,600.00,2.5000,455,,436,26,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-10-pack,Coffee - Pods - 10 Pack - Pumpkin Spice Blend,COF-PO-10PK-PK,FALSE,600.00,600.00,0.0000,927,,472,7,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-10-pack,Coffee - Pods - 10 Pack - Mocha Blend,COF-PO-10PK-MO,FALSE,600.00,600.00,0.0000,29,,281,9,FALSE,2025-12-21 14:48:02.120+00
-coffee-pods-10-pack,Coffee - Pods - 10 Pack - Espresso Blend,COF-PO-10PK-ES,FALSE,540.00,600.00,0.0000,162,,513,19,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-10-pack,Coffee - Pods - 10 Pack - Vanilla Blend,COF-PO-10PK-VA,TRUE,540.00,600.00,5.0000,666,,263,2,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-10-pack,Coffee - Pods - 10 Pack - Caramel Blend,COF-PO-10PK-CA,TRUE,600.00,600.00,2.5000,226,,714,27,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-10-pack,Coffee - Pods - 10 Pack - Intense Blend,COF-PO-10PK-IN,FALSE,600.00,600.00,0.0000,0,,838,10,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-10-pack,Coffee - Pods - 10 Pack - French Roast Blend,COF-PO-10PK-FR,TRUE,570.00,600.00,7.5000,137,,294,15,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-10-pack,Coffee - Pods - 10 Pack - Italian Roast Blend,COF-PO-10PK-IR,TRUE,600.00,600.00,5.0000,353,,554,28,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-25-pack,Coffee - Pods - 25 Pack - House Blend,COF-PO-25PK-HO,FALSE,1400.00,1400.00,0.0000,193,,302,12,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-25-pack,Coffee - Pods - 25 Pack - Light Blend,COF-PO-25PK-LT,TRUE,1260.00,1400.00,2.5000,318,,66,2,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-25-pack,Coffee - Pods - 25 Pack - Medium Blend,COF-PO-25PK-MD,FALSE,1400.00,1400.00,0.0000,22,,434,18,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-25-pack,Coffee - Pods - 25 Pack - Dark Blend,COF-PO-25PK-DK,TRUE,1330.00,1400.00,2.5000,156,,490,13,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-25-pack,Coffee - Pods - 25 Pack - Extra Dark Blend,COF-PO-25PK-XD,TRUE,1400.00,1400.00,2.5000,232,,189,19,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-25-pack,Coffee - Pods - 25 Pack - Breakfast Blend,COF-PO-25PK-BK,FALSE,1190.00,1400.00,0.0000,269,,346,18,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-25-pack,Coffee - Pods - 25 Pack - Pumpkin Spice Blend,COF-PO-25PK-PK,TRUE,1400.00,1400.00,5.0000,382,,424,17,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-25-pack,Coffee - Pods - 25 Pack - Mocha Blend,COF-PO-25PK-MO,FALSE,1400.00,1400.00,0.0000,60,,292,19,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-25-pack,Coffee - Pods - 25 Pack - Espresso Blend,COF-PO-25PK-ES,TRUE,1400.00,1400.00,2.5000,331,,423,17,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-25-pack,Coffee - Pods - 25 Pack - Vanilla Blend,COF-PO-25PK-VA,FALSE,1260.00,1400.00,0.0000,4,,64,17,FALSE,2025-12-21 14:48:02.120+00
-coffee-pods-25-pack,Coffee - Pods - 25 Pack - Caramel Blend,COF-PO-25PK-CA,FALSE,1400.00,1400.00,0.0000,373,,258,4,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-25-pack,Coffee - Pods - 25 Pack - Intense Blend,COF-PO-25PK-IN,TRUE,1400.00,1400.00,5.0000,311,,209,2,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-25-pack,Coffee - Pods - 25 Pack - French Roast Blend,COF-PO-25PK-FR,FALSE,1330.00,1400.00,0.0000,0,,347,8,TRUE,2025-12-21 14:48:02.120+00
-coffee-pods-25-pack,Coffee - Pods - 25 Pack - Italian Roast Blend,COF-PO-25PK-IR,FALSE,1400.00,1400.00,0.0000,198,,222,22,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-50-pack,Coffee - Pods - 50 Pack - House Blend,COF-PO-50PK-HO,TRUE,2700.00,2700.00,5.0000,152,,139,15,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-50-pack,Coffee - Pods - 50 Pack - Light Blend,COF-PO-50PK-LT,TRUE,2430.00,2700.00,2.5000,186,,80,3,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-50-pack,Coffee - Pods - 50 Pack - Medium Blend,COF-PO-50PK-MD,TRUE,2565.00,2700.00,2.5000,92,,171,9,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-50-pack,Coffee - Pods - 50 Pack - Dark Blend,COF-PO-50PK-DK,FALSE,2700.00,2700.00,0.0000,93,,191,14,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-50-pack,Coffee - Pods - 50 Pack - Extra Dark Blend,COF-PO-50PK-XD,TRUE,2700.00,2700.00,10.0000,183,,195,3,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-50-pack,Coffee - Pods - 50 Pack - Breakfast Blend,COF-PO-50PK-BK,FALSE,2700.00,2700.00,0.0000,154,,102,4,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-50-pack,Coffee - Pods - 50 Pack - Pumpkin Spice Blend,COF-PO-50PK-PK,TRUE,2430.00,2700.00,5.0000,58,,41,3,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-50-pack,Coffee - Pods - 50 Pack - Mocha Blend,COF-PO-50PK-MO,TRUE,2700.00,2700.00,2.5000,168,,38,9,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-50-pack,Coffee - Pods - 50 Pack - Espresso Blend,COF-PO-50PK-ES,FALSE,2700.00,2700.00,0.0000,164,,112,4,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-50-pack,Coffee - Pods - 50 Pack - Vanilla Blend,COF-PO-50PK-VA,FALSE,2700.00,2700.00,0.0000,186,,105,0,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-50-pack,Coffee - Pods - 50 Pack - Caramel Blend,COF-PO-50PK-CA,TRUE,2430.00,2700.00,2.5000,128,,111,7,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-50-pack,Coffee - Pods - 50 Pack - Intense Blend,COF-PO-50PK-IN,TRUE,2565.00,2700.00,5.0000,3,,188,13,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-50-pack,Coffee - Pods - 50 Pack - French Roast Blend,COF-PO-50PK-FR,FALSE,2700.00,2700.00,0.0000,151,,127,8,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-50-pack,Coffee - Pods - 50 Pack - Italian Roast Blend,COF-PO-50PK-IR,FALSE,2700.00,2700.00,0.0000,4,,109,8,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-100-pack,Coffee - Pods - 100 Pack - House Blend,COF-PO-100PK-HO,TRUE,4500.00,5000.00,2.5000,21,,39,1,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-100-pack,Coffee - Pods - 100 Pack - Light Blend,COF-PO-100PK-LT,TRUE,5000.00,5000.00,2.5000,32,,54,0,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-100-pack,Coffee - Pods - 100 Pack - Medium Blend,COF-PO-100PK-MD,FALSE,4750.00,5000.00,0.0000,30,,39,3,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-100-pack,Coffee - Pods - 100 Pack - Dark Blend,COF-PO-100PK-DK,TRUE,4750.00,5000.00,7.5000,35,,31,0,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-100-pack,Coffee - Pods - 100 Pack - Extra Dark Blend,COF-PO-100PK-XD,FALSE,5000.00,5000.00,0.0000,47,,60,6,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-100-pack,Coffee - Pods - 100 Pack - Breakfast Blend,COF-PO-100PK-BK,TRUE,4000.00,5000.00,2.5000,32,,12,2,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-100-pack,Coffee - Pods - 100 Pack - Pumpkin Spice Blend,COF-PO-100PK-PK,TRUE,5000.00,5000.00,2.5000,25,,41,5,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-100-pack,Coffee - Pods - 100 Pack - Mocha Blend,COF-PO-100PK-MO,TRUE,4750.00,5000.00,2.5000,0,,52,6,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-100-pack,Coffee - Pods - 100 Pack - Espresso Blend,COF-PO-100PK-ES,TRUE,5000.00,5000.00,5.0000,42,,64,5,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-100-pack,Coffee - Pods - 100 Pack - Vanilla Blend,COF-PO-100PK-VA,TRUE,4500.00,5000.00,5.0000,9,,75,4,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-100-pack,Coffee - Pods - 100 Pack - Caramel Blend,COF-PO-100PK-CA,TRUE,5000.00,5000.00,2.5000,25,,67,0,FALSE,2025-12-21 14:48:02.121+00
-coffee-pods-100-pack,Coffee - Pods - 100 Pack - Intense Blend,COF-PO-100PK-IN,TRUE,5000.00,5000.00,2.5000,9,,15,2,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-100-pack,Coffee - Pods - 100 Pack - French Roast Blend,COF-PO-100PK-FR,TRUE,5000.00,5000.00,5.0000,49,,62,6,TRUE,2025-12-21 14:48:02.121+00
-coffee-pods-100-pack,Coffee - Pods - 100 Pack - Italian Roast Blend,COF-PO-100PK-IR,FALSE,4750.00,5000.00,0.0000,10,,18,1,TRUE,2025-12-21 14:48:02.121+00
-coffee-cold-brew-concentrate-10-servings,Coffee - Cold Brew Concentrate - 10 Servings - House Blend,COF-CBCO-10S-HO,TRUE,1200.00,1200.00,2.5000,375,,223,20,TRUE,2025-12-22 20:15:04.187+00
-coffee-cold-brew-concentrate-10-servings,Coffee - Cold Brew Concentrate - 10 Servings - Light Blend,COF-CBCO-10S-LT,FALSE,1080.00,1200.00,0.0000,426,,306,12,TRUE,2025-12-22 20:15:04.187+00
-coffee-cold-brew-concentrate-10-servings,Coffee - Cold Brew Concentrate - 10 Servings - Medium Blend,COF-CBCO-10S-MD,TRUE,1140.00,1200.00,5.0000,430,,277,20,TRUE,2025-12-22 20:15:04.187+00
-coffee-cold-brew-concentrate-10-servings,Coffee - Cold Brew Concentrate - 10 Servings - Dark Blend,COF-CBCO-10S-DK,TRUE,1200.00,1200.00,2.5000,449,,108,7,TRUE,2025-12-22 20:15:04.187+00
-coffee-cold-brew-concentrate-25-servings,Coffee - Cold Brew Concentrate - 25 Servings - House Blend,COF-CBCO-25S-HO,FALSE,2500.00,2500.00,0.0000,140,,29,4,TRUE,2025-12-22 20:15:04.187+00
-coffee-cold-brew-concentrate-25-servings,Coffee - Cold Brew Concentrate - 25 Servings - Light Blend,COF-CBCO-25S-LT,FALSE,2500.00,2500.00,0.0000,35,,121,6,TRUE,2025-12-22 20:15:04.187+00
-coffee-cold-brew-concentrate-25-servings,Coffee - Cold Brew Concentrate - 25 Servings - Medium Blend,COF-CBCO-25S-MD,FALSE,2250.00,2500.00,0.0000,139,,163,9,TRUE,2025-12-22 20:15:04.187+00
-coffee-cold-brew-concentrate-25-servings,Coffee - Cold Brew Concentrate - 25 Servings - Dark Blend,COF-CBCO-25S-DK,TRUE,2500.00,2500.00,5.0000,75,,51,12,TRUE,2025-12-22 20:15:04.187+00
-coffee-cold-brew-concentrate-50-servings,Coffee - Cold Brew Concentrate - 50 Servings - House Blend,COF-CBCO-50S-HO,TRUE,4000.00,4000.00,2.5000,46,,73,5,TRUE,2025-12-22 20:15:04.187+00
-coffee-cold-brew-concentrate-50-servings,Coffee - Cold Brew Concentrate - 50 Servings - Light Blend,COF-CBCO-50S-LT,FALSE,3400.00,4000.00,0.0000,20,,33,4,TRUE,2025-12-22 20:15:04.187+00
-coffee-cold-brew-concentrate-50-servings,Coffee - Cold Brew Concentrate - 50 Servings - Medium Blend,COF-CBCO-50S-MD,TRUE,3600.00,4000.00,2.5000,13,,26,4,TRUE,2025-12-22 20:15:04.187+00
-coffee-cold-brew-concentrate-50-servings,Coffee - Cold Brew Concentrate - 50 Servings - Dark Blend,COF-CBCO-50S-DK,FALSE,3800.00,4000.00,0.0000,49,,11,3,TRUE,2025-12-22 20:15:04.187+00
-coffee-iced-cans-4-pack,Coffee - Iced Cans - 4 Pack - Mocha Blend,COF-CBCA-4PK-MO,TRUE,720.00,800.00,5.0000,46,,110,11,TRUE,2025-12-23 21:57:17.873+00
-coffee-iced-cans-4-pack,Coffee - Iced Cans - 4 Pack - Black Blend,COF-CBCA-4PK-BL,FALSE,800.00,800.00,0.0000,0,,134,6,TRUE,2025-12-23 21:57:17.874+00
-coffee-iced-cans-4-pack,Coffee - Iced Cans - 4 Pack - Flat White,COF-CBCA-4PK-FW,TRUE,720.00,800.00,2.5000,74,,78,13,TRUE,2025-12-23 21:57:17.874+00
-coffee-iced-cans-4-pack,Coffee - Iced Cans - 4 Pack - Oat Latte,COF-CBCA-4PK-OL,FALSE,720.00,800.00,0.0000,118,,113,12,TRUE,2025-12-23 21:57:17.874+00
-coffee-iced-cans-4-pack,Coffee - Iced Cans - 4 Pack - Caramel Latte,COF-CBCA-4PK-CL,FALSE,800.00,800.00,0.0000,29,,181,24,TRUE,2025-12-23 21:57:17.874+00
-coffee-iced-cans-8-pack,Coffee - Iced Cans - 8 Pack - Mocha Blend,COF-CBCA-8PK-MO,TRUE,1500.00,1500.00,5.0000,13,,94,5,TRUE,2025-12-23 21:57:17.874+00
-coffee-iced-cans-8-pack,Coffee - Iced Cans - 8 Pack - Black Blend,COF-CBCA-8PK-BL,FALSE,1350.00,1500.00,0.0000,19,,32,0,TRUE,2025-12-23 21:57:17.874+00
-coffee-iced-cans-8-pack,Coffee - Iced Cans - 8 Pack - Flat White,COF-CBCA-8PK-FW,TRUE,1425.00,1500.00,2.5000,26,,38,3,TRUE,2025-12-23 21:57:17.874+00
-coffee-iced-cans-8-pack,Coffee - Iced Cans - 8 Pack - Oat Latte,COF-CBCA-8PK-OL,TRUE,1500.00,1500.00,7.5000,0,,47,0,TRUE,2025-12-23 21:57:17.874+00
-coffee-iced-cans-8-pack,Coffee - Iced Cans - 8 Pack - Caramel Latte,COF-CBCA-8PK-CL,FALSE,1500.00,1500.00,0.0000,23,,34,1,TRUE,2025-12-23 21:57:17.874+00
-coffee-iced-cans-16-pack,Coffee - Iced Cans - 16 Pack - Mocha Blend,COF-CBCA-16PK-MO,TRUE,2430.00,2700.00,5.0000,17,,19,4,TRUE,2025-12-23 21:57:17.874+00
-coffee-iced-cans-16-pack,Coffee - Iced Cans - 16 Pack - Black Blend,COF-CBCA-16PK-BL,FALSE,2700.00,2700.00,0.0000,17,,35,4,TRUE,2025-12-23 21:57:17.874+00
-coffee-iced-cans-16-pack,Coffee - Iced Cans - 16 Pack - Flat White,COF-CBCA-16PK-FW,TRUE,2285.00,2700.00,2.5000,12,,20,0,TRUE,2025-12-23 21:57:17.874+00
-coffee-iced-cans-16-pack,Coffee - Iced Cans - 16 Pack - Oat Latte,COF-CBCA-16PK-OL,TRUE,2700.00,2700.00,2.5000,18,,16,4,TRUE,2025-12-23 21:57:17.874+00
-coffee-iced-cans-16-pack,Coffee - Iced Cans - 16 Pack - Caramel Latte,COF-CBCA-16PK-CL,FALSE,2700.00,2700.00,0.0000,7,,29,1,TRUE,2025-12-23 21:57:17.874+00
-coffee-iced-cans-32-pack,Coffee - Iced Cans - 32 Pack - Mocha Blend,COF-CBCA-32PK-MO,TRUE,4590.00,5100.00,5.0000,4,,4,1,TRUE,2025-12-23 21:57:17.874+00
-coffee-iced-cans-32-pack,Coffee - Iced Cans - 32 Pack - Black Blend,COF-CBCA-32PK-BL,TRUE,5100.00,5100.00,2.5000,5,,15,1,TRUE,2025-12-23 21:57:17.874+00
-coffee-iced-cans-32-pack,Coffee - Iced Cans - 32 Pack - Flat White,COF-CBCA-32PK-FW,FALSE,4845.00,5100.00,0.0000,0,,18,1,TRUE,2025-12-23 21:57:17.874+00
-coffee-iced-cans-32-pack,Coffee - Iced Cans - 32 Pack - Oat Latte,COF-CBCA-32PK-OL,TRUE,4845.00,5100.00,2.5000,5,,16,0,FALSE,2025-12-23 21:57:17.874+00
-coffee-iced-cans-32-pack,Coffee - Iced Cans - 32 Pack - Caramel Latte,COF-CBCA-32PK-CL,FALSE,5100.00,5100.00,0.0000,2,,12,1,TRUE,2025-12-23 21:57:17.874+00
-tea-loose-leaf-100g-bag,Tea - Loose Leaf - 100g Bag - Black Blend,TEA-LL-100GB-BL,FALSE,750.00,750.00,0.0000,372,,114,2,TRUE,2025-12-24 20:25:04.080+00
-tea-loose-leaf-100g-bag,Tea - Loose Leaf - 100g Bag - Earl Grey Blend,TEA-LL-100GB-EG,TRUE,750.00,750.00,2.5000,286,,360,11,TRUE,2025-12-24 20:25:04.080+00
-tea-loose-leaf-100g-bag,Tea - Loose Leaf - 100g Bag - English Breakfast Blend,TEA-LL-100GB-EB,FALSE,675.00,750.00,0.0000,391,,260,11,TRUE,2025-12-24 20:25:04.080+00
-tea-loose-leaf-100g-bag,Tea - Loose Leaf - 100g Bag - Green Blend,TEA-LL-100GB-GR,FALSE,750.00,750.00,0.0000,193,,293,13,TRUE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-100g-bag,Tea - Loose Leaf - 100g Bag - Jasmine Blend,TEA-LL-100GB-JA,FALSE,750.00,750.00,0.0000,355,,315,7,TRUE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-100g-bag,Tea - Loose Leaf - 100g Bag - Chamomile Blend,TEA-LL-100GB-CH,TRUE,675.00,750.00,5.0000,92,,371,8,TRUE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-100g-bag,Tea - Loose Leaf - 100g Bag - Oolong Blend,TEA-LL-100GB-OO,FALSE,675.00,750.00,0.0000,406,,172,3,TRUE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-100g-bag,Tea - Loose Leaf - 100g Bag - Herbal Blend,TEA-LL-100GB-HE,TRUE,750.00,750.00,2.5000,375,,226,22,FALSE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-100g-bag,Tea - Loose Leaf - 100g Bag - Peppermint Blend,TEA-LL-100GB-PE,FALSE,712.50,750.00,0.0000,308,,295,3,TRUE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-100g-bag,Tea - Loose Leaf - 100g Bag - Ginger & Lemon Blend,TEA-LL-100GB-GL,FALSE,750.00,750.00,0.0000,493,,134,25,TRUE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-250g-bag,Tea - Loose Leaf - 250g Bag - Black Blend,TEA-LL-250GB-BL,FALSE,1360.00,1600.00,0.0000,59,,104,0,TRUE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-250g-bag,Tea - Loose Leaf - 250g Bag - Earl Grey Blend,TEA-LL-250GB-EG,TRUE,1440.00,1600.00,7.5000,21,,109,11,TRUE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-250g-bag,Tea - Loose Leaf - 250g Bag - English Breakfast Blend,TEA-LL-250GB-EB,FALSE,1600.00,1600.00,0.0000,0,,116,10,TRUE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-250g-bag,Tea - Loose Leaf - 250g Bag - Green Blend,TEA-LL-250GB-GR,TRUE,1600.00,1600.00,2.5000,47,,58,1,TRUE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-250g-bag,Tea - Loose Leaf - 250g Bag - Jasmine Blend,TEA-LL-250GB-JA,FALSE,1520.00,1600.00,0.0000,93,,70,9,TRUE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-250g-bag,Tea - Loose Leaf - 250g Bag - Chamomile Blend,TEA-LL-250GB-CH,TRUE,1600.00,1600.00,2.5000,221,,117,7,TRUE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-250g-bag,Tea - Loose Leaf - 250g Bag - Oolong Blend,TEA-LL-250GB-OO,TRUE,1440.00,1600.00,2.5000,46,,82,9,TRUE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-250g-bag,Tea - Loose Leaf - 250g Bag - Herbal Blend,TEA-LL-250GB-HE,FALSE,1600.00,1600.00,0.0000,197,,54,7,TRUE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-250g-bag,Tea - Loose Leaf - 250g Bag - Peppermint Blend,TEA-LL-250GB-PE,TRUE,1520.00,1600.00,0.0000,200,,65,3,TRUE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-250g-bag,Tea - Loose Leaf - 250g Bag - Ginger & Lemon Blend,TEA-LL-250GB-GL,FALSE,1600.00,1600.00,0.0000,155,,106,7,TRUE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-500g-bag,Tea - Loose Leaf - 500g Bag - Black Blend,TEA-LL-500GB-BL,FALSE,3000.00,3000.00,0.0000,66,,0,0,TRUE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-500g-bag,Tea - Loose Leaf - 500g Bag - Earl Grey Blend,TEA-LL-500GB-EG,TRUE,2700.00,3000.00,5.0000,62,,6,1,TRUE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-500g-bag,Tea - Loose Leaf - 500g Bag - English Breakfast Blend,TEA-LL-500GB-EB,TRUE,3000.00,3000.00,2.5000,42,,3,0,TRUE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-500g-bag,Tea - Loose Leaf - 500g Bag - Green Blend,TEA-LL-500GB-GR,FALSE,3000.00,3000.00,0.0000,35,,28,10,TRUE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-500g-bag,Tea - Loose Leaf - 500g Bag - Jasmine Blend,TEA-LL-500GB-JA,FALSE,3000.00,3000.00,0.0000,24,,16,8,TRUE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-500g-bag,Tea - Loose Leaf - 500g Bag - Chamomile Blend,TEA-LL-500GB-CH,FALSE,2700.00,3000.00,0.0000,54,,39,7,TRUE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-500g-bag,Tea - Loose Leaf - 500g Bag - Oolong Blend,TEA-LL-500GB-OO,TRUE,3000.00,3000.00,2.5000,22,,3,8,TRUE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-500g-bag,Tea - Loose Leaf - 500g Bag - Herbal Blend,TEA-LL-500GB-HE,FALSE,2850.00,3000.00,0.0000,0,,35,2,TRUE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-500g-bag,Tea - Loose Leaf - 500g Bag - Peppermint Blend,TEA-LL-500GB-PE,TRUE,2550.00,3000.00,5.0000,7,,2,1,FALSE,2025-12-24 20:25:04.081+00
-tea-loose-leaf-500g-bag,Tea - Loose Leaf - 500g Bag - Ginger & Lemon Blend,TEA-LL-500GB-GL,FALSE,3000.00,3000.00,0.0000,58,,28,6,TRUE,2025-12-24 20:25:04.081+00
-tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Black Blend,TEA-BG-25BX-BL,TRUE,700.00,700.00,2.5000,64,,405,22,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Earl Grey Blend,TEA-BG-25BX-EG,FALSE,630.00,700.00,0.0000,528,,292,2,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-25-box,Tea - Loose Leaf - Box of 25 - English Breakfast Blend,TEA-BG-25BX-EB,FALSE,630.00,700.00,0.0000,424,,263,2,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Green Blend,TEA-BG-25BX-GR,TRUE,700.00,700.00,5.0000,160,,292,3,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Jasmine Blend,TEA-BG-25BX-JA,FALSE,700.00,700.00,0.0000,261,,340,17,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Chamomile Blend,TEA-BG-25BX-CH,TRUE,665.00,700.00,2.5000,333,,433,23,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Oolong Blend,TEA-BG-25BX-OO,FALSE,700.00,700.00,0.0000,720,,432,11,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Herbal Blend,TEA-BG-25BX-HE,FALSE,700.00,700.00,0.0000,210,,278,17,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Peppermint Blend,TEA-BG-25BX-PE,FALSE,630.00,700.00,0.0000,490,,225,7,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Ginger & Lemon Blend,TEA-BG-25BX-GL,FALSE,700.00,700.00,0.0000,336,,118,18,FALSE,2025-12-26 13:23:15.407+00
-tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Black Blend,TEA-BG-50BX-BL,TRUE,1250.00,1250.00,7.5000,80,,155,3,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Earl Grey Blend,TEA-BG-50BX-EG,FALSE,1250.00,1250.00,0.0000,106,,164,5,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-50-box,Tea - Loose Leaf - Box of 50 - English Breakfast Blend,TEA-BG-50BX-EB,TRUE,1187.50,1250.00,5.0000,0,,106,8,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Green Blend,TEA-BG-50BX-GR,TRUE,1250.00,1250.00,2.5000,239,,120,4,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Jasmine Blend,TEA-BG-50BX-JA,FALSE,1125.00,1250.00,0.0000,50,,219,0,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Chamomile Blend,TEA-BG-50BX-CH,FALSE,1250.00,1250.00,0.0000,69,,103,10,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Oolong Blend,TEA-BG-50BX-OO,TRUE,1187.50,1250.00,2.5000,126,,125,0,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Herbal Blend,TEA-BG-50BX-HE,TRUE,1187.50,1250.00,2.5000,200,,219,5,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Peppermint Blend,TEA-BG-50BX-PE,TRUE,1250.00,1250.00,5.0000,44,,182,0,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Ginger & Lemon Blend,TEA-BG-50BX-GL,FALSE,1125.00,1250.00,0.0000,79,,61,4,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Black Blend,TEA-BG-100BX-BL,FALSE,2400.00,2400.00,0.0000,0,,50,4,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Earl Grey Blend,TEA-BG-100BX-EG,FALSE,2160.00,2400.00,0.0000,90,,19,4,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-100-box,Tea - Loose Leaf - Box of 100 - English Breakfast Blend,TEA-BG-100BX-EB,FALSE,2400.00,2400.00,0.0000,79,,33,4,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Green Blend,TEA-BG-100BX-GR,TRUE,2400.00,2400.00,2.5000,62,,2,1,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Jasmine Blend,TEA-BG-100BX-JA,FALSE,2280.00,2400.00,0.0000,74,,50,0,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Chamomile Blend,TEA-BG-100BX-CH,FALSE,2400.00,2400.00,0.0000,30,,30,2,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Oolong Blend,TEA-BG-100BX-OO,TRUE,2160.00,2400.00,5.0000,21,,54,5,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Herbal Blend,TEA-BG-100BX-HE,TRUE,2160.00,2400.00,2.5000,77,,78,5,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Peppermint Blend,TEA-BG-100BX-PE,FALSE,2400.00,2400.00,0.0000,64,,54,5,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Ginger & Lemon Blend,TEA-BG-100BX-GL,FALSE,2400.00,2400.00,0.0000,97,,34,3,TRUE,2025-12-26 13:23:15.407+00
-tea-powdered-250g-tub,Tea - Powdered - 250g Tub - Black Blend,TEA-PW-250GT-BL,TRUE,650.00,650.00,7.5000,188,,234,15,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-250g-tub,Tea - Powdered - 250g Tub - Earl Grey Blend,TEA-PW-250GT-EG,TRUE,585.00,650.00,2.5000,579,,141,13,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-250g-tub,Tea - Powdered - 250g Tub - English Breakfast Blend,TEA-PW-250GT-EB,FALSE,650.00,650.00,0.0000,178,,211,8,FALSE,2025-12-26 13:53:57.246+00
-tea-powdered-250g-tub,Tea - Powdered - 250g Tub - Green Blend,TEA-PW-250GT-GR,TRUE,650.00,650.00,2.5000,35,,379,13,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-250g-tub,Tea - Powdered - 250g Tub - Jasmine Blend,TEA-PW-250GT-JA,TRUE,650.00,650.00,2.5000,57,,377,0,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-250g-tub,Tea - Powdered - 250g Tub - Chamomile Blend,TEA-PW-250GT-CH,FALSE,650.00,650.00,0.0000,256,,441,6,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-250g-tub,Tea - Powdered - 250g Tub - Oolong Blend,TEA-PW-250GT-OO,FALSE,585.00,650.00,0.0000,654,,259,14,FALSE,2025-12-26 13:53:57.246+00
-tea-powdered-250g-tub,Tea - Powdered - 250g Tub - Herbal Blend,TEA-PW-250GT-HE,FALSE,650.00,650.00,0.0000,443,,383,9,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-250g-tub,Tea - Powdered - 250g Tub - Peppermint Blend,TEA-PW-250GT-PE,FALSE,650.00,650.00,0.0000,189,,468,5,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-250g-tub,Tea - Powdered - 250g Tub - Ginger & Lemon Blend,TEA-PW-250GT-GL,TRUE,650.00,650.00,2.5000,278,,397,10,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-500g-tub,Tea - Powdered - 500g Tub - Black Blend,TEA-PW-500GT-BL,TRUE,1200.00,1200.00,5.0000,112,,127,0,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-500g-tub,Tea - Powdered - 500g Tub - Earl Grey Blend,TEA-PW-500GT-EG,FALSE,1200.00,1200.00,0.0000,6,,161,7,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-500g-tub,Tea - Powdered - 500g Tub - English Breakfast Blend,TEA-PW-500GT-EB,TRUE,1200.00,1200.00,5.0000,208,,99,1,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-500g-tub,Tea - Powdered - 500g Tub - Green Blend,TEA-PW-500GT-GR,FALSE,1200.00,1200.00,0.0000,168,,93,6,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-500g-tub,Tea - Powdered - 500g Tub - Jasmine Blend,TEA-PW-500GT-JA,TRUE,1200.00,1200.00,2.5000,22,,106,0,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-500g-tub,Tea - Powdered - 500g Tub - Chamomile Blend,TEA-PW-500GT-CH,FALSE,1200.00,1200.00,0.0000,28,,94,0,FALSE,2025-12-26 13:53:57.246+00
-tea-powdered-500g-tub,Tea - Powdered - 500g Tub - Oolong Blend,TEA-PW-500GT-OO,FALSE,1200.00,1200.00,0.0000,0,,149,5,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-500g-tub,Tea - Powdered - 500g Tub - Herbal Blend,TEA-PW-500GT-HE,FALSE,1200.00,1200.00,0.0000,24,,138,5,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-500g-tub,Tea - Powdered - 500g Tub - Peppermint Blend,TEA-PW-500GT-PE,TRUE,1200.00,1200.00,2.5000,224,,152,5,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-500g-tub,Tea - Powdered - 500g Tub - Ginger & Lemon Blend,TEA-PW-500GT-GL,TRUE,1200.00,1200.00,5.0000,19,,180,2,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-1kg-tub,Tea - Powdered - 1kg Tub - Black Blend,TEA-PW-1KGT-BL,FALSE,2300.00,2300.00,0.0000,82,,25,2,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-1kg-tub,Tea - Powdered - 1kg Tub - Earl Grey Blend,TEA-PW-1KGT-EG,FALSE,2300.00,2300.00,0.0000,33,,30,2,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-1kg-tub,Tea - Powdered - 1kg Tub - English Breakfast Blend,TEA-PW-1KGT-EB,TRUE,2300.00,2300.00,2.5000,85,,50,4,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-1kg-tub,Tea - Powdered - 1kg Tub - Green Blend,TEA-PW-1KGT-GR,FALSE,2070.00,2300.00,0.0000,44,,18,5,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-1kg-tub,Tea - Powdered - 1kg Tub - Jasmine Blend,TEA-PW-1KGT-JA,TRUE,2300.00,2300.00,2.5000,30,,22,3,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-1kg-tub,Tea - Powdered - 1kg Tub - Chamomile Blend,TEA-PW-1KGT-CH,FALSE,2185.00,2300.00,0.0000,0,,23,4,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-1kg-tub,Tea - Powdered - 1kg Tub - Oolong Blend,TEA-PW-1KGT-OO,FALSE,2300.00,2300.00,0.0000,1,,7,0,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-1kg-tub,Tea - Powdered - 1kg Tub - Herbal Blend,TEA-PW-1KGT-HE,FALSE,2070.00,2300.00,0.0000,75,,2,0,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-1kg-tub,Tea - Powdered - 1kg Tub - Peppermint Blend,TEA-PW-1KGT-PE,FALSE,2300.00,2300.00,0.0000,79,,12,1,TRUE,2025-12-26 13:53:57.246+00
-tea-powdered-1kg-tub,Tea - Powdered - 1kg Tub - Ginger & Lemon Blend,TEA-PW-1KGT-GL,TRUE,2300.00,2300.00,2.5000,68,,14,0,TRUE,2025-12-26 13:53:57.246+00
-tea-matcha-25g-tub,Tea - Powdered - 25g Tub - Matcha,TEA-PW-25GT-MA,FALSE,1800.00,1800.00,0.0000,489,,827,2,TRUE,2025-12-26 14:42:10.892+00
-tea-matcha-50g-tub,Tea - Powdered - 50g Tub - Matcha,TEA-PW-50GT-MA,FALSE,3300.00,3300.00,0.0000,178,,230,0,TRUE,2025-12-26 14:42:10.892+00
-tea-matcha-100g-tub,Tea - Powdered - 100g Tub - Matcha,TEA-PW-100GT-MA,FALSE,6000.00,6000.00,0.0000,74,,89,0,TRUE,2025-12-26 14:42:10.892+00
-tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Peach Flavour,TEA-RTD-IC-4PK-PE,FALSE,750.00,750.00,0.0000,514,,635,16,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Blood Orange Flavour,TEA-RTD-IC-4PK-BO,TRUE,750.00,750.00,2.5000,455,,437,4,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Lemon Flavour,TEA-RTD-IC-4PK-LE,FALSE,750.00,750.00,0.0000,0,,914,6,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Elderflower & Apple Flavour,TEA-RTD-IC-4PK-EA,FALSE,750.00,750.00,0.0000,193,,875,3,FALSE,2025-12-27 23:01:45.468+00
-tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Raspberry Lemonade Flavour,TEA-RTD-IC-4PK-RL,TRUE,750.00,750.00,5.0000,9,,423,5,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Lychee Flavour,TEA-RTD-IC-4PK-LY,FALSE,750.00,750.00,0.0000,187,,910,9,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Cranberry Flavour,TEA-RTD-IC-4PK-CR,TRUE,750.00,750.00,2.5000,222,,255,16,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Mango & Passionfruit Flavour,TEA-RTD-IC-4PK-MP,FALSE,750.00,750.00,0.0000,472,,842,16,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Summer Fruits Flavour,TEA-RTD-IC-4PK-SF,FALSE,750.00,750.00,0.0000,754,,159,1,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Pineapple Flavour,TEA-RTD-IC-4PK-PI,FALSE,750.00,750.00,0.0000,219,,801,2,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Peach Flavour,TEA-RTD-IC-8PK-PE,FALSE,1400.00,1400.00,0.0000,38,,276,12,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Blood Orange Flavour,TEA-RTD-IC-8PK-BO,FALSE,1400.00,1400.00,0.0000,71,,156,15,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Lemon Flavour,TEA-RTD-IC-8PK-LE,TRUE,1260.00,1400.00,5.0000,5,,207,7,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Elderflower & Apple Flavour,TEA-RTD-IC-8PK-EA,TRUE,1400.00,1400.00,2.5000,364,,95,7,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Raspberry Lemonade Flavour,TEA-RTD-IC-8PK-RL,FALSE,1400.00,1400.00,0.0000,103,,400,10,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Lychee Flavour,TEA-RTD-IC-8PK-LY,TRUE,1400.00,1400.00,2.5000,154,,88,4,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Cranberry Flavour,TEA-RTD-IC-8PK-CR,FALSE,1330.00,1400.00,0.0000,243,,281,9,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Mango & Passionfruit Flavour,TEA-RTD-IC-8PK-MP,TRUE,1260.00,1400.00,2.5000,364,,334,0,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Summer Fruits Flavour,TEA-RTD-IC-8PK-SF,FALSE,1400.00,1400.00,0.0000,0,,120,14,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Pineapple Flavour,TEA-RTD-IC-8PK-PI,FALSE,1400.00,1400.00,0.0000,385,,265,7,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Peach Flavour,TEA-RTD-IC-16PK-PE,FALSE,2500.00,2500.00,0.0000,33,,75,10,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Blood Orange Flavour,TEA-RTD-IC-16PK-BO,FALSE,2125.00,2500.00,0.0000,18,,184,8,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Lemon Flavour,TEA-RTD-IC-16PK-LE,FALSE,2250.00,2500.00,0.0000,29,,110,3,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Elderflower & Apple Flavour,TEA-RTD-IC-16PK-EA,TRUE,2500.00,2500.00,2.5000,28,,77,8,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Raspberry Lemonade Flavour,TEA-RTD-IC-16PK-RL,TRUE,2500.00,2500.00,10.0000,14,,173,3,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Lychee Flavour,TEA-RTD-IC-16PK-LY,FALSE,2375.00,2500.00,0.0000,74,,169,9,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Cranberry Flavour,TEA-RTD-IC-16PK-CR,TRUE,2375.00,2500.00,5.0000,21,,165,4,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Mango & Passionfruit Flavour,TEA-RTD-IC-16PK-MP,TRUE,2500.00,2500.00,2.5000,52,,54,10,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Summer Fruits Flavour,TEA-RTD-IC-16PK-SF,FALSE,2500.00,2500.00,0.0000,21,,124,3,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Pineapple Flavour,TEA-RTD-IC-16PK-PI,FALSE,2500.00,2500.00,0.0000,40,,151,5,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Peach Flavour,TEA-RTD-IC-32PK-PE,TRUE,4500.00,4500.00,7.5000,34,,47,2,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Blood Orange Flavour,TEA-RTD-IC-32PK-BO,TRUE,4500.00,4500.00,5.0000,23,,26,2,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Lemon Flavour,TEA-RTD-IC-32PK-LE,FALSE,4500.00,4500.00,0.0000,8,,9,3,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Elderflower & Apple Flavour,TEA-RTD-IC-32PK-EA,FALSE,4500.00,4500.00,0.0000,15,,39,5,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Raspberry Lemonade Flavour,TEA-RTD-IC-32PK-RL,FALSE,4500.00,4500.00,0.0000,3,,40,0,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Lychee Flavour,TEA-RTD-IC-32PK-LY,FALSE,4500.00,4500.00,0.0000,0,,33,2,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Cranberry Flavour,TEA-RTD-IC-32PK-CR,TRUE,4500.00,4500.00,2.5000,28,,45,0,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Mango & Passionfruit Flavour,TEA-RTD-IC-32PK-MP,TRUE,4500.00,4500.00,5.0000,15,,12,1,TRUE,2025-12-27 23:01:45.468+00
-tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Summer Fruits Flavour,TEA-RTD-IC-32PK-SF,FALSE,4500.00,4500.00,0.0000,8,,22,5,FALSE,2025-12-27 23:01:45.468+00
-tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Pineapple Flavour,TEA-RTD-IC-32PK-PI,TRUE,4500.00,4500.00,2.5000,26,,24,0,TRUE,2025-12-27 23:01:45.468+00
-cafetière-3-cup,Cafetière - 3-Cup - Black,EQP-BR-CA3C-BL,FALSE,1620.00,1800.00,0.0000,17,,86,4,TRUE,2025-12-28 12:24:20.353+00
-cafetière-3-cup,Cafetière - 3-Cup - Copper,EQP-BR-CA3C-CO,FALSE,1800.00,1800.00,0.0000,48,,50,8,TRUE,2025-12-28 12:24:20.353+00
-cafetière-3-cup,Cafetière - 3-Cup - Stainless Steel,EQP-BR-CA3C-SS,FALSE,1800.00,1800.00,0.0000,22,,69,8,TRUE,2025-12-28 12:24:20.353+00
-cafetière-8-cup,Cafetière - 8-Cup - Black,EQP-BR-CA8C-BL,FALSE,2160.00,2700.00,0.0000,12,,7,2,TRUE,2025-12-28 12:24:20.353+00
-cafetière-8-cup,Cafetière - 8-Cup - Copper,EQP-BR-CA8C-CO,FALSE,2700.00,2700.00,0.0000,11,,14,2,TRUE,2025-12-28 12:24:20.353+00
-cafetière-8-cup,Cafetière - 8-Cup - Stainless Steel,EQP-BR-CA8C-SS,FALSE,2700.00,2700.00,0.0000,9,,26,3,TRUE,2025-12-28 12:24:20.354+00
-pour-over-coffee-dripper,Pour-Over Coffee Dripper - Glass,EQP-BR-POCD-GL,FALSE,2400.00,2400.00,0.0000,19,,68,1,TRUE,2025-12-28 13:43:26.927+00
-moka-pot-hob-coffee-maker,Moka Pot Hob Coffee Maker - Stainless Steel,EQP-BR-MKP6C-SS,FALSE,4200.00,4200.00,0.0000,32,,50,0,TRUE,2025-12-28 13:54:16.121+00
-teapot-ceramic,Teapot - Ceramic - White,EQP-BR-TP-CR-WH,FALSE,2400.00,2400.00,0.0000,28,,44,3,TRUE,2025-12-29 14:30:44.906+00
-teapot-ceramic,Teapot - Ceramic - Orange,EQP-BR-TP-CR-OR,FALSE,2400.00,2400.00,0.0000,34,,31,1,TRUE,2025-12-29 14:30:44.906+00
-teapot-ceramic,Teapot - Ceramic - Black,EQP-BR-TP-CR-BL,FALSE,2160.00,2400.00,0.0000,36,,63,0,TRUE,2025-12-29 14:30:44.906+00
-teapot-cast-iron,Teapot - Cast Iron,EQP-BR-TP-CI,FALSE,3000.00,3000.00,0.0000,45,,98,1,TRUE,2025-12-29 14:30:44.906+00
-teapot-glass,Teapot - Glass,EQP-BR-TP-GL,FALSE,2800.00,2800.00,0.0000,60,,60,3,TRUE,2025-12-29 14:30:44.906+00
-espresso-machine-essential,Essential Espresso Coffee Machine - Black,EQP-BR-ECM-ES-BL,FALSE,6000.00,6000.00,0.0000,5,,14,0,TRUE,2025-12-29 15:07:06.856+00
-espresso-machine-essential,Essential Espresso Coffee Machine - White,EQP-BR-ECM-ES-WH,FALSE,6000.00,6000.00,0.0000,4,,7,0,TRUE,2025-12-29 15:07:06.856+00
-espresso-machine-essential,Essential Espresso Coffee Machine - Green,EQP-BR-ECM-ES-GR,FALSE,6000.00,6000.00,0.0000,14,,14,1,TRUE,2025-12-29 15:07:06.856+00
-espresso-machine-essential,Essential Espresso Coffee Machine - Red,EQP-BR-ECM-ES-RD,FALSE,6000.00,6000.00,0.0000,21,,16,0,TRUE,2025-12-29 15:07:06.856+00
-espresso-machine-essential,Essential Espresso Coffee Machine - Blue,EQP-BR-ECM-ES-BU,FALSE,6000.00,6000.00,0.0000,7,,17,0,TRUE,2025-12-29 15:07:06.856+00
-espresso-machine-deluxe,Deluxe Espresso Coffee Machine - Black,EQP-BR-ECM-DE-BL,FALSE,11000.00,11000.00,0.0000,3,,20,1,TRUE,2025-12-29 15:07:06.856+00
-espresso-machine-deluxe,Deluxe Espresso Coffee Machine - White,EQP-BR-ECM-DE-WH,FALSE,11000.00,11000.00,0.0000,5,,3,0,TRUE,2025-12-29 15:07:06.856+00
-espresso-machine-deluxe,Deluxe Espresso Coffee Machine - Green,EQP-BR-ECM-DE-GR,FALSE,11000.00,11000.00,0.0000,10,,10,0,TRUE,2025-12-29 15:07:06.856+00
-espresso-machine-professional,Professional Espresso Coffee Machine - Black,EQP-BR-ECM-PR-BL,FALSE,32000.00,32000.00,0.0000,4,,0,0,TRUE,2025-12-29 15:07:06.856+00
-espresso-machine-professional,Professional Espresso Coffee Machine - White,EQP-BR-ECM-PR-WH,FALSE,32000.00,32000.00,0.0000,6,,5,0,TRUE,2025-12-29 15:07:06.856+00
-espresso-machine-professional,Professional Espresso Coffee Machine - Green,EQP-BR-ECM-PR-GR,FALSE,32000.00,32000.00,0.0000,7,,6,0,TRUE,2025-12-29 15:07:06.856+00
-cold-brew-bottle-small,Cold Brew Bottle - Small - Black,EQP-BR-CBB-SM-BL,FALSE,1800.00,1800.00,0.0000,33,,26,1,TRUE,2025-12-30 11:38:29.495+00
-cold-brew-bottle-small,Cold Brew Bottle - Small - White,EQP-BR-CBB-SM-WH,FALSE,1800.00,1800.00,0.0000,22,,10,0,TRUE,2025-12-30 11:38:29.495+00
-cold-brew-bottle-small,Cold Brew Bottle - Small - Blue,EQP-BR-CBB-SM-BU,FALSE,1800.00,1800.00,0.0000,31,,16,0,TRUE,2025-12-30 11:38:29.495+00
-cold-brew-bottle-large,Cold Brew Bottle - Large - Black,EQP-BR-CBB-LG-BL,FALSE,2800.00,2800.00,0.0000,20,,16,0,TRUE,2025-12-30 11:38:29.495+00
-cold-brew-bottle-large,Cold Brew Bottle - Large - White,EQP-BR-CBB-LG-WH,FALSE,2800.00,2800.00,0.0000,33,,14,1,TRUE,2025-12-30 11:38:29.495+00
-cold-brew-bottle-large,Cold Brew Bottle - Large - Blue,EQP-BR-CBB-LG-BU,FALSE,2800.00,2800.00,0.0000,1,,18,0,TRUE,2025-12-30 11:38:29.495+00
-cold-brew-bottle-large,Cold Brew Bottle - Large - Green,EQP-BR-CBB-LG-GR,FALSE,2800.00,2800.00,0.0000,2,,12,0,TRUE,2025-12-30 11:38:29.495+00
-cold-brew-bottle-large,Cold Brew Bottle - Large - Red,EQP-BR-CBB-LG-RD,FALSE,2800.00,2800.00,0.0000,6,,15,0,TRUE,2025-12-30 11:38:29.495+00
-cold-brew-maker-automatic,Cold Brew Maker - Automatic - Black,EQP-BR-CBM-AU-BL,FALSE,5000.00,5000.00,0.0000,9,,8,0,TRUE,2025-12-30 11:38:29.495+00
-burr-coffee-grinder-manual,Burr Coffee Grinder - Manual,EQP-GF-BU-MN-BL,FALSE,1500.00,1500.00,0.0000,22,,38,0,TRUE,2025-12-29 15:28:51.826+00
-burr-coffee-grinder-automatic,Burr Coffee Grinder - Automatic,EQP-GF-BU-AU-BL,FALSE,4500.00,4500.00,0.0000,12,,18,0,TRUE,2025-12-29 15:28:51.826+00
-blade-coffee-grinder,Blade Coffee Grinder,EQP-GF-BL-BL,FALSE,800.00,800.00,0.0000,48,,51,2,TRUE,2025-12-29 15:28:51.826+00
-handheld-electric-milk-frother,Handheld Electric Milk Frother - Black,EQP-GF-HEMF-BL,FALSE,750.00,750.00,0.0000,7,,97,1,TRUE,2026-01-01 11:47:46.745+00
-handheld-electric-milk-frother,Handheld Electric Milk Frother - White,EQP-GF-HEMF-WH,FALSE,750.00,750.00,0.0000,7,,84,0,TRUE,2026-01-01 11:47:46.745+00
-standing-electric-milk-frother,Standing Electric Milk Frother - Black,EQP-GF-SEMF-BL,FALSE,3000.00,3000.00,0.0000,19,,32,0,TRUE,2026-01-01 11:47:46.745+00
-standing-electric-milk-frother,Standing Electric Milk Frother - White,EQP-GF-SEMF-WH,FALSE,2700.00,3000.00,0.0000,4,,13,0,TRUE,2026-01-01 11:47:46.745+00
-mug-ceramic-single,Mug - Ceramic - White,EQP-MT-MG-CR-WH,FALSE,350.00,350.00,0.0000,60,,19,0,TRUE,2025-12-30 12:25:36.760+00
-mug-ceramic-single,Mug - Ceramic - Black,EQP-MT-MG-CR-BL,FALSE,350.00,350.00,0.0000,5,,69,2,TRUE,2025-12-30 12:25:36.760+00
-mug-ceramic-set-of-4,Mug - Ceramic - Set of 4 - White,EQP-MT-MG-CR-4PK-WH,FALSE,720.00,800.00,0.0000,39,,52,0,TRUE,2025-12-30 12:25:36.760+00
-mug-ceramic-set-of-4,Mug - Ceramic - Set of 4 - Black,EQP-MT-MG-CR-4PK-BL,FALSE,800.00,800.00,0.0000,8,,54,1,TRUE,2025-12-30 12:25:36.760+00
-mug-glass-single,Mug - Glass,EQP-MT-MG-GL,FALSE,500.00,500.00,0.0000,65,,39,0,TRUE,2025-12-30 12:25:36.760+00
-mug-glass-set-of-4,Mug - Glass - Set of 4,EQP-MT-MG-GL-4PK,FALSE,1200.00,1200.00,0.0000,24,,33,0,TRUE,2025-12-30 12:25:36.760+00
-teacup-ceramic-single,Teacup - Ceramic - White,EQP-MT-TC-CR-WH,FALSE,450.00,450.00,0.0000,80,,118,2,TRUE,2025-12-30 12:25:36.760+00
-teacup-ceramic-single,Teacup - Ceramic - Black,EQP-MT-TC-CR-BL,FALSE,450.00,450.00,0.0000,9,,98,1,TRUE,2025-12-30 12:25:36.760+00
-teacup-ceramic-set-of-4,Teacup - Ceramic - Set of 4 - White,EQP-MT-TC-CR-4PK-WH,FALSE,900.00,1000.00,0.0000,21,,32,0,TRUE,2025-12-30 12:25:36.760+00
-teacup-ceramic-set-of-4,Teacup - Ceramic - Set of 4 - Black,EQP-MT-TC-CR-4PK-BL,FALSE,1000.00,1000.00,0.0000,24,,48,0,TRUE,2025-12-30 12:25:36.760+00
-insulated-tumbler-small,Insulated Tumbler - Small - Black,EQP-MT-IT-SM-BL,FALSE,1500.00,1500.00,0.0000,37,,83,1,TRUE,2025-12-30 12:25:36.760+00
-insulated-tumbler-small,Insulated Tumbler - Small - White,EQP-MT-IT-SM-WH,FALSE,1200.00,1500.00,0.0000,5,,126,0,TRUE,2025-12-30 12:25:36.760+00
-insulated-tumbler-small,Insulated Tumbler - Small - Red,EQP-MT-IT-SM-RD,FALSE,1500.00,1500.00,0.0000,13,,50,1,TRUE,2025-12-30 12:25:36.760+00
-insulated-tumbler-small,Insulated Tumbler - Small - Blue,EQP-MT-IT-SM-BU,FALSE,1500.00,1500.00,0.0000,3,,182,0,TRUE,2025-12-30 12:25:36.760+00
-insulated-tumbler-small,Insulated Tumbler - Small - Green,EQP-MT-IT-SM-GR,FALSE,1500.00,1500.00,0.0000,1,,22,1,TRUE,2025-12-30 12:25:36.760+00
-insulated-tumbler-small,Insulated Tumbler - Small - Yellow,EQP-MT-IT-SM-YL,FALSE,1350.00,1500.00,0.0000,15,,52,0,TRUE,2025-12-30 12:25:36.760+00
-insulated-tumbler-small,Insulated Tumbler - Small - Orange,EQP-MT-IT-SM-OR,FALSE,1425.00,1500.00,0.0000,28,,47,0,TRUE,2025-12-30 12:25:36.760+00
-insulated-tumbler-small,Insulated Tumbler - Small - Purple,EQP-MT-IT-SM-PU,FALSE,1500.00,1500.00,0.0000,1,,116,0,TRUE,2025-12-30 12:25:36.760+00
-insulated-tumbler-large,Insulated Tumbler - Large - Black,EQP-MT-IT-LG-BL,FALSE,2500.00,2500.00,0.0000,35,,85,0,TRUE,2025-12-30 12:25:36.760+00
-insulated-tumbler-large,Insulated Tumbler - Large - White,EQP-MT-IT-LG-WH,FALSE,2500.00,2500.00,0.0000,20,,191,1,TRUE,2025-12-30 12:25:36.760+00
-insulated-tumbler-large,Insulated Tumbler - Large - Red,EQP-MT-IT-LG-RD,FALSE,2500.00,2500.00,0.0000,8,,71,0,TRUE,2025-12-30 12:25:36.760+00
-insulated-tumbler-large,Insulated Tumbler - Large - Blue,EQP-MT-IT-LG-BU,FALSE,2500.00,2500.00,0.0000,19,,61,0,TRUE,2025-12-30 12:25:36.760+00
-insulated-tumbler-large,Insulated Tumbler - Large - Green,EQP-MT-IT-LG-GR,FALSE,2250.00,2500.00,0.0000,23,,107,0,TRUE,2025-12-30 12:25:36.760+00
-insulated-tumbler-large,Insulated Tumbler - Large - Yellow,EQP-MT-IT-LG-YL,FALSE,2500.00,2500.00,0.0000,19,,95,1,TRUE,2025-12-30 12:25:36.760+00
-insulated-tumbler-large,Insulated Tumbler - Large - Orange,EQP-MT-IT-LG-OR,FALSE,2375.00,2500.00,0.0000,30,,182,1,TRUE,2025-12-30 12:25:36.760+00
-insulated-tumbler-large,Insulated Tumbler - Large - Purple,EQP-MT-IT-LG-PU,FALSE,2500.00,2500.00,0.0000,38,,131,1,TRUE,2025-12-30 12:25:36.760+00
-travel-mug-small,Travel Mug - Small - Black,EQP-MT-TM-SM-BL,FALSE,800.00,800.00,0.0000,37,,42,0,TRUE,2025-12-30 12:25:36.760+00
-travel-mug-small,Travel Mug - Small - Red,EQP-MT-TM-SM-RD,FALSE,800.00,800.00,0.0000,33,,60,0,TRUE,2025-12-30 12:25:36.760+00
-travel-mug-small,Travel Mug - Small - Green,EQP-MT-TM-SM-GR,FALSE,800.00,800.00,0.0000,16,,80,1,TRUE,2025-12-30 12:25:36.760+00
-travel-mug-small,Travel Mug - Small - Blue,EQP-MT-TM-SM-BU,FALSE,800.00,800.00,0.0000,48,,71,0,TRUE,2025-12-30 12:25:36.760+00
-travel-mug-large,Travel Mug - Large - Black,EQP-MT-TM-LG-BL,FALSE,1400.00,1400.00,0.0000,4,,36,0,TRUE,2025-12-30 12:25:36.760+00
-travel-mug-large,Travel Mug - Large - Red,EQP-MT-TM-LG-RD,FALSE,1280.00,1400.00,0.0000,2,,21,0,TRUE,2025-12-30 12:25:36.760+00
-travel-mug-large,Travel Mug - Large - Green,EQP-MT-TM-LG-GR,FALSE,1400.00,1400.00,0.0000,16,,38,1,TRUE,2025-12-30 12:25:36.760+00
-travel-mug-large,Travel Mug - Large - Blue,EQP-MT-TM-LG-BU,FALSE,1400.00,1400.00,0.0000,0,,24,0,TRUE,2025-12-30 12:25:36.760+00
-coffee-filters-paper-flat-bottom-100-pack,Coffee Filters - Paper - Flat Bottom - Pack of 100,EQP-FM-FL-PAFB-100PK,FALSE,300.00,300.00,0.0000,127,,233,1,TRUE,2025-12-31 15:51:39.327+00
-coffee-filters-paper-flat-bottom-250-pack,Coffee Filters - Paper - Flat Bottom - Pack of 250,EQP-FM-FL-PAFB-250PK,FALSE,600.00,600.00,0.0000,73,,90,0,TRUE,2025-12-31 15:51:39.327+00
-coffee-filters-paper-flat-bottom-500-pack,Coffee Filters - Paper - Flat Bottom - Pack of 500,EQP-FM-FL-PAFB-500PK,FALSE,1000.00,1000.00,0.0000,19,,54,0,TRUE,2025-12-31 15:51:39.327+00
-coffee-filters-paper-conical-100-pack,Coffee Filters - Paper - Conical - Pack of 100,EQP-FM-FL-COFB-100PK,FALSE,300.00,300.00,0.0000,89,,49,0,TRUE,2025-12-31 15:51:39.327+00
-coffee-filters-paper-conical-250-pack,Coffee Filters - Paper - Conical - Pack of 250,EQP-FM-FL-COFB-250PK,FALSE,600.00,600.00,0.0000,42,,66,1,TRUE,2025-12-31 15:51:39.327+00
-coffee-filters-paper-conical-500-pack,Coffee Filters - Paper - Conical - Pack of 500,EQP-FM-FL-COFB-500PK,FALSE,1000.00,1000.00,0.0000,22,,39,0,TRUE,2025-12-31 15:51:39.327+00
-coffee-filter-stainless-steel-flat-bottom,Coffee Filter - Stainless Steel - Flat Bottom,EQP-FM-FL-SSFB,FALSE,1100.00,1100.00,0.0000,31,,34,0,TRUE,2025-12-31 15:51:39.327+00
-coffee-filter-stainless-steel-conical,Coffee Filter - Stainless Steel - Conical,EQP-FM-FL-SSCO,FALSE,1100.00,1100.00,0.0000,16,,30,1,TRUE,2025-12-31 15:51:39.327+00
-coffee-maker-descaler,Coffee Maker Descaler,EQP-FM-DSC,FALSE,700.00,700.00,0.0000,72,,137,0,TRUE,2025-12-31 15:51:39.327+00
-coffee-grinder-cleaning-pellets-50-pack,Coffee Grinder Cleaning Pellets - Pack of 50,EQP-FM-CGCP-50PK,FALSE,800.00,800.00,0.0000,108,,143,0,TRUE,2025-12-31 15:51:39.327+00
-coffee-grinder-cleaning-pellets-100-pack,Coffee Grinder Cleaning Pellets - Pack of 100,EQP-FM-CGCP-100PK,FALSE,1250.00,1250.00,0.0000,117,,101,0,TRUE,2025-12-31 15:51:39.327+00
-coffee-grinder-cleaning-pellets-200-pack,Coffee Grinder Cleaning Pellets - Pack of 200,EQP-FM-CGCP-200PK,FALSE,2000.00,2000.00,0.0000,34,,77,1,TRUE,2025-12-31 15:51:39.327+00
-coffee-maker-cleaning-brush-set,Coffee Maker Cleaning Brush Set,EQP-FM-CMCBS,FALSE,1400.00,1400.00,0.0000,18,,7,0,TRUE,2025-12-31 15:51:39.327+00
-branded-baseball-cap,Branded Baseball Cap - Grey,GFT-GI-BBC-GY,FALSE,1600.00,1600.00,0.0000,38,,62,0,TRUE,2026-01-02 22:38:42.437+00
-branded-baseball-cap,Branded Baseball Cap - Cream,GFT-GI-BBC-CR,FALSE,1520.00,1600.00,0.0000,41,,104,0,TRUE,2026-01-02 22:38:42.437+00
-branded-tote-bag,Branded Tote Bag,GFT-GI-BTB-CL,FALSE,1200.00,1200.00,0.0000,88,,146,0,TRUE,2026-01-02 22:49:15.892+00
-branded-jute-bag,Branded Jute Bag,GFT-GI-BJB-CL,FALSE,1000.00,1000.00,0.0000,46,,89,0,TRUE,2026-01-03 13:00:22.715+00
-branded-jumper,Branded Jumper - Black - XS,GFT-GI-BJ-BL-XS,FALSE,3000.00,3000.00,0.0000,44,,63,0,TRUE,2026-01-02 22:59:59.402+00
-branded-jumper,Branded Jumper - Black - S,GFT-GI-BJ-BL-S,FALSE,3000.00,3000.00,0.0000,18,,77,0,TRUE,2026-01-02 22:59:59.402+00
-branded-jumper,Branded Jumper - Black - M,GFT-GI-BJ-BL-M,FALSE,3000.00,3000.00,0.0000,42,,72,1,TRUE,2026-01-02 22:59:59.403+00
-branded-jumper,Branded Jumper - Black - L,GFT-GI-BJ-BL-L,FALSE,3000.00,3000.00,0.0000,0,,81,0,TRUE,2026-01-02 22:59:59.403+00
-branded-jumper,Branded Jumper - Black - XL,GFT-GI-BJ-BL-XL,FALSE,3000.00,3000.00,0.0000,35,,72,0,TRUE,2026-01-02 22:59:59.403+00
-branded-jumper,Branded Jumper - Black - XXL,GFT-GI-BJ-BL-XXL,FALSE,3000.00,3000.00,0.0000,40,,39,0,TRUE,2026-01-02 22:59:59.403+00
-branded-jumper,Branded Jumper - Cream - XS,GFT-GI-BJ-CR-XS,FALSE,3000.00,3000.00,0.0000,40,,58,0,TRUE,2026-01-02 22:59:59.403+00
-branded-jumper,Branded Jumper - Cream - S,GFT-GI-BJ-CR-S,FALSE,3000.00,3000.00,0.0000,5,,93,0,TRUE,2026-01-02 22:59:59.403+00
-branded-jumper,Branded Jumper - Cream - M,GFT-GI-BJ-CR-M,FALSE,3000.00,3000.00,0.0000,40,,76,0,TRUE,2026-01-02 22:59:59.403+00
-branded-jumper,Branded Jumper - Cream - L,GFT-GI-BJ-CR-L,FALSE,3000.00,3000.00,0.0000,7,,58,0,TRUE,2026-01-02 22:59:59.403+00
-branded-jumper,Branded Jumper - Cream - XL,GFT-GI-BJ-CR-XL,FALSE,3000.00,3000.00,0.0000,5,,27,2,TRUE,2026-01-02 22:59:59.403+00
-branded-jumper,Branded Jumper - Cream - XXL,GFT-GI-BJ-CR-XXL,FALSE,3000.00,3000.00,0.0000,44,,88,0,TRUE,2026-01-02 22:59:59.403+00
-branded-waffle-tea-towel-set-of-3,Branded Waffle Tea Towel - Set of 3,GFT-GI-BWTT-ST-CL,FALSE,2500.00,2500.00,0.0000,38,,30,0,TRUE,2026-01-03 12:31:26.356+00
-branded-waffle-tea-towel-single,Branded Waffle Tea Towel - White,GFT-GI-BWTT-SI-WH,FALSE,900.00,900.00,0.0000,57,,41,1,TRUE,2026-01-03 12:31:26.356+00
-branded-waffle-tea-towel-single,Branded Waffle Tea Towel - Cream,GFT-GI-BWTT-SI-CR,FALSE,900.00,900.00,0.0000,3,,41,0,TRUE,2026-01-03 12:31:26.356+00
-branded-waffle-tea-towel-single,Branded Waffle Tea Towel - Orange,GFT-GI-BWTT-SI-OR,FALSE,900.00,900.00,0.0000,14,,81,0,TRUE,2026-01-03 12:31:26.356+00
-ice-cube-tray,Ice Cube Tray,GFT-GI-ICT-CL,FALSE,750.00,750.00,0.0000,31,,22,0,TRUE,2026-01-03 12:15:37.626+00
-utensil-set,Utensil Set,GFT-GI-UTS-CL,FALSE,1200.00,1200.00,0.0000,12,,8,0,TRUE,2026-01-03 12:35:32.069+00
-airtight-coffee-jar-set-of-3,Airtight Coffee Jar - Set of 3,GFT-GI-BWTT-ST-GL,FALSE,3200.00,3200.00,0.0000,28,,32,0,TRUE,2026-01-03 12:41:00.698+00
-airtight-coffee-jar-single,Airtight Coffee Jar - Single,GFT-GI-BWTT-SI-GL,FALSE,1250.00,1250.00,0.0000,50,,101,0,TRUE,2026-01-03 12:41:00.698+00
-coffee-and-mug-bundle,Coffee + Mug Bundle - Whole Bean,GFT-GS-CMB-WB,FALSE,1500.00,1500.00,0.0000,8,,56,0,TRUE,2026-01-01 12:16:46.431+00
-coffee-and-mug-bundle,Coffee + Mug Bundle - Ground,GFT-GS-CMB-GR,FALSE,1500.00,1500.00,0.0000,0,,40,0,TRUE,2026-01-01 12:16:46.431+00
-coffee-and-mug-bundle,Coffee + Mug Bundle - Instant,GFT-GS-CMB-IN,FALSE,1500.00,1500.00,0.0000,6,,165,0,TRUE,2026-01-01 12:16:46.431+00
-coffee-and-mug-bundle,Coffee + Mug Bundle - Pods,GFT-GS-CMB-PO,FALSE,1600.00,1600.00,0.0000,89,,155,0,TRUE,2026-01-01 12:16:46.431+00
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - House Blend,WB-250GB-HO,TRUE,550.00,700.00,5.0000,89,,630,16,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Light Blend,WB-250GB-LT,TRUE,600.00,700.00,5.0000,56,,838,5,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Medium Blend,WB-250GB-MD,FALSE,700.00,700.00,0.0000,122,,793,4,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Dark Blend,WB-250GB-DK,TRUE,700.00,700.00,7.5000,342,,864,9,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Extra Dark Blend,WB-250GB-XD,TRUE,700.00,700.00,5.0000,34,,368,12,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Breakfast Blend,WB-250GB-BK,TRUE,500.00,700.00,5.0000,76,,339,13,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Pumpkin Spice Blend,WB-250GB-PK,TRUE,675.00,700.00,7.5000,45,,964,5,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Mocha Blend,WB-250GB-MO,FALSE,675.00,700.00,0.0000,217,,771,14,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Espresso Blend,WB-250GB-ES,FALSE,600.00,700.00,0.0000,97,,706,15,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Vanilla Blend,WB-250GB-VA,TRUE,625.00,700.00,5.0000,82,,954,11,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Caramel Blend,WB-250GB-CA,TRUE,700.00,700.00,2.5000,227,,270,12,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Intense Blend,WB-250GB-IN,FALSE,625.00,700.00,0.0000,188,,885,11,FALSE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - French Roast Blend,WB-250GB-FR,FALSE,700.00,700.00,0.0000,290,,705,3,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Italian Roast Blend,WB-250GB-IT,TRUE,700.00,700.00,2.5000,268,,455,10,FALSE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - House Blend,WB-500GB-HO,TRUE,1250.00,1250.00,5.0000,38,,142,5,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Light Blend,WB-500GB-LT,TRUE,1100.00,1250.00,0.0000,29,,201,3,FALSE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Medium Blend,WB-500GB-MD,FALSE,1200.00,1250.00,10.0000,27,,426,1,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Dark Blend,WB-500GB-DK,TRUE,1250.00,1250.00,0.0000,28,,355,4,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Extra Dark Blend,WB-500GB-XD,FALSE,1250.00,1250.00,5.0000,21,,487,3,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Breakfast Blend,WB-500GB-BK,TRUE,1125.00,1250.00,0.0000,18,,127,2,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Pumpkin Spice Blend,WB-500GB-PK,FALSE,1250.00,1250.00,0.0000,34,,123,1,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Mocha Blend,WB-500GB-MO,FALSE,1250.00,1250.00,5.0000,21,,118,3,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Espresso Blend,WB-500GB-ES,TRUE,1100.00,1250.00,5.0000,21,,210,0,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Vanilla Blend,WB-500GB-VA,FALSE,1100.00,1250.00,0.0000,0,,294,0,FALSE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Caramel Blend,WB-500GB-CA,TRUE,1000.00,1250.00,2.5000,18,,249,4,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Intense Blend,WB-500GB-IN,FALSE,1250.00,1250.00,0.0000,10,,295,0,FALSE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - French Roast Blend,WB-500GB-FR,TRUE,1250.00,1250.00,7.5000,12,20,385,4,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Italian Roast Blend,WB-500GB-IT,FALSE,1100.00,1250.00,0.0000,15,,189,2,FALSE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - House Blend,WB-1KGB-HO,TRUE,2200.00,2250.00,5.0000,0,,79,0,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Light Blend,WB-1KGB-LT,TRUE,2250.00,2250.00,5.0000,14,,32,1,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Medium Blend,WB-1KGB-MD,TRUE,2210.00,2250.00,5.0000,0,,12,0,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Dark Blend,WB-1KGB-DK,TRUE,2200.00,2250.00,10.0000,19,,71,0,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Extra Dark Blend,WB-1KGB-XD,FALSE,1700.00,2250.00,0.0000,23,,22,0,FALSE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Breakfast Blend,WB-1KGB-BR,FALSE,2250.00,2250.00,0.0000,17,,34,0,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Pumpkin Spice Blend,WB-1KGB-PK,TRUE,2250.00,2250.00,5.0000,6,,42,1,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Mocha Blend,WB-1KGB-MO,FALSE,2250.00,2250.00,0.0000,8,,57,1,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Espresso Blend,WB-1KGB-ES,FALSE,2250.00,2250.00,0.0000,11,,93,1,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Vanilla Blend,WB-1KGB-VA,TRUE,1950.00,2250.00,2.5000,1,,71,0,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Caramel Blend,WB-1KGB-CA,FALSE,2250.00,2250.00,0.0000,24,,19,0,FALSE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Intense Blend,WB-1KGB-IN,TRUE,2250.00,2250.00,5.0000,22,,65,0,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - French Roast Blend,WB-1KGB-FR,FALSE,1950.00,2250.00,0.0000,13,,58,0,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Italian Roast Blend,WB-1KGB-IR,TRUE,1900.00,2250.00,2.5000,9,10,59,0,TRUE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - House Blend,WB-100GT-HO,TRUE,600.00,600.00,2.5000,308,,1031,14,TRUE,2025-12-21 14:04:12.588+00
+coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - Light Blend,WB-100GT-LT,TRUE,550.00,600.00,5.0000,293,,852,29,TRUE,2025-12-21 14:04:12.588+00
+coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - Medium Blend,WB-100GT-MD,TRUE,600.00,600.00,5.0000,0,,611,22,TRUE,2025-12-21 14:04:12.588+00
+coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - Dark Blend,WB-100GT-DK,FALSE,600.00,600.00,0.0000,226,,549,30,TRUE,2025-12-21 14:04:12.588+00
+coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - Extra Dark Blend,WB-100GT-XD,FALSE,525.00,600.00,0.0000,289,,894,17,TRUE,2025-12-21 14:04:12.588+00
+coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - Breakfast Blend,WB-100GT-BK,TRUE,575.00,600.00,2.5000,216,,1086,18,TRUE,2025-12-21 14:04:12.588+00
+coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - Pumpkin Spice Blend,WB-100GT-PK,FALSE,600.00,600.00,0.0000,493,,1178,20,TRUE,2025-12-21 14:04:12.588+00
+coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - Mocha Blend,WB-100GT-MO,TRUE,500.00,600.00,10.0000,203,,668,15,TRUE,2025-12-21 14:04:12.588+00
+coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - Espresso Blend,WB-100GT-ES,FALSE,525.00,600.00,0.0000,283,,238,17,TRUE,2025-12-21 14:04:12.588+00
+coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - Vanilla Blend,WB-100GT-VA,TRUE,600.00,600.00,2.5000,153,,927,5,TRUE,2025-12-21 14:04:12.588+00
+coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - Caramel Blend,WB-100GT-CA,TRUE,575.00,600.00,2.5000,201,,847,12,FALSE,2025-12-21 14:04:12.588+00
+coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - Intense Blend,WB-100GT-IN,FALSE,600.00,600.00,0.0000,177,,583,28,TRUE,2025-12-21 14:04:12.588+00
+coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - French Roast Blend,WB-100GT-FR,TRUE,600.00,600.00,5.0000,279,,964,9,TRUE,2025-12-21 14:04:12.588+00
+coffee-whole-bean-100g-tin,Coffee - Whole Bean - 100g Tin - Italian Roast Blend,WB-100GT-IR,FALSE,540.00,600.00,0.0000,364,,1170,29,TRUE,2025-12-21 14:04:12.588+00
+coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - House Blend,WB-250GT-HO,TRUE,1100.00,1200.00,2.5000,99,,629,3,TRUE,2025-12-21 14:09:47.074+00
+coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Light Blend,WB-250GT-LT,FALSE,1080.00,1200.00,0.0000,148,,663,5,TRUE,2025-12-21 14:09:47.074+00
+coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Medium Blend,WB-250GT-MD,TRUE,1200.00,1200.00,5.0000,138,,368,4,TRUE,2025-12-21 14:09:47.074+00
+coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Dark Blend,WB-250GT-DK,TRUE,1100.00,1200.00,2.5000,161,,495,8,TRUE,2025-12-21 14:09:47.074+00
+coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Extra Dark Blend,WB-250GT-XD,TRUE,1200.00,1200.00,5.0000,175,,469,7,TRUE,2025-12-21 14:09:47.074+00
+coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Breakfast Blend,WB-250GT-BK,FALSE,1080.00,1200.00,0.0000,55,,632,4,TRUE,2025-12-21 14:09:47.074+00
+coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Pumpkin Spice Blend,WB-250GT-PS,TRUE,1200.00,1200.00,5.0000,82,,289,5,FALSE,2025-12-21 14:09:47.074+00
+coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Mocha Blend,WB-250GT-MO,TRUE,1200.00,1200.00,7.5000,57,,449,9,FALSE,2025-12-21 14:09:47.074+00
+coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Espresso Blend,WB-250GT-ES,FALSE,1080.00,1200.00,0.0000,40,,782,7,TRUE,2025-12-21 14:09:47.074+00
+coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Vanilla Blend,WB-250GT-VA,TRUE,1200.00,1200.00,2.5000,210,,462,4,TRUE,2025-12-21 14:09:47.074+00
+coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Caramel Blend,WB-250GT-CA,FALSE,1200.00,1200.00,0.0000,118,,234,3,TRUE,2025-12-21 14:09:47.074+00
+coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Intense Blend,WB-250GT-IN,FALSE,1080.00,1200.00,0.0000,241,,665,4,TRUE,2025-12-21 14:09:47.074+00
+coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - French Roast Blend,WB-250GT-FR,TRUE,1200.00,1200.00,5.0000,155,50,698,6,TRUE,2025-12-21 14:09:47.074+00
+coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Italian Roast Blend,WB-250GT-IT,TRUE,1200.00,1200.00,2.5000,0,,827,2,FALSE,2025-12-21 14:09:47.074+00
+coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - House Blend,WB-500GT-HO,FALSE,1800.00,2000.00,0.0000,60,,40,7,TRUE,2025-12-21 14:14:24.700+00
+coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Light Blend,WB-500GT-LT,TRUE,2000.00,2000.00,2.5000,70,,48,3,TRUE,2025-12-21 14:14:24.700+00
+coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Medium Blend,WB-500GT-MD,FALSE,1900.00,2000.00,0.0000,59,,74,4,TRUE,2025-12-21 14:14:24.700+00
+coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Dark Blend,WB-500GT-DK,TRUE,1900.00,2000.00,5.0000,68,,38,0,TRUE,2025-12-21 14:14:24.700+00
+coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Extra Dark Blend,WB-500GT-XD,TRUE,2000.00,2000.00,7.5000,61,,179,4,TRUE,2025-12-21 14:14:24.700+00
+coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Breakfast Blend,WB-500GT-BK,FALSE,2000.00,2000.00,0.0000,0,,92,4,TRUE,2025-12-21 14:14:24.700+00
+coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Pumpkin Spice Blend,WB-500GT-PK,TRUE,1800.00,2000.00,10.0000,53,,196,7,TRUE,2025-12-21 14:14:24.700+00
+coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Mocha Blend,WB-500GT-MO,FALSE,1900.00,2000.00,0.0000,2,,94,3,TRUE,2025-12-21 14:14:24.700+00
+coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Espresso Blend,WB-500GT-ES,FALSE,2000.00,2000.00,0.0000,46,,96,1,TRUE,2025-12-21 14:14:24.700+00
+coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Vanilla Blend,WB-500GT-VA,FALSE,2000.00,2000.00,0.0000,50,,87,0,TRUE,2025-12-21 14:14:24.700+00
+coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Caramel Blend,WB-500GT-CA,FALSE,2000.00,2000.00,0.0000,23,,27,0,FALSE,2025-12-21 14:14:24.700+00
+coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Intense Blend,WB-500GT-IN,TRUE,1900.00,2000.00,2.5000,12,,72,4,TRUE,2025-12-21 14:14:24.700+00
+coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - French Roast Blend,WB-500GT-FR,TRUE,2000.00,2000.00,2.5000,68,,126,6,TRUE,2025-12-21 14:14:24.700+00
+coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Italian Roast Blend,WB-500GT-IR,FALSE,2000.00,2000.00,0.0000,62,25,38,8,TRUE,2025-12-21 14:14:24.700+00
+coffee-ground-250g-bag,Coffee - Ground - 250g Bag - House Blend,GR-250GB-HO,TRUE,700.00,700.00,5.0000,129,,996,15,TRUE,2025-12-21 14:24:55.927+00
+coffee-ground-250g-bag,Coffee - Ground - 250g Bag - Light Blend,GR-250GB-LT,FALSE,630.00,700.00,0.0000,278,,774,20,TRUE,2025-12-21 14:24:55.927+00
+coffee-ground-250g-bag,Coffee - Ground - 250g Bag - Medium Blend,GR-250GB-MD,TRUE,665.00,700.00,2.5000,144,,233,30,TRUE,2025-12-21 14:24:55.927+00
+coffee-ground-250g-bag,Coffee - Ground - 250g Bag - Dark Blend,GR-250GB-DK,TRUE,700.00,700.00,5.0000,58,,754,31,TRUE,2025-12-21 14:24:55.927+00
+coffee-ground-250g-bag,Coffee - Ground - 250g Bag - Extra Dark Blend,GR-250GB-XD,FALSE,700.00,700.00,0.0000,160,,924,12,TRUE,2025-12-21 14:24:55.927+00
+coffee-ground-250g-bag,Coffee - Ground - 250g Bag - Breakfast Blend,GR-250GB-BK,FALSE,700.00,700.00,0.0000,171,,745,27,TRUE,2025-12-21 14:24:55.927+00
+coffee-ground-250g-bag,Coffee - Ground - 250g Bag - Pumpkin Spice Blend,GR-250GB-PK,TRUE,700.00,700.00,2.5000,73,,292,6,TRUE,2025-12-21 14:24:55.927+00
+coffee-ground-250g-bag,Coffee - Ground - 250g Bag - Mocha Blend,GR-250GB-MO,FALSE,630.00,700.00,0.0000,181,,484,32,TRUE,2025-12-21 14:24:55.927+00
+coffee-ground-250g-bag,Coffee - Ground - 250g Bag - Espresso Blend,GR-250GB-ES,TRUE,700.00,700.00,5.0000,226,,526,28,TRUE,2025-12-21 14:24:55.927+00
+coffee-ground-250g-bag,Coffee - Ground - 250g Bag - Vanilla Blend,GR-250GB-VA,TRUE,700.00,700.00,2.5000,65,,960,13,TRUE,2025-12-21 14:24:55.927+00
+coffee-ground-250g-bag,Coffee - Ground - 250g Bag - Caramel Blend,GR-250GB-CA,FALSE,665.00,700.00,0.0000,163,,634,18,TRUE,2025-12-21 14:24:55.927+00
+coffee-ground-250g-bag,Coffee - Ground - 250g Bag - Intense Blend,GR-250GB-IN,TRUE,630.00,700.00,2.5000,159,,281,31,TRUE,2025-12-21 14:24:55.927+00
+coffee-ground-250g-bag,Coffee - Ground - 250g Bag - French Roast Blend,GR-250GB-FR,FALSE,700.00,700.00,0.0000,195,,579,8,TRUE,2025-12-21 14:24:55.927+00
+coffee-ground-250g-bag,Coffee - Ground - 250g Bag - Italian Roast Blend,GR-250GB-IR,TRUE,665.00,700.00,2.5000,82,,825,29,TRUE,2025-12-21 14:24:55.927+00
+coffee-ground-500g-bag,Coffee - Ground - 500g Bag - House Blend,GR-500GB-HO,FALSE,1125.00,1250.00,0.0000,50,,349,5,TRUE,2025-12-21 14:30:11.630+00
+coffee-ground-500g-bag,Coffee - Ground - 500g Bag - Light Blend,GR-500GB-LT,TRUE,1187.50,1250.00,5.0000,77,,297,11,TRUE,2025-12-21 14:30:11.630+00
+coffee-ground-500g-bag,Coffee - Ground - 500g Bag - Medium Blend,GR-500GB-MD,TRUE,1250.00,1250.00,5.0000,52,,458,6,TRUE,2025-12-21 14:30:11.630+00
+coffee-ground-500g-bag,Coffee - Ground - 500g Bag - Dark Blend,GR-500GB-DK,FALSE,1250.00,1250.00,0.0000,47,,103,7,TRUE,2025-12-21 14:30:11.630+00
+coffee-ground-500g-bag,Coffee - Ground - 500g Bag - Extra Dark Blend,GR-500GB-XD,TRUE,1250.00,1250.00,2.5000,70,,357,11,TRUE,2025-12-21 14:30:11.630+00
+coffee-ground-500g-bag,Coffee - Ground - 500g Bag - Breakfast Blend,GR-500GB-BK,FALSE,1125.00,1250.00,0.0000,64,,142,3,TRUE,2025-12-21 14:30:11.630+00
+coffee-ground-500g-bag,Coffee - Ground - 500g Bag - Pumpkin Spice Blend,GR-500GB-PK,FALSE,1125.00,1250.00,0.0000,27,,388,9,TRUE,2025-12-21 14:30:11.631+00
+coffee-ground-500g-bag,Coffee - Ground - 500g Bag - Mocha Blend,GR-500GB-MO,FALSE,1250.00,1250.00,0.0000,58,,312,5,TRUE,2025-12-21 14:30:11.631+00
+coffee-ground-500g-bag,Coffee - Ground - 500g Bag - Espresso Blend,GR-500GB-ES,TRUE,1250.00,1250.00,5.0000,70,,496,16,FALSE,2025-12-21 14:30:11.631+00
+coffee-ground-500g-bag,Coffee - Ground - 500g Bag - Vanilla Blend,GR-500GB-VA,TRUE,1187.50,1250.00,2.5000,29,,400,11,TRUE,2025-12-21 14:30:11.631+00
+coffee-ground-500g-bag,Coffee - Ground - 500g Bag - Caramel Blend,GR-500GB-CA,FALSE,1250.00,1250.00,0.0000,46,,244,12,TRUE,2025-12-21 14:30:11.631+00
+coffee-ground-500g-bag,Coffee - Ground - 500g Bag - Intense Blend,GR-500GB-IN,TRUE,1125.00,1250.00,2.5000,54,,129,11,TRUE,2025-12-21 14:30:11.631+00
+coffee-ground-500g-bag,Coffee - Ground - 500g Bag - French Roast Blend,GR-500GB-FR,FALSE,1250.00,1250.00,0.0000,36,,425,13,TRUE,2025-12-21 14:30:11.631+00
+coffee-ground-500g-bag,Coffee - Ground - 500g Bag - Italian Roast Blend,GR-500GB-IR,FALSE,1250.00,1250.00,0.0000,71,,426,15,TRUE,2025-12-21 14:30:11.631+00
+coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - House Blend,GR-1KGB-HO,FALSE,2025.00,2250.00,0.0000,29,,62,5,TRUE,2025-12-21 14:34:18.684+00
+coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - Light Blend,GR-1KGB-LT,TRUE,2025.00,2250.00,2.5000,30,,29,2,TRUE,2025-12-21 14:34:18.685+00
+coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - Medium Blend,GR-1KGB-MD,TRUE,2025.00,2250.00,2.5000,11,,147,2,TRUE,2025-12-21 14:34:18.685+00
+coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - Dark Blend,GR-1KGB-DK,FALSE,2250.00,2250.00,0.0000,45,,32,7,TRUE,2025-12-21 14:34:18.685+00
+coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - Extra Dark Blend,GR-1KGB-XD,FALSE,2137.50,2250.00,0.0000,39,,182,0,TRUE,2025-12-21 14:34:18.685+00
+coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - Breakfast Blend,GR-1KGB-BK,FALSE,2250.00,2250.00,0.0000,12,,129,2,TRUE,2025-12-21 14:34:18.685+00
+coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - Pumpkin Spice Blend,GR-1KGB-PK,FALSE,2250.00,2250.00,0.0000,50,,159,1,TRUE,2025-12-21 14:34:18.685+00
+coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - Mocha Blend,GR-1KGB-MO,TRUE,2025.00,2250.00,2.5000,14,,49,7,TRUE,2025-12-21 14:34:18.685+00
+coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - Espresso Blend,GR-1KGB-ES,FALSE,2250.00,2250.00,0.0000,49,,150,3,TRUE,2025-12-21 14:34:18.685+00
+coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - Vanilla Blend,GR-1KGB-VA,TRUE,2137.50,2250.00,2.5000,35,,150,6,TRUE,2025-12-21 14:34:18.685+00
+coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - Caramel Blend,GR-1KGB-CA,FALSE,2025.00,2250.00,0.0000,24,,153,0,TRUE,2025-12-21 14:34:18.685+00
+coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - Intense Blend,GR-1KGB-IN,TRUE,2250.00,2250.00,2.5000,34,,44,2,TRUE,2025-12-21 14:34:18.685+00
+coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - French Roast Blend,GR-1KGB-FR,TRUE,2250.00,2250.00,2.5000,8,,55,1,TRUE,2025-12-21 14:34:18.685+00
+coffee-ground-1kg-bag,Coffee - Ground - 1kg Bag - Italian Roast Blend,GR-1KGB-IR,FALSE,2250.00,2250.00,0.0000,36,,63,5,TRUE,2025-12-21 14:34:18.685+00
+coffee-ground-100g-tin,Coffee - Ground - 100g Tin - House Blend,GR-100GT-HO,TRUE,665.00,700.00,2.5000,411,,821,25,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-100g-tin,Coffee - Ground - 100g Tin - Light Blend,GR-100GT-LT,FALSE,630.00,700.00,0.0000,476,,903,7,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-100g-tin,Coffee - Ground - 100g Tin - Medium Blend,GR-100GT-MD,TRUE,700.00,700.00,2.5000,692,,749,19,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-100g-tin,Coffee - Ground - 100g Tin - Dark Blend,GR-100GT-DK,FALSE,700.00,700.00,0.0000,271,,73,21,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-100g-tin,Coffee - Ground - 100g Tin - Extra Dark Blend,GR-100GT-XD,FALSE,700.00,700.00,0.0000,252,,753,33,FALSE,2025-12-21 14:38:45.685+00
+coffee-ground-100g-tin,Coffee - Ground - 100g Tin - Breakfast Blend,GR-100GT-BK,TRUE,665.00,700.00,5.0000,635,,287,18,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-100g-tin,Coffee - Ground - 100g Tin - Pumpkin Spice Blend,GR-100GT-PK,FALSE,700.00,700.00,0.0000,538,,860,33,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-100g-tin,Coffee - Ground - 100g Tin - Mocha Blend,GR-100GT-MO,TRUE,630.00,700.00,5.0000,177,,582,27,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-100g-tin,Coffee - Ground - 100g Tin - Espresso Blend,GR-100GT-ES,FALSE,700.00,700.00,0.0000,538,,192,8,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-100g-tin,Coffee - Ground - 100g Tin - Vanilla Blend,GR-100GT-VA,FALSE,700.00,700.00,0.0000,0,,630,19,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-100g-tin,Coffee - Ground - 100g Tin - Caramel Blend,GR-100GT-CA,FALSE,700.00,700.00,0.0000,352,,635,30,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-100g-tin,Coffee - Ground - 100g Tin - Intense Blend,GR-100GT-IN,FALSE,700.00,700.00,0.0000,782,,895,9,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-100g-tin,Coffee - Ground - 100g Tin - French Roast Blend,GR-100GT-FR,TRUE,630.00,700.00,2.5000,213,,155,24,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-100g-tin,Coffee - Ground - 100g Tin - Italian Roast Blend,GR-100GT-IR,TRUE,700.00,700.00,5.0000,54,,477,10,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-250g-tin,Coffee - Ground - 250g Tin - House Blend,GR-250GT-HO,FALSE,1250.00,1250.00,0.0000,29,,246,14,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-250g-tin,Coffee - Ground - 250g Tin - Light Blend,GR-250GT-LT,TRUE,1250.00,1250.00,0.0000,48,,249,11,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-250g-tin,Coffee - Ground - 250g Tin - Medium Blend,GR-250GT-MD,FALSE,1250.00,1250.00,0.0000,0,,279,16,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-250g-tin,Coffee - Ground - 250g Tin - Dark Blend,GR-250GT-DK,FALSE,1250.00,1250.00,0.0000,38,,131,12,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-250g-tin,Coffee - Ground - 250g Tin - Extra Dark Blend,GR-250GT-XD,FALSE,1250.00,1250.00,0.0000,74,,380,14,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-250g-tin,Coffee - Ground - 250g Tin - Breakfast Blend,GR-250GT-BK,TRUE,1125.00,1250.00,7.5000,42,,330,5,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-250g-tin,Coffee - Ground - 250g Tin - Pumpkin Spice Blend,GR-250GT-PK,TRUE,1125.00,1250.00,2.5000,11,,179,16,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-250g-tin,Coffee - Ground - 250g Tin - Mocha Blend,GR-250GT-MO,FALSE,1250.00,1250.00,0.0000,92,,197,10,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-250g-tin,Coffee - Ground - 250g Tin - Espresso Blend,GR-250GT-ES,TRUE,1250.00,1250.00,2.5000,68,,277,15,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-250g-tin,Coffee - Ground - 250g Tin - Vanilla Blend,GR-250GT-VA,TRUE,1250.00,1250.00,2.5000,42,,172,3,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-250g-tin,Coffee - Ground - 250g Tin - Caramel Blend,GR-250GT-CA,FALSE,1250.00,1250.00,0.0000,35,,168,6,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-250g-tin,Coffee - Ground - 250g Tin - Intense Blend,GR-250GT-IN,FALSE,1250.00,1250.00,0.0000,17,,329,5,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-250g-tin,Coffee - Ground - 250g Tin - French Roast Blend,GR-250GT-FR,TRUE,1125.00,1250.00,5.0000,44,,382,5,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-250g-tin,Coffee - Ground - 250g Tin - Italian Roast Blend,GR-250GT-IR,FALSE,1250.00,1250.00,0.0000,57,,280,8,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-500g-tin,Coffee - Ground - 500g Tin - House Blend,GR-1KGT-HO,TRUE,2025.00,2250.00,5.0000,11,,97,4,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-500g-tin,Coffee - Ground - 500g Tin - Light Blend,GR-1KGT-LT,FALSE,2250.00,2250.00,0.0000,5,,79,6,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-500g-tin,Coffee - Ground - 500g Tin - Medium Blend,GR-1KGT-MD,TRUE,2250.00,2250.00,2.5000,14,,82,6,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-500g-tin,Coffee - Ground - 500g Tin - Dark Blend,GR-1KGT-DK,FALSE,2250.00,2250.00,0.0000,13,,95,8,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-500g-tin,Coffee - Ground - 500g Tin - Extra Dark Blend,GR-1KGT-XD,FALSE,2137.50,2250.00,0.0000,9,,53,4,FALSE,2025-12-21 14:38:45.685+00
+coffee-ground-500g-tin,Coffee - Ground - 500g Tin - Breakfast Blend,GR-1KGT-BK,FALSE,2137.50,2250.00,0.0000,17,,81,3,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-500g-tin,Coffee - Ground - 500g Tin - Pumpkin Spice Blend,GR-1KGT-PK,TRUE,2250.00,2250.00,2.5000,11,,56,1,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-500g-tin,Coffee - Ground - 500g Tin - Mocha Blend,GR-1KGT-MO,FALSE,2250.00,2250.00,0.0000,8,,30,8,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-500g-tin,Coffee - Ground - 500g Tin - Espresso Blend,GR-1KGT-ES,FALSE,2250.00,2250.00,0.0000,9,,72,8,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-500g-tin,Coffee - Ground - 500g Tin - Vanilla Blend,GR-1KGT-VA,TRUE,2250.00,2250.00,7.5000,15,,44,1,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-500g-tin,Coffee - Ground - 500g Tin - Caramel Blend,GR-1KGT-CA,TRUE,2250.00,2250.00,2.5000,15,,60,2,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-500g-tin,Coffee - Ground - 500g Tin - Intense Blend,GR-1KGT-IN,FALSE,2137.50,2250.00,0.0000,0,,65,4,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-500g-tin,Coffee - Ground - 500g Tin - French Roast Blend,GR-1KGT-FR,FALSE,2025.00,2250.00,0.0000,4,,63,5,TRUE,2025-12-21 14:38:45.685+00
+coffee-ground-500g-tin,Coffee - Ground - 500g Tin - Italian Roast Blend,GR-1KGT-IR,TRUE,2250.00,2250.00,2.5000,9,,26,7,TRUE,2025-12-21 14:38:45.685+00
+coffee-instant-250g-bag,Coffee - Instant - 250g Bag - House Blend,IN-250GB-HO,TRUE,700.00,700.00,5.0000,498,,389,23,TRUE,2025-12-22 19:33:51.828+00
+coffee-instant-250g-bag,Coffee - Instant - 250g Bag - Light Blend,IN-250GB-LT,FALSE,665.00,700.00,0.0000,308,,797,16,TRUE,2025-12-22 19:33:51.828+00
+coffee-instant-250g-bag,Coffee - Instant - 250g Bag - Medium Blend,IN-250GB-MD,TRUE,630.00,700.00,2.5000,629,,156,11,TRUE,2025-12-22 19:33:51.828+00
+coffee-instant-250g-bag,Coffee - Instant - 250g Bag - Dark Blend,IN-250GB-DK,FALSE,700.00,700.00,0.0000,824,,531,31,TRUE,2025-12-22 19:33:51.828+00
+coffee-instant-250g-bag,Coffee - Instant - 250g Bag - Extra Dark Blend,IN-250GB-XD,FALSE,700.00,700.00,0.0000,0,,341,1,TRUE,2025-12-22 19:33:51.828+00
+coffee-instant-250g-bag,Coffee - Instant - 250g Bag - Breakfast Blend,IN-250GB-BK,TRUE,630.00,700.00,2.5000,849,,509,24,TRUE,2025-12-22 19:33:51.828+00
+coffee-instant-250g-bag,Coffee - Instant - 250g Bag - Pumpkin Spice Blend,IN-250GB-PK,FALSE,700.00,700.00,0.0000,673,,540,8,TRUE,2025-12-22 19:33:51.828+00
+coffee-instant-250g-bag,Coffee - Instant - 250g Bag - Mocha Blend,IN-250GB-MO,FALSE,665.00,700.00,0.0000,228,,737,21,TRUE,2025-12-22 19:33:51.828+00
+coffee-instant-250g-bag,Coffee - Instant - 250g Bag - Espresso Blend,IN-250GB-ES,FALSE,700.00,700.00,0.0000,245,,721,25,TRUE,2025-12-22 19:33:51.828+00
+coffee-instant-250g-bag,Coffee - Instant - 250g Bag - Vanilla Blend,IN-250GB-VA,FALSE,700.00,700.00,0.0000,247,,718,31,TRUE,2025-12-22 19:33:51.828+00
+coffee-instant-250g-bag,Coffee - Instant - 250g Bag - Caramel Blend,IN-250GB-CA,FALSE,630.00,700.00,0.0000,611,,148,33,TRUE,2025-12-22 19:33:51.828+00
+coffee-instant-250g-bag,Coffee - Instant - 250g Bag - Intense Blend,IN-250GB-IN,FALSE,595.00,700.00,0.0000,720,,3,2,TRUE,2025-12-22 19:33:51.828+00
+coffee-instant-250g-bag,Coffee - Instant - 250g Bag - French Roast Blend,IN-250GB-FR,FALSE,700.00,700.00,0.0000,919,,491,2,TRUE,2025-12-22 19:33:51.828+00
+coffee-instant-250g-bag,Coffee - Instant - 250g Bag - Italian Roast Blend,IN-250GB-IR,TRUE,700.00,700.00,5.0000,654,,316,11,TRUE,2025-12-22 19:33:51.828+00
+coffee-instant-500g-bag,Coffee - Instant - 500g Bag - House Blend,IN-500GB-HO,FALSE,1250.00,1250.00,0.0000,113,,18,12,TRUE,2025-12-22 19:33:51.828+00
+coffee-instant-500g-bag,Coffee - Instant - 500g Bag - Light Blend,IN-500GB-LT,FALSE,1250.00,1250.00,0.0000,97,,57,4,TRUE,2025-12-22 19:33:51.828+00
+coffee-instant-500g-bag,Coffee - Instant - 500g Bag - Medium Blend,IN-500GB-MD,TRUE,1125.00,1250.00,5.0000,287,,159,0,TRUE,2025-12-22 19:33:51.828+00
+coffee-instant-500g-bag,Coffee - Instant - 500g Bag - Dark Blend,IN-500GB-DK,TRUE,1250.00,1250.00,2.5000,259,,70,8,TRUE,2025-12-22 19:33:51.828+00
+coffee-instant-500g-bag,Coffee - Instant - 500g Bag - Extra Dark Blend,IN-500GB-XD,FALSE,1250.00,1250.00,0.0000,205,,68,13,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-500g-bag,Coffee - Instant - 500g Bag - Breakfast Blend,IN-500GB-BK,FALSE,1187.50,1250.00,0.0000,205,,186,8,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-500g-bag,Coffee - Instant - 500g Bag - Pumpkin Spice Blend,IN-500GB-PK,FALSE,1187.50,1250.00,0.0000,0,,86,1,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-500g-bag,Coffee - Instant - 500g Bag - Mocha Blend,IN-500GB-MO,FALSE,1250.00,1250.00,0.0000,69,,7,0,FALSE,2025-12-22 19:33:51.829+00
+coffee-instant-500g-bag,Coffee - Instant - 500g Bag - Espresso Blend,IN-500GB-ES,TRUE,1250.00,1250.00,2.5000,174,,197,12,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-500g-bag,Coffee - Instant - 500g Bag - Vanilla Blend,IN-500GB-VA,TRUE,1125.00,1250.00,2.5000,214,,25,8,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-500g-bag,Coffee - Instant - 500g Bag - Caramel Blend,IN-500GB-CA,FALSE,1125.00,1250.00,0.0000,242,,138,1,FALSE,2025-12-22 19:33:51.829+00
+coffee-instant-500g-bag,Coffee - Instant - 500g Bag - Intense Blend,IN-500GB-IN,FALSE,1250.00,1250.00,0.0000,0,,85,1,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-500g-bag,Coffee - Instant - 500g Bag - French Roast Blend,IN-500GB-FR,FALSE,1250.00,1250.00,0.0000,118,,113,0,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-500g-bag,Coffee - Instant - 500g Bag - Italian Roast Blend,IN-500GB-IR,TRUE,1250.00,1250.00,10.0000,209,,7,2,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - House Blend,IN-1KGB-HO,FALSE,2250.00,2250.00,0.0000,53,,33,0,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - Light Blend,IN-1KGB-LT,TRUE,2137.50,2250.00,2.5000,0,,24,2,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - Medium Blend,IN-1KGB-MD,FALSE,2250.00,2250.00,0.0000,85,,33,2,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - Dark Blend,IN-1KGB-DK,TRUE,2250.00,2250.00,5.0000,58,,35,4,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - Extra Dark Blend,IN-1KGB-XD,TRUE,2250.00,2250.00,7.5000,28,,0,0,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - Breakfast Blend,IN-1KGB-BK,FALSE,2137.50,2250.00,0.0000,40,,16,1,FALSE,2025-12-22 19:33:51.829+00
+coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - Pumpkin Spice Blend,IN-1KGB-PK,TRUE,2250.00,2250.00,2.5000,13,,24,1,FALSE,2025-12-22 19:33:51.829+00
+coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - Mocha Blend,IN-1KGB-MO,TRUE,2250.00,2250.00,5.0000,89,,36,1,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - Espresso Blend,IN-1KGB-ES,TRUE,2250.00,2250.00,2.5000,94,,22,2,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - Vanilla Blend,IN-1KGB-VA,FALSE,2025.00,2250.00,0.0000,98,,14,3,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - Caramel Blend,IN-1KGB-CA,TRUE,2025.00,2250.00,5.0000,2,,10,1,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - Intense Blend,IN-1KGB-IN,FALSE,2250.00,2250.00,0.0000,7,,36,3,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - French Roast Blend,IN-1KGB-FR,FALSE,2250.00,2250.00,0.0000,62,,17,1,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-1kg-bag,Coffee - Instant - 1kg Bag - Italian Roast Blend,IN-1KGB-IR,FALSE,2137.50,2250.00,0.0000,33,,14,3,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-100g-tin,Coffee - Instant - 100g Tin - House Blend,IN-100GT-HO,FALSE,700.00,700.00,0.0000,945,,538,14,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-100g-tin,Coffee - Instant - 100g Tin - Light Blend,IN-100GT-LT,TRUE,630.00,700.00,2.5000,0,,305,29,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-100g-tin,Coffee - Instant - 100g Tin - Medium Blend,IN-100GT-MD,FALSE,700.00,700.00,0.0000,732,,484,15,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-100g-tin,Coffee - Instant - 100g Tin - Dark Blend,IN-100GT-DK,FALSE,665.00,700.00,0.0000,743,,292,20,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-100g-tin,Coffee - Instant - 100g Tin - Extra Dark Blend,IN-100GT-XD,FALSE,700.00,700.00,0.0000,210,,789,4,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-100g-tin,Coffee - Instant - 100g Tin - Breakfast Blend,IN-100GT-BK,TRUE,700.00,700.00,5.0000,668,,74,18,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-100g-tin,Coffee - Instant - 100g Tin - Pumpkin Spice Blend,IN-100GT-PK,TRUE,630.00,700.00,2.5000,441,,189,11,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-100g-tin,Coffee - Instant - 100g Tin - Mocha Blend,IN-100GT-MO,FALSE,630.00,700.00,0.0000,954,,504,8,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-100g-tin,Coffee - Instant - 100g Tin - Espresso Blend,IN-100GT-ES,TRUE,700.00,700.00,5.0000,921,,62,24,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-100g-tin,Coffee - Instant - 100g Tin - Vanilla Blend,IN-100GT-VA,FALSE,665.00,700.00,0.0000,585,,72,5,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-100g-tin,Coffee - Instant - 100g Tin - Caramel Blend,IN-100GT-CA,TRUE,700.00,700.00,2.5000,231,,301,17,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-100g-tin,Coffee - Instant - 100g Tin - Intense Blend,IN-100GT-IN,FALSE,630.00,700.00,0.0000,360,,296,20,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-100g-tin,Coffee - Instant - 100g Tin - French Roast Blend,IN-100GT-FR,TRUE,700.00,700.00,0.0000,226,,453,29,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-100g-tin,Coffee - Instant - 100g Tin - Italian Roast Blend,IN-100GT-IR,TRUE,700.00,700.00,7.5000,867,,647,32,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-250g-tin,Coffee - Instant - 250g Tin - House Blend,IN-250GT-HO,TRUE,1187.50,1250.00,2.5000,122,,148,3,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-250g-tin,Coffee - Instant - 250g Tin - Light Blend,IN-250GT-LT,FALSE,1250.00,1250.00,0.0000,214,,140,0,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-250g-tin,Coffee - Instant - 250g Tin - Medium Blend,IN-250GT-MD,FALSE,1125.00,1250.00,0.0000,238,,76,2,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-250g-tin,Coffee - Instant - 250g Tin - Dark Blend,IN-250GT-DK,FALSE,1250.00,1250.00,0.0000,156,,65,16,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-250g-tin,Coffee - Instant - 250g Tin - Extra Dark Blend,IN-250GT-XD,TRUE,1250.00,1250.00,5.0000,58,,150,1,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-250g-tin,Coffee - Instant - 250g Tin - Breakfast Blend,IN-250GT-BK,FALSE,1250.00,1250.00,0.0000,248,,131,14,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-250g-tin,Coffee - Instant - 250g Tin - Pumpkin Spice Blend,IN-250GT-PK,TRUE,1250.00,1250.00,5.0000,222,,151,0,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-250g-tin,Coffee - Instant - 250g Tin - Mocha Blend,IN-250GT-MO,FALSE,1125.00,1250.00,0.0000,201,,71,5,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-250g-tin,Coffee - Instant - 250g Tin - Espresso Blend,IN-250GT-ES,TRUE,1250.00,1250.00,2.5000,183,,109,0,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-250g-tin,Coffee - Instant - 250g Tin - Vanilla Blend,IN-250GT-VA,TRUE,1250.00,1250.00,2.5000,0,,34,5,FALSE,2025-12-22 19:33:51.829+00
+coffee-instant-250g-tin,Coffee - Instant - 250g Tin - Caramel Blend,IN-250GT-CA,FALSE,1125.00,1250.00,0.0000,281,,72,14,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-250g-tin,Coffee - Instant - 250g Tin - Intense Blend,IN-250GT-IN,FALSE,1250.00,1250.00,0.0000,279,,190,16,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-250g-tin,Coffee - Instant - 250g Tin - French Roast Blend,IN-250GT-FR,FALSE,1250.00,1250.00,0.0000,121,,53,4,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-250g-tin,Coffee - Instant - 250g Tin - Italian Roast Blend,IN-250GT-IR,FALSE,1250.00,1250.00,0.0000,220,,70,3,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-500g-tin,Coffee - Instant - 500g Tin - House Blend,IN-1KGT-HO,FALSE,2250.00,2250.00,0.0000,12,,31,2,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-500g-tin,Coffee - Instant - 500g Tin - Light Blend,IN-1KGT-LT,TRUE,2250.00,2250.00,2.5000,14,,17,3,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-500g-tin,Coffee - Instant - 500g Tin - Medium Blend,IN-1KGT-MD,TRUE,2250.00,2250.00,5.0000,0,,1,1,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-500g-tin,Coffee - Instant - 500g Tin - Dark Blend,IN-1KGT-DK,FALSE,2025.00,2250.00,0.0000,93,,22,1,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-500g-tin,Coffee - Instant - 500g Tin - Extra Dark Blend,IN-1KGT-XD,FALSE,2250.00,2250.00,0.0000,82,,37,4,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-500g-tin,Coffee - Instant - 500g Tin - Breakfast Blend,IN-1KGT-BK,TRUE,2250.00,2250.00,2.5000,86,,39,4,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-500g-tin,Coffee - Instant - 500g Tin - Pumpkin Spice Blend,IN-1KGT-PK,TRUE,1912.50,2250.00,2.5000,56,,8,0,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-500g-tin,Coffee - Instant - 500g Tin - Mocha Blend,IN-1KGT-MO,FALSE,2250.00,2250.00,0.0000,23,,12,4,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-500g-tin,Coffee - Instant - 500g Tin - Espresso Blend,IN-1KGT-ES,TRUE,2025.00,2250.00,5.0000,30,,24,2,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-500g-tin,Coffee - Instant - 500g Tin - Vanilla Blend,IN-1KGT-VA,FALSE,2025.00,2250.00,0.0000,53,,31,3,FALSE,2025-12-22 19:33:51.829+00
+coffee-instant-500g-tin,Coffee - Instant - 500g Tin - Caramel Blend,IN-1KGT-CA,FALSE,2250.00,2250.00,0.0000,2,,21,4,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-500g-tin,Coffee - Instant - 500g Tin - Intense Blend,IN-1KGT-IN,FALSE,2250.00,2250.00,0.0000,77,,25,1,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-500g-tin,Coffee - Instant - 500g Tin - French Roast Blend,IN-1KGT-FR,TRUE,2250.00,2250.00,2.5000,79,,28,4,TRUE,2025-12-22 19:33:51.829+00
+coffee-instant-500g-tin,Coffee - Instant - 500g Tin - Italian Roast Blend,IN-1KGT-IR,FALSE,2137.50,2250.00,0.0000,59,,17,1,TRUE,2025-12-22 19:33:51.829+00
+coffee-pods-10-pack,Coffee - Pods - 10 Pack - House Blend,PO-10PK-HO,TRUE,540.00,600.00,2.5000,765,,719,39,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-10-pack,Coffee - Pods - 10 Pack - Light Blend,PO-10PK-LT,TRUE,600.00,600.00,5.0000,598,,981,22,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-10-pack,Coffee - Pods - 10 Pack - Medium Blend,PO-10PK-MD,FALSE,600.00,600.00,0.0000,679,,750,16,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-10-pack,Coffee - Pods - 10 Pack - Dark Blend,PO-10PK-DK,FALSE,570.00,600.00,0.0000,269,,269,13,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-10-pack,Coffee - Pods - 10 Pack - Extra Dark Blend,PO-10PK-XD,TRUE,600.00,600.00,2.5000,644,,421,15,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-10-pack,Coffee - Pods - 10 Pack - Breakfast Blend,PO-10PK-BK,TRUE,600.00,600.00,2.5000,455,,436,26,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-10-pack,Coffee - Pods - 10 Pack - Pumpkin Spice Blend,PO-10PK-PK,FALSE,600.00,600.00,0.0000,927,,472,7,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-10-pack,Coffee - Pods - 10 Pack - Mocha Blend,PO-10PK-MO,FALSE,600.00,600.00,0.0000,29,,281,9,FALSE,2025-12-21 14:48:02.120+00
+coffee-pods-10-pack,Coffee - Pods - 10 Pack - Espresso Blend,PO-10PK-ES,FALSE,540.00,600.00,0.0000,162,,513,19,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-10-pack,Coffee - Pods - 10 Pack - Vanilla Blend,PO-10PK-VA,TRUE,540.00,600.00,5.0000,666,,263,2,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-10-pack,Coffee - Pods - 10 Pack - Caramel Blend,PO-10PK-CA,TRUE,600.00,600.00,2.5000,226,,714,27,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-10-pack,Coffee - Pods - 10 Pack - Intense Blend,PO-10PK-IN,FALSE,600.00,600.00,0.0000,0,,838,10,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-10-pack,Coffee - Pods - 10 Pack - French Roast Blend,PO-10PK-FR,TRUE,570.00,600.00,7.5000,137,,294,15,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-10-pack,Coffee - Pods - 10 Pack - Italian Roast Blend,PO-10PK-IR,TRUE,600.00,600.00,5.0000,353,,554,28,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-25-pack,Coffee - Pods - 25 Pack - House Blend,PO-25PK-HO,FALSE,1400.00,1400.00,0.0000,193,,302,12,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-25-pack,Coffee - Pods - 25 Pack - Light Blend,PO-25PK-LT,TRUE,1260.00,1400.00,2.5000,318,,66,2,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-25-pack,Coffee - Pods - 25 Pack - Medium Blend,PO-25PK-MD,FALSE,1400.00,1400.00,0.0000,22,,434,18,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-25-pack,Coffee - Pods - 25 Pack - Dark Blend,PO-25PK-DK,TRUE,1330.00,1400.00,2.5000,156,,490,13,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-25-pack,Coffee - Pods - 25 Pack - Extra Dark Blend,PO-25PK-XD,TRUE,1400.00,1400.00,2.5000,232,,189,19,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-25-pack,Coffee - Pods - 25 Pack - Breakfast Blend,PO-25PK-BK,FALSE,1190.00,1400.00,0.0000,269,,346,18,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-25-pack,Coffee - Pods - 25 Pack - Pumpkin Spice Blend,PO-25PK-PK,TRUE,1400.00,1400.00,5.0000,382,,424,17,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-25-pack,Coffee - Pods - 25 Pack - Mocha Blend,PO-25PK-MO,FALSE,1400.00,1400.00,0.0000,60,,292,19,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-25-pack,Coffee - Pods - 25 Pack - Espresso Blend,PO-25PK-ES,TRUE,1400.00,1400.00,2.5000,331,,423,17,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-25-pack,Coffee - Pods - 25 Pack - Vanilla Blend,PO-25PK-VA,FALSE,1260.00,1400.00,0.0000,4,,64,17,FALSE,2025-12-21 14:48:02.120+00
+coffee-pods-25-pack,Coffee - Pods - 25 Pack - Caramel Blend,PO-25PK-CA,FALSE,1400.00,1400.00,0.0000,373,,258,4,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-25-pack,Coffee - Pods - 25 Pack - Intense Blend,PO-25PK-IN,TRUE,1400.00,1400.00,5.0000,311,,209,2,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-25-pack,Coffee - Pods - 25 Pack - French Roast Blend,PO-25PK-FR,FALSE,1330.00,1400.00,0.0000,0,,347,8,TRUE,2025-12-21 14:48:02.120+00
+coffee-pods-25-pack,Coffee - Pods - 25 Pack - Italian Roast Blend,PO-25PK-IR,FALSE,1400.00,1400.00,0.0000,198,,222,22,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-50-pack,Coffee - Pods - 50 Pack - House Blend,PO-50PK-HO,TRUE,2700.00,2700.00,5.0000,152,,139,15,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-50-pack,Coffee - Pods - 50 Pack - Light Blend,PO-50PK-LT,TRUE,2430.00,2700.00,2.5000,186,,80,3,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-50-pack,Coffee - Pods - 50 Pack - Medium Blend,PO-50PK-MD,TRUE,2565.00,2700.00,2.5000,92,,171,9,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-50-pack,Coffee - Pods - 50 Pack - Dark Blend,PO-50PK-DK,FALSE,2700.00,2700.00,0.0000,93,,191,14,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-50-pack,Coffee - Pods - 50 Pack - Extra Dark Blend,PO-50PK-XD,TRUE,2700.00,2700.00,10.0000,183,,195,3,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-50-pack,Coffee - Pods - 50 Pack - Breakfast Blend,PO-50PK-BK,FALSE,2700.00,2700.00,0.0000,154,,102,4,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-50-pack,Coffee - Pods - 50 Pack - Pumpkin Spice Blend,PO-50PK-PK,TRUE,2430.00,2700.00,5.0000,58,,41,3,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-50-pack,Coffee - Pods - 50 Pack - Mocha Blend,PO-50PK-MO,TRUE,2700.00,2700.00,2.5000,168,,38,9,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-50-pack,Coffee - Pods - 50 Pack - Espresso Blend,PO-50PK-ES,FALSE,2700.00,2700.00,0.0000,164,,112,4,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-50-pack,Coffee - Pods - 50 Pack - Vanilla Blend,PO-50PK-VA,FALSE,2700.00,2700.00,0.0000,186,,105,0,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-50-pack,Coffee - Pods - 50 Pack - Caramel Blend,PO-50PK-CA,TRUE,2430.00,2700.00,2.5000,128,,111,7,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-50-pack,Coffee - Pods - 50 Pack - Intense Blend,PO-50PK-IN,TRUE,2565.00,2700.00,5.0000,3,,188,13,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-50-pack,Coffee - Pods - 50 Pack - French Roast Blend,PO-50PK-FR,FALSE,2700.00,2700.00,0.0000,151,,127,8,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-50-pack,Coffee - Pods - 50 Pack - Italian Roast Blend,PO-50PK-IR,FALSE,2700.00,2700.00,0.0000,4,,109,8,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-100-pack,Coffee - Pods - 100 Pack - House Blend,PO-100PK-HO,TRUE,4500.00,5000.00,2.5000,21,,39,1,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-100-pack,Coffee - Pods - 100 Pack - Light Blend,PO-100PK-LT,TRUE,5000.00,5000.00,2.5000,32,,54,0,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-100-pack,Coffee - Pods - 100 Pack - Medium Blend,PO-100PK-MD,FALSE,4750.00,5000.00,0.0000,30,,39,3,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-100-pack,Coffee - Pods - 100 Pack - Dark Blend,PO-100PK-DK,TRUE,4750.00,5000.00,7.5000,35,,31,0,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-100-pack,Coffee - Pods - 100 Pack - Extra Dark Blend,PO-100PK-XD,FALSE,5000.00,5000.00,0.0000,47,,60,6,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-100-pack,Coffee - Pods - 100 Pack - Breakfast Blend,PO-100PK-BK,TRUE,4000.00,5000.00,2.5000,32,,12,2,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-100-pack,Coffee - Pods - 100 Pack - Pumpkin Spice Blend,PO-100PK-PK,TRUE,5000.00,5000.00,2.5000,25,,41,5,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-100-pack,Coffee - Pods - 100 Pack - Mocha Blend,PO-100PK-MO,TRUE,4750.00,5000.00,2.5000,0,,52,6,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-100-pack,Coffee - Pods - 100 Pack - Espresso Blend,PO-100PK-ES,TRUE,5000.00,5000.00,5.0000,42,,64,5,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-100-pack,Coffee - Pods - 100 Pack - Vanilla Blend,PO-100PK-VA,TRUE,4500.00,5000.00,5.0000,9,,75,4,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-100-pack,Coffee - Pods - 100 Pack - Caramel Blend,PO-100PK-CA,TRUE,5000.00,5000.00,2.5000,25,,67,0,FALSE,2025-12-21 14:48:02.121+00
+coffee-pods-100-pack,Coffee - Pods - 100 Pack - Intense Blend,PO-100PK-IN,TRUE,5000.00,5000.00,2.5000,9,,15,2,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-100-pack,Coffee - Pods - 100 Pack - French Roast Blend,PO-100PK-FR,TRUE,5000.00,5000.00,5.0000,49,,62,6,TRUE,2025-12-21 14:48:02.121+00
+coffee-pods-100-pack,Coffee - Pods - 100 Pack - Italian Roast Blend,PO-100PK-IR,FALSE,4750.00,5000.00,0.0000,10,,18,1,TRUE,2025-12-21 14:48:02.121+00
+coffee-cold-brew-concentrate-10-servings,Coffee - Cold Brew Concentrate - 10 Servings - House Blend,CB-CO-10S-HO,TRUE,1200.00,1200.00,2.5000,375,,223,20,TRUE,2025-12-22 20:15:04.187+00
+coffee-cold-brew-concentrate-10-servings,Coffee - Cold Brew Concentrate - 10 Servings - Light Blend,CB-CO-10S-LT,FALSE,1080.00,1200.00,0.0000,426,,306,12,TRUE,2025-12-22 20:15:04.187+00
+coffee-cold-brew-concentrate-10-servings,Coffee - Cold Brew Concentrate - 10 Servings - Medium Blend,CB-CO-10S-MD,TRUE,1140.00,1200.00,5.0000,430,,277,20,TRUE,2025-12-22 20:15:04.187+00
+coffee-cold-brew-concentrate-10-servings,Coffee - Cold Brew Concentrate - 10 Servings - Dark Blend,CB-CO-10S-DK,TRUE,1200.00,1200.00,2.5000,449,,108,7,TRUE,2025-12-22 20:15:04.187+00
+coffee-cold-brew-concentrate-25-servings,Coffee - Cold Brew Concentrate - 25 Servings - House Blend,CB-CO-25S-HO,FALSE,2500.00,2500.00,0.0000,140,,29,4,TRUE,2025-12-22 20:15:04.187+00
+coffee-cold-brew-concentrate-25-servings,Coffee - Cold Brew Concentrate - 25 Servings - Light Blend,CB-CO-25S-LT,FALSE,2500.00,2500.00,0.0000,35,,121,6,TRUE,2025-12-22 20:15:04.187+00
+coffee-cold-brew-concentrate-25-servings,Coffee - Cold Brew Concentrate - 25 Servings - Medium Blend,CB-CO-25S-MD,FALSE,2250.00,2500.00,0.0000,139,,163,9,TRUE,2025-12-22 20:15:04.187+00
+coffee-cold-brew-concentrate-25-servings,Coffee - Cold Brew Concentrate - 25 Servings - Dark Blend,CB-CO-25S-DK,TRUE,2500.00,2500.00,5.0000,75,,51,12,TRUE,2025-12-22 20:15:04.187+00
+coffee-cold-brew-concentrate-50-servings,Coffee - Cold Brew Concentrate - 50 Servings - House Blend,CB-CO-50S-HO,TRUE,4000.00,4000.00,2.5000,46,,73,5,TRUE,2025-12-22 20:15:04.187+00
+coffee-cold-brew-concentrate-50-servings,Coffee - Cold Brew Concentrate - 50 Servings - Light Blend,CB-CO-50S-LT,FALSE,3400.00,4000.00,0.0000,20,,33,4,TRUE,2025-12-22 20:15:04.187+00
+coffee-cold-brew-concentrate-50-servings,Coffee - Cold Brew Concentrate - 50 Servings - Medium Blend,CB-CO-50S-MD,TRUE,3600.00,4000.00,2.5000,13,,26,4,TRUE,2025-12-22 20:15:04.187+00
+coffee-cold-brew-concentrate-50-servings,Coffee - Cold Brew Concentrate - 50 Servings - Dark Blend,CB-CO-50S-DK,FALSE,3800.00,4000.00,0.0000,49,,11,3,TRUE,2025-12-22 20:15:04.187+00
+coffee-iced-cans-4-pack,Coffee - Iced Cans - 4 Pack - Mocha Blend,CB-CA-4PK-MO,TRUE,720.00,800.00,5.0000,46,,110,11,TRUE,2025-12-23 21:57:17.873+00
+coffee-iced-cans-4-pack,Coffee - Iced Cans - 4 Pack - Black Blend,CB-CA-4PK-BL,FALSE,800.00,800.00,0.0000,0,,134,6,TRUE,2025-12-23 21:57:17.874+00
+coffee-iced-cans-4-pack,Coffee - Iced Cans - 4 Pack - Flat White,CB-CA-4PK-FW,TRUE,720.00,800.00,2.5000,74,,78,13,TRUE,2025-12-23 21:57:17.874+00
+coffee-iced-cans-4-pack,Coffee - Iced Cans - 4 Pack - Oat Latte,CB-CA-4PK-OL,FALSE,720.00,800.00,0.0000,118,,113,12,TRUE,2025-12-23 21:57:17.874+00
+coffee-iced-cans-4-pack,Coffee - Iced Cans - 4 Pack - Caramel Latte,CB-CA-4PK-CL,FALSE,800.00,800.00,0.0000,29,,181,24,TRUE,2025-12-23 21:57:17.874+00
+coffee-iced-cans-8-pack,Coffee - Iced Cans - 8 Pack - Mocha Blend,CB-CA-8PK-MO,TRUE,1500.00,1500.00,5.0000,13,,94,5,TRUE,2025-12-23 21:57:17.874+00
+coffee-iced-cans-8-pack,Coffee - Iced Cans - 8 Pack - Black Blend,CB-CA-8PK-BL,FALSE,1350.00,1500.00,0.0000,19,,32,0,TRUE,2025-12-23 21:57:17.874+00
+coffee-iced-cans-8-pack,Coffee - Iced Cans - 8 Pack - Flat White,CB-CA-8PK-FW,TRUE,1425.00,1500.00,2.5000,26,,38,3,TRUE,2025-12-23 21:57:17.874+00
+coffee-iced-cans-8-pack,Coffee - Iced Cans - 8 Pack - Oat Latte,CB-CA-8PK-OL,TRUE,1500.00,1500.00,7.5000,0,,47,0,TRUE,2025-12-23 21:57:17.874+00
+coffee-iced-cans-8-pack,Coffee - Iced Cans - 8 Pack - Caramel Latte,CB-CA-8PK-CL,FALSE,1500.00,1500.00,0.0000,23,,34,1,TRUE,2025-12-23 21:57:17.874+00
+coffee-iced-cans-16-pack,Coffee - Iced Cans - 16 Pack - Mocha Blend,CB-CA-16PK-MO,TRUE,2430.00,2700.00,5.0000,17,,19,4,TRUE,2025-12-23 21:57:17.874+00
+coffee-iced-cans-16-pack,Coffee - Iced Cans - 16 Pack - Black Blend,CB-CA-16PK-BL,FALSE,2700.00,2700.00,0.0000,17,,35,4,TRUE,2025-12-23 21:57:17.874+00
+coffee-iced-cans-16-pack,Coffee - Iced Cans - 16 Pack - Flat White,CB-CA-16PK-FW,TRUE,2285.00,2700.00,2.5000,12,,20,0,TRUE,2025-12-23 21:57:17.874+00
+coffee-iced-cans-16-pack,Coffee - Iced Cans - 16 Pack - Oat Latte,CB-CA-16PK-OL,TRUE,2700.00,2700.00,2.5000,18,,16,4,TRUE,2025-12-23 21:57:17.874+00
+coffee-iced-cans-16-pack,Coffee - Iced Cans - 16 Pack - Caramel Latte,CB-CA-16PK-CL,FALSE,2700.00,2700.00,0.0000,7,,29,1,TRUE,2025-12-23 21:57:17.874+00
+coffee-iced-cans-32-pack,Coffee - Iced Cans - 32 Pack - Mocha Blend,CB-CA-32PK-MO,TRUE,4590.00,5100.00,5.0000,4,,4,1,TRUE,2025-12-23 21:57:17.874+00
+coffee-iced-cans-32-pack,Coffee - Iced Cans - 32 Pack - Black Blend,CB-CA-32PK-BL,TRUE,5100.00,5100.00,2.5000,5,,15,1,TRUE,2025-12-23 21:57:17.874+00
+coffee-iced-cans-32-pack,Coffee - Iced Cans - 32 Pack - Flat White,CB-CA-32PK-FW,FALSE,4845.00,5100.00,0.0000,0,,18,1,TRUE,2025-12-23 21:57:17.874+00
+coffee-iced-cans-32-pack,Coffee - Iced Cans - 32 Pack - Oat Latte,CB-CA-32PK-OL,TRUE,4845.00,5100.00,2.5000,5,,16,0,FALSE,2025-12-23 21:57:17.874+00
+coffee-iced-cans-32-pack,Coffee - Iced Cans - 32 Pack - Caramel Latte,CB-CA-32PK-CL,FALSE,5100.00,5100.00,0.0000,2,,12,1,TRUE,2025-12-23 21:57:17.874+00
+tea-loose-leaf-100g-bag,Tea - Loose Leaf - 100g Bag - Black Blend,LL-100GB-BL,FALSE,750.00,750.00,0.0000,372,,114,2,TRUE,2025-12-24 20:25:04.080+00
+tea-loose-leaf-100g-bag,Tea - Loose Leaf - 100g Bag - Earl Grey Blend,LL-100GB-EG,TRUE,750.00,750.00,2.5000,286,,360,11,TRUE,2025-12-24 20:25:04.080+00
+tea-loose-leaf-100g-bag,Tea - Loose Leaf - 100g Bag - English Breakfast Blend,LL-100GB-EB,FALSE,675.00,750.00,0.0000,391,,260,11,TRUE,2025-12-24 20:25:04.080+00
+tea-loose-leaf-100g-bag,Tea - Loose Leaf - 100g Bag - Green Blend,LL-100GB-GR,FALSE,750.00,750.00,0.0000,193,,293,13,TRUE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-100g-bag,Tea - Loose Leaf - 100g Bag - Jasmine Blend,LL-100GB-JA,FALSE,750.00,750.00,0.0000,355,,315,7,TRUE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-100g-bag,Tea - Loose Leaf - 100g Bag - Chamomile Blend,LL-100GB-CH,TRUE,675.00,750.00,5.0000,92,,371,8,TRUE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-100g-bag,Tea - Loose Leaf - 100g Bag - Oolong Blend,LL-100GB-OO,FALSE,675.00,750.00,0.0000,406,,172,3,TRUE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-100g-bag,Tea - Loose Leaf - 100g Bag - Herbal Blend,LL-100GB-HE,TRUE,750.00,750.00,2.5000,375,,226,22,FALSE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-100g-bag,Tea - Loose Leaf - 100g Bag - Peppermint Blend,LL-100GB-PE,FALSE,712.50,750.00,0.0000,308,,295,3,TRUE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-100g-bag,Tea - Loose Leaf - 100g Bag - Ginger & Lemon Blend,LL-100GB-GL,FALSE,750.00,750.00,0.0000,493,,134,25,TRUE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-250g-bag,Tea - Loose Leaf - 250g Bag - Black Blend,LL-250GB-BL,FALSE,1360.00,1600.00,0.0000,59,,104,0,TRUE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-250g-bag,Tea - Loose Leaf - 250g Bag - Earl Grey Blend,LL-250GB-EG,TRUE,1440.00,1600.00,7.5000,21,,109,11,TRUE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-250g-bag,Tea - Loose Leaf - 250g Bag - English Breakfast Blend,LL-250GB-EB,FALSE,1600.00,1600.00,0.0000,0,,116,10,TRUE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-250g-bag,Tea - Loose Leaf - 250g Bag - Green Blend,LL-250GB-GR,TRUE,1600.00,1600.00,2.5000,47,,58,1,TRUE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-250g-bag,Tea - Loose Leaf - 250g Bag - Jasmine Blend,LL-250GB-JA,FALSE,1520.00,1600.00,0.0000,93,,70,9,TRUE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-250g-bag,Tea - Loose Leaf - 250g Bag - Chamomile Blend,LL-250GB-CH,TRUE,1600.00,1600.00,2.5000,221,,117,7,TRUE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-250g-bag,Tea - Loose Leaf - 250g Bag - Oolong Blend,LL-250GB-OO,TRUE,1440.00,1600.00,2.5000,46,,82,9,TRUE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-250g-bag,Tea - Loose Leaf - 250g Bag - Herbal Blend,LL-250GB-HE,FALSE,1600.00,1600.00,0.0000,197,,54,7,TRUE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-250g-bag,Tea - Loose Leaf - 250g Bag - Peppermint Blend,LL-250GB-PE,TRUE,1520.00,1600.00,0.0000,200,,65,3,TRUE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-250g-bag,Tea - Loose Leaf - 250g Bag - Ginger & Lemon Blend,LL-250GB-GL,FALSE,1600.00,1600.00,0.0000,155,,106,7,TRUE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-500g-bag,Tea - Loose Leaf - 500g Bag - Black Blend,LL-500GB-BL,FALSE,3000.00,3000.00,0.0000,66,,0,0,TRUE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-500g-bag,Tea - Loose Leaf - 500g Bag - Earl Grey Blend,LL-500GB-EG,TRUE,2700.00,3000.00,5.0000,62,,6,1,TRUE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-500g-bag,Tea - Loose Leaf - 500g Bag - English Breakfast Blend,LL-500GB-EB,TRUE,3000.00,3000.00,2.5000,42,,3,0,TRUE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-500g-bag,Tea - Loose Leaf - 500g Bag - Green Blend,LL-500GB-GR,FALSE,3000.00,3000.00,0.0000,35,,28,10,TRUE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-500g-bag,Tea - Loose Leaf - 500g Bag - Jasmine Blend,LL-500GB-JA,FALSE,3000.00,3000.00,0.0000,24,,16,8,TRUE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-500g-bag,Tea - Loose Leaf - 500g Bag - Chamomile Blend,LL-500GB-CH,FALSE,2700.00,3000.00,0.0000,54,,39,7,TRUE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-500g-bag,Tea - Loose Leaf - 500g Bag - Oolong Blend,LL-500GB-OO,TRUE,3000.00,3000.00,2.5000,22,,3,8,TRUE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-500g-bag,Tea - Loose Leaf - 500g Bag - Herbal Blend,LL-500GB-HE,FALSE,2850.00,3000.00,0.0000,0,,35,2,TRUE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-500g-bag,Tea - Loose Leaf - 500g Bag - Peppermint Blend,LL-500GB-PE,TRUE,2550.00,3000.00,5.0000,7,,2,1,FALSE,2025-12-24 20:25:04.081+00
+tea-loose-leaf-500g-bag,Tea - Loose Leaf - 500g Bag - Ginger & Lemon Blend,LL-500GB-GL,FALSE,3000.00,3000.00,0.0000,58,,28,6,TRUE,2025-12-24 20:25:04.081+00
+tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Black Blend,BG-25BX-BL,TRUE,700.00,700.00,2.5000,64,,405,22,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Earl Grey Blend,BG-25BX-EG,FALSE,630.00,700.00,0.0000,528,,292,2,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-25-box,Tea - Loose Leaf - Box of 25 - English Breakfast Blend,BG-25BX-EB,FALSE,630.00,700.00,0.0000,424,,263,2,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Green Blend,BG-25BX-GR,TRUE,700.00,700.00,5.0000,160,,292,3,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Jasmine Blend,BG-25BX-JA,FALSE,700.00,700.00,0.0000,261,,340,17,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Chamomile Blend,BG-25BX-CH,TRUE,665.00,700.00,2.5000,333,,433,23,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Oolong Blend,BG-25BX-OO,FALSE,700.00,700.00,0.0000,720,,432,11,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Herbal Blend,BG-25BX-HE,FALSE,700.00,700.00,0.0000,210,,278,17,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Peppermint Blend,BG-25BX-PE,FALSE,630.00,700.00,0.0000,490,,225,7,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Ginger & Lemon Blend,BG-25BX-GL,FALSE,700.00,700.00,0.0000,336,,118,18,FALSE,2025-12-26 13:23:15.407+00
+tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Black Blend,BG-50BX-BL,TRUE,1250.00,1250.00,7.5000,80,,155,3,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Earl Grey Blend,BG-50BX-EG,FALSE,1250.00,1250.00,0.0000,106,,164,5,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-50-box,Tea - Loose Leaf - Box of 50 - English Breakfast Blend,BG-50BX-EB,TRUE,1187.50,1250.00,5.0000,0,,106,8,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Green Blend,BG-50BX-GR,TRUE,1250.00,1250.00,2.5000,239,,120,4,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Jasmine Blend,BG-50BX-JA,FALSE,1125.00,1250.00,0.0000,50,,219,0,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Chamomile Blend,BG-50BX-CH,FALSE,1250.00,1250.00,0.0000,69,,103,10,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Oolong Blend,BG-50BX-OO,TRUE,1187.50,1250.00,2.5000,126,,125,0,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Herbal Blend,BG-50BX-HE,TRUE,1187.50,1250.00,2.5000,200,,219,5,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Peppermint Blend,BG-50BX-PE,TRUE,1250.00,1250.00,5.0000,44,,182,0,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Ginger & Lemon Blend,BG-50BX-GL,FALSE,1125.00,1250.00,0.0000,79,,61,4,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Black Blend,BG-100BX-BL,FALSE,2400.00,2400.00,0.0000,0,,50,4,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Earl Grey Blend,BG-100BX-EG,FALSE,2160.00,2400.00,0.0000,90,,19,4,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-100-box,Tea - Loose Leaf - Box of 100 - English Breakfast Blend,BG-100BX-EB,FALSE,2400.00,2400.00,0.0000,79,,33,4,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Green Blend,BG-100BX-GR,TRUE,2400.00,2400.00,2.5000,62,,2,1,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Jasmine Blend,BG-100BX-JA,FALSE,2280.00,2400.00,0.0000,74,,50,0,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Chamomile Blend,BG-100BX-CH,FALSE,2400.00,2400.00,0.0000,30,,30,2,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Oolong Blend,BG-100BX-OO,TRUE,2160.00,2400.00,5.0000,21,,54,5,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Herbal Blend,BG-100BX-HE,TRUE,2160.00,2400.00,2.5000,77,,78,5,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Peppermint Blend,BG-100BX-PE,FALSE,2400.00,2400.00,0.0000,64,,54,5,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Ginger & Lemon Blend,BG-100BX-GL,FALSE,2400.00,2400.00,0.0000,97,,34,3,TRUE,2025-12-26 13:23:15.407+00
+tea-powdered-250g-tub,Tea - Powdered - 250g Tub - Black Blend,PW-250GT-BL,TRUE,650.00,650.00,7.5000,188,,234,15,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-250g-tub,Tea - Powdered - 250g Tub - Earl Grey Blend,PW-250GT-EG,TRUE,585.00,650.00,2.5000,579,,141,13,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-250g-tub,Tea - Powdered - 250g Tub - English Breakfast Blend,PW-250GT-EB,FALSE,650.00,650.00,0.0000,178,,211,8,FALSE,2025-12-26 13:53:57.246+00
+tea-powdered-250g-tub,Tea - Powdered - 250g Tub - Green Blend,PW-250GT-GR,TRUE,650.00,650.00,2.5000,35,,379,13,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-250g-tub,Tea - Powdered - 250g Tub - Jasmine Blend,PW-250GT-JA,TRUE,650.00,650.00,2.5000,57,,377,0,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-250g-tub,Tea - Powdered - 250g Tub - Chamomile Blend,PW-250GT-CH,FALSE,650.00,650.00,0.0000,256,,441,6,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-250g-tub,Tea - Powdered - 250g Tub - Oolong Blend,PW-250GT-OO,FALSE,585.00,650.00,0.0000,654,,259,14,FALSE,2025-12-26 13:53:57.246+00
+tea-powdered-250g-tub,Tea - Powdered - 250g Tub - Herbal Blend,PW-250GT-HE,FALSE,650.00,650.00,0.0000,443,,383,9,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-250g-tub,Tea - Powdered - 250g Tub - Peppermint Blend,PW-250GT-PE,FALSE,650.00,650.00,0.0000,189,,468,5,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-250g-tub,Tea - Powdered - 250g Tub - Ginger & Lemon Blend,PW-250GT-GL,TRUE,650.00,650.00,2.5000,278,,397,10,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-500g-tub,Tea - Powdered - 500g Tub - Black Blend,PW-500GT-BL,TRUE,1200.00,1200.00,5.0000,112,,127,0,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-500g-tub,Tea - Powdered - 500g Tub - Earl Grey Blend,PW-500GT-EG,FALSE,1200.00,1200.00,0.0000,6,,161,7,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-500g-tub,Tea - Powdered - 500g Tub - English Breakfast Blend,PW-500GT-EB,TRUE,1200.00,1200.00,5.0000,208,,99,1,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-500g-tub,Tea - Powdered - 500g Tub - Green Blend,PW-500GT-GR,FALSE,1200.00,1200.00,0.0000,168,,93,6,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-500g-tub,Tea - Powdered - 500g Tub - Jasmine Blend,PW-500GT-JA,TRUE,1200.00,1200.00,2.5000,22,,106,0,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-500g-tub,Tea - Powdered - 500g Tub - Chamomile Blend,PW-500GT-CH,FALSE,1200.00,1200.00,0.0000,28,,94,0,FALSE,2025-12-26 13:53:57.246+00
+tea-powdered-500g-tub,Tea - Powdered - 500g Tub - Oolong Blend,PW-500GT-OO,FALSE,1200.00,1200.00,0.0000,0,,149,5,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-500g-tub,Tea - Powdered - 500g Tub - Herbal Blend,PW-500GT-HE,FALSE,1200.00,1200.00,0.0000,24,,138,5,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-500g-tub,Tea - Powdered - 500g Tub - Peppermint Blend,PW-500GT-PE,TRUE,1200.00,1200.00,2.5000,224,,152,5,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-500g-tub,Tea - Powdered - 500g Tub - Ginger & Lemon Blend,PW-500GT-GL,TRUE,1200.00,1200.00,5.0000,19,,180,2,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-1kg-tub,Tea - Powdered - 1kg Tub - Black Blend,PW-1KGT-BL,FALSE,2300.00,2300.00,0.0000,82,,25,2,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-1kg-tub,Tea - Powdered - 1kg Tub - Earl Grey Blend,PW-1KGT-EG,FALSE,2300.00,2300.00,0.0000,33,,30,2,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-1kg-tub,Tea - Powdered - 1kg Tub - English Breakfast Blend,PW-1KGT-EB,TRUE,2300.00,2300.00,2.5000,85,,50,4,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-1kg-tub,Tea - Powdered - 1kg Tub - Green Blend,PW-1KGT-GR,FALSE,2070.00,2300.00,0.0000,44,,18,5,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-1kg-tub,Tea - Powdered - 1kg Tub - Jasmine Blend,PW-1KGT-JA,TRUE,2300.00,2300.00,2.5000,30,,22,3,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-1kg-tub,Tea - Powdered - 1kg Tub - Chamomile Blend,PW-1KGT-CH,FALSE,2185.00,2300.00,0.0000,0,,23,4,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-1kg-tub,Tea - Powdered - 1kg Tub - Oolong Blend,PW-1KGT-OO,FALSE,2300.00,2300.00,0.0000,1,,7,0,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-1kg-tub,Tea - Powdered - 1kg Tub - Herbal Blend,PW-1KGT-HE,FALSE,2070.00,2300.00,0.0000,75,,2,0,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-1kg-tub,Tea - Powdered - 1kg Tub - Peppermint Blend,PW-1KGT-PE,FALSE,2300.00,2300.00,0.0000,79,,12,1,TRUE,2025-12-26 13:53:57.246+00
+tea-powdered-1kg-tub,Tea - Powdered - 1kg Tub - Ginger & Lemon Blend,PW-1KGT-GL,TRUE,2300.00,2300.00,2.5000,68,,14,0,TRUE,2025-12-26 13:53:57.246+00
+tea-matcha-25g-tub,Tea - Powdered - 25g Tub - Matcha,PW-25GT-MA,FALSE,1800.00,1800.00,0.0000,489,,827,2,TRUE,2025-12-26 14:42:10.892+00
+tea-matcha-50g-tub,Tea - Powdered - 50g Tub - Matcha,PW-50GT-MA,FALSE,3300.00,3300.00,0.0000,178,,230,0,TRUE,2025-12-26 14:42:10.892+00
+tea-matcha-100g-tub,Tea - Powdered - 100g Tub - Matcha,PW-100GT-MA,FALSE,6000.00,6000.00,0.0000,74,,89,0,TRUE,2025-12-26 14:42:10.892+00
+tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Peach Flavour,RTD-IC-4PK-PE,FALSE,750.00,750.00,0.0000,514,,635,16,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Blood Orange Flavour,RTD-IC-4PK-BO,TRUE,750.00,750.00,2.5000,455,,437,4,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Lemon Flavour,RTD-IC-4PK-LE,FALSE,750.00,750.00,0.0000,0,,914,6,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Elderflower & Apple Flavour,RTD-IC-4PK-EA,FALSE,750.00,750.00,0.0000,193,,875,3,FALSE,2025-12-27 23:01:45.468+00
+tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Raspberry Lemonade Flavour,RTD-IC-4PK-RL,TRUE,750.00,750.00,5.0000,9,,423,5,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Lychee Flavour,RTD-IC-4PK-LY,FALSE,750.00,750.00,0.0000,187,,910,9,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Cranberry Flavour,RTD-IC-4PK-CR,TRUE,750.00,750.00,2.5000,222,,255,16,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Mango & Passionfruit Flavour,RTD-IC-4PK-MP,FALSE,750.00,750.00,0.0000,472,,842,16,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Summer Fruits Flavour,RTD-IC-4PK-SF,FALSE,750.00,750.00,0.0000,754,,159,1,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-4-pack,Tea - Iced Cans - 4 Pack - Pineapple Flavour,RTD-IC-4PK-PI,FALSE,750.00,750.00,0.0000,219,,801,2,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Peach Flavour,RTD-IC-8PK-PE,FALSE,1400.00,1400.00,0.0000,38,,276,12,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Blood Orange Flavour,RTD-IC-8PK-BO,FALSE,1400.00,1400.00,0.0000,71,,156,15,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Lemon Flavour,RTD-IC-8PK-LE,TRUE,1260.00,1400.00,5.0000,5,,207,7,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Elderflower & Apple Flavour,RTD-IC-8PK-EA,TRUE,1400.00,1400.00,2.5000,364,,95,7,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Raspberry Lemonade Flavour,RTD-IC-8PK-RL,FALSE,1400.00,1400.00,0.0000,103,,400,10,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Lychee Flavour,RTD-IC-8PK-LY,TRUE,1400.00,1400.00,2.5000,154,,88,4,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Cranberry Flavour,RTD-IC-8PK-CR,FALSE,1330.00,1400.00,0.0000,243,,281,9,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Mango & Passionfruit Flavour,RTD-IC-8PK-MP,TRUE,1260.00,1400.00,2.5000,364,,334,0,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Summer Fruits Flavour,RTD-IC-8PK-SF,FALSE,1400.00,1400.00,0.0000,0,,120,14,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-8-pack,Tea - Iced Cans - 8 Pack - Pineapple Flavour,RTD-IC-8PK-PI,FALSE,1400.00,1400.00,0.0000,385,,265,7,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Peach Flavour,RTD-IC-16PK-PE,FALSE,2500.00,2500.00,0.0000,33,,75,10,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Blood Orange Flavour,RTD-IC-16PK-BO,FALSE,2125.00,2500.00,0.0000,18,,184,8,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Lemon Flavour,RTD-IC-16PK-LE,FALSE,2250.00,2500.00,0.0000,29,,110,3,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Elderflower & Apple Flavour,RTD-IC-16PK-EA,TRUE,2500.00,2500.00,2.5000,28,,77,8,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Raspberry Lemonade Flavour,RTD-IC-16PK-RL,TRUE,2500.00,2500.00,10.0000,14,,173,3,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Lychee Flavour,RTD-IC-16PK-LY,FALSE,2375.00,2500.00,0.0000,74,,169,9,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Cranberry Flavour,RTD-IC-16PK-CR,TRUE,2375.00,2500.00,5.0000,21,,165,4,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Mango & Passionfruit Flavour,RTD-IC-16PK-MP,TRUE,2500.00,2500.00,2.5000,52,,54,10,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Summer Fruits Flavour,RTD-IC-16PK-SF,FALSE,2500.00,2500.00,0.0000,21,,124,3,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-16-pack,Tea - Iced Cans - 16 Pack - Pineapple Flavour,RTD-IC-16PK-PI,FALSE,2500.00,2500.00,0.0000,40,,151,5,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Peach Flavour,RTD-IC-32PK-PE,TRUE,4500.00,4500.00,7.5000,34,,47,2,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Blood Orange Flavour,RTD-IC-32PK-BO,TRUE,4500.00,4500.00,5.0000,23,,26,2,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Lemon Flavour,RTD-IC-32PK-LE,FALSE,4500.00,4500.00,0.0000,8,,9,3,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Elderflower & Apple Flavour,RTD-IC-32PK-EA,FALSE,4500.00,4500.00,0.0000,15,,39,5,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Raspberry Lemonade Flavour,RTD-IC-32PK-RL,FALSE,4500.00,4500.00,0.0000,3,,40,0,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Lychee Flavour,RTD-IC-32PK-LY,FALSE,4500.00,4500.00,0.0000,0,,33,2,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Cranberry Flavour,RTD-IC-32PK-CR,TRUE,4500.00,4500.00,2.5000,28,,45,0,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Mango & Passionfruit Flavour,RTD-IC-32PK-MP,TRUE,4500.00,4500.00,5.0000,15,,12,1,TRUE,2025-12-27 23:01:45.468+00
+tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Summer Fruits Flavour,RTD-IC-32PK-SF,FALSE,4500.00,4500.00,0.0000,8,,22,5,FALSE,2025-12-27 23:01:45.468+00
+tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Pineapple Flavour,RTD-IC-32PK-PI,TRUE,4500.00,4500.00,2.5000,26,,24,0,TRUE,2025-12-27 23:01:45.468+00
+cafetière-3-cup,Cafetière - 3-Cup - Black,BR-CA3C-BL,FALSE,1620.00,1800.00,0.0000,17,,86,4,TRUE,2025-12-28 12:24:20.353+00
+cafetière-3-cup,Cafetière - 3-Cup - Copper,BR-CA3C-CO,FALSE,1800.00,1800.00,0.0000,48,,50,8,TRUE,2025-12-28 12:24:20.353+00
+cafetière-3-cup,Cafetière - 3-Cup - Stainless Steel,BR-CA3C-SS,FALSE,1800.00,1800.00,0.0000,22,,69,8,TRUE,2025-12-28 12:24:20.353+00
+cafetière-8-cup,Cafetière - 8-Cup - Black,BR-CA8C-BL,FALSE,2160.00,2700.00,0.0000,12,,7,2,TRUE,2025-12-28 12:24:20.353+00
+cafetière-8-cup,Cafetière - 8-Cup - Copper,BR-CA8C-CO,FALSE,2700.00,2700.00,0.0000,11,,14,2,TRUE,2025-12-28 12:24:20.353+00
+cafetière-8-cup,Cafetière - 8-Cup - Stainless Steel,BR-CA8C-SS,FALSE,2700.00,2700.00,0.0000,9,,26,3,TRUE,2025-12-28 12:24:20.354+00
+pour-over-coffee-dripper,Pour-Over Coffee Dripper - Glass,BR-POCD-GL,FALSE,2400.00,2400.00,0.0000,19,,68,1,TRUE,2025-12-28 13:43:26.927+00
+moka-pot-hob-coffee-maker,Moka Pot Hob Coffee Maker - Stainless Steel,BR-MKP6C-SS,FALSE,4200.00,4200.00,0.0000,32,,50,0,TRUE,2025-12-28 13:54:16.121+00
+teapot-ceramic,Teapot - Ceramic - White,BR-TP-CR-WH,FALSE,2400.00,2400.00,0.0000,28,,44,3,TRUE,2025-12-29 14:30:44.906+00
+teapot-ceramic,Teapot - Ceramic - Orange,BR-TP-CR-OR,FALSE,2400.00,2400.00,0.0000,34,,31,1,TRUE,2025-12-29 14:30:44.906+00
+teapot-ceramic,Teapot - Ceramic - Black,BR-TP-CR-BL,FALSE,2160.00,2400.00,0.0000,36,,63,0,TRUE,2025-12-29 14:30:44.906+00
+teapot-cast-iron,Teapot - Cast Iron,BR-TP-CI,FALSE,3000.00,3000.00,0.0000,45,,98,1,TRUE,2025-12-29 14:30:44.906+00
+teapot-glass,Teapot - Glass,BR-TP-GL,FALSE,2800.00,2800.00,0.0000,60,,60,3,TRUE,2025-12-29 14:30:44.906+00
+espresso-machine-essential,Essential Espresso Coffee Machine - Black,BR-ECM-ES-BL,FALSE,6000.00,6000.00,0.0000,5,,14,0,TRUE,2025-12-29 15:07:06.856+00
+espresso-machine-essential,Essential Espresso Coffee Machine - White,BR-ECM-ES-WH,FALSE,6000.00,6000.00,0.0000,4,,7,0,TRUE,2025-12-29 15:07:06.856+00
+espresso-machine-essential,Essential Espresso Coffee Machine - Green,BR-ECM-ES-GR,FALSE,6000.00,6000.00,0.0000,14,,14,1,TRUE,2025-12-29 15:07:06.856+00
+espresso-machine-essential,Essential Espresso Coffee Machine - Red,BR-ECM-ES-RD,FALSE,6000.00,6000.00,0.0000,21,,16,0,TRUE,2025-12-29 15:07:06.856+00
+espresso-machine-essential,Essential Espresso Coffee Machine - Blue,BR-ECM-ES-BU,FALSE,6000.00,6000.00,0.0000,7,,17,0,TRUE,2025-12-29 15:07:06.856+00
+espresso-machine-deluxe,Deluxe Espresso Coffee Machine - Black,BR-ECM-DE-BL,FALSE,11000.00,11000.00,0.0000,3,,20,1,TRUE,2025-12-29 15:07:06.856+00
+espresso-machine-deluxe,Deluxe Espresso Coffee Machine - White,BR-ECM-DE-WH,FALSE,11000.00,11000.00,0.0000,5,,3,0,TRUE,2025-12-29 15:07:06.856+00
+espresso-machine-deluxe,Deluxe Espresso Coffee Machine - Green,BR-ECM-DE-GR,FALSE,11000.00,11000.00,0.0000,10,,10,0,TRUE,2025-12-29 15:07:06.856+00
+espresso-machine-professional,Professional Espresso Coffee Machine - Black,BR-ECM-PR-BL,FALSE,32000.00,32000.00,0.0000,4,,0,0,TRUE,2025-12-29 15:07:06.856+00
+espresso-machine-professional,Professional Espresso Coffee Machine - White,BR-ECM-PR-WH,FALSE,32000.00,32000.00,0.0000,6,,5,0,TRUE,2025-12-29 15:07:06.856+00
+espresso-machine-professional,Professional Espresso Coffee Machine - Green,BR-ECM-PR-GR,FALSE,32000.00,32000.00,0.0000,7,,6,0,TRUE,2025-12-29 15:07:06.856+00
+cold-brew-bottle-small,Cold Brew Bottle - Small - Black,BR-CBB-SM-BL,FALSE,1800.00,1800.00,0.0000,33,,26,1,TRUE,2025-12-30 11:38:29.495+00
+cold-brew-bottle-small,Cold Brew Bottle - Small - White,BR-CBB-SM-WH,FALSE,1800.00,1800.00,0.0000,22,,10,0,TRUE,2025-12-30 11:38:29.495+00
+cold-brew-bottle-small,Cold Brew Bottle - Small - Blue,BR-CBB-SM-BU,FALSE,1800.00,1800.00,0.0000,31,,16,0,TRUE,2025-12-30 11:38:29.495+00
+cold-brew-bottle-large,Cold Brew Bottle - Large - Black,BR-CBB-LG-BL,FALSE,2800.00,2800.00,0.0000,20,,16,0,TRUE,2025-12-30 11:38:29.495+00
+cold-brew-bottle-large,Cold Brew Bottle - Large - White,BR-CBB-LG-WH,FALSE,2800.00,2800.00,0.0000,33,,14,1,TRUE,2025-12-30 11:38:29.495+00
+cold-brew-bottle-large,Cold Brew Bottle - Large - Blue,BR-CBB-LG-BU,FALSE,2800.00,2800.00,0.0000,1,,18,0,TRUE,2025-12-30 11:38:29.495+00
+cold-brew-bottle-large,Cold Brew Bottle - Large - Green,BR-CBB-LG-GR,FALSE,2800.00,2800.00,0.0000,2,,12,0,TRUE,2025-12-30 11:38:29.495+00
+cold-brew-bottle-large,Cold Brew Bottle - Large - Red,BR-CBB-LG-RD,FALSE,2800.00,2800.00,0.0000,6,,15,0,TRUE,2025-12-30 11:38:29.495+00
+cold-brew-maker-automatic,Cold Brew Maker - Automatic - Black,BR-CBM-AU-BL,FALSE,5000.00,5000.00,0.0000,9,,8,0,TRUE,2025-12-30 11:38:29.495+00
+burr-coffee-grinder-manual,Burr Coffee Grinder - Manual,GF-BU-MN-BL,FALSE,1500.00,1500.00,0.0000,22,,38,0,TRUE,2025-12-29 15:28:51.826+00
+burr-coffee-grinder-automatic,Burr Coffee Grinder - Automatic,GF-BU-AU-BL,FALSE,4500.00,4500.00,0.0000,12,,18,0,TRUE,2025-12-29 15:28:51.826+00
+blade-coffee-grinder,Blade Coffee Grinder,GF-BL-BL,FALSE,800.00,800.00,0.0000,48,,51,2,TRUE,2025-12-29 15:28:51.826+00
+handheld-electric-milk-frother,Handheld Electric Milk Frother - Black,GF-HEMF-BL,FALSE,750.00,750.00,0.0000,7,,97,1,TRUE,2026-01-01 11:47:46.745+00
+handheld-electric-milk-frother,Handheld Electric Milk Frother - White,GF-HEMF-WH,FALSE,750.00,750.00,0.0000,7,,84,0,TRUE,2026-01-01 11:47:46.745+00
+standing-electric-milk-frother,Standing Electric Milk Frother - Black,GF-SEMF-BL,FALSE,3000.00,3000.00,0.0000,19,,32,0,TRUE,2026-01-01 11:47:46.745+00
+standing-electric-milk-frother,Standing Electric Milk Frother - White,GF-SEMF-WH,FALSE,2700.00,3000.00,0.0000,4,,13,0,TRUE,2026-01-01 11:47:46.745+00
+mug-ceramic-single,Mug - Ceramic - White,MT-MG-CR-WH,FALSE,350.00,350.00,0.0000,60,,19,0,TRUE,2025-12-30 12:25:36.760+00
+mug-ceramic-single,Mug - Ceramic - Black,MT-MG-CR-BL,FALSE,350.00,350.00,0.0000,5,,69,2,TRUE,2025-12-30 12:25:36.760+00
+mug-ceramic-set-of-4,Mug - Ceramic - Set of 4 - White,MT-MG-CR-4PK-WH,FALSE,720.00,800.00,0.0000,39,,52,0,TRUE,2025-12-30 12:25:36.760+00
+mug-ceramic-set-of-4,Mug - Ceramic - Set of 4 - Black,MT-MG-CR-4PK-BL,FALSE,800.00,800.00,0.0000,8,,54,1,TRUE,2025-12-30 12:25:36.760+00
+mug-glass-single,Mug - Glass,MT-MG-GL,FALSE,500.00,500.00,0.0000,65,,39,0,TRUE,2025-12-30 12:25:36.760+00
+mug-glass-set-of-4,Mug - Glass - Set of 4,MT-MG-GL-4PK,FALSE,1200.00,1200.00,0.0000,24,,33,0,TRUE,2025-12-30 12:25:36.760+00
+teacup-ceramic-single,Teacup - Ceramic - White,MT-TC-CR-WH,FALSE,450.00,450.00,0.0000,80,,118,2,TRUE,2025-12-30 12:25:36.760+00
+teacup-ceramic-single,Teacup - Ceramic - Black,MT-TC-CR-BL,FALSE,450.00,450.00,0.0000,9,,98,1,TRUE,2025-12-30 12:25:36.760+00
+teacup-ceramic-set-of-4,Teacup - Ceramic - Set of 4 - White,MT-TC-CR-4PK-WH,FALSE,900.00,1000.00,0.0000,21,,32,0,TRUE,2025-12-30 12:25:36.760+00
+teacup-ceramic-set-of-4,Teacup - Ceramic - Set of 4 - Black,MT-TC-CR-4PK-BL,FALSE,1000.00,1000.00,0.0000,24,,48,0,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-small,Insulated Tumbler - Small - Black,MT-IT-SM-BL,FALSE,1500.00,1500.00,0.0000,37,,83,1,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-small,Insulated Tumbler - Small - White,MT-IT-SM-WH,FALSE,1200.00,1500.00,0.0000,5,,126,0,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-small,Insulated Tumbler - Small - Red,MT-IT-SM-RD,FALSE,1500.00,1500.00,0.0000,13,,50,1,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-small,Insulated Tumbler - Small - Blue,MT-IT-SM-BU,FALSE,1500.00,1500.00,0.0000,3,,182,0,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-small,Insulated Tumbler - Small - Green,MT-IT-SM-GR,FALSE,1500.00,1500.00,0.0000,1,,22,1,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-small,Insulated Tumbler - Small - Yellow,MT-IT-SM-YL,FALSE,1350.00,1500.00,0.0000,15,,52,0,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-small,Insulated Tumbler - Small - Orange,MT-IT-SM-OR,FALSE,1425.00,1500.00,0.0000,28,,47,0,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-small,Insulated Tumbler - Small - Purple,MT-IT-SM-PU,FALSE,1500.00,1500.00,0.0000,1,,116,0,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-large,Insulated Tumbler - Large - Black,MT-IT-LG-BL,FALSE,2500.00,2500.00,0.0000,35,,85,0,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-large,Insulated Tumbler - Large - White,MT-IT-LG-WH,FALSE,2500.00,2500.00,0.0000,20,,191,1,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-large,Insulated Tumbler - Large - Red,MT-IT-LG-RD,FALSE,2500.00,2500.00,0.0000,8,,71,0,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-large,Insulated Tumbler - Large - Blue,MT-IT-LG-BU,FALSE,2500.00,2500.00,0.0000,19,,61,0,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-large,Insulated Tumbler - Large - Green,MT-IT-LG-GR,FALSE,2250.00,2500.00,0.0000,23,,107,0,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-large,Insulated Tumbler - Large - Yellow,MT-IT-LG-YL,FALSE,2500.00,2500.00,0.0000,19,,95,1,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-large,Insulated Tumbler - Large - Orange,MT-IT-LG-OR,FALSE,2375.00,2500.00,0.0000,30,,182,1,TRUE,2025-12-30 12:25:36.760+00
+insulated-tumbler-large,Insulated Tumbler - Large - Purple,MT-IT-LG-PU,FALSE,2500.00,2500.00,0.0000,38,,131,1,TRUE,2025-12-30 12:25:36.760+00
+travel-mug-small,Travel Mug - Small - Black,MT-TM-SM-BL,FALSE,800.00,800.00,0.0000,37,,42,0,TRUE,2025-12-30 12:25:36.760+00
+travel-mug-small,Travel Mug - Small - Red,MT-TM-SM-RD,FALSE,800.00,800.00,0.0000,33,,60,0,TRUE,2025-12-30 12:25:36.760+00
+travel-mug-small,Travel Mug - Small - Green,MT-TM-SM-GR,FALSE,800.00,800.00,0.0000,16,,80,1,TRUE,2025-12-30 12:25:36.760+00
+travel-mug-small,Travel Mug - Small - Blue,MT-TM-SM-BU,FALSE,800.00,800.00,0.0000,48,,71,0,TRUE,2025-12-30 12:25:36.760+00
+travel-mug-large,Travel Mug - Large - Black,MT-TM-LG-BL,FALSE,1400.00,1400.00,0.0000,4,,36,0,TRUE,2025-12-30 12:25:36.760+00
+travel-mug-large,Travel Mug - Large - Red,MT-TM-LG-RD,FALSE,1280.00,1400.00,0.0000,2,,21,0,TRUE,2025-12-30 12:25:36.760+00
+travel-mug-large,Travel Mug - Large - Green,MT-TM-LG-GR,FALSE,1400.00,1400.00,0.0000,16,,38,1,TRUE,2025-12-30 12:25:36.760+00
+travel-mug-large,Travel Mug - Large - Blue,MT-TM-LG-BU,FALSE,1400.00,1400.00,0.0000,0,,24,0,TRUE,2025-12-30 12:25:36.760+00
+coffee-filters-paper-flat-bottom-100-pack,Coffee Filters - Paper - Flat Bottom - Pack of 100,FM-FL-PA-FB-100PK,FALSE,300.00,300.00,0.0000,127,,233,1,TRUE,2025-12-31 15:51:39.327+00
+coffee-filters-paper-flat-bottom-250-pack,Coffee Filters - Paper - Flat Bottom - Pack of 250,FM-FL-PA-FB-250PK,FALSE,600.00,600.00,0.0000,73,,90,0,TRUE,2025-12-31 15:51:39.327+00
+coffee-filters-paper-flat-bottom-500-pack,Coffee Filters - Paper - Flat Bottom - Pack of 500,FM-FL-PA-FB-500PK,FALSE,1000.00,1000.00,0.0000,19,,54,0,TRUE,2025-12-31 15:51:39.327+00
+coffee-filters-paper-conical-100-pack,Coffee Filters - Paper - Conical - Pack of 100,FM-FL-CO-FB-100PK,FALSE,300.00,300.00,0.0000,89,,49,0,TRUE,2025-12-31 15:51:39.327+00
+coffee-filters-paper-conical-250-pack,Coffee Filters - Paper - Conical - Pack of 250,FM-FL-CO-FB-250PK,FALSE,600.00,600.00,0.0000,42,,66,1,TRUE,2025-12-31 15:51:39.327+00
+coffee-filters-paper-conical-500-pack,Coffee Filters - Paper - Conical - Pack of 500,FM-FL-CO-FB-500PK,FALSE,1000.00,1000.00,0.0000,22,,39,0,TRUE,2025-12-31 15:51:39.327+00
+coffee-filter-stainless-steel-flat-bottom,Coffee Filter - Stainless Steel - Flat Bottom,FM-FL-SS-FB,FALSE,1100.00,1100.00,0.0000,31,,34,0,TRUE,2025-12-31 15:51:39.327+00
+coffee-filter-stainless-steel-conical,Coffee Filter - Stainless Steel - Conical,FM-FL-SS-CO,FALSE,1100.00,1100.00,0.0000,16,,30,1,TRUE,2025-12-31 15:51:39.327+00
+coffee-maker-descaler,Coffee Maker Descaler,FM-DSC,FALSE,700.00,700.00,0.0000,72,,137,0,TRUE,2025-12-31 15:51:39.327+00
+coffee-grinder-cleaning-pellets-50-pack,Coffee Grinder Cleaning Pellets - Pack of 50,FM-CGCP-50PK,FALSE,800.00,800.00,0.0000,108,,143,0,TRUE,2025-12-31 15:51:39.327+00
+coffee-grinder-cleaning-pellets-100-pack,Coffee Grinder Cleaning Pellets - Pack of 100,FM-CGCP-100PK,FALSE,1250.00,1250.00,0.0000,117,,101,0,TRUE,2025-12-31 15:51:39.327+00
+coffee-grinder-cleaning-pellets-200-pack,Coffee Grinder Cleaning Pellets - Pack of 200,FM-CGCP-200PK,FALSE,2000.00,2000.00,0.0000,34,,77,1,TRUE,2025-12-31 15:51:39.327+00
+coffee-maker-cleaning-brush-set,Coffee Maker Cleaning Brush Set,FM-CMCBS,FALSE,1400.00,1400.00,0.0000,18,,7,0,TRUE,2025-12-31 15:51:39.327+00
+branded-baseball-cap,Branded Baseball Cap - Grey,GI-BBC-GY,FALSE,1600.00,1600.00,0.0000,38,,62,0,TRUE,2026-01-02 22:38:42.437+00
+branded-baseball-cap,Branded Baseball Cap - Cream,GI-BBC-CR,FALSE,1520.00,1600.00,0.0000,41,,104,0,TRUE,2026-01-02 22:38:42.437+00
+branded-tote-bag,Branded Tote Bag,GI-BTB-CL,FALSE,1200.00,1200.00,0.0000,88,,146,0,TRUE,2026-01-02 22:49:15.892+00
+branded-jute-bag,Branded Jute Bag,GI-BJB-CL,FALSE,1000.00,1000.00,0.0000,46,,89,0,TRUE,2026-01-03 13:00:22.715+00
+branded-jumper,Branded Jumper - Black - XS,GI-BJ-BL-XS,FALSE,3000.00,3000.00,0.0000,44,,63,0,TRUE,2026-01-02 22:59:59.402+00
+branded-jumper,Branded Jumper - Black - S,GI-BJ-BL-S,FALSE,3000.00,3000.00,0.0000,18,,77,0,TRUE,2026-01-02 22:59:59.402+00
+branded-jumper,Branded Jumper - Black - M,GI-BJ-BL-M,FALSE,3000.00,3000.00,0.0000,42,,72,1,TRUE,2026-01-02 22:59:59.403+00
+branded-jumper,Branded Jumper - Black - L,GI-BJ-BL-L,FALSE,3000.00,3000.00,0.0000,0,,81,0,TRUE,2026-01-02 22:59:59.403+00
+branded-jumper,Branded Jumper - Black - XL,GI-BJ-BL-XL,FALSE,3000.00,3000.00,0.0000,35,,72,0,TRUE,2026-01-02 22:59:59.403+00
+branded-jumper,Branded Jumper - Black - XXL,GI-BJ-BL-XXL,FALSE,3000.00,3000.00,0.0000,40,,39,0,TRUE,2026-01-02 22:59:59.403+00
+branded-jumper,Branded Jumper - Cream - XS,GI-BJ-CR-XS,FALSE,3000.00,3000.00,0.0000,40,,58,0,TRUE,2026-01-02 22:59:59.403+00
+branded-jumper,Branded Jumper - Cream - S,GI-BJ-CR-S,FALSE,3000.00,3000.00,0.0000,5,,93,0,TRUE,2026-01-02 22:59:59.403+00
+branded-jumper,Branded Jumper - Cream - M,GI-BJ-CR-M,FALSE,3000.00,3000.00,0.0000,40,,76,0,TRUE,2026-01-02 22:59:59.403+00
+branded-jumper,Branded Jumper - Cream - L,GI-BJ-CR-L,FALSE,3000.00,3000.00,0.0000,7,,58,0,TRUE,2026-01-02 22:59:59.403+00
+branded-jumper,Branded Jumper - Cream - XL,GI-BJ-CR-XL,FALSE,3000.00,3000.00,0.0000,5,,27,2,TRUE,2026-01-02 22:59:59.403+00
+branded-jumper,Branded Jumper - Cream - XXL,GI-BJ-CR-XXL,FALSE,3000.00,3000.00,0.0000,44,,88,0,TRUE,2026-01-02 22:59:59.403+00
+branded-waffle-tea-towel-set-of-3,Branded Waffle Tea Towel - Set of 3,GI-BWTT-ST-CL,FALSE,2500.00,2500.00,0.0000,38,,30,0,TRUE,2026-01-03 12:31:26.356+00
+branded-waffle-tea-towel-single,Branded Waffle Tea Towel - White,GI-BWTT-SI-WH,FALSE,900.00,900.00,0.0000,57,,41,1,TRUE,2026-01-03 12:31:26.356+00
+branded-waffle-tea-towel-single,Branded Waffle Tea Towel - Cream,GI-BWTT-SI-CR,FALSE,900.00,900.00,0.0000,3,,41,0,TRUE,2026-01-03 12:31:26.356+00
+branded-waffle-tea-towel-single,Branded Waffle Tea Towel - Orange,GI-BWTT-SI-OR,FALSE,900.00,900.00,0.0000,14,,81,0,TRUE,2026-01-03 12:31:26.356+00
+ice-cube-tray,Ice Cube Tray,GI-ICT-CL,FALSE,750.00,750.00,0.0000,31,,22,0,TRUE,2026-01-03 12:15:37.626+00
+utensil-set,Utensil Set,GI-UTS-CL,FALSE,1200.00,1200.00,0.0000,12,,8,0,TRUE,2026-01-03 12:35:32.069+00
+airtight-coffee-jar-set-of-3,Airtight Coffee Jar - Set of 3,GI-BWTT-ST-GL,FALSE,3200.00,3200.00,0.0000,28,,32,0,TRUE,2026-01-03 12:41:00.698+00
+airtight-coffee-jar-single,Airtight Coffee Jar - Single,GI-BWTT-SI-GL,FALSE,1250.00,1250.00,0.0000,50,,101,0,TRUE,2026-01-03 12:41:00.698+00
+coffee-and-mug-bundle,Coffee + Mug Bundle - Whole Bean,GS-CMB-WB,FALSE,1500.00,1500.00,0.0000,8,,56,0,TRUE,2026-01-01 12:16:46.431+00
+coffee-and-mug-bundle,Coffee + Mug Bundle - Ground,GS-CMB-GR,FALSE,1500.00,1500.00,0.0000,0,,40,0,TRUE,2026-01-01 12:16:46.431+00
+coffee-and-mug-bundle,Coffee + Mug Bundle - Instant,GS-CMB-IN,FALSE,1500.00,1500.00,0.0000,6,,165,0,TRUE,2026-01-01 12:16:46.431+00
+coffee-and-mug-bundle,Coffee + Mug Bundle - Pods,GS-CMB-PO,FALSE,1600.00,1600.00,0.0000,89,,155,0,TRUE,2026-01-01 12:16:46.431+00
