@@ -44,7 +44,7 @@ export function CategoryProductsFilters({ filters, awaiting = false }: TCategory
             return (
                 <Accordion.Item value={filterName} key={filterName}>
                     <Accordion.Control disabled={awaiting} opacity={1}>
-                        <Skeleton visible={awaiting} width="min-content">
+                        <Skeleton visible={awaiting}>
                             <p style={{ visibility: awaiting ? "hidden" : "initial" }}>
                                 {filterName}
                             </p>
