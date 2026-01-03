@@ -65,11 +65,11 @@ espresso-machine-essential,Weight,6.7kg
 espresso-machine-deluxe,Weight,10.4kg
 espresso-machine-professional,Weight,11.8kg
 burr-coffee-grinder-manual,Weight,284g
-burr-coffee-grinder-manual,Capacity,30g of Beans
+burr-coffee-grinder-manual,Capacity,30g Coffee Beans
 burr-coffee-grinder-automatic,Weight,492g
-burr-coffee-grinder-automatic,Capacity,30g of Beans
+burr-coffee-grinder-automatic,Capacity,30g Coffee Beans
 blade-coffee-grinder,Weight,190g
-blade-coffee-grinder,Capacity,25g of Beans
+blade-coffee-grinder,Capacity,25g Coffee Beans
 handheld-electric-milk-frother,Weight,73g (not including batteries)
 handheld-electric-milk-frother,Batteries,2x AA Batteries (not included)
 standing-electric-milk-frother,Weight,824g
@@ -114,5 +114,21 @@ coffee-grinder-cleaning-pellets-200-pack,Quantity,200 pellets
 coffee-maker-cleaning-brush-set,Brush Count,5 brushes
 branded-baseball-cap,Material(s),"Cotton, Denim"
 branded-tote-bag,Material(s),Cotton Canvas
+branded-jute-bag,Material(s),Jute Fabric
 branded-jumper,Material(s),Cotton
+branded-waffle-tea-towel-set-of-3,Material(s),Cotton
+branded-waffle-tea-towel-set-of-3,Dimensions,500mm x 750mm x 2mm
+branded-waffle-tea-towel-set-of-3,Weight,145g (per item)
+branded-waffle-tea-towel-single,Material(s),Cotton
+branded-waffle-tea-towel-single,Dimensions,500mm x 750mm x 2mm
+branded-waffle-tea-towel-single,Weight,145g
+ice-cube-tray,Material(s),Silicone
+ice-cube-tray,Capacity,12 cubes
+ice-cube-tray,Cube Size,30mm x 30mm
+airtight-coffee-jar-set-of-3,Material(s),"Glass, Plastic"
+airtight-coffee-jar-set-of-3,Capacity,250g Coffee Beans (per item)
+airtight-coffee-jar-set-of-3,Weight,178g (empty); 252g (with lid) (per item)
+airtight-coffee-jar-single,Material(s),"Glass, Plastic"
+airtight-coffee-jar-single,Capacity,250g Coffee Beans
+airtight-coffee-jar-single,Weight,178g (empty); 252g (with lid)
 coffee-and-mug-bundle,Coffee Quantity,500g Bag Whole Bean OR 500g Bag Ground OR 500g Bag Instant OR 25 Pods

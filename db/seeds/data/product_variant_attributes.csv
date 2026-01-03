@@ -559,6 +559,11 @@ branded-jumper,GFT-GI-BJ-CR-XL,colour,CR
 branded-jumper,GFT-GI-BJ-CR-XL,size_text,XL
 branded-jumper,GFT-GI-BJ-CR-XXL,colour,CR
 branded-jumper,GFT-GI-BJ-CR-XXL,size_text,XXL
+branded-waffle-tea-towel-single,GFT-GI-BWTT-SI-WH,colour,WH
+branded-waffle-tea-towel-single,GFT-GI-BWTT-SI-CR,colour,CR
+branded-waffle-tea-towel-single,GFT-GI-BWTT-SI-OR,colour,OR
+airtight-coffee-jar-set-of-3,GFT-GI-BWTT-ST-GL,build_material,GL
+airtight-coffee-jar-single,GFT-GI-BWTT-SI-GL,build_material,GL
 coffee-and-mug-bundle,GFT-GS-CMB-WB,coffee_type,WB
 coffee-and-mug-bundle,GFT-GS-CMB-GR,coffee_type,GR
 coffee-and-mug-bundle,GFT-GS-CMB-IN,coffee_type,IN

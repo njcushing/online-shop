@@ -562,6 +562,7 @@ coffee-maker-cleaning-brush-set,Coffee Maker Cleaning Brush Set,EQP-FM-CMCBS,FAL
 branded-baseball-cap,Branded Baseball Cap - Grey,GFT-GI-BBC-GY,FALSE,1600.00,1600.00,0.0000,38,,62,0,TRUE,2026-01-02 22:38:42.437+00
 branded-baseball-cap,Branded Baseball Cap - Cream,GFT-GI-BBC-CR,FALSE,1520.00,1600.00,0.0000,41,,104,0,TRUE,2026-01-02 22:38:42.437+00
 branded-tote-bag,Branded Tote Bag,GFT-GI-BTB-CL,FALSE,1200.00,1200.00,0.0000,88,,146,0,TRUE,2026-01-02 22:49:15.892+00
+branded-jute-bag,Branded Jute Bag,GFT-GI-BJB-CL,FALSE,1000.00,1000.00,0.0000,46,,89,0,TRUE,2026-01-03 13:00:22.715+00
 branded-jumper,Branded Jumper - Black - XS,GFT-GI-BJ-BL-XS,FALSE,3000.00,3000.00,0.0000,44,,63,0,TRUE,2026-01-02 22:59:59.402+00
 branded-jumper,Branded Jumper - Black - S,GFT-GI-BJ-BL-S,FALSE,3000.00,3000.00,0.0000,18,,77,0,TRUE,2026-01-02 22:59:59.402+00
 branded-jumper,Branded Jumper - Black - M,GFT-GI-BJ-BL-M,FALSE,3000.00,3000.00,0.0000,42,,72,1,TRUE,2026-01-02 22:59:59.403+00
@@ -574,6 +575,14 @@ branded-jumper,Branded Jumper - Cream - M,GFT-GI-BJ-CR-M,FALSE,3000.00,3000.00,0
 branded-jumper,Branded Jumper - Cream - L,GFT-GI-BJ-CR-L,FALSE,3000.00,3000.00,0.0000,7,,58,0,TRUE,2026-01-02 22:59:59.403+00
 branded-jumper,Branded Jumper - Cream - XL,GFT-GI-BJ-CR-XL,FALSE,3000.00,3000.00,0.0000,5,,27,2,TRUE,2026-01-02 22:59:59.403+00
 branded-jumper,Branded Jumper - Cream - XXL,GFT-GI-BJ-CR-XXL,FALSE,3000.00,3000.00,0.0000,44,,88,0,TRUE,2026-01-02 22:59:59.403+00
+branded-waffle-tea-towel-set-of-3,Branded Waffle Tea Towel - Set of 3,GFT-GI-BWTT-ST-CL,FALSE,2500.00,2500.00,0.0000,38,,30,0,TRUE,2026-01-03 12:31:26.356+00
+branded-waffle-tea-towel-single,Branded Waffle Tea Towel - White,GFT-GI-BWTT-SI-WH,FALSE,900.00,900.00,0.0000,57,,41,1,TRUE,2026-01-03 12:31:26.356+00
+branded-waffle-tea-towel-single,Branded Waffle Tea Towel - Cream,GFT-GI-BWTT-SI-CR,FALSE,900.00,900.00,0.0000,3,,41,0,TRUE,2026-01-03 12:31:26.356+00
+branded-waffle-tea-towel-single,Branded Waffle Tea Towel - Orange,GFT-GI-BWTT-SI-OR,FALSE,900.00,900.00,0.0000,14,,81,0,TRUE,2026-01-03 12:31:26.356+00
+ice-cube-tray,Ice Cube Tray,GFT-GI-ICT-CL,FALSE,750.00,750.00,0.0000,31,,22,0,TRUE,2026-01-03 12:15:37.626+00
+utensil-set,Utensil Set,GFT-GI-UTS-CL,FALSE,1200.00,1200.00,0.0000,12,,8,0,TRUE,2026-01-03 12:35:32.069+00
+airtight-coffee-jar-set-of-3,Airtight Coffee Jar - Set of 3,GFT-GI-BWTT-ST-GL,FALSE,3200.00,3200.00,0.0000,28,,32,0,TRUE,2026-01-03 12:41:00.698+00
+airtight-coffee-jar-single,Airtight Coffee Jar - Single,GFT-GI-BWTT-SI-GL,FALSE,1250.00,1250.00,0.0000,50,,101,0,TRUE,2026-01-03 12:41:00.698+00
 coffee-and-mug-bundle,Coffee + Mug Bundle - Whole Bean,GFT-GS-CMB-WB,FALSE,1500.00,1500.00,0.0000,8,,56,0,TRUE,2026-01-01 12:16:46.431+00
 coffee-and-mug-bundle,Coffee + Mug Bundle - Ground,GFT-GS-CMB-GR,FALSE,1500.00,1500.00,0.0000,0,,40,0,TRUE,2026-01-01 12:16:46.431+00
 coffee-and-mug-bundle,Coffee + Mug Bundle - Instant,GFT-GS-CMB-IN,FALSE,1500.00,1500.00,0.0000,6,,165,0,TRUE,2026-01-01 12:16:46.431+00
