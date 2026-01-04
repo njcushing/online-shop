@@ -369,36 +369,36 @@ tea-loose-leaf-500g-bag,Tea - Loose Leaf - 500g Bag - Oolong Blend,LL-500GB-OO,T
 tea-loose-leaf-500g-bag,Tea - Loose Leaf - 500g Bag - Herbal Blend,LL-500GB-HE,FALSE,2850.00,3000.00,0.0000,0,,35,2,TRUE,2025-12-24 20:25:04.081+00
 tea-loose-leaf-500g-bag,Tea - Loose Leaf - 500g Bag - Peppermint Blend,LL-500GB-PE,TRUE,2550.00,3000.00,5.0000,7,,2,1,FALSE,2025-12-24 20:25:04.081+00
 tea-loose-leaf-500g-bag,Tea - Loose Leaf - 500g Bag - Ginger & Lemon Blend,LL-500GB-GL,FALSE,3000.00,3000.00,0.0000,58,,28,6,TRUE,2025-12-24 20:25:04.081+00
-tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Black Blend,BG-25BX-BL,TRUE,700.00,700.00,2.5000,64,,405,22,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Earl Grey Blend,BG-25BX-EG,FALSE,630.00,700.00,0.0000,528,,292,2,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-25-box,Tea - Loose Leaf - Box of 25 - English Breakfast Blend,BG-25BX-EB,FALSE,630.00,700.00,0.0000,424,,263,2,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Green Blend,BG-25BX-GR,TRUE,700.00,700.00,5.0000,160,,292,3,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Jasmine Blend,BG-25BX-JA,FALSE,700.00,700.00,0.0000,261,,340,17,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Chamomile Blend,BG-25BX-CH,TRUE,665.00,700.00,2.5000,333,,433,23,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Oolong Blend,BG-25BX-OO,FALSE,700.00,700.00,0.0000,720,,432,11,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Herbal Blend,BG-25BX-HE,FALSE,700.00,700.00,0.0000,210,,278,17,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Peppermint Blend,BG-25BX-PE,FALSE,630.00,700.00,0.0000,490,,225,7,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-25-box,Tea - Loose Leaf - Box of 25 - Ginger & Lemon Blend,BG-25BX-GL,FALSE,700.00,700.00,0.0000,336,,118,18,FALSE,2025-12-26 13:23:15.407+00
-tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Black Blend,BG-50BX-BL,TRUE,1250.00,1250.00,7.5000,80,,155,3,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Earl Grey Blend,BG-50BX-EG,FALSE,1250.00,1250.00,0.0000,106,,164,5,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-50-box,Tea - Loose Leaf - Box of 50 - English Breakfast Blend,BG-50BX-EB,TRUE,1187.50,1250.00,5.0000,0,,106,8,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Green Blend,BG-50BX-GR,TRUE,1250.00,1250.00,2.5000,239,,120,4,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Jasmine Blend,BG-50BX-JA,FALSE,1125.00,1250.00,0.0000,50,,219,0,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Chamomile Blend,BG-50BX-CH,FALSE,1250.00,1250.00,0.0000,69,,103,10,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Oolong Blend,BG-50BX-OO,TRUE,1187.50,1250.00,2.5000,126,,125,0,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Herbal Blend,BG-50BX-HE,TRUE,1187.50,1250.00,2.5000,200,,219,5,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Peppermint Blend,BG-50BX-PE,TRUE,1250.00,1250.00,5.0000,44,,182,0,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-50-box,Tea - Loose Leaf - Box of 50 - Ginger & Lemon Blend,BG-50BX-GL,FALSE,1125.00,1250.00,0.0000,79,,61,4,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Black Blend,BG-100BX-BL,FALSE,2400.00,2400.00,0.0000,0,,50,4,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Earl Grey Blend,BG-100BX-EG,FALSE,2160.00,2400.00,0.0000,90,,19,4,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-100-box,Tea - Loose Leaf - Box of 100 - English Breakfast Blend,BG-100BX-EB,FALSE,2400.00,2400.00,0.0000,79,,33,4,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Green Blend,BG-100BX-GR,TRUE,2400.00,2400.00,2.5000,62,,2,1,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Jasmine Blend,BG-100BX-JA,FALSE,2280.00,2400.00,0.0000,74,,50,0,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Chamomile Blend,BG-100BX-CH,FALSE,2400.00,2400.00,0.0000,30,,30,2,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Oolong Blend,BG-100BX-OO,TRUE,2160.00,2400.00,5.0000,21,,54,5,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Herbal Blend,BG-100BX-HE,TRUE,2160.00,2400.00,2.5000,77,,78,5,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Peppermint Blend,BG-100BX-PE,FALSE,2400.00,2400.00,0.0000,64,,54,5,TRUE,2025-12-26 13:23:15.407+00
-tea-bags-100-box,Tea - Loose Leaf - Box of 100 - Ginger & Lemon Blend,BG-100BX-GL,FALSE,2400.00,2400.00,0.0000,97,,34,3,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-25-box,Tea - Bags - Box of 25 - Black Blend,BG-25BX-BL,TRUE,700.00,700.00,2.5000,64,,405,22,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-25-box,Tea - Bags - Box of 25 - Earl Grey Blend,BG-25BX-EG,FALSE,630.00,700.00,0.0000,528,,292,2,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-25-box,Tea - Bags - Box of 25 - English Breakfast Blend,BG-25BX-EB,FALSE,630.00,700.00,0.0000,424,,263,2,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-25-box,Tea - Bags - Box of 25 - Green Blend,BG-25BX-GR,TRUE,700.00,700.00,5.0000,160,,292,3,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-25-box,Tea - Bags - Box of 25 - Jasmine Blend,BG-25BX-JA,FALSE,700.00,700.00,0.0000,261,,340,17,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-25-box,Tea - Bags - Box of 25 - Chamomile Blend,BG-25BX-CH,TRUE,665.00,700.00,2.5000,333,,433,23,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-25-box,Tea - Bags - Box of 25 - Oolong Blend,BG-25BX-OO,FALSE,700.00,700.00,0.0000,720,,432,11,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-25-box,Tea - Bags - Box of 25 - Herbal Blend,BG-25BX-HE,FALSE,700.00,700.00,0.0000,210,,278,17,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-25-box,Tea - Bags - Box of 25 - Peppermint Blend,BG-25BX-PE,FALSE,630.00,700.00,0.0000,490,,225,7,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-25-box,Tea - Bags - Box of 25 - Ginger & Lemon Blend,BG-25BX-GL,FALSE,700.00,700.00,0.0000,336,,118,18,FALSE,2025-12-26 13:23:15.407+00
+tea-bags-50-box,Tea - Bags - Box of 50 - Black Blend,BG-50BX-BL,TRUE,1250.00,1250.00,7.5000,80,,155,3,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-50-box,Tea - Bags - Box of 50 - Earl Grey Blend,BG-50BX-EG,FALSE,1250.00,1250.00,0.0000,106,,164,5,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-50-box,Tea - Bags - Box of 50 - English Breakfast Blend,BG-50BX-EB,TRUE,1187.50,1250.00,5.0000,0,,106,8,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-50-box,Tea - Bags - Box of 50 - Green Blend,BG-50BX-GR,TRUE,1250.00,1250.00,2.5000,239,,120,4,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-50-box,Tea - Bags - Box of 50 - Jasmine Blend,BG-50BX-JA,FALSE,1125.00,1250.00,0.0000,50,,219,0,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-50-box,Tea - Bags - Box of 50 - Chamomile Blend,BG-50BX-CH,FALSE,1250.00,1250.00,0.0000,69,,103,10,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-50-box,Tea - Bags - Box of 50 - Oolong Blend,BG-50BX-OO,TRUE,1187.50,1250.00,2.5000,126,,125,0,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-50-box,Tea - Bags - Box of 50 - Herbal Blend,BG-50BX-HE,TRUE,1187.50,1250.00,2.5000,200,,219,5,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-50-box,Tea - Bags - Box of 50 - Peppermint Blend,BG-50BX-PE,TRUE,1250.00,1250.00,5.0000,44,,182,0,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-50-box,Tea - Bags - Box of 50 - Ginger & Lemon Blend,BG-50BX-GL,FALSE,1125.00,1250.00,0.0000,79,,61,4,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-100-box,Tea - Bags - Box of 100 - Black Blend,BG-100BX-BL,FALSE,2400.00,2400.00,0.0000,0,,50,4,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-100-box,Tea - Bags - Box of 100 - Earl Grey Blend,BG-100BX-EG,FALSE,2160.00,2400.00,0.0000,90,,19,4,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-100-box,Tea - Bags - Box of 100 - English Breakfast Blend,BG-100BX-EB,FALSE,2400.00,2400.00,0.0000,79,,33,4,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-100-box,Tea - Bags - Box of 100 - Green Blend,BG-100BX-GR,TRUE,2400.00,2400.00,2.5000,62,,2,1,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-100-box,Tea - Bags - Box of 100 - Jasmine Blend,BG-100BX-JA,FALSE,2280.00,2400.00,0.0000,74,,50,0,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-100-box,Tea - Bags - Box of 100 - Chamomile Blend,BG-100BX-CH,FALSE,2400.00,2400.00,0.0000,30,,30,2,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-100-box,Tea - Bags - Box of 100 - Oolong Blend,BG-100BX-OO,TRUE,2160.00,2400.00,5.0000,21,,54,5,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-100-box,Tea - Bags - Box of 100 - Herbal Blend,BG-100BX-HE,TRUE,2160.00,2400.00,2.5000,77,,78,5,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-100-box,Tea - Bags - Box of 100 - Peppermint Blend,BG-100BX-PE,FALSE,2400.00,2400.00,0.0000,64,,54,5,TRUE,2025-12-26 13:23:15.407+00
+tea-bags-100-box,Tea - Bags - Box of 100 - Ginger & Lemon Blend,BG-100BX-GL,FALSE,2400.00,2400.00,0.0000,97,,34,3,TRUE,2025-12-26 13:23:15.407+00
 tea-powdered-250g-tub,Tea - Powdered - 250g Tub - Black Blend,PW-250GT-BL,TRUE,650.00,650.00,7.5000,188,,234,15,TRUE,2025-12-26 13:53:57.246+00
 tea-powdered-250g-tub,Tea - Powdered - 250g Tub - Earl Grey Blend,PW-250GT-EG,TRUE,585.00,650.00,2.5000,579,,141,13,TRUE,2025-12-26 13:53:57.246+00
 tea-powdered-250g-tub,Tea - Powdered - 250g Tub - English Breakfast Blend,PW-250GT-EB,FALSE,650.00,650.00,0.0000,178,,211,8,FALSE,2025-12-26 13:53:57.246+00
@@ -583,7 +583,75 @@ ice-cube-tray,Ice Cube Tray,GI-ICT-CL,FALSE,750.00,750.00,0.0000,31,,22,0,TRUE,2
 utensil-set,Utensil Set,GI-UTS-CL,FALSE,1200.00,1200.00,0.0000,12,,8,0,TRUE,2026-01-03 12:35:32.069+00
 airtight-coffee-jar-set-of-3,Airtight Coffee Jar - Set of 3,GI-BWTT-ST-GL,FALSE,3200.00,3200.00,0.0000,28,,32,0,TRUE,2026-01-03 12:41:00.698+00
 airtight-coffee-jar-single,Airtight Coffee Jar - Single,GI-BWTT-SI-GL,FALSE,1250.00,1250.00,0.0000,50,,101,0,TRUE,2026-01-03 12:41:00.698+00
-coffee-and-mug-bundle,Coffee + Mug Bundle - Whole Bean,GS-CMB-WB,FALSE,1500.00,1500.00,0.0000,8,,56,0,TRUE,2026-01-01 12:16:46.431+00
-coffee-and-mug-bundle,Coffee + Mug Bundle - Ground,GS-CMB-GR,FALSE,1500.00,1500.00,0.0000,0,,40,0,TRUE,2026-01-01 12:16:46.431+00
-coffee-and-mug-bundle,Coffee + Mug Bundle - Instant,GS-CMB-IN,FALSE,1500.00,1500.00,0.0000,6,,165,0,TRUE,2026-01-01 12:16:46.431+00
-coffee-and-mug-bundle,Coffee + Mug Bundle - Pods,GS-CMB-PO,FALSE,1600.00,1600.00,0.0000,89,,155,0,TRUE,2026-01-01 12:16:46.431+00
+coffee-and-mug-bundle,Coffee + Mug Bundle - White - Whole Bean,BS-CMB-WH-WB,FALSE,1500.00,1500.00,0.0000,27,,95,0,TRUE,2026-01-04 13:33:56.363+00
+coffee-and-mug-bundle,Coffee + Mug Bundle - White - Ground,BS-CMB-WH-GR,FALSE,1500.00,1500.00,0.0000,2,,52,0,TRUE,2026-01-04 13:33:56.363+00
+coffee-and-mug-bundle,Coffee + Mug Bundle - White - Instant,BS-CMB-WH-IN,FALSE,1500.00,1500.00,0.0000,23,,62,0,TRUE,2026-01-04 13:33:56.363+00
+coffee-and-mug-bundle,Coffee + Mug Bundle - White - Pods,BS-CMB-WH-PO,FALSE,1600.00,1600.00,0.0000,22,,18,1,TRUE,2026-01-04 13:33:56.363+00
+coffee-and-mug-bundle,Coffee + Mug Bundle - Black - Whole Bean,BS-CMB-BL-WB,FALSE,1500.00,1500.00,0.0000,8,,56,0,TRUE,2026-01-01 12:16:46.431+00
+coffee-and-mug-bundle,Coffee + Mug Bundle - Black - Ground,BS-CMB-BL-GR,FALSE,1500.00,1500.00,0.0000,0,,40,0,TRUE,2026-01-01 12:16:46.431+00
+coffee-and-mug-bundle,Coffee + Mug Bundle - Black - Instant,BS-CMB-BL-IN,FALSE,1500.00,1500.00,0.0000,6,,165,0,TRUE,2026-01-01 12:16:46.431+00
+coffee-and-mug-bundle,Coffee + Mug Bundle - Black - Pods,BS-CMB-BL-PO,FALSE,1600.00,1600.00,0.0000,89,,155,0,TRUE,2026-01-01 12:16:46.431+00
+coffee-and-cafetière-bundle,Coffee + Cafetière Bundle - 3-Cup - Whole Bean,BS-CCB-CA3C-WB,FALSE,2800.00,2800.00,0.0000,37,,66,0,TRUE,2026-01-04 13:34:04.678+00
+coffee-and-cafetière-bundle,Coffee + Cafetière Bundle - 3-Cup - Ground,BS-CCB-CA3C-GR,FALSE,2800.00,2800.00,0.0000,18,,51,0,TRUE,2026-01-04 13:34:04.679+00
+coffee-and-cafetière-bundle,Coffee + Cafetière Bundle - 3-Cup - Instant,BS-CCB-CA3C-IN,FALSE,2800.00,2800.00,0.0000,3,,64,0,TRUE,2026-01-04 13:34:04.679+00
+coffee-and-cafetière-bundle,Coffee + Cafetière Bundle - 3-Cup - Pods,BS-CCB-CA3C-PO,FALSE,2900.00,2900.00,0.0000,25,,63,0,TRUE,2026-01-04 13:34:04.679+00
+coffee-and-cafetière-bundle,Coffee + Cafetière Bundle - 8-Cup - Whole Bean,BS-CCB-CA8C-WB,FALSE,3700.00,3700.00,0.0000,18,,63,0,TRUE,2026-01-04 13:34:04.679+00
+coffee-and-cafetière-bundle,Coffee + Cafetière Bundle - 8-Cup - Ground,BS-CCB-CA8C-GR,FALSE,3700.00,3700.00,0.0000,47,,19,0,TRUE,2026-01-04 13:34:04.679+00
+coffee-and-cafetière-bundle,Coffee + Cafetière Bundle - 8-Cup - Instant,BS-CCB-CA8C-IN,FALSE,3700.00,3700.00,0.0000,38,,46,0,TRUE,2026-01-04 13:34:04.679+00
+coffee-and-cafetière-bundle,Coffee + Cafetière Bundle - 8-Cup - Pods,BS-CCB-CA8C-PO,FALSE,3800.00,3800.00,0.0000,48,,71,0,TRUE,2026-01-04 13:34:04.679+00
+coffee-cold-brew-bundle,Coffee Cold Brew Bundle - Small - Whole Bean,BS-CCOBB-SM,FALSE,4100.00,4100.00,0.0000,17,,28,0,TRUE,2026-01-04 13:34:04.679+00
+coffee-cold-brew-bundle,Coffee Cold Brew Bundle - Large - Whole Bean,BS-CCOBB-LG,FALSE,5000.00,5000.00,0.0000,49,,34,1,TRUE,2026-01-04 13:34:04.679+00
+coffee-complete-brew-bundle,Coffee Complete Brew Bundle - White - 3-Cup - Whole Bean,BS-CCBB-WH-CA3C-WB,FALSE,3100.00,3100.00,0.0000,6,,31,0,TRUE,2026-01-04 13:34:04.679+00
+coffee-complete-brew-bundle,Coffee Complete Brew Bundle - White - 3-Cup - Ground,BS-CCBB-WH-CA3C-GR,FALSE,3100.00,3100.00,0.0000,23,,27,0,TRUE,2026-01-04 13:34:04.679+00
+coffee-complete-brew-bundle,Coffee Complete Brew Bundle - White - 3-Cup - Instant,BS-CCBB-WH-CA3C-IN,FALSE,3100.00,3100.00,0.0000,26,,35,0,TRUE,2026-01-04 13:34:04.679+00
+coffee-complete-brew-bundle,Coffee Complete Brew Bundle - White - 3-Cup - Pods,BS-CCBB-WH-CA3C-PO,FALSE,3200.00,3200.00,0.0000,17,,38,0,TRUE,2026-01-04 13:34:04.679+00
+coffee-complete-brew-bundle,Coffee Complete Brew Bundle - Black - 3-Cup - Whole Bean,BS-CCBB-BL-CA3C-WB,FALSE,3100.00,3100.00,0.0000,19,,27,2,TRUE,2026-01-05 13:34:05.000+00
+coffee-complete-brew-bundle,Coffee Complete Brew Bundle - Black - 3-Cup - Ground,BS-CCBB-BL-CA3C-GR,FALSE,3100.00,3100.00,0.0000,15,,38,0,TRUE,2026-01-06 13:34:05.000+00
+coffee-complete-brew-bundle,Coffee Complete Brew Bundle - Black - 3-Cup - Instant,BS-CCBB-BL-CA3C-IN,FALSE,3100.00,3100.00,0.0000,23,,29,0,TRUE,2026-01-07 13:34:05.000+00
+coffee-complete-brew-bundle,Coffee Complete Brew Bundle - Black - 3-Cup - Pods,BS-CCBB-BL-CA3C-PO,FALSE,3200.00,3200.00,0.0000,5,,12,0,TRUE,2026-01-08 13:34:05.000+00
+coffee-complete-brew-bundle,Coffee Complete Brew Bundle - White - 8-Cup - Whole Bean,BS-CCBB-WH-CA8C-WB,FALSE,4000.00,4000.00,0.0000,7,,19,0,TRUE,2026-01-09 13:34:05.000+00
+coffee-complete-brew-bundle,Coffee Complete Brew Bundle - White - 8-Cup - Ground,BS-CCBB-WH-CA8C-GR,FALSE,4000.00,4000.00,0.0000,14,,23,0,TRUE,2026-01-10 13:34:05.000+00
+coffee-complete-brew-bundle,Coffee Complete Brew Bundle - White - 8-Cup - Instant,BS-CCBB-WH-CA8C-IN,FALSE,4000.00,4000.00,0.0000,26,,8,0,TRUE,2026-01-11 13:34:05.000+00
+coffee-complete-brew-bundle,Coffee Complete Brew Bundle - White - 8-Cup - Pods,BS-CCBB-WH-CA8C-PO,FALSE,4100.00,4100.00,0.0000,0,,17,0,TRUE,2026-01-12 13:34:05.000+00
+coffee-complete-brew-bundle,Coffee Complete Brew Bundle - Black - 8-Cup - Whole Bean,BS-CCBB-BL-CA8C-WB,FALSE,4000.00,4000.00,0.0000,24,,10,0,TRUE,2026-01-13 13:34:05.000+00
+coffee-complete-brew-bundle,Coffee Complete Brew Bundle - Black - 8-Cup - Ground,BS-CCBB-BL-CA8C-GR,FALSE,4000.00,4000.00,0.0000,14,,27,0,TRUE,2026-01-14 13:34:05.000+00
+coffee-complete-brew-bundle,Coffee Complete Brew Bundle - Black - 8-Cup - Instant,BS-CCBB-BL-CA8C-IN,FALSE,4000.00,4000.00,0.0000,29,,6,0,TRUE,2026-01-15 13:34:05.000+00
+coffee-complete-brew-bundle,Coffee Complete Brew Bundle - Black - 8-Cup - Pods,BS-CCBB-BL-CA8C-PO,FALSE,4100.00,4100.00,0.0000,2,,13,0,TRUE,2026-01-16 13:34:05.000+00
+coffee-classics-flavour-selection,Coffee Classics Flavour Selection - Whole Bean,BS-CCLFS-WB,FALSE,3300.00,3300.00,0.0000,57,,23,0,TRUE,2026-01-04 13:34:04.679+00
+coffee-classics-flavour-selection,Coffee Classics Flavour Selection - Ground,BS-CCLFS-GR,FALSE,3300.00,3300.00,0.0000,32,,44,0,TRUE,2026-01-04 13:34:04.679+00
+coffee-classics-flavour-selection,Coffee Classics Flavour Selection - Instant,BS-CCLFS-IN,FALSE,3300.00,3300.00,0.0000,28,,9,0,TRUE,2026-01-04 13:34:04.679+00
+coffee-classics-flavour-selection,Coffee Classics Flavour Selection - Pods,BS-CCLFS-PO,FALSE,2800.00,2800.00,0.0000,54,,7,0,TRUE,2026-01-04 13:34:04.679+00
+coffee-complete-flavour-selection,Coffee Complete Flavour Selection - Whole Bean,BS-CCOFS-WB,FALSE,9200.00,9200.00,0.0000,20,,0,1,TRUE,2026-01-04 13:34:04.679+00
+coffee-complete-flavour-selection,Coffee Complete Flavour Selection - Ground,BS-CCOFS-GR,FALSE,9200.00,9200.00,0.0000,17,,14,0,TRUE,2026-01-04 13:34:04.679+00
+coffee-complete-flavour-selection,Coffee Complete Flavour Selection - Instant,BS-CCOFS-IN,FALSE,9200.00,9200.00,0.0000,7,,5,0,TRUE,2026-01-04 13:34:04.679+00
+coffee-complete-flavour-selection,Coffee Complete Flavour Selection - Pods,BS-CCOFS-PO,FALSE,8000.00,8000.00,0.0000,4,,20,0,TRUE,2026-01-04 13:34:04.679+00
+coffee-cold-brew-flavour-selection,Coffee Cold Brew Flavour Selection,BS-CCBFS,FALSE,4500.00,4500.00,0.0000,38,,25,0,TRUE,2026-01-04 13:34:04.679+00
+coffee-iced-cans-flavour-selection,Coffee Iced Cans Flavour Selection,BS-CICFS,FALSE,2000.00,2000.00,0.0000,24,,10,0,TRUE,2026-01-04 13:34:04.679+00
+tea-and-teacup-bundle,Tea + Teacup Bundle - White - Loose Leaf,BS-TTCB-WH-LL,FALSE,1950.00,1950.00,0.0000,8,,48,0,TRUE,2026-01-04 13:34:04.679+00
+tea-and-teacup-bundle,Tea + Teacup Bundle - White - Bags,BS-TTCB-WH-BA,FALSE,1600.00,1600.00,0.0000,3,,14,0,TRUE,2026-01-04 13:34:04.679+00
+tea-and-teacup-bundle,Tea + Teacup Bundle - White - Powdered,BS-TTCB-WH-PW,FALSE,1550.00,1550.00,0.0000,50,,51,0,TRUE,2026-01-04 13:34:04.679+00
+tea-and-teacup-bundle,Tea + Teacup Bundle - Black - Loose Leaf,BS-TTCB-BL-LL,FALSE,1950.00,1950.00,0.0000,40,,10,0,TRUE,2026-01-04 13:34:04.679+00
+tea-and-teacup-bundle,Tea + Teacup Bundle - Black - Bags,BS-TTCB-BL-BA,FALSE,1600.00,1600.00,0.0000,16,,13,0,TRUE,2026-01-04 13:34:04.679+00
+tea-and-teacup-bundle,Tea + Teacup Bundle - Black - Powdered,BS-TTCB-BL-PW,FALSE,1550.00,1550.00,0.0000,18,,75,0,TRUE,2026-01-04 13:34:04.679+00
+tea-and-teapot-bundle,Tea + Teapot Bundle - White - Loose Leaf,BS-TTPB-WH-LL,FALSE,3750.00,3750.00,0.0000,30,,14,2,TRUE,2026-01-04 13:34:04.679+00
+tea-and-teapot-bundle,Tea + Teapot Bundle - White - Bags,BS-TTPB-WH-BA,FALSE,3450.00,3450.00,0.0000,41,,55,0,TRUE,2026-01-04 13:34:04.679+00
+tea-and-teapot-bundle,Tea + Teapot Bundle - White - Powdered,BS-TTPB-WH-PW,FALSE,3400.00,3400.00,0.0000,31,,55,0,TRUE,2026-01-04 13:34:04.679+00
+tea-and-teapot-bundle,Tea + Teapot Bundle - Orange - Loose Leaf,BS-TTPB-OR-LL,FALSE,3750.00,3750.00,0.0000,32,,51,0,TRUE,2026-01-04 13:34:04.679+00
+tea-and-teapot-bundle,Tea + Teapot Bundle - Orange - Bags,BS-TTPB-OR-BA,FALSE,3450.00,3450.00,0.0000,23,,66,2,TRUE,2026-01-04 13:34:04.679+00
+tea-and-teapot-bundle,Tea + Teapot Bundle - Orange - Powdered,BS-TTPB-OR-PW,FALSE,3400.00,3400.00,0.0000,37,,27,0,TRUE,2026-01-04 13:34:04.679+00
+tea-and-teapot-bundle,Tea + Teapot Bundle - Black - Loose Leaf,BS-TTPB-BL-LL,FALSE,3750.00,3750.00,0.0000,20,,28,0,TRUE,2026-01-04 13:34:04.679+00
+tea-and-teapot-bundle,Tea + Teapot Bundle - Black - Bags,BS-TTPB-BL-BA,FALSE,3450.00,3450.00,0.0000,13,,26,0,TRUE,2026-01-04 13:34:04.679+00
+tea-and-teapot-bundle,Tea + Teapot Bundle - Black - Powdered,BS-TTPB-BL-PW,FALSE,3400.00,3400.00,0.0000,16,,60,0,TRUE,2026-01-04 13:34:04.679+00
+tea-complete-brew-bundle,Tea Complete Brew Bundle - White - Loose Leaf,BS-TCBB-WH-LL,FALSE,4100.00,4100.00,0.0000,23,,36,2,TRUE,2026-01-04 13:34:04.679+00
+tea-complete-brew-bundle,Tea Complete Brew Bundle - White - Bags,BS-TCBB-WH-BA,FALSE,3800.00,3800.00,0.0000,1,,13,1,TRUE,2026-01-05 13:34:05.000+00
+tea-complete-brew-bundle,Tea Complete Brew Bundle - White - Ground,BS-TCBB-WH-PW,FALSE,3750.00,3750.00,0.0000,13,,7,2,TRUE,2026-01-06 13:34:05.000+00
+tea-complete-brew-bundle,Tea Complete Brew Bundle - Black - Loose Leaf,BS-TCBB-BL-LL,FALSE,4100.00,4100.00,0.0000,23,,24,2,TRUE,2026-01-19 13:34:05.000+00
+tea-complete-brew-bundle,Tea Complete Brew Bundle - Black - Bags,BS-TCBB-BL-BA,FALSE,3800.00,3800.00,0.0000,5,,31,0,TRUE,2026-01-20 13:34:05.000+00
+tea-complete-brew-bundle,Tea Complete Brew Bundle - Black - Ground,BS-TCBB-BL-PW,FALSE,3750.00,3750.00,0.0000,9,,5,0,TRUE,2026-01-21 13:34:05.000+00
+tea-classics-flavour-selection,Tea Classics Flavour Selection - Loose Leaf,BS-TCLFS-LL,FALSE,4200.00,4200.00,0.0000,12,,30,0,TRUE,2026-01-04 13:34:04.679+00
+tea-classics-flavour-selection,Tea Classics Flavour Selection - Bags,BS-TCLFS-BA,FALSE,4000.00,4000.00,0.0000,13,,11,0,TRUE,2026-01-04 13:34:04.679+00
+tea-classics-flavour-selection,Tea Classics Flavour Selection - Ground,BS-TCLFS-PW,FALSE,3750.00,3750.00,0.0000,15,,7,0,TRUE,2026-01-04 13:34:04.679+00
+tea-complete-flavour-selection,Tea Complete Flavour Selection - Loose Leaf,BS-TCOFS-LL,FALSE,7000.00,7000.00,0.0000,9,,17,0,TRUE,2026-01-04 13:34:04.679+00
+tea-complete-flavour-selection,Tea Complete Flavour Selection - Bags,BS-TCOFS-BA,FALSE,6600.00,6600.00,0.0000,5,,13,0,TRUE,2026-01-04 13:34:04.679+00
+tea-complete-flavour-selection,Tea Complete Flavour Selection - Ground,BS-TCOFS-PW,FALSE,6200.00,6200.00,0.0000,7,,10,0,TRUE,2026-01-04 13:34:04.679+00
+tea-iced-cans-flavour-selection,Tea Iced Cans Flavour Selection,BS-TICFS,FALSE,3500.00,3500.00,0.0000,18,,12,0,TRUE,2026-01-04 13:34:04.679+00
