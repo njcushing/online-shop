@@ -87,3 +87,11 @@ tea-complete-flavour-selection,tea_type,0
 gift-card-standard,gift_card_amount,0
 gift-card-birthday,gift_card_amount,0
 gift-card-christmas,gift_card_amount,0
+coffee-sample,coffee_type,0
+coffee-sample,coffee_blend,1
+coffee-classics-flavour-selection-samples,coffee_type,0
+coffee-complete-flavour-selection-samples,coffee_type,0
+tea-sample,tea_type,0
+tea-sample,tea_blend,1
+tea-classics-flavour-selection-samples,tea_type,0
+tea-complete-flavour-selection-samples,tea_type,0
