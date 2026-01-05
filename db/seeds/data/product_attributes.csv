@@ -9,3 +9,4 @@ tea_flavour,Tea Flavour,Choose a flavour,color
 build_material,Material,Choose a style,color
 cafetière_size,Cafetière Size,Choose a cafetière size,text
 cold_brew_bottle_size,Cold Brew Bottle Size,Choose a cold brew bottle size,text
+gift_card_amount,Amount,Choose an amount,text

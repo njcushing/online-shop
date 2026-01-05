@@ -655,3 +655,24 @@ tea-complete-flavour-selection,Tea Complete Flavour Selection - Loose Leaf,BS-TC
 tea-complete-flavour-selection,Tea Complete Flavour Selection - Bags,BS-TCOFS-BA,FALSE,6600.00,6600.00,0.0000,5,,13,0,TRUE,2026-01-04 13:34:04.679+00
 tea-complete-flavour-selection,Tea Complete Flavour Selection - Ground,BS-TCOFS-PW,FALSE,6200.00,6200.00,0.0000,7,,10,0,TRUE,2026-01-04 13:34:04.679+00
 tea-iced-cans-flavour-selection,Tea Iced Cans Flavour Selection,BS-TICFS,FALSE,3500.00,3500.00,0.0000,18,,12,0,TRUE,2026-01-04 13:34:04.679+00
+gift-card-standard,Cafree Gift Card - Standard - £5,GC-STN-5,FALSE,500.00,500.00,0.0000,152,50,405,0,TRUE,2026-01-05 20:20:47.840+00
+gift-card-standard,Cafree Gift Card - Standard - £10,GC-STN-10,FALSE,1000.00,1000.00,0.0000,100,25,433,0,TRUE,2026-01-05 20:20:47.840+00
+gift-card-standard,Cafree Gift Card - Standard - £15,GC-STN-15,FALSE,1500.00,1500.00,0.0000,496,15,643,0,TRUE,2026-01-05 20:20:47.840+00
+gift-card-standard,Cafree Gift Card - Standard - £25,GC-STN-25,FALSE,2500.00,2500.00,0.0000,436,10,665,0,TRUE,2026-01-05 20:20:47.840+00
+gift-card-standard,Cafree Gift Card - Standard - £50,GC-STN-50,FALSE,5000.00,5000.00,0.0000,300,5,209,0,TRUE,2026-01-05 20:20:47.840+00
+gift-card-standard,Cafree Gift Card - Standard - £75,GC-STN-75,FALSE,7500.00,7500.00,0.0000,210,3,24,0,TRUE,2026-01-05 20:20:47.840+00
+gift-card-standard,Cafree Gift Card - Standard - £100,GC-STN-100,FALSE,10000.00,10000.00,0.0000,55,2,613,0,TRUE,2026-01-05 20:20:47.840+00
+gift-card-birthday,Cafree Gift Card - Birthday - £5,GC-BRT-5,FALSE,500.00,500.00,0.0000,387,50,863,0,TRUE,2026-01-05 20:20:47.840+00
+gift-card-birthday,Cafree Gift Card - Birthday - £10,GC-BRT-10,FALSE,1000.00,1000.00,0.0000,112,25,264,0,TRUE,2026-01-05 20:20:47.840+00
+gift-card-birthday,Cafree Gift Card - Birthday - £15,GC-BRT-15,FALSE,1500.00,1500.00,0.0000,297,15,936,0,TRUE,2026-01-05 20:20:47.840+00
+gift-card-birthday,Cafree Gift Card - Birthday - £25,GC-BRT-25,FALSE,2500.00,2500.00,0.0000,283,10,928,0,TRUE,2026-01-05 20:20:47.840+00
+gift-card-birthday,Cafree Gift Card - Birthday - £50,GC-BRT-50,FALSE,5000.00,5000.00,0.0000,39,5,462,0,TRUE,2026-01-05 20:20:47.840+00
+gift-card-birthday,Cafree Gift Card - Birthday - £75,GC-BRT-75,FALSE,7500.00,7500.00,0.0000,80,3,428,0,TRUE,2026-01-05 20:20:47.840+00
+gift-card-birthday,Cafree Gift Card - Birthday - £100,GC-BRT-100,FALSE,10000.00,10000.00,0.0000,99,2,732,0,TRUE,2026-01-05 20:20:47.840+00
+gift-card-christmas,Cafree Gift Card - Christmas - £5,GC-CHR-5,FALSE,500.00,500.00,0.0000,70,50,31,0,TRUE,2026-01-05 20:20:47.840+00
+gift-card-christmas,Cafree Gift Card - Christmas - £10,GC-CHR-10,FALSE,1000.00,1000.00,0.0000,449,25,403,0,TRUE,2026-01-05 20:20:47.840+00
+gift-card-christmas,Cafree Gift Card - Christmas - £15,GC-CHR-15,FALSE,1500.00,1500.00,0.0000,459,15,654,0,TRUE,2026-01-05 20:20:47.840+00
+gift-card-christmas,Cafree Gift Card - Christmas - £25,GC-CHR-25,FALSE,2500.00,2500.00,0.0000,396,10,132,0,TRUE,2026-01-05 20:20:47.840+00
+gift-card-christmas,Cafree Gift Card - Christmas - £50,GC-CHR-50,FALSE,5000.00,5000.00,0.0000,361,5,256,0,TRUE,2026-01-05 20:20:47.840+00
+gift-card-christmas,Cafree Gift Card - Christmas - £75,GC-CHR-75,FALSE,7500.00,7500.00,0.0000,297,3,371,0,TRUE,2026-01-05 20:20:47.840+00
+gift-card-christmas,Cafree Gift Card - Christmas - £100,GC-CHR-100,FALSE,10000.00,10000.00,0.0000,361,2,819,0,TRUE,2026-01-05 20:20:47.840+00

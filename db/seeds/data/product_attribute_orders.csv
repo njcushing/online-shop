@@ -84,3 +84,6 @@ tea-complete-brew-bundle,colour,0
 tea-complete-brew-bundle,tea_type,1
 tea-classics-flavour-selection,tea_type,0
 tea-complete-flavour-selection,tea_type,0
+gift-card-standard,gift_card_amount,0
+gift-card-birthday,gift_card_amount,0
+gift-card-christmas,gift_card_amount,0
