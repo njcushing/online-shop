@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Box, Divider } from "@mantine/core";
 import { Logo } from "../Logo";
@@ -8,15 +9,19 @@ export type TFooter = {
 };
 
 export function Footer({ reduced }: TFooter) {
+    const copyrightMessage = useMemo(() => {
+        return (
+            <p className={styles["copyright-message"]}>© njcushing {new Date().getFullYear()}</p>
+        );
+    }, []);
+
     if (!reduced) {
         return (
             <footer className={styles["footer"]} data-layout="normal">
                 <div className={styles["footer-width-controller"]}>
                     <div className={styles["column-1"]}>
                         <Logo size="lg" />
-                        <Box visibleFrom="sm">
-                            <p className={styles["copyright-message"]}>© njcushing 2025</p>
-                        </Box>
+                        <Box visibleFrom="sm">{copyrightMessage}</Box>
                     </div>
 
                     <Divider size="sm" orientation="vertical" color="black" visibleFrom="sm" />
@@ -75,9 +80,7 @@ export function Footer({ reduced }: TFooter) {
 
                     <Divider size="sm" orientation="horizontal" color="black" hiddenFrom="sm" />
 
-                    <Box hiddenFrom="sm">
-                        <p className={styles["copyright-message"]}>© njcushing 2025</p>
-                    </Box>
+                    <Box hiddenFrom="sm">{copyrightMessage}</Box>
                 </div>
             </footer>
         );
@@ -102,8 +105,10 @@ export function Footer({ reduced }: TFooter) {
                         Privacy Policy
                     </Link>
                 </div>
-                <p className={styles["copyright-message"]}>© njcushing 2025</p>
+                {copyrightMessage}
             </div>
         </footer>
     );
 }
+
+// https://github.com/njcushing
