@@ -12,7 +12,7 @@ coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Vanilla Blend,WB-250
 coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Caramel Blend,WB-250GB-CA,TRUE,700.00,700.00,2.5000,227,,270,12,TRUE,2025-12-18 15:26:43.055+00
 coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Intense Blend,WB-250GB-IN,FALSE,625.00,700.00,0.0000,188,,885,11,FALSE,2025-12-18 15:26:43.055+00
 coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - French Roast Blend,WB-250GB-FR,FALSE,700.00,700.00,0.0000,290,,705,3,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Italian Roast Blend,WB-250GB-IT,TRUE,700.00,700.00,2.5000,268,,455,10,FALSE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-250g-bag,Coffee - Whole Bean - 250g Bag - Italian Roast Blend,WB-250GB-IR,TRUE,700.00,700.00,2.5000,268,,455,10,FALSE,2025-12-18 15:26:43.055+00
 coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - House Blend,WB-500GB-HO,TRUE,1250.00,1250.00,5.0000,38,,142,5,TRUE,2025-12-18 15:26:43.055+00
 coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Light Blend,WB-500GB-LT,TRUE,1100.00,1250.00,0.0000,29,,201,3,FALSE,2025-12-18 15:26:43.055+00
 coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Medium Blend,WB-500GB-MD,FALSE,1200.00,1250.00,10.0000,27,,426,1,TRUE,2025-12-18 15:26:43.055+00
@@ -26,7 +26,7 @@ coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Vanilla Blend,WB-500
 coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Caramel Blend,WB-500GB-CA,TRUE,1000.00,1250.00,2.5000,18,,249,4,TRUE,2025-12-18 15:26:43.055+00
 coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Intense Blend,WB-500GB-IN,FALSE,1250.00,1250.00,0.0000,10,,295,0,FALSE,2025-12-18 15:26:43.055+00
 coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - French Roast Blend,WB-500GB-FR,TRUE,1250.00,1250.00,7.5000,12,20,385,4,TRUE,2025-12-18 15:26:43.055+00
-coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Italian Roast Blend,WB-500GB-IT,FALSE,1100.00,1250.00,0.0000,15,,189,2,FALSE,2025-12-18 15:26:43.055+00
+coffee-whole-bean-500g-bag,Coffee - Whole Bean - 500g Bag - Italian Roast Blend,WB-500GB-IR,FALSE,1100.00,1250.00,0.0000,15,,189,2,FALSE,2025-12-18 15:26:43.055+00
 coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - House Blend,WB-1KGB-HO,TRUE,2200.00,2250.00,5.0000,0,,79,0,TRUE,2025-12-18 15:26:43.055+00
 coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Light Blend,WB-1KGB-LT,TRUE,2250.00,2250.00,5.0000,14,,32,1,TRUE,2025-12-18 15:26:43.055+00
 coffee-whole-bean-1kg-bag,Coffee - Whole Bean - 1kg Bag - Medium Blend,WB-1KGB-MD,TRUE,2210.00,2250.00,5.0000,0,,12,0,TRUE,2025-12-18 15:26:43.055+00
@@ -68,7 +68,7 @@ coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Vanilla Blend,WB-250
 coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Caramel Blend,WB-250GT-CA,FALSE,1200.00,1200.00,0.0000,118,,234,3,TRUE,2025-12-21 14:09:47.074+00
 coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Intense Blend,WB-250GT-IN,FALSE,1080.00,1200.00,0.0000,241,,665,4,TRUE,2025-12-21 14:09:47.074+00
 coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - French Roast Blend,WB-250GT-FR,TRUE,1200.00,1200.00,5.0000,155,50,698,6,TRUE,2025-12-21 14:09:47.074+00
-coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Italian Roast Blend,WB-250GT-IT,TRUE,1200.00,1200.00,2.5000,0,,827,2,FALSE,2025-12-21 14:09:47.074+00
+coffee-whole-bean-250g-tin,Coffee - Whole Bean - 250g Tin - Italian Roast Blend,WB-250GT-IR,TRUE,1200.00,1200.00,2.5000,0,,827,2,FALSE,2025-12-21 14:09:47.074+00
 coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - House Blend,WB-500GT-HO,FALSE,1800.00,2000.00,0.0000,60,,40,7,TRUE,2025-12-21 14:14:24.700+00
 coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Light Blend,WB-500GT-LT,TRUE,2000.00,2000.00,2.5000,70,,48,3,TRUE,2025-12-21 14:14:24.700+00
 coffee-whole-bean-500g-tin,Coffee - Whole Bean - 500g Tin - Medium Blend,WB-500GT-MD,FALSE,1900.00,2000.00,0.0000,59,,74,4,TRUE,2025-12-21 14:14:24.700+00
@@ -689,7 +689,7 @@ coffee-sample,Coffee Sample - Whole Bean - Vanilla Blend,SM-CO-WB-VA,FALSE,100.0
 coffee-sample,Coffee Sample - Whole Bean - Caramel Blend,SM-CO-WB-CA,FALSE,100.00,100.00,0.0000,65,,427,0,TRUE,2026-01-05 21:22:26.024+00
 coffee-sample,Coffee Sample - Whole Bean - Intense Blend,SM-CO-WB-IN,FALSE,100.00,100.00,0.0000,88,,174,1,TRUE,2026-01-05 21:22:26.024+00
 coffee-sample,Coffee Sample - Whole Bean - French Roast Blend,SM-CO-WB-FR,FALSE,100.00,100.00,0.0000,137,,434,0,TRUE,2026-01-05 21:22:26.024+00
-coffee-sample,Coffee Sample - Whole Bean - Italian Roast Blend,SM-CO-WB-IT,FALSE,100.00,100.00,0.0000,3,,307,0,TRUE,2026-01-05 21:22:26.024+00
+coffee-sample,Coffee Sample - Whole Bean - Italian Roast Blend,SM-CO-WB-IR,FALSE,100.00,100.00,0.0000,3,,307,0,TRUE,2026-01-05 21:22:26.024+00
 coffee-sample,Coffee Sample - Ground - House Blend,SM-CO-GR-HO,FALSE,100.00,100.00,0.0000,26,,350,0,TRUE,2026-01-05 21:22:26.024+00
 coffee-sample,Coffee Sample - Ground - Light Blend,SM-CO-GR-LT,FALSE,100.00,100.00,0.0000,70,,82,0,TRUE,2026-01-05 21:22:26.024+00
 coffee-sample,Coffee Sample - Ground - Medium Blend,SM-CO-GR-MD,FALSE,100.00,100.00,0.0000,204,,304,1,TRUE,2026-01-05 21:22:26.024+00
@@ -703,7 +703,7 @@ coffee-sample,Coffee Sample - Ground - Vanilla Blend,SM-CO-GR-VA,FALSE,100.00,10
 coffee-sample,Coffee Sample - Ground - Caramel Blend,SM-CO-GR-CA,FALSE,100.00,100.00,0.0000,127,,342,0,TRUE,2026-01-05 21:22:26.025+00
 coffee-sample,Coffee Sample - Ground - Intense Blend,SM-CO-GR-IN,FALSE,100.00,100.00,0.0000,96,,434,0,TRUE,2026-01-05 21:22:26.025+00
 coffee-sample,Coffee Sample - Ground - French Roast Blend,SM-CO-GR-FR,FALSE,100.00,100.00,0.0000,190,,344,0,TRUE,2026-01-05 21:22:26.025+00
-coffee-sample,Coffee Sample - Ground - Italian Roast Blend,SM-CO-GR-IT,FALSE,100.00,100.00,0.0000,110,,190,0,TRUE,2026-01-05 21:22:26.025+00
+coffee-sample,Coffee Sample - Ground - Italian Roast Blend,SM-CO-GR-IR,FALSE,100.00,100.00,0.0000,110,,190,0,TRUE,2026-01-05 21:22:26.025+00
 coffee-sample,Coffee Sample - Instant - House Blend,SM-CO-IN-HO,FALSE,100.00,100.00,0.0000,88,,481,0,TRUE,2026-01-05 21:22:26.025+00
 coffee-sample,Coffee Sample - Instant - Light Blend,SM-CO-IN-LT,FALSE,100.00,100.00,0.0000,229,,201,0,TRUE,2026-01-05 21:22:26.025+00
 coffee-sample,Coffee Sample - Instant - Medium Blend,SM-CO-IN-MD,FALSE,100.00,100.00,0.0000,26,,187,0,TRUE,2026-01-05 21:22:26.025+00
@@ -717,7 +717,7 @@ coffee-sample,Coffee Sample - Instant - Vanilla Blend,SM-CO-IN-VA,FALSE,100.00,1
 coffee-sample,Coffee Sample - Instant - Caramel Blend,SM-CO-IN-CA,FALSE,100.00,100.00,0.0000,27,,283,0,TRUE,2026-01-05 21:22:26.025+00
 coffee-sample,Coffee Sample - Instant - Intense Blend,SM-CO-IN-IN,FALSE,100.00,100.00,0.0000,104,,264,0,TRUE,2026-01-05 21:22:26.025+00
 coffee-sample,Coffee Sample - Instant - French Roast Blend,SM-CO-IN-FR,FALSE,100.00,100.00,0.0000,217,,244,0,TRUE,2026-01-05 21:22:26.025+00
-coffee-sample,Coffee Sample - Instant - Italian Roast Blend,SM-CO-IN-IT,FALSE,100.00,100.00,0.0000,193,,80,0,TRUE,2026-01-05 21:22:26.025+00
+coffee-sample,Coffee Sample - Instant - Italian Roast Blend,SM-CO-IN-IR,FALSE,100.00,100.00,0.0000,193,,80,0,TRUE,2026-01-05 21:22:26.025+00
 coffee-sample,Coffee Sample - Pods - House Blend,SM-CO-PO-HO,FALSE,90.00,90.00,0.0000,4,,336,0,TRUE,2026-01-05 21:22:26.025+00
 coffee-sample,Coffee Sample - Pods - Light Blend,SM-CO-PO-LT,FALSE,90.00,90.00,0.0000,163,,419,0,TRUE,2026-01-05 21:22:26.025+00
 coffee-sample,Coffee Sample - Pods - Medium Blend,SM-CO-PO-MD,FALSE,90.00,90.00,0.0000,241,,375,0,TRUE,2026-01-05 21:22:26.025+00
@@ -731,7 +731,7 @@ coffee-sample,Coffee Sample - Pods - Vanilla Blend,SM-CO-PO-VA,FALSE,90.00,90.00
 coffee-sample,Coffee Sample - Pods - Caramel Blend,SM-CO-PO-CA,FALSE,90.00,90.00,0.0000,134,,164,0,TRUE,2026-01-05 21:22:26.025+00
 coffee-sample,Coffee Sample - Pods - Intense Blend,SM-CO-PO-IN,FALSE,90.00,90.00,0.0000,47,,86,0,TRUE,2026-01-05 21:22:26.025+00
 coffee-sample,Coffee Sample - Pods - French Roast Blend,SM-CO-PO-FR,FALSE,90.00,90.00,0.0000,194,,343,0,TRUE,2026-01-05 21:22:26.025+00
-coffee-sample,Coffee Sample - Pods - Italian Roast Blend,SM-CO-PO-IT,FALSE,90.00,90.00,0.0000,37,,176,0,TRUE,2026-01-05 21:22:26.025+00
+coffee-sample,Coffee Sample - Pods - Italian Roast Blend,SM-CO-PO-IR,FALSE,90.00,90.00,0.0000,37,,176,0,TRUE,2026-01-05 21:22:26.025+00
 coffee-classics-flavour-selection-samples,Coffee Classics Flavour Selection Samples - Whole Bean,SM-CCLFSS-WB,FALSE,400.00,400.00,0.0000,69,,44,0,TRUE,2026-01-05 21:05:56.574+00
 coffee-classics-flavour-selection-samples,Coffee Classics Flavour Selection Samples - Ground,SM-CCLFSS-GR,FALSE,400.00,400.00,0.0000,96,,127,1,TRUE,2026-01-05 21:05:56.575+00
 coffee-classics-flavour-selection-samples,Coffee Classics Flavour Selection Samples - Instant,SM-CCLFSS-IN,FALSE,400.00,400.00,0.0000,96,,128,0,TRUE,2026-01-05 21:05:56.575+00

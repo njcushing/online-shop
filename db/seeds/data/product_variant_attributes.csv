@@ -12,7 +12,7 @@ coffee-whole-bean-250g-bag,WB-250GB-VA,coffee_blend,VA
 coffee-whole-bean-250g-bag,WB-250GB-CA,coffee_blend,CA
 coffee-whole-bean-250g-bag,WB-250GB-IN,coffee_blend,IN
 coffee-whole-bean-250g-bag,WB-250GB-FR,coffee_blend,FR
-coffee-whole-bean-250g-bag,WB-250GB-IT,coffee_blend,IR
+coffee-whole-bean-250g-bag,WB-250GB-IR,coffee_blend,IR
 coffee-whole-bean-500g-bag,WB-500GB-HO,coffee_blend,HO
 coffee-whole-bean-500g-bag,WB-500GB-LT,coffee_blend,LT
 coffee-whole-bean-500g-bag,WB-500GB-MD,coffee_blend,MD
@@ -26,7 +26,7 @@ coffee-whole-bean-500g-bag,WB-500GB-VA,coffee_blend,VA
 coffee-whole-bean-500g-bag,WB-500GB-CA,coffee_blend,CA
 coffee-whole-bean-500g-bag,WB-500GB-IN,coffee_blend,IN
 coffee-whole-bean-500g-bag,WB-500GB-FR,coffee_blend,FR
-coffee-whole-bean-500g-bag,WB-500GB-IT,coffee_blend,IR
+coffee-whole-bean-500g-bag,WB-500GB-IR,coffee_blend,IR
 coffee-whole-bean-1kg-bag,WB-1KGB-HO,coffee_blend,HO
 coffee-whole-bean-1kg-bag,WB-1KGB-LT,coffee_blend,LT
 coffee-whole-bean-1kg-bag,WB-1KGB-MD,coffee_blend,MD
@@ -68,7 +68,7 @@ coffee-whole-bean-250g-tin,WB-250GT-VA,coffee_blend,VA
 coffee-whole-bean-250g-tin,WB-250GT-CA,coffee_blend,CA
 coffee-whole-bean-250g-tin,WB-250GT-IN,coffee_blend,IN
 coffee-whole-bean-250g-tin,WB-250GT-FR,coffee_blend,FR
-coffee-whole-bean-250g-tin,WB-250GT-IT,coffee_blend,IR
+coffee-whole-bean-250g-tin,WB-250GT-IR,coffee_blend,IR
 coffee-whole-bean-500g-tin,WB-500GT-HO,coffee_blend,HO
 coffee-whole-bean-500g-tin,WB-500GT-LT,coffee_blend,LT
 coffee-whole-bean-500g-tin,WB-500GT-MD,coffee_blend,MD
@@ -749,8 +749,8 @@ coffee-sample,SM-CO-WB-IN,coffee_type,WB
 coffee-sample,SM-CO-WB-IN,coffee_blend,IN
 coffee-sample,SM-CO-WB-FR,coffee_type,WB
 coffee-sample,SM-CO-WB-FR,coffee_blend,FR
-coffee-sample,SM-CO-WB-IT,coffee_type,WB
-coffee-sample,SM-CO-WB-IT,coffee_blend,IT
+coffee-sample,SM-CO-WB-IR,coffee_type,WB
+coffee-sample,SM-CO-WB-IR,coffee_blend,IR
 coffee-sample,SM-CO-GR-HO,coffee_type,GR
 coffee-sample,SM-CO-GR-HO,coffee_blend,HO
 coffee-sample,SM-CO-GR-LT,coffee_type,GR
@@ -777,8 +777,8 @@ coffee-sample,SM-CO-GR-IN,coffee_type,GR
 coffee-sample,SM-CO-GR-IN,coffee_blend,IN
 coffee-sample,SM-CO-GR-FR,coffee_type,GR
 coffee-sample,SM-CO-GR-FR,coffee_blend,FR
-coffee-sample,SM-CO-GR-IT,coffee_type,GR
-coffee-sample,SM-CO-GR-IT,coffee_blend,IT
+coffee-sample,SM-CO-GR-IR,coffee_type,GR
+coffee-sample,SM-CO-GR-IR,coffee_blend,IR
 coffee-sample,SM-CO-IN-HO,coffee_type,IN
 coffee-sample,SM-CO-IN-HO,coffee_blend,HO
 coffee-sample,SM-CO-IN-LT,coffee_type,IN
@@ -805,8 +805,8 @@ coffee-sample,SM-CO-IN-IN,coffee_type,IN
 coffee-sample,SM-CO-IN-IN,coffee_blend,IN
 coffee-sample,SM-CO-IN-FR,coffee_type,IN
 coffee-sample,SM-CO-IN-FR,coffee_blend,FR
-coffee-sample,SM-CO-IN-IT,coffee_type,IN
-coffee-sample,SM-CO-IN-IT,coffee_blend,IT
+coffee-sample,SM-CO-IN-IR,coffee_type,IN
+coffee-sample,SM-CO-IN-IR,coffee_blend,IR
 coffee-sample,SM-CO-PO-HO,coffee_type,PO
 coffee-sample,SM-CO-PO-HO,coffee_blend,HO
 coffee-sample,SM-CO-PO-LT,coffee_type,PO
@@ -833,8 +833,8 @@ coffee-sample,SM-CO-PO-IN,coffee_type,PO
 coffee-sample,SM-CO-PO-IN,coffee_blend,IN
 coffee-sample,SM-CO-PO-FR,coffee_type,PO
 coffee-sample,SM-CO-PO-FR,coffee_blend,FR
-coffee-sample,SM-CO-PO-IT,coffee_type,PO
-coffee-sample,SM-CO-PO-IT,coffee_blend,IT
+coffee-sample,SM-CO-PO-IR,coffee_type,PO
+coffee-sample,SM-CO-PO-IR,coffee_blend,IR
 coffee-classics-flavour-selection-samples,SM-CCLFSS-WB,coffee_type,WB
 coffee-classics-flavour-selection-samples,SM-CCLFSS-GR,coffee_type,GR
 coffee-classics-flavour-selection-samples,SM-CCLFSS-IN,coffee_type,IN
