@@ -11,7 +11,9 @@ export type TFooter = {
 export function Footer({ reduced }: TFooter) {
     const copyrightMessage = useMemo(() => {
         return (
-            <p className={styles["copyright-message"]}>© njcushing {new Date().getFullYear()}</p>
+            <Link to="https://github.com/njcushing" className={styles["copyright-message"]}>
+                © njcushing {new Date().getFullYear()}
+            </Link>
         );
     }, []);
 

@@ -36,16 +36,29 @@
 }
 
 .copyright-message {
+    color: black;
     font-family: var(--font-primary);
     font-size: 0.9rem;
     font-weight: 500;
     text-align: start;
+    text-decoration: none;
 
     width: 100%;
 
     @media (min-width: $mantine-breakpoint-sm) {
         text-align: center;
     }
+}
+
+@media (hover: hover) {
+    .copyright-message:hover {
+        text-decoration: underline;
+    }
+}
+
+.copyright-message:focus-visible {
+    outline: 2px solid #000;
+    border-radius: 0px;
 }
 
 .sections-container {
