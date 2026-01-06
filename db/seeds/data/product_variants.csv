@@ -740,7 +740,7 @@ coffee-complete-flavour-selection-samples,Coffee Complete Flavour Selection Samp
 coffee-complete-flavour-selection-samples,Coffee Complete Flavour Selection Samples - Ground,SM-CCOFSS-GR,FALSE,1100.00,1100.00,0.0000,1,,32,0,TRUE,2026-01-05 21:05:56.575+00
 coffee-complete-flavour-selection-samples,Coffee Complete Flavour Selection Samples - Instant,SM-CCOFSS-IN,FALSE,1100.00,1100.00,0.0000,11,,71,0,TRUE,2026-01-05 21:05:56.575+00
 coffee-complete-flavour-selection-samples,Coffee Complete Flavour Selection Samples - Pods,SM-CCOFSS-PO,FALSE,950.00,950.00,0.0000,3,,10,0,TRUE,2026-01-05 21:05:56.575+00
-coffee-cold-brew-flavour-selection-samples,Coffee Cold Brew Flavour Selection Samples,SM-CCBFSS,FALSE,100.00,100.00,0.0000,64,,136,0,TRUE,2026-01-05 21:05:56.575+00
+coffee-cold-brew-flavour-selection-samples,Coffee Cold Brew Flavour Selection Samples,SM-CCBFSS,FALSE,1000.00,1000.00,0.0000,64,,136,0,TRUE,2026-01-05 21:05:56.575+00
 tea-sample,Tea Sample - Loose Leaf - Black Blend,SM-TE-LL-BL,FALSE,100.00,100.00,0.0000,230,,358,0,TRUE,2026-01-05 21:22:13.041+00
 tea-sample,Tea Sample - Loose Leaf - Earl Grey Blend,SM-TE-LL-EG,FALSE,100.00,100.00,0.0000,111,,370,0,TRUE,2026-01-05 21:22:13.041+00
 tea-sample,Tea Sample - Loose Leaf - English Breakfast Blend,SM-TE-LL-EB,FALSE,100.00,100.00,0.0000,127,,119,0,TRUE,2026-01-05 21:22:13.041+00
