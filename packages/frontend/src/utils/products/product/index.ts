@@ -3,6 +3,7 @@ import { RecursivePartial } from "@/utils/types";
 import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
 import { ResponseBody as GetReviewsByProductSlugResponseDto } from "@/api/products/[slug]/reviews/GET";
 import { v4 as uuid } from "uuid";
+import _ from "lodash";
 
 export const extractRelatedAttributesOrdered = (
     product: GetProductBySlugResponseDto,
@@ -119,11 +120,22 @@ export const findVariantByAttributeParams = (
 
     const attributeParamsEntries = Object.entries(attributeParams);
 
-    let closestMatch: GetProductBySlugResponseDto["variants"][number] = variants[0];
+    // Expects 'product.attributes' entries to be sorted by their 'position' field (ascending)
+    const sortedVariants = _.cloneDeep(product.variants);
+    product.attributes.reverse().forEach((pAtt) =>
+        sortedVariants.sort((a, b) => {
+            const { code } = pAtt;
+            const aPos = a.attributes.find((vAtt) => vAtt.type.code === code)?.value.position || 0;
+            const bPos = b.attributes.find((bAtt) => bAtt.type.code === code)?.value.position || 0;
+            return aPos - bPos;
+        }),
+    );
+
+    let closestMatch: GetProductBySlugResponseDto["variants"][number] = sortedVariants[0];
     let closestMatchCount = 0;
 
-    for (let i = 0; i < product.variants.length; i++) {
-        const variant = product.variants[i];
+    for (let i = 0; i < sortedVariants.length; i++) {
+        const variant = sortedVariants[i];
         let matches = 0;
 
         for (let j = 0; j < attributeParamsEntries.length; j++) {
