@@ -37,6 +37,9 @@ export function Navigation({ opened = false, reduced }: TNavigation) {
         if (data.cart) cartData = data.cart;
     }
 
+    const [displaySkeletons, setDisplaySkeletons] = useState(true);
+    useEffect(() => setDisplaySkeletons(awaitingAny), [awaitingAny]);
+
     const navigate = useNavigate();
 
     const [categoryTree, setCategoryTree] = useState<ReturnType<typeof buildCategoriesTree>>([]);
@@ -173,7 +176,7 @@ export function Navigation({ opened = false, reduced }: TNavigation) {
                                 const path = `/c/${slug}`;
                                 return (
                                     <Skeleton
-                                        visible={awaitingAny}
+                                        visible={displaySkeletons}
                                         width="min-content"
                                         key={`navbar-category-${name}`}
                                     >
@@ -182,7 +185,7 @@ export function Navigation({ opened = false, reduced }: TNavigation) {
                                             className={styles["option"]}
                                             onClick={() => navigate(path)}
                                             style={{
-                                                visibility: awaitingAny ? "hidden" : "initial",
+                                                visibility: displaySkeletons ? "hidden" : "initial",
                                             }}
                                         >
                                             {name}

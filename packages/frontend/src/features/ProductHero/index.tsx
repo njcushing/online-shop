@@ -41,6 +41,9 @@ export function ProductHero() {
         ],
     });
 
+    const [displaySkeletons, setDisplaySkeletons] = useState(true);
+    useEffect(() => setDisplaySkeletons(awaitingAny), [awaitingAny]);
+
     useEffect(() => {
         if (!awaitingAny && data.cart) setCartData(data.cart);
     }, [awaitingAny, data.cart]);
@@ -107,10 +110,10 @@ export function ProductHero() {
         return collections.map((collection, i) => {
             return (
                 <Fragment key={collection.id}>
-                    <Skeleton visible={awaitingAny}>
+                    <Skeleton visible={displaySkeletons}>
                         <div
                             style={{
-                                visibility: awaitingAny ? "hidden" : "initial",
+                                visibility: displaySkeletons ? "hidden" : "initial",
                             }}
                         >
                             <CollectionStep collectionData={collection} />
@@ -120,7 +123,7 @@ export function ProductHero() {
                 </Fragment>
             );
         });
-    }, [awaitingAny, collections]);
+    }, [displaySkeletons, collections]);
 
     const variantStepsMemo = useMemo(() => {
         return relatedAttributesData.map((attribute, i) => {
@@ -128,10 +131,10 @@ export function ProductHero() {
             if (values.length === 0) return null;
             return (
                 <Fragment key={attributeCode}>
-                    <Skeleton visible={awaitingAny}>
+                    <Skeleton visible={displaySkeletons}>
                         <div
                             style={{
-                                visibility: awaitingAny ? "hidden" : "initial",
+                                visibility: displaySkeletons ? "hidden" : "initial",
                             }}
                         >
                             <VariantStep attribute={attribute} />
@@ -141,7 +144,7 @@ export function ProductHero() {
                 </Fragment>
             );
         });
-    }, [relatedAttributesData, awaitingAny]);
+    }, [relatedAttributesData, displaySkeletons]);
 
     const priceMemo = useMemo(() => {
         return <Price base={priceBase} current={unitPrice} size="lg" />;
@@ -182,19 +185,19 @@ export function ProductHero() {
                 <div>{imageCarouselMemo}</div>
 
                 <div className={styles["product-content"]}>
-                    <Skeleton visible={awaitingAny} className={styles["margin"]}>
+                    <Skeleton visible={displaySkeletons} className={styles["margin"]}>
                         <h1
                             className={styles["product-name"]}
-                            style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                            style={{ visibility: displaySkeletons ? "hidden" : "initial" }}
                         >
                             {name}
                         </h1>
                     </Skeleton>
 
-                    <Skeleton visible={awaitingAny} className={styles["margin"]}>
+                    <Skeleton visible={displaySkeletons} className={styles["margin"]}>
                         <div
                             className={styles["product-hero-rating-container"]}
-                            style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                            style={{ visibility: displaySkeletons ? "hidden" : "initial" }}
                         >
                             {ratingMemo}
                         </div>
@@ -216,8 +219,8 @@ export function ProductHero() {
                         </div>
                     )}
 
-                    <Skeleton visible={awaitingAny} className={styles["margin"]}>
-                        <div style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
+                    <Skeleton visible={displaySkeletons} className={styles["margin"]}>
+                        <div style={{ visibility: displaySkeletons ? "hidden" : "initial" }}>
                             {priceMemo}
                         </div>
                     </Skeleton>
@@ -234,7 +237,7 @@ export function ProductHero() {
                         <Button
                             color="#242424"
                             className={styles["add-to-cart-button"]}
-                            disabled={awaitingAny || maximumVariantQuantity === 0}
+                            disabled={displaySkeletons || maximumVariantQuantity === 0}
                         >
                             Add to Cart
                         </Button>
@@ -242,8 +245,8 @@ export function ProductHero() {
                         {watchListButtonMemo}
                     </div>
 
-                    <Skeleton visible={awaitingAny}>
-                        <div style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
+                    <Skeleton visible={displaySkeletons}>
+                        <div style={{ visibility: displaySkeletons ? "hidden" : "initial" }}>
                             {deliveryProgressMemo}
                         </div>
                     </Skeleton>
