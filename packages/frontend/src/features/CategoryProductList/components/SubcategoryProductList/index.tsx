@@ -97,7 +97,9 @@ export function SubcategoryProductList({ slug, awaiting = false }: TSubcategoryP
 
     let productCount = productsToDisplay;
     if (awaitingAny) productCount = productsToDisplayWhileAwaiting;
-    if (!awaitingAny && categoryResponse.success) productCount = category.productCount;
+    if (!awaitingAny && categoryResponse.success) {
+        productCount = Math.min(productsToDisplay, category.productCount);
+    }
 
     const productCards = useMemo(() => {
         return productsData.products
