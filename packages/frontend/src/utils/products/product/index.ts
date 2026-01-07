@@ -77,39 +77,6 @@ export const extractRelatedAttributesOrdered = (
     return attributes;
 };
 
-export const findVariantByAttributes = (
-    product: GetProductBySlugResponseDto,
-    attributes: GetProductBySlugResponseDto["variants"][number]["attributes"],
-    exact: boolean = false,
-): GetProductBySlugResponseDto["variants"][number] | null => {
-    const { variants } = product;
-    if (variants.length === 0) return null;
-
-    let closestMatch: GetProductBySlugResponseDto["variants"][number] = variants[0];
-    let closestMatchCount = 0;
-
-    for (let i = 0; i < product.variants.length; i++) {
-        const variant = product.variants[i];
-
-        for (let j = 0; j < attributes.length; j++) {
-            const { type, value } = attributes[j];
-            const variantAttributeMatch = variant.attributes.find((a) => {
-                return a.type.id === type.id && a.value.code === value.code;
-            });
-            if (variantAttributeMatch) {
-                if (j > closestMatchCount) {
-                    closestMatch = variant;
-                    closestMatchCount = j;
-                }
-                break;
-            }
-            if (j === attributes.length - 1) return variant;
-        }
-    }
-
-    return exact ? null : closestMatch;
-};
-
 export const findVariantByAttributeParams = (
     product: GetProductBySlugResponseDto,
     attributeParams: { [key: string]: string },
