@@ -1,4 +1,4 @@
-import { CoffeeBean, Leaf, Coffee, Gear, Gift, IconProps } from "@phosphor-icons/react";
+import { CoffeeBean, Leaf, Gear, Gift, IconProps, SquaresFour } from "@phosphor-icons/react";
 
 const iconProps: IconProps = {
     weight: "fill",
@@ -11,12 +11,12 @@ export const getIcon = (categoryName: string): JSX.Element | null => {
             return <CoffeeBean {...iconProps} />;
         case "Tea":
             return <Leaf {...iconProps} />;
-        case "Equipment":
+        case "Equipment & Accessories":
             return <Gear {...iconProps} />;
-        case "Accessories":
-            return <Coffee {...iconProps} />;
-        case "Gifts & Subscriptions":
+        case "Gifts":
             return <Gift {...iconProps} />;
+        case "Samples":
+            return <SquaresFour {...iconProps} />;
         default:
             return null;
     }
