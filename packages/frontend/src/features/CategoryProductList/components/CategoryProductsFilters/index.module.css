@@ -5,8 +5,7 @@
     flex-direction: column;
 
     height: min-content;
-    max-height: calc(var(--vh, 1vh) * 100);
-    padding: 16px 0px 0px;
+    padding: 16px 0px;
 
     transition: top 0.2s cubic-bezier(0.99, -0.02, 0.7, 1);
 }
@@ -16,11 +15,10 @@
 }
 
 .Accordion-root {
-    overflow: -moz-scrollbars-vertical;
     overflow-y: auto;
 
     height: min-content;
-    padding: 0px 4px 16px 0px;
+    padding: 0px 4px 0px 0px;
 
     @media (min-width: $mantine-breakpoint-xs) {
         flex-direction: row;
@@ -41,7 +39,7 @@
     font-size: 1.1rem;
     font-weight: 600;
 
-    margin-bottom: 8px;
+    padding: 0px 4px;
 
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 1.2rem;

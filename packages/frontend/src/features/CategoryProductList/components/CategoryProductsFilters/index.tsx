@@ -95,23 +95,26 @@ export function CategoryProductsFilters({ filters, awaiting = false }: TCategory
             className={`${styles["category-products-filters"]} ${styles[headerInfo.open ? "shifted" : ""]}`}
             style={(() => {
                 if (headerInfo.open) {
-                    return { top: `calc(max(${0}px, ${headerInfo.height}px))` };
+                    return {
+                        top: `calc(max(${0}px, ${headerInfo.height}px))`,
+                        maxHeight: `calc(var(--vh, 1vh) * 100 - ${headerInfo.height}px)`,
+                    };
                 }
-                return { top: "0px" };
+                return { top: "0px", maxHeight: "calc(var(--vh, 1vh) * 100)" };
             })()}
 
             /* v8 ignore stop */
         >
-            <Skeleton visible={awaiting} width="min-content">
+            <Skeleton visible={awaiting} width="min-content" style={{ marginBottom: "8px" }}>
                 <p
                     className={styles["title"]}
                     style={{ visibility: awaiting ? "hidden" : "initial", textWrap: "nowrap" }}
                 >
-                    Filter by
+                    Filters
                 </p>
             </Skeleton>
 
-            <Divider />
+            <Divider className={styles["Divider"]} />
 
             <Accordion
                 multiple
