@@ -257,19 +257,24 @@ export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
                 style={(() => {
                     if (containerIsTransitioning) return { position: "initial" };
                     if (headerInfo.open) {
-                        return { top: `calc(max(${16}px, ${headerInfo.height + 16}px))` };
+                        return {
+                            top: `calc(max(${0}px, ${headerInfo.height}px))`,
+                            maxHeight: `calc(var(--vh, 1vh) * 100 - ${headerInfo.height}px)`,
+                        };
                     }
-                    return { top: "16px" };
+                    return { top: "0px", maxHeight: "calc(var(--vh, 1vh) * 100)" };
                 })()}
 
                 /* v8 ignore stop */
             >
-                {productRatingBarsMemo}
+                <div className={styles["sticky-panel-inner"]}>
+                    {productRatingBarsMemo}
 
-                <div className={styles["filter-and-sort-options-container"]}>
-                    {ratingFilterSelectMemo}
+                    <div className={styles["filter-and-sort-options-container"]}>
+                        {ratingFilterSelectMemo}
 
-                    {sortSelectMemo}
+                        {sortSelectMemo}
+                    </div>
                 </div>
             </div>
             <div className={styles["reviews"]} ref={targetRef}>
