@@ -1,5 +1,6 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
-import { Accordion, Skeleton } from "@mantine/core";
+import { useContext, useState, useEffect, useCallback, useMemo } from "react";
+import { RootContext } from "@/pages/Root";
+import { Accordion, Divider, Skeleton } from "@mantine/core";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
 import { RatingFilter } from "./components/RatingFilter";
 import { PriceFilter } from "./components/PriceFilter";
@@ -15,6 +16,8 @@ export type TCategoryProductsFilters = {
 };
 
 export function CategoryProductsFilters({ filters, awaiting = false }: TCategoryProductsFilters) {
+    const { headerInfo } = useContext(RootContext);
+
     const filterElements = useCallback(
         (filter: GetCategoryBySlugResponseDto["filters"][number]) => {
             const { type } = filter;
@@ -85,7 +88,20 @@ export function CategoryProductsFilters({ filters, awaiting = false }: TCategory
     }, [awaiting, filters]);
 
     return (
-        <div className={styles["category-products-filters"]}>
+        <div
+            // Don't test element positioning
+            /* v8 ignore start */
+
+            className={`${styles["category-products-filters"]} ${styles[headerInfo.open ? "shifted" : ""]}`}
+            style={(() => {
+                if (headerInfo.open) {
+                    return { top: `calc(max(${0}px, ${headerInfo.height}px))` };
+                }
+                return { top: "0px" };
+            })()}
+
+            /* v8 ignore stop */
+        >
             <Skeleton visible={awaiting} width="min-content">
                 <p
                     className={styles["title"]}
@@ -94,6 +110,8 @@ export function CategoryProductsFilters({ filters, awaiting = false }: TCategory
                     Filter by
                 </p>
             </Skeleton>
+
+            <Divider />
 
             <Accordion
                 multiple
@@ -104,6 +122,8 @@ export function CategoryProductsFilters({ filters, awaiting = false }: TCategory
                  */
                 onChange={(values) => setAccordionValues(new Set(values))}
                 classNames={{
+                    root: styles["Accordion-root"],
+                    item: styles["Accordion-item"],
                     control: styles["Accordion-control"],
                     label: styles["Accordion-label"],
                     content: styles["Accordion-content"],
