@@ -2,6 +2,7 @@ import { createContext, useState, useEffect, useCallback, useRef, useMemo } from
 import { useParams, useSearchParams } from "react-router-dom";
 import { ProductHero } from "@/features/ProductHero";
 import { ProductInformation } from "@/features/ProductInformation";
+import { CoffeeBlendInfoPanels } from "@/features/CoffeeBlendInfoPanels";
 import { RecommendedProducts } from "@/features/RecommendedProducts";
 import * as useAsync from "@/hooks/useAsync";
 import { createQueryContextObject } from "@/hooks/useAsync/utils/createQueryContextObject";
@@ -158,6 +159,13 @@ export function Product({ children }: TProduct) {
     const productInformationMemo = useMemo(() => <ProductInformation />, []);
     const recommendedProductsMemo = useMemo(() => <RecommendedProducts />, []);
 
+    const coffeeBlendInfoPanelsMemo = useMemo(() => {
+        if (product.awaiting || !product.response.success) return null;
+        const { attributes } = product.response.data;
+        if (!attributes.find((c) => c.code === "coffee_blend")) return null;
+        return <CoffeeBlendInfoPanels />;
+    }, [product]);
+
     return (
         <ProductContext.Provider
             value={useMemo(
@@ -182,6 +190,7 @@ export function Product({ children }: TProduct) {
             <div className={styles["page"]}>
                 {productHeroMemo}
                 {productInformationMemo}
+                {coffeeBlendInfoPanelsMemo}
                 {recommendedProductsMemo}
             </div>
             {children}
