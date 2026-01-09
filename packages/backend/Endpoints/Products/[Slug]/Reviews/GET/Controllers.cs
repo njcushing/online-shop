@@ -107,12 +107,6 @@ namespace Cafree.Api.Endpoints.Products._Slug.Reviews.GET
                 })
                 .ToListAsync();
 
-            if (reviews.Count == 0) return Problem(
-                statusCode: StatusCodes.Status404NotFound,
-                title: "Reviews not found",
-                detail: $"No reviews for the product with the specified slug '{slug}' could be located."
-            );
-
             var response = new GetReviewsByProductSlugResponseDto
             {
                 Total = totalCount,
