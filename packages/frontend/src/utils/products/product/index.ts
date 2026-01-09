@@ -79,13 +79,13 @@ export const extractRelatedAttributesOrdered = (
 
 export const findVariantByAttributeParams = (
     product: GetProductBySlugResponseDto,
-    attributeParams: { [key: string]: string },
+    attributeParams: Map<string, string>,
     exact: boolean = false,
 ): GetProductBySlugResponseDto["variants"][number] | null => {
     const { variants } = product;
     if (variants.length === 0) return null;
 
-    const attributeParamsEntries = Object.entries(attributeParams);
+    const attributeParamsEntries = [...attributeParams.entries()];
 
     // Expects 'product.attributes' entries to be sorted by their 'position' field (ascending)
     const sortedVariants = _.cloneDeep(product.variants);

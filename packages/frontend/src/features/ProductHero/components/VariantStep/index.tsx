@@ -15,8 +15,8 @@ export function VariantStep({ attribute }: TVariantStep) {
 
     const onClick = useCallback(
         (valueCode: string) => {
-            const newSelectedAttributeParams = { ...selectedAttributeParams };
-            newSelectedAttributeParams[code] = valueCode;
+            const newSelectedAttributeParams = new Map(selectedAttributeParams);
+            newSelectedAttributeParams.set(code, valueCode);
             setSelectedAttributeParams(newSelectedAttributeParams);
         },
         [code, selectedAttributeParams, setSelectedAttributeParams],
@@ -32,8 +32,8 @@ export function VariantStep({ attribute }: TVariantStep) {
                     const { code: valueCode, name: valueName } = v;
 
                     const isSelected =
-                        code in selectedAttributeParams &&
-                        selectedAttributeParams[code] === valueCode;
+                        selectedAttributeParams.has(code) &&
+                        selectedAttributeParams.get(code) === valueCode;
 
                     return (
                         <button
@@ -55,8 +55,8 @@ export function VariantStep({ attribute }: TVariantStep) {
                     const { code: valueCode, name: valueName, value } = v;
 
                     const isSelected =
-                        code in selectedAttributeParams &&
-                        selectedAttributeParams[code] === valueCode;
+                        selectedAttributeParams.has(code) &&
+                        selectedAttributeParams.get(code) === valueCode;
 
                     return (
                         <button
@@ -85,7 +85,7 @@ export function VariantStep({ attribute }: TVariantStep) {
     const content = useMemo(() => {
         if (type === "boolean") {
             const isSelected =
-                code in selectedAttributeParams && selectedAttributeParams[code] === "true";
+                code in selectedAttributeParams && selectedAttributeParams.get(code) === "true";
 
             return (
                 <Checkbox

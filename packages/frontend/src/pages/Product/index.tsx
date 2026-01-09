@@ -21,8 +21,8 @@ import styles from "./index.module.css";
 export interface IProductContext {
     product: useAsync.InferUseAsyncReturnTypeFromFunction<typeof getProductBySlug>;
     variant: GetProductBySlugResponseDto["variants"][number] | null;
-    selectedAttributeParams: { [k: string]: string };
-    setSelectedAttributeParams: React.Dispatch<React.SetStateAction<{ [k: string]: string }>>;
+    selectedAttributeParams: Map<string, string>;
+    setSelectedAttributeParams: React.Dispatch<React.SetStateAction<Map<string, string>>>;
     relatedAttributes: ReturnType<typeof extractRelatedAttributesOrdered>;
 
     defaultData: {
@@ -34,7 +34,7 @@ export interface IProductContext {
 const defaultProductContext: IProductContext = {
     product: createQueryContextObject({ awaiting: true }),
     variant: null,
-    selectedAttributeParams: {},
+    selectedAttributeParams: new Map(),
     setSelectedAttributeParams: () => {},
     relatedAttributes: [],
 
@@ -49,23 +49,28 @@ export const ProductContext = createContext<IProductContext>(defaultProductConte
 const generateAttributeParamsFromVariant = (
     variant: GetProductBySlugResponseDto["variants"][number] | null,
 ): IProductContext["selectedAttributeParams"] => {
-    const attributeParams: IProductContext["selectedAttributeParams"] = {};
-    if (variant) {
-        variant!.attributes.forEach((a) => {
-            attributeParams[a.type.code] = a.value.code;
-        });
-    }
+    const attributeParams: IProductContext["selectedAttributeParams"] = new Map();
+    if (variant) variant.attributes.forEach((a) => attributeParams.set(a.type.code, a.value.code));
     return attributeParams;
 };
 
 const generateSearchParamsFromAttributeParams = (
+    product: GetProductBySlugResponseDto | null,
     attributeParams: IProductContext["selectedAttributeParams"],
 ): URLSearchParams => {
     const searchParams = new URLSearchParams();
-    Object.entries(attributeParams).forEach((entry) => {
-        const [key, value] = entry;
-        searchParams.set(key, value);
-    });
+    [...attributeParams.entries()]
+        .sort((a, b) => {
+            const [aCode] = a;
+            const [bCode] = b;
+            const aAttIndex = product?.attributes.find((att) => att.code === aCode)?.position || -1;
+            const bAttIndex = product?.attributes.find((att) => att.code === bCode)?.position || -1;
+            return aAttIndex - bAttIndex;
+        })
+        .forEach((entry) => {
+            const [key, value] = entry;
+            searchParams.set(key, value);
+        });
     return searchParams;
 };
 
@@ -80,7 +85,7 @@ export function Product({ children }: TProduct) {
 
     const [selectedAttributeParams, setSelectedAttributeParams] = useState<
         IProductContext["selectedAttributeParams"]
-    >(Object.fromEntries(searchParams.entries()));
+    >(new Map(searchParams.entries()));
     const selectedAttributeParamsRef =
         useRef<IProductContext["selectedAttributeParams"]>(selectedAttributeParams);
     useEffect(() => {
@@ -100,11 +105,6 @@ export function Product({ children }: TProduct) {
         [],
     );
 
-    useEffect(() => {
-        const newSearchParams = generateSearchParamsFromAttributeParams(selectedAttributeParams);
-        setSearchParams(newSearchParams);
-    }, [setSearchParams, selectedAttributeParams]);
-
     const [product, setProduct] = useState<IProductContext["product"]>(
         defaultProductContext.product,
     );
@@ -116,18 +116,7 @@ export function Product({ children }: TProduct) {
         [{ params: { path: { slug: productSlug } } }] as Parameters<typeof getProductBySlug>,
         { attemptOnMount: true },
     );
-    useEffect(() => {
-        const { response, awaiting } = getProductReturn;
-        setProduct(getProductReturn);
-        const newVariant = updateSelectedVariant(response.success ? response.data : null);
-
-        if (awaiting) return;
-
-        const newSelectedAttributeParams = generateAttributeParamsFromVariant(newVariant);
-        setSelectedAttributeParams(newSelectedAttributeParams);
-        const newSearchParams = generateSearchParamsFromAttributeParams(newSelectedAttributeParams);
-        setSearchParams(newSearchParams);
-    }, [setSearchParams, updateSelectedVariant, getProductReturn]);
+    useEffect(() => setProduct(getProductReturn), [getProductReturn]);
     const { response, setParams, attempt } = getProductReturn;
 
     const productDataRef = useRef<GetProductBySlugResponseDto | null>(
@@ -137,15 +126,28 @@ export function Product({ children }: TProduct) {
         productDataRef.current = response.success ? response.data : null;
     }, [response]);
 
+    useEffect(() => {
+        if (product.awaiting) return;
+
+        const newVariant = updateSelectedVariant(productDataRef.current);
+        const newSearchParams = generateAttributeParamsFromVariant(newVariant);
+        setSelectedAttributeParams(newSearchParams);
+    }, [updateSelectedVariant, product]);
+
+    useEffect(() => {
+        const newSearchParams = generateSearchParamsFromAttributeParams(
+            product.response.success ? product.response.data : null,
+            selectedAttributeParams,
+        );
+        setSearchParams(newSearchParams);
+        updateSelectedVariant(productDataRef.current);
+    }, [product.response, setSearchParams, selectedAttributeParams, updateSelectedVariant]);
+
     useMemo(() => {
         if (!productSlug) return;
         setParams([{ params: { path: { slug: productSlug } } }]);
         attempt();
     }, [productSlug, setParams, attempt]);
-
-    useEffect(() => {
-        updateSelectedVariant(productDataRef.current);
-    }, [selectedAttributeParams, updateSelectedVariant]);
 
     const relatedAttributes = useMemo(() => {
         if (!response.success || !variant) return [];
