@@ -9,8 +9,53 @@
 .coffee-blend-info-panels-width-controller {
     box-sizing: border-box;
 
+    overflow: hidden;
+
     width: min(calc(var(--vw) * 100), 100%);
     max-width: 1280px;
     padding: 0px;
     margin: auto;
+}
+
+.Carousel-root {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    width: 100%;
+    padding: 16px;
+    margin: auto;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        max-width: 480px;
+    }
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        max-width: 640px;
+    }
+
+    @media (min-width: $mantine-breakpoint-md) {
+        max-width: 720px;
+    }
+
+    @media (min-width: $mantine-breakpoint-lg) {
+        max-width: 800px;
+    }
+
+    @media (min-width: $mantine-breakpoint-xl) {
+        max-width: 960px;
+    }
+}
+
+.Carousel-viewport {
+    overflow: visible;
+}
+
+.Carousel-slide {
+    opacity: 100%;
+    transition: opacity 0.25s ease-in-out;
+}
+
+.Carousel-slide:not([data-selected="true"]) {
+    opacity: 40%;
 }
