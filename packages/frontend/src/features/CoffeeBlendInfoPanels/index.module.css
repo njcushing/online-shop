@@ -9,21 +9,27 @@
 .coffee-blend-info-panels-width-controller {
     box-sizing: border-box;
 
-    overflow: hidden;
-
     width: min(calc(var(--vw) * 100), 100%);
     max-width: 1280px;
     padding: 0px;
     margin: auto;
 }
 
-.Carousel-root {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+.Carousel-wrapper {
+    position: relative;
 
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+
+    width: calc(100% - 32px);
+    margin: 0px 16px;
+}
+
+.Carousel-root {
     width: 100%;
-    padding: 16px;
+    padding: 0px;
     margin: auto;
 
     @media (min-width: $mantine-breakpoint-xs) {
@@ -52,10 +58,62 @@
 }
 
 .Carousel-slide {
-    opacity: 100%;
-    transition: opacity 0.25s ease-in-out;
+    scale: 100%;
+    opacity: 1;
+    transition:
+        opacity 0.25s ease-in-out,
+        scale 0.25s ease-out;
 }
 
 .Carousel-slide:not([data-selected="true"]) {
-    opacity: 40%;
+    scale: 95%;
+    opacity: 0.4;
+}
+
+.Carousel-control-left,
+.Carousel-control-right {
+    position: absolute;
+    z-index: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: rgb(173, 90, 12);
+
+    border: none;
+    border-radius: 50%;
+    background-color: var(--site-colour-tertiary, rgb(247, 204, 164));
+    box-shadow: none;
+
+    width: 32px;
+    aspect-ratio: 1;
+
+    opacity: 1;
+    transition: opacity 0.1s ease-in-out;
+}
+
+.Carousel-control-left {
+    left: 16px;
+}
+
+.Carousel-control-right {
+    right: 16px;
+}
+
+.Carousel-control-left:disabled,
+.Carousel-control-right:disabled {
+    opacity: 0;
+}
+
+@media (hover: hover) {
+    .Carousel-control-left:hover,
+    .Carousel-control-right:hover {
+        cursor: pointer;
+    }
+
+    .Carousel-control-left:disabled:hover,
+    .Carousel-control-right:disabled:hover {
+        cursor: not-allowed;
+    }
 }
