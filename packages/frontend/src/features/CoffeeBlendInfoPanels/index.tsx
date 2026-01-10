@@ -62,9 +62,12 @@ export function CoffeeBlendInfoPanels() {
                         skipSnaps
                         onSlideChange={(slideIndex) => setCurrentSlide(slideIndex)}
                         withControls={false}
+                        withIndicators
                         classNames={{
                             root: styles["Carousel-root"],
                             viewport: styles["Carousel-viewport"],
+                            indicators: styles["Carousel-indicators"],
+                            indicator: styles["Carousel-indicator"],
                         }}
                         style={{ visibility: awaitingAny ? "hidden" : "initial" }}
                     >

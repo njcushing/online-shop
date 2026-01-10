@@ -117,3 +117,32 @@
         cursor: not-allowed;
     }
 }
+
+.Carousel-indicators {
+    align-self: center;
+
+    position: initial;
+
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+
+    margin-top: 16px;
+}
+
+.Carousel-indicator {
+    border-radius: 0px;
+    background-color: rgba(0, 0, 0, 0.2);
+
+    width: 8px;
+    aspect-ratio: 1;
+
+    scale: 1 1;
+    transition: scale 0.25s ease-in-out;
+}
+
+.Carousel-indicator[data-active] {
+    background-color: rgba(0, 0, 0, 0.7);
+
+    scale: 1.5 1;
+}
