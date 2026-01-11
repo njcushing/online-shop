@@ -1,5 +1,5 @@
 .category-products-filters {
-    position: sticky;
+    position: initial;
 
     display: flex;
     flex-direction: column;
@@ -8,6 +8,10 @@
     padding: 16px 0px;
 
     transition: top 0.2s cubic-bezier(0.99, -0.02, 0.7, 1);
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        position: sticky;
+    }
 }
 
 .category-products-filters.shifted {
