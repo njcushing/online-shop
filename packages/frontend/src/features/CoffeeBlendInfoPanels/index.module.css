@@ -9,10 +9,78 @@
 .coffee-blend-info-panels-width-controller {
     box-sizing: border-box;
 
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
     width: min(calc(var(--vw) * 100), 100%);
     max-width: 1280px;
     padding: 0px;
     margin: auto;
+}
+
+.intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+
+    width: 100%;
+    padding: 0px 16px;
+    margin: auto;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        max-width: 400px;
+    }
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        max-width: 540px;
+    }
+
+    @media (min-width: $mantine-breakpoint-md) {
+        max-width: 600px;
+    }
+
+    @media (min-width: $mantine-breakpoint-lg) {
+        max-width: 680px;
+    }
+
+    @media (min-width: $mantine-breakpoint-xl) {
+        max-width: 800px;
+    }
+}
+
+.intro-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-align: center;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 2rem;
+    }
+}
+
+.intro-description {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: rgb(48, 48, 48);
+    font-family: var(--font-primary);
+    font-size: 0.92rem;
+    font-weight: 400;
+    text-align: center;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1rem;
+    }
 }
 
 .Carousel-wrapper {

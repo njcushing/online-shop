@@ -45,6 +45,16 @@ export function CoffeeBlendInfoPanels() {
     return (
         <section className={styles["coffee-blend-info-panels"]}>
             <div className={styles["coffee-blend-info-panels-width-controller"]}>
+                <div className={styles["intro"]}>
+                    <p className={styles["intro-title"]}>Our Blends</p>
+                    <p className={styles["intro-description"]}>
+                        Explore our range of coffee blends, from bright and light roasts to deep,
+                        bold, and flavoured favourites; crafted to suit every taste and brewing
+                        style. Our blends are available whole bean, ground or instant, or in pods
+                        compatible with our espresso coffee machines.
+                    </p>
+                </div>
+
                 <div className={styles["Carousel-wrapper"]}>
                     <button
                         type="button"
@@ -56,6 +66,7 @@ export function CoffeeBlendInfoPanels() {
                     >
                         <ArrowLeft weight="bold" />
                     </button>
+
                     <Carousel
                         getEmblaApi={setEmbla}
                         slideGap={32}
@@ -85,6 +96,7 @@ export function CoffeeBlendInfoPanels() {
                             );
                         })}
                     </Carousel>
+
                     <button
                         type="button"
                         aria-label="Next blend"
