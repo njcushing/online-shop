@@ -63,6 +63,11 @@
     padding: 8px 4px;
 }
 
+.Accordion-control:focus-visible {
+    outline: 2px solid #000;
+    outline-offset: -2px;
+}
+
 .Accordion-label {
     color: black;
     font-family: var(--font-primary);
