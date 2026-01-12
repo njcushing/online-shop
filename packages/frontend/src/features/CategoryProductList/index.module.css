@@ -29,6 +29,12 @@
     padding: 16px 0px 0px;
 }
 
+.category-product-list-category-group[data-layout="narrow"] {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+}
+
 .category-product-list-category-group-products {
     display: grid;
     grid-template-columns: repeat(1, 1fr);

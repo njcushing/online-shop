@@ -1,7 +1,16 @@
 import { useContext, useState, useEffect, useCallback, useMemo } from "react";
+import {
+    Accordion,
+    Divider,
+    Skeleton,
+    FocusTrap,
+    RemoveScroll,
+    Button,
+    Collapse,
+} from "@mantine/core";
 import { RootContext } from "@/pages/Root";
-import { Accordion, Divider, Skeleton } from "@mantine/core";
 import { ResponseBody as GetCategoryBySlugResponseDto } from "@/api/categories/[slug]/GET";
+import { List, X } from "@phosphor-icons/react";
 import { RatingFilter } from "./components/RatingFilter";
 import { PriceFilter } from "./components/PriceFilter";
 import { StringFilter } from "./components/StringFilter";
@@ -11,12 +20,22 @@ import { SelectFilter } from "./components/SelectFilter";
 import styles from "./index.module.css";
 
 export type TCategoryProductsFilters = {
+    layout?: "dropdown" | "visible";
     filters: GetCategoryBySlugResponseDto["filters"];
     awaiting?: boolean;
 };
 
-export function CategoryProductsFilters({ filters, awaiting = false }: TCategoryProductsFilters) {
+export function CategoryProductsFilters({
+    layout = "visible",
+    filters,
+    awaiting = false,
+}: TCategoryProductsFilters) {
     const { headerInfo } = useContext(RootContext);
+
+    const [open, setOpen] = useState<boolean>(false);
+    useEffect(() => {
+        if (layout === "dropdown" && open) window.scrollTo(0, 0);
+    }, [layout, open]);
 
     const filterElements = useCallback(
         (filter: GetCategoryBySlugResponseDto["filters"][number]) => {
@@ -87,35 +106,8 @@ export function CategoryProductsFilters({ filters, awaiting = false }: TCategory
         setAccordionValues(new Set(["Rating", "Price", ...filters.map((filter) => filter.name)]));
     }, [awaiting, filters]);
 
-    return (
-        <div
-            // Don't test element positioning
-            /* v8 ignore start */
-
-            className={`${styles["category-products-filters"]} ${styles[headerInfo.open ? "shifted" : ""]}`}
-            style={(() => {
-                if (headerInfo.open) {
-                    return {
-                        top: `calc(max(${0}px, ${headerInfo.height}px))`,
-                        maxHeight: `calc(var(--vh, 1vh) * 100 - ${headerInfo.height}px)`,
-                    };
-                }
-                return { top: "0px", maxHeight: "calc(var(--vh, 1vh) * 100)" };
-            })()}
-
-            /* v8 ignore stop */
-        >
-            <Skeleton visible={awaiting} width="min-content" style={{ marginBottom: "8px" }}>
-                <p
-                    className={styles["title"]}
-                    style={{ visibility: awaiting ? "hidden" : "initial", textWrap: "nowrap" }}
-                >
-                    Filters
-                </p>
-            </Skeleton>
-
-            <Divider className={styles["Divider"]} />
-
+    const content = useMemo(() => {
+        return (
             <Accordion
                 multiple
                 value={[...accordionValues]}
@@ -135,6 +127,114 @@ export function CategoryProductsFilters({ filters, awaiting = false }: TCategory
                 {otherFilters}
                 {generatedFilters}
             </Accordion>
-        </div>
+        );
+    }, [otherFilters, generatedFilters, accordionValues]);
+
+    if (layout === "visible") {
+        return (
+            <div
+                // Don't test element positioning
+                /* v8 ignore start */
+
+                className={styles["category-products-filters"]}
+                data-shifted={headerInfo.open}
+                style={(() => {
+                    if (headerInfo.open) {
+                        return {
+                            top: `calc(max(${0}px, ${headerInfo.height}px))`,
+                            maxHeight: `calc(var(--vh, 1vh) * 100 - ${headerInfo.height}px)`,
+                        };
+                    }
+                    return { top: "0px", maxHeight: "calc(var(--vh, 1vh) * 100)" };
+                })()}
+
+                /* v8 ignore stop */
+            >
+                <Skeleton visible={awaiting} width="min-content" style={{ marginBottom: "8px" }}>
+                    <p
+                        className={styles["title"]}
+                        style={{ visibility: awaiting ? "hidden" : "initial", textWrap: "nowrap" }}
+                    >
+                        Filters
+                    </p>
+                </Skeleton>
+
+                <Divider className={styles["Divider"]} />
+
+                {content}
+            </div>
+        );
+    }
+
+    return (
+        <>
+            <div
+                // Don't test element positioning
+                /* v8 ignore start */
+
+                className={styles["category-products-filters"]}
+                data-shifted={headerInfo.open}
+                data-layout={layout}
+                data-active={open}
+                style={(() => {
+                    if (headerInfo.open) {
+                        return {
+                            top: `calc(max(${0}px, ${headerInfo.height}px))`,
+                            maxHeight: `calc(var(--vh, 1vh) * 100 - ${headerInfo.height}px)`,
+                        };
+                    }
+                    return { top: "0px", maxHeight: "calc(var(--vh, 1vh) * 100)" };
+                })()}
+
+                /* v8 ignore stop */
+            >
+                <FocusTrap active={open}>
+                    <RemoveScroll inert removeScrollBar enabled={open}>
+                        <div
+                            className={styles["Collapse-container"]}
+                            style={{
+                                maxHeight: `calc(var(--vh, 1vh) * 100 - ${headerInfo.height}px)`,
+                            }}
+                        >
+                            <div>
+                                <Button
+                                    onClick={() => setOpen(!open)}
+                                    disabled={awaiting}
+                                    classNames={{
+                                        root: styles["Button-root"],
+                                        label: styles["Button-label"],
+                                    }}
+                                >
+                                    {open ? (
+                                        <>
+                                            <span>Filters</span>
+                                            <X size={17} />
+                                        </>
+                                    ) : (
+                                        <>
+                                            <List size={17} weight="bold" />
+                                            <span>Filters</span>
+                                        </>
+                                    )}
+                                </Button>
+                            </div>
+
+                            <Divider />
+
+                            <Collapse
+                                in={open}
+                                animateOpacity={false}
+                                transitionDuration={0}
+                                className={styles["Collapse"]}
+                            >
+                                {content}
+                            </Collapse>
+                        </div>
+                    </RemoveScroll>
+                </FocusTrap>
+            </div>
+
+            {open && <div className={styles["overlay"]}></div>}
+        </>
     );
 }

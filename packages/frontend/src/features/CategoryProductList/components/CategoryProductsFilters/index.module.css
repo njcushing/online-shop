@@ -14,8 +14,17 @@
     }
 }
 
-.category-products-filters.shifted {
+.category-products-filters[data-shifted="true"] {
     transition: top 0.2s cubic-bezier(0.3, 0, 0.01, 1.02);
+}
+
+.category-products-filters[data-layout="dropdown"] {
+    position: sticky;
+    top: 0;
+
+    z-index: 1;
+
+    padding: 0px;
 }
 
 .Accordion-root {
@@ -69,4 +78,144 @@
 
 .Accordion-content {
     padding: 6px 4px 12px;
+}
+
+.Collapse-container {
+    width: 100%;
+}
+
+.Button-root {
+    border: none;
+    border-radius: 0px;
+    outline: 1px solid #000;
+    background-color: transparent;
+
+    width: 100%;
+    height: min-content;
+    padding: 8px 6px;
+}
+
+@media (hover: hover) {
+    .Button-root:hover {
+        /* Overriding default Mantine component hover styles */
+        background-color: transparent;
+    }
+}
+
+.Button-root:focus-visible {
+    outline: 2px solid #000;
+    outline-offset: 0px;
+    border-radius: 0px;
+}
+
+.Button-root:active {
+    background-color: transparent;
+
+    /* Overriding default Mantine component active styles */
+    transform: none;
+}
+
+.Button-root[data-disabled="true"] {
+    outline-color: rgba(0, 0, 0, 0.6);
+
+    .Button-label {
+        color: rgba(0, 0, 0, 0.6);
+    }
+
+    @media (hover: hover) {
+        .select:hover {
+            cursor: not-allowed;
+        }
+    }
+}
+
+.Button-label {
+    overflow: visible;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 0.92rem;
+    font-weight: 400;
+
+    width: 100%;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1rem;
+    }
+}
+
+.overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    z-index: 1;
+
+    background-color: rgba(0, 0, 0, 0.6);
+
+    width: 100%;
+    min-height: calc(var(--vh, 1vh) * 100);
+}
+
+.category-products-filters[data-layout="dropdown"][data-active="true"] {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+
+    background-color: #fff;
+
+    width: 100%;
+
+    .Collapse-container {
+        position: relative;
+        top: 0;
+
+        overflow-y: scroll;
+    }
+
+    .Button-root {
+        outline: none;
+
+        padding: 8px;
+    }
+
+    .Button-root:focus-visible {
+        outline: 2px solid #000;
+        outline-offset: -2px;
+        border-radius: 0px;
+    }
+
+    .Button-label {
+        font-size: 1.1rem;
+        font-weight: 600;
+
+        @media (min-width: $mantine-breakpoint-xs) {
+            font-size: 1.2rem;
+        }
+    }
+
+    .Accordion-root {
+        padding: 0px;
+    }
+
+    .Accordion-control {
+        padding: 8px;
+        outline-offset: -2px;
+    }
+
+    .Accordion-content {
+        padding: 6px 8px 12px;
+    }
 }

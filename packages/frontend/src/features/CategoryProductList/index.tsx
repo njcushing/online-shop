@@ -71,6 +71,7 @@ export function CategoryProductList() {
         { getInitialValueInEffect: false },
     );
     const subcategoriesToDisplayWhileAwaiting = 3;
+    const narrow = useMatches({ base: true, xs: false }, { getInitialValueInEffect: false });
 
     const { categories } = useContext(RootContext);
     const { urlPathSplit, categoryBranch, categoryData } = useContext(CategoryContext);
@@ -332,11 +333,12 @@ export function CategoryProductList() {
         if (layoutType !== "single") return null;
         return (
             <CategoryProductsFilters
+                layout={narrow ? "dropdown" : "visible"}
                 filters={category.filters}
                 awaiting={awaitingCategory || awaitingProducts}
             />
         );
-    }, [category.filters, layoutType, awaitingCategory, awaitingProducts]);
+    }, [narrow, category.filters, layoutType, awaitingCategory, awaitingProducts]);
 
     const categoryProductsSort = useMemo(() => {
         if (layoutType !== "single") return null;
@@ -356,20 +358,46 @@ export function CategoryProductList() {
         return (
             <div
                 className={styles["category-product-list-category-group-container"]}
+                data-layout={narrow ? "narrow" : "wide"}
                 data-sidebar={layoutType === "single"}
             >
-                {categoryProductsFilters}
+                {narrow ? (
+                    <>
+                        <div
+                            className={styles["category-product-list-category-group"]}
+                            data-layout="narrow"
+                        >
+                            {categoryProductsFilters}
 
-                <div className={styles["category-product-list-category-group"]}>
-                    {categoryProductsSort}
+                            {categoryProductsSort}
+                        </div>
 
-                    <div className={styles["category-product-list-category-group-products"]}>
-                        {productCards}
-                    </div>
-                </div>
+                        <div className={styles["category-product-list-category-group-products"]}>
+                            {productCards}
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        {categoryProductsFilters}
+
+                        <div
+                            className={styles["category-product-list-category-group"]}
+                            data-layout="wide"
+                        >
+                            {categoryProductsSort}
+
+                            <div
+                                className={styles["category-product-list-category-group-products"]}
+                            >
+                                {productCards}
+                            </div>
+                        </div>
+                    </>
+                )}
             </div>
         );
     }, [
+        narrow,
         productsData.products.length,
         layoutType,
         categoryProductsFilters,
