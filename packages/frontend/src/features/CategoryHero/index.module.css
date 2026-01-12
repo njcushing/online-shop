@@ -58,6 +58,11 @@
     }
 }
 
+.category-breadcrumb-button:focus-visible {
+    outline: 2px solid #000;
+    border-radius: 0px;
+}
+
 .category-header {
     color: black;
     font-family: var(--font-primary);
