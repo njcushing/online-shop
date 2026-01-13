@@ -4,29 +4,8 @@ import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { Embla, Carousel } from "@mantine/carousel";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 import { Panel } from "./components/Panel";
+import { blendData } from "./blendData";
 import styles from "./index.module.css";
-
-export type BlendData = {
-    code: string;
-    name: string;
-};
-
-const blends: BlendData[] = [
-    { code: "HO", name: "House" },
-    { code: "LT", name: "Light" },
-    { code: "MD", name: "Medium" },
-    { code: "DK", name: "Dark" },
-    { code: "XD", name: "Extra Dark" },
-    { code: "BK", name: "Breakfast" },
-    { code: "PK", name: "Pumpkin Spice" },
-    { code: "MO", name: "Mocha" },
-    { code: "ES", name: "Espresso" },
-    { code: "VA", name: "Vanilla" },
-    { code: "CA", name: "Caramel" },
-    { code: "IN", name: "Intense" },
-    { code: "FR", name: "French Roast" },
-    { code: "IR", name: "Italian Roast" },
-];
 
 export function CoffeeBlendInfoPanels() {
     const { product } = useContext(ProductContext);
@@ -82,7 +61,7 @@ export function CoffeeBlendInfoPanels() {
                         }}
                         style={{ visibility: awaitingAny ? "hidden" : "initial" }}
                     >
-                        {blends.map((blend, i) => {
+                        {blendData.map((blend, i) => {
                             const { code } = blend;
 
                             return (
@@ -101,7 +80,7 @@ export function CoffeeBlendInfoPanels() {
                         type="button"
                         aria-label="Next blend"
                         onClick={() => setCurrentSlide((curr) => curr + 1)}
-                        disabled={currentSlide === blends.length - 1}
+                        disabled={currentSlide === blendData.length - 1}
                         className={styles["Carousel-control-right"]}
                         style={{ visibility: awaitingAny ? "hidden" : "initial" }}
                     >

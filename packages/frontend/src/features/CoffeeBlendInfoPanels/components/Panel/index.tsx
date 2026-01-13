@@ -1,5 +1,5 @@
 import { Divider } from "@mantine/core";
-import { BlendData } from "../..";
+import { BlendData } from "../../blendData";
 import styles from "./index.module.css";
 
 export type TPanel = {
