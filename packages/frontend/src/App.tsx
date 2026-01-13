@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { Theme } from "./themes";
 import { theme } from "../mantine-config";
 import { Router } from "./routes";
+import "./assets/flags/flag-icons.min.css";
 import "./index.css";
 
 dayjs.locale("en");
