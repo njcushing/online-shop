@@ -1,5 +1,30 @@
 .panel {
-    border: 4px solid #000;
+    background-color: var(--site-colour-tertiary, rgb(250, 223, 198));
 
     height: 400px;
+}
+
+.name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 1.4rem;
+    font-weight: 600;
+
+    padding: 8px 12px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.6rem;
+    }
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        font-size: 1.8rem;
+    }
+}
+
+.Divider {
+    border-color: rgba(0, 0, 0, 0.2);
 }
