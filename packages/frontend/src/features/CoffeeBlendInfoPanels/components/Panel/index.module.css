@@ -1,10 +1,24 @@
 .panel {
+    display: flex;
+    flex-direction: column;
+
     background-color: var(--site-colour-tertiary, rgb(250, 223, 198));
 
     height: 400px;
 }
 
+.content-top {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+}
+
 .name {
+    align-self: center;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,6 +28,7 @@
     font-size: 1.4rem;
     font-weight: 600;
 
+    width: 100%;
     padding: 8px 12px;
 
     @media (min-width: $mantine-breakpoint-xs) {
@@ -23,6 +38,42 @@
     @media (min-width: $mantine-breakpoint-sm) {
         font-size: 1.8rem;
     }
+}
+
+.flags {
+    align-self: center;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 8px;
+
+    height: 100%;
+    padding: 0px 8px 0px 0px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        position: absolute;
+        right: 0px;
+    }
+}
+
+.flag {
+    min-width: 24px;
+    min-height: 18px;
+    transform-origin: top left;
+}
+
+.content-main {
+    display: grid;
+    grid-template-columns: 60% auto 1fr;
+
+    width: 100%;
+    height: 100%;
+}
+
+.content-left {
+    display: flex;
+    flex-direction: column;
 }
 
 .Divider {
