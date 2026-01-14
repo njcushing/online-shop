@@ -7,7 +7,7 @@ export type TPanel = {
 };
 
 export function Panel({ data }: TPanel) {
-    const { name, origins } = data;
+    const { name, origins, description } = data;
 
     return (
         <div className={styles["panel"]}>
@@ -26,7 +26,11 @@ export function Panel({ data }: TPanel) {
             <Divider className={styles["Divider"]} />
 
             <div className={styles["content-main"]}>
-                <div className={styles["content-left"]}></div>
+                <div className={styles["content-left"]}>
+                    <p className={styles["description"]}>{description}</p>
+
+                    <Divider className={styles["Divider"]} />
+                </div>
 
                 <Divider orientation="vertical" className={styles["Divider"]} />
 
