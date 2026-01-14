@@ -1,4 +1,5 @@
-import { Divider } from "@mantine/core";
+import { Divider, Progress } from "@mantine/core";
+import { v4 as uuid } from "uuid";
 import { BlendData } from "../../blendData";
 import styles from "./index.module.css";
 
@@ -7,7 +8,7 @@ export type TPanel = {
 };
 
 export function Panel({ data }: TPanel) {
-    const { name, origins, description } = data;
+    const { name, origins, description, intensity } = data;
 
     return (
         <div className={styles["panel"]}>
@@ -30,6 +31,31 @@ export function Panel({ data }: TPanel) {
                     <p className={styles["description"]}>{description}</p>
 
                     <Divider className={styles["Divider"]} />
+
+                    <div className={styles["intensity-container"]}>
+                        <p className={styles["intensity-title"]}>Intensity:</p>
+
+                        <Progress.Root
+                            size="xl"
+                            classNames={{
+                                root: styles["Progress-root"],
+                                section: styles["Progress-section"],
+                            }}
+                        >
+                            {Array.from({ length: Math.max(1, Math.min(11, intensity)) }).map(
+                                (e, i) => {
+                                    return (
+                                        <Progress.Section
+                                            value={100 / 11}
+                                            color="red"
+                                            data-last={i === 10}
+                                            key={uuid()}
+                                        ></Progress.Section>
+                                    );
+                                },
+                            )}
+                        </Progress.Root>
+                    </div>
                 </div>
 
                 <Divider orientation="vertical" className={styles["Divider"]} />

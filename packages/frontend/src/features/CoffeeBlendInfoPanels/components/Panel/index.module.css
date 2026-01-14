@@ -98,6 +98,43 @@
     }
 }
 
+.intensity-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    padding: 16px;
+}
+
+.intensity-title {
+    align-self: center;
+
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 0.84rem;
+    font-weight: 500;
+
+    width: 100%;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.88rem;
+    }
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        font-size: 0.92rem;
+    }
+}
+
+.Progress-root {
+    outline: 1px solid rgba(0, 0, 0, 0.8);
+}
+
+.Progress-section[data-last="false"] {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-right: 1px solid rgba(0, 0, 0, 0.8);
+}
+
 .Divider {
     border-color: rgba(0, 0, 0, 0.2);
 }
