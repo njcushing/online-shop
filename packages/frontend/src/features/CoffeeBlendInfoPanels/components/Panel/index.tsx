@@ -49,7 +49,7 @@ export function Panel({ data }: TPanel) {
 
                     <Divider className={styles["Divider"]} />
 
-                    <div className={styles["content-left-bottom"]}>
+                    <div className={styles["content-left-second"]}>
                         <div className={styles["intensity-container"]}>
                             <p className={styles["intensity-title"]}>Intensity:</p>
 

@@ -3,6 +3,8 @@
     flex-direction: column;
 
     background-color: var(--site-colour-tertiary, rgb(250, 223, 198));
+    box-shadow: 0px 6px 20px 0px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0px 6px 20px 0px rgba(0, 0, 0, 0.2);
 
     height: 400px;
 }
@@ -98,7 +100,7 @@
     }
 }
 
-.content-left-bottom {
+.content-left-second {
     display: flex;
     flex-direction: column;
     gap: 16px;

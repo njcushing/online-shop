@@ -89,7 +89,7 @@
     display: flex;
     align-items: center;
 
-    overflow: hidden;
+    overflow: visible;
 
     width: calc(100% - 32px);
     margin: 0px 16px;
@@ -195,7 +195,7 @@
     flex-direction: row;
     gap: 8px;
 
-    margin-top: 16px;
+    margin-top: 24px;
 }
 
 .Carousel-indicator {
