@@ -25,7 +25,7 @@ export type TPanel = {
 };
 
 export function Panel({ data }: TPanel) {
-    const { name, origins, description, intensity, acidity, roast } = data;
+    const { name, origins, description, notes, pairings, intensity, acidity, roast } = data;
 
     return (
         <div className={styles["panel"]}>
@@ -88,6 +88,22 @@ export function Panel({ data }: TPanel) {
                             <p className={styles["roast-level-title"]}>Roast Level:</p>
 
                             <p className={styles["roast-level-value"]}>{roast}</p>
+                        </div>
+                    </div>
+
+                    <Divider className={styles["Divider"]} />
+
+                    <div className={styles["content-left-third"]}>
+                        <div className={styles["notes-container"]}>
+                            <p className={styles["notes-title"]}>Tasting Notes:</p>
+
+                            <p className={styles["notes-description"]}>{notes}</p>
+                        </div>
+
+                        <div className={styles["pairings-container"]}>
+                            <p className={styles["pairings-title"]}>Pairings:</p>
+
+                            <p className={styles["pairings-description"]}>{pairings}</p>
                         </div>
                     </div>
                 </div>
