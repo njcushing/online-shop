@@ -98,11 +98,10 @@
     }
 }
 
-.intensity-container {
-    display: grid;
-    grid-template-rows: repeat(2, auto);
-    grid-template-columns: auto 1fr;
-    gap: 8px;
+.content-left-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 
     padding: 8px;
 
@@ -111,14 +110,24 @@
     }
 }
 
+.intensity-container {
+    display: grid;
+    grid-template-rows: repeat(2, auto);
+    grid-template-columns: auto 1fr;
+    gap: 8px;
+}
+
 .intensity-title,
-.intensity-value {
+.intensity-value,
+.acidity-title,
+.acidity-value,
+.roast-level-title,
+.roast-level-value {
     align-self: center;
 
     color: black;
     font-family: var(--font-primary);
     font-size: 0.92rem;
-    font-weight: 600;
 
     width: 100%;
 
@@ -131,12 +140,20 @@
     }
 }
 
-.intensity-title {
+.intensity-title,
+.acidity-title,
+.roast-level-title {
     grid-area: 1 / 1 / 2 / 2;
+
+    font-weight: 600;
 }
 
-.intensity-value {
+.intensity-value,
+.acidity-value,
+.roast-level-value {
     grid-area: 1 / 2 / 2 / -1;
+
+    font-weight: 400;
 
     text-align: right;
 }
@@ -152,6 +169,13 @@
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
     border-right: 1px solid rgba(0, 0, 0, 0.8);
+}
+
+.acidity-container,
+.roast-level-container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px;
 }
 
 .Divider {

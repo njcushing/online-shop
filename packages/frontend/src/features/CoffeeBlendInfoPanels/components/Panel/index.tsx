@@ -25,7 +25,7 @@ export type TPanel = {
 };
 
 export function Panel({ data }: TPanel) {
-    const { name, origins, description, intensity } = data;
+    const { name, origins, description, intensity, acidity, roast } = data;
 
     return (
         <div className={styles["panel"]}>
@@ -49,32 +49,46 @@ export function Panel({ data }: TPanel) {
 
                     <Divider className={styles["Divider"]} />
 
-                    <div className={styles["intensity-container"]}>
-                        <p className={styles["intensity-title"]}>Intensity:</p>
+                    <div className={styles["content-left-bottom"]}>
+                        <div className={styles["intensity-container"]}>
+                            <p className={styles["intensity-title"]}>Intensity:</p>
 
-                        <p className={styles["intensity-value"]}>{intensity}</p>
+                            <p className={styles["intensity-value"]}>{intensity}</p>
 
-                        <Progress.Root
-                            size="xl"
-                            classNames={{
-                                root: styles["Progress-root"],
-                                section: styles["Progress-section"],
-                            }}
-                        >
-                            {Array.from({ length: 13 }).map((e, i) => {
-                                return (
-                                    <Progress.Section
-                                        value={100 / 11}
-                                        color={
-                                            i <= intensity - 1
-                                                ? intensityColours[intensity - 1]
-                                                : "rgba(0, 0, 0, 0.2)"
-                                        }
-                                        key={uuid()}
-                                    ></Progress.Section>
-                                );
-                            })}
-                        </Progress.Root>
+                            <Progress.Root
+                                size="xl"
+                                classNames={{
+                                    root: styles["Progress-root"],
+                                    section: styles["Progress-section"],
+                                }}
+                            >
+                                {Array.from({ length: 13 }).map((e, i) => {
+                                    return (
+                                        <Progress.Section
+                                            value={100 / 11}
+                                            color={
+                                                i <= intensity - 1
+                                                    ? intensityColours[intensity - 1]
+                                                    : "rgba(0, 0, 0, 0.2)"
+                                            }
+                                            key={uuid()}
+                                        ></Progress.Section>
+                                    );
+                                })}
+                            </Progress.Root>
+                        </div>
+
+                        <div className={styles["acidity-container"]}>
+                            <p className={styles["acidity-title"]}>Acidity:</p>
+
+                            <p className={styles["acidity-value"]}>{acidity}</p>
+                        </div>
+
+                        <div className={styles["roast-level-container"]}>
+                            <p className={styles["roast-level-title"]}>Roast Level:</p>
+
+                            <p className={styles["roast-level-value"]}>{roast}</p>
+                        </div>
                     </div>
                 </div>
 
