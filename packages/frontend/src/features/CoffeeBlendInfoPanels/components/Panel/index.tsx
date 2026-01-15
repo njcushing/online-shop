@@ -1,7 +1,24 @@
+import { CSSProperties } from "react";
 import { Divider, Progress } from "@mantine/core";
 import { v4 as uuid } from "uuid";
 import { BlendData } from "../../blendData";
 import styles from "./index.module.css";
+
+const intensityColours: CSSProperties["color"][] = [
+    "#7f7171",
+    "#776a6a",
+    "#706262",
+    "#685b5b",
+    "#615454",
+    "#594d4d",
+    "#524646",
+    "#4b3f3f",
+    "#443838",
+    "#3d3232",
+    "#362b2b",
+    "#302525",
+    "#291f1f",
+];
 
 export type TPanel = {
     data: BlendData;
@@ -35,6 +52,8 @@ export function Panel({ data }: TPanel) {
                     <div className={styles["intensity-container"]}>
                         <p className={styles["intensity-title"]}>Intensity:</p>
 
+                        <p className={styles["intensity-value"]}>{intensity}</p>
+
                         <Progress.Root
                             size="xl"
                             classNames={{
@@ -42,18 +61,19 @@ export function Panel({ data }: TPanel) {
                                 section: styles["Progress-section"],
                             }}
                         >
-                            {Array.from({ length: Math.max(1, Math.min(11, intensity)) }).map(
-                                (e, i) => {
-                                    return (
-                                        <Progress.Section
-                                            value={100 / 11}
-                                            color="red"
-                                            data-last={i === 10}
-                                            key={uuid()}
-                                        ></Progress.Section>
-                                    );
-                                },
-                            )}
+                            {Array.from({ length: 13 }).map((e, i) => {
+                                return (
+                                    <Progress.Section
+                                        value={100 / 11}
+                                        color={
+                                            i <= intensity - 1
+                                                ? intensityColours[intensity - 1]
+                                                : "rgba(0, 0, 0, 0.2)"
+                                        }
+                                        key={uuid()}
+                                    ></Progress.Section>
+                                );
+                            })}
                         </Progress.Root>
                     </div>
                 </div>

@@ -99,37 +99,56 @@
 }
 
 .intensity-container {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: repeat(2, auto);
+    grid-template-columns: auto 1fr;
     gap: 8px;
 
-    padding: 16px;
+    padding: 8px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        padding: 16px;
+    }
 }
 
-.intensity-title {
+.intensity-title,
+.intensity-value {
     align-self: center;
 
     color: black;
     font-family: var(--font-primary);
-    font-size: 0.84rem;
-    font-weight: 500;
+    font-size: 0.92rem;
+    font-weight: 600;
 
     width: 100%;
 
     @media (min-width: $mantine-breakpoint-xs) {
-        font-size: 0.88rem;
+        font-size: 0.96rem;
     }
 
     @media (min-width: $mantine-breakpoint-sm) {
-        font-size: 0.92rem;
+        font-size: 1rem;
     }
 }
 
-.Progress-root {
-    outline: 1px solid rgba(0, 0, 0, 0.8);
+.intensity-title {
+    grid-area: 1 / 1 / 2 / 2;
 }
 
-.Progress-section[data-last="false"] {
+.intensity-value {
+    grid-area: 1 / 2 / 2 / -1;
+
+    text-align: right;
+}
+
+.Progress-root {
+    grid-area: 2 / 1 / -1 / -1;
+
+    outline: 1px solid rgba(0, 0, 0, 0.8);
+    background-color: transparent;
+}
+
+.Progress-section:not(:last-child) {
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
     border-right: 1px solid rgba(0, 0, 0, 0.8);
