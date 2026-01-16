@@ -96,28 +96,31 @@
 }
 
 .Carousel-root {
+    --Carousel-slide-padding: 16px;
+
     width: 100%;
+    max-width: calc(100% - var(--Carousel-slide-padding, 16px) * 2);
     padding: 0px;
     margin: auto;
 
     @media (min-width: $mantine-breakpoint-xs) {
-        max-width: 480px;
+        max-width: calc(440px - var(--Carousel-slide-padding, 16px) * 2);
     }
 
     @media (min-width: $mantine-breakpoint-sm) {
-        max-width: 640px;
+        max-width: calc(560px - var(--Carousel-slide-padding, 16px) * 2);
     }
 
     @media (min-width: $mantine-breakpoint-md) {
-        max-width: 720px;
+        max-width: calc(680px - var(--Carousel-slide-padding, 16px) * 2);
     }
 
     @media (min-width: $mantine-breakpoint-lg) {
-        max-width: 800px;
+        max-width: calc(800px - var(--Carousel-slide-padding, 16px) * 2);
     }
 
     @media (min-width: $mantine-breakpoint-xl) {
-        max-width: 960px;
+        max-width: calc(900px - var(--Carousel-slide-padding, 16px) * 2);
     }
 }
 

@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { ProductContext } from "@/pages/Product";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
+import { useMatches } from "@mantine/core";
 import { Embla, Carousel } from "@mantine/carousel";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 import { Panel } from "./components/Panel";
@@ -8,6 +9,9 @@ import { blendData } from "./blendData";
 import styles from "./index.module.css";
 
 export function CoffeeBlendInfoPanels() {
+    const slideGap = useMatches({ base: 16, sm: 24, md: 32 }, { getInitialValueInEffect: false });
+    const withControls = useMatches({ base: false, md: true }, { getInitialValueInEffect: false });
+
     const { product } = useContext(ProductContext);
 
     const { awaitingAny } = useQueryContexts({
@@ -35,20 +39,22 @@ export function CoffeeBlendInfoPanels() {
                 </div>
 
                 <div className={styles["Carousel-wrapper"]}>
-                    <button
-                        type="button"
-                        aria-label="Previous blend"
-                        onClick={() => setCurrentSlide((curr) => curr - 1)}
-                        disabled={currentSlide === 0}
-                        className={styles["Carousel-control-left"]}
-                        style={{ visibility: awaitingAny ? "hidden" : "initial" }}
-                    >
-                        <ArrowLeft weight="bold" />
-                    </button>
+                    {withControls && (
+                        <button
+                            type="button"
+                            aria-label="Previous blend"
+                            onClick={() => setCurrentSlide((curr) => curr - 1)}
+                            disabled={currentSlide === 0}
+                            className={styles["Carousel-control-left"]}
+                            style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                        >
+                            <ArrowLeft weight="bold" />
+                        </button>
+                    )}
 
                     <Carousel
                         getEmblaApi={setEmbla}
-                        slideGap={32}
+                        slideGap={slideGap}
                         skipSnaps
                         onSlideChange={(slideIndex) => setCurrentSlide(slideIndex)}
                         withControls={false}
@@ -76,16 +82,18 @@ export function CoffeeBlendInfoPanels() {
                         })}
                     </Carousel>
 
-                    <button
-                        type="button"
-                        aria-label="Next blend"
-                        onClick={() => setCurrentSlide((curr) => curr + 1)}
-                        disabled={currentSlide === blendData.length - 1}
-                        className={styles["Carousel-control-right"]}
-                        style={{ visibility: awaitingAny ? "hidden" : "initial" }}
-                    >
-                        <ArrowRight weight="bold" />
-                    </button>
+                    {withControls && (
+                        <button
+                            type="button"
+                            aria-label="Next blend"
+                            onClick={() => setCurrentSlide((curr) => curr + 1)}
+                            disabled={currentSlide === blendData.length - 1}
+                            className={styles["Carousel-control-right"]}
+                            style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                        >
+                            <ArrowRight weight="bold" />
+                        </button>
+                    )}
                 </div>
             </div>
         </section>

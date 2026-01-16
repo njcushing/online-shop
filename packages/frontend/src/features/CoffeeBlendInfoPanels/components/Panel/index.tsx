@@ -1,5 +1,5 @@
 import { CSSProperties } from "react";
-import { Divider, Progress } from "@mantine/core";
+import { useMatches, Divider, Progress } from "@mantine/core";
 import { v4 as uuid } from "uuid";
 import { BlendData } from "../../blendData";
 import styles from "./index.module.css";
@@ -25,6 +25,8 @@ export type TPanel = {
 };
 
 export function Panel({ data }: TPanel) {
+    const narrow = useMatches({ base: true, xs: false }, { getInitialValueInEffect: false });
+
     const { name, origins, description, notes, pairings, intensity, acidity, roast } = data;
 
     return (
@@ -108,7 +110,10 @@ export function Panel({ data }: TPanel) {
                     </div>
                 </div>
 
-                <Divider orientation="vertical" className={styles["Divider"]} />
+                <Divider
+                    orientation={narrow ? "horizontal" : "vertical"}
+                    className={styles["Divider"]}
+                />
 
                 <div className={styles["content-right"]}></div>
             </div>
