@@ -134,6 +134,10 @@
     pointer-events: none;
 }
 
+.variant-step-color[data-out-of-stock="true"] {
+    opacity: 0.3;
+}
+
 .variant-step-color-box {
     outline: 2px solid transparent;
     outline-offset: 2px;

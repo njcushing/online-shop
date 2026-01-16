@@ -140,14 +140,14 @@ export function ProductHero() {
                                 visibility: displaySkeletons ? "hidden" : "initial",
                             }}
                         >
-                            <VariantStep attribute={attribute} />
+                            <VariantStep product={productData} attribute={attribute} />
                         </div>
                     </Skeleton>
                     {i < relatedAttributesData.length - 1 && <Divider />}
                 </Fragment>
             );
         });
-    }, [relatedAttributesData, displaySkeletons]);
+    }, [productData, relatedAttributesData, displaySkeletons]);
 
     const priceMemo = useMemo(() => {
         return <Price base={priceBase} current={unitPrice} size="lg" />;

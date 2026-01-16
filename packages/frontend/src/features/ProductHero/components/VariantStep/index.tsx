@@ -2,13 +2,15 @@ import { useContext, useCallback, useMemo } from "react";
 import { ProductContext } from "@/pages/Product";
 import { Checkbox } from "@mantine/core";
 import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
+import { findVariantByAttributeParams } from "@/utils/products/product";
 import styles from "./index.module.css";
 
 export type TVariantStep = {
+    product: GetProductBySlugResponseDto;
     attribute: GetProductBySlugResponseDto["attributes"][number];
 };
 
-export function VariantStep({ attribute }: TVariantStep) {
+export function VariantStep({ product, attribute }: TVariantStep) {
     const { code, title, type, values } = attribute;
 
     const { selectedAttributeParams, setSelectedAttributeParams } = useContext(ProductContext);
@@ -54,6 +56,13 @@ export function VariantStep({ attribute }: TVariantStep) {
                 return values.map((v) => {
                     const { code: valueCode, name: valueName, value } = v;
 
+                    const associatedVariant = (() => {
+                        const variantSpecificParams = new Map(selectedAttributeParams);
+                        variantSpecificParams.set(code, valueCode);
+                        return findVariantByAttributeParams(product, variantSpecificParams, true);
+                    })();
+                    const outOfStock = associatedVariant?.stock === 0;
+
                     const isSelected =
                         selectedAttributeParams.has(code) &&
                         selectedAttributeParams.get(code) === valueCode;
@@ -64,6 +73,7 @@ export function VariantStep({ attribute }: TVariantStep) {
                             onClick={() => onClick && onClick(valueCode)}
                             className={styles["variant-step-color"]}
                             data-selected={isSelected}
+                            data-out-of-stock={outOfStock}
                             tabIndex={isSelected ? -1 : 0}
                             disabled={isSelected}
                             key={`variant-options-${code}-${valueCode}`}
@@ -80,7 +90,7 @@ export function VariantStep({ attribute }: TVariantStep) {
             default:
                 return null;
         }
-    }, [values, code, type, selectedAttributeParams, onClick]);
+    }, [product, values, code, type, selectedAttributeParams, onClick]);
 
     const content = useMemo(() => {
         if (type === "boolean") {
