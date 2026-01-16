@@ -22,7 +22,11 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 8px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        gap: 12px;
+    }
 }
 
 .product-hero-step-product-link {
@@ -45,10 +49,12 @@
     background: none;
 
     width: 100%;
-    max-width: 120px;
+    max-width: 100px;
 
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 1rem;
+
+        max-width: 120px;
     }
 }
 

@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect, useMemo, Fragment } from "react";
 import { UserContext } from "@/pages/Root";
 import { IProductContext, ProductContext } from "@/pages/Product";
-import { Skeleton, Button, Divider, Rating } from "@mantine/core";
+import { useMatches, Skeleton, Button, Divider, Rating } from "@mantine/core";
 import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
 import { Quantity } from "@/components/Inputs/Quantity";
 import { DeliveryProgress } from "@/features/DeliveryProgress";
@@ -10,6 +10,7 @@ import { calculateMaxAddableVariantStock } from "@/utils/products/utils/calculat
 import { Cart } from "@/utils/products/cart";
 import { SubscriptionFrequency } from "@/utils/products/subscriptions";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
+import { Plus, ShoppingCartSimple } from "@phosphor-icons/react";
 import { ImageCarousel } from "./components/ImageCarousel";
 import { CollectionStep } from "./components/CollectionStep";
 import { VariantStep } from "./components/VariantStep";
@@ -19,6 +20,8 @@ import { WatchlistButton } from "./components/WatchlistButton";
 import styles from "./index.module.css";
 
 export function ProductHero() {
+    const narrow = useMatches({ base: true, xs: false }, { getInitialValueInEffect: false });
+
     const { cart } = useContext(UserContext);
     const { product, variant, relatedAttributes, defaultData } = useContext(ProductContext);
     const { product: defaultProductData, variant: defaultVariantData } = defaultData;
@@ -239,7 +242,14 @@ export function ProductHero() {
                             className={styles["add-to-cart-button"]}
                             disabled={displaySkeletons || maximumVariantQuantity === 0}
                         >
-                            Add to Cart
+                            {narrow ? (
+                                <>
+                                    <Plus size={20} weight="bold" />
+                                    <ShoppingCartSimple size={20} weight="bold" />
+                                </>
+                            ) : (
+                                "Add to Cart"
+                            )}
                         </Button>
 
                         {watchListButtonMemo}

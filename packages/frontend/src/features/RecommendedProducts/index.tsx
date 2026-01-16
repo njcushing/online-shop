@@ -111,7 +111,7 @@ export function RecommendedProducts() {
 
                             /* v8 ignore stop */
                         }
-                        className={styles["carousel-slide"]}
+                        className={styles["Carousel-slide"]}
                         key={relatedProduct.id}
                     >
                         <ProductCard productData={relatedProduct} awaiting={awaitingAny} />
@@ -137,11 +137,11 @@ export function RecommendedProducts() {
                     emblaRef.current = api;
                 }}
                 classNames={{
-                    root: styles["carousel-root"],
-                    container: styles["carousel-container"],
-                    viewport: styles["carousel-viewport"],
-                    indicator: styles["carousel-indicator"],
-                    indicators: styles["carousel-indicators"],
+                    root: styles["Carousel-root"],
+                    container: styles["Carousel-container"],
+                    viewport: styles["Carousel-viewport"],
+                    indicator: styles["Carousel-indicator"],
+                    indicators: styles["Carousel-indicators"],
                 }}
             >
                 {carouselSlidesMemo}

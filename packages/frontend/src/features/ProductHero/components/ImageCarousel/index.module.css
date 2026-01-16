@@ -1,4 +1,4 @@
-.image-carousel {
+.image-Carousel {
     --outline-width: 2px;
     --outline-offset: 2px;
     --outline-spacing: calc(var(--outline-width, 2px) + var(--outline-offset, 2px));
@@ -6,32 +6,35 @@
     display: flex;
     flex-direction: column;
     gap: calc(8px - var(--outline-spacing, 4px));
+
+    margin-bottom: 24px; /* For absolutely-positioned indicators */
 }
 
-.carousel-small-container {
+.Carousel-small-container {
     display: grid;
     grid-template-columns: auto 1fr auto;
     gap: calc(8px - var(--outline-spacing, 4px));
 }
 
-.carousel-small-root {
+.Carousel-small-root {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: start;
 }
 
-.carousel-small-viewport {
+.Carousel-small-viewport {
     width: calc(100% + var(--outline-offset, 2px));
 
     padding: var(--outline-spacing, 4px);
 }
 
-.carousel-small-control-skeleton {
+.Carousel-small-control-skeleton {
     height: calc(100% - calc(var(--outline-spacing, 4px) * 2));
     margin-top: var(--outline-spacing, 4px);
 }
 
-.carousel-small-control {
+.Carousel-small-control {
     display: flex;
     align-items: center;
 
@@ -43,35 +46,66 @@
     height: 100%;
 }
 
-.carousel-small-control:disabled {
+.Carousel-small-control:disabled {
     opacity: 0.5;
 }
 
 @media (hover: hover) {
-    .carousel-small-control:hover {
+    .Carousel-small-control:hover {
         cursor: pointer;
     }
 
-    .carousel-small-control:disabled:hover {
+    .Carousel-small-control:disabled:hover {
         cursor: not-allowed;
     }
 }
 
-.carousel-slide {
+.Carousel-small-indicators {
+    align-self: center;
+
+    position: absolute;
+    bottom: -24px;
+
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+
+    max-width: 100%;
+    margin-top: 24px;
+}
+
+.Carousel-small-indicator {
+    border-radius: 0px;
+    background-color: rgba(0, 0, 0, 0.2);
+
+    width: 8px;
+    aspect-ratio: 1;
+
+    scale: 1 1;
+    transition: scale 0.25s ease-in-out;
+}
+
+.Carousel-small-indicator[data-active] {
+    background-color: rgba(0, 0, 0, 0.7);
+
+    scale: 1.5 1;
+}
+
+.Carousel-slide {
     cursor: pointer;
 
     aspect-ratio: 1;
     padding: 0px;
 }
 
-.carousel-slide:focus-visible {
+.Carousel-slide:focus-visible {
     outline: var(--outline-width, 2px) solid #000;
     outline-offset: var(--outline-offset, 2px);
     border-radius: 0px;
 }
 
-.carousel-image-main,
-.carousel-image-small {
+.Carousel-image-main,
+.Carousel-image-small {
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 8px;
 
@@ -79,26 +113,8 @@
     aspect-ratio: 1;
 }
 
-.carousel-image-small[data-selected="true"] {
+.Carousel-image-small[data-selected="true"] {
     outline: var(--outline-width, 2px) solid #000;
     outline-offset: var(--outline-offset, 2px);
     background-color: "red";
-}
-
-.current-image-number {
-    display: flex;
-    justify-content: center;
-
-    font-family: var(--font-primary);
-    font-size: 0.84rem;
-    font-weight: 500;
-    text-align: center;
-    text-wrap: nowrap;
-
-    width: 100%;
-    padding: 0px;
-
-    @media (min-width: $mantine-breakpoint-xs) {
-        font-size: 0.92rem;
-    }
 }

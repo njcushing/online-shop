@@ -25,7 +25,7 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
     const usedImages = images.length > 0 ? images : [{ src: "", alt: "" }];
 
     return (
-        <div className={styles["image-carousel"]}>
+        <div className={styles["image-Carousel"]}>
             <Skeleton visible={awaiting}>
                 <Carousel
                     getEmblaApi={setMainEmbla}
@@ -33,18 +33,18 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                     onSlideChange={(slideIndex) => setCurrentSlide(slideIndex)}
                     withControls={false}
                     classNames={{
-                        root: styles["carousel-large-root"],
+                        root: styles["Carousel-large-root"],
                     }}
                     style={{ visibility: awaiting ? "hidden" : "initial" }}
                 >
                     {usedImages.map((image) => {
                         const { src, alt } = image;
                         return (
-                            <Carousel.Slide className={styles["carousel-slide"]} key={src}>
+                            <Carousel.Slide className={styles["Carousel-slide"]} key={src}>
                                 <Image
                                     src={src}
                                     alt={alt}
-                                    className={styles["carousel-image-main"]}
+                                    className={styles["Carousel-image-main"]}
                                 />
                             </Carousel.Slide>
                         );
@@ -52,14 +52,14 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                 </Carousel>
             </Skeleton>
 
-            <div className={styles["carousel-small-container"]}>
-                <Skeleton visible={awaiting} className={styles["carousel-small-control-skeleton"]}>
+            <div className={styles["Carousel-small-container"]}>
+                <Skeleton visible={awaiting} className={styles["Carousel-small-control-skeleton"]}>
                     <button
                         type="button"
                         aria-label="Previous image"
                         onClick={() => setCurrentSlide((curr) => curr - 1)}
                         disabled={currentSlide === 0}
-                        className={styles["carousel-small-control"]}
+                        className={styles["Carousel-small-control"]}
                         style={{ visibility: awaiting ? "hidden" : "initial" }}
                     >
                         <ArrowLeft />
@@ -77,6 +77,7 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                     containScroll="keepSnaps"
                     skipSnaps
                     withControls={false}
+                    withIndicators
                     withKeyboardEvents={false}
                     onSlideChange={
                         // Unreachable without mocking Carousel component
@@ -84,8 +85,10 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                         (slideIndex) => setCurrentSlide(slideIndex)
                     }
                     classNames={{
-                        root: styles["carousel-small-root"],
-                        viewport: styles["carousel-small-viewport"],
+                        root: styles["Carousel-small-root"],
+                        viewport: styles["Carousel-small-viewport"],
+                        indicators: styles["Carousel-small-indicators"],
+                        indicator: styles["Carousel-small-indicator"],
                     }}
                 >
                     {usedImages.map((image, i) => {
@@ -104,8 +107,8 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                                 }}
                                 data-selected={currentSlide === i}
                                 data-last={i === usedImages.length - 1}
-                                className={styles["carousel-slide"]}
-                                key={`image-carousel-slide-${src}`}
+                                className={styles["Carousel-slide"]}
+                                key={`image-Carousel-slide-${src}`}
                                 style={{
                                     marginRight:
                                         i === usedImages.length - 1 ? "0px" : `${slideGapPx}px`,
@@ -113,12 +116,12 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                             >
                                 <Skeleton
                                     visible={awaiting}
-                                    key={`image-carousel-slide-${src}-skeleton`}
+                                    key={`image-Carousel-slide-${src}-skeleton`}
                                 >
                                     <Image
                                         src={src}
                                         alt={alt}
-                                        className={styles["carousel-image-small"]}
+                                        className={styles["Carousel-image-small"]}
                                         style={{
                                             visibility: awaiting ? "hidden" : "initial",
                                         }}
@@ -128,30 +131,19 @@ export function ImageCarousel({ images, awaiting = false }: TImageCarousel) {
                         );
                     })}
                 </Carousel>
-                <Skeleton visible={awaiting} className={styles["carousel-small-control-skeleton"]}>
+                <Skeleton visible={awaiting} className={styles["Carousel-small-control-skeleton"]}>
                     <button
                         type="button"
                         aria-label="Next image"
                         onClick={() => setCurrentSlide((curr) => curr + 1)}
                         disabled={currentSlide === usedImages.length - 1}
-                        className={styles["carousel-small-control"]}
+                        className={styles["Carousel-small-control"]}
                         style={{ visibility: awaiting ? "hidden" : "initial" }}
                     >
                         <ArrowRight />
                     </button>
                 </Skeleton>
             </div>
-
-            <span style={{ display: "flex", justifyContent: "center" }}>
-                <Skeleton visible={awaiting} width="min-content">
-                    <span
-                        className={styles["current-image-number"]}
-                        style={{ visibility: awaiting ? "hidden" : "initial" }}
-                    >
-                        {currentSlide + 1} / {usedImages.length}
-                    </span>
-                </Skeleton>
-            </span>
         </div>
     );
 }

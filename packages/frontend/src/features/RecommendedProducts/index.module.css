@@ -43,21 +43,21 @@
     }
 }
 
-.carousel-root {
+.Carousel-root {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-.carousel-container {
+.Carousel-container {
     align-self: start;
 }
 
-.carousel-viewport {
+.Carousel-viewport {
     padding: 4px;
 }
 
-.carousel-indicators {
+.Carousel-indicators {
     align-self: center;
 
     position: initial;
@@ -65,9 +65,11 @@
     display: flex;
     flex-direction: row;
     gap: 0px;
+
+    max-width: 100%;
 }
 
-.carousel-indicator {
+.Carousel-indicator {
     border-radius: 0px;
     background-color: rgba(0, 0, 0, 0.2);
 
@@ -75,11 +77,11 @@
     height: 3px;
 }
 
-.carousel-indicator[data-active] {
+.Carousel-indicator[data-active] {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
-.carousel-slide {
+.Carousel-slide {
     cursor: pointer;
 
     padding: 2px 0px 0px;

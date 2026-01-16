@@ -68,7 +68,11 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 8px 4px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        gap: 8px;
+    }
 }
 
 .variant-step-text {
@@ -136,10 +140,14 @@
     border: none;
     border-radius: 4px;
 
-    width: 40px;
+    width: 36px;
     aspect-ratio: 1;
 
     transition: outline linear 0.16s;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        width: 40px;
+    }
 }
 
 .variant-step-color-box::before {
@@ -152,8 +160,12 @@
     border-radius: 4px;
     background-color: rgba(0, 0, 0, 0.2);
 
-    width: 40px;
+    width: 36px;
     aspect-ratio: 1;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        width: 40px;
+    }
 }
 
 .variant-step-text[data-selected="true"],

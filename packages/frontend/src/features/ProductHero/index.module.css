@@ -7,6 +7,8 @@
 }
 
 .product-hero-width-controller {
+    --product-hero-padding: 16px;
+
     box-sizing: border-box;
 
     display: grid;
@@ -15,33 +17,32 @@
     gap: 16px;
 
     width: min(calc(var(--vw) * 100), 100%);
-    max-width: 1280px;
+    max-width: calc(100% - var(--product-hero-padding, 16px) * 2);
     padding: 0px;
     margin: auto;
 
     @media (min-width: $mantine-breakpoint-sm) {
         grid-template-columns: 100%;
 
-        max-width: 640px;
+        max-width: calc(640px - var(--product-hero-padding, 16px) * 2);
     }
 
     @media (min-width: $mantine-breakpoint-md) {
         grid-template-columns: 100%;
 
-        max-width: 768px;
+        max-width: calc(768px - var(--product-hero-padding, 16px) * 2);
     }
 
     @media (min-width: $mantine-breakpoint-lg) {
         grid-template-columns: repeat(2, 1fr);
 
-        max-width: 1024px;
+        max-width: calc(1024px - var(--product-hero-padding, 16px) * 2);
     }
 
     @media (min-width: $mantine-breakpoint-xl) {
         grid-template-columns: repeat(2, 1fr);
 
-        max-width: 1280px;
-        padding: 16px;
+        max-width: calc(1280px - var(--product-hero-padding, 16px) * 2);
     }
 }
 
@@ -53,9 +54,10 @@
     display: flex;
     flex-direction: column;
 
-    border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 8px;
     background-color: white;
+    box-shadow: 0px 6px 20px 0px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0px 6px 20px 0px rgba(0, 0, 0, 0.2);
 
     width: 100%;
     padding: 24px;
