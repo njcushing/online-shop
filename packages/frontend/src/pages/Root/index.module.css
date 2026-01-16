@@ -3,4 +3,5 @@
     grid-template-rows: repeat(2, auto) 1fr auto;
 
     min-height: calc(var(--vh, 1vh) * 100);
+    max-width: min(calc(var(--vw) * 100), 100%);
 }

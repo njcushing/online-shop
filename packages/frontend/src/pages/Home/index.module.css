@@ -1,0 +1,5 @@
+.page {
+    background-color: var(--site-colour-primary, rgb(255, 249, 243));
+
+    max-width: min(calc(var(--vw) * 100), 100%);
+}
