@@ -1,3 +1,5 @@
+import { CSSProperties } from "react";
+
 export type BlendData = {
     code: string;
     name: string;
@@ -8,6 +10,7 @@ export type BlendData = {
     intensity: number;
     acidity: "Low" | "Medium" | "High";
     roast: "Light" | "Medium" | "Dark" | "Extra Dark";
+    colors: { main: CSSProperties["color"] };
 };
 
 export const blendData: BlendData[] = [
@@ -21,6 +24,7 @@ export const blendData: BlendData[] = [
         intensity: 7,
         acidity: "Medium",
         roast: "Medium",
+        colors: { main: "#FFD1A6" },
     },
     {
         code: "LT",
@@ -33,6 +37,7 @@ export const blendData: BlendData[] = [
         intensity: 4,
         acidity: "High",
         roast: "Light",
+        colors: { main: "#E7A67A" },
     },
     {
         code: "MD",
@@ -44,6 +49,7 @@ export const blendData: BlendData[] = [
         intensity: 6,
         acidity: "Medium",
         roast: "Medium",
+        colors: { main: "#945A38" },
     },
     {
         code: "DK",
@@ -55,6 +61,7 @@ export const blendData: BlendData[] = [
         intensity: 9,
         acidity: "Low",
         roast: "Dark",
+        colors: { main: "#634433" },
     },
     {
         code: "XD",
@@ -66,6 +73,7 @@ export const blendData: BlendData[] = [
         intensity: 12,
         acidity: "Low",
         roast: "Extra Dark",
+        colors: { main: "#412929" },
     },
     {
         code: "BK",
@@ -77,6 +85,7 @@ export const blendData: BlendData[] = [
         intensity: 5,
         acidity: "Medium",
         roast: "Medium",
+        colors: { main: "#EBC3AB" },
     },
     {
         code: "PK",
@@ -89,6 +98,7 @@ export const blendData: BlendData[] = [
         intensity: 6,
         acidity: "Low",
         roast: "Medium",
+        colors: { main: "#DDA774" },
     },
     {
         code: "MO",
@@ -100,6 +110,7 @@ export const blendData: BlendData[] = [
         intensity: 7,
         acidity: "Low",
         roast: "Medium",
+        colors: { main: "#7C624A" },
     },
     {
         code: "ES",
@@ -111,6 +122,7 @@ export const blendData: BlendData[] = [
         intensity: 10,
         acidity: "Low",
         roast: "Dark",
+        colors: { main: "#572D2C" },
     },
     {
         code: "VA",
@@ -122,6 +134,7 @@ export const blendData: BlendData[] = [
         intensity: 5,
         acidity: "Low",
         roast: "Medium",
+        colors: { main: "#AE8EC9" },
     },
     {
         code: "CA",
@@ -133,6 +146,7 @@ export const blendData: BlendData[] = [
         intensity: 6,
         acidity: "Low",
         roast: "Medium",
+        colors: { main: "#E4AB60" },
     },
     {
         code: "IN",
@@ -144,6 +158,7 @@ export const blendData: BlendData[] = [
         intensity: 11,
         acidity: "Low",
         roast: "Dark",
+        colors: { main: "#F0CF62" },
     },
     {
         code: "FR",
@@ -155,6 +170,7 @@ export const blendData: BlendData[] = [
         intensity: 12,
         acidity: "Low",
         roast: "Extra Dark",
+        colors: { main: "#9BDBD6" },
     },
     {
         code: "IR",
@@ -166,5 +182,6 @@ export const blendData: BlendData[] = [
         intensity: 13,
         acidity: "Low",
         roast: "Extra Dark",
+        colors: { main: "#89D687" },
     },
 ];

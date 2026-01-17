@@ -1,24 +1,7 @@
-import { CSSProperties } from "react";
 import { useMatches, Divider, Progress } from "@mantine/core";
 import { v4 as uuid } from "uuid";
 import { BlendData } from "../../blendData";
 import styles from "./index.module.css";
-
-const intensityColours: CSSProperties["color"][] = [
-    "#7f7171",
-    "#776a6a",
-    "#706262",
-    "#685b5b",
-    "#615454",
-    "#594d4d",
-    "#524646",
-    "#4b3f3f",
-    "#443838",
-    "#3d3232",
-    "#362b2b",
-    "#302525",
-    "#291f1f",
-];
 
 export type TPanel = {
     data: BlendData;
@@ -27,14 +10,25 @@ export type TPanel = {
 export function Panel({ data }: TPanel) {
     const narrow = useMatches({ base: true, xs: false }, { getInitialValueInEffect: false });
 
-    const { name, origins, description, notes, pairings, intensity, acidity, roast } = data;
+    const { name, origins, description, notes, pairings, intensity, acidity, roast, colors } = data;
 
     return (
-        <div className={styles["panel"]}>
+        <div
+            className={styles["panel"]}
+            style={{ backgroundColor: `color-mix(in srgb, white 70%, ${colors.main})` }}
+        >
             <div className={styles["content-top"]}>
-                <p className={styles["name"]}>{name}</p>
+                <p
+                    className={styles["name"]}
+                    style={{ backgroundColor: `color-mix(in srgb, white 30%, ${colors.main})` }}
+                >
+                    {name}
+                </p>
 
-                <div className={styles["flags"]}>
+                <div
+                    className={styles["flags"]}
+                    style={{ backgroundColor: `color-mix(in srgb, white 30%, ${colors.main})` }}
+                >
                     <Divider orientation="vertical" className={styles["Divider"]} />
 
                     {origins.map((origin) => (
@@ -42,8 +36,6 @@ export function Panel({ data }: TPanel) {
                     ))}
                 </div>
             </div>
-
-            <Divider className={styles["Divider"]} />
 
             <div className={styles["content-main"]}>
                 <div className={styles["content-left"]}>
@@ -70,7 +62,7 @@ export function Panel({ data }: TPanel) {
                                             value={100 / 11}
                                             color={
                                                 i <= intensity - 1
-                                                    ? intensityColours[intensity - 1]
+                                                    ? colors.main
                                                     : "rgba(0, 0, 0, 0.2)"
                                             }
                                             key={uuid()}
@@ -115,7 +107,10 @@ export function Panel({ data }: TPanel) {
                     className={styles["Divider"]}
                 />
 
-                <div className={styles["content-right"]}></div>
+                <div
+                    className={styles["content-right"]}
+                    style={{ backgroundColor: `color-mix(in srgb, white 84%, ${colors.main})` }}
+                ></div>
             </div>
         </div>
     );
