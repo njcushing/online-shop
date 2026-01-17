@@ -73,7 +73,8 @@ export function Header({ disableActivity, reduced }: THeader) {
 
     return (
         <>
-            <div ref={baseRef}></div>
+            <div className={styles["base"]} ref={baseRef}></div>
+            <div className={styles["background"]} style={{ height: `${headerHeight}px` }}></div>
             <header
                 data-active={active}
                 data-open={open}
