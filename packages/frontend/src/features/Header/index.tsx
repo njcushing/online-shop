@@ -79,7 +79,10 @@ export function Header({ disableActivity, reduced }: THeader) {
                 data-active={active}
                 data-open={open}
                 className={styles["header"]}
-                style={{ position: disableActivity ? "relative" : "sticky" }}
+                style={{
+                    position: disableActivity ? "relative" : "sticky",
+                    top: active && !open ? `-${headerHeight}px` : "0px",
+                }}
                 ref={headerRef}
             >
                 <div className={styles["header-width-controller"]}>
