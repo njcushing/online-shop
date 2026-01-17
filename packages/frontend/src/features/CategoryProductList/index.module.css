@@ -42,7 +42,7 @@
 
     overflow-y: hidden;
 
-    padding: 0px 0px 16px;
+    padding: 4px 0px 16px;
 
     @media (min-width: $mantine-breakpoint-xs) {
         grid-template-columns: repeat(2, 1fr);
