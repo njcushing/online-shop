@@ -134,10 +134,6 @@
     pointer-events: none;
 }
 
-.variant-step-color[data-out-of-stock="true"] {
-    opacity: 0.3;
-}
-
 .variant-step-color-box {
     outline: 2px solid transparent;
     outline-offset: 2px;
@@ -189,4 +185,9 @@
 .variant-step-text:focus-visible {
     outline-color: black;
     border-radius: 0px;
+}
+
+.variant-step-text[data-out-of-stock="true"],
+.variant-step-color[data-out-of-stock="true"] {
+    opacity: 0.3;
 }

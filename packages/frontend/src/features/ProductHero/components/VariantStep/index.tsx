@@ -33,6 +33,13 @@ export function VariantStep({ product, attribute }: TVariantStep) {
                 return values.map((v) => {
                     const { code: valueCode, name: valueName } = v;
 
+                    const associatedVariant = (() => {
+                        const variantSpecificParams = new Map(selectedAttributeParams);
+                        variantSpecificParams.set(code, valueCode);
+                        return findVariantByAttributeParams(product, variantSpecificParams, true);
+                    })();
+                    const outOfStock = associatedVariant?.stock === 0;
+
                     const isSelected =
                         selectedAttributeParams.has(code) &&
                         selectedAttributeParams.get(code) === valueCode;
@@ -43,6 +50,7 @@ export function VariantStep({ product, attribute }: TVariantStep) {
                             onClick={() => onClick && onClick(valueCode)}
                             className={styles["variant-step-text"]}
                             data-selected={isSelected}
+                            data-out-of-stock={outOfStock}
                             tabIndex={isSelected ? -1 : 0}
                             disabled={isSelected}
                             key={`variant-options-${code}-${valueCode}`}
