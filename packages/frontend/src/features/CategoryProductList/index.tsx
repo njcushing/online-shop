@@ -288,6 +288,8 @@ export function CategoryProductList() {
         }
     }, [urlPathSplit, clearSearchParams]);
 
+    useEffect(() => window.scroll({ top: 0 }), [filterSelections, sortSelection]);
+
     const layoutType = useMemo<"single" | "multi">(() => {
         const currentCategory = categoryBranch.find((l) => l.slug === urlPathSplit.at(-1));
         if (!currentCategory) return "multi";
