@@ -306,6 +306,7 @@ export function CategoryProductList() {
             cachedCategoryName.current = urlPathSplit.at(-1)!;
         }
     }, [urlPathSplit, clearSearchParams]);
+    useEffect(() => setPage(1), [filterSelections, sortSelection, pageSize]);
 
     useEffect(() => window.scroll({ top: 0 }), [filterSelections, sortSelection]);
 
