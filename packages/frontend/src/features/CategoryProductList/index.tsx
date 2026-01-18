@@ -44,6 +44,12 @@ type Filters = Map<
     | { type: "select"; value: string }
 >;
 type Sort = (typeof sortOptions)[number]["name"] | null;
+type Params = {
+    filters: Filters;
+    sort: Sort;
+    page: number;
+    pageSize: number;
+};
 
 export interface ICategoryProductListContext {
     products: useAsync.InferUseAsyncReturnTypeFromFunction<typeof getCategoryBySlugProducts>;
@@ -101,6 +107,17 @@ export function CategoryProductList() {
         useState<ICategoryProductListContext["sortSelection"]>(null);
     const [page, setPage] = useState<number>(1);
     const [pageSize, setPageSize] = useState<number>(defaultPageSize);
+
+    const [queryParams, setQueryParams] = useState<Params>({
+        filters: filterSelections,
+        sort: sortSelection,
+        page,
+        pageSize,
+    });
+    useEffect(
+        () => setQueryParams({ filters: filterSelections, sort: sortSelection, page, pageSize }),
+        [filterSelections, sortSelection, page, pageSize],
+    );
 
     const products = useAsync.GET(
         getCategoryBySlugProducts,
@@ -197,16 +214,60 @@ export function CategoryProductList() {
         awaitingCategoryRef.current = awaitingCategory;
     }, [awaitingCategory]);
 
+    const attemptFetch = useCallback(
+        (params: {
+            filters: ICategoryProductListContext["filterSelections"];
+            sort: ICategoryProductListContext["sortSelection"];
+            page: number;
+            pageSize: number;
+        }) => {
+            const { current: currentParams } = searchParamsRef;
+
+            const newParams = createSearchParams(params);
+
+            const hasChanged = newParams.toString() !== currentParams.toString();
+
+            if (newParams.get("filter")) currentParams.set("filter", newParams.get("filter")!);
+            else if (currentParams.has("filter")) currentParams.delete("filter");
+
+            if (newParams.get("sort")) currentParams.set("sort", newParams.get("sort")!);
+            else if (currentParams.has("sort")) currentParams.delete("sort");
+
+            if (newParams.get("page")) currentParams.set("page", newParams.get("page")!);
+            else if (currentParams.has("page")) currentParams.delete("page");
+
+            if (newParams.get("pageSize"))
+                currentParams.set("pageSize", newParams.get("pageSize")!);
+            else if (currentParams.has("pageSize")) currentParams.delete("pageSize");
+
+            window.history.pushState(
+                {},
+                "",
+                currentParams.size > 0 ? `?${currentParams.toString()}` : window.location.pathname,
+            );
+
+            if (
+                hasChanged ||
+                cachedProductsStatus.current === customStatusCodes.unattempted ||
+                cachedCategoryName.current !== urlPathSplit.at(-1)!
+            ) {
+                getProducts(newParams);
+            }
+        },
+        [getProducts, urlPathSplit],
+    );
+
     /**
      * Parse URL search params when category is successfully fetched to remove invalid params from
      * URL and update URL search params accordingly
      */
     useEffect(() => {
-        if (awaitingCategory) return;
+        if (awaitingCategoryRef.current) return;
 
         const { current } = searchParamsRef;
 
         const parsedSearchParams = parseSearchParams(current, category.filters);
+        attemptFetch(parsedSearchParams);
 
         setFilterSelections(parsedSearchParams.filters);
         setSortSelection(parsedSearchParams.sort);
@@ -215,58 +276,16 @@ export function CategoryProductList() {
 
         const newSearchParams = createSearchParams(parsedSearchParams);
         setSearchParams(newSearchParams);
-    }, [category.filters, setSearchParams, setFilterSelections, getProducts, awaitingCategory]);
+    }, [category.filters, setSearchParams, setFilterSelections, getProducts, attemptFetch]);
+
+    useEffect(() => {
+        if (awaitingCategoryRef.current) return;
+
+        attemptFetch(queryParams);
+    }, [queryParams, attemptFetch]);
 
     const cachedCategoryName = useRef<string>(urlPathSplit.at(-1)!);
     const cachedProductsStatus = useRef<number>(products.response.status);
-
-    useEffect(() => {
-        if (awaitingCategory) return;
-
-        const newParams = createSearchParams({
-            filters: filterSelections,
-            sort: sortSelection,
-            page,
-            pageSize,
-        });
-
-        const hasChanged = newParams.toString() !== searchParams.toString();
-
-        if (newParams.get("filter")) searchParams.set("filter", newParams.get("filter")!);
-        else if (searchParams.has("filter")) searchParams.delete("filter");
-
-        if (newParams.get("sort")) searchParams.set("sort", newParams.get("sort")!);
-        else if (searchParams.has("sort")) searchParams.delete("sort");
-
-        if (newParams.get("page")) searchParams.set("page", newParams.get("page")!);
-        else if (searchParams.has("page")) searchParams.delete("page");
-
-        if (newParams.get("pageSize")) searchParams.set("pageSize", newParams.get("pageSize")!);
-        else if (searchParams.has("pageSize")) searchParams.delete("pageSize");
-
-        window.history.pushState(
-            {},
-            "",
-            searchParams.size > 0 ? `?${searchParams.toString()}` : window.location.pathname,
-        );
-
-        if (
-            hasChanged ||
-            cachedProductsStatus.current === customStatusCodes.unattempted ||
-            cachedCategoryName.current !== urlPathSplit.at(-1)!
-        ) {
-            getProducts(newParams);
-        }
-    }, [
-        searchParams,
-        filterSelections,
-        sortSelection,
-        page,
-        pageSize,
-        getProducts,
-        awaitingCategory,
-        urlPathSplit,
-    ]);
 
     useEffect(() => {
         cachedProductsStatus.current = products.response.status;
@@ -314,13 +333,13 @@ export function CategoryProductList() {
         if (awaitingCategory) return;
 
         setFilterSelections((curr) => {
-            const allFilterNames = new Set<string>([
-                ...category.filters.map((filter) => filter.name),
+            const allFilterCodes = new Set<string>([
+                ...category.filters.map((filter) => filter.code),
             ]);
             const newSelections = new Map(curr);
             newSelections.keys().forEach((key) => {
                 if (
-                    !allFilterNames.has(key) &&
+                    !allFilterCodes.has(key) &&
                     key.toLowerCase() !== "rating" &&
                     key.toLowerCase() !== "price"
                 ) {

@@ -26,7 +26,7 @@ export const parseSearchParams = (
             const filterList = value.split("~");
             filterList.forEach((filter) => {
                 const [filterCode, filterValues] = filter.split("=");
-                const filterData = categoryFilters.find((cf) => cf.name === filterCode);
+                const filterData = categoryFilters.find((cf) => cf.code === filterCode);
 
                 let { type } = filterData ?? { type: "INVALID" };
                 const { values } = filterData ?? { values: [] };
