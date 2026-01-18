@@ -40,7 +40,7 @@
     grid-template-columns: repeat(1, 1fr);
     gap: 16px;
 
-    overflow-y: hidden;
+    clip-path: polygon(-10% 0%, 110% 0%, 110% 100%, -10% 100%);
 
     padding: 4px 0px 16px;
 
