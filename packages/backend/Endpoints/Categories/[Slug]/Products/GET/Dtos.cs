@@ -223,6 +223,8 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
 
         public required ICollection<Product> Products { get; set; } = new List<Product>();
 
+        public required int Total { get; set; }
+
         public required ProductPrice Price { get; set; }
     }
 }

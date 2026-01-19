@@ -315,6 +315,8 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
 
             productQuery = ApplyPriceFilter(productQuery, parsedFilters);
 
+            var productCount = productQuery.Count();
+
             var products = await productQuery
                 .Skip((query.Page - 1) * pageSize)
                 .Take(pageSize)
@@ -438,6 +440,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
             var response = new GetCategoryBySlugProductsResponseDto
             {
                 Products = products,
+                Total = productCount,
                 Price = new GetCategoryBySlugProductsResponseDto.ProductPrice
                 {
                     Min = priceMin,
