@@ -455,6 +455,8 @@ export interface components {
         };
         "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto": {
             products: components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product"][];
+            /** Format: int32 */
+            total: number;
             price: components["schemas"]["Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.ProductPrice"];
         };
         "Categories._Slug.Products.GET.GetCategoryBySlugProductsResponseDto.Product": {
