@@ -11,7 +11,7 @@ import {
 import { useSearchParams } from "react-router-dom";
 import { RootContext } from "@/pages/Root";
 import { CategoryContext } from "@/pages/Category";
-import { Divider, useMatches } from "@mantine/core";
+import { Divider, Skeleton, useMatches } from "@mantine/core";
 import * as useAsync from "@/hooks/useAsync";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import {
@@ -77,7 +77,7 @@ export function CategoryProductList() {
         { getInitialValueInEffect: false },
     );
     const subcategoriesToDisplayWhileAwaiting = 3;
-    const narrow = useMatches({ base: true, xs: false }, { getInitialValueInEffect: false });
+    const narrow = useMatches({ base: true, sm: false }, { getInitialValueInEffect: false });
 
     const { categories } = useContext(RootContext);
     const { urlPathSplit, categoryBranch, categoryData } = useContext(CategoryContext);
@@ -155,9 +155,10 @@ export function CategoryProductList() {
         if (!productsAwaiting && productsResponse.success) return productsResponse.data;
         return {
             products: mockProducts,
+            total: Math.min(pageSize, mockProducts.length),
             price: { min: 0, max: 0 },
         } as GetCategoryBySlugProductsResponseDto;
-    }, [productsResponse, productsAwaiting]);
+    }, [pageSize, productsResponse, productsAwaiting]);
 
     const getProducts = useCallback(
         (params: URLSearchParams) => {
@@ -375,6 +376,20 @@ export function CategoryProductList() {
             ));
     }, [productsData.products, awaitingProducts, productCount]);
 
+    const resultsDisplayedCount = useMemo(() => {
+        return (
+            <Skeleton visible={awaitingProducts}>
+                <p
+                    className={styles["results-displayed-count"]}
+                    style={{ visibility: awaitingProducts ? "hidden" : "initial" }}
+                >
+                    Showing {(page - 1) * pageSize + 1}-
+                    {Math.min(productsData.total, page * pageSize)} of {productsData.total} results
+                </p>
+            </Skeleton>
+        );
+    }, [page, pageSize, productsData.total, awaitingProducts]);
+
     const categoryGroup = useMemo(() => {
         if (layoutType === "multi" && productsData.products.length === 0) return null;
         return (
@@ -394,6 +409,8 @@ export function CategoryProductList() {
                             {categoryProductsSort}
                         </div>
 
+                        {resultsDisplayedCount}
+
                         <div className={styles["category-product-list-category-group-products"]}>
                             {productCards}
                         </div>
@@ -407,6 +424,8 @@ export function CategoryProductList() {
                             data-layout="wide"
                         >
                             {categoryProductsSort}
+
+                            {resultsDisplayedCount}
 
                             <div
                                 className={styles["category-product-list-category-group-products"]}
@@ -425,6 +444,7 @@ export function CategoryProductList() {
         categoryProductsFilters,
         categoryProductsSort,
         productCards,
+        resultsDisplayedCount,
     ]);
 
     const subcategoryProductLists = useMemo(() => {

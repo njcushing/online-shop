@@ -12,6 +12,7 @@ import {
 } from "@/api/categories/[slug]/products/GET";
 import { customStatusCodes } from "@/api/types";
 import { mockProducts } from "@/utils/products/product";
+import { defaultPageSize } from "../..";
 import styles from "./index.module.css";
 
 export type TSubcategoryProductList = {
@@ -58,6 +59,7 @@ export function SubcategoryProductList({ slug, awaiting = false }: TSubcategoryP
 
     let productsData = {
         products: mockProducts,
+        total: Math.min(defaultPageSize, mockProducts.length),
         price: { min: 0, max: 0 },
     } as GetCategoryBySlugProductsResponseDto;
 
