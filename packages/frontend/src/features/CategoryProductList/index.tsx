@@ -11,7 +11,7 @@ import {
 import { useSearchParams } from "react-router-dom";
 import { RootContext } from "@/pages/Root";
 import { CategoryContext } from "@/pages/Category";
-import { Divider, Skeleton, useMatches } from "@mantine/core";
+import { useMatches, Divider, Skeleton, Pagination } from "@mantine/core";
 import * as useAsync from "@/hooks/useAsync";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import {
@@ -390,6 +390,21 @@ export function CategoryProductList() {
         );
     }, [page, pageSize, productsData.total, awaitingProducts]);
 
+    const pagination = useMemo(() => {
+        return (
+            <div className={styles["Pagination-container"]}>
+                <Pagination
+                    total={Math.max(Math.ceil(productsData.total / pageSize), 1)}
+                    value={page}
+                    withEdges
+                    onChange={(newPageNo) => setPage(newPageNo)}
+                    disabled={awaitingProducts}
+                    classNames={{ control: styles["Pagination-control"] }}
+                />
+            </div>
+        );
+    }, [page, pageSize, productsData.total, awaitingProducts]);
+
     const categoryGroup = useMemo(() => {
         if (layoutType === "multi" && productsData.products.length === 0) return null;
         return (
@@ -413,6 +428,8 @@ export function CategoryProductList() {
 
                         <div className={styles["category-product-list-category-group-products"]}>
                             {productCards}
+
+                            {pagination}
                         </div>
                     </>
                 ) : (
@@ -431,6 +448,8 @@ export function CategoryProductList() {
                                 className={styles["category-product-list-category-group-products"]}
                             >
                                 {productCards}
+
+                                {pagination}
                             </div>
                         </div>
                     </>
@@ -445,6 +464,7 @@ export function CategoryProductList() {
         categoryProductsSort,
         productCards,
         resultsDisplayedCount,
+        pagination,
     ]);
 
     const subcategoryProductLists = useMemo(() => {

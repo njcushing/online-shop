@@ -103,3 +103,55 @@
         font-size: 1rem;
     }
 }
+
+.Pagination-container {
+    grid-column: 1 / -1;
+
+    display: flex;
+    justify-content: center;
+
+    width: 100%;
+    max-width: 100%;
+    margin-top: 24px;
+}
+
+.Pagination-control {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 0.92rem;
+
+    border: none;
+    border-radius: 0px;
+    background-color: var(--site-colour-secondary, rgb(255, 236, 218));
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1rem;
+    }
+}
+
+.Pagination-control[data-active] {
+    outline: 2px solid rgba(0, 0, 0, 0.9);
+}
+
+.Pagination-control[data-disabled] {
+    background-color: var(--site-colour-tertiary, rgb(250, 223, 198));
+}
+
+@media (hover: hover) {
+    .Pagination-control:not([data-disabled]):hover {
+        /* Overriding default Mantine component hover styles */
+        background-color: var(--site-colour-secondary, rgb(255, 236, 218));
+    }
+
+    .Pagination-control:not([data-active]):not([data-disabled]):hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}
+
+.Pagination-control:not([data-active]):not([data-disabled]):focus-visible {
+    outline: 2px solid #000;
+}
+
+.Pagination-control:not([data-active]):not([data-disabled]):active {
+    background-color: rgba(0, 0, 0, 0.1);
+}
