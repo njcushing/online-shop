@@ -120,6 +120,8 @@
     flex-direction: column;
     gap: 16px;
 
+    padding: 0px 0px 16px;
+
     @media (min-width: $mantine-breakpoint-lg) {
         padding: 16px 0px;
     }
