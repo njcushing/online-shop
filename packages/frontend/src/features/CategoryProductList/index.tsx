@@ -406,12 +406,23 @@ export function CategoryProductList() {
     }, [page, pageSize, productsData.total, awaitingProducts]);
 
     const categoryGroup = useMemo(() => {
-        if (layoutType === "multi" && productsData.products.length === 0) return null;
+        if (productsData.products.length === 0) return null;
+
+        if (layoutType === "multi") {
+            return (
+                <div className={styles["category-product-list-category-group-container"]}>
+                    <div className={styles["category-product-list-category-group-products"]}>
+                        {productCards}
+                    </div>
+                </div>
+            );
+        }
+
         return (
             <div
                 className={styles["category-product-list-category-group-container"]}
                 data-layout={narrow ? "narrow" : "wide"}
-                data-sidebar={layoutType === "single"}
+                data-sidebar
             >
                 {narrow ? (
                     <>
