@@ -108,6 +108,14 @@
 .Carousel-image-small {
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 8px;
+    background: #faf8f2;
+    background: linear-gradient(
+        0deg,
+        rgb(250, 248, 242) 0%,
+        rgb(255, 252, 248) 30%,
+        rgb(240, 237, 233) 30%,
+        rgb(224, 220, 215) 100%
+    );
 
     width: 100%;
     aspect-ratio: 1;
