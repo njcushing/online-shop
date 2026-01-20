@@ -391,6 +391,8 @@ export function CategoryProductList() {
     }, [page, pageSize, productsData.total, awaitingProducts]);
 
     const pagination = useMemo(() => {
+        if (productsData.total <= pageSize) return null;
+
         return (
             <div className={styles["Pagination-container"]}>
                 <Pagination
