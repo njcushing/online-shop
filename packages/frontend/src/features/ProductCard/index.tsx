@@ -115,7 +115,7 @@ export const ProductCard = forwardRef<HTMLAnchorElement, TProductCard>(
 
         const { name, images, attributes } = useMemo(() => productData, [productData]);
         const displayAttribute = useMemo(
-            () => attributes.find((a) => a.type === "color"),
+            () => attributes.find((a) => a.type === "color" && a.values.length > 1),
             [attributes],
         );
 
