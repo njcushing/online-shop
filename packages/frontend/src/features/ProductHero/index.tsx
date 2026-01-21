@@ -129,9 +129,9 @@ export function ProductHero() {
     }, [displaySkeletons, collections]);
 
     const variantStepsMemo = useMemo(() => {
-        return relatedAttributesData.map((attribute, i) => {
+        return relatedAttributesData.flatMap((attribute, i) => {
             const { code: attributeCode, values } = attribute;
-            if (values.length === 0) return null;
+            if (values.length <= 1) return [];
             return (
                 <Fragment key={attributeCode}>
                     <Skeleton visible={displaySkeletons}>

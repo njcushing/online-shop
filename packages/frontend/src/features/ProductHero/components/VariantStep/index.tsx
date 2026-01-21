@@ -130,6 +130,8 @@ export function VariantStep({ product, attribute }: TVariantStep) {
         );
     }, [code, title, type, selectedAttributeParams, onClick, items]);
 
+    if (values.length <= 1) return null;
+
     return (
         <div className={styles["variant-step"]} key={`variant-options-${code}`}>
             {content}
