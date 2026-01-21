@@ -1,7 +1,7 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import { RootContext } from "@/pages/Root";
 import { ProductContext } from "@/pages/Product";
-import { useMatches, Accordion, Table, Skeleton } from "@mantine/core";
+import { useMatches, Accordion, Table, Skeleton, Divider } from "@mantine/core";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { ResponseBody as GetSettingsResponseDto } from "@/api/settings/GET";
 import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
@@ -71,9 +71,13 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
         const { description } = productData;
 
         return (
-            <div className={styles["markdown-container"]}>
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>{description}</ReactMarkdown>
-            </div>
+            <>
+                <Divider className={styles["Divider"]} />
+
+                <div className={styles["markdown-container"]}>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{description}</ReactMarkdown>
+                </div>
+            </>
         );
     }, [product.response.success, productData, awaitingAny]);
 
@@ -220,7 +224,11 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
     }, [settings.response.success, settingsData, awaitingAny]);
 
     const customerReviewsSegment = useMemo(() => {
-        return <ProductReviews containerIsTransitioning={isTransitioning} />;
+        return (
+            <div className={styles["ProductReviews-container"]}>
+                <ProductReviews containerIsTransitioning={isTransitioning} />
+            </div>
+        );
     }, [isTransitioning]);
 
     const segments = useMemo(() => {

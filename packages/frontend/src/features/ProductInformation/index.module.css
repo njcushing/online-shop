@@ -41,7 +41,7 @@
 }
 
 .accordion-content {
-    padding: 4px 0px 12px;
+    padding: 0px;
 }
 
 .accordion-label {
@@ -63,20 +63,55 @@
     }
 }
 
+.Divider {
+    --divider-color: rgba(0, 0, 0, 0.3);
+}
+
 .markdown-container {
+    padding: 12px 0px;
+
     * {
+        all: revert;
+
         font-family: var(--font-primary);
-        font-size: 0.92rem;
+    }
+
+    :not(h1, h2, h3, h4, h5, h6) {
+        font-size: 0.9rem;
 
         @media (min-width: $mantine-breakpoint-xs) {
-            font-size: 1rem;
+            font-size: 0.98rem;
         }
     }
 
-    p {
-        margin-bottom: revert;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin-top: 0px;
+        margin-bottom: 12px;
     }
-    p:nth-last-child(-n + 1) {
+
+    p {
+        margin: 0px 0px 12px;
+    }
+
+    hr {
+        border: none;
+        background-color: rgba(0, 0, 0, 0.3);
+
+        height: 1px;
+    }
+
+    ul,
+    ol {
+        margin: 12px 0px;
+        padding: 0px 0px 0px 28px;
+    }
+
+    *:nth-last-child(-n + 1) {
         margin-bottom: 0px;
     }
 
@@ -95,6 +130,8 @@
 
 .details-table {
     --table-border-color: rgba(0, 0, 0, 0.6);
+
+    padding: 4px 0px 12px;
 }
 
 .details-table-tbody {
@@ -131,6 +168,8 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+
+    padding: 4px 0px 12px;
 }
 
 .delivery-information-segment {
@@ -162,4 +201,8 @@
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 1rem;
     }
+}
+
+.ProductReviews-container {
+    padding: 4px 0px 12px;
 }
