@@ -41,10 +41,10 @@ tea-iced-cans-4-pack,Quantity,4 cans
 tea-iced-cans-8-pack,Quantity,8 cans
 tea-iced-cans-16-pack,Quantity,16 cans
 tea-iced-cans-32-pack,Quantity,32 cans
-cafetière-small,Servings,3x Espresso Cups or 1-2x Standard Mugs
-cafetière-small,Capacity,400ml
+cafetière-small,Servings,5x Espresso Cups or 2-3x Standard Mugs
+cafetière-small,Capacity,600ml
 cafetière-small,Compatibility,Ground Coffee
-cafetière-large,Servings,8x Espresso Cups or 3-4x Standard Mugs
+cafetière-large,Servings,8x Espresso Cups or 4-5x Standard Mugs
 cafetière-large,Capacity,1000ml
 cafetière-large,Compatibility,Ground Coffee
 pour-over-coffee-dripper,Servings,1-2x Standard Mugs
@@ -52,12 +52,12 @@ pour-over-coffee-dripper,Capacity,Up to 500ml
 pour-over-coffee-dripper,Compatibility,Ground Coffee
 moka-pot-hob-coffee-maker,Servings,6x Espresso Cups
 moka-pot-hob-coffee-maker,Capacity,250ml
-teapot-ceramic,Servings,1-2x Standard Mugs
-teapot-ceramic,Capacity,600ml
-teapot-cast-iron,Servings,1-2x Standard Mugs
-teapot-cast-iron,Capacity,600ml
-teapot-glass,Servings,1-2x Standard Mugs
-teapot-glass,Capacity,600ml
+teapot-ceramic,Servings,2-3x Standard Mugs
+teapot-ceramic,Capacity,750ml
+teapot-cast-iron,Servings,2-3x Standard Mugs
+teapot-cast-iron,Capacity,750ml
+teapot-glass,Servings,2-3x Standard Mugs
+teapot-glass,Capacity,750ml
 espresso-machine-essential,Weight,6.7kg
 espresso-machine-deluxe,Weight,10.4kg
 espresso-machine-professional,Weight,11.8kg
@@ -71,7 +71,7 @@ handheld-electric-milk-frother,Weight,73g (not including batteries)
 handheld-electric-milk-frother,Batteries,2x AA Batteries (not included)
 standing-electric-milk-frother,Weight,824g
 standing-electric-milk-frother,Capacity,300ml
-cold-brew-bottle-small,Capacity,500ml
+cold-brew-bottle-small,Capacity,600ml
 cold-brew-bottle-small,Material(s),"Glass bottle, built-in filter, plastic stopper"
 cold-brew-bottle-large,Capacity,1000ml
 cold-brew-bottle-large,Material(s),"Glass bottle, built-in filter, plastic stopper"

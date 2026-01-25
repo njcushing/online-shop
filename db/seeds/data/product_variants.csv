@@ -455,17 +455,9 @@ teapot-ceramic,Teapot - Ceramic - Orange,BR-TP-CR-OR,FALSE,2400.00,2400.00,0.000
 teapot-ceramic,Teapot - Ceramic - Black,BR-TP-CR-BL,FALSE,2160.00,2400.00,0.0000,36,,63,0,TRUE,2025-12-29 14:30:44.906+00
 teapot-cast-iron,Teapot - Cast Iron,BR-TP-CI,FALSE,3000.00,3000.00,0.0000,45,,98,1,TRUE,2025-12-29 14:30:44.906+00
 teapot-glass,Teapot - Glass,BR-TP-GL,FALSE,2800.00,2800.00,0.0000,60,,60,3,TRUE,2025-12-29 14:30:44.906+00
-espresso-machine-essential,Essential Espresso Coffee Machine - Black,BR-ECM-ES-BL,FALSE,6000.00,6000.00,0.0000,5,,14,0,TRUE,2025-12-29 15:07:06.856+00
-espresso-machine-essential,Essential Espresso Coffee Machine - White,BR-ECM-ES-WH,FALSE,6000.00,6000.00,0.0000,4,,7,0,TRUE,2025-12-29 15:07:06.856+00
-espresso-machine-essential,Essential Espresso Coffee Machine - Green,BR-ECM-ES-GR,FALSE,6000.00,6000.00,0.0000,14,,14,1,TRUE,2025-12-29 15:07:06.856+00
-espresso-machine-essential,Essential Espresso Coffee Machine - Red,BR-ECM-ES-RD,FALSE,6000.00,6000.00,0.0000,21,,16,0,TRUE,2025-12-29 15:07:06.856+00
-espresso-machine-essential,Essential Espresso Coffee Machine - Blue,BR-ECM-ES-BU,FALSE,6000.00,6000.00,0.0000,7,,17,0,TRUE,2025-12-29 15:07:06.856+00
-espresso-machine-deluxe,Deluxe Espresso Coffee Machine - Black,BR-ECM-DE-BL,FALSE,11000.00,11000.00,0.0000,3,,20,1,TRUE,2025-12-29 15:07:06.856+00
-espresso-machine-deluxe,Deluxe Espresso Coffee Machine - White,BR-ECM-DE-WH,FALSE,11000.00,11000.00,0.0000,5,,3,0,TRUE,2025-12-29 15:07:06.856+00
-espresso-machine-deluxe,Deluxe Espresso Coffee Machine - Green,BR-ECM-DE-GR,FALSE,11000.00,11000.00,0.0000,10,,10,0,TRUE,2025-12-29 15:07:06.856+00
-espresso-machine-professional,Professional Espresso Coffee Machine - Black,BR-ECM-PR-BL,FALSE,32000.00,32000.00,0.0000,4,,0,0,TRUE,2025-12-29 15:07:06.856+00
-espresso-machine-professional,Professional Espresso Coffee Machine - White,BR-ECM-PR-WH,FALSE,32000.00,32000.00,0.0000,6,,5,0,TRUE,2025-12-29 15:07:06.856+00
-espresso-machine-professional,Professional Espresso Coffee Machine - Green,BR-ECM-PR-GR,FALSE,32000.00,32000.00,0.0000,7,,6,0,TRUE,2025-12-29 15:07:06.856+00
+espresso-machine-essential,Essential Espresso Coffee Machine - Chrome,BR-ECM-ES-CH,FALSE,6000.00,6000.00,0.0000,5,,14,0,TRUE,2025-12-29 15:07:06.856+00
+espresso-machine-deluxe,Deluxe Espresso Coffee Machine - Chrome,BR-ECM-DE-CH,FALSE,11000.00,11000.00,0.0000,3,,20,1,TRUE,2025-12-29 15:07:06.856+00
+espresso-machine-professional,Professional Espresso Coffee Machine - Chrome,BR-ECM-PR-CH,FALSE,32000.00,32000.00,0.0000,4,,0,0,TRUE,2025-12-29 15:07:06.856+00
 cold-brew-bottle-small,Cold Brew Bottle - Small - Black,BR-CBB-SM-BL,FALSE,1800.00,1800.00,0.0000,33,,26,1,TRUE,2025-12-30 11:38:29.495+00
 cold-brew-bottle-small,Cold Brew Bottle - Small - White,BR-CBB-SM-WH,FALSE,1800.00,1800.00,0.0000,22,,10,0,TRUE,2025-12-30 11:38:29.495+00
 cold-brew-bottle-small,Cold Brew Bottle - Small - Blue,BR-CBB-SM-BU,FALSE,1800.00,1800.00,0.0000,31,,16,0,TRUE,2025-12-30 11:38:29.495+00
