@@ -58,7 +58,14 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
     const descriptionSegment = useMemo(() => {
         if (awaitingAny) {
             return (
-                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "8px",
+                        paddingBottom: "12px",
+                    }}
+                >
                     {Array.from({ length: 5 }).map(() => {
                         return <Skeleton visible height="1rem" key={uuid()}></Skeleton>;
                     })}
