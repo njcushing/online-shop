@@ -289,7 +289,7 @@ namespace Cafree.Api.Endpoints.Categories._Slug.Products.GET
             );
 
             int page = query.Page < 1 ? 1 : query.Page;
-            int pageSize = Math.Clamp(query.PageSize ?? 12, 1, MaxPageSize);
+            int pageSize = Math.Clamp(query.PageSize ?? 24, 1, MaxPageSize);
 
             var productQuery = _context.CategoryProducts
                 .Where(cp => cp.Product.Active && cp.CategoryId == category.Id)
