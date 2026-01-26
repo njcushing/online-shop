@@ -53,10 +53,13 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
         if (!awaitingAny && variant) setVariantData(variant);
     }, [variant, awaitingAny]);
 
+    const [displaySkeletons, setDisplaySkeletons] = useState(true);
+    useEffect(() => setDisplaySkeletons(awaitingAny), [awaitingAny]);
+
     const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
 
     const descriptionSegment = useMemo(() => {
-        if (awaitingAny) {
+        if (displaySkeletons) {
             return (
                 <div
                     style={{
@@ -86,7 +89,7 @@ export function ProductInformation({ defaultOpenTab = "Description" }: TProductI
                 </div>
             </>
         );
-    }, [product.response.success, productData, awaitingAny]);
+    }, [product.response.success, productData, displaySkeletons]);
 
     const productDetailsSegment = useMemo(() => {
         if (!awaitingAny && !product.response.success) return null;
