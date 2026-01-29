@@ -443,9 +443,11 @@ tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Mango & Passionfruit Flavour,R
 tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Summer Fruits Flavour,RTD-IC-32PK-SF,FALSE,4500.00,4500.00,0.0000,8,,22,5,FALSE,2025-12-27 23:01:45.468+00
 tea-iced-cans-32-pack,Tea - Iced Cans - 32 Pack - Pineapple Flavour,RTD-IC-32PK-PI,TRUE,4500.00,4500.00,2.5000,26,,24,0,TRUE,2025-12-27 23:01:45.468+00
 cafetière-small,Cafetière - Small - Black,BR-CASM-BL,FALSE,1620.00,1800.00,0.0000,17,,86,4,TRUE,2025-12-28 12:24:20.353+00
+cafetière-small,Cafetière - Small - White,BR-CASM-WH,FALSE,1800.00,1800.00,0.0000,24,,25,0,TRUE,2025-12-28 12:24:20.353+00
 cafetière-small,Cafetière - Small - Copper,BR-CASM-CO,FALSE,1800.00,1800.00,0.0000,48,,50,8,TRUE,2025-12-28 12:24:20.353+00
 cafetière-small,Cafetière - Small - Stainless Steel,BR-CASM-SS,FALSE,1800.00,1800.00,0.0000,22,,69,8,TRUE,2025-12-28 12:24:20.353+00
 cafetière-large,Cafetière - Large - Black,BR-CALG-BL,FALSE,2160.00,2700.00,0.0000,12,,7,2,TRUE,2025-12-28 12:24:20.353+00
+cafetière-large,Cafetière - Large - White,BR-CALG-WH,FALSE,2700.00,2700.00,0.0000,10,,37,0,TRUE,2025-12-28 12:24:20.353+00
 cafetière-large,Cafetière - Large - Copper,BR-CALG-CO,FALSE,2700.00,2700.00,0.0000,11,,14,2,TRUE,2025-12-28 12:24:20.353+00
 cafetière-large,Cafetière - Large - Stainless Steel,BR-CALG-SS,FALSE,2700.00,2700.00,0.0000,9,,26,3,TRUE,2025-12-28 12:24:20.354+00
 pour-over-coffee-dripper,Pour-Over Coffee Dripper - Glass,BR-POCD-GL,FALSE,2400.00,2400.00,0.0000,19,,68,1,TRUE,2025-12-28 13:43:26.927+00
@@ -543,16 +545,12 @@ coffee-and-mug-bundle,Coffee + Mug Bundle - Black - Whole Bean,BS-CMB-BL-WB,FALS
 coffee-and-mug-bundle,Coffee + Mug Bundle - Black - Ground,BS-CMB-BL-GR,FALSE,1500.00,1500.00,0.0000,0,,40,0,TRUE,2026-01-01 12:16:46.431+00
 coffee-and-mug-bundle,Coffee + Mug Bundle - Black - Instant,BS-CMB-BL-IN,FALSE,1500.00,1500.00,0.0000,6,,165,0,TRUE,2026-01-01 12:16:46.431+00
 coffee-and-mug-bundle,Coffee + Mug Bundle - Black - Pods,BS-CMB-BL-PO,FALSE,1600.00,1600.00,0.0000,89,,155,0,TRUE,2026-01-01 12:16:46.431+00
-coffee-and-cafetière-bundle,Coffee + Cafetière Bundle - Small - Whole Bean,BS-CCB-CASM-WB,FALSE,2800.00,2800.00,0.0000,37,,66,0,TRUE,2026-01-04 13:34:04.678+00
-coffee-and-cafetière-bundle,Coffee + Cafetière Bundle - Small - Ground,BS-CCB-CASM-GR,FALSE,2800.00,2800.00,0.0000,18,,51,0,TRUE,2026-01-04 13:34:04.679+00
-coffee-and-cafetière-bundle,Coffee + Cafetière Bundle - Small - Instant,BS-CCB-CASM-IN,FALSE,2800.00,2800.00,0.0000,3,,64,0,TRUE,2026-01-04 13:34:04.679+00
-coffee-and-cafetière-bundle,Coffee + Cafetière Bundle - Small - Pods,BS-CCB-CASM-PO,FALSE,2900.00,2900.00,0.0000,25,,63,0,TRUE,2026-01-04 13:34:04.679+00
-coffee-and-cafetière-bundle,Coffee + Cafetière Bundle - Large - Whole Bean,BS-CCB-CALG-WB,FALSE,3700.00,3700.00,0.0000,18,,63,0,TRUE,2026-01-04 13:34:04.679+00
-coffee-and-cafetière-bundle,Coffee + Cafetière Bundle - Large - Ground,BS-CCB-CALG-GR,FALSE,3700.00,3700.00,0.0000,47,,19,0,TRUE,2026-01-04 13:34:04.679+00
-coffee-and-cafetière-bundle,Coffee + Cafetière Bundle - Large - Instant,BS-CCB-CALG-IN,FALSE,3700.00,3700.00,0.0000,38,,46,0,TRUE,2026-01-04 13:34:04.679+00
-coffee-and-cafetière-bundle,Coffee + Cafetière Bundle - Large - Pods,BS-CCB-CALG-PO,FALSE,3800.00,3800.00,0.0000,48,,71,0,TRUE,2026-01-04 13:34:04.679+00
-coffee-cold-brew-bundle,Coffee Cold Brew Bundle - Small - Whole Bean,BS-CCOBB-SM,FALSE,4100.00,4100.00,0.0000,17,,28,0,TRUE,2026-01-04 13:34:04.679+00
-coffee-cold-brew-bundle,Coffee Cold Brew Bundle - Large - Whole Bean,BS-CCOBB-LG,FALSE,5000.00,5000.00,0.0000,49,,34,1,TRUE,2026-01-04 13:34:04.679+00
+coffee-and-cafetière-bundle,Coffee + Cafetière Bundle - Small - Stainless Steel - Whole Bean,BS-CCB-CASM-SS-WB,FALSE,2800.00,2800.00,0.0000,37,,66,0,TRUE,2026-01-04 13:34:04.678+00
+coffee-and-cafetière-bundle,Coffee + Cafetière Bundle - Small - Stainless Steel - Ground,BS-CCB-CASM-SS-GR,FALSE,2800.00,2800.00,0.0000,18,,51,0,TRUE,2026-01-04 13:34:04.679+00
+coffee-and-cafetière-bundle,Coffee + Cafetière Bundle - Large - Stainless Steel - Whole Bean,BS-CCB-CALG-SS-WB,FALSE,3700.00,3700.00,0.0000,18,,63,0,TRUE,2026-01-04 13:34:04.679+00
+coffee-and-cafetière-bundle,Coffee + Cafetière Bundle - Large - Stainless Steel - Ground,BS-CCB-CALG-SS-GR,FALSE,3700.00,3700.00,0.0000,47,,19,0,TRUE,2026-01-04 13:34:04.679+00
+coffee-cold-brew-bundle,Coffee Cold Brew Bundle - Small - White - Whole Bean,BS-CCOBB-WH-SM,FALSE,4100.00,4100.00,0.0000,17,,28,0,TRUE,2026-01-04 13:34:04.679+00
+coffee-cold-brew-bundle,Coffee Cold Brew Bundle - Large - White - Whole Bean,BS-CCOBB-WH-LG,FALSE,5000.00,5000.00,0.0000,49,,34,1,TRUE,2026-01-04 13:34:04.679+00
 coffee-complete-brew-bundle,Coffee Complete Brew Bundle - White - Small - Whole Bean,BS-CCBB-WH-CASM-WB,FALSE,3100.00,3100.00,0.0000,6,,31,0,TRUE,2026-01-04 13:34:04.679+00
 coffee-complete-brew-bundle,Coffee Complete Brew Bundle - White - Small - Ground,BS-CCBB-WH-CASM-GR,FALSE,3100.00,3100.00,0.0000,23,,27,0,TRUE,2026-01-04 13:34:04.679+00
 coffee-complete-brew-bundle,Coffee Complete Brew Bundle - White - Small - Instant,BS-CCBB-WH-CASM-IN,FALSE,3100.00,3100.00,0.0000,26,,35,0,TRUE,2026-01-04 13:34:04.679+00
