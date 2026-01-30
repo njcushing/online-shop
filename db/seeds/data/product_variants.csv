@@ -594,16 +594,16 @@ tea-and-teapot-bundle,Tea + Teapot Bundle - Black - Bags,BS-TTPB-BL-BA,FALSE,345
 tea-and-teapot-bundle,Tea + Teapot Bundle - Black - Powdered,BS-TTPB-BL-PW,FALSE,3400.00,3400.00,0.0000,16,,60,0,TRUE,2026-01-04 13:34:04.679+00
 tea-complete-brew-bundle,Tea Complete Brew Bundle - White - Loose Leaf,BS-TCBB-WH-LL,FALSE,4100.00,4100.00,0.0000,23,,36,2,TRUE,2026-01-04 13:34:04.679+00
 tea-complete-brew-bundle,Tea Complete Brew Bundle - White - Bags,BS-TCBB-WH-BA,FALSE,3800.00,3800.00,0.0000,1,,13,1,TRUE,2026-01-05 13:34:05.000+00
-tea-complete-brew-bundle,Tea Complete Brew Bundle - White - Ground,BS-TCBB-WH-PW,FALSE,3750.00,3750.00,0.0000,13,,7,2,TRUE,2026-01-06 13:34:05.000+00
+tea-complete-brew-bundle,Tea Complete Brew Bundle - White - Powdered,BS-TCBB-WH-PW,FALSE,3750.00,3750.00,0.0000,13,,7,2,TRUE,2026-01-06 13:34:05.000+00
 tea-complete-brew-bundle,Tea Complete Brew Bundle - Black - Loose Leaf,BS-TCBB-BL-LL,FALSE,4100.00,4100.00,0.0000,23,,24,2,TRUE,2026-01-19 13:34:05.000+00
 tea-complete-brew-bundle,Tea Complete Brew Bundle - Black - Bags,BS-TCBB-BL-BA,FALSE,3800.00,3800.00,0.0000,5,,31,0,TRUE,2026-01-20 13:34:05.000+00
-tea-complete-brew-bundle,Tea Complete Brew Bundle - Black - Ground,BS-TCBB-BL-PW,FALSE,3750.00,3750.00,0.0000,9,,5,0,TRUE,2026-01-21 13:34:05.000+00
+tea-complete-brew-bundle,Tea Complete Brew Bundle - Black - Powdered,BS-TCBB-BL-PW,FALSE,3750.00,3750.00,0.0000,9,,5,0,TRUE,2026-01-21 13:34:05.000+00
 tea-classics-flavour-selection,Tea Classics Flavour Selection - Loose Leaf,BS-TCLFS-LL,FALSE,4200.00,4200.00,0.0000,12,,30,0,TRUE,2026-01-04 13:34:04.679+00
 tea-classics-flavour-selection,Tea Classics Flavour Selection - Bags,BS-TCLFS-BA,FALSE,4000.00,4000.00,0.0000,13,,11,0,TRUE,2026-01-04 13:34:04.679+00
-tea-classics-flavour-selection,Tea Classics Flavour Selection - Ground,BS-TCLFS-PW,FALSE,3750.00,3750.00,0.0000,15,,7,0,TRUE,2026-01-04 13:34:04.679+00
+tea-classics-flavour-selection,Tea Classics Flavour Selection - Powdered,BS-TCLFS-PW,FALSE,3750.00,3750.00,0.0000,15,,7,0,TRUE,2026-01-04 13:34:04.679+00
 tea-complete-flavour-selection,Tea Complete Flavour Selection - Loose Leaf,BS-TCOFS-LL,FALSE,7000.00,7000.00,0.0000,9,,17,0,TRUE,2026-01-04 13:34:04.679+00
 tea-complete-flavour-selection,Tea Complete Flavour Selection - Bags,BS-TCOFS-BA,FALSE,6600.00,6600.00,0.0000,5,,13,0,TRUE,2026-01-04 13:34:04.679+00
-tea-complete-flavour-selection,Tea Complete Flavour Selection - Ground,BS-TCOFS-PW,FALSE,6200.00,6200.00,0.0000,7,,10,0,TRUE,2026-01-04 13:34:04.679+00
+tea-complete-flavour-selection,Tea Complete Flavour Selection - Powdered,BS-TCOFS-PW,FALSE,6200.00,6200.00,0.0000,7,,10,0,TRUE,2026-01-04 13:34:04.679+00
 tea-iced-cans-flavour-selection,Tea Iced Cans Flavour Selection,BS-TICFS,FALSE,3500.00,3500.00,0.0000,18,,12,0,TRUE,2026-01-04 13:34:04.679+00
 gift-card-standard,Cafree Gift Card - Standard - £5,GC-STN-5,FALSE,500.00,500.00,0.0000,152,50,405,0,TRUE,2026-01-05 20:20:47.840+00
 gift-card-standard,Cafree Gift Card - Standard - £10,GC-STN-10,FALSE,1000.00,1000.00,0.0000,100,25,433,0,TRUE,2026-01-05 20:20:47.840+00
