@@ -724,10 +724,89 @@ Iced Tea Flavour Selection,"If you like your iced tea and want to experience all
 Standard Cafree Gift Card,"Give a friend or family member the gift of choice with a Cafree gift card. Perfect for any special occasion, if you're not sure what someone enjoys most, allow them to choose from our wide range of products themselves. Our physical gift cards are mailed to the recipient in gift wrapping, making an ideal gift, and are offered in numerous denominations.",gift-card-standard,100,TRUE,2026-01-05 20:14:16.922+00
 Birthday Cafree Gift Card,"For a special individual on their birthday, give them the gift of choice on their special day with a Cafree gift card. If you want them to experience everything our wide range has to offer, or they're just particularly difficult to buy for, our gift cards always make the perfect present. Our physical gift cards are mailed to the recipient in birthday-themed gift wrapping, making an ideal gift, and are offered in numerous denominations.",gift-card-birthday,100,TRUE,2026-01-05 20:14:16.922+00
 Christmas Cafree Gift Card,"Christmas is all about spreading joy, especially those closest to you. Give them the gift of choice this Christmas with a Cafree gift card, allowing them to explore our complete range of products. Our physical gift cards are mailed to the recipient in Christmas-themed gift wrapping, making an ideal gift, and are offered in numerous denominations.",gift-card-christmas,100,TRUE,2026-01-05 20:14:16.922+00
-Coffee Sample,,coffee-sample,5,TRUE,2026-01-05 20:43:52.266+00
-Coffee Classics Flavour Selection Samples,,coffee-classics-flavour-selection-samples,5,TRUE,2026-01-05 20:43:52.266+00
-Coffee Complete Flavour Selection Samples,,coffee-complete-flavour-selection-samples,5,TRUE,2026-01-05 20:43:52.266+00
-Coffee Cold Brew Concentrate Flavour Selection Samples,,coffee-cold-brew-flavour-selection-samples,5,TRUE,2026-01-05 20:43:52.266+00
-Tea Sample,,tea-sample,5,TRUE,2026-01-05 20:43:52.266+00
-Tea Classics Flavour Selection Samples,,tea-classics-flavour-selection-samples,5,TRUE,2026-01-05 20:43:52.266+00
-Tea Complete Flavour Selection Samples,,tea-complete-flavour-selection-samples,5,TRUE,2026-01-05 20:43:52.266+00
+Coffee Sample,"A cheaper way to explore our wide range of delicious coffee blends, these samples are much smaller than our typical offerings, but still full of flavour - a perfect product if you want to discover which blend(s) you like the most before committing to more. All 14 of Cafree's coffee blends are on offer, and you can pick them up in any of the following options:
+
+- 50g Bag of Whole Bean Coffee
+- 50g Bag of Ground Coffee
+- 50g Bag of Instant Coffee
+- Pack of 2 Coffee Pods",coffee-sample,5,TRUE,2026-01-05 20:43:52.266+00
+Coffee Classics Flavour Selection Samples,"Looking to try all our most classic flavours? This sample selection of Cafree's 5 most popular coffee blend offerings allows you to do just that: it's a cheap and cheerful way to discover what you like best. This selection contains the following blends:
+
+- House Blend
+- Light Blend
+- Medium Blend
+- Dark Blend
+- Extra Dark Blend
+
+And you can pick up all those delicious flavours in any of the following options (one for each of the above blends):
+
+- 50g Bags of Whole Bean Coffee
+- 50g Bags of Ground Coffee
+- 50g Bags of Instant Coffee
+- Packs of 2 Coffee Pods",coffee-classics-flavour-selection-samples,5,TRUE,2026-01-05 20:43:52.266+00
+Coffee Complete Flavour Selection Samples,"No messing around; you're open-minded, and are willing to try everything to see what works. This selection is for you: a complete coffee blend offering containing samples of all 14 of Cafree's delicious blends, including the following:
+
+- House Blend
+- Light Blend
+- Medium Blend
+- Dark Blend
+- Extra Dark Blend
+- Breakfast Blend
+- Pumpkin Spice Blend
+- Mocha Blend
+- Espresso Blend
+- Vanilla Blend
+- Caramel Blend
+- Intense Blend
+- French Roast Blend
+- Italian Roast Blend
+
+And you can pick up all those delicious flavours in any of the following options (one for each of the above blends):
+
+- 50g Bags of Whole Bean Coffee
+- 50g Bags of Ground Coffee
+- 50g Bags of Instant Coffee
+- Packs of 2 Coffee Pods",coffee-complete-flavour-selection-samples,5,TRUE,2026-01-05 20:43:52.266+00
+Coffee Cold Brew Concentrate Flavour Selection Samples,"If you prefer cold brew coffee and want to try our full range of delicious blends, this is the ideal product for you. This selection of Cafree's Cold Brew Concentrate contains two servings of each of our 4 blends, including:
+
+- House Blend
+- Light Blend
+- Medium Blend
+- Dark Blend",coffee-cold-brew-flavour-selection-samples,5,TRUE,2026-01-05 20:43:52.266+00
+Tea Sample,"A cheaper way to experience our wide range of delicious, aromatic tea blends, these samples are much smaller than our typical offerings, but still full of flavour - a perfect product if you want to discover which blend(s) you like the most before committing to our larger options. All 10 of Cafree's tea blends are on offer, and you can pick them up in any of the following options:
+
+- 25g Bag of Loose Leaf Tea
+- Box of 5 Tea Bags
+- 50g Bag of Powdered Tea",tea-sample,5,TRUE,2026-01-05 20:43:52.266+00
+Tea Classics Flavour Selection Samples,"For the tea lovers looking to pick up a range of Cafree's delicious tea offerings, this selection contains samples for all 6 of our most classic and popular tea blends, so you can experience some great tea, at a great price, to discover which blend(s) are your favourite before committing to more. This selection contains the following blends:
+
+- English Breakfast Blend
+- Black Blend
+- Earl Grey Blend
+- Green Blend
+- Jasmine Blend
+- Peppermint Blend
+
+And all those delicious flavours are available for any of the following options (one for each of the above blends):
+
+- 25g Bags of Loose Leaf Tea
+- Boxes of 5 Tea Bags
+- 50g Bags of Powdered Tea",tea-classics-flavour-selection-samples,5,TRUE,2026-01-05 20:43:52.266+00
+Tea Complete Flavour Selection Samples,"The complete range. If you love tea and this is your first time shopping with us, you may want to experience all the tea blends we have to offer before diving into one of our larger offerings. If so, this is the product for you: an uncompromising selection of all 10 of Cafree's world-class tea blends, including:
+
+- English Breakfast Blend
+- Black Blend
+- Earl Grey Blend
+- Green Blend
+- Jasmine Blend
+- Peppermint Blend
+- Chamomile Blend
+- Oolong Blend
+- Herbal Blend
+- Ginger & Lemon Blend
+
+And all those delicious flavours are available for any of the following options (one for each of the above blends):
+
+- 25g Bags of Loose Leaf Tea
+- Boxes of 5 Tea Bags
+- 50g Bags of Powdered Tea",tea-complete-flavour-selection-samples,5,TRUE,2026-01-05 20:43:52.266+00
