@@ -1,0 +1,143 @@
+.category-products {
+    display: flex;
+    justify-content: center;
+
+    width: min(calc(var(--vw) * 100), 100%);
+    padding: 32px 0px;
+}
+
+.category-products-width-controller {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    width: min(calc(var(--vw) * 100), 100%);
+    max-width: 1280px;
+    padding: 16px;
+    margin: auto;
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        max-width: 640px;
+    }
+
+    @media (min-width: $mantine-breakpoint-md) {
+        max-width: 768px;
+    }
+
+    @media (min-width: $mantine-breakpoint-lg) {
+        max-width: 1024px;
+    }
+
+    @media (min-width: $mantine-breakpoint-xl) {
+        max-width: 1280px;
+    }
+}
+
+.top-row-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        grid-template-columns: 1fr auto;
+    }
+}
+
+.title-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.category-products-title {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 1.35rem;
+    font-weight: 500;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.5rem;
+    }
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        font-size: 1.7rem;
+    }
+}
+
+.category-products-subcopy {
+    color: rgb(96, 96, 96);
+    font-family: var(--font-primary);
+    font-size: 1.05rem;
+    font-weight: 500;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.15rem;
+    }
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        font-size: 1.25rem;
+    }
+}
+
+.shop-now-button {
+    font-family: var(--font-primary);
+    font-size: 0.92rem;
+    text-align: center;
+
+    padding: 0px 32px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1rem;
+    }
+}
+
+.shop-now-button:focus-visible {
+    outline: 2px solid #000;
+    border-radius: 0px;
+}
+
+.Carousel-root {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.Carousel-container {
+    align-self: start;
+}
+
+.Carousel-viewport {
+    /* padding: 4px; */
+}
+
+.Carousel-indicators {
+    align-self: center;
+
+    position: initial;
+
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+
+    max-width: 100%;
+}
+
+.Carousel-indicator {
+    border-radius: 0px;
+    background-color: rgba(0, 0, 0, 0.2);
+
+    width: 40px;
+    height: 3px;
+}
+
+.Carousel-indicator[data-active] {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.Carousel-slide {
+    cursor: pointer;
+
+    padding: 2px 0px 0px;
+
+    border: 4px solid #000;
+}
