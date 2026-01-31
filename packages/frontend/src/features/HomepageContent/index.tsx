@@ -1,6 +1,6 @@
 import { Hero } from "./components/Hero";
 import { CoffeeBlendInfoPanels } from "../CoffeeBlendInfoPanels";
-import { CategoryProducts } from "./components/CategoryProducts";
+import { CategoryCards } from "./components/CategoryCards";
 import styles from "./index.module.css";
 
 export function HomepageContent() {
@@ -8,7 +8,7 @@ export function HomepageContent() {
         <div className={styles["homepage-content"]}>
             <Hero />
             <CoffeeBlendInfoPanels />
-            <CategoryProducts />
+            <CategoryCards />
         </div>
     );
 }

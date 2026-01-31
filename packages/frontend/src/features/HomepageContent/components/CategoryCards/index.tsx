@@ -10,7 +10,7 @@ import styles from "./index.module.css";
 
 const slideGapPx = 16;
 
-export function CategoryProducts() {
+export function CategoryCards() {
     const navigate = useNavigate();
 
     const { categories } = useContext(RootContext);
@@ -149,14 +149,14 @@ export function CategoryProducts() {
     if (!awaitingAny && categoriesData.length === 0) return null;
 
     return (
-        <section className={styles["category-products"]}>
-            <div className={styles["category-products-width-controller"]}>
+        <section className={styles["category-cards"]}>
+            <div className={styles["category-cards-width-controller"]}>
                 <div className={styles["top-row-container"]}>
                     <div className={styles["title-container"]}>
-                        <h2 className={styles["category-products-title"]}>
+                        <h2 className={styles["category-cards-title"]}>
                             Shop our range of delicious coffees
                         </h2>
-                        <p className={styles["category-products-subcopy"]}>
+                        <p className={styles["category-cards-subcopy"]}>
                             Great flavours. Great prices. Roasted right here in-house.
                         </p>
                     </div>

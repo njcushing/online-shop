@@ -1,4 +1,4 @@
-.category-products {
+.category-cards {
     display: flex;
     justify-content: center;
 
@@ -8,7 +8,7 @@
     padding: 32px 0px;
 }
 
-.category-products-width-controller {
+.category-cards-width-controller {
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -51,7 +51,7 @@
     gap: 8px;
 }
 
-.category-products-title {
+.category-cards-title {
     color: black;
     font-family: var(--font-primary);
     font-size: 1.35rem;
@@ -66,7 +66,7 @@
     }
 }
 
-.category-products-subcopy {
+.category-cards-subcopy {
     color: rgb(96, 96, 96);
     font-family: var(--font-primary);
     font-size: 1.05rem;
