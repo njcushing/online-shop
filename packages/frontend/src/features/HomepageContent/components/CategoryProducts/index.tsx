@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect, useCallback, useRef, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { RootContext } from "@/pages/Root";
-import { useMatches, Button } from "@mantine/core";
+import { useMatches, Button, Image } from "@mantine/core";
 import { Carousel, Embla } from "@mantine/carousel";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
@@ -10,6 +11,8 @@ import styles from "./index.module.css";
 const slideGapPx = 16;
 
 export function CategoryProducts() {
+    const navigate = useNavigate();
+
     const { categories } = useContext(RootContext);
 
     const { data, awaitingAny } = useQueryContexts({
@@ -42,10 +45,6 @@ export function CategoryProducts() {
                 slideSize: "100%",
                 slidesToScroll: 1,
             },
-            xs: {
-                slideSize: `calc((100% / 2) - (${slideGapPx}px * (1 / 2)))`,
-                slidesToScroll: 2,
-            },
             md: {
                 slideSize: `calc((100% / 3) - (${slideGapPx}px * (2 / 3)))`,
                 slidesToScroll: 3,
@@ -77,9 +76,11 @@ export function CategoryProducts() {
 
     const carouselSlidesMemo = useMemo(() => {
         return categoryTree
-            .flatMap((c) => (c.slug === "coffee" ? c.subcategories : []))
+            .flatMap((category) => (category.slug === "coffee" ? category.subcategories : []))
             .slice(0, awaitingAny ? carouselProps.slidesToScroll : undefined)
-            .map((c, i) => {
+            .map((category, i) => {
+                const { name, slug, description } = category;
+
                 return (
                     <Carousel.Slide
                         data-last={i === 4}
@@ -91,13 +92,30 @@ export function CategoryProducts() {
                             /* v8 ignore stop */
                         }
                         className={styles["Carousel-slide"]}
-                        key={c.slug}
+                        key={slug}
                     >
-                        <p>{c.slug}</p>
+                        <button
+                            type="button"
+                            role="link"
+                            onClick={() => navigate({ pathname: `/c/coffee/${slug}` })}
+                            disabled={awaitingAny}
+                            className={styles["category-link"]}
+                        >
+                            <div
+                                className={styles["category-image-container"]}
+                                style={{ visibility: awaitingAny ? "hidden" : "initial" }}
+                            >
+                                <Image className={styles["category-image"]} src="" alt="" />
+                            </div>
+
+                            <p className={styles["category-name"]}>{name}</p>
+
+                            <p className={styles["category-description"]}>{description}</p>
+                        </button>
                     </Carousel.Slide>
                 );
             });
-    }, [carouselProps.slidesToScroll, handleFocus, categoryTree, awaitingAny]);
+    }, [navigate, carouselProps.slidesToScroll, handleFocus, categoryTree, awaitingAny]);
 
     const carouselMemo = useMemo(() => {
         return (
@@ -145,6 +163,7 @@ export function CategoryProducts() {
 
                     <Button
                         color="#242424"
+                        onClick={() => navigate("/c/coffee")}
                         className={styles["shop-now-button"]}
                         disabled={displaySkeletons}
                     >

@@ -2,6 +2,8 @@
     display: flex;
     justify-content: center;
 
+    background-color: var(--site-colour-primary, rgb(255, 249, 243));
+
     width: min(calc(var(--vw) * 100), 100%);
     padding: 32px 0px;
 }
@@ -68,7 +70,7 @@
     color: rgb(96, 96, 96);
     font-family: var(--font-primary);
     font-size: 1.05rem;
-    font-weight: 500;
+    font-weight: 400;
 
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 1.15rem;
@@ -87,6 +89,10 @@
     padding: 0px 32px;
 
     @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.96rem;
+    }
+
+    @media (min-width: $mantine-breakpoint-sm) {
         font-size: 1rem;
     }
 }
@@ -107,7 +113,7 @@
 }
 
 .Carousel-viewport {
-    /* padding: 4px; */
+    padding: 4px;
 }
 
 .Carousel-indicators {
@@ -135,9 +141,90 @@
 }
 
 .Carousel-slide {
-    cursor: pointer;
-
     padding: 2px 0px 0px;
+}
 
-    border: 4px solid #000;
+.category-link {
+    display: flex;
+    flex-direction: column;
+
+    text-align: start;
+    text-decoration: none;
+
+    border: none;
+    background-color: transparent;
+
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+}
+
+@media (hover: hover) {
+    .category-link:not(:disabled):hover {
+        cursor: pointer;
+    }
+}
+
+.category-link:focus-visible {
+    outline: 2px solid #000;
+    outline-offset: 2px;
+    border-radius: 0px;
+}
+
+.category-image-container {
+    position: relative;
+
+    border-radius: 8px;
+    background: #faf8f2;
+    background: linear-gradient(
+        0deg,
+        rgb(250, 248, 242) 0%,
+        rgb(255, 252, 248) 30%,
+        rgb(240, 237, 233) 30%,
+        rgb(224, 220, 215) 100%
+    );
+
+    width: 100%;
+    aspect-ratio: 1;
+
+    margin-bottom: 8px;
+}
+
+.category-image {
+    border-radius: 8px;
+
+    width: 100%;
+    height: 100%;
+}
+
+.category-name {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 1.4rem;
+    font-weight: 500;
+
+    margin-bottom: 4px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.15rem;
+    }
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        font-size: 1.25rem;
+    }
+}
+
+.category-description {
+    color: rgb(64, 64, 64);
+    font-family: var(--font-primary);
+    font-size: 1.05rem;
+    font-weight: 400;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.96rem;
+    }
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        font-size: 1rem;
+    }
 }

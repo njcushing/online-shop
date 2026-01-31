@@ -5,7 +5,7 @@ import { CategoryHero } from "./CategoryHero";
 import { CategoryProductList } from "./CategoryProductList";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
-import { Hero } from "./Hero";
+import { Hero } from "./HomepageContent/components/Hero";
 import { ProductCard } from "./ProductCard";
 import { ProductHero } from "./ProductHero";
 import { ProductInformation } from "./ProductInformation";
