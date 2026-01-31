@@ -2,7 +2,7 @@ import { useContext, useState, useEffect, useCallback, useRef, useMemo } from "r
 import { useNavigate } from "react-router-dom";
 import { RootContext } from "@/pages/Root";
 import { useMatches, Button, Image } from "@mantine/core";
-import { Carousel, Embla } from "@mantine/carousel";
+import { Carousel, CarouselProps, Embla } from "@mantine/carousel";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 import { buildCategoriesTree } from "@/utils/products/categories";
@@ -28,6 +28,12 @@ export function CategoryCards() {
         return buildCategoriesTree(categoriesData || []);
     }, [categoriesData]);
 
+    const categoriesToDisplay = useMemo(() => {
+        return categoryTree.flatMap((category) =>
+            category.slug === "coffee" ? category.subcategories : [],
+        );
+    }, [categoryTree]);
+
     const [displaySkeletons, setDisplaySkeletons] = useState(true);
     useEffect(() => setDisplaySkeletons(awaitingAny), [awaitingAny]);
 
@@ -39,11 +45,18 @@ export function CategoryCards() {
      * update when slideSize changes when a breakpoint is crossed.
      */
 
-    const carouselProps = useMatches(
+    const carouselProps: {
+        slideSize: CarouselProps["slideSize"];
+        slidesToScroll: number;
+    } = useMatches(
         {
             base: {
                 slideSize: "100%",
                 slidesToScroll: 1,
+            },
+            xs: {
+                slideSize: `calc((100% / 2) - (${slideGapPx}px * (1 / 2)))`,
+                slidesToScroll: 2,
             },
             md: {
                 slideSize: `calc((100% / 3) - (${slideGapPx}px * (2 / 3)))`,
@@ -75,8 +88,7 @@ export function CategoryCards() {
     /* v8 ignore stop */
 
     const carouselSlidesMemo = useMemo(() => {
-        return categoryTree
-            .flatMap((category) => (category.slug === "coffee" ? category.subcategories : []))
+        return categoriesToDisplay
             .slice(0, awaitingAny ? carouselProps.slidesToScroll : undefined)
             .map((category, i) => {
                 const { name, slug, description } = category;
@@ -115,7 +127,7 @@ export function CategoryCards() {
                     </Carousel.Slide>
                 );
             });
-    }, [navigate, carouselProps.slidesToScroll, handleFocus, categoryTree, awaitingAny]);
+    }, [navigate, awaitingAny, categoriesToDisplay, carouselProps.slidesToScroll, handleFocus]);
 
     const carouselMemo = useMemo(() => {
         return (
@@ -123,13 +135,12 @@ export function CategoryCards() {
                 slideSize={carouselProps.slideSize}
                 slidesToScroll={carouselProps.slidesToScroll}
                 slideGap={`${slideGapPx}px`}
-                align="start"
                 includeGapInSize={false}
                 skipSnaps
                 previousControlIcon={<ArrowLeft />}
                 nextControlIcon={<ArrowRight />}
                 withControls={false}
-                withIndicators
+                withIndicators={carouselProps.slidesToScroll < categoriesToDisplay.length}
                 getEmblaApi={(api) => {
                     emblaRef.current = api;
                 }}
@@ -144,7 +155,7 @@ export function CategoryCards() {
                 {carouselSlidesMemo}
             </Carousel>
         );
-    }, [carouselProps.slideSize, carouselProps.slidesToScroll, carouselSlidesMemo]);
+    }, [categoriesToDisplay.length, carouselProps, carouselSlidesMemo]);
 
     if (!awaitingAny && categoriesData.length === 0) return null;
 
