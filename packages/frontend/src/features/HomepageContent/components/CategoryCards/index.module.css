@@ -113,6 +113,10 @@
 }
 
 .Carousel-viewport {
+    position: relative;
+    left: -4px;
+
+    width: calc(100% + 8px);
     padding: 4px;
 }
 
