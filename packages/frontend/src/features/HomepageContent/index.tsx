@@ -2,6 +2,7 @@ import { Hero } from "./components/Hero";
 import { InfoMarquee } from "./components/InfoMarquee";
 import { CoffeeBlendInfoPanels } from "../CoffeeBlendInfoPanels";
 import { CategoryCards } from "./components/CategoryCards";
+import { SustainabilityBanner } from "./components/SustainabilityBanner";
 import styles from "./index.module.css";
 
 export function HomepageContent() {
@@ -11,6 +12,7 @@ export function HomepageContent() {
             <InfoMarquee />
             <CoffeeBlendInfoPanels />
             <CategoryCards />
+            <SustainabilityBanner />
         </div>
     );
 }
