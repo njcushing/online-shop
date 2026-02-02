@@ -36,7 +36,52 @@
     font-size: 1rem;
     font-weight: 400;
 
+    margin-bottom: 12px;
+
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 1.1rem;
     }
+}
+
+.Button-root {
+    border-radius: 0px;
+
+    width: 100%;
+    height: min-content;
+    padding: 0px;
+    margin-top: 12px;
+}
+
+.Button-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 0.86rem;
+    font-weight: 400;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
+}
+
+@media (hover: hover) {
+    .Button-root:hover {
+        /* Overriding default Mantine component hover styles */
+        background-color: transparent;
+    }
+}
+
+.Button-root:focus-visible {
+    outline: 2px solid #000;
+    border-radius: 0px;
+}
+
+.Button-root:active {
+    background-color: transparent;
+
+    /* Overriding default Mantine component active styles */
+    transform: none;
 }
