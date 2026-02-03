@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMatches, Button, Collapse } from "@mantine/core";
+import { useMatches, Button, Collapse, Image } from "@mantine/core";
 import { CaretDown, CaretUp } from "@phosphor-icons/react";
 import styles from "./index.module.css";
 
@@ -38,6 +38,13 @@ export function SustainabilityBanner() {
                             <p className={styles["sustainability-main-section-body-text"]}>
                                 Placeholder
                             </p>
+
+                            {layout === "wide" && (
+                                <Image
+                                    radius="md"
+                                    className={styles["sustainability-main-section-image"]}
+                                />
+                            )}
                         </div>
                     </div>
 
@@ -50,6 +57,13 @@ export function SustainabilityBanner() {
                             <p className={styles["sustainability-main-section-body-text"]}>
                                 Placeholder
                             </p>
+
+                            {layout === "wide" && (
+                                <Image
+                                    radius="md"
+                                    className={styles["sustainability-main-section-image"]}
+                                />
+                            )}
                         </div>
                     </div>
 
@@ -62,6 +76,13 @@ export function SustainabilityBanner() {
                             <p className={styles["sustainability-main-section-body-text"]}>
                                 Placeholder
                             </p>
+
+                            {layout === "wide" && (
+                                <Image
+                                    radius="md"
+                                    className={styles["sustainability-main-section-image"]}
+                                />
+                            )}
                         </div>
                     </div>
 
@@ -74,6 +95,13 @@ export function SustainabilityBanner() {
                             <p className={styles["sustainability-main-section-body-text"]}>
                                 Placeholder
                             </p>
+
+                            {layout === "wide" && (
+                                <Image
+                                    radius="md"
+                                    className={styles["sustainability-main-section-image"]}
+                                />
+                            )}
                         </div>
                     </div>
 
@@ -86,6 +114,13 @@ export function SustainabilityBanner() {
                             <p className={styles["sustainability-main-section-body-text"]}>
                                 Placeholder
                             </p>
+
+                            {layout === "wide" && (
+                                <Image
+                                    radius="md"
+                                    className={styles["sustainability-main-section-image"]}
+                                />
+                            )}
                         </div>
                     </div>
                 </div>

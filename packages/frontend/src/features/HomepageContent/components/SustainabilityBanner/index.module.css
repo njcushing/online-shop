@@ -65,8 +65,7 @@
 }
 
 .sustainability-main-section-container-inner {
-    display: flex;
-    flex-direction: column;
+    display: grid;
     gap: 16px;
 
     max-width: 1024px;
@@ -98,6 +97,22 @@
     }
 }
 
+.sustainability-main-section-image {
+    border: none;
+    border-radius: 0px;
+    background: #faf8f2;
+    background: linear-gradient(
+        0deg,
+        rgb(250, 248, 242) 0%,
+        rgb(255, 252, 248) 30%,
+        rgb(240, 237, 233) 30%,
+        rgb(224, 220, 215) 100%
+    );
+
+    width: 100%;
+    aspect-ratio: 1;
+}
+
 .sustainability-main-sections {
     > *:nth-child(odd) {
         background-color: var(--site-colour-secondary, rgb(255, 236, 218));
@@ -105,6 +120,10 @@
 }
 
 .sustainability-main-sections[data-layout="thin"] {
+    .sustainability-main-section-container-inner {
+        grid-template-columns: 100%;
+    }
+
     .sustainability-main-section-heading,
     .sustainability-main-section-body-text {
         text-align: center;
@@ -113,22 +132,40 @@
 
 .sustainability-main-sections[data-layout="wide"] {
     > *:nth-child(odd) {
-        .sustainability-main-section-body-text {
-            align-self: start;
+        .sustainability-main-section-container-inner {
+            grid-template-rows: auto 1fr;
+            grid-template-columns: 1fr 40%;
+        }
 
-            padding-right: 30%;
+        .sustainability-main-section-heading {
+            grid-area: 1 / 1 / 2 / 2;
+        }
+
+        .sustainability-main-section-body-text {
+            grid-area: 2 / 1 / -1 / 2;
+        }
+
+        .sustainability-main-section-image {
+            grid-area: 1 / 2 / -1 / -1;
         }
     }
 
     > *:nth-child(even) {
+        .sustainability-main-section-container-inner {
+            grid-template-rows: auto 1fr;
+            grid-template-columns: 40% 1fr;
+        }
+
         .sustainability-main-section-heading {
-            margin-left: 30%;
+            grid-area: 1 / 2 / 2 / -1;
         }
 
         .sustainability-main-section-body-text {
-            align-self: end;
+            grid-area: 2 / 2 / -1 / -1;
+        }
 
-            padding-left: 30%;
+        .sustainability-main-section-image {
+            grid-area: 1 / 1 / -1 / 2;
         }
     }
 }
