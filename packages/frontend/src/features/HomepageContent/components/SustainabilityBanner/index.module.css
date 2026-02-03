@@ -1,16 +1,9 @@
 .sustainability-banner {
-    width: 100%;
-    height: min-content;
-}
-
-.sustainability-text-container {
     display: flex;
     flex-direction: column;
 
-    width: min(calc(var(--vw) * 100), 100%);
-    max-width: 1024px;
-    padding: 16px;
-    margin: auto;
+    width: 100%;
+    height: min-content;
 }
 
 .sustainability-heading {
@@ -19,6 +12,10 @@
     font-size: 2.1rem;
     font-weight: 500;
 
+    width: 100%;
+    max-width: 1024px;
+    padding: 48px 16px 0px;
+    margin: auto;
     margin-bottom: 24px;
 
     @media (min-width: $mantine-breakpoint-xs) {
@@ -36,20 +33,122 @@
     font-size: 1rem;
     font-weight: 400;
 
-    margin-bottom: 12px;
+    width: 100%;
+    max-width: 1024px;
+    padding: 0px 16px 0px;
+    margin: auto;
+    margin-bottom: 24px;
 
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 1.1rem;
     }
 }
 
-.Button-root {
-    border-radius: 0px;
+/**
+ * Adding padding directly to the Collapse component causes issues with the collapse/expand
+ * transition
+ */
+.Collapse-vertical-padding {
+    height: 60px;
+}
+
+.sustainability-main-sections {
+    display: flex;
+    flex-direction: column;
+
+    width: min(calc(var(--vw) * 100), 100%);
+}
+
+.sustainability-main-section-container {
+    width: 100%;
+    padding: 36px 0px;
+}
+
+.sustainability-main-section-container-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    max-width: 1024px;
+    padding: 0px 16px;
+    margin: auto;
+}
+
+.sustainability-main-section-heading {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 1.8rem;
+    font-weight: 500;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 2rem;
+    }
+}
+
+.sustainability-main-section-body-text {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 0.92rem;
+    font-weight: 400;
+
+    margin-bottom: 12px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1rem;
+    }
+}
+
+.sustainability-main-sections {
+    > *:nth-child(odd) {
+        background-color: var(--site-colour-secondary, rgb(255, 236, 218));
+    }
+}
+
+.sustainability-main-sections[data-layout="thin"] {
+    .sustainability-main-section-heading,
+    .sustainability-main-section-body-text {
+        text-align: center;
+    }
+}
+
+.sustainability-main-sections[data-layout="wide"] {
+    > *:nth-child(odd) {
+        .sustainability-main-section-body-text {
+            align-self: start;
+
+            padding-right: 30%;
+        }
+    }
+
+    > *:nth-child(even) {
+        .sustainability-main-section-heading {
+            margin-left: 30%;
+        }
+
+        .sustainability-main-section-body-text {
+            align-self: end;
+
+            padding-left: 30%;
+        }
+    }
+}
+
+.Button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     width: 100%;
     height: min-content;
     padding: 0px;
-    margin-top: 12px;
+    margin: 24px 0px 48px;
+}
+
+.Button-root {
+    border-radius: 0px;
+
+    width: min-content;
+    height: min-content;
 }
 
 .Button-label {
