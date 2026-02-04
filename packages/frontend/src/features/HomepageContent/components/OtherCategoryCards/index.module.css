@@ -1,0 +1,248 @@
+.other-category-cards {
+    display: flex;
+    justify-content: center;
+
+    background-color: var(--site-colour-primary, rgb(255, 249, 243));
+
+    width: min(calc(var(--vw) * 100), 100%);
+    padding: 32px 0px;
+}
+
+.other-category-cards-width-controller {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    width: min(calc(var(--vw) * 100), 100%);
+    max-width: 1280px;
+    padding: 16px;
+    margin: auto;
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        max-width: 640px;
+    }
+
+    @media (min-width: $mantine-breakpoint-md) {
+        max-width: 768px;
+    }
+
+    @media (min-width: $mantine-breakpoint-lg) {
+        max-width: 1024px;
+    }
+
+    @media (min-width: $mantine-breakpoint-xl) {
+        max-width: 1280px;
+    }
+}
+
+.top-row-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        grid-template-columns: 1fr auto;
+    }
+}
+
+.title-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.other-category-cards-title {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 1.35rem;
+    font-weight: 500;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.5rem;
+    }
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        font-size: 1.7rem;
+    }
+}
+
+.other-category-cards-subcopy {
+    color: rgb(96, 96, 96);
+    font-family: var(--font-primary);
+    font-size: 1.05rem;
+    font-weight: 400;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.15rem;
+    }
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        font-size: 1.25rem;
+    }
+}
+
+.Carousel-root {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.Carousel-container {
+    align-self: start;
+}
+
+.Carousel-viewport {
+    position: relative;
+    left: -4px;
+
+    width: calc(100% + 8px);
+    padding: 4px;
+}
+
+.Carousel-indicators {
+    align-self: center;
+
+    position: initial;
+
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+
+    max-width: 100%;
+}
+
+.Carousel-indicator {
+    border-radius: 0px;
+    background-color: rgba(0, 0, 0, 0.2);
+
+    width: 40px;
+    height: 3px;
+}
+
+.Carousel-indicator[data-active] {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.Carousel-slide {
+    padding: 2px 0px 0px;
+}
+
+.other-category-container {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+}
+
+.other-category-image-container {
+    position: relative;
+
+    border-radius: 8px;
+    background: #faf8f2;
+    background: linear-gradient(
+        0deg,
+        rgb(250, 248, 242) 0%,
+        rgb(255, 252, 248) 30%,
+        rgb(240, 237, 233) 30%,
+        rgb(224, 220, 215) 100%
+    );
+
+    width: 100%;
+    aspect-ratio: 2 / 3;
+
+    margin-bottom: 8px;
+}
+
+.other-category-image {
+    border-radius: 8px;
+
+    width: 100%;
+    height: 100%;
+}
+
+.other-category-information-container {
+    position: absolute;
+    left: 8px;
+    bottom: 16px;
+
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.6);
+
+    width: calc(100% - 2 * 8px);
+    padding: 8px;
+}
+
+.other-category-name {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 1.16rem;
+    font-weight: 500;
+
+    margin-bottom: 8px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.04rem;
+    }
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        font-size: 1.1rem;
+    }
+}
+
+.other-category-description {
+    color: rgb(64, 64, 64);
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    font-weight: 400;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        font-size: 0.96rem;
+    }
+}
+
+.other-category-link {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+
+    display: flex;
+
+    color: white;
+    font-family: var(--font-primary);
+    font-size: 1.1rem;
+    text-align: center;
+    text-decoration: none;
+
+    border: none;
+    border-radius: 4px;
+    background-color: rgb(32, 32, 32);
+
+    width: min-content;
+    padding: 6px 12px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.98rem;
+    }
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        font-size: 1.04rem;
+    }
+}
+
+@media (hover: hover) {
+    .other-category-link:not(:disabled):hover {
+        cursor: pointer;
+    }
+}
+
+.other-category-link:focus-visible {
+    outline: 2px solid #000;
+    outline-offset: 2px;
+    border-radius: 0px;
+}
