@@ -3,6 +3,7 @@ import { InfoMarquee } from "./components/InfoMarquee";
 import { CoffeeBlendInfoPanels } from "../CoffeeBlendInfoPanels";
 import { CoffeeSubcategoryCards } from "./components/CoffeeSubcategoryCards";
 import { SustainabilityBanner } from "./components/SustainabilityBanner";
+import { OtherCategoryCards } from "./components/OtherCategoryCards";
 import styles from "./index.module.css";
 
 export function HomepageContent() {
@@ -13,6 +14,7 @@ export function HomepageContent() {
             <CoffeeBlendInfoPanels />
             <CoffeeSubcategoryCards />
             <SustainabilityBanner />
+            <OtherCategoryCards />
         </div>
     );
 }
