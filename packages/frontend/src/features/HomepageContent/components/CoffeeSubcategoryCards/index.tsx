@@ -10,7 +10,7 @@ import styles from "./index.module.css";
 
 const slideGapPx = 16;
 
-export function CategoryCards() {
+export function CoffeeSubcategoryCards() {
     const navigate = useNavigate();
 
     const { categories } = useContext(RootContext);
@@ -111,18 +111,24 @@ export function CategoryCards() {
                             role="link"
                             onClick={() => navigate({ pathname: `/c/coffee/${slug}` })}
                             disabled={awaitingAny}
-                            className={styles["category-link"]}
+                            className={styles["coffee-subcategory-link"]}
                         >
                             <div
-                                className={styles["category-image-container"]}
+                                className={styles["coffee-subcategory-image-container"]}
                                 style={{ visibility: awaitingAny ? "hidden" : "initial" }}
                             >
-                                <Image className={styles["category-image"]} src="" alt="" />
+                                <Image
+                                    className={styles["coffee-subcategory-image"]}
+                                    src=""
+                                    alt=""
+                                />
                             </div>
 
-                            <p className={styles["category-name"]}>{name}</p>
+                            <p className={styles["coffee-subcategory-name"]}>{name}</p>
 
-                            <p className={styles["category-description"]}>{description}</p>
+                            <p className={styles["coffee-subcategory-description"]}>
+                                {description}
+                            </p>
                         </button>
                     </Carousel.Slide>
                 );
@@ -160,14 +166,14 @@ export function CategoryCards() {
     if (!awaitingAny && categoriesData.length === 0) return null;
 
     return (
-        <section className={styles["category-cards"]}>
-            <div className={styles["category-cards-width-controller"]}>
+        <section className={styles["coffee-subcategory-cards"]}>
+            <div className={styles["coffee-subcategory-cards-width-controller"]}>
                 <div className={styles["top-row-container"]}>
                     <div className={styles["title-container"]}>
-                        <h2 className={styles["category-cards-title"]}>
+                        <h2 className={styles["coffee-subcategory-cards-title"]}>
                             Shop our range of delicious coffees
                         </h2>
-                        <p className={styles["category-cards-subcopy"]}>
+                        <p className={styles["coffee-subcategory-cards-subcopy"]}>
                             Great flavours. Great prices. Roasted right here in-house.
                         </p>
                     </div>
