@@ -35,9 +35,33 @@ export function SustainabilityBanner() {
                                 Farming
                             </h3>
 
-                            <p className={styles["sustainability-main-section-body-text"]}>
-                                Placeholder
-                            </p>
+                            <div className={styles["sustainability-main-section-content"]}>
+                                <p className={styles["sustainability-main-section-body-text"]}>
+                                    We work with small, family-owned farms around the world in
+                                    countries spanning the globe, from South America, to Africa, to
+                                    Asia. Our dedicated farmers all have one thing in common: they
+                                    share our vision about sustainable farming.
+                                </p>
+
+                                <p className={styles["sustainability-main-section-body-text"]}>
+                                    They achieve this through regenerative agricultural practises
+                                    such as the preservation and enhancement of biodiversity, water
+                                    conservation techniques and organic soil management. In turn,
+                                    these practises benefit the farms by reducing reliance on
+                                    artificial fertilisers and improving soil quality, increasing
+                                    the longevity of the farms and the flavour of your coffee and
+                                    tea.
+                                </p>
+
+                                <p className={styles["sustainability-main-section-body-text"]}>
+                                    Our coffee and tea {`isn't`} always certified organic as it can
+                                    be costly to register for the certification - something the
+                                    small farms we work with often cannot afford. Be reassured that
+                                    all of the farms we work with are run by knowledgeable,
+                                    passionate people who know what {`they're`} doing and care
+                                    deeply about their products.
+                                </p>
+                            </div>
 
                             {layout === "wide" && (
                                 <Image
@@ -54,9 +78,11 @@ export function SustainabilityBanner() {
                                 Trading
                             </h3>
 
-                            <p className={styles["sustainability-main-section-body-text"]}>
-                                Placeholder
-                            </p>
+                            <div className={styles["sustainability-main-section-content"]}>
+                                <p className={styles["sustainability-main-section-body-text"]}>
+                                    Placeholder
+                                </p>
+                            </div>
 
                             {layout === "wide" && (
                                 <Image
@@ -73,9 +99,11 @@ export function SustainabilityBanner() {
                                 Recyclable Packaging
                             </h3>
 
-                            <p className={styles["sustainability-main-section-body-text"]}>
-                                Placeholder
-                            </p>
+                            <div className={styles["sustainability-main-section-content"]}>
+                                <p className={styles["sustainability-main-section-body-text"]}>
+                                    Placeholder
+                                </p>
+                            </div>
 
                             {layout === "wide" && (
                                 <Image
@@ -92,9 +120,11 @@ export function SustainabilityBanner() {
                                 Compostable Pods
                             </h3>
 
-                            <p className={styles["sustainability-main-section-body-text"]}>
-                                Placeholder
-                            </p>
+                            <div className={styles["sustainability-main-section-content"]}>
+                                <p className={styles["sustainability-main-section-body-text"]}>
+                                    Placeholder
+                                </p>
+                            </div>
 
                             {layout === "wide" && (
                                 <Image
@@ -111,9 +141,11 @@ export function SustainabilityBanner() {
                                 Our Team
                             </h3>
 
-                            <p className={styles["sustainability-main-section-body-text"]}>
-                                Placeholder
-                            </p>
+                            <div className={styles["sustainability-main-section-content"]}>
+                                <p className={styles["sustainability-main-section-body-text"]}>
+                                    Placeholder
+                                </p>
+                            </div>
 
                             {layout === "wide" && (
                                 <Image

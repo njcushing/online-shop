@@ -66,7 +66,7 @@
 
 .sustainability-main-section-container-inner {
     display: grid;
-    gap: 16px;
+    gap: 16px 16%;
 
     max-width: 1024px;
     padding: 0px 16px;
@@ -82,6 +82,12 @@
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 2rem;
     }
+}
+
+.sustainability-main-section-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .sustainability-main-section-body-text {
