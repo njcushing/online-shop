@@ -25,6 +25,9 @@ export function App() {
             const vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty("--vw", `${vw}px`);
             document.documentElement.style.setProperty("--vh", `${vh}px`);
+
+            const bodyWidth = document.body.clientWidth;
+            document.documentElement.style.setProperty("--body-width", `${bodyWidth}px`);
         };
 
         setUnits();
