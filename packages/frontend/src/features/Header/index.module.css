@@ -16,7 +16,7 @@
 
     background-color: var(--site-colour-secondary, rgb(255, 236, 218));
 
-    width: min(calc(var(--vw) * 100), 100%);
+    width: min(var(--body-width), 100%);
     height: min-content;
 
     transition: top 0.2s cubic-bezier(0.3, 0, 0.01, 1.02);
@@ -28,7 +28,7 @@
 }
 
 .header-width-controller {
-    width: min(calc(var(--vw) * 100), 100%);
+    width: min(var(--body-width), 100%);
     max-width: 1280px;
 
     margin: auto;

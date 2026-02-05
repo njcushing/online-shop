@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { Fragment, useMemo } from "react";
 import { useMatches } from "@mantine/core";
 import {
     Heart,
@@ -59,11 +59,7 @@ export function InfoMarquee() {
             <div className={styles["marquee"]}>
                 <div className={styles["marquee-inner"]}>
                     {Array.from({ length: 10 }).map(() => {
-                        return (
-                            <div className={styles["marquee-track"]} key={uuid()}>
-                                {marqueeItems}
-                            </div>
-                        );
+                        return <Fragment key={uuid()}>{marqueeItems}</Fragment>;
                     })}
                 </div>
             </div>

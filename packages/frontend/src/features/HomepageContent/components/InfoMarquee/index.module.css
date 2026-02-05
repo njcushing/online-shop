@@ -1,13 +1,14 @@
 .info-marquee {
     background-color: var(--site-colour-secondary, rgb(255, 236, 218));
 
-    width: 100%;
+    width: min(var(--body-width), 100%);
     height: 60px;
 }
 
 .marquee {
     overflow: hidden;
-    width: 100%;
+
+    width: min(var(--body-width), 100%);
     height: 100%;
 }
 
@@ -22,14 +23,6 @@
     @media (min-width: $mantine-breakpoint-xs) {
         animation-duration: 200s;
     }
-}
-
-.marquee-track {
-    display: flex;
-
-    white-space: nowrap;
-
-    height: 100%;
 }
 
 @keyframes marquee-scroll {
