@@ -4,7 +4,7 @@
 
     background-color: var(--site-colour-primary, rgb(255, 249, 243));
 
-    width: min(calc(var(--vw) * 100), 100%);
+    width: min(var(--body-width), 100%);
     padding: 32px 0px;
 }
 
@@ -13,7 +13,7 @@
     flex-direction: column;
     gap: 16px;
 
-    width: min(calc(var(--vw) * 100), 100%);
+    width: min(var(--body-width), 100%);
     max-width: 1280px;
     padding: 16px;
     margin: auto;

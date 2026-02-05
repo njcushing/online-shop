@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
 
-    width: min(calc(var(--vw) * 100), 100%);
+    width: min(var(--body-width), 100%);
     padding: 32px 0px;
 }
 
@@ -16,7 +16,7 @@
     align-items: start;
     gap: 16px;
 
-    width: min(calc(var(--vw) * 100), 100%);
+    width: min(var(--body-width), 100%);
     max-width: calc(100% - var(--product-hero-padding, 16px) * 2);
     padding: 0px;
     margin: auto;
