@@ -1,4 +1,5 @@
 import { Hero } from "./components/Hero";
+import { DecaffeinationBanner } from "./components/DecaffeinationBanner";
 import { InfoMarquee } from "./components/InfoMarquee";
 import { CoffeeBlendInfoPanels } from "../CoffeeBlendInfoPanels";
 import { CoffeeSubcategoryCards } from "./components/CoffeeSubcategoryCards";
@@ -10,6 +11,7 @@ export function HomepageContent() {
     return (
         <div className={styles["homepage-content"]}>
             <Hero />
+            <DecaffeinationBanner />
             <InfoMarquee />
             <CoffeeBlendInfoPanels />
             <CoffeeSubcategoryCards />
