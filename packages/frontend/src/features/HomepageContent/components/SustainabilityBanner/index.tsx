@@ -80,7 +80,36 @@ export function SustainabilityBanner() {
 
                             <div className={styles["sustainability-main-section-content"]}>
                                 <p className={styles["sustainability-main-section-body-text"]}>
-                                    Placeholder
+                                    As a small business ourselves, when we were deciding which farms
+                                    to work with, we decided it was imperative to support other
+                                    small businesses around the world, and only ones who shared our
+                                    principles regarding sustainability.
+                                </p>
+
+                                <p className={styles["sustainability-main-section-body-text"]}>
+                                    We work directly with all our farmers in order to maintain
+                                    brilliant, collaborative relationships. Our producers {`don't`}{" "}
+                                    have Fair Trade certifications due to the very rigid
+                                    requirements, the cost of obtaining the certification, and the
+                                    lowering of earning potential (as prices are set by a third
+                                    party), all of which incentivises growers to generate
+                                    poorer-quality produce in greater yields in order to offset the
+                                    cost.
+                                </p>
+
+                                <p className={styles["sustainability-main-section-body-text"]}>
+                                    For us, working with the farmers directly makes much more sense.
+                                    We do, and always will, pay our farmers far above the {`'`}Fair
+                                    Trade{`'`} price, and in return they grow some of the greatest
+                                    produce in the world.
+                                </p>
+
+                                <p className={styles["sustainability-main-section-body-text"]}>
+                                    We also ensure all our business operations are carbon negative,
+                                    all the way from crop to cup, including on our farms around the
+                                    world, the transportation required to import the beans here in
+                                    the UK, and at our main offices and warehouses - something{" "}
+                                    {`we're`} very proud of.
                                 </p>
                             </div>
 
