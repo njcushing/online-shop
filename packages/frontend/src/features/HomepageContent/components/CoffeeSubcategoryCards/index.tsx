@@ -138,6 +138,7 @@ export function CoffeeSubcategoryCards() {
     const carouselMemo = useMemo(() => {
         return (
             <Carousel
+                align="start"
                 slideSize={carouselProps.slideSize}
                 slidesToScroll={carouselProps.slidesToScroll}
                 slideGap={`${slideGapPx}px`}
@@ -147,6 +148,7 @@ export function CoffeeSubcategoryCards() {
                 nextControlIcon={<ArrowRight />}
                 withControls={false}
                 withIndicators={carouselProps.slidesToScroll < categoriesToDisplay.length}
+                draggable={carouselProps.slidesToScroll < categoriesToDisplay.length}
                 getEmblaApi={(api) => {
                     emblaRef.current = api;
                 }}

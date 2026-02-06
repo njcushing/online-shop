@@ -148,6 +148,7 @@ export function OtherCategoryCards() {
     const carouselMemo = useMemo(() => {
         return (
             <Carousel
+                align="start"
                 slideSize={carouselProps.slideSize}
                 slidesToScroll={carouselProps.slidesToScroll}
                 slideGap={`${slideGapPx}px`}
@@ -157,6 +158,7 @@ export function OtherCategoryCards() {
                 nextControlIcon={<ArrowRight />}
                 withControls={false}
                 withIndicators={carouselProps.slidesToScroll < categoriesToDisplay.length}
+                draggable={carouselProps.slidesToScroll < categoriesToDisplay.length}
                 getEmblaApi={(api) => {
                     emblaRef.current = api;
                 }}
