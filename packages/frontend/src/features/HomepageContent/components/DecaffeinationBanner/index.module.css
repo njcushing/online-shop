@@ -2,6 +2,46 @@
     display: flex;
     flex-direction: column;
 
+    background-color: var(--site-colour-primary, rgb(255, 249, 243));
+
     width: 100%;
     height: min-content;
+}
+
+.decaffeination-heading {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 2.1rem;
+    font-weight: 500;
+
+    width: 100%;
+    max-width: 1024px;
+    padding: 48px 16px 0px;
+    margin: auto;
+    margin-bottom: 24px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 2.4rem;
+    }
+
+    strong {
+        font-weight: 700;
+    }
+}
+
+.decaffeination-opening-text {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    font-weight: 400;
+
+    width: 100%;
+    max-width: 1024px;
+    padding: 0px 16px 0px;
+    margin: auto;
+    margin-bottom: 24px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.1rem;
+    }
 }
