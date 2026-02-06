@@ -45,3 +45,90 @@
         font-size: 1.1rem;
     }
 }
+
+.Collapse {
+    width: 100%;
+    max-width: 1024px;
+    margin: auto;
+}
+
+/**
+ * Adding padding directly to the Collapse component causes issues with the collapse/expand
+ * transition
+ */
+.Collapse-vertical-padding {
+    height: 32px;
+}
+
+.decaffeination-main-sections {
+    display: flex;
+    flex-direction: column;
+
+    width: min(var(--body-width), 100%);
+    padding: 0px 16px;
+}
+
+.decaffeination-main-section-body-text {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 0.92rem;
+    font-weight: 400;
+
+    margin-bottom: 18px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1rem;
+    }
+}
+
+.Button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: min-content;
+    padding: 0px;
+    margin: 24px 0px 32px;
+}
+
+.Button-root {
+    border-radius: 0px;
+
+    width: min-content;
+    height: min-content;
+}
+
+.Button-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 0.86rem;
+    font-weight: 400;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.92rem;
+    }
+}
+
+@media (hover: hover) {
+    .Button-root:hover {
+        /* Overriding default Mantine component hover styles */
+        background-color: transparent;
+    }
+}
+
+.Button-root:focus-visible {
+    outline: 2px solid #000;
+    border-radius: 0px;
+}
+
+.Button-root:active {
+    background-color: transparent;
+
+    /* Overriding default Mantine component active styles */
+    transform: none;
+}

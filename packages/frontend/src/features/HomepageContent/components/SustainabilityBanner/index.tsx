@@ -25,7 +25,7 @@ export function SustainabilityBanner() {
                     inhabitants.`}
             </p>
 
-            <Collapse in={open} className={styles["Collapse"]}>
+            <Collapse in={open} transitionDuration={800} className={styles["Collapse"]}>
                 <div className={styles["Collapse-vertical-padding"]}></div>
 
                 <div className={styles["sustainability-main-sections"]} data-layout={layout}>
