@@ -209,7 +209,30 @@ export function SustainabilityBanner() {
 
                             <div className={styles["sustainability-main-section-content"]}>
                                 <p className={styles["sustainability-main-section-body-text"]}>
-                                    Placeholder
+                                    Our in-house team of roasters work hard every day to create
+                                    memorable, delicious, aromatic coffee and tea. They pride
+                                    themselves on their ability to make a consistently tasty blend,
+                                    so you can always be certain {`you're`} getting the best out of
+                                    every cup. They also acknowledge the ethical origins of the
+                                    produce they work with and take care to preserve all the best
+                                    characteristics that make great coffee and tea.
+                                </p>
+
+                                <p className={styles["sustainability-main-section-body-text"]}>
+                                    However, they {`aren't`} the only ones. Every employee shares
+                                    our vision for the future: the best things in life can be
+                                    sustainable. Our carbon negative operations and
+                                    recyclable/compostable packaging methods mean that when{" "}
+                                    {`you're`} drinking our coffee and tea, you can feel good about
+                                    it.
+                                </p>
+
+                                <p className={styles["sustainability-main-section-body-text"]}>
+                                    When {`we're`} talking about our team, we consider{" "}
+                                    <strong>you</strong> a part of it. Every time you buy something
+                                    from us, {`you're`} showing the world you believe in ethical,
+                                    sustainable, environmentally-friendly produce, and we think{" "}
+                                    {`that's`} a pretty great thing.
                                 </p>
                             </div>
 
