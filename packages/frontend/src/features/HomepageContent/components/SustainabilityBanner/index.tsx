@@ -130,7 +130,30 @@ export function SustainabilityBanner() {
 
                             <div className={styles["sustainability-main-section-content"]}>
                                 <p className={styles["sustainability-main-section-body-text"]}>
-                                    Placeholder
+                                    We could preach all day about how much we care about the
+                                    environment, but it would be meaningless if that philosophy{" "}
+                                    {`wasn't`} reflected in our products. To the best of our
+                                    ability, we aim to utilise packaging that can be disposed of in
+                                    a way that {`isn't`} harmful to the environment.
+                                </p>
+
+                                <p className={styles["sustainability-main-section-body-text"]}>
+                                    The packaging we use for the majority of our coffee and tea
+                                    products is 100% compostable. We use a couple of different
+                                    biodegradable plastics for our packaging, including polylactic
+                                    acid (PLA) made from fermented plant starches, and polyutylene
+                                    adipate terephthalate (PBAT), made from petrochemical-based
+                                    monomers. We also use cardboard packaging when appropriate, as{" "}
+                                    {`it's`} another material that is very widely recyclable in the
+                                    UK.
+                                </p>
+
+                                <p className={styles["sustainability-main-section-body-text"]}>
+                                    Unfortunately, PLA {`isn't`} home-compostable like PBAT; it
+                                    requires much more heat to be broken down than a typical home
+                                    compost bin is capable of providing, and facilities that accept
+                                    it {`aren't`} yet widespread in the UK. We aim to use the more
+                                    sustainable options where appropriate and possible.
                                 </p>
                             </div>
 
