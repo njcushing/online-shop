@@ -174,7 +174,21 @@ export function SustainabilityBanner() {
 
                             <div className={styles["sustainability-main-section-content"]}>
                                 <p className={styles["sustainability-main-section-body-text"]}>
-                                    Placeholder
+                                    Single-use plastics, while cheap and convenient, are horrible
+                                    for the environment. They can take up to hundreds of years to
+                                    fully decompose, and often end up in either landfill or the
+                                    ocean, creating pollution and causing harm to wildlife. As a
+                                    result, we avoid using these wherever possible, opting for more
+                                    sustainable packaging options.
+                                </p>
+
+                                <p className={styles["sustainability-main-section-body-text"]}>
+                                    While many other companies that produce coffee pods use
+                                    single-use plastics, our coffee pods are made from PHA: a
+                                    biopolymer created from natural sources, making them
+                                    biodegradable and compostable at home while leaving behind no
+                                    microplastics. They also have an oxygen barrier inside in order
+                                    to keep your coffee fresher for longer.
                                 </p>
                             </div>
 
