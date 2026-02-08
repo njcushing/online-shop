@@ -105,7 +105,7 @@
  * transition
  */
 .Collapse-vertical-padding {
-    height: 0px;
+    height: 40px;
 
     @media (min-width: $mantine-breakpoint-md) {
         height: 100px;
@@ -129,18 +129,31 @@
 
 .sustainability-main-section-container {
     width: 100%;
-    padding: 24px 0px;
+    padding: 12px 0px;
+
+    @media (min-width: $mantine-breakpoint-lg) {
+        padding: 24px 0px;
+    }
 }
 
 .sustainability-main-section-container-inner {
     display: grid;
-    gap: 16px 8%;
+    gap: 16px max(16px, 4%);
 
     background-color: var(--site-colour-tertiary, rgb(250, 223, 198));
+    -webkit-box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.2);
 
     max-width: 1024px;
-    padding: 32px 24px;
+    padding: 24px 16px;
     margin: auto;
+
+    @media (min-width: $mantine-breakpoint-lg) {
+        gap: 16px 8%;
+
+        padding: 32px 24px;
+    }
 }
 
 .sustainability-main-section-heading {
@@ -217,7 +230,7 @@
     > *:nth-child(odd) {
         .sustainability-main-section-container-inner {
             grid-template-rows: auto 1fr;
-            grid-template-columns: 1fr 40%;
+            grid-template-columns: 1fr 45%;
         }
 
         .sustainability-main-section-heading {
@@ -236,7 +249,7 @@
     > *:nth-child(even) {
         .sustainability-main-section-container-inner {
             grid-template-rows: auto 1fr;
-            grid-template-columns: 40% 1fr;
+            grid-template-columns: 45% 1fr;
         }
 
         .sustainability-main-section-heading {
