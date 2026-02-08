@@ -74,8 +74,8 @@ export function SustainabilityBanner() {
 
                                 {layout === "wide" && (
                                     <Image
-                                        radius="md"
-                                        className={styles["sustainability-main-section-image"]}
+                                        src="https://res.cloudinary.com/djzqtvl9l/image/upload/v1770558614/cafree/delightin-dee-l7jWRY3H0x0-640_clwgji.jpg"
+                                        className={`${styles["sustainability-main-section-image"]} ${styles["farming-image"]}`}
                                     />
                                 )}
                             </div>

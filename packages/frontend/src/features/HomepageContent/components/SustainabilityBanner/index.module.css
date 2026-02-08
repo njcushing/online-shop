@@ -191,22 +191,18 @@
 }
 
 .sustainability-main-section-image {
-    border: none;
-    border-radius: 0px;
-    background: #faf8f2;
-    background: linear-gradient(
-        0deg,
-        rgb(250, 248, 242) 0%,
-        rgb(255, 252, 248) 30%,
-        rgb(240, 237, 233) 30%,
-        rgb(224, 220, 215) 100%
-    );
     -webkit-box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.2);
     box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.2);
 
     width: 100%;
-    aspect-ratio: 1;
+}
+
+.farming-image {
+    object-fit: cover;
+    object-position: bottom;
+
+    max-height: 560px;
 }
 
 .sustainability-main-sections {
