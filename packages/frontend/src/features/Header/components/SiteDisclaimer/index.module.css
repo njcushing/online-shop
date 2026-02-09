@@ -1,0 +1,58 @@
+.site-disclaimer {
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgb(32, 32, 32);
+
+    width: 100%;
+    padding: 12px;
+}
+
+.site-disclaimer-message {
+    justify-self: center;
+
+    color: white;
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+
+    width: calc(100% - 48px);
+}
+
+.site-disclaimer-close-button {
+    position: absolute;
+    right: 4px;
+
+    justify-self: right;
+    align-self: center;
+
+    display: flex;
+    justify-content: center;
+
+    color: white;
+    font-family: var(--font-primary);
+    font-size: 1rem;
+
+    border: none;
+    border-radius: 4px;
+    background-color: transparent;
+
+    width: 32px;
+    height: 32px;
+    padding: 8px 8px;
+}
+
+@media (hover: hover) {
+    .site-disclaimer-close-button:not(:disabled):hover {
+        cursor: pointer;
+    }
+}
+
+.site-disclaimer-close-button:focus-visible {
+    outline: 2px solid white;
+    border-radius: 0px;
+}
