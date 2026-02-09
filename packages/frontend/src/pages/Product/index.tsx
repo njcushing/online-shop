@@ -18,6 +18,7 @@ import {
     getProductBySlug,
     ResponseBody as GetProductBySlugResponseDto,
 } from "@/api/products/[slug]/GET";
+import siteConfig from "@/siteConfig.json";
 import styles from "./index.module.css";
 
 export interface IProductContext {
@@ -169,9 +170,9 @@ export function Product({ children }: TProduct) {
 
     useEffect(() => {
         if (!response.success || response.status === customStatusCodes.unattempted) {
-            document.title = "Cafree | Delicious Decaffeinated Coffee and Tea";
+            document.title = siteConfig.title;
         } else {
-            document.title = `${response.data.name} | Cafree | Delicious Decaffeinated Coffee and Tea`;
+            document.title = `${response.data.name} | ${siteConfig.title}`;
         }
     }, [response]);
 
