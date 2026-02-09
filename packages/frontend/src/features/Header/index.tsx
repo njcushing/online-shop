@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect, useCallback, useRef } from "react";
 import { useResizeObserver } from "@mantine/hooks";
 import { HeaderContext } from "@/pages/Root";
+import { SiteDisclaimer } from "./components/SiteDisclaimer";
 import { Navigation } from "./components/Navigation";
 import styles from "./index.module.css";
 
@@ -85,6 +86,7 @@ export function Header({ disableActivity, reduced }: THeader) {
                 }}
                 ref={headerRef}
             >
+                <SiteDisclaimer />
                 <div className={styles["header-width-controller"]}>
                     <Navigation opened={open} reduced={reduced} />
                 </div>
