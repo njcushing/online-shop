@@ -13,7 +13,7 @@ export function DecaffeinationBanner() {
             </h2>
 
             <p className={styles["decaffeination-opening-text"]}>
-                At Cafree we believe decaf deserves the same care as any exceptional coffee or tea.
+                At Cafree we believe decaf deserves the same care as any exceptional coffee or tea.{" "}
                 {`That's`} why all our products are thoughtfully decaffeinated. We take our
                 high-quality, ethically-sourced beans and leaves, then remove the caffeine using
                 gentle processes that preserve character, depth, and aroma. The result is everything
@@ -45,7 +45,7 @@ export function DecaffeinationBanner() {
 
                     <p className={styles["decaffeination-main-section-body-text"]}>
                         Just as importantly, we {`don't`} believe caffeine should be the defining
-                        feature of a great drink. Flavour, origin, craft, and care matter more.
+                        feature of a great drink. Flavour, origin, craft, and care matter more.{" "}
                         {`That's`} why we use gentle decaffeination methods designed to preserve the
                         natural character of each coffee bean and tea leaf. What remains is the
                         expected depth, flavours and aromas. We pride ourselves on our ability to
