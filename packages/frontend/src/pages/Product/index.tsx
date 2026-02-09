@@ -13,6 +13,7 @@ import {
     generateSkeletonProductVariant,
 } from "@/utils/products/product";
 import { RecursivePartial } from "@/utils/types";
+import { customStatusCodes } from "@/api/types";
 import {
     getProductBySlug,
     ResponseBody as GetProductBySlugResponseDto,
@@ -165,6 +166,14 @@ export function Product({ children }: TProduct) {
         if (!attributes.find((c) => c.code === "coffee_blend")) return null;
         return <CoffeeBlendInfoPanels />;
     }, [product]);
+
+    useEffect(() => {
+        if (!response.success || response.status === customStatusCodes.unattempted) {
+            document.title = "Cafree | Delicious Decaffeinated Coffee and Tea";
+        } else {
+            document.title = `${response.data.name} | Cafree | Delicious Decaffeinated Coffee and Tea`;
+        }
+    }, [response]);
 
     return (
         <ProductContext.Provider
