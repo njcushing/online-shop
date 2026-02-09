@@ -90,7 +90,7 @@ export function SustainabilityBanner() {
                                 <div className={styles["sustainability-main-section-content"]}>
                                     <p className={styles["sustainability-main-section-body-text"]}>
                                         As a small business ourselves, when we were deciding which
-                                        farms to work with, we decided it was imperative to support
+                                        farms to work with, we realised it was imperative to support
                                         other small businesses around the world, and only ones who
                                         shared our principles regarding sustainability.
                                     </p>
