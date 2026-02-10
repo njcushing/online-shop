@@ -1,7 +1,8 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AccountCreationForm } from "@/features/AccountCreationForm";
 import { SetPersonalInformationForm } from "@/features/SetPersonalInformationForm";
+import siteConfig from "@/siteConfig.json";
 import styles from "./index.module.css";
 
 export type TCreateAccount = {
@@ -10,6 +11,10 @@ export type TCreateAccount = {
 
 export function CreateAccount({ defaultStage = 0 }: TCreateAccount) {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        document.title = `Create an Account | ${siteConfig.title}`;
+    }, []);
 
     const [currentStage, setCurrentStage] = useState<number>(defaultStage);
 

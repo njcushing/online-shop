@@ -1,10 +1,12 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useMatches } from "@mantine/core";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { UserContext } from "@/pages/Root";
 import { CartSummary } from "@/features/Cart/components/CartSummary";
+import { customStatusCodes } from "@/api/types";
 import { Cart } from "@/utils/products/cart";
+import siteConfig from "@/siteConfig.json";
 import { TCartItem } from "../CartItem";
 import styles from "./index.module.css";
 
@@ -27,6 +29,16 @@ export function CartContent() {
     }
 
     const { items } = cartData;
+
+    useEffect(() => {
+        const { response } = cart;
+        if (!response.success || response.status === customStatusCodes.unattempted) {
+            document.title = siteConfig.title;
+        } else {
+            const quantity = response.data.items.length;
+            document.title = `Cart ${quantity > 0 ? `(${quantity})` : ""} | ${siteConfig.title}`;
+        }
+    }, [cart]);
 
     return (
         <section className={styles["cart-content"]}>

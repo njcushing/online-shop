@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Header } from "@/features/Header";
 import { Footer } from "@/features/Footer";
+import siteConfig from "@/siteConfig.json";
 import styles from "./index.module.css";
 
 /* Breaking personal page naming convention to prevent clash with Error API */
@@ -12,6 +14,10 @@ export type TErrorPage = {
 };
 
 export function ErrorPage({ hideHeader, hideFooter, height = "page" }: TErrorPage) {
+    useEffect(() => {
+        document.title = siteConfig.title;
+    }, []);
+
     return (
         <div className={styles["error-page"]} data-height={height}>
             {!hideHeader && <Header disableActivity reduced />}

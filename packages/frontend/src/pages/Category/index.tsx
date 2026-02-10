@@ -5,8 +5,10 @@ import { CategoryProductList } from "@/features/CategoryProductList";
 import * as useAsync from "@/hooks/useAsync";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { buildCategoriesTree } from "@/utils/products/categories";
+import { customStatusCodes } from "@/api/types";
 import { getCategoryBySlug } from "@/api/categories/[slug]/GET";
 import { createQueryContextObject } from "@/hooks/useAsync/utils/createQueryContextObject";
+import siteConfig from "@/siteConfig.json";
 import { RootContext } from "../Root";
 import styles from "./index.module.css";
 
@@ -104,6 +106,15 @@ export function Category({ children }: TCategory) {
             categoryData,
         };
     }, [urlPathFull, urlPathSplit, categoryTree, categoryBranch, categoryData]);
+
+    useEffect(() => {
+        const { response } = categoryData;
+        if (!response.success || response.status === customStatusCodes.unattempted) {
+            document.title = siteConfig.title;
+        } else {
+            document.title = `${response.data.name} | ${siteConfig.title}`;
+        }
+    }, [categoryData]);
 
     if (!awaitingAny && !categoryBranch) {
         throw new Response("Category not found", { status: 404 });
