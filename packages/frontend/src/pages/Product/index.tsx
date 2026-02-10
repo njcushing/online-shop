@@ -142,7 +142,11 @@ export function Product({ children }: TProduct) {
             product.response.success ? product.response.data : null,
             selectedAttributeParams,
         );
-        setSearchParams(newSearchParams);
+        window.history.replaceState(
+            {},
+            "",
+            `${window.location.pathname}?${newSearchParams.toString()}`,
+        );
         updateSelectedVariant(productDataRef.current);
     }, [product.response, setSearchParams, selectedAttributeParams, updateSelectedVariant]);
 
