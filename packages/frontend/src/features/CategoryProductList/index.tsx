@@ -413,7 +413,7 @@ export function CategoryProductList() {
     }, [page, pageSize, productsData.total, awaitingProducts]);
 
     const categoryGroup = useMemo(() => {
-        if (productsData.products.length === 0) return null;
+        if (layoutType === "multi" && productsData.products.length === 0) return null;
 
         if (layoutType === "multi") {
             return (
