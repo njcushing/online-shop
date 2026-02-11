@@ -382,14 +382,15 @@ export function CategoryProductList() {
     }, [productsData.products, awaitingProducts, productCount]);
 
     const resultsDisplayedCount = useMemo(() => {
+        let text = `Showing ${(page - 1) * pageSize + 1}-${Math.min(productsData.total, page * pageSize)} of ${productsData.total} results`;
+        if (productsData.total === 0) text = "No results found";
         return (
             <Skeleton visible={awaitingProducts}>
                 <p
                     className={styles["results-displayed-count"]}
                     style={{ visibility: awaitingProducts ? "hidden" : "initial" }}
                 >
-                    Showing {(page - 1) * pageSize + 1}-
-                    {Math.min(productsData.total, page * pageSize)} of {productsData.total} results
+                    {text}
                 </p>
             </Skeleton>
         );
