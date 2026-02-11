@@ -8,7 +8,6 @@ import {
     useRef,
     useMemo,
 } from "react";
-import { useSearchParams } from "react-router-dom";
 import { RootContext } from "@/pages/Root";
 import { CategoryContext } from "@/pages/Category";
 import { useMatches, Divider, Skeleton, Pagination } from "@mantine/core";
@@ -94,10 +93,20 @@ export function CategoryProductList() {
         return skeletonCategory as GetCategoryBySlugResponseDto;
     }, [data.categories, data.category, contextAwaitingAny]);
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useState<URLSearchParams>(
+        new URLSearchParams(window.location.search),
+    );
     const searchParamsRef = useRef<URLSearchParams>(searchParams);
     useEffect(() => {
         searchParamsRef.current = searchParams;
+        const hasChanged = window.location.search !== searchParams.toString();
+        if (hasChanged) {
+            window.history.pushState(
+                {},
+                "",
+                searchParams.size > 0 ? `?${searchParams.toString()}` : window.location.pathname,
+            );
+        }
     }, [searchParams]);
 
     const [filterSelections, filterSelectionsSetter] = useState<
@@ -241,11 +250,7 @@ export function CategoryProductList() {
                 currentParams.set("pageSize", newParams.get("pageSize")!);
             else if (currentParams.has("pageSize")) currentParams.delete("pageSize");
 
-            window.history.pushState(
-                {},
-                "",
-                currentParams.size > 0 ? `?${currentParams.toString()}` : window.location.pathname,
-            );
+            setSearchParams(newParams);
 
             if (
                 hasChanged ||
