@@ -99,7 +99,8 @@ export function CategoryProductList() {
     const searchParamsRef = useRef<URLSearchParams>(searchParams);
     useEffect(() => {
         searchParamsRef.current = searchParams;
-        const hasChanged = window.location.search !== searchParams.toString();
+        const currentParams = new URLSearchParams(window.location.search);
+        const hasChanged = currentParams.toString() !== searchParams.toString();
         if (hasChanged) {
             window.history.pushState(
                 {},
