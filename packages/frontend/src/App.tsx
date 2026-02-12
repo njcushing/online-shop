@@ -18,24 +18,34 @@ dayjs.locale("en");
 dayjs.extend(customParseFormat);
 
 export function App() {
-    // Calculate 'vw' and 'vh' units
     useEffect(() => {
-        const setUnits = () => {
+        const setViewportUnits = () => {
             const vw = window.innerWidth * 0.01;
             const vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty("--vw", `${vw}px`);
             document.documentElement.style.setProperty("--vh", `${vh}px`);
-
-            const bodyWidth = document.body.clientWidth;
-            document.documentElement.style.setProperty("--body-width", `${bodyWidth}px`);
         };
 
-        setUnits();
-        window.addEventListener("resize", setUnits);
+        setViewportUnits();
+
+        window.addEventListener("resize", setViewportUnits);
 
         return () => {
-            window.removeEventListener("resize", setUnits);
+            window.removeEventListener("resize", setViewportUnits);
         };
+    }, []);
+
+    useEffect(() => {
+        const observer = new ResizeObserver((entries) => {
+            entries.forEach((entry) => {
+                const width = entry.borderBoxSize?.[0].inlineSize;
+                document.documentElement.style.setProperty("--body-width", `${width}px`);
+            });
+        });
+
+        observer.observe(document.body, { box: "border-box" });
+
+        return () => observer.unobserve(document.body);
     }, []);
 
     return (
