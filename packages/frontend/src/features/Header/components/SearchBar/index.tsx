@@ -96,7 +96,10 @@ export const SearchBar = forwardRef<HTMLInputElement, TSearchBar>(
                         rightSection={
                             <CloseButton
                                 aria-label="Clear input"
-                                onClick={() => setValue("")}
+                                onClick={(e) => {
+                                    setValue("");
+                                    e.currentTarget.blur();
+                                }}
                                 style={{ display: value ? undefined : "none" }}
                             />
                         }
