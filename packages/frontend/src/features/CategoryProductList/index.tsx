@@ -291,6 +291,35 @@ export function CategoryProductList() {
         attemptFetch(queryParams);
     }, [queryParams, attemptFetch]);
 
+    /**
+     * Monitor URL and refetch if the user has navigated to a different filter/sort/page/pageSize
+     * combination within URL search params
+     */
+    const timerIdRef = useRef<NodeJS.Timeout | null>(null);
+    useEffect(() => {
+        if (timerIdRef.current) clearInterval(timerIdRef.current);
+
+        timerIdRef.current = setInterval(() => {
+            const currentParams = new URLSearchParams(window.location.search);
+            if (currentParams.toString() !== searchParamsRef.current.toString()) {
+                const parsedSearchParams = parseSearchParams(currentParams, category.filters);
+                attemptFetch(parsedSearchParams);
+
+                setFilterSelections(parsedSearchParams.filters);
+                setSortSelection(parsedSearchParams.sort);
+                setPage(parsedSearchParams.page);
+                setPageSize(parsedSearchParams.pageSize);
+
+                const newSearchParams = createSearchParams(parsedSearchParams);
+                setSearchParams(newSearchParams);
+            }
+        }, 100);
+
+        return () => {
+            if (timerIdRef.current) clearInterval(timerIdRef.current);
+        };
+    }, [category.filters, setFilterSelections, attemptFetch]);
+
     const cachedCategoryName = useRef<string>(urlPathSplit.at(-1)!);
     const cachedProductsStatus = useRef<number>(products.response.status);
 
