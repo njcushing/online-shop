@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, useMemo } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { useNavigate, Outlet, useLocation } from "react-router-dom";
 import { Header } from "@/features/Header";
 import { Footer } from "@/features/Footer";
 import { generateSkeletonCart, Cart as CartType } from "@/utils/products/cart";
@@ -8,6 +8,7 @@ import { getCategories } from "@/api/categories/GET";
 import { mockGetUser, mockGetCart, mockGetOrders, mockGetSubscriptions } from "@/api/mocks";
 import { RecursivePartial } from "@/utils/types";
 import * as useAsync from "@/hooks/useAsync";
+import { getAnyBadResponse } from "@/hooks/useAsync/utils/getAnyBadResponse";
 import { createQueryContextObject } from "@/hooks/useAsync/utils/createQueryContextObject";
 import { generateSkeletonOrderList, OrderData } from "@/utils/products/orders";
 import { generateSkeletonSubscriptionList, SubscriptionData } from "@/utils/products/subscriptions";
@@ -125,6 +126,8 @@ export type TRoot = {
 };
 
 export function Root({ children }: TRoot) {
+    const navigate = useNavigate();
+
     const location = useLocation();
     const { pathname } = location;
     const HeaderDisableActivity = pathname === "/cart" || pathname === "/checkout";
@@ -165,6 +168,19 @@ export function Root({ children }: TRoot) {
     const [shipping, setShipping] = useState<CheckoutShippingOption>(
         defaultUserContext.shipping.value,
     );
+
+    if (
+        getAnyBadResponse(
+            settingsReturn,
+            categoriesReturn,
+            userReturn,
+            getCartReturn,
+            getOrdersReturn,
+            subscriptionsReturn,
+        )
+    ) {
+        navigate("/error");
+    }
 
     return (
         <RootContext.Provider
