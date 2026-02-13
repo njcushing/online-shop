@@ -35,6 +35,10 @@ export function Router() {
                         errorElement: <Pages.ErrorPage />,
                     },
                     {
+                        path: "/error",
+                        element: <Pages.ErrorPage />,
+                    },
+                    {
                         path: "/",
                         element: <Pages.Root />,
                         children: Routes.Root,
