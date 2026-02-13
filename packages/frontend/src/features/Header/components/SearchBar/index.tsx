@@ -1,8 +1,10 @@
 import { forwardRef, useContext, useState, useEffect, useRef, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { RootContext } from "@/pages/Root";
 import { Input, CloseButton, Collapse, RemoveScroll } from "@mantine/core";
 import { mergeRefs } from "@/utils/mergeRefs";
 import * as useAsync from "@/hooks/useAsync";
+import { getAnyBadResponse } from "@/hooks/useAsync/utils/getAnyBadResponse";
 import { createQueryContextObject } from "@/hooks/useAsync/utils/createQueryContextObject";
 import {
     ResponseBody as GetProductsBySearchResponseDto,
@@ -18,6 +20,8 @@ export type TSearchBar = {
 
 export const SearchBar = forwardRef<HTMLInputElement, TSearchBar>(
     ({ opened = false }: TSearchBar, ref) => {
+        const navigate = useNavigate();
+
         const { headerInfo } = useContext(RootContext);
 
         const [value, setValue] = useState<string>("");
@@ -71,6 +75,10 @@ export const SearchBar = forwardRef<HTMLInputElement, TSearchBar>(
             setParams([{ params: { query: { string: debouncedValue } } }]);
             attempt();
         }, [debouncedValue, setParams, attempt]);
+
+        useEffect(() => {
+            if (getAnyBadResponse(getProductsBySearchReturn)) navigate("/error");
+        }, [navigate, getProductsBySearchReturn]);
 
         return (
             <Collapse

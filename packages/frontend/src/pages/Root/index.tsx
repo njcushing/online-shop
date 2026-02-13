@@ -169,18 +169,27 @@ export function Root({ children }: TRoot) {
         defaultUserContext.shipping.value,
     );
 
-    if (
-        getAnyBadResponse(
-            settingsReturn,
-            categoriesReturn,
-            userReturn,
-            getCartReturn,
-            getOrdersReturn,
-            subscriptionsReturn,
+    useEffect(() => {
+        if (
+            getAnyBadResponse(
+                settingsReturn,
+                categoriesReturn,
+                userReturn,
+                getCartReturn,
+                getOrdersReturn,
+                subscriptionsReturn,
+            )
         )
-    ) {
-        navigate("/error");
-    }
+            navigate("/error");
+    }, [
+        navigate,
+        settingsReturn,
+        categoriesReturn,
+        userReturn,
+        getCartReturn,
+        getOrdersReturn,
+        subscriptionsReturn,
+    ]);
 
     return (
         <RootContext.Provider

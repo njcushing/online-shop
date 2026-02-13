@@ -1,10 +1,11 @@
 import { createContext, useState, useEffect, useCallback, useRef, useMemo } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { ProductHero } from "@/features/ProductHero";
 import { ProductInformation } from "@/features/ProductInformation";
 import { CoffeeBlendInfoPanels } from "@/features/CoffeeBlendInfoPanels";
 import { RecommendedProducts } from "@/features/RecommendedProducts";
 import * as useAsync from "@/hooks/useAsync";
+import { getAnyBadResponse } from "@/hooks/useAsync/utils/getAnyBadResponse";
 import { createQueryContextObject } from "@/hooks/useAsync/utils/createQueryContextObject";
 import {
     extractRelatedAttributesOrdered,
@@ -82,6 +83,8 @@ export type TProduct = {
 };
 
 export function Product({ children }: TProduct) {
+    const navigate = useNavigate();
+
     const params = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
     const { productSlug } = params;
@@ -128,6 +131,10 @@ export function Product({ children }: TProduct) {
     useEffect(() => {
         productDataRef.current = response.success ? response.data : null;
     }, [response]);
+
+    useEffect(() => {
+        if (getAnyBadResponse(getProductReturn)) navigate("/error");
+    }, [navigate, getProductReturn]);
 
     useEffect(() => {
         if (product.awaiting) return;

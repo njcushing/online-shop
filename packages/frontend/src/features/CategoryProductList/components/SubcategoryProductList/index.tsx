@@ -1,7 +1,8 @@
 import { useEffect, useMemo } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { useMatches, NavLink, Skeleton } from "@mantine/core";
-import { Link } from "react-router-dom";
 import * as useAsync from "@/hooks/useAsync";
+import { getAnyBadResponse } from "@/hooks/useAsync/utils/getAnyBadResponse";
 import { getCategoryBySlug } from "@/api/categories/[slug]/GET";
 import { CaretRight } from "@phosphor-icons/react";
 import { ProductCard } from "@/features/ProductCard";
@@ -21,6 +22,8 @@ export type TSubcategoryProductList = {
 };
 
 export function SubcategoryProductList({ slug, awaiting = false }: TSubcategoryProductList) {
+    const navigate = useNavigate();
+
     const productsToDisplay = useMatches(
         { base: 3, xs: 5, lg: 7 },
         { getInitialValueInEffect: false },
@@ -32,16 +35,17 @@ export function SubcategoryProductList({ slug, awaiting = false }: TSubcategoryP
 
     let category = skeletonCategory as GetCategoryBySlugResponseDto;
 
+    const getCategoryReturn = useAsync.GET(
+        getCategoryBySlug,
+        [{ params: { path: { slug } } }] as Parameters<typeof getCategoryBySlug>,
+        { attemptOnMount: false }, // useEffect hook will handle attempt(s)
+    );
     const {
         response: categoryResponse,
         setParams: categorySetParams,
         attempt: categoryAttempt,
         awaiting: categoryAwaiting,
-    } = useAsync.GET(
-        getCategoryBySlug,
-        [{ params: { path: { slug } } }] as Parameters<typeof getCategoryBySlug>,
-        { attemptOnMount: false }, // useEffect hook will handle attempt(s)
-    );
+    } = getCategoryReturn;
 
     if (!categoryAwaiting) {
         if (categoryResponse.success) category = categoryResponse.data;
@@ -63,16 +67,17 @@ export function SubcategoryProductList({ slug, awaiting = false }: TSubcategoryP
         price: { min: 0, max: 0 },
     } as GetCategoryBySlugProductsResponseDto;
 
+    const getProductsReturn = useAsync.GET(
+        getCategoryBySlugProducts,
+        [{}],
+        { attemptOnMount: false }, // useEffect hook will handle attempt(s)
+    );
     const {
         response: productsResponse,
         setParams: productsSetParams,
         attempt: productsAttempt,
         awaiting: productsAwaiting,
-    } = useAsync.GET(
-        getCategoryBySlugProducts,
-        [{}],
-        { attemptOnMount: false }, // useEffect hook will handle attempt(s)
-    );
+    } = getProductsReturn;
 
     if (!awaiting) {
         if (productsResponse.success) productsData = productsResponse.data;
@@ -91,6 +96,10 @@ export function SubcategoryProductList({ slug, awaiting = false }: TSubcategoryP
         ]);
         productsAttempt();
     }, [slug, awaiting, productsSetParams, productsAttempt]);
+
+    useEffect(() => {
+        if (getAnyBadResponse(getCategoryReturn, getProductsReturn)) navigate("/error");
+    }, [navigate, getCategoryReturn, getProductsReturn]);
 
     const awaitingProducts =
         awaiting || productsAwaiting || productsResponse.status === customStatusCodes.unattempted;

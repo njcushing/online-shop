@@ -1,4 +1,5 @@
 import { useContext, useState, useEffect, useRef, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { RootContext } from "@/pages/Root";
 import { ProductContext } from "@/pages/Product";
 import { Divider, Pagination, Skeleton } from "@mantine/core";
@@ -10,6 +11,7 @@ import {
 } from "@/api/products/[slug]/reviews/GET";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import * as useAsync from "@/hooks/useAsync";
+import { getAnyBadResponse } from "@/hooks/useAsync/utils/getAnyBadResponse";
 import { v4 as uuid } from "uuid";
 import { ProductRatingBars } from "./components/ProductRatingBars";
 import { Review } from "./components/Review";
@@ -39,6 +41,8 @@ export type TProductReviews = {
 const pageSize = 10;
 
 export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
+    const navigate = useNavigate();
+
     const { headerInfo } = useContext(RootContext);
     const { forceClose } = headerInfo;
 
@@ -63,13 +67,18 @@ export function ProductReviews({ containerIsTransitioning }: TProductReviews) {
         null,
     );
 
-    const { response, setParams, attempt, awaiting } = useAsync.GET(getReviewsByProductSlug, [{}], {
+    const getReviewsReturn = useAsync.GET(getReviewsByProductSlug, [{}], {
         attemptOnMount: false,
     });
+    const { response, setParams, attempt, awaiting } = getReviewsReturn;
 
     useEffect(() => {
         if (!awaiting && response.success) setReviewResponse(response.data);
     }, [response, awaiting]);
+
+    useEffect(() => {
+        if (getAnyBadResponse(getReviewsReturn)) navigate("/error");
+    }, [navigate, getReviewsReturn]);
 
     const [filter, setFilter] = useState<(typeof filterOptions)[number]["name"] | undefined>(
         undefined,

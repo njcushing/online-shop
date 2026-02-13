@@ -1,8 +1,9 @@
 import { createContext, useContext, useState, useEffect, useMemo } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { CategoryHero } from "@/features/CategoryHero";
 import { CategoryProductList } from "@/features/CategoryProductList";
 import * as useAsync from "@/hooks/useAsync";
+import { getAnyBadResponse } from "@/hooks/useAsync/utils/getAnyBadResponse";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { buildCategoriesTree } from "@/utils/products/categories";
 import { customStatusCodes } from "@/api/types";
@@ -57,6 +58,8 @@ export type TCategory = {
 };
 
 export function Category({ children }: TCategory) {
+    const navigate = useNavigate();
+
     const { "*": urlPathFull } = useParams();
     const urlPathSplit = useMemo(() => (urlPathFull ? urlPathFull.split("/") : []), [urlPathFull]);
 
@@ -88,6 +91,10 @@ export function Category({ children }: TCategory) {
         setParams([{ params: { path: { slug: urlPathSplit.at(-1)! } } }]);
         attempt();
     }, [urlPathSplit, setParams, attempt]);
+
+    useEffect(() => {
+        if (getAnyBadResponse(getCategoryReturn)) navigate("/error");
+    }, [navigate, getCategoryReturn]);
 
     const categoryTree = useMemo<ICategoryContext["categoryTree"]>(() => {
         return buildCategoriesTree(categoriesData || []);

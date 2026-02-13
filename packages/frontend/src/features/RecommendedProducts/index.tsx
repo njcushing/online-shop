@@ -1,8 +1,10 @@
 import { useContext, useEffect, useCallback, useRef, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { ProductContext } from "@/pages/Product";
 import { useMatches } from "@mantine/core";
 import { Carousel, Embla } from "@mantine/carousel";
 import * as useAsync from "@/hooks/useAsync";
+import { getAnyBadResponse } from "@/hooks/useAsync/utils/getAnyBadResponse";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
 import {
@@ -18,6 +20,8 @@ import styles from "./index.module.css";
 const slideGapPx = 16;
 
 export function RecommendedProducts() {
+    const navigate = useNavigate();
+
     const { product, defaultData } = useContext(ProductContext);
 
     const { data, awaitingAny: contextAwaitingAny } = useQueryContexts({
@@ -29,11 +33,12 @@ export function RecommendedProducts() {
         return defaultData.product as GetProductBySlugResponseDto;
     }, [defaultData.product, data.product, contextAwaitingAny]);
 
-    const { response, setParams, attempt, awaiting } = useAsync.GET(
+    const getRelatedProductsReturn = useAsync.GET(
         getRelatedProductsBySlug,
         [{}] as Parameters<typeof getRelatedProductsBySlug>,
         { attemptOnMount: false },
     );
+    const { response, setParams, attempt, awaiting } = getRelatedProductsReturn;
     useEffect(() => {
         if (contextAwaitingAny) return;
         if (productData.slug.length > 0) {
@@ -41,6 +46,10 @@ export function RecommendedProducts() {
             attempt();
         }
     }, [productData.slug, contextAwaitingAny, setParams, attempt]);
+
+    useEffect(() => {
+        if (getAnyBadResponse(getRelatedProductsReturn)) navigate("/error");
+    }, [navigate, getRelatedProductsReturn]);
 
     const emblaRef = useRef<Embla | null>(null);
 

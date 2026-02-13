@@ -9,9 +9,11 @@ import {
     useMemo,
 } from "react";
 import { RootContext } from "@/pages/Root";
+import { useNavigate } from "react-router-dom";
 import { CategoryContext } from "@/pages/Category";
 import { useMatches, Divider, Skeleton, Pagination } from "@mantine/core";
 import * as useAsync from "@/hooks/useAsync";
+import { getAnyBadResponse } from "@/hooks/useAsync/utils/getAnyBadResponse";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import {
     ResponseBody as GetCategoryBySlugProductsResponseDto,
@@ -71,6 +73,8 @@ export const CategoryProductListContext = createContext<ICategoryProductListCont
 );
 
 export function CategoryProductList() {
+    const navigate = useNavigate();
+
     const productsToDisplayWhileAwaiting = useMatches(
         { base: 0, xs: 1, md: 2, lg: 3 },
         { getInitialValueInEffect: false },
@@ -169,6 +173,10 @@ export function CategoryProductList() {
             price: { min: 0, max: 0 },
         } as GetCategoryBySlugProductsResponseDto;
     }, [pageSize, productsResponse, productsAwaiting]);
+
+    useEffect(() => {
+        if (getAnyBadResponse(products)) navigate("/error");
+    }, [navigate, products]);
 
     const getProducts = useCallback(
         (params: URLSearchParams) => {
