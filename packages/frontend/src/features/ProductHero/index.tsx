@@ -88,8 +88,8 @@ export function ProductHero() {
     if (subscriptionChecked) unitPrice *= 1 - subscriptionDiscountPercentage! / 100;
 
     const imageCarouselMemo = useMemo(() => {
-        return <ImageCarousel images={images} awaiting={awaitingAny} />;
-    }, [awaitingAny, images]);
+        return <ImageCarousel images={images} awaiting={awaitingAny || displaySkeletons} />;
+    }, [awaitingAny, displaySkeletons, images]);
 
     const ratingMemo = useMemo(() => {
         return (
@@ -113,10 +113,10 @@ export function ProductHero() {
         return collections.map((collection, i) => {
             return (
                 <Fragment key={collection.id}>
-                    <Skeleton visible={displaySkeletons}>
+                    <Skeleton visible={awaitingAny || displaySkeletons}>
                         <div
                             style={{
-                                visibility: displaySkeletons ? "hidden" : "initial",
+                                visibility: awaitingAny || displaySkeletons ? "hidden" : "initial",
                             }}
                         >
                             <CollectionStep collectionData={collection} />
@@ -126,7 +126,7 @@ export function ProductHero() {
                 </Fragment>
             );
         });
-    }, [displaySkeletons, collections]);
+    }, [awaitingAny, displaySkeletons, collections]);
 
     const variantStepsMemo = useMemo(() => {
         return relatedAttributesData.flatMap((attribute, i) => {
@@ -172,11 +172,11 @@ export function ProductHero() {
                 defaultValue={1}
                 min={1}
                 max={Math.max(1, maximumVariantQuantity)}
-                disabled={awaitingAny || maximumVariantQuantity === 0}
+                disabled={awaitingAny || displaySkeletons || maximumVariantQuantity === 0}
                 onQuantityChange={(v) => setQuantity(v)}
             />
         );
-    }, [awaitingAny, maximumVariantQuantity]);
+    }, [awaitingAny, displaySkeletons, maximumVariantQuantity]);
 
     const watchListButtonMemo = useMemo(() => <WatchlistButton />, []);
 
@@ -188,19 +188,29 @@ export function ProductHero() {
                 <div>{imageCarouselMemo}</div>
 
                 <div className={styles["product-content"]}>
-                    <Skeleton visible={displaySkeletons} className={styles["margin"]}>
+                    <Skeleton
+                        visible={awaitingAny || displaySkeletons}
+                        className={styles["margin"]}
+                    >
                         <h1
                             className={styles["product-name"]}
-                            style={{ visibility: displaySkeletons ? "hidden" : "initial" }}
+                            style={{
+                                visibility: awaitingAny || displaySkeletons ? "hidden" : "initial",
+                            }}
                         >
                             {name}
                         </h1>
                     </Skeleton>
 
-                    <Skeleton visible={displaySkeletons} className={styles["margin"]}>
+                    <Skeleton
+                        visible={awaitingAny || displaySkeletons}
+                        className={styles["margin"]}
+                    >
                         <div
                             className={styles["product-hero-rating-container"]}
-                            style={{ visibility: displaySkeletons ? "hidden" : "initial" }}
+                            style={{
+                                visibility: awaitingAny || displaySkeletons ? "hidden" : "initial",
+                            }}
                         >
                             {ratingMemo}
                         </div>
@@ -222,8 +232,15 @@ export function ProductHero() {
                         </div>
                     )}
 
-                    <Skeleton visible={displaySkeletons} className={styles["margin"]}>
-                        <div style={{ visibility: displaySkeletons ? "hidden" : "initial" }}>
+                    <Skeleton
+                        visible={awaitingAny || displaySkeletons}
+                        className={styles["margin"]}
+                    >
+                        <div
+                            style={{
+                                visibility: awaitingAny || displaySkeletons ? "hidden" : "initial",
+                            }}
+                        >
                             {priceMemo}
                         </div>
                     </Skeleton>
@@ -240,7 +257,9 @@ export function ProductHero() {
                         <Button
                             color="#242424"
                             className={styles["add-to-cart-button"]}
-                            disabled={displaySkeletons || maximumVariantQuantity === 0}
+                            disabled={
+                                awaitingAny || displaySkeletons || maximumVariantQuantity === 0
+                            }
                         >
                             {narrow ? (
                                 <>
@@ -255,8 +274,12 @@ export function ProductHero() {
                         {watchListButtonMemo}
                     </div>
 
-                    <Skeleton visible={displaySkeletons}>
-                        <div style={{ visibility: displaySkeletons ? "hidden" : "initial" }}>
+                    <Skeleton visible={awaitingAny || displaySkeletons}>
+                        <div
+                            style={{
+                                visibility: awaitingAny || displaySkeletons ? "hidden" : "initial",
+                            }}
+                        >
                             {deliveryProgressMemo}
                         </div>
                     </Skeleton>

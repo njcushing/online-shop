@@ -1,14 +1,17 @@
-import { useContext, useMemo } from "react";
+import { useContext, useState, useEffect, useMemo } from "react";
 import { UserContext } from "@/pages/Root";
 import { ProductContext } from "@/pages/Product";
 import { Button } from "@mantine/core";
 import { Bell, CheckFat } from "@phosphor-icons/react";
-import { ProductVariant } from "@/utils/products/product";
+import { ResponseBody as GetProductBySlugResponseDto } from "@/api/products/[slug]/GET";
 import { User } from "@/utils/schemas/user";
 import { useQueryContexts } from "@/hooks/useQueryContexts";
 import styles from "./index.module.css";
 
-const isVariantInWatchlist = (watchlist: User["watchlist"], variant: ProductVariant): boolean => {
+const isVariantInWatchlist = (
+    watchlist: User["watchlist"],
+    variant: GetProductBySlugResponseDto["variants"][number],
+): boolean => {
     return !!watchlist.find((entry) => entry === variant.id);
 };
 
@@ -35,9 +38,12 @@ export function WatchlistButton() {
 
     const { watchlist } = userData || {};
 
+    const [displaySkeletons, setDisplaySkeletons] = useState(true);
+    useEffect(() => setDisplaySkeletons(awaitingAny), [awaitingAny]);
+
     const isDisabled = useMemo(() => {
-        return awaitingAny || !watchlist || !productData || !variantData;
-    }, [awaitingAny, watchlist, productData, variantData]);
+        return awaitingAny || displaySkeletons || !watchlist || !productData || !variantData;
+    }, [awaitingAny, watchlist, displaySkeletons, productData, variantData]);
 
     const isWatching = useMemo<boolean>(() => {
         if (isDisabled || !watchlist || !variantData) return false;
