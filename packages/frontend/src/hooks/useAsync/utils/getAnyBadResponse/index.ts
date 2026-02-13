@@ -10,7 +10,10 @@ export const getAnyBadResponse = (
     ...responses: useAsync.UseAsyncReturnType<any, any, any>[]
 ): useAsync.UseAsyncReturnType<any, any, any> | undefined => {
     return responses.find(
-        (r) => !r.response.success && r.response.status !== customStatusCodes.unattempted,
+        (r) =>
+            !r.response.success &&
+            r.response.status !== customStatusCodes.unattempted &&
+            r.response.status !== customStatusCodes.awaiting,
     );
 };
 /* eslint-enable @typescript-eslint/no-explicit-any */
