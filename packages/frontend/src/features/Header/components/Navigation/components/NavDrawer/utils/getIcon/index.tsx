@@ -5,17 +5,17 @@ const iconProps: IconProps = {
     size: 24,
 };
 
-export const getIcon = (categoryName: string): JSX.Element | null => {
-    switch (categoryName) {
-        case "Coffee":
+export const getIcon = (categorySlug: string): JSX.Element | null => {
+    switch (categorySlug) {
+        case "coffee":
             return <CoffeeBean {...iconProps} />;
-        case "Tea":
+        case "tea":
             return <Leaf {...iconProps} />;
-        case "Equipment & Accessories":
+        case "equipment-and-accessories":
             return <Gear {...iconProps} />;
-        case "Gifts":
+        case "gifts":
             return <Gift {...iconProps} />;
-        case "Samples":
+        case "samples":
             return <SquaresFour {...iconProps} />;
         default:
             return null;

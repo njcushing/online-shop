@@ -61,7 +61,7 @@ export function NavDrawer({ opened = false, onClose }: TNavDrawer) {
                         leftSection={
                             <Skeleton visible={awaitingAny} height="24px">
                                 <div style={{ visibility: awaitingAny ? "hidden" : "initial" }}>
-                                    {getIcon(name) || <Placeholder weight="fill" size={24} />}
+                                    {getIcon(slug) || <Placeholder weight="fill" size={24} />}
                                 </div>
                             </Skeleton>
                         }
