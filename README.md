@@ -15,3 +15,7 @@ Photo by <a href="https://unsplash.com/@delightindee?utm_source=unsplash&utm_med
 <!-- Sustainability - Compostable Pods Section -->
 
 Photo by <a href="https://unsplash.com/@koss_szilard?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Koss Szilard</a> on <a href="https://unsplash.com/photos/a-single-coffee-capsule-with-red-and-gold-stripes-9tV2LxYjWF0?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+
+<!-- Sustainability - Our Team Section -->
+
+Photo by <a href="https://unsplash.com/@battlecreekcoffeeroasters?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Battlecreek Coffee Roasters</a> on <a href="https://unsplash.com/photos/man-operating-silver-metal-machine-IbZFP9eAIic?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>

@@ -249,8 +249,8 @@ export function SustainabilityBanner() {
 
                                 {layout === "wide" && (
                                     <Image
-                                        radius="md"
-                                        className={styles["sustainability-main-section-image"]}
+                                        src="https://res.cloudinary.com/djzqtvl9l/image/upload/v1771081997/cafree/battlecreek-coffee-roasters-IbZFP9eAIic-unsplash-640_hcvibv.jpg"
+                                        className={`${styles["sustainability-main-section-image"]} ${styles["team-image"]}`}
                                     />
                                 )}
                             </div>
