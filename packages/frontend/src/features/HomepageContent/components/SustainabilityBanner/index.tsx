@@ -53,12 +53,12 @@ export function SustainabilityBanner() {
                                     </p>
 
                                     <p className={styles["sustainability-main-section-body-text"]}>
-                                        They achieve this through regenerative agricultural
-                                        practises such as the preservation and enhancement of
-                                        biodiversity, water conservation techniques and organic soil
-                                        management. In turn, these practises benefit the farms by
-                                        reducing reliance on artificial fertilisers and improving
-                                        soil quality, increasing the longevity of the farms and the
+                                        We achieve this through regenerative agricultural practises
+                                        such as the preservation and enhancement of biodiversity,
+                                        water conservation techniques and organic soil management.
+                                        In turn, these practises benefit the farms by reducing
+                                        reliance on artificial fertilisers and improving soil
+                                        quality, increasing the longevity of the farms and the
                                         flavour of your coffee and tea.
                                     </p>
 
@@ -74,7 +74,7 @@ export function SustainabilityBanner() {
 
                                 {layout === "wide" && (
                                     <Image
-                                        src="https://res.cloudinary.com/djzqtvl9l/image/upload/v1770558614/cafree/delightin-dee-l7jWRY3H0x0-640_clwgji.jpg"
+                                        src="https://res.cloudinary.com/djzqtvl9l/image/upload/v1771082883/cafree/katharina-bruckner-JzSqoHkkypg-unsplash-640_iylj1h.jpg"
                                         className={`${styles["sustainability-main-section-image"]} ${styles["farming-image"]}`}
                                     />
                                 )}
@@ -124,8 +124,8 @@ export function SustainabilityBanner() {
 
                                 {layout === "wide" && (
                                     <Image
-                                        radius="md"
-                                        className={styles["sustainability-main-section-image"]}
+                                        src="https://res.cloudinary.com/djzqtvl9l/image/upload/v1770558614/cafree/delightin-dee-l7jWRY3H0x0-640_clwgji.jpg"
+                                        className={`${styles["sustainability-main-section-image"]} ${styles["trading-image"]}`}
                                     />
                                 )}
                             </div>

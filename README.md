@@ -10,6 +10,10 @@ Photo by <a href="https://unsplash.com/@projetocafegatomourisco?utm_source=unspl
 
 <!-- Sustainability - Farming Section -->
 
+Photo by <a href="https://unsplash.com/@katxv?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Katharina Brückner</a> on <a href="https://unsplash.com/photos/lush-green-tea-plantations-on-rolling-hills-JzSqoHkkypg?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+
+<!-- Sustainability - Trading Section -->
+
 Photo by <a href="https://unsplash.com/@delightindee?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Delightin Dee</a> on <a href="https://unsplash.com/photos/woman-in-green-jacket-standing-near-green-plants-during-daytime-l7jWRY3H0x0?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
 <!-- Sustainability - Compostable Pods Section -->
