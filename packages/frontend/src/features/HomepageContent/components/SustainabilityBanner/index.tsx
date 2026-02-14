@@ -204,8 +204,8 @@ export function SustainabilityBanner() {
 
                                 {layout === "wide" && (
                                     <Image
-                                        radius="md"
-                                        className={styles["sustainability-main-section-image"]}
+                                        src="https://res.cloudinary.com/djzqtvl9l/image/upload/v1771081316/cafree/koss-szilard-9tV2LxYjWF0-unsplash_jmlqor.jpg"
+                                        className={`${styles["sustainability-main-section-image"]} ${styles["pods-image"]}`}
                                     />
                                 )}
                             </div>

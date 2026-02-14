@@ -198,9 +198,10 @@
     width: 100%;
 }
 
-.farming-image {
+.farming-image,
+.pods-image {
     object-fit: cover;
-    object-position: bottom;
+    object-position: 80% 70%;
 
     max-height: 560px;
 }
