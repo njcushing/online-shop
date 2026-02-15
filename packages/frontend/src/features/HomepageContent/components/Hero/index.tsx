@@ -13,6 +13,8 @@ export function Hero() {
                     alt=""
                     className={styles["hero-image-main"]}
                 />
+
+                <span className={styles["hero-image-cover"]}></span>
             </div>
 
             <div className={styles["hero-width-controller"]}>
