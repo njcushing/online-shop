@@ -17,7 +17,7 @@ export function Hero() {
             >
                 <Image
                     src="https://res.cloudinary.com/djzqtvl9l/image/upload/v1771084493/cafree/sergey-kotenev-Qx_S2YE5I1o-unsplash-1280_sd4wad.jpg"
-                    alt=""
+                    alt="A metal scoop and straw sack each filled with coffee beans"
                     className={styles["hero-image-main"]}
                     style={{ maxHeight: `calc(var(--vh, 1vh) * 100 - ${headerInfo.height}px)` }}
                 />

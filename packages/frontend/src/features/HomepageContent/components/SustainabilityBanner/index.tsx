@@ -75,6 +75,7 @@ export function SustainabilityBanner() {
                                 {layout === "wide" && (
                                     <Image
                                         src="https://res.cloudinary.com/djzqtvl9l/image/upload/v1771082883/cafree/katharina-bruckner-JzSqoHkkypg-unsplash-640_iylj1h.jpg"
+                                        alt="Rolling hills of tea plantations and trees"
                                         className={`${styles["sustainability-main-section-image"]} ${styles["farming-image"]}`}
                                     />
                                 )}
@@ -125,6 +126,7 @@ export function SustainabilityBanner() {
                                 {layout === "wide" && (
                                     <Image
                                         src="https://res.cloudinary.com/djzqtvl9l/image/upload/v1770558614/cafree/delightin-dee-l7jWRY3H0x0-640_clwgji.jpg"
+                                        alt="An old woman picking coffee beans"
                                         className={`${styles["sustainability-main-section-image"]} ${styles["trading-image"]}`}
                                     />
                                 )}
@@ -205,6 +207,7 @@ export function SustainabilityBanner() {
                                 {layout === "wide" && (
                                     <Image
                                         src="https://res.cloudinary.com/djzqtvl9l/image/upload/v1771081316/cafree/koss-szilard-9tV2LxYjWF0-unsplash_jmlqor.jpg"
+                                        alt="A red and gold coffee pod upside-down on a surface"
                                         className={`${styles["sustainability-main-section-image"]} ${styles["pods-image"]}`}
                                     />
                                 )}
@@ -250,6 +253,7 @@ export function SustainabilityBanner() {
                                 {layout === "wide" && (
                                     <Image
                                         src="https://res.cloudinary.com/djzqtvl9l/image/upload/v1771081997/cafree/battlecreek-coffee-roasters-IbZFP9eAIic-unsplash-640_hcvibv.jpg"
+                                        alt="A man operating a coffee roasting machine while using a laptop"
                                         className={`${styles["sustainability-main-section-image"]} ${styles["team-image"]}`}
                                     />
                                 )}
