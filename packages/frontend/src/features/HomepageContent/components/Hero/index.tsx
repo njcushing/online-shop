@@ -1,7 +1,10 @@
-import { Image } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
+import { Image, Button } from "@mantine/core";
 import styles from "./index.module.css";
 
 export function Hero() {
+    const navigate = useNavigate();
+
     return (
         <section className={styles["hero"]}>
             <div className={styles["hero-main-image-container"]}>
@@ -21,6 +24,24 @@ export function Hero() {
                         started now with one of our sample packs, or jump straight into the rest of
                         our great value offerings.
                     </p>
+                </div>
+
+                <div className={styles["hero-links-container"]}>
+                    <Button
+                        color="#242424"
+                        onClick={() => navigate("/c/samples")}
+                        className={styles["shop-samples-button"]}
+                    >
+                        Shop Samples
+                    </Button>
+
+                    <Button
+                        color="#242424"
+                        onClick={() => navigate("/c")}
+                        className={styles["shop-full-range-button"]}
+                    >
+                        Shop Full Range
+                    </Button>
                 </div>
             </div>
         </section>
