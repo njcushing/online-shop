@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { RootContext } from "@/pages/Root";
 import { useNavigate } from "react-router-dom";
 import { Image, Button } from "@mantine/core";
 import styles from "./index.module.css";
@@ -5,13 +7,19 @@ import styles from "./index.module.css";
 export function Hero() {
     const navigate = useNavigate();
 
+    const { headerInfo } = useContext(RootContext);
+
     return (
         <section className={styles["hero"]}>
-            <div className={styles["hero-main-image-container"]}>
+            <div
+                className={styles["hero-main-image-container"]}
+                style={{ maxHeight: `calc(var(--vh, 1vh) * 100 - ${headerInfo.height}px)` }}
+            >
                 <Image
                     src="https://res.cloudinary.com/djzqtvl9l/image/upload/v1771084493/cafree/sergey-kotenev-Qx_S2YE5I1o-unsplash-1280_sd4wad.jpg"
                     alt=""
                     className={styles["hero-image-main"]}
+                    style={{ maxHeight: `calc(var(--vh, 1vh) * 100 - ${headerInfo.height}px)` }}
                 />
 
                 <span className={styles["hero-image-cover"]}></span>
