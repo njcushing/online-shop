@@ -4,6 +4,10 @@
 
 ### Stock Images
 
+<!-- Hero -->
+
+Photo by <a href="https://unsplash.com/@sergeykotenev?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Sergey Kotenev</a> on <a href="https://unsplash.com/photos/a-scoop-full-of-coffee-beans-next-to-a-sack-of-coffee-beans-Qx_S2YE5I1o?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+
 <!-- Sustainability Main Banner -->
 
 Photo by <a href="https://unsplash.com/@projetocafegatomourisco?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">PROJETO CAFÉ GATO-MOURISCO</a> on <a href="https://unsplash.com/photos/a-lush-green-hillside-covered-in-lots-of-trees-x22eJ1VVGFA?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>

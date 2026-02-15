@@ -1,12 +1,74 @@
 .hero {
-    flex-shrink: 0;
-
-    font-weight: 700;
+    position: relative;
 
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    width: min(var(--body-width), 100%);
+    height: min-content;
+}
+
+.hero-main-image-container {
+    width: 100%;
+    height: 640px;
+}
+
+.hero-image-main {
+    object-fit: cover;
 
     width: 100%;
-    height: calc(var(--vh, 1vh) * 100);
+    height: 100%;
+}
+
+.hero-width-controller {
+    align-self: center;
+
+    box-sizing: border-box;
+
+    position: absolute;
+    top: 0px;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    width: 100%;
+    max-width: 1280px;
+    height: 100%;
+    padding: 0px;
+    margin: auto;
+}
+
+.hero-title-container {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+
+    width: 100%;
+    max-width: 40%;
+    margin-left: 10%;
+}
+
+.hero-heading {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 2.7rem;
+    font-weight: 600;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 3rem;
+    }
+}
+
+.hero-subcopy {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 1.2rem;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.4rem;
+    }
 }
