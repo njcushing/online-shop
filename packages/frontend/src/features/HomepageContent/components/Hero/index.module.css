@@ -33,16 +33,6 @@
     top: 0;
     left: 0;
 
-    /*
-    background: linear-gradient(
-        0deg,
-        var(--site-colour-primary, rgb(255, 249, 243)) 0%,
-        transparent 20%,
-        transparent 80%,
-        var(--site-colour-secondary, rgb(255, 236, 218)) 100%
-    );
-    */
-
     background: linear-gradient(
         0deg,
         rgba(0, 0, 0, 0.4) 0%,
