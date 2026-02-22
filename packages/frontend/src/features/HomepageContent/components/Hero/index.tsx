@@ -4,10 +4,16 @@ import { useNavigate } from "react-router-dom";
 import { useMatches, Image, Button } from "@mantine/core";
 import styles from "./index.module.css";
 
-const wideImgSrc =
-    "https://res.cloudinary.com/djzqtvl9l/image/upload/v1771084493/cafree/sergey-kotenev-Qx_S2YE5I1o-unsplash-1280_sd4wad.jpg";
-const thinImgSrc =
-    "https://res.cloudinary.com/djzqtvl9l/image/upload/v1771767255/cafree/deepthi-clicks-m3csqBPnMFw-unsplash-640_inv3au.jpg";
+const imgData = {
+    wide: {
+        src: "https://res.cloudinary.com/djzqtvl9l/image/upload/v1771084493/cafree/sergey-kotenev-Qx_S2YE5I1o-unsplash-1280_sd4wad.jpg",
+        alt: "A metal scoop and straw sack each filled with coffee beans",
+    },
+    thin: {
+        src: "https://res.cloudinary.com/djzqtvl9l/image/upload/v1771767255/cafree/deepthi-clicks-m3csqBPnMFw-unsplash-640_inv3au.jpg",
+        alt: "Dark coffee beans falling from above into a larger pile of coffee beans",
+    },
+};
 
 export function Hero() {
     const navigate = useNavigate();
@@ -15,7 +21,7 @@ export function Hero() {
     const { headerInfo } = useContext(RootContext);
 
     const layout = useMatches({ base: "thin", md: "wide" });
-    const imgSrc = layout === "wide" ? wideImgSrc : thinImgSrc;
+    const { src, alt } = layout === "wide" ? imgData.wide : imgData.thin;
     const availableViewportHeight = `calc(var(--vh, 1vh) * 100 - ${headerInfo.height}px)`;
 
     return (
@@ -28,8 +34,8 @@ export function Hero() {
                 }}
             >
                 <Image
-                    src={imgSrc}
-                    alt="A metal scoop and straw sack each filled with coffee beans"
+                    src={src}
+                    alt={alt}
                     className={styles["hero-image-main"]}
                     style={{
                         minHeight: layout === "wide" ? "640px" : availableViewportHeight,
