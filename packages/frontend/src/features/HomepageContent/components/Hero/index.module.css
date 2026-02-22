@@ -78,17 +78,21 @@
 .hero-title-container {
     display: flex;
     flex-direction: column;
-    gap: 48px;
+    gap: 24px;
 
     width: 100%;
     max-width: 42%;
-    margin-left: 10%;
+    margin: 0% 10%;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        gap: 48px;
+    }
 }
 
 .hero-heading {
     color: black;
     font-family: var(--font-primary);
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: 600;
 
     @media (min-width: $mantine-breakpoint-xs) {
@@ -99,7 +103,7 @@
 .hero-subcopy {
     color: black;
     font-family: var(--font-primary);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 1.4rem;
@@ -113,31 +117,33 @@
     gap: 6px 12px;
 
     padding-bottom: 32px;
-    margin: 32px 10% 0px 10%;
+    margin: 32px 7% 0px 7%;
 
     @media (min-width: $mantine-breakpoint-xs) {
         gap: 12px 24px;
+
+        margin: 32px 10% 0px 10%;
     }
 }
 
 .shop-samples-button,
 .shop-full-range-button {
+    color: white;
     font-family: var(--font-primary);
-    font-size: 0.92rem;
+    font-size: 0.88rem;
     text-align: center;
 
+    background-color: #242424;
     -webkit-box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.2);
     box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.2);
 
-    padding: 0px 32px;
+    padding: 0px 16px;
 
     @media (min-width: $mantine-breakpoint-xs) {
-        font-size: 0.96rem;
-    }
-
-    @media (min-width: $mantine-breakpoint-sm) {
         font-size: 1rem;
+
+        padding: 0px 32px;
     }
 }
 
@@ -145,4 +151,46 @@
 .shop-full-range-button:focus-visible {
     outline: 2px solid #000;
     border-radius: 0px;
+}
+
+.hero[data-layout="thin"] {
+    .hero-image-main {
+        object-position: 50% 0%;
+    }
+
+    .hero-width-controller {
+        justify-content: space-between;
+
+        padding-top: calc(var(--vh, 1vh) * 10);
+        padding-bottom: calc(var(--vh, 1vh) * 5);
+    }
+
+    .hero-title-container {
+        text-align: center;
+
+        max-width: 80%;
+    }
+
+    .hero-heading,
+    .hero-subcopy {
+        color: white;
+        text-shadow: rgba(255, 255, 255, 0.2) 1px 0 10px;
+    }
+
+    .hero-links-container {
+        justify-content: center;
+    }
+
+    .shop-samples-button,
+    .shop-full-range-button {
+        color: #242424;
+        text-shadow: rgba(255, 255, 255, 0.2) 1px 0 10px;
+
+        background-color: #f5f5f5;
+    }
+
+    .shop-samples-button:focus-visible,
+    .shop-full-range-button:focus-visible {
+        outline-color: #fff;
+    }
 }

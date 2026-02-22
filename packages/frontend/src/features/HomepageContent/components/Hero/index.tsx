@@ -1,25 +1,40 @@
 import { useContext } from "react";
 import { RootContext } from "@/pages/Root";
 import { useNavigate } from "react-router-dom";
-import { Image, Button } from "@mantine/core";
+import { useMatches, Image, Button } from "@mantine/core";
 import styles from "./index.module.css";
+
+const wideImgSrc =
+    "https://res.cloudinary.com/djzqtvl9l/image/upload/v1771084493/cafree/sergey-kotenev-Qx_S2YE5I1o-unsplash-1280_sd4wad.jpg";
+const thinImgSrc =
+    "https://res.cloudinary.com/djzqtvl9l/image/upload/v1771767255/cafree/deepthi-clicks-m3csqBPnMFw-unsplash-640_inv3au.jpg";
 
 export function Hero() {
     const navigate = useNavigate();
 
     const { headerInfo } = useContext(RootContext);
 
+    const layout = useMatches({ base: "thin", md: "wide" });
+    const imgSrc = layout === "wide" ? wideImgSrc : thinImgSrc;
+    const availableViewportHeight = `calc(var(--vh, 1vh) * 100 - ${headerInfo.height}px)`;
+
     return (
-        <section className={styles["hero"]}>
+        <section className={styles["hero"]} data-layout={layout}>
             <div
                 className={styles["hero-main-image-container"]}
-                style={{ maxHeight: `calc(var(--vh, 1vh) * 100 - ${headerInfo.height}px)` }}
+                style={{
+                    minHeight: layout === "wide" ? "640px" : availableViewportHeight,
+                    maxHeight: availableViewportHeight,
+                }}
             >
                 <Image
-                    src="https://res.cloudinary.com/djzqtvl9l/image/upload/v1771084493/cafree/sergey-kotenev-Qx_S2YE5I1o-unsplash-1280_sd4wad.jpg"
+                    src={imgSrc}
                     alt="A metal scoop and straw sack each filled with coffee beans"
                     className={styles["hero-image-main"]}
-                    style={{ maxHeight: `calc(var(--vh, 1vh) * 100 - ${headerInfo.height}px)` }}
+                    style={{
+                        minHeight: layout === "wide" ? "640px" : availableViewportHeight,
+                        maxHeight: availableViewportHeight,
+                    }}
                 />
 
                 <span className={styles["hero-image-cover"]}></span>
@@ -38,7 +53,6 @@ export function Hero() {
 
                 <div className={styles["hero-links-container"]}>
                     <Button
-                        color="#242424"
                         onClick={() => navigate("/c/samples")}
                         className={styles["shop-samples-button"]}
                     >
@@ -46,7 +60,6 @@ export function Hero() {
                     </Button>
 
                     <Button
-                        color="#242424"
                         onClick={() => navigate("/c")}
                         className={styles["shop-full-range-button"]}
                     >
