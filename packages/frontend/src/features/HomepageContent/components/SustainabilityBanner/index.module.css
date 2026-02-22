@@ -205,6 +205,11 @@
     object-position: bottom;
 }
 
+.recyclable-packaging-image {
+    justify-self: end;
+    max-width: 400px;
+}
+
 .sustainability-main-sections {
     > *:nth-child(odd) {
         /* background-color: var(--site-colour-secondary, rgb(255, 236, 218)); */

@@ -171,8 +171,9 @@ export function SustainabilityBanner() {
 
                                 {layout === "wide" && (
                                     <Image
-                                        radius="md"
-                                        className={styles["sustainability-main-section-image"]}
+                                        src="https://res.cloudinary.com/djzqtvl9l/image/upload/v1771770037/cafree/wisnu-dwi-wibowo-vNDQhq6CVw0-unsplash-640_ialla8.jpg"
+                                        alt="White recyclable packaging with coffee beans laid next to it"
+                                        className={`${styles["sustainability-main-section-image"]} ${styles["recyclable-packaging-image"]}`}
                                     />
                                 )}
                             </div>
