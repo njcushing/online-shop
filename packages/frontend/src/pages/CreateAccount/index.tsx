@@ -39,8 +39,6 @@ export function CreateAccount({ defaultStage = 0 }: TCreateAccount) {
                     alt=""
                     className={styles["background-image"]}
                 />
-
-                <span className={styles["background-image-cover"]}></span>
             </div>
 
             <div className={styles["page-content"]}>
