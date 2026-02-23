@@ -1,5 +1,7 @@
 import { useMemo, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Image } from "@mantine/core";
+import { Logo } from "@/features/Logo";
 import { AccountCreationForm } from "@/features/AccountCreationForm";
 import { SetPersonalInformationForm } from "@/features/SetPersonalInformationForm";
 import siteConfig from "@/siteConfig.json";
@@ -29,5 +31,25 @@ export function CreateAccount({ defaultStage = 0 }: TCreateAccount) {
         }
     }, [navigate, currentStage]);
 
-    return <div className={styles["page"]}>{pageContent}</div>;
+    return (
+        <div className={styles["page"]}>
+            <div className={styles["background-image-container"]}>
+                <Image
+                    src="https://res.cloudinary.com/djzqtvl9l/image/upload/v1771879850/cafree/sergey-kotenev-pbADWb2YAQQ-unsplash-1920_ntnzd5.jpg"
+                    alt=""
+                    className={styles["background-image"]}
+                />
+
+                <span className={styles["background-image-cover"]}></span>
+            </div>
+
+            <div className={styles["page-content"]}>
+                <div className={styles["page-content-inner"]}>
+                    <Logo size="lg" />
+
+                    {pageContent}
+                </div>
+            </div>
+        </div>
+    );
 }
