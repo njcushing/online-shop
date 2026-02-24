@@ -86,6 +86,8 @@ input, select, textarea, button {
 :root {
     position: absolute;
 
+    overflow: hidden;
+
     color: var(--text-primary);
     font-family:
         "Segoe UI", "San Francisco", "Helvetica Neue", Helvetica, Arial, "Noto Sans", sans-serif;
