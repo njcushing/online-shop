@@ -8,6 +8,10 @@
 
 Photo by <a href="https://unsplash.com/@sergeykotenev?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Sergey Kotenev</a> on <a href="https://unsplash.com/photos/a-pile-of-coffee-beans-sitting-on-top-of-a-table-pbADWb2YAQQ?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
+<!-- Login Page -->
+
+Photo by <a href="https://unsplash.com/@sergeykotenev?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Sergey Kotenev</a> on <a href="https://unsplash.com/photos/a-bunch-of-coffee-beans-on-a-table-JHdDvYC9O1E?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+
 <!-- Hero (Wide) -->
 
 Photo by <a href="https://unsplash.com/@sergeykotenev?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Sergey Kotenev</a> on <a href="https://unsplash.com/photos/a-scoop-full-of-coffee-beans-next-to-a-sack-of-coffee-beans-Qx_S2YE5I1o?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
