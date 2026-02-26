@@ -1,0 +1,9 @@
+.promotion-banner {
+    display: flex;
+    flex-direction: column;
+
+    background-color: var(--site-colour-secondary, rgb(255, 236, 218));
+
+    width: 100%;
+    height: 240px;
+}
