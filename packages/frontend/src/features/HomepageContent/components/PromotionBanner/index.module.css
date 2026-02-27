@@ -73,29 +73,3 @@
         cursor: not-allowed;
     }
 }
-
-.carousel-slide {
-    width: 100%;
-    height: 240px;
-}
-
-.slide-inner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 100%;
-    height: 100%;
-}
-
-.slide-title {
-    color: black;
-    font-family: var(--font-primary);
-    font-size: 1.8rem;
-    font-weight: 400;
-    text-align: center;
-
-    @media (min-width: $mantine-breakpoint-xs) {
-        font-size: 2rem;
-    }
-}
