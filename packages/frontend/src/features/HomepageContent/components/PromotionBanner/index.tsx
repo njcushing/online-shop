@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 import { PromotionPanel1 } from "./components/PromotionPanel1";
 import styles from "./index.module.css";
@@ -18,6 +18,25 @@ export function PromotionBanner() {
             current.style.transform = `translateX(-${100 * currentSlide}%)`;
         }
     }, [currentSlide, carouselSlidesMemo]);
+
+    const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+    const scrollToNext = useCallback(() => {
+        setCurrentSlide((curr) => (curr + 1) % carouselSlidesMemo.length);
+        timerRef.current = setTimeout(() => {
+            scrollToNext();
+        }, 8000);
+    }, [carouselSlidesMemo]);
+
+    useEffect(() => {
+        if (timerRef.current) clearTimeout(timerRef.current);
+
+        scrollToNext();
+
+        return () => {
+            if (timerRef.current) clearTimeout(timerRef.current);
+        };
+    }, [scrollToNext]);
 
     if (carouselSlidesMemo.length === 0) return null;
 
