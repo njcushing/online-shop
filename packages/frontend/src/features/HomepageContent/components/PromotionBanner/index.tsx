@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 import { PromotionPanel1 } from "./components/PromotionPanel1";
+import { PromotionPanel2 } from "./components/PromotionPanel2";
 import styles from "./index.module.css";
 
 export function PromotionBanner() {
@@ -8,7 +9,10 @@ export function PromotionBanner() {
     const carouselRef = useRef<HTMLDivElement | null>(null);
 
     const carouselSlidesMemo = useMemo(() => {
-        return [<PromotionPanel1 key="promotion-panel-1" />];
+        return [
+            <PromotionPanel1 key="promotion-panel-1" />,
+            <PromotionPanel2 key="promotion-panel-2" />,
+        ];
     }, []);
 
     useEffect(() => {
