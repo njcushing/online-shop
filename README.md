@@ -20,6 +20,10 @@ Photo by <a href="https://unsplash.com/@sergeykotenev?utm_source=unsplash&utm_me
 
 Photo by <a href="https://unsplash.com/@switchinglanes?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Deepthi Clicks</a> on <a href="https://unsplash.com/photos/a-pile-of-coffee-beans-falling-into-the-air-m3csqBPnMFw?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
+<!-- Promotion Banner - Panel 2 -->
+
+Photo by <a href="https://unsplash.com/@mattbrett?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Matt Brett</a> on <a href="https://unsplash.com/photos/black-coffee-beans-on-white-ceramic-mug-ZYpnq8B3Wn0?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+
 <!-- Sustainability Main Banner -->
 
 Photo by <a href="https://unsplash.com/@projetocafegatomourisco?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">PROJETO CAFÉ GATO-MOURISCO</a> on <a href="https://unsplash.com/photos/a-lush-green-hillside-covered-in-lots-of-trees-x22eJ1VVGFA?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>

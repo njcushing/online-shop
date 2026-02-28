@@ -7,7 +7,7 @@ export function PromotionPanel2() {
             <div className={styles["image-container"]}>
                 <Image
                     src="https://res.cloudinary.com/djzqtvl9l/image/upload/v1772283523/cafree/matt-brett-ZYpnq8B3Wn0-unsplash-1920_binzfa.jpg"
-                    alt=""
+                    alt="An espresso from above, sat atop a pile of coffee beans."
                     className={styles["image"]}
                 />
 
