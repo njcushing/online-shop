@@ -6,8 +6,8 @@ export function PromotionPanel2() {
         <div className={styles["promotion-panel"]}>
             <div className={styles["image-container"]}>
                 <Image
-                    src="https://res.cloudinary.com/djzqtvl9l/image/upload/v1772283523/cafree/matt-brett-ZYpnq8B3Wn0-unsplash-1920_binzfa.jpg"
-                    alt="An espresso from above, sat atop a pile of coffee beans."
+                    src="https://res.cloudinary.com/djzqtvl9l/image/upload/v1772367514/cafree/jelena-lapina-lFc81EX0XUM-unsplash-1920_qpyscd.jpg"
+                    alt="A rich yellow peeling painted wall."
                     className={styles["image"]}
                 />
 
