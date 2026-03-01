@@ -20,7 +20,13 @@
     display: grid;
     grid-template-columns: repeat(5, 100%);
 
+    min-height: 480px;
+
     transition: transform 0.4s cubic-bezier(0.43, 0.71, 0.51, 1);
+
+    @media (min-width: $mantine-breakpoint-md) {
+        min-height: 320px;
+    }
 }
 
 .carousel-control-left,

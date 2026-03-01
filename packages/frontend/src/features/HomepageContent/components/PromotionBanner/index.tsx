@@ -26,14 +26,23 @@ export function PromotionBanner() {
     const timerRef = useRef<NodeJS.Timeout | null>(null);
 
     const scrollToNext = useCallback(() => {
+        if (timerRef.current) {
+            clearTimeout(timerRef.current);
+            timerRef.current = null;
+        }
+
         setCurrentSlide((curr) => (curr + 1) % carouselSlidesMemo.length);
+
         timerRef.current = setTimeout(() => {
             scrollToNext();
         }, 8000);
     }, [carouselSlidesMemo]);
 
     useEffect(() => {
-        if (timerRef.current) clearTimeout(timerRef.current);
+        if (timerRef.current) {
+            clearTimeout(timerRef.current);
+            timerRef.current = null;
+        }
 
         scrollToNext();
 
@@ -50,11 +59,45 @@ export function PromotionBanner() {
                 <button
                     type="button"
                     aria-label="Previous blend"
-                    onClick={() => setCurrentSlide((curr) => curr - 1)}
+                    onClick={() => {
+                        setCurrentSlide((curr) => curr - 1);
+
+                        if (timerRef.current) {
+                            clearTimeout(timerRef.current);
+                            timerRef.current = null;
+                        }
+
+                        timerRef.current = setTimeout(() => {
+                            scrollToNext();
+                        }, 8000);
+                    }}
                     disabled={currentSlide === 0}
                     className={styles["carousel-control-left"]}
                 >
                     <ArrowLeft weight="bold" />
+                </button>
+            )}
+
+            {carouselSlidesMemo.length > 1 && (
+                <button
+                    type="button"
+                    aria-label="Next blend"
+                    onClick={() => {
+                        setCurrentSlide((curr) => curr + 1);
+
+                        if (timerRef.current) {
+                            clearTimeout(timerRef.current);
+                            timerRef.current = null;
+                        }
+
+                        timerRef.current = setTimeout(() => {
+                            scrollToNext();
+                        }, 8000);
+                    }}
+                    disabled={currentSlide === carouselSlidesMemo.length - 1}
+                    className={styles["carousel-control-right"]}
+                >
+                    <ArrowRight weight="bold" />
                 </button>
             )}
 
@@ -63,18 +106,6 @@ export function PromotionBanner() {
                     {carouselSlidesMemo}
                 </div>
             </div>
-
-            {carouselSlidesMemo.length > 1 && (
-                <button
-                    type="button"
-                    aria-label="Next blend"
-                    onClick={() => setCurrentSlide((curr) => curr + 1)}
-                    disabled={currentSlide === carouselSlidesMemo.length - 1}
-                    className={styles["carousel-control-right"]}
-                >
-                    <ArrowRight weight="bold" />
-                </button>
-            )}
         </section>
     );
 }
