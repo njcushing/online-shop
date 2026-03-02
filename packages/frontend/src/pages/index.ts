@@ -2,6 +2,7 @@
 
 import { Category } from "./Category";
 import { CreateAccount } from "./CreateAccount";
+import { Delivery } from "./Delivery";
 import { ErrorPage } from "./ErrorPage";
 import { Home } from "./Home";
 import { Login } from "./Login";
@@ -13,6 +14,7 @@ import { TermsAndConditions } from "./TermsAndConditions";
 export const Pages = {
     Category,
     CreateAccount,
+    Delivery,
     ErrorPage,
     Home,
     Login,
