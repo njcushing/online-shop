@@ -149,11 +149,8 @@ export function Product({ children }: TProduct) {
             product.response.success ? product.response.data : null,
             selectedAttributeParams,
         );
-        window.history.replaceState(
-            {},
-            "",
-            `${window.location.pathname}?${newSearchParams.toString()}`,
-        );
+        const paramString = newSearchParams.size > 0 ? `?${newSearchParams.toString()}` : "";
+        window.history.replaceState({}, "", `${window.location.pathname}${paramString}`);
         updateSelectedVariant(productDataRef.current);
     }, [product.response, setSearchParams, selectedAttributeParams, updateSelectedVariant]);
 
