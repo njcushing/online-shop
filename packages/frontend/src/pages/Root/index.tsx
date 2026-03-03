@@ -19,9 +19,13 @@ import { Category } from "../Category";
 import { Product } from "../Product";
 import { Cart } from "../Cart";
 import { Checkout } from "../Checkout";
+import { Delivery } from "../Delivery";
 import { Account, Routes as AccountRoutes } from "../Account";
 import { ErrorPage } from "../ErrorPage";
 import styles from "./index.module.css";
+
+const reducedHeaderPaths = ["/cart", "/checkout", "/delivery"];
+const reducedFooterPaths = ["/cart", "/checkout", "/delivery"];
 
 export const Routes = [
     {
@@ -47,6 +51,11 @@ export const Routes = [
     {
         path: "checkout",
         element: <Checkout />,
+        errorElement: <ErrorPage hideHeader hideFooter height="fill" />,
+    },
+    {
+        path: "delivery",
+        element: <Delivery />,
         errorElement: <ErrorPage hideHeader hideFooter height="fill" />,
     },
     {
@@ -130,8 +139,8 @@ export function Root({ children }: TRoot) {
 
     const location = useLocation();
     const { pathname } = location;
-    const HeaderDisableActivity = pathname === "/cart" || pathname === "/checkout";
-    const HeaderFooterReduced = pathname === "/cart" || pathname === "/checkout";
+    const HeaderDisableActivity = reducedHeaderPaths.includes(pathname);
+    const HeaderFooterReduced = reducedFooterPaths.includes(pathname);
 
     const [settings, setSettings] = useState<IRootContext["settings"]>(defaultRootContext.settings);
     const settingsReturn = useAsync.GET(getSettings, [{}], { attemptOnMount: true });

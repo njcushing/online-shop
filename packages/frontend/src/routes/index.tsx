@@ -39,11 +39,6 @@ export function Router() {
                         element: <Pages.ErrorPage />,
                     },
                     {
-                        path: "delivery",
-                        element: <Pages.Delivery />,
-                        errorElement: <Pages.ErrorPage />,
-                    },
-                    {
                         path: "/",
                         element: <Pages.Root />,
                         children: Routes.Root,
