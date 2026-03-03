@@ -27,6 +27,35 @@
 
     width: min(var(--body-width), 100%);
     max-width: 1280px;
+    height: 100%;
     padding: 0px 16px;
     margin: auto;
+}
+
+.heading-container {
+    align-self: center;
+
+    position: relative;
+
+    width: fit-content;
+}
+
+.symbol {
+    position: absolute;
+    top: 50%;
+    left: 0px;
+
+    transform: translate(-50%, -50%);
+}
+
+.title {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 2.4rem;
+    font-weight: 600;
+    text-align: center;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 2.8rem;
+    }
 }
