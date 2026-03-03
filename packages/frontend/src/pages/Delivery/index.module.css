@@ -5,7 +5,6 @@
     background-color: var(--site-colour-primary, rgb(255, 249, 243));
 
     max-width: min(var(--body-width), 100%);
-    min-height: calc(var(--vh, 1vh) * 100);
     height: 100%;
 }
 
@@ -23,7 +22,7 @@
 
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 48px;
 
     width: min(var(--body-width), 100%);
     max-width: 1280px;
@@ -58,4 +57,52 @@
     @media (min-width: $mantine-breakpoint-xs) {
         font-size: 2.8rem;
     }
+}
+
+.content-container {
+    align-self: center;
+
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 32px;
+
+    * {
+        color: black;
+        font-family: var(--font-primary);
+    }
+
+    h2 {
+        font-size: 1.2rem;
+        font-weight: 500;
+
+        margin-bottom: 12px;
+
+        @media (min-width: $mantine-breakpoint-xs) {
+            font-size: 1.4rem;
+        }
+    }
+
+    p {
+        font-size: 0.96rem;
+
+        margin-bottom: 6px;
+
+        @media (min-width: $mantine-breakpoint-xs) {
+            font-size: 1.1rem;
+        }
+    }
+
+    strong {
+        font-weight: 700;
+    }
+}
+
+.content-inner-container {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
 }
