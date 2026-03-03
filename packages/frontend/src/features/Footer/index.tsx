@@ -41,7 +41,7 @@ export function Footer({ reduced }: TFooter) {
                             <Link to="/" className={styles["link"]}>
                                 Rewards
                             </Link>
-                            <Link to="/" className={styles["link"]}>
+                            <Link to="/delivery" className={styles["link"]}>
                                 Delivery
                             </Link>
                         </div>
