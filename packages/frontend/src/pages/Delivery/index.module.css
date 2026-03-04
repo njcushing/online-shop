@@ -22,87 +22,154 @@
 
     display: flex;
     flex-direction: column;
-    gap: 48px;
+    align-items: center;
+    gap: 24px;
 
     width: min(var(--body-width), 100%);
     max-width: 1280px;
     height: 100%;
-    padding: 0px 16px;
+    padding: 32px 16px;
     margin: auto;
-}
-
-.heading-container {
-    align-self: center;
-
-    position: relative;
-
-    width: fit-content;
-}
-
-.symbol {
-    position: absolute;
-    top: 50%;
-    left: 0px;
-
-    transform: translate(-50%, -50%);
 }
 
 .title {
     color: black;
     font-family: var(--font-primary);
-    font-size: 2.4rem;
-    font-weight: 600;
-    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 500;
 
     @media (min-width: $mantine-breakpoint-xs) {
-        font-size: 2.8rem;
+        font-size: 2.2rem;
     }
 }
 
-.content-container {
-    align-self: center;
+.last-updated {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 0.8rem;
 
-    position: relative;
+    margin: 16px 0px;
 
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 32px;
+    strong {
+        font-weight: 600;
+    }
 
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 0.86rem;
+    }
+}
+
+.introduction {
+    width: 100%;
+    max-width: 640px;
+}
+
+.divider {
+    width: 100%;
+    --divider-color: rgba(0, 0, 0, 0.4);
+}
+
+.accordion-root {
+    width: 100%;
+    max-width: 640px;
+    margin-top: 16px;
+}
+
+.accordion-control {
+    width: 100%;
+    padding: 8px 0px;
+}
+
+@media (hover: hover) {
+    .accordion-control:hover {
+        /* Overriding default Mantine component hover styles */
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}
+
+.accordion-control:focus-visible {
+    outline: 2px solid #000;
+    outline-offset: -2px;
+    border-radius: 0px;
+}
+
+.accordion-control:active {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.accordion-item {
+    --item-border-color: rgba(0, 0, 0, 0.4);
+    border-width: 1px;
+}
+
+.accordion-label {
+    color: black;
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    font-weight: 500;
+
+    padding: 4px 0px;
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        font-size: 1.1rem;
+    }
+}
+
+.accordion-panel {
+    padding: 0px;
+}
+
+.accordion-content {
+    padding: 8px 0px 16px;
+}
+
+.markdown {
     * {
         color: black;
         font-family: var(--font-primary);
-    }
-
-    h2 {
-        font-size: 1.2rem;
-        font-weight: 500;
-
-        margin-bottom: 12px;
+        font-size: 0.86rem;
 
         @media (min-width: $mantine-breakpoint-xs) {
-            font-size: 1.4rem;
+            font-size: 0.92rem;
         }
+    }
+
+    h3 {
+        font-weight: 600;
+
+        margin-bottom: revert;
     }
 
     p {
-        font-size: 0.96rem;
-
-        margin-bottom: 6px;
-
-        @media (min-width: $mantine-breakpoint-xs) {
-            font-size: 1.1rem;
-        }
+        margin-bottom: revert;
+    }
+    p:nth-last-child(-n + 1) {
+        margin-bottom: 0px;
     }
 
     strong {
-        font-weight: 700;
+        font-weight: 600;
     }
-}
 
-.content-inner-container {
-    position: relative;
+    em {
+        font-style: italic;
+    }
 
-    display: flex;
-    flex-direction: column;
+    del {
+        text-decoration: line-through;
+    }
+
+    ul {
+        list-style: disc outside;
+
+        padding-left: 30px;
+    }
+
+    li {
+        margin-bottom: 8px;
+    }
+
+    hr {
+        margin: 12px 0px;
+    }
 }
