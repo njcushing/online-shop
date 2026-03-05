@@ -20,6 +20,7 @@ import { Product } from "../Product";
 import { Cart } from "../Cart";
 import { Checkout } from "../Checkout";
 import { Delivery } from "../Delivery";
+import { FAQs } from "../FAQs";
 import { Account, Routes as AccountRoutes } from "../Account";
 import { ErrorPage } from "../ErrorPage";
 import styles from "./index.module.css";
@@ -56,6 +57,11 @@ export const Routes = [
     {
         path: "delivery",
         element: <Delivery />,
+        errorElement: <ErrorPage hideHeader hideFooter height="fill" />,
+    },
+    {
+        path: "faqs",
+        element: <FAQs />,
         errorElement: <ErrorPage hideHeader hideFooter height="fill" />,
     },
     {
