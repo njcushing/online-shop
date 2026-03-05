@@ -48,7 +48,7 @@ export function Footer({ reduced }: TFooter) {
 
                         <div className={styles["section"]}>
                             <h3 className={styles["section-heading"]}>Help</h3>
-                            <Link to="/" className={styles["link"]}>
+                            <Link to="/faqs" className={styles["link"]}>
                                 FAQs
                             </Link>
                         </div>
