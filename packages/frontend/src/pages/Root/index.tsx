@@ -25,8 +25,8 @@ import { Account, Routes as AccountRoutes } from "../Account";
 import { ErrorPage } from "../ErrorPage";
 import styles from "./index.module.css";
 
-const reducedHeaderPaths = ["/cart", "/checkout", "/delivery"];
-const reducedFooterPaths = ["/cart", "/checkout", "/delivery"];
+const reducedHeaderPaths = ["/cart", "/checkout", "/delivery", "/faqs"];
+const reducedFooterPaths = ["/cart", "/checkout", "/delivery", "/faqs"];
 
 export const Routes = [
     {
