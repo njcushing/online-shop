@@ -193,7 +193,7 @@ placed before 5pm.
         ];
     }, [expressDeliveryMarkdown]);
 
-    if (!settingsData) return null;
+    if (!settingsData) return <span></span>;
 
     return (
         <div className={styles["page"]}>
