@@ -14,7 +14,7 @@ export function SiteDisclaimer() {
                 <div className={styles["site-disclaimer-inner"]}>
                     <p className={styles["site-disclaimer-message"]}>
                         This site is a portfolio project; any and all information, products and
-                        transactions are NOT real
+                        transactions are for DEMONSTRATION PURPOSES ONLY.
                     </p>
 
                     <button
