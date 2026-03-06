@@ -16,7 +16,7 @@ day of your choosing) for any of our products.
 To view the status of any of your active orders, [sign in](/login) to your account.
 `;
 
-const howToPlaceOrderMarkdown = `
+export const howToPlaceOrderMarkdown = `
 Placing an order on our website is simple and straightforward. To place an order, simply add the
 desired items to your cart and proceed to checkout. During the checkout process, you will be
 prompted to enter your delivery address and select a delivery option (either Standard Delivery or
@@ -31,7 +31,7 @@ We aim to ship all orders within 48 hours of time of purchase; this is guarantee
 placed before 5pm.
 `;
 
-const howToCancelOrderMarkdown = `
+export const howToCancelOrderMarkdown = `
 If you wish to cancel an order, you must do so before your item has been shipped - there will be an
 option to cancel your order on the 'Order History' page in your account. If your item has already
 been shipped, you will need to wait until you have received the item and then follow our returns
@@ -65,14 +65,14 @@ attempt to deliver your item(s) on the next working day. Your courier will make 
 delivery attempts, after which your item(s) will be returned to us and you will be refunded.
 `;
 
-const wrongItemsDeliveredMarkdown = `
+export const wrongItemsDeliveredMarkdown = `
 If you have been sent the wrong item(s), please contact us within a reasonable period of time. You
 will likely be requested to return the incorrect item(s) to us and the correct item(s) will be
 shipped at no additional cost to you. If this is not possible, and you are eligible for a refund or
 replacement, these options will be discussed with you at the point of contact.
 `;
 
-const missingOrDamagedItemsMarkdown = `
+export const missingOrDamagedItemsMarkdown = `
 If you have been sent any damaged item(s), please contact us within a reasonable period of time. You
 will likely be asked to provide proof of any damage (e.g. photos) and the damaged item(s) may be
 requested to be returned to us. Replacement item(s) will be shipped at no additional cost to you.
@@ -224,8 +224,8 @@ placed before 5pm.
                     >
                         <Divider className={styles["divider"]} />
 
-                        {accordionData.map(({ title, markdown }) => (
-                            <Accordion.Item value={title} key={title}>
+                        {accordionData.map(({ value, title, markdown }) => (
+                            <Accordion.Item value={value} key={title}>
                                 <Accordion.Control>{title}</Accordion.Control>
 
                                 <Accordion.Panel {...defaultAccordionPanelProps}>
