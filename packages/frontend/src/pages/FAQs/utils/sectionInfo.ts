@@ -86,4 +86,59 @@ We do not offer replacements for items that are not damaged.
             },
         ],
     },
+    {
+        sectionTitle: "Product Information",
+        questionData: [
+            {
+                value: "when-will-product-be-restocked",
+                title: "When will an out-of-stock product be restocked?",
+                markdown: `
+When a product is out-of-stock, we are often unable to provide an accurate restock date. However, if
+we are aware of when the product will be restocked, we will update the product's page with the
+appropriate information.
+                `,
+            },
+            {
+                value: "subscriptions-not-available-for-all-products",
+                title: "Why are subscriptions available for some products but not others?",
+                markdown: `
+We don't always run a subscription offer for every product, and the products on which subscriptions
+are available may change over time. If you're subscribed to a product and the subscription offer
+for that product is later removed, you don't have to worry about your subscription being cancelled -
+you will continue to receive your product as normal, and at the same interval specified in your
+subscription.
+
+We tend only to run subscriptions on our consumable products like coffee and tea, and not on our
+products that are generally single-purchase, such as mugs, espresso machines, accessories and gift
+cards.
+                `,
+            },
+            {
+                value: "subscription-discounts-and-product-price-increase",
+                title: "Will my subscription discount still apply if the product's price increases?",
+                markdown: `
+Yes. If you've subscribed to a product with a specified discount percentage, this discount will
+continue to apply to your subscription orders even if the product's price increases. We will inform
+you via email of any price increases to products that you are subscribed to, and you will have the
+option to cancel your subscription if you no longer wish to receive the product at the new price.
+                `,
+            },
+            {
+                value: "promotion-not-working",
+                title: "Why isn't my promotion code working?",
+                markdown: `
+There are numerous reasons a promotional code isn't working:
+
+- The code requires a minimum spend that your order hasn't met
+- The code requires a certain product to be in your cart that you haven't added
+- The code is exclusively for new customers, and you have previously placed an order with us
+- The code has expired
+- The code is otherwise invalid (not yet active, doesn't exist, etc.)
+
+If you believe your code should be working, please contact us with the code you're attempting to use
+and we will investigate the issue further.
+                `,
+            },
+        ],
+    },
 ];
