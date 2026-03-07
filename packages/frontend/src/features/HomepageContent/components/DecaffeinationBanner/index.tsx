@@ -49,8 +49,8 @@ export function DecaffeinationBanner() {
                         {`That's`} why we use gentle decaffeination methods designed to preserve the
                         natural character of each coffee bean and tea leaf. What remains is the
                         expected depth, flavours and aromas. We pride ourselves on our ability to
-                        decaffeinate efficiently without sacrificing any of best qualities of our
-                        coffee and tea.
+                        decaffeinate efficiently without sacrificing any of the best qualities of
+                        our coffee and tea.
                     </p>
 
                     <p className={styles["decaffeination-main-section-body-text"]}>
