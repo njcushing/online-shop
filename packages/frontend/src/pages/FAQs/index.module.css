@@ -65,10 +65,24 @@
     --divider-color: rgba(0, 0, 0, 0.4);
 }
 
+.section-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: start;
+    gap: 32px;
+
+    width: 100%;
+    margin-top: 16px;
+
+    @media (min-width: $mantine-breakpoint-xl) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 .section-container {
     width: 100%;
     max-width: 640px;
-    margin-top: 16px;
 }
 
 .section-title {
