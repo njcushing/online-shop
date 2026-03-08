@@ -141,4 +141,64 @@ and we will investigate the issue further.
             },
         ],
     },
+    {
+        sectionTitle: "Coffee & Tea",
+        questionData: [
+            {
+                value: "why-decaffeination",
+                title: "Why does Cafree decaffeinate all its coffee and tea?",
+                markdown: `
+At Cafree, we chose to decaffeinate our products because we believe that while caffeine can be a
+wonderful stimulant, it isn't always kind to our bodies and routines, and for many people, even
+smaller doses of caffeine can cause jitters, anxiety, disrupted sleep, and/or acid reflux.
+
+Decaffeination also opens the door to balance: you can enjoy your favourite cups in the evening, and
+not have to limit your enjoyment of coffee and tea to just a few cups. For those who are sensitive
+to caffeine, managing intake for health reasons, or simply trying to be more mindful about how they
+feel throughout the day, decaf offers a way to enjoy your favourite drinks without compromise.
+
+Just as importantly, we don't believe caffeine should be the defining feature of a great drink.
+Flavour, origin, craft, and care matter more. We pride ourselves on our ability to decaffeinate
+efficiently without sacrificing any of the best qualities of our coffee and tea.
+                `,
+            },
+            {
+                value: "how-coffee-is-decaffeinated",
+                title: "What decaffeination process does Cafree use?",
+                markdown: `
+We decaffeinate our coffee and tea by passing high-pressure, liquid carbon dioxide through the
+beans and leaves. This natural solvent effectively binds with the caffeine, removing it without
+touching the other flavour compounds. No chemical solvents are used in the process; our chosen
+method of extraction is significantly better for the environment than other similar methods, and is
+the best way to preserve the natural flavours and aromas you expect in every cup.
+                `,
+            },
+            {
+                value: "coffee-ground-disposal",
+                title: "How should I dispose of my coffee grounds?",
+                markdown: `
+The best and most environmentally-conscious way to dispose of your used coffee grounds is to compost
+them or use them as fertiliser in your garden. If you're unable to do that, just throw them in the
+bin!
+                `,
+            },
+            {
+                value: "coffee-pod-compatibility",
+                title: "What machines are Cafree coffee pods compatible with?",
+                markdown: `
+Our coffee pods are compatible with all our own espresso machines, in addition to original-style
+Nespresso® machines. However, our coffee pods are **not** compatible with Nespresso® Vertuo, Dolce
+Gusto, Lavazza, and Tassimo machines.
+
+Our coffee pods are made from a compostable material, and as such, we recommend immediately removing
+them from any machine you use them in after making your coffee. If they're left in the machine after
+use for an extended period of time, there is a risk they can absorb too much moisture and expand,
+potentially becoming stuck in the machine.
+
+If you have any uncertainty about whether our coffee pods are compatible with your machine, please
+contact us and we would be happy to advise you further.
+                `,
+            },
+        ],
+    },
 ];
